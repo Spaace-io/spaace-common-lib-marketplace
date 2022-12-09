@@ -17,22 +17,22 @@ var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OnChainDatabase = void 0;
 require("reflect-metadata");
-var typeorm_1 = require("typeorm");
+const typeorm_1 = require("typeorm");
 require("../../config");
-var host = (_a = process.env.ON_CHAIN_DB_HOST) !== null && _a !== void 0 ? _a : 'localhost';
-var port = parseInt((_b = process.env.ON_CHAIN_DB_PORT) !== null && _b !== void 0 ? _b : '5432', 10);
-var username = (_c = process.env.ON_CHAIN_DB_USERNAME) !== null && _c !== void 0 ? _c : 'root';
-var password = process.env.ON_CHAIN_DB_PASSWORD;
-var database = process.env.ON_CHAIN_DB_DATABASE;
-var schema = process.env.ON_CHAIN_DB_SCHEMA;
+const host = (_a = process.env.ON_CHAIN_DB_HOST) !== null && _a !== void 0 ? _a : 'localhost';
+const port = parseInt((_b = process.env.ON_CHAIN_DB_PORT) !== null && _b !== void 0 ? _b : '5432', 10);
+const username = (_c = process.env.ON_CHAIN_DB_USERNAME) !== null && _c !== void 0 ? _c : 'root';
+const password = process.env.ON_CHAIN_DB_PASSWORD;
+const database = process.env.ON_CHAIN_DB_DATABASE;
+const schema = process.env.ON_CHAIN_DB_SCHEMA;
 exports.OnChainDatabase = new typeorm_1.DataSource({
     type: 'postgres',
-    host: host,
-    port: port,
-    username: username,
-    password: password,
-    database: database,
-    schema: schema,
+    host,
+    port,
+    username,
+    password,
+    database,
+    schema,
     synchronize: false,
     migrationsRun: true,
     logging: process.env.NODE_ENV !== 'production',
