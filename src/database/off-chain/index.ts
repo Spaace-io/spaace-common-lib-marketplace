@@ -19,6 +19,7 @@ export const OffChainDatabase = new DataSource({
     schema,
     synchronize: true,
     logging: false,
+    migrationsRun: true,
     entities: [User],
     migrations: [],
     subscribers: [],

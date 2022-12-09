@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn} from 'typeorm';
+import {Collection} from "./Collection";
 
 @Entity()
 export class Address {
@@ -15,4 +16,7 @@ export class Address {
     @Column()
     age!: number;
 
+    @OneToMany(() => Collection, (collection) => collection.deployedOwner)
+    @JoinColumn({ name: 'fk_collection_id' })
+    collections!: Collection[];
 }
