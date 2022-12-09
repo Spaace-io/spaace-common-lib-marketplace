@@ -1,3 +1,4 @@
+import { BaseEntity } from 'typeorm';
 import { Item } from './Item.entity';
 export declare class CollectionAttribute {
     trait: string;
@@ -7,7 +8,7 @@ export declare class CollectionAttribute {
 export declare class CollectionAttributes {
     attributes: CollectionAttribute[];
 }
-export declare class Collection {
+export declare class Collection extends BaseEntity {
     id: string;
     items: Item[];
     deployedOwner: string;

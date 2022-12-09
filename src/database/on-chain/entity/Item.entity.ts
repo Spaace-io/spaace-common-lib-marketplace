@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
 import { Collection } from './Collection.entity';
 
 export class Medias {
@@ -10,7 +10,7 @@ export class Medias {
 }
 
 @Entity({ name: "items" })
-export class Item {
+export class Item extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
