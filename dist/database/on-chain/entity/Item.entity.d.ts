@@ -1,10 +1,11 @@
+import { BaseEntity } from 'typeorm';
 import { Collection } from './Collection.entity';
 export declare class Medias {
     raw: string;
     thumbnail: string;
     gateway: string;
 }
-export declare class Item {
+export declare class Item extends BaseEntity {
     id: string;
     collection: Collection;
     title: string;

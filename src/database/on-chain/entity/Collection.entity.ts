@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import {BaseEntity, Column, Entity, OneToMany, PrimaryColumn} from 'typeorm';
 import { Item } from './Item.entity';
 
 export class CollectionAttribute {
@@ -14,7 +14,7 @@ export class CollectionAttributes {
 }
 
 @Entity({ name: "collections" })
-export class Collection {
+export class Collection extends BaseEntity{
     @PrimaryColumn()
     id!: string;
 

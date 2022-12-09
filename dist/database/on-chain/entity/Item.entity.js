@@ -1,4 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,8 +33,10 @@ var Medias = /** @class */ (function () {
     return Medias;
 }());
 exports.Medias = Medias;
-var Item = /** @class */ (function () {
+var Item = /** @class */ (function (_super) {
+    __extends(Item, _super);
     function Item() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
         (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -73,6 +90,6 @@ var Item = /** @class */ (function () {
         (0, typeorm_1.Entity)({ name: "items" })
     ], Item);
     return Item;
-}());
+}(typeorm_1.BaseEntity));
 exports.Item = Item;
 //# sourceMappingURL=Item.entity.js.map
