@@ -1,5 +1,6 @@
 import { HttpError, InfluxDB } from '@influxdata/influxdb-client';
 import { BucketsAPI, OrgsAPI } from '@influxdata/influxdb-client-apis';
+import '../../config';
 
 const url = process.env.INFLUXDB_URL!;
 const token = process.env.INFLUXDB_TOKEN;

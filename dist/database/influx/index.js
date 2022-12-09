@@ -54,6 +54,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getWriteApi = exports.InfluxQueryApi = exports.getOrgID = exports.InfluxDatabase = void 0;
 var influxdb_client_1 = require("@influxdata/influxdb-client");
 var influxdb_client_apis_1 = require("@influxdata/influxdb-client-apis");
+require("../../config");
 var url = process.env.INFLUXDB_URL;
 var token = process.env.INFLUXDB_TOKEN;
 var org = (_a = process.env.INFLUXDB_ORG) !== null && _a !== void 0 ? _a : '';

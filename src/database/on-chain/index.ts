@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import {Address, Collection, Item} from "./entity";
+import '../../config';
 
 const host = process.env.ON_CHAIN_DB_HOST ?? 'localhost';
 const port = parseInt(process.env.ON_CHAIN_DB_PORT ?? '5432', 10);
@@ -17,10 +17,11 @@ export const OnChainDatabase = new DataSource({
     password,
     database,
     schema,
-    synchronize: true,
-    logging: false,
-    entities: [Address, Collection, Item],
-    migrations: [],
+    synchronize: false,
+    migrationsRun: true,
+    logging: process.env.NODE_ENV !== 'production',
+    entities: [__dirname + '/entity/**.entity{.js,.ts}'],
+    migrations: [__dirname + '/migration/*{.js,.ts}'],
     subscribers: [],
 });
 

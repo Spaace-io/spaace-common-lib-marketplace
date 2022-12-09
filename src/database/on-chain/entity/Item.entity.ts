@@ -1,26 +1,21 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import {Collection} from "./Collection";
-import {Address} from "./Address";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Collection } from './Collection.entity';
 
 export class Medias {
   raw!: string;
+
   thumbnail!: string;
+
   gateway!: string;
 }
 
-@Entity({ name: 'items' })
+@Entity({ name: "items" })
 export class Item {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
+
+  @ManyToOne(() => Collection, (collection) => collection.items, { eager: true })
+  collection!: Collection;
 
   @Column({ nullable: true })
   title!: string;
@@ -29,7 +24,7 @@ export class Item {
   description!: string;
 
   @Column({ nullable: true })
-  tokenId!: string | null;
+  tokenId!: string;
 
   @Column({ default: false })
   isRefreshed!: boolean;
@@ -39,7 +34,6 @@ export class Item {
 
   @Column({ nullable: true })
   tokenUri!: string;
-
 
   @Column('jsonb', { nullable: true })
   attributes!: object[] | JSON;
@@ -53,14 +47,6 @@ export class Item {
   @Column({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
   updated_at!: Date;
 
-  @ManyToOne(() => Collection, (collection) => collection.items, {
-    eager: true,
-  })
-  collection!: Collection;
-
-  // @Field(() => Address)
-  // @ManyToOne(() => Address, (user) => user.items, { nullable: true })
-  // @JoinColumn({ name: 'owner' })
-  // owner: Address | null;
-
+  // @Column({ nullable: true })
+  // owner!: string;
 }

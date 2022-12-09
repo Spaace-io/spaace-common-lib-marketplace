@@ -1,3 +1,2 @@
-export * from './Address';
-export * from './Collection';
-export * from './Item';
+export * from './Collection.entity';
+export * from './Item.entity';

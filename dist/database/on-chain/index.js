@@ -18,7 +18,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OnChainDatabase = void 0;
 require("reflect-metadata");
 var typeorm_1 = require("typeorm");
-var entity_1 = require("./entity");
+require("../../config");
 var host = (_a = process.env.ON_CHAIN_DB_HOST) !== null && _a !== void 0 ? _a : 'localhost';
 var port = parseInt((_b = process.env.ON_CHAIN_DB_PORT) !== null && _b !== void 0 ? _b : '5432', 10);
 var username = (_c = process.env.ON_CHAIN_DB_USERNAME) !== null && _c !== void 0 ? _c : 'root';
@@ -33,10 +33,11 @@ exports.OnChainDatabase = new typeorm_1.DataSource({
     password: password,
     database: database,
     schema: schema,
-    synchronize: true,
-    logging: false,
-    entities: [entity_1.Address, entity_1.Collection, entity_1.Item],
-    migrations: [],
+    synchronize: false,
+    migrationsRun: true,
+    logging: process.env.NODE_ENV !== 'production',
+    entities: [__dirname + '/entity/**.entity{.js,.ts}'],
+    migrations: [__dirname + '/migration/*{.js,.ts}'],
     subscribers: [],
 });
 __exportStar(require("./entity"), exports);
