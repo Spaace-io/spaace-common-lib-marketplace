@@ -14,8 +14,8 @@ export declare class Item extends BaseEntity {
     isRefreshed: boolean;
     lastTimeUpdate: Date;
     tokenUri: string;
-    attributes: object[] | JSON;
-    medias: object[] | JSON;
+    attributes: object[];
+    medias: object[];
     created_at: Date;
     updated_at: Date;
 }
