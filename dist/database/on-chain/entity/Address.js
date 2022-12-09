@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Address = void 0;
 var typeorm_1 = require("typeorm");
+var Collection_1 = require("./Collection");
 var Address = /** @class */ (function () {
     function Address() {
     }
@@ -30,6 +31,11 @@ var Address = /** @class */ (function () {
         (0, typeorm_1.Column)(),
         __metadata("design:type", Number)
     ], Address.prototype, "age", void 0);
+    __decorate([
+        (0, typeorm_1.OneToMany)(function () { return Collection_1.Collection; }, function (collection) { return collection.deployedOwner; }),
+        (0, typeorm_1.JoinColumn)({ name: 'fk_collection_id' }),
+        __metadata("design:type", Array)
+    ], Address.prototype, "collections", void 0);
     Address = __decorate([
         (0, typeorm_1.Entity)()
     ], Address);

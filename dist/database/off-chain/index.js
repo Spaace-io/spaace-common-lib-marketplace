@@ -35,6 +35,7 @@ exports.OffChainDatabase = new typeorm_1.DataSource({
     schema: schema,
     synchronize: true,
     logging: false,
+    migrationsRun: true,
     entities: [User_1.User],
     migrations: [],
     subscribers: [],
