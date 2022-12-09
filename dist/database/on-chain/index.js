@@ -35,7 +35,7 @@ exports.OnChainDatabase = new typeorm_1.DataSource({
     schema,
     synchronize: false,
     migrationsRun: true,
-    logging: process.env.NODE_ENV !== 'production',
+    logging: false,
     entities: [__dirname + '/entity/**.entity{.js,.ts}'],
     migrations: [__dirname + '/migration/*{.js,.ts}'],
     subscribers: [],
