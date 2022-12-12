@@ -2,7 +2,7 @@ import { HttpError, InfluxDB } from '@influxdata/influxdb-client';
 import { BucketsAPI, OrgsAPI } from '@influxdata/influxdb-client-apis';
 import '../../config';
 
-const url = process.env.INFLUXDB_URL!;
+const url = process.env.INFLUXDB_URL ?? 'http://influx-db:8086';
 const token = process.env.INFLUXDB_TOKEN;
 const org = process.env.INFLUXDB_ORG ?? '';
 

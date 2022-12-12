@@ -22,15 +22,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getWriteApi = exports.InfluxQueryApi = exports.getOrgID = exports.InfluxDatabase = void 0;
 const influxdb_client_1 = require("@influxdata/influxdb-client");
 const influxdb_client_apis_1 = require("@influxdata/influxdb-client-apis");
 require("../../config");
-const url = process.env.INFLUXDB_URL;
+const url = (_a = process.env.INFLUXDB_URL) !== null && _a !== void 0 ? _a : 'http://influx-db:8086';
 const token = process.env.INFLUXDB_TOKEN;
-const org = (_a = process.env.INFLUXDB_ORG) !== null && _a !== void 0 ? _a : '';
+const org = (_b = process.env.INFLUXDB_ORG) !== null && _b !== void 0 ? _b : '';
 exports.InfluxDatabase = new influxdb_client_1.InfluxDB({
     url,
     token,

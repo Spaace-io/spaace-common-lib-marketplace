@@ -9,20 +9,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Block = void 0;
+exports.Transfer = void 0;
 const influxdb_client_1 = require("@influxdata/influxdb-client");
 const __1 = require("..");
-class Block {
-    constructor(number) {
-        this.number = number;
+class Transfer {
+    constructor(hash, from, to, collection, item, amount, timestamp) {
+        this.hash = hash;
+        this.from = from;
+        this.to = to;
+        this.collection = collection;
+        this.item = item;
+        this.amount = amount;
+        this.timestamp = timestamp;
     }
     toPoint() {
-        return new influxdb_client_1.Point(Block.MEASUREMENT_NAME)
-            .uintField('number', this.number);
+        return new influxdb_client_1.Point(Transfer.MEASUREMENT_NAME)
+            .stringField('hash', this.hash)
+            .stringField('from', this.from)
+            .stringField('to', this.to)
+            .stringField('collection', this.collection)
+            .stringField('item', this.item)
+            .stringField('amount', this.amount)
+            .timestamp(this.timestamp);
     }
     write(flush = true) {
         return __awaiter(this, void 0, void 0, function* () {
-            const writeApi = yield Block.getWriteApi();
+            const writeApi = yield Transfer.getWriteApi();
             writeApi.writePoint(this.toPoint());
             if (flush)
                 yield writeApi.flush();
@@ -36,7 +48,7 @@ class Block {
         });
     }
 }
-exports.Block = Block;
-Block.BUCKET_NAME = 'blocks';
-Block.MEASUREMENT_NAME = 'block';
-//# sourceMappingURL=Block.js.map
+exports.Transfer = Transfer;
+Transfer.BUCKET_NAME = 'transfers';
+Transfer.MEASUREMENT_NAME = 'transfer';
+//# sourceMappingURL=Transfer.js.map
