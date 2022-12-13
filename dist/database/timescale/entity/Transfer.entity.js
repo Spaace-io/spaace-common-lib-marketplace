@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Transfer = void 0;
 const typeorm_1 = require("typeorm");
+// Primary key = (txHash, logIdx, from, to, collection, item)
+// Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
 let Transfer = class Transfer extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -22,19 +24,19 @@ __decorate([
     __metadata("design:type", Number)
 ], Transfer.prototype, "logIdx", void 0);
 __decorate([
-    (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     __metadata("design:type", String)
 ], Transfer.prototype, "from", void 0);
 __decorate([
-    (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     __metadata("design:type", String)
 ], Transfer.prototype, "to", void 0);
 __decorate([
-    (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     __metadata("design:type", String)
 ], Transfer.prototype, "collection", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // max uint256 = 78 digits
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", String)
 ], Transfer.prototype, "item", void 0);

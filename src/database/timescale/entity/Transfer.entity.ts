@@ -1,5 +1,8 @@
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 
+// Primary key = (txHash, logIdx, from, to, collection, item)
+// Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
+
 @Entity({ name: 'transfers' })
 export class Transfer extends BaseEntity {
     @PrimaryColumn('char', { length: 64 })
@@ -7,14 +10,14 @@ export class Transfer extends BaseEntity {
     @PrimaryColumn()
     logIdx!: number;
 
-    @Column('char', { length: 40 })
+    @PrimaryColumn('char', { length: 40 })
     from!: string;
-    @Column('char', { length: 40 })
+    @PrimaryColumn('char', { length: 40 })
     to!: string;
 
-    @Column('char', { length: 40 })
+    @PrimaryColumn('char', { length: 40 })
     collection!: string;
-    @Column('numeric', { precision: 78, unsigned: true }) // max uint256 = 78 digits
+    @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     item!: string;
 
     @Column('numeric', { precision: 78, unsigned: true, default: '1' })
