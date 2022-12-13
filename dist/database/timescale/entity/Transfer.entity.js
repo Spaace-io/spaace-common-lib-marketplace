@@ -34,12 +34,12 @@ __decorate([
     __metadata("design:type", String)
 ], Transfer.prototype, "collection", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }) // max uint256 = 78 digits
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // max uint256 = 78 digits
     ,
     __metadata("design:type", String)
 ], Transfer.prototype, "item", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),
     __metadata("design:type", String)
 ], Transfer.prototype, "amount", void 0);
 __decorate([

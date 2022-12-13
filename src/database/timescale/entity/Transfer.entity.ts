@@ -14,10 +14,10 @@ export class Transfer extends BaseEntity {
 
     @Column('char', { length: 40 })
     collection!: string;
-    @Column('numeric', { precision: 78, unsigned: true, nullable: true }) // max uint256 = 78 digits
+    @Column('numeric', { precision: 78, unsigned: true }) // max uint256 = 78 digits
     item!: string;
 
-    @Column('numeric', { precision: 78, unsigned: true, nullable: true })
+    @Column('numeric', { precision: 78, unsigned: true, default: '1' })
     amount!: string;
 
     @Column({ default: () => 'CURRENT_TIMESTAMP' })
