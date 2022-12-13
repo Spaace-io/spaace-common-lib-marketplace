@@ -9,7 +9,7 @@ export class Medias {
   gateway!: string;
 }
 
-@Entity({ name: "items" })
+@Entity({ name: 'items' })
 export class Item extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;

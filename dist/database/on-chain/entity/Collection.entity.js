@@ -93,7 +93,7 @@ __decorate([
     __metadata("design:type", Date)
 ], Collection.prototype, "updated_at", void 0);
 Collection = __decorate([
-    (0, typeorm_1.Entity)({ name: "collections" })
+    (0, typeorm_1.Entity)({ name: 'collections' })
 ], Collection);
 exports.Collection = Collection;
 //# sourceMappingURL=Collection.entity.js.map

@@ -13,7 +13,7 @@ export class CollectionAttributes {
     attributes!: CollectionAttribute[];
 }
 
-@Entity({ name: "collections" })
+@Entity({ name: 'collections' })
 export class Collection extends BaseEntity {
     @PrimaryColumn()
     id!: string;

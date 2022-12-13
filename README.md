@@ -13,19 +13,24 @@ npm i git+ssh://git@git.era2140.tech/Staake/common-lib.git
 
 It can then be used as follows:
 ```typescript
-import { OnChainDatabase, OffChainDatabase } from 'staake-common-lib';
+import { OnChainDatabase, OffChainDatabase, TimescaleDatabase } from 'staake-common-lib';
 
 await OnChainDatabase.initialize();
 await OffChainDatabase.initialize();
+await TimescaleDatabase.initialize();
 
 // OR
 
 import { OnChainDatabase } from 'staake-common-lib/dist/database/on-chain';
 import { OffChainDatabase } from 'staake-common-lib/dist/database/off-chain';
+import { TimescaleDatabase } from 'staake-common-lib/dist/database/timescale';
 
 await OnChainDatabase.initialize();
 await OffChainDatabase.initialize();
+await TimescaleDatabase.initialize();
 ```
+
+Only databases on which the service is dependendant should (and must) be initialized.
 
 ## Contributing
 
@@ -55,9 +60,11 @@ Then, use the TypeORM CLI to generate the migrations in the correct folder by ru
 npx typeorm migration:generate -d dist/database/on-chain src/database/on-chain/migration/<name>
 # OR
 npx typeorm migration:generate -d dist/database/off-chain src/database/off-chain/migration/<name>
+# OR
+npx typeorm migration:generate -d dist/database/timescale src/database/timescale/migration/<name>
 ```
 
-Finally, before commiting, update the `dist` folder again with:
+Finally, before commiting, update the `dist` folder again to add migrations with:
 ```sh
 npm run build
 ```

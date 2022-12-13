@@ -1,3 +1,3 @@
 export * from './on-chain';
 export * from './off-chain';
-export * from './influx';
+export * from './timescale';
