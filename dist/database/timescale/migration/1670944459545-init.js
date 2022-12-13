@@ -9,14 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.init1670942106536 = void 0;
-class init1670942106536 {
+exports.init1670944459545 = void 0;
+class init1670944459545 {
     constructor() {
-        this.name = 'init1670942106536';
+        this.name = 'init1670944459545';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`CREATE TABLE "transfers" ("hash" character varying NOT NULL, "from" character varying NOT NULL, "to" character varying NOT NULL, "collection" character varying NOT NULL, "item" numeric(78), "amount" numeric(78), "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_b26bd57c48ad9c485a3ae3e3635" PRIMARY KEY ("hash"))`);
+            yield queryRunner.query(`CREATE TABLE "transfers" ("txHash" character(64) NOT NULL, "logIdx" integer NOT NULL, "from" character(40) NOT NULL, "to" character(40) NOT NULL, "collection" character(40) NOT NULL, "item" numeric(78), "amount" numeric(78), "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_dbae301f250e9d4435104066841" PRIMARY KEY ("txHash", "logIdx"))`);
         });
     }
     down(queryRunner) {
@@ -25,5 +25,5 @@ class init1670942106536 {
         });
     }
 }
-exports.init1670942106536 = init1670942106536;
-//# sourceMappingURL=1670942106536-init.js.map
+exports.init1670944459545 = init1670944459545;
+//# sourceMappingURL=1670944459545-init.js.map

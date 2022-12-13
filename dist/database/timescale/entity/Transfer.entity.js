@@ -14,19 +14,23 @@ const typeorm_1 = require("typeorm");
 let Transfer = class Transfer extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.PrimaryColumn)(),
+    (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
-], Transfer.prototype, "hash", void 0);
+], Transfer.prototype, "txHash", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.PrimaryColumn)(),
+    __metadata("design:type", Number)
+], Transfer.prototype, "logIdx", void 0);
+__decorate([
+    (0, typeorm_1.Column)('char', { length: 40 }),
     __metadata("design:type", String)
 ], Transfer.prototype, "from", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('char', { length: 40 }),
     __metadata("design:type", String)
 ], Transfer.prototype, "to", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('char', { length: 40 }),
     __metadata("design:type", String)
 ], Transfer.prototype, "collection", void 0);
 __decorate([

@@ -2,18 +2,18 @@ import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'transfers' })
 export class Transfer extends BaseEntity {
+    @PrimaryColumn('char', { length: 64 })
+    txHash!: string;
     @PrimaryColumn()
-    hash!: string;
+    logIdx!: number;
 
-    @Column()
+    @Column('char', { length: 40 })
     from!: string;
-
-    @Column()
+    @Column('char', { length: 40 })
     to!: string;
 
-    @Column()
+    @Column('char', { length: 40 })
     collection!: string;
-
     @Column('numeric', { precision: 78, unsigned: true, nullable: true }) // max uint256 = 78 digits
     item!: string;
 
