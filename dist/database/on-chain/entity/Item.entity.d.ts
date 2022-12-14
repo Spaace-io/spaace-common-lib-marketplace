@@ -18,4 +18,5 @@ export declare class Item extends BaseEntity {
     medias: object[];
     created_at: Date;
     updated_at: Date;
+    owner: string;
 }
