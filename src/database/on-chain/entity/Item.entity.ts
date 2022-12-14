@@ -47,6 +47,6 @@ export class Item extends BaseEntity {
   @Column({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
   updated_at!: Date;
 
-  // @Column({ nullable: true })
-  // owner!: string;
+  @Column({ nullable: true })
+  owner!: string;
 }

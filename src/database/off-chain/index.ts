@@ -17,7 +17,7 @@ export const OffChainDatabase = new DataSource({
     password,
     database,
     schema,
-    synchronize: false,
+    synchronize: true,
     migrationsRun: true,
     logging: false,
     entities: [__dirname + '/entity/**.entity{.js,.ts}'],
