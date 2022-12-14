@@ -26,6 +26,9 @@ export class Item extends BaseEntity {
   @Column({ nullable: true })
   tokenId!: string;
 
+  @Column({ nullable: true, unique: true })
+  primaryId!: string;
+
   @Column({ default: false })
   isRefreshed!: boolean;
 

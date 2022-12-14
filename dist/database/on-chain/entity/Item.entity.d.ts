@@ -11,6 +11,7 @@ export declare class Item extends BaseEntity {
     title: string;
     description: string;
     tokenId: string;
+    primaryId: string;
     isRefreshed: boolean;
     lastTimeUpdate: Date;
     tokenUri: string;

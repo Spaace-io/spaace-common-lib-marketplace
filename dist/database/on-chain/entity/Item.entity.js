@@ -38,6 +38,10 @@ __decorate([
     __metadata("design:type", String)
 ], Item.prototype, "tokenId", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: true, unique: true }),
+    __metadata("design:type", String)
+], Item.prototype, "primaryId", void 0);
+__decorate([
     (0, typeorm_1.Column)({ default: false }),
     __metadata("design:type", Boolean)
 ], Item.prototype, "isRefreshed", void 0);
