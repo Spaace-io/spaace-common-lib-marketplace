@@ -70,10 +70,6 @@ __decorate([
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP', nullable: true }),
     __metadata("design:type", Date)
 ], Item.prototype, "updated_at", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], Item.prototype, "owner", void 0);
 Item = __decorate([
     (0, typeorm_1.Entity)({ name: 'items' })
 ], Item);

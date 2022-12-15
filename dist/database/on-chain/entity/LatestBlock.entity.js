@@ -9,24 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Block = void 0;
+exports.LatestBlock = void 0;
 const typeorm_1 = require("typeorm");
-let Block = class Block extends typeorm_1.BaseEntity {
+let LatestBlock = class LatestBlock extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.PrimaryColumn)({ unique: true }),
+    (0, typeorm_1.PrimaryColumn)({ default: true }),
+    __metadata("design:type", Boolean)
+], LatestBlock.prototype, "pk", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
-], Block.prototype, "number", void 0);
+], LatestBlock.prototype, "number", void 0);
 __decorate([
     (0, typeorm_1.Column)('char', { length: 64 }),
     __metadata("design:type", String)
-], Block.prototype, "hash", void 0);
+], LatestBlock.prototype, "hash", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
-], Block.prototype, "timestamp", void 0);
-Block = __decorate([
-    (0, typeorm_1.Entity)({ name: 'blocks' })
-], Block);
-exports.Block = Block;
-//# sourceMappingURL=Block.entity.js.map
+], LatestBlock.prototype, "timestamp", void 0);
+LatestBlock = __decorate([
+    (0, typeorm_1.Entity)({ name: 'latest_block' })
+], LatestBlock);
+exports.LatestBlock = LatestBlock;
+//# sourceMappingURL=LatestBlock.entity.js.map

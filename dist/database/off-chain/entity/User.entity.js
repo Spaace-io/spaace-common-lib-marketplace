@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "age", void 0);
 User = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)({ name: 'users' })
 ], User);
 exports.User = User;
 //# sourceMappingURL=User.entity.js.map

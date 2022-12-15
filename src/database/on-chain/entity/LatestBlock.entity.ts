@@ -1,9 +1,13 @@
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity({ name: 'blocks' })
-export class Block extends BaseEntity {
-    @PrimaryColumn({ unique: true })
+@Entity({ name: 'latest_block' })
+export class LatestBlock extends BaseEntity {
+    @PrimaryColumn({ default: true })
+    pk!: boolean;
+
+    @Column()
     number!: number;
+
     @Column('char', { length: 64 })
     hash!: string;
 
