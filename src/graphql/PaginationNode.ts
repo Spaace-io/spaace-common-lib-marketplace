@@ -1,3 +1,7 @@
-import { BaseEntity } from 'typeorm';
+import { createUnionType } from '@nestjs/graphql';
+import { Collection, Item, Order, Transfer } from '..';
 
-export abstract class PaginationNode extends BaseEntity {}
+export const PaginationNode = createUnionType({
+    name: 'PaginationNode',
+    types: () => [Collection, Item, Order, Transfer],
+});

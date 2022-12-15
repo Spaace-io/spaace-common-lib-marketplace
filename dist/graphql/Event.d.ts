@@ -1,4 +1,2 @@
-import { PaginationNode } from './PaginationNode';
-export declare abstract class Event extends PaginationNode {
-    timestamp: Date;
-}
+import { Transfer } from '..';
+export declare const Event: Transfer;

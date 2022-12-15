@@ -1,7 +1,7 @@
-import { Column } from 'typeorm';
-import { PaginationNode } from './PaginationNode';
+import { createUnionType } from '@nestjs/graphql';
+import { Transfer } from '..';
 
-export abstract class Event extends PaginationNode {
-    @Column({ default: () => 'CURRENT_TIMESTAMP' })
-    timestamp!: Date;
-}
+export const Event = createUnionType({
+    name: 'Event',
+    types: () => [Transfer],
+});

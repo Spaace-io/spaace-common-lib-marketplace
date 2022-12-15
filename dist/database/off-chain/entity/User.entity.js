@@ -10,14 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
+const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 let User = class User extends typeorm_1.BaseEntity {
 };
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     __metadata("design:type", Number)
 ], User.prototype, "address", void 0);
 User = __decorate([
+    (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'users' })
 ], User);
 exports.User = User;

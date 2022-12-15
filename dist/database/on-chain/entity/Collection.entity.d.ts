@@ -5,8 +5,20 @@ export declare class CollectionAttribute {
     type: string;
     count: string;
 }
-export declare class CollectionAttributes {
-    attributes: CollectionAttribute[];
+export declare class CollectionVolume {
+    volume24h: number;
+    change24h: number;
+    volume7d: number;
+    change7d: number;
+    volume30d: number;
+    change30d: number;
+    volume: number;
+}
+export declare class CollectionFloor {
+    floorPrice: number;
+    floorChange24h: number;
+    floorChange7d: number;
+    floorChange30d: number;
 }
 export declare class Collection extends BaseEntity {
     id: string;
@@ -25,6 +37,9 @@ export declare class Collection extends BaseEntity {
     bannerUrl: string;
     description: string;
     highOffer: string;
+    attributes: CollectionAttribute[];
     created_at: Date;
     updated_at: Date;
+    volume: CollectionVolume;
+    floor: CollectionFloor;
 }

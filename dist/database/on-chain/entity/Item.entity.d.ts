@@ -1,6 +1,10 @@
 import { BaseEntity } from 'typeorm';
 import { Collection } from './Collection.entity';
-export declare class Medias {
+export declare class ItemAttribute {
+    trait: string;
+    type: string;
+}
+export declare class ItemMedia {
     raw: string;
     thumbnail: string;
     gateway: string;

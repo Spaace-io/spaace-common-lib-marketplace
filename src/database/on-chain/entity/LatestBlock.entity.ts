@@ -2,6 +2,7 @@ import { BaseEntity, Check, Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'latest_block' })
 export class LatestBlock extends BaseEntity {
+
     @PrimaryColumn({ default: true })
     @Check('pk = TRUE')
     pk!: boolean;
@@ -14,4 +15,5 @@ export class LatestBlock extends BaseEntity {
 
     @Column({ default: () => 'CURRENT_TIMESTAMP' })
     timestamp!: Date;
+
 }

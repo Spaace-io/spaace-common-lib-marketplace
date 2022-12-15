@@ -1,5 +1,5 @@
-import { Event } from '../../../graphql/Event';
-export declare class Transfer extends Event {
+import { BaseEntity } from 'typeorm';
+export declare class Transfer extends BaseEntity {
     txHash: string;
     logIdx: number;
     from: string;
@@ -7,4 +7,5 @@ export declare class Transfer extends Event {
     collection: string;
     item: string;
     amount: string;
+    timestamp: Date;
 }

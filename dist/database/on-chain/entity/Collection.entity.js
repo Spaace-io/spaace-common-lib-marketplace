@@ -9,18 +9,88 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Collection = exports.CollectionAttributes = exports.CollectionAttribute = void 0;
+exports.Collection = exports.CollectionFloor = exports.CollectionVolume = exports.CollectionAttribute = void 0;
+const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const Item_entity_1 = require("./Item.entity");
-class CollectionAttribute {
-}
+let CollectionAttribute = class CollectionAttribute {
+};
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CollectionAttribute.prototype, "trait", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CollectionAttribute.prototype, "type", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CollectionAttribute.prototype, "count", void 0);
+CollectionAttribute = __decorate([
+    (0, graphql_1.ObjectType)()
+], CollectionAttribute);
 exports.CollectionAttribute = CollectionAttribute;
-class CollectionAttributes {
-}
-exports.CollectionAttributes = CollectionAttributes;
+let CollectionVolume = class CollectionVolume {
+};
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CollectionVolume.prototype, "volume24h", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CollectionVolume.prototype, "change24h", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CollectionVolume.prototype, "volume7d", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CollectionVolume.prototype, "change7d", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CollectionVolume.prototype, "volume30d", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CollectionVolume.prototype, "change30d", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CollectionVolume.prototype, "volume", void 0);
+CollectionVolume = __decorate([
+    (0, graphql_1.ObjectType)()
+], CollectionVolume);
+exports.CollectionVolume = CollectionVolume;
+let CollectionFloor = class CollectionFloor {
+};
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CollectionFloor.prototype, "floorPrice", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CollectionFloor.prototype, "floorChange24h", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CollectionFloor.prototype, "floorChange7d", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CollectionFloor.prototype, "floorChange30d", void 0);
+CollectionFloor = __decorate([
+    (0, graphql_1.ObjectType)()
+], CollectionFloor);
+exports.CollectionFloor = CollectionFloor;
 let Collection = class Collection extends typeorm_1.BaseEntity {
 };
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "id", void 0);
@@ -29,26 +99,32 @@ __decorate([
     __metadata("design:type", Array)
 ], Collection.prototype, "items", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "deployedOwner", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "name", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "countOwner", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "symbol", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Number)
 ], Collection.prototype, "totalSupply", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "tokenType", void 0);
@@ -57,42 +133,64 @@ __decorate([
     __metadata("design:type", Array)
 ], Collection.prototype, "abi", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "imageUrl", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ default: true }),
     __metadata("design:type", Boolean)
 ], Collection.prototype, "active", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ default: false }),
     __metadata("design:type", Boolean)
 ], Collection.prototype, "verified", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ default: false }),
     __metadata("design:type", Boolean)
 ], Collection.prototype, "explicit", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "bannerUrl", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "description", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "highOffer", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => [CollectionAttribute]),
+    __metadata("design:type", Array)
+], Collection.prototype, "attributes", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], Collection.prototype, "created_at", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], Collection.prototype, "updated_at", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", CollectionVolume)
+], Collection.prototype, "volume", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", CollectionFloor)
+], Collection.prototype, "floor", void 0);
 Collection = __decorate([
+    (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'collections' })
 ], Collection);
 exports.Collection = Collection;
