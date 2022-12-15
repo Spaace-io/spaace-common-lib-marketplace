@@ -1,8 +1,9 @@
-import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import { BaseEntity, Check, Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'latest_block' })
 export class LatestBlock extends BaseEntity {
     @PrimaryColumn({ default: true })
+    @Check('pk = TRUE')
     pk!: boolean;
 
     @Column()

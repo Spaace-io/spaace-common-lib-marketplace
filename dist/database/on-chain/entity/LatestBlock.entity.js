@@ -15,6 +15,7 @@ let LatestBlock = class LatestBlock extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, typeorm_1.PrimaryColumn)({ default: true }),
+    (0, typeorm_1.Check)('pk = TRUE'),
     __metadata("design:type", Boolean)
 ], LatestBlock.prototype, "pk", void 0);
 __decorate([

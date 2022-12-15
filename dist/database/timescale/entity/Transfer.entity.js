@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Transfer = void 0;
 const typeorm_1 = require("typeorm");
-const Event_1 = require("./Event");
+const Event_1 = require("../../../graphql/Event");
 // Primary key = (txHash, logIdx, from, to, collection, item)
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
 let Transfer = class Transfer extends Event_1.Event {

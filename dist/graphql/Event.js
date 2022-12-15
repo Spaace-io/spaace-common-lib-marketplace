@@ -11,7 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Event = void 0;
 const typeorm_1 = require("typeorm");
-class Event extends typeorm_1.BaseEntity {
+const PaginationNode_1 = require("./PaginationNode");
+class Event extends PaginationNode_1.PaginationNode {
 }
 __decorate([
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),

@@ -1,4 +1,4 @@
-import { Event } from './Event';
+import { Event } from '../../../graphql/Event';
 export declare class Transfer extends Event {
     txHash: string;
     logIdx: number;
