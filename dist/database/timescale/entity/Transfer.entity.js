@@ -11,9 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Transfer = void 0;
 const typeorm_1 = require("typeorm");
+const Event_1 = require("./Event");
 // Primary key = (txHash, logIdx, from, to, collection, item)
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
-let Transfer = class Transfer extends typeorm_1.BaseEntity {
+let Transfer = class Transfer extends Event_1.Event {
 };
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
@@ -44,10 +45,6 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),
     __metadata("design:type", String)
 ], Transfer.prototype, "amount", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
-    __metadata("design:type", Date)
-], Transfer.prototype, "timestamp", void 0);
 Transfer = __decorate([
     (0, typeorm_1.Entity)({ name: 'transfers' })
 ], Transfer);

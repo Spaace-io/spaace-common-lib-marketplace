@@ -1,5 +1,5 @@
-import { BaseEntity } from 'typeorm';
-export declare class Transfer extends BaseEntity {
+import { Event } from './Event';
+export declare class Transfer extends Event {
     txHash: string;
     logIdx: number;
     from: string;
@@ -7,5 +7,4 @@ export declare class Transfer extends BaseEntity {
     collection: string;
     item: string;
     amount: string;
-    timestamp: Date;
 }

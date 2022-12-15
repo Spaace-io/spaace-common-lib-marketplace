@@ -1,10 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Event } from './Event';
 
 // Primary key = (txHash, logIdx, from, to, collection, item)
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
 
 @Entity({ name: 'transfers' })
-export class Transfer extends BaseEntity {
+export class Transfer extends Event {
     @PrimaryColumn('char', { length: 64 })
     txHash!: string;
     @PrimaryColumn()
@@ -22,7 +23,4 @@ export class Transfer extends BaseEntity {
 
     @Column('numeric', { precision: 78, unsigned: true, default: '1' })
     amount!: string;
-
-    @Column({ default: () => 'CURRENT_TIMESTAMP' })
-    timestamp!: Date;
 }
