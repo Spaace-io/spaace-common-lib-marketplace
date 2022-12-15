@@ -1,18 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import { Entity, PrimaryColumn, BaseEntity } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class User extends  BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id!: number;
-
-    @Column()
-    firstName!: string;
-
-    @Column()
-    lastName!: string;
-
-    @Column()
-    age!: number;
+    @PrimaryColumn('char', { length: 40 })
+    address!: number;
 
 }

@@ -26,4 +26,4 @@ class addOrder1671029047358 {
     }
 }
 exports.addOrder1671029047358 = addOrder1671029047358;
-//# sourceMappingURL=1671029047358-add-order.js.map
+//# sourceMappingURL=1671029047358-addOrder.js.map
