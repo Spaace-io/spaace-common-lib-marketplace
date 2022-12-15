@@ -1,5 +1,5 @@
-import {BaseEntity, Column, PrimaryGeneratedColumn} from "typeorm";
-
+import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+@Entity()
 export class Order extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id!: string;

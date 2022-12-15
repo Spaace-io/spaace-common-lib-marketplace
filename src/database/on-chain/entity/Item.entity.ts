@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {BaseEntity, Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
 import { Collection } from './Collection.entity';
 
 export class Medias {
@@ -23,7 +23,7 @@ export class Item extends BaseEntity {
   @Column({ nullable: true })
   description!: string;
 
-  @Column({ nullable: true })
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   tokenId!: string;
 
   @Column({ nullable: true, unique: true })
@@ -51,5 +51,5 @@ export class Item extends BaseEntity {
   updated_at!: Date;
 
   @Column({ nullable: true })
-  owner!: string;
+  owner!: string[];
 }

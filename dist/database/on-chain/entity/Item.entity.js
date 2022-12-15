@@ -34,7 +34,8 @@ __decorate([
     __metadata("design:type", String)
 ], Item.prototype, "description", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    ,
     __metadata("design:type", String)
 ], Item.prototype, "tokenId", void 0);
 __decorate([

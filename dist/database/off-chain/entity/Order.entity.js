@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Order = void 0;
 const typeorm_1 = require("typeorm");
-class Order extends typeorm_1.BaseEntity {
-}
+let Order = class Order extends typeorm_1.BaseEntity {
+};
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
@@ -73,5 +73,8 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Date)
 ], Order.prototype, "updated_at", void 0);
+Order = __decorate([
+    (0, typeorm_1.Entity)()
+], Order);
 exports.Order = Order;
 //# sourceMappingURL=Order.entity.js.map
