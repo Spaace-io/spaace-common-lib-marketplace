@@ -1,5 +1,6 @@
 import { BaseEntity } from 'typeorm';
 import { Collection } from './Collection.entity';
+import { Event } from '../../..';
 export declare class ItemAttribute {
     trait: string;
     type: string;
@@ -10,17 +11,12 @@ export declare class ItemMedia {
     gateway: string;
 }
 export declare class Item extends BaseEntity {
-    id: string;
     collection: Collection;
+    tokenId: string;
     title: string;
     description: string;
-    tokenId: string;
-    primaryId: string;
-    isRefreshed: boolean;
-    lastTimeUpdate: Date;
     tokenUri: string;
     attributes: object[];
     medias: object[];
-    created_at: Date;
-    updated_at: Date;
+    events: typeof Event[];
 }

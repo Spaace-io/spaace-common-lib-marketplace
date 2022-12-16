@@ -65,39 +65,25 @@ export class Collection extends BaseEntity {
 
     @Field()
     @PrimaryColumn()
-    id!: string;
+    address!: string;
 
-    @OneToMany(() => Item, (item) => item.collection)
-    items!: Item[];
-
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
-    deployedOwner!: string;
+    deployer!: string;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     name!: string;
 
-    @Field()
-    @Column({ nullable: true })
-    countOwner!: string;
-
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     symbol!: string;
 
-    @Field()
-    @Column({ nullable: true })
-    totalSupply!: number;
-
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     tokenType!: string;
 
-    @Column('jsonb', { nullable: true })
-    abi!: object[];
-
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     imageUrl!: string;
 
@@ -113,33 +99,45 @@ export class Collection extends BaseEntity {
     @Column({ default: false })
     explicit!: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     bannerUrl!: string;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     description!: string;
-
-    @Field()
-    @Column({ nullable: true })
-    highOffer!: string;
-
-    @Field(() => [CollectionAttribute])
-    attributes!: CollectionAttribute[];
 
     @Field()
     @Column({ default: () => 'CURRENT_TIMESTAMP' })
     created_at!: Date;
 
-    @Field()
-    @Column({ default: () => 'CURRENT_TIMESTAMP' })
-    updated_at!: Date;
+    @Field(() => [Item], { nullable: true })
+    @OneToMany(() => Item, (item) => item.collection)
+    items!: Item[];
 
-    @Field()
+    // DB only columns
+
+    @Column('jsonb', { nullable: true })
+    abi!: object[];
+
+    // GraphQL only fields
+
+    @Field(() => [CollectionAttribute], { nullable: true })
+    attributes!: CollectionAttribute[];
+
+    @Field({ nullable: true })
+    highOffer!: string;
+
+    @Field({ nullable: true })
+    totalSupply!: number;
+
+    @Field({ nullable: true })
+    countOwner!: string;
+
+    @Field({ nullable: true })
     volume!: CollectionVolume;
 
-    @Field()
+    @Field({ nullable: true })
     floor!: CollectionFloor;
 
 }

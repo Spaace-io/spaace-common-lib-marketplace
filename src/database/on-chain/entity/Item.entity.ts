@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Collection } from './Collection.entity';
+import { Event } from '../../..';
 
 @ObjectType()
 export class ItemAttribute {
@@ -31,60 +32,39 @@ export class ItemMedia {
 @Entity({ name: 'items' })
 export class Item extends BaseEntity {
 
-  @Field()
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
-
   @Field(() => Collection)
+  @PrimaryColumn(String)
   @ManyToOne(() => Collection, (collection) => collection.items, { eager: true })
+  @JoinColumn({ name: 'collection' })
   collection!: Collection;
-
-  @Field()
-  @Column({ nullable: true })
-  title!: string;
-
-  @Field()
-  @Column({ nullable: true })
-  description!: string;
 
   @Field()
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   tokenId!: string;
 
-  @Field()
-  @Column({ nullable: true, unique: true })
-  primaryId!: string;
-
-  @Field()
-  @Column({ default: false })
-  isRefreshed!: boolean;
-
-  @Field()
+  @Field({ nullable: true })
   @Column({ nullable: true })
-  lastTimeUpdate!: Date;
+  title!: string;
 
-  @Field()
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  description!: string;
+
+  @Field({ nullable: true })
   @Column({ nullable: true })
   tokenUri!: string;
 
-  @Field(() => [ItemAttribute])
+  @Field(() => [ItemAttribute], { defaultValue: [] })
   @Column('jsonb', { nullable: true })
   attributes!: object[];
 
-  @Field(() => [ItemMedia])
+  @Field(() => [ItemMedia], { defaultValue: [] })
   @Column('jsonb', { nullable: true })
   medias!: object[];
 
-  @Field()
-  @Column({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
-  created_at!: Date;
+  // GraphQL only fields
 
-  @Field()
-  @Column({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
-  updated_at!: Date;
-
-  // @Field()
-  // @Column({ nullable: true })
-  // owner!: string[];
+  @Field(() => [Event], { nullable: true })
+  events!: typeof Event[];
 
 }

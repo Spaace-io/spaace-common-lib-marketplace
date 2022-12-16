@@ -93,47 +93,29 @@ __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "id", void 0);
+], Collection.prototype, "address", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Item_entity_1.Item, (item) => item.collection),
-    __metadata("design:type", Array)
-], Collection.prototype, "items", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
-], Collection.prototype, "deployedOwner", void 0);
+], Collection.prototype, "deployer", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "name", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], Collection.prototype, "countOwner", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "symbol", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", Number)
-], Collection.prototype, "totalSupply", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "tokenType", void 0);
 __decorate([
-    (0, typeorm_1.Column)('jsonb', { nullable: true }),
-    __metadata("design:type", Array)
-], Collection.prototype, "abi", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "imageUrl", void 0);
@@ -153,40 +135,51 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Collection.prototype, "explicit", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "bannerUrl", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "description", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], Collection.prototype, "highOffer", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [CollectionAttribute]),
-    __metadata("design:type", Array)
-], Collection.prototype, "attributes", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], Collection.prototype, "created_at", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
-    __metadata("design:type", Date)
-], Collection.prototype, "updated_at", void 0);
+    (0, graphql_1.Field)(() => [Item_entity_1.Item], { nullable: true }),
+    (0, typeorm_1.OneToMany)(() => Item_entity_1.Item, (item) => item.collection),
+    __metadata("design:type", Array)
+], Collection.prototype, "items", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('jsonb', { nullable: true }),
+    __metadata("design:type", Array)
+], Collection.prototype, "abi", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [CollectionAttribute], { nullable: true }),
+    __metadata("design:type", Array)
+], Collection.prototype, "attributes", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], Collection.prototype, "highOffer", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", Number)
+], Collection.prototype, "totalSupply", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], Collection.prototype, "countOwner", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", CollectionVolume)
 ], Collection.prototype, "volume", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", CollectionFloor)
 ], Collection.prototype, "floor", void 0);
 Collection = __decorate([

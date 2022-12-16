@@ -1,5 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "..";
 
 @ObjectType()
 @Entity({ name: 'orders' })
@@ -9,7 +10,15 @@ export class Order extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id!: string;
 
+    @Field(() => User)
+    @Column(() => User)
+    user!: User;
+
     @Field()
+    @Column()
+    collection!: string;
+
+    @Field({ nullable: true })
     @Column({ nullable: true })
     item!: string;
 
@@ -18,8 +27,8 @@ export class Order extends BaseEntity {
     isAsk!: boolean;
 
     @Field()
-    @Column()
-    price!: number;
+    @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    price!: string;
 
     @Field()
     @Column()
@@ -27,42 +36,14 @@ export class Order extends BaseEntity {
 
     @Field()
     @Column()
-    endTime!: string;
+    startTime!: Date;
 
     @Field()
     @Column()
-    startTime!: string;
-
-    @Field()
-    @Column()
-    collection!: string;
-
-    @Field()
-    @Column()
-    hash!: string;
-
-    @Field()
-    @Column()
-    signer!: string;
+    endTime!: Date;
 
     @Field()
     @Column()
     signature!: string;
-
-    @Field()
-    @Column()
-    strategy!: string;
-
-    @Field()
-    @Column()
-    tokenId!: string;
-
-    @Field()
-    @Column()
-    created_at!: Date;
-
-    @Field()
-    @Column()
-    updated_at!: Date;
 
 }

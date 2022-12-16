@@ -21,25 +21,24 @@ export declare class CollectionFloor {
     floorChange30d: number;
 }
 export declare class Collection extends BaseEntity {
-    id: string;
-    items: Item[];
-    deployedOwner: string;
+    address: string;
+    deployer: string;
     name: string;
-    countOwner: string;
     symbol: string;
-    totalSupply: number;
     tokenType: string;
-    abi: object[];
     imageUrl: string;
     active: boolean;
     verified: boolean;
     explicit: boolean;
     bannerUrl: string;
     description: string;
-    highOffer: string;
-    attributes: CollectionAttribute[];
     created_at: Date;
-    updated_at: Date;
+    items: Item[];
+    abi: object[];
+    attributes: CollectionAttribute[];
+    highOffer: string;
+    totalSupply: number;
+    countOwner: string;
     volume: CollectionVolume;
     floor: CollectionFloor;
 }

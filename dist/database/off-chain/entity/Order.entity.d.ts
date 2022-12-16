@@ -1,18 +1,14 @@
 import { BaseEntity } from "typeorm";
+import { User } from "..";
 export declare class Order extends BaseEntity {
     id: string;
+    user: User;
+    collection: string;
     item: string;
     isAsk: boolean;
-    price: number;
+    price: string;
     currency: string;
-    endTime: string;
-    startTime: string;
-    collection: string;
-    hash: string;
-    signer: string;
+    startTime: Date;
+    endTime: Date;
     signature: string;
-    strategy: string;
-    tokenId: string;
-    created_at: Date;
-    updated_at: Date;
 }

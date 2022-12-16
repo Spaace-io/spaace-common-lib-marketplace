@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Order = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
+const __1 = require("..");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -20,7 +21,17 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "id", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => __1.User),
+    (0, typeorm_1.Column)(() => __1.User),
+    __metadata("design:type", __1.User)
+], Order.prototype, "user", void 0);
+__decorate([
     (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Order.prototype, "collection", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Order.prototype, "item", void 0);
@@ -31,8 +42,9 @@ __decorate([
 ], Order.prototype, "isAsk", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    ,
+    __metadata("design:type", String)
 ], Order.prototype, "price", void 0);
 __decorate([
     (0, graphql_1.Field)(),
@@ -42,53 +54,18 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
+], Order.prototype, "startTime", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Date)
 ], Order.prototype, "endTime", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Order.prototype, "startTime", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Order.prototype, "collection", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Order.prototype, "hash", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Order.prototype, "signer", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
 ], Order.prototype, "signature", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Order.prototype, "strategy", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Order.prototype, "tokenId", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Date)
-], Order.prototype, "created_at", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Date)
-], Order.prototype, "updated_at", void 0);
 Order = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'orders' })
