@@ -3,7 +3,7 @@ import { Collection } from './Collection.entity';
 import { Event } from '../../..';
 export declare class ItemAttribute {
     trait: string;
-    type: string;
+    value: string;
 }
 export declare class ItemMedia {
     raw: string;

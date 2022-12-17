@@ -29,20 +29,20 @@ export declare class Collection extends BaseEntity {
     type: CollectionType;
     name?: string;
     symbol?: string;
-    deployer?: string;
     imageUrl?: string;
     active: boolean;
     verified: boolean;
     explicit: boolean;
     bannerUrl?: string;
     description?: string;
+    totalSupply?: string;
     deployedAt?: Date;
+    deployer?: string;
     items?: Item[];
     abi?: object[];
     attributes?: CollectionAttribute[];
-    highOffer?: string;
-    totalSupply?: number;
-    countOwner?: string;
+    highestOffer?: string;
+    ownerCount?: string;
     volume?: CollectionVolume;
     floor?: CollectionFloor;
 }

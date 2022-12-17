@@ -10,7 +10,7 @@ export class ItemAttribute {
   trait!: string;
 
   @Field()
-  type!: string;
+  value!: string;
 
 }
 

@@ -23,7 +23,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
-], ItemAttribute.prototype, "type", void 0);
+], ItemAttribute.prototype, "value", void 0);
 ItemAttribute = __decorate([
     (0, graphql_1.ObjectType)()
 ], ItemAttribute);

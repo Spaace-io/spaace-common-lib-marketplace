@@ -90,10 +90,6 @@ export class Collection extends BaseEntity {
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    deployer?: string;
-
-    @Field({ nullable: true })
-    @Column({ nullable: true })
     imageUrl?: string;
 
     @Field()
@@ -117,8 +113,16 @@ export class Collection extends BaseEntity {
     description?: string;
 
     @Field({ nullable: true })
+    @Column('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
+    totalSupply?: string;
+
+    @Field({ nullable: true })
     @Column({ nullable: true })
     deployedAt?: Date;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    deployer?: string;
 
     @Field(() => [Item], { nullable: true })
     @OneToMany(() => Item, (item) => item.collection)
@@ -135,13 +139,10 @@ export class Collection extends BaseEntity {
     attributes?: CollectionAttribute[];
 
     @Field({ nullable: true })
-    highOffer?: string;
+    highestOffer?: string;
 
     @Field({ nullable: true })
-    totalSupply?: number;
-
-    @Field({ nullable: true })
-    countOwner?: string;
+    ownerCount?: string;
 
     @Field({ nullable: true })
     volume?: CollectionVolume;

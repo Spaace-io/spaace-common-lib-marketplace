@@ -121,11 +121,6 @@ __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
-], Collection.prototype, "deployer", void 0);
-__decorate([
-    (0, graphql_1.Field)({ nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
 ], Collection.prototype, "imageUrl", void 0);
 __decorate([
     (0, graphql_1.Field)(),
@@ -154,9 +149,20 @@ __decorate([
 ], Collection.prototype, "description", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
+    ,
+    __metadata("design:type", String)
+], Collection.prototype, "totalSupply", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Date)
 ], Collection.prototype, "deployedAt", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Collection.prototype, "deployer", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [Item_entity_1.Item], { nullable: true }),
     (0, typeorm_1.OneToMany)(() => Item_entity_1.Item, (item) => item.collection),
@@ -173,15 +179,11 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
-], Collection.prototype, "highOffer", void 0);
-__decorate([
-    (0, graphql_1.Field)({ nullable: true }),
-    __metadata("design:type", Number)
-], Collection.prototype, "totalSupply", void 0);
+], Collection.prototype, "highestOffer", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
-], Collection.prototype, "countOwner", void 0);
+], Collection.prototype, "ownerCount", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", CollectionVolume)
