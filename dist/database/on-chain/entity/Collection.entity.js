@@ -9,10 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Collection = exports.CollectionFloor = exports.CollectionVolume = exports.CollectionAttribute = void 0;
+exports.Collection = exports.CollectionFloor = exports.CollectionVolume = exports.CollectionAttribute = exports.CollectionType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const Item_entity_1 = require("./Item.entity");
+var CollectionType;
+(function (CollectionType) {
+    CollectionType["ERC721"] = "ERC721";
+    CollectionType["ERC1155"] = "ERC1155";
+})(CollectionType = exports.CollectionType || (exports.CollectionType = {}));
+(0, graphql_1.registerEnumType)(CollectionType, {
+    name: 'CollectionType',
+});
 let CollectionAttribute = class CollectionAttribute {
 };
 __decorate([
@@ -95,10 +103,10 @@ __decorate([
     __metadata("design:type", String)
 ], Collection.prototype, "address", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, graphql_1.Field)(() => CollectionType),
+    (0, typeorm_1.Column)('enum', { enum: CollectionType, enumName: 'collection_type' }),
     __metadata("design:type", String)
-], Collection.prototype, "deployer", void 0);
+], Collection.prototype, "type", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
@@ -113,7 +121,7 @@ __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
-], Collection.prototype, "tokenType", void 0);
+], Collection.prototype, "deployer", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),

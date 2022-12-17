@@ -1,5 +1,9 @@
 import { BaseEntity } from 'typeorm';
 import { Item } from './Item.entity';
+export declare enum CollectionType {
+    ERC721 = "ERC721",
+    ERC1155 = "ERC1155"
+}
 export declare class CollectionAttribute {
     trait: string;
     type: string;
@@ -22,10 +26,10 @@ export declare class CollectionFloor {
 }
 export declare class Collection extends BaseEntity {
     address: string;
-    deployer: string;
+    type: CollectionType;
     name: string;
     symbol: string;
-    tokenType: string;
+    deployer: string;
     imageUrl: string;
     active: boolean;
     verified: boolean;

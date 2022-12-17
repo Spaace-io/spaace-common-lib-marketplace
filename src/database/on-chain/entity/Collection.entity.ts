@@ -1,6 +1,15 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 import { Item } from './Item.entity';
+
+export enum CollectionType {
+    ERC721 = 'ERC721',
+    ERC1155 = 'ERC1155',
+}
+
+registerEnumType(CollectionType, {
+    name: 'CollectionType',
+});
 
 @ObjectType()
 export class CollectionAttribute {
@@ -67,9 +76,9 @@ export class Collection extends BaseEntity {
     @PrimaryColumn()
     address!: string;
 
-    @Field({ nullable: true })
-    @Column({ nullable: true })
-    deployer!: string;
+    @Field(() => CollectionType)
+    @Column('enum', { enum: CollectionType, enumName: 'collection_type' })
+    type!: CollectionType;
 
     @Field({ nullable: true })
     @Column({ nullable: true })
@@ -81,7 +90,7 @@ export class Collection extends BaseEntity {
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    tokenType!: string;
+    deployer!: string;
 
     @Field({ nullable: true })
     @Column({ nullable: true })
