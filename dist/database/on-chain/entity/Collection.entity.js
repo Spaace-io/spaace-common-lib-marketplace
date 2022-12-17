@@ -153,10 +153,10 @@ __decorate([
     __metadata("design:type", String)
 ], Collection.prototype, "description", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
+    (0, graphql_1.Field)({ nullable: true }),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Date)
-], Collection.prototype, "created_at", void 0);
+], Collection.prototype, "deployedAt", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [Item_entity_1.Item], { nullable: true }),
     (0, typeorm_1.OneToMany)(() => Item_entity_1.Item, (item) => item.collection),

@@ -13,10 +13,10 @@ export declare class ItemMedia {
 export declare class Item extends BaseEntity {
     collection: Collection;
     tokenId: string;
-    title: string;
-    description: string;
-    tokenUri: string;
-    attributes: object[];
-    medias: object[];
-    events: typeof Event[];
+    title?: string;
+    description?: string;
+    tokenUri?: string;
+    attributes?: object[];
+    medias?: object[];
+    events?: typeof Event[];
 }

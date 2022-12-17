@@ -82,19 +82,19 @@ export class Collection extends BaseEntity {
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    name!: string;
+    name?: string;
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    symbol!: string;
+    symbol?: string;
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    deployer!: string;
+    deployer?: string;
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    imageUrl!: string;
+    imageUrl?: string;
 
     @Field()
     @Column({ default: true })
@@ -110,43 +110,43 @@ export class Collection extends BaseEntity {
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    bannerUrl!: string;
+    bannerUrl?: string;
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    description!: string;
+    description?: string;
 
-    @Field()
-    @Column({ default: () => 'CURRENT_TIMESTAMP' })
-    created_at!: Date;
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    deployedAt?: Date;
 
     @Field(() => [Item], { nullable: true })
     @OneToMany(() => Item, (item) => item.collection)
-    items!: Item[];
+    items?: Item[];
 
     // DB only columns
 
     @Column('jsonb', { nullable: true })
-    abi!: object[];
+    abi?: object[];
 
     // GraphQL only fields
 
     @Field(() => [CollectionAttribute], { nullable: true })
-    attributes!: CollectionAttribute[];
+    attributes?: CollectionAttribute[];
 
     @Field({ nullable: true })
-    highOffer!: string;
+    highOffer?: string;
 
     @Field({ nullable: true })
-    totalSupply!: number;
+    totalSupply?: number;
 
     @Field({ nullable: true })
-    countOwner!: string;
+    countOwner?: string;
 
     @Field({ nullable: true })
-    volume!: CollectionVolume;
+    volume?: CollectionVolume;
 
     @Field({ nullable: true })
-    floor!: CollectionFloor;
+    floor?: CollectionFloor;
 
 }

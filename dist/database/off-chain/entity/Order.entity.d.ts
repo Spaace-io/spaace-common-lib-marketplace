@@ -4,7 +4,7 @@ export declare class Order extends BaseEntity {
     id: string;
     user: User;
     collection: string;
-    item: string;
+    item?: string;
     isAsk: boolean;
     price: string;
     currency: string;

@@ -44,27 +44,27 @@ export class Item extends BaseEntity {
 
   @Field({ nullable: true })
   @Column({ nullable: true })
-  title!: string;
+  title?: string;
 
   @Field({ nullable: true })
   @Column({ nullable: true })
-  description!: string;
+  description?: string;
 
   @Field({ nullable: true })
   @Column({ nullable: true })
-  tokenUri!: string;
+  tokenUri?: string;
 
   @Field(() => [ItemAttribute], { defaultValue: [] })
   @Column('jsonb', { nullable: true })
-  attributes!: object[];
+  attributes?: object[];
 
   @Field(() => [ItemMedia], { defaultValue: [] })
   @Column('jsonb', { nullable: true })
-  medias!: object[];
+  medias?: object[];
 
   // GraphQL only fields
 
   @Field(() => [Event], { nullable: true })
-  events!: typeof Event[];
+  events?: typeof Event[];
 
 }

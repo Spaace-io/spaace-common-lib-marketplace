@@ -27,22 +27,22 @@ export declare class CollectionFloor {
 export declare class Collection extends BaseEntity {
     address: string;
     type: CollectionType;
-    name: string;
-    symbol: string;
-    deployer: string;
-    imageUrl: string;
+    name?: string;
+    symbol?: string;
+    deployer?: string;
+    imageUrl?: string;
     active: boolean;
     verified: boolean;
     explicit: boolean;
-    bannerUrl: string;
-    description: string;
-    created_at: Date;
-    items: Item[];
-    abi: object[];
-    attributes: CollectionAttribute[];
-    highOffer: string;
-    totalSupply: number;
-    countOwner: string;
-    volume: CollectionVolume;
-    floor: CollectionFloor;
+    bannerUrl?: string;
+    description?: string;
+    deployedAt?: Date;
+    items?: Item[];
+    abi?: object[];
+    attributes?: CollectionAttribute[];
+    highOffer?: string;
+    totalSupply?: number;
+    countOwner?: string;
+    volume?: CollectionVolume;
+    floor?: CollectionFloor;
 }

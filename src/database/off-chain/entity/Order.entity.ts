@@ -20,7 +20,7 @@ export class Order extends BaseEntity {
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    item!: string;
+    item?: string;
 
     @Field()
     @Column()
