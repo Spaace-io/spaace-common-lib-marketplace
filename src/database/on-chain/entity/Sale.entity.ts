@@ -18,13 +18,15 @@ export class Sale extends BaseEntity {
     @Column('char', { length: 64 })
     orderHash!: string;
 
-    @Field(() => Item)
+    @Field()
     @ManyToOne(() => Item)
     @JoinColumn([
         { name: 'collection', referencedColumnName: 'collection' },
         { name: 'tokenId', referencedColumnName: 'tokenId' },
     ])
-    item!: Item;
+    collection!: string;
+    @Field()
+    tokenId!: string;
 
     @Field()
     @Column('numeric', { precision: 78, unsigned: true, default: '1' })

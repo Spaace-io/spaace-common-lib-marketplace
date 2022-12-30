@@ -31,14 +31,18 @@ __decorate([
     __metadata("design:type", String)
 ], Sale.prototype, "orderHash", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Item_entity_1.Item),
+    (0, graphql_1.Field)(),
     (0, typeorm_1.ManyToOne)(() => Item_entity_1.Item),
     (0, typeorm_1.JoinColumn)([
         { name: 'collection', referencedColumnName: 'collection' },
         { name: 'tokenId', referencedColumnName: 'tokenId' },
     ]),
-    __metadata("design:type", Item_entity_1.Item)
-], Sale.prototype, "item", void 0);
+    __metadata("design:type", String)
+], Sale.prototype, "collection", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], Sale.prototype, "tokenId", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),

@@ -17,13 +17,14 @@ let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
-], Order.prototype, "id", void 0);
+], Order.prototype, "orderHash", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => __1.User),
-    (0, typeorm_1.Column)(() => __1.User),
-    __metadata("design:type", __1.User)
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.ManyToOne)(() => __1.User),
+    (0, typeorm_1.JoinColumn)({ name: 'user', referencedColumnName: 'address' }),
+    __metadata("design:type", String)
 ], Order.prototype, "user", void 0);
 __decorate([
     (0, graphql_1.Field)(),

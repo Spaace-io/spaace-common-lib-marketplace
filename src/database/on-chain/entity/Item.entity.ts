@@ -32,11 +32,11 @@ export class ItemMedia {
 @Entity({ name: 'items' })
 export class Item extends BaseEntity {
 
-  @Field(() => Collection)
-  @PrimaryColumn(String)
-  @ManyToOne(() => Collection, (collection) => collection.items, { eager: true })
-  @JoinColumn({ name: 'collection' })
-  collection!: Collection;
+  @Field()
+  @PrimaryColumn()
+  @ManyToOne(() => Collection)
+  @JoinColumn({ name: 'collection', referencedColumnName: 'address' })
+  collection!: string;
 
   @Field()
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value

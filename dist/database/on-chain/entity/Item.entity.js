@@ -49,11 +49,11 @@ exports.ItemMedia = ItemMedia;
 let Item = class Item extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => Collection_entity_1.Collection),
-    (0, typeorm_1.PrimaryColumn)(String),
-    (0, typeorm_1.ManyToOne)(() => Collection_entity_1.Collection, (collection) => collection.items, { eager: true }),
-    (0, typeorm_1.JoinColumn)({ name: 'collection' }),
-    __metadata("design:type", Collection_entity_1.Collection)
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.PrimaryColumn)(),
+    (0, typeorm_1.ManyToOne)(() => Collection_entity_1.Collection),
+    (0, typeorm_1.JoinColumn)({ name: 'collection', referencedColumnName: 'address' }),
+    __metadata("design:type", String)
 ], Item.prototype, "collection", void 0);
 __decorate([
     (0, graphql_1.Field)(),
