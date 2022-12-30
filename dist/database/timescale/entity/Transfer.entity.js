@@ -12,8 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Transfer = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-// Primary key = (txHash, logIdx, from, to, collection, item)
+// Primary key = (txHash, logIdx, from, to, collection, item, timestamp)
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
+// Timestamp is required to be in all unique keys, including the primary one, by TimescaleDB
 let Transfer = class Transfer extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -54,7 +55,7 @@ __decorate([
 ], Transfer.prototype, "amount", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
+    (0, typeorm_1.PrimaryColumn)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], Transfer.prototype, "timestamp", void 0);
 Transfer = __decorate([

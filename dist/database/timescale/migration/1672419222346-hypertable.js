@@ -9,21 +9,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.init1670944459545 = void 0;
-class init1670944459545 {
+exports.hypertable1672419222346 = void 0;
+class hypertable1672419222346 {
     constructor() {
-        this.name = 'init1670944459545';
+        this.name = 'hypertable1672419222346';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`CREATE TABLE "transfers" ("txHash" character(64) NOT NULL, "logIdx" integer NOT NULL, "from" character(40) NOT NULL, "to" character(40) NOT NULL, "collection" character(40) NOT NULL, "item" numeric(78), "amount" numeric(78), "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_dbae301f250e9d4435104066841" PRIMARY KEY ("txHash", "logIdx"))`);
+            yield queryRunner.query(`ALTER TABLE "transfers" DROP CONSTRAINT "PK_8014320111bae3fc011967a73de"`);
+            yield queryRunner.query(`ALTER TABLE "transfers" ADD CONSTRAINT "PK_391afc4e8fd540698f989c14d2b" PRIMARY KEY ("txHash", "logIdx", "from", "to", "collection", "item", "timestamp")`);
+            yield queryRunner.query(`SELECT create_hypertable('transfers', 'timestamp');`);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`DROP TABLE "transfers"`);
+            yield queryRunner.query(`ALTER TABLE "transfers" DROP CONSTRAINT "PK_391afc4e8fd540698f989c14d2b"`);
+            yield queryRunner.query(`ALTER TABLE "transfers" ADD CONSTRAINT "PK_8014320111bae3fc011967a73de" PRIMARY KEY ("txHash", "logIdx", "from", "to", "collection", "item")`);
         });
     }
 }
-exports.init1670944459545 = init1670944459545;
-//# sourceMappingURL=1670944459545-init.js.map
+exports.hypertable1672419222346 = hypertable1672419222346;
+//# sourceMappingURL=1672419222346-hypertable.js.map
