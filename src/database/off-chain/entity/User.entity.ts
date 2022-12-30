@@ -7,6 +7,6 @@ export class User extends BaseEntity {
 
     @Field()
     @PrimaryColumn('char', { length: 40 })
-    address!: number;
+    address!: string;
 
 }
