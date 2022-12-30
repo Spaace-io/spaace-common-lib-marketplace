@@ -13,6 +13,19 @@ exports.Sale = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const Item_entity_1 = require("./Item.entity");
+let SaleItem = class SaleItem {
+};
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], SaleItem.prototype, "collection", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], SaleItem.prototype, "tokenId", void 0);
+SaleItem = __decorate([
+    (0, graphql_1.ObjectType)()
+], SaleItem);
 let Sale = class Sale extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -31,18 +44,14 @@ __decorate([
     __metadata("design:type", String)
 ], Sale.prototype, "orderHash", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => SaleItem),
     (0, typeorm_1.ManyToOne)(() => Item_entity_1.Item),
     (0, typeorm_1.JoinColumn)([
         { name: 'collection', referencedColumnName: 'collection' },
         { name: 'tokenId', referencedColumnName: 'tokenId' },
     ]),
-    __metadata("design:type", String)
-], Sale.prototype, "collection", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    __metadata("design:type", String)
-], Sale.prototype, "tokenId", void 0);
+    __metadata("design:type", SaleItem)
+], Sale.prototype, "item", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),

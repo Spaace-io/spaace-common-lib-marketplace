@@ -3,6 +3,15 @@ import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from
 import { Item } from "./Item.entity";
 
 @ObjectType()
+class SaleItem {
+    @Field()
+    collection!: string;
+
+    @Field()
+    tokenId!: string;
+}
+
+@ObjectType()
 @Entity({ name: 'sales' })
 export class Sale extends BaseEntity {
 
@@ -18,15 +27,13 @@ export class Sale extends BaseEntity {
     @Column('char', { length: 64 })
     orderHash!: string;
 
-    @Field()
+    @Field(() => SaleItem)
     @ManyToOne(() => Item)
     @JoinColumn([
         { name: 'collection', referencedColumnName: 'collection' },
         { name: 'tokenId', referencedColumnName: 'tokenId' },
     ])
-    collection!: string;
-    @Field()
-    tokenId!: string;
+    item!: SaleItem;
 
     @Field()
     @Column('numeric', { precision: 78, unsigned: true, default: '1' })
