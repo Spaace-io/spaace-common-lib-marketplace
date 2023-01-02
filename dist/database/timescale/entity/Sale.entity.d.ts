@@ -1,13 +1,10 @@
-import { BaseEntity } from "typeorm";
-declare class SaleItem {
-    collection: string;
-    tokenId: string;
-}
+import { BaseEntity } from 'typeorm';
 export declare class Sale extends BaseEntity {
     txHash: string;
     logIdx: number;
     orderHash: string;
-    item: SaleItem;
+    collection: string;
+    tokenId: string;
     amount: string;
     from: string;
     to: string;
@@ -15,4 +12,3 @@ export declare class Sale extends BaseEntity {
     currency: string;
     timestamp: Date;
 }
-export {};

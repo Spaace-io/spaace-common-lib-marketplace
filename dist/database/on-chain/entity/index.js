@@ -17,5 +17,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./LatestBlock.entity"), exports);
 __exportStar(require("./Collection.entity"), exports);
 __exportStar(require("./Item.entity"), exports);
-__exportStar(require("./Sale.entity"), exports);
 //# sourceMappingURL=index.js.map

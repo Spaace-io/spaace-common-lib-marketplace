@@ -56,6 +56,8 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)({ default: () => 'CURRENT_TIMESTAMP' }),
+    (0, typeorm_1.Index)('transfers_timestamp_idx') // Required for TimescaleDB's create_hypertable
+    ,
     __metadata("design:type", Date)
 ], Transfer.prototype, "timestamp", void 0);
 Transfer = __decorate([

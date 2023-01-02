@@ -1,15 +1,5 @@
-import { Field, ObjectType } from "@nestjs/graphql";
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
-import { Item } from "./Item.entity";
-
-@ObjectType()
-class SaleItem {
-    @Field()
-    collection!: string;
-
-    @Field()
-    tokenId!: string;
-}
+import { Field, ObjectType } from '@nestjs/graphql';
+import { BaseEntity, Column, Entity, Index, PrimaryColumn } from 'typeorm';
 
 @ObjectType()
 @Entity({ name: 'sales' })
@@ -27,13 +17,11 @@ export class Sale extends BaseEntity {
     @Column('char', { length: 64 })
     orderHash!: string;
 
-    @Field(() => SaleItem)
-    @ManyToOne(() => Item)
-    @JoinColumn([
-        { name: 'collection', referencedColumnName: 'collection' },
-        { name: 'tokenId', referencedColumnName: 'tokenId' },
-    ])
-    item!: SaleItem;
+    @PrimaryColumn()
+    collection!: string;
+
+    @PrimaryColumn()
+    tokenId!: string;
 
     @Field()
     @Column('numeric', { precision: 78, unsigned: true, default: '1' })
@@ -56,7 +44,8 @@ export class Sale extends BaseEntity {
     currency!: string;
 
     @Field()
-    @Column({ default: () => 'CURRENT_TIMESTAMP' })
+    @PrimaryColumn({ default: () => 'CURRENT_TIMESTAMP' })
+    @Index('sales_timestamp_idx') // Required for TimescaleDB's create_hypertable
     timestamp!: Date;
 
 }
