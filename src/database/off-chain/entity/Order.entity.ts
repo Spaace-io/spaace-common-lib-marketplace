@@ -1,6 +1,5 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
-import { User } from "..";
+import { BaseEntity, Column, Entity, PrimaryColumn } from "typeorm";
 
 @ObjectType()
 @Entity({ name: 'orders' })
@@ -8,11 +7,10 @@ export class Order extends BaseEntity {
 
     @Field()
     @PrimaryColumn('char', { length: 64 })
-    orderHash!: string;
+    hash!: string;
 
     @Field()
-    @ManyToOne(() => User)
-    @JoinColumn({ name: 'user', referencedColumnName: 'address' })
+    @Column('char', { length: 40 })
     user!: string;
 
     @Field()
@@ -21,7 +19,7 @@ export class Order extends BaseEntity {
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    item?: string;
+    tokenId?: string;
 
     @Field()
     @Column()

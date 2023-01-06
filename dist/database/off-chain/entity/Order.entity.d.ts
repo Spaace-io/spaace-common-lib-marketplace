@@ -1,9 +1,9 @@
 import { BaseEntity } from "typeorm";
 export declare class Order extends BaseEntity {
-    orderHash: string;
+    hash: string;
     user: string;
     collection: string;
-    item?: string;
+    tokenId?: string;
     isAsk: boolean;
     price: string;
     currency: string;

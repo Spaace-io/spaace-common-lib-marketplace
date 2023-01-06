@@ -12,18 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Order = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-const __1 = require("..");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
-], Order.prototype, "orderHash", void 0);
+], Order.prototype, "hash", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.ManyToOne)(() => __1.User),
-    (0, typeorm_1.JoinColumn)({ name: 'user', referencedColumnName: 'address' }),
+    (0, typeorm_1.Column)('char', { length: 40 }),
     __metadata("design:type", String)
 ], Order.prototype, "user", void 0);
 __decorate([
@@ -35,7 +33,7 @@ __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
-], Order.prototype, "item", void 0);
+], Order.prototype, "tokenId", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)(),
