@@ -31,7 +31,7 @@ export class Transfer extends BaseEntity {
 
     @Field()
     @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-    item!: string;
+    tokenId!: string;
 
     @Field()
     @Column('numeric', { precision: 78, unsigned: true, default: '1' })

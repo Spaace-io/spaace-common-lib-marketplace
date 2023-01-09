@@ -47,7 +47,7 @@ __decorate([
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", String)
-], Transfer.prototype, "item", void 0);
+], Transfer.prototype, "tokenId", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),
