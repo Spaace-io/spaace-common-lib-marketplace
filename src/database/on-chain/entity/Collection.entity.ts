@@ -1,6 +1,6 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { BaseEntity, Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
-import { Item, Order } from '../..';
+import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import { Order } from '../..';
 
 export enum CollectionType {
     ERC721 = 'ERC721',
@@ -124,19 +124,11 @@ export class Collection extends BaseEntity {
     @Column({ nullable: true })
     deployer?: string;
 
-    @Field(() => [Item], { nullable: true })
-    @OneToMany(() => Item, (item) => item.collection)
-    items?: Item[];
-
-    // DB only columns
-
+    @Field(() => [CollectionAttribute], { nullable: true })
     @Column('jsonb', { nullable: true })
-    abi?: object[];
+    attributes?: CollectionAttribute[];
 
     // GraphQL only fields
-
-    @Field(() => [CollectionAttribute], { nullable: true })
-    attributes?: CollectionAttribute[];
 
     @Field({ nullable: true })
     buyNow?: Order;

@@ -164,16 +164,8 @@ __decorate([
     __metadata("design:type", String)
 ], Collection.prototype, "deployer", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [__1.Item], { nullable: true }),
-    (0, typeorm_1.OneToMany)(() => __1.Item, (item) => item.collection),
-    __metadata("design:type", Array)
-], Collection.prototype, "items", void 0);
-__decorate([
-    (0, typeorm_1.Column)('jsonb', { nullable: true }),
-    __metadata("design:type", Array)
-], Collection.prototype, "abi", void 0);
-__decorate([
     (0, graphql_1.Field)(() => [CollectionAttribute], { nullable: true }),
+    (0, typeorm_1.Column)('jsonb', { nullable: true }),
     __metadata("design:type", Array)
 ], Collection.prototype, "attributes", void 0);
 __decorate([

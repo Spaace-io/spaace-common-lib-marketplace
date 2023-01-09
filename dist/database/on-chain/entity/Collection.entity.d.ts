@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-import { Item, Order } from '../..';
+import { Order } from '../..';
 export declare enum CollectionType {
     ERC721 = "ERC721",
     ERC1155 = "ERC1155"
@@ -38,8 +38,6 @@ export declare class Collection extends BaseEntity {
     totalSupply?: string;
     deployedAt?: Date;
     deployer?: string;
-    items?: Item[];
-    abi?: object[];
     attributes?: CollectionAttribute[];
     buyNow?: Order;
     sellNow?: Order;
