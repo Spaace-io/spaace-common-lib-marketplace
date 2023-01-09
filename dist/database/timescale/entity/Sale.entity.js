@@ -30,10 +30,12 @@ __decorate([
     __metadata("design:type", String)
 ], Sale.prototype, "orderHash", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", String)
 ], Sale.prototype, "collection", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", String)
 ], Sale.prototype, "tokenId", void 0);

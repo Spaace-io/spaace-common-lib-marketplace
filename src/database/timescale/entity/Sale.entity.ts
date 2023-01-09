@@ -17,9 +17,11 @@ export class Sale extends BaseEntity {
     @Column('char', { length: 64 })
     orderHash!: string;
 
+    @Field()
     @PrimaryColumn()
     collection!: string;
 
+    @Field()
     @PrimaryColumn()
     tokenId!: string;
 

@@ -1,4 +1,4 @@
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 import { Order } from '../..';
 
@@ -20,8 +20,8 @@ export class CollectionAttribute {
     @Field()
     type!: string;
 
-    @Field()
-    count!: string;
+    @Field(() => Int)
+    count!: number;
 
 }
 
@@ -29,25 +29,25 @@ export class CollectionAttribute {
 export class CollectionVolume {
 
     @Field()
-    volume24h!: number;
+    volume24h!: string;
 
     @Field()
-    change24h!: number;
+    change24h!: string;
 
     @Field()
-    volume7d!: number;
+    volume7d!: string;
 
     @Field()
-    change7d!: number;
+    change7d!: string;
 
     @Field()
-    volume30d!: number;
+    volume30d!: string;
 
     @Field()
-    change30d!: number;
+    change30d!: string;
 
     @Field()
-    volume!: number;
+    volume!: string;
 
 }
 
@@ -55,16 +55,16 @@ export class CollectionVolume {
 export class CollectionFloor {
 
     @Field()
-    floorPrice!: number;
+    floorPrice!: string;
 
     @Field()
-    floorChange24h!: number;
+    floorChange24h!: string;
 
     @Field()
-    floorChange7d!: number;
+    floorChange7d!: string;
 
     @Field()
-    floorChange30d!: number;
+    floorChange30d!: string;
 
 }
 
@@ -130,14 +130,14 @@ export class Collection extends BaseEntity {
 
     // GraphQL only fields
 
-    @Field({ nullable: true })
+    @Field(() => Order, { nullable: true })
     buyNow?: Order;
 
-    @Field({ nullable: true })
+    @Field(() => Order, { nullable: true })
     sellNow?: Order;
 
-    @Field({ nullable: true })
-    ownerCount?: string;
+    @Field(() => Int, { nullable: true })
+    ownerCount?: number;
 
     @Field({ nullable: true })
     volume?: CollectionVolume;

@@ -7,22 +7,22 @@ export declare enum CollectionType {
 export declare class CollectionAttribute {
     trait: string;
     type: string;
-    count: string;
+    count: number;
 }
 export declare class CollectionVolume {
-    volume24h: number;
-    change24h: number;
-    volume7d: number;
-    change7d: number;
-    volume30d: number;
-    change30d: number;
-    volume: number;
+    volume24h: string;
+    change24h: string;
+    volume7d: string;
+    change7d: string;
+    volume30d: string;
+    change30d: string;
+    volume: string;
 }
 export declare class CollectionFloor {
-    floorPrice: number;
-    floorChange24h: number;
-    floorChange7d: number;
-    floorChange30d: number;
+    floorPrice: string;
+    floorChange24h: string;
+    floorChange7d: string;
+    floorChange30d: string;
 }
 export declare class Collection extends BaseEntity {
     address: string;
@@ -41,7 +41,7 @@ export declare class Collection extends BaseEntity {
     attributes?: CollectionAttribute[];
     buyNow?: Order;
     sellNow?: Order;
-    ownerCount?: string;
+    ownerCount?: number;
     volume?: CollectionVolume;
     floor?: CollectionFloor;
 }
