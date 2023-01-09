@@ -13,6 +13,7 @@ exports.Item = exports.ItemMedia = exports.ItemAttribute = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const __1 = require("..");
+const __2 = require("../..");
 let ItemAttribute = class ItemAttribute {
 };
 __decorate([
@@ -85,6 +86,14 @@ __decorate([
     (0, typeorm_1.Column)('jsonb', { nullable: true }),
     __metadata("design:type", Array)
 ], Item.prototype, "medias", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => __2.Order, { nullable: true }),
+    __metadata("design:type", __2.Order)
+], Item.prototype, "buyNow", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => __2.Order, { nullable: true }),
+    __metadata("design:type", __2.Order)
+], Item.prototype, "sellNow", void 0);
 Item = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'items' })

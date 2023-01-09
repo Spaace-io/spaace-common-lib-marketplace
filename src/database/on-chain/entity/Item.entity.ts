@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Collection } from '..';
+import { Order } from '../..';
 
 @ObjectType()
 export class ItemAttribute {
@@ -60,5 +61,13 @@ export class Item extends BaseEntity {
   @Field(() => [ItemMedia], { defaultValue: [] })
   @Column('jsonb', { nullable: true })
   medias?: ItemMedia[];
+
+  // GraphQL only fields
+
+  @Field(() => Order, { nullable: true })
+  buyNow?: Order;
+
+  @Field(() => Order, { nullable: true })
+  sellNow?: Order;
 
 }
