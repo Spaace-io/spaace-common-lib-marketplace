@@ -113,10 +113,6 @@ export class Collection extends BaseEntity {
     description?: string;
 
     @Field({ nullable: true })
-    @Column('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
-    totalSupply?: string;
-
-    @Field({ nullable: true })
     @Column({ nullable: true })
     deployedAt?: Date;
 
@@ -130,14 +126,17 @@ export class Collection extends BaseEntity {
 
     // GraphQL only fields
 
+    @Field({ nullable: true })
+    totalSupply?: string;
+
+    @Field(() => Int, { nullable: true })
+    ownerCount?: number;
+
     @Field(() => Order, { nullable: true })
     buyNow?: Order;
 
     @Field(() => Order, { nullable: true })
     sellNow?: Order;
-
-    @Field(() => Int, { nullable: true })
-    ownerCount?: number;
 
     @Field({ nullable: true })
     volume?: CollectionVolume;

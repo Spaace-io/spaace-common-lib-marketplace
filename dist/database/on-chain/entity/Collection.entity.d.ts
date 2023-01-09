@@ -35,13 +35,13 @@ export declare class Collection extends BaseEntity {
     explicit: boolean;
     bannerUrl?: string;
     description?: string;
-    totalSupply?: string;
     deployedAt?: Date;
     deployer?: string;
     attributes?: CollectionAttribute[];
+    totalSupply?: string;
+    ownerCount?: number;
     buyNow?: Order;
     sellNow?: Order;
-    ownerCount?: number;
     volume?: CollectionVolume;
     floor?: CollectionFloor;
 }

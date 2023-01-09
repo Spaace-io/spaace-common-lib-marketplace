@@ -149,12 +149,6 @@ __decorate([
 ], Collection.prototype, "description", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
-    ,
-    __metadata("design:type", String)
-], Collection.prototype, "totalSupply", void 0);
-__decorate([
-    (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Date)
 ], Collection.prototype, "deployedAt", void 0);
@@ -169,6 +163,14 @@ __decorate([
     __metadata("design:type", Array)
 ], Collection.prototype, "attributes", void 0);
 __decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], Collection.prototype, "totalSupply", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => graphql_1.Int, { nullable: true }),
+    __metadata("design:type", Number)
+], Collection.prototype, "ownerCount", void 0);
+__decorate([
     (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
     __metadata("design:type", __1.Order)
 ], Collection.prototype, "buyNow", void 0);
@@ -176,10 +178,6 @@ __decorate([
     (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
     __metadata("design:type", __1.Order)
 ], Collection.prototype, "sellNow", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => graphql_1.Int, { nullable: true }),
-    __metadata("design:type", Number)
-], Collection.prototype, "ownerCount", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", CollectionVolume)
