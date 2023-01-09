@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Collection = exports.CollectionFloor = exports.CollectionVolume = exports.CollectionAttribute = exports.CollectionType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-const Item_entity_1 = require("./Item.entity");
+const __1 = require("../..");
 var CollectionType;
 (function (CollectionType) {
     CollectionType["ERC721"] = "ERC721";
@@ -164,8 +164,8 @@ __decorate([
     __metadata("design:type", String)
 ], Collection.prototype, "deployer", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [Item_entity_1.Item], { nullable: true }),
-    (0, typeorm_1.OneToMany)(() => Item_entity_1.Item, (item) => item.collection),
+    (0, graphql_1.Field)(() => [__1.Item], { nullable: true }),
+    (0, typeorm_1.OneToMany)(() => __1.Item, (item) => item.collection),
     __metadata("design:type", Array)
 ], Collection.prototype, "items", void 0);
 __decorate([
@@ -178,8 +178,12 @@ __decorate([
 ], Collection.prototype, "attributes", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
-    __metadata("design:type", String)
-], Collection.prototype, "highestOffer", void 0);
+    __metadata("design:type", __1.Order)
+], Collection.prototype, "buyNow", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", __1.Order)
+], Collection.prototype, "sellNow", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)

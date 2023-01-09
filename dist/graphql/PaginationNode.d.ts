@@ -1,2 +1,2 @@
-import { Collection, Item, Order, Transfer } from '..';
-export declare const PaginationNode: Item | Transfer | Collection | Order;
+import { Collection, Item, Order, Sale, Transfer } from '..';
+export declare const PaginationNode: Collection | Item | Order | Transfer | Sale;

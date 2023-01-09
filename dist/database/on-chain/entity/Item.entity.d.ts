@@ -1,5 +1,4 @@
 import { BaseEntity } from 'typeorm';
-import { Event } from '../../..';
 export declare class ItemAttribute {
     trait: string;
     value: string;
@@ -15,7 +14,6 @@ export declare class Item extends BaseEntity {
     title?: string;
     description?: string;
     tokenUri?: string;
-    attributes?: object[];
-    medias?: object[];
-    events?: typeof Event[];
+    attributes?: ItemAttribute[];
+    medias?: ItemMedia[];
 }

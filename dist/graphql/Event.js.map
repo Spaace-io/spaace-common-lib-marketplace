@@ -1,1 +1,1 @@
-{"version":3,"file":"Event.js","sourceRoot":"","sources":["../../src/graphql/Event.ts"],"names":[],"mappings":";;;AAAA,6CAAkD;AAClD,0BAA8B;AAEjB,QAAA,KAAK,GAAG,IAAA,yBAAe,EAAC;IACjC,IAAI,EAAE,OAAO;IACb,KAAK,EAAE,GAAG,EAAE,CAAC,CAAC,YAAQ,CAAC;CAC1B,CAAC,CAAC"}
+{"version":3,"file":"Event.js","sourceRoot":"","sources":["../../src/graphql/Event.ts"],"names":[],"mappings":";;;AAAA,6CAAkD;AAClD,0BAA2C;AAE9B,QAAA,KAAK,GAAG,IAAA,yBAAe,EAAC;IACjC,IAAI,EAAE,OAAO;IACb,KAAK,EAAE,GAAG,EAAE,CAAC,CAAC,YAAQ,EAAE,SAAK,EAAE,QAAI,CAAC;CACvC,CAAC,CAAC"}

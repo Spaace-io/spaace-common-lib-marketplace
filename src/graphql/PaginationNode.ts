@@ -1,7 +1,7 @@
 import { createUnionType } from '@nestjs/graphql';
-import { Collection, Item, Order, Transfer } from '..';
+import { Collection, Item, Order, Sale, Transfer } from '..';
 
 export const PaginationNode = createUnionType({
     name: 'PaginationNode',
-    types: () => [Collection, Item, Order, Transfer],
+    types: () => [Collection, Item, Order, Sale, Transfer],
 });
