@@ -29,6 +29,17 @@ export class ItemMedia {
 }
 
 @ObjectType()
+export class ItemRarity {
+
+  @Field()
+  ranking!: number;
+
+  @Field()
+  score!: number;
+
+}
+
+@ObjectType()
 @Entity({ name: 'items' })
 export class Item extends BaseEntity {
 
@@ -61,6 +72,10 @@ export class Item extends BaseEntity {
   @Field(() => [ItemMedia], { defaultValue: [] })
   @Column('jsonb', { nullable: true })
   medias?: ItemMedia[];
+
+  @Field(() => ItemRarity, { nullable: true })
+  @Column('jsonb', { nullable: true })
+  rarity?: ItemRarity;
 
   // GraphQL only fields
 

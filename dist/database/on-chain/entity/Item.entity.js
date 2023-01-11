@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Item = exports.ItemMedia = exports.ItemAttribute = void 0;
+exports.Item = exports.ItemRarity = exports.ItemMedia = exports.ItemAttribute = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const __1 = require("..");
@@ -46,6 +46,20 @@ ItemMedia = __decorate([
     (0, graphql_1.ObjectType)()
 ], ItemMedia);
 exports.ItemMedia = ItemMedia;
+let ItemRarity = class ItemRarity {
+};
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], ItemRarity.prototype, "ranking", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], ItemRarity.prototype, "score", void 0);
+ItemRarity = __decorate([
+    (0, graphql_1.ObjectType)()
+], ItemRarity);
+exports.ItemRarity = ItemRarity;
 let Item = class Item extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -86,6 +100,11 @@ __decorate([
     (0, typeorm_1.Column)('jsonb', { nullable: true }),
     __metadata("design:type", Array)
 ], Item.prototype, "medias", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => ItemRarity, { nullable: true }),
+    (0, typeorm_1.Column)('jsonb', { nullable: true }),
+    __metadata("design:type", ItemRarity)
+], Item.prototype, "rarity", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __2.Order, { nullable: true }),
     __metadata("design:type", __2.Order)
