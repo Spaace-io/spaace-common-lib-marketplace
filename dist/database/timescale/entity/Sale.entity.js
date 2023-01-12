@@ -31,7 +31,7 @@ __decorate([
 ], Sale.prototype, "orderHash", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.PrimaryColumn)(),
+    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     __metadata("design:type", String)
 ], Sale.prototype, "collection", void 0);
 __decorate([
@@ -63,7 +63,7 @@ __decorate([
 ], Sale.prototype, "price", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('char', { length: 40 }),
     __metadata("design:type", String)
 ], Sale.prototype, "currency", void 0);
 __decorate([

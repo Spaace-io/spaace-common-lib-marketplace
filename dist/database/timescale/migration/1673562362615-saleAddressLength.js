@@ -9,21 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.saleTokenId1673558238452 = void 0;
-class saleTokenId1673558238452 {
+exports.saleAddressLength1673562362615 = void 0;
+class saleAddressLength1673562362615 {
     constructor() {
-        this.name = 'saleTokenId1673558238452';
+        this.name = 'saleAddressLength1673562362615';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "sales" ALTER COLUMN "tokenId" TYPE numeric(78) USING "tokenId"::numeric(78)`);
+            yield queryRunner.query(`ALTER TABLE "sales" ALTER COLUMN "collection" TYPE character(40)`);
+            yield queryRunner.query(`ALTER TABLE "sales" ALTER COLUMN "currency" TYPE character(40)`);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "sales" ALTER COLUMN "tokenId" TYPE character varying`);
+            yield queryRunner.query(`ALTER TABLE "sales" ALTER COLUMN "collection" TYPE character varying`);
+            yield queryRunner.query(`ALTER TABLE "sales" ALTER COLUMN "currency" TYPE character varying`);
         });
     }
 }
-exports.saleTokenId1673558238452 = saleTokenId1673558238452;
-//# sourceMappingURL=1673558238452-saleTokenId.js.map
+exports.saleAddressLength1673562362615 = saleAddressLength1673562362615;
+//# sourceMappingURL=1673562362615-saleAddressLength.js.map

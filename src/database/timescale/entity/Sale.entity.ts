@@ -18,7 +18,7 @@ export class Sale extends BaseEntity {
     orderHash!: string;
 
     @Field()
-    @PrimaryColumn()
+    @PrimaryColumn('char', { length: 40 })
     collection!: string;
 
     @Field()
@@ -42,7 +42,7 @@ export class Sale extends BaseEntity {
     price!: string;
 
     @Field()
-    @Column()
+    @Column('char', { length: 40 })
     currency!: string;
 
     @Field()
