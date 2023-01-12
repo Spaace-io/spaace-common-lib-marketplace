@@ -22,7 +22,7 @@ export class Sale extends BaseEntity {
     collection!: string;
 
     @Field()
-    @PrimaryColumn()
+    @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     tokenId!: string;
 
     @Field()

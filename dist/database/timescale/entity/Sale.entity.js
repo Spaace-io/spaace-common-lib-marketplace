@@ -36,7 +36,8 @@ __decorate([
 ], Sale.prototype, "collection", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.PrimaryColumn)(),
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    ,
     __metadata("design:type", String)
 ], Sale.prototype, "tokenId", void 0);
 __decorate([
