@@ -106,6 +106,15 @@ __decorate([
     __metadata("design:type", ItemRarity)
 ], Item.prototype, "rarity", void 0);
 __decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Date)
+], Item.prototype, "lastImport", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => __1.CollectionType),
+    __metadata("design:type", String)
+], Item.prototype, "type", void 0);
+__decorate([
     (0, graphql_1.Field)(() => __2.Order, { nullable: true }),
     __metadata("design:type", __2.Order)
 ], Item.prototype, "buyNow", void 0);

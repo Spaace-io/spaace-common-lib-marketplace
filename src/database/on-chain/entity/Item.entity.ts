@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
-import { Collection } from '..';
+import { Collection, CollectionType } from '..';
 import { Order } from '../..';
 
 @ObjectType()
@@ -77,7 +77,14 @@ export class Item extends BaseEntity {
   @Column('jsonb', { nullable: true })
   rarity?: ItemRarity;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  lastImport?: Date;
+
   // GraphQL only fields
+
+  @Field(() => CollectionType)
+  type?: CollectionType;
 
   @Field(() => Order, { nullable: true })
   buyNow?: Order;

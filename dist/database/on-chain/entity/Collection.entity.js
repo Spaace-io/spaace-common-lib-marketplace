@@ -163,6 +163,16 @@ __decorate([
     __metadata("design:type", Array)
 ], Collection.prototype, "attributes", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)({ default: false }),
+    __metadata("design:type", Boolean)
+], Collection.prototype, "importItems", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Date)
+], Collection.prototype, "lastImport", void 0);
+__decorate([
     (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
 ], Collection.prototype, "totalSupply", void 0);

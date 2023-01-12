@@ -38,6 +38,8 @@ export declare class Collection extends BaseEntity {
     deployedAt?: Date;
     deployer?: string;
     attributes?: CollectionAttribute[];
+    importItems: boolean;
+    lastImport?: Date;
     totalSupply?: string;
     ownerCount?: number;
     buyNow?: Order;

@@ -1,4 +1,5 @@
 import { BaseEntity } from 'typeorm';
+import { CollectionType } from '..';
 import { Order } from '../..';
 export declare class ItemAttribute {
     trait: string;
@@ -22,6 +23,8 @@ export declare class Item extends BaseEntity {
     attributes?: ItemAttribute[];
     medias?: ItemMedia[];
     rarity?: ItemRarity;
+    lastImport?: Date;
+    type?: CollectionType;
     buyNow?: Order;
     sellNow?: Order;
 }
