@@ -124,13 +124,14 @@ export class Collection extends BaseEntity {
     @Column('jsonb', { nullable: true })
     attributes?: CollectionAttribute[];
 
-    @Field()
-    @Column({ default: false })
-    importItems!: boolean;
-
     @Field({ nullable: true })
     @Column({ nullable: true })
     lastImport?: Date;
+
+    // Database only fields
+
+    @Column({ default: false })
+    importItems!: boolean;
 
     // GraphQL only fields
 
