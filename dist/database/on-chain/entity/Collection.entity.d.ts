@@ -7,7 +7,7 @@ export declare enum CollectionType {
 export declare class CollectionAttribute {
     trait: string;
     value: string;
-    count: number;
+    count: string;
 }
 export declare class CollectionVolume {
     volume24h: string;
@@ -41,7 +41,7 @@ export declare class Collection extends BaseEntity {
     lastImport?: Date;
     importItems: boolean;
     totalSupply?: string;
-    ownerCount?: number;
+    ownerCount?: string;
     buyNow?: Order;
     sellNow?: Order;
     volume?: CollectionVolume;

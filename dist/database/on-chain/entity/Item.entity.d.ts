@@ -11,8 +11,8 @@ export declare class ItemMedia {
     gateway: string;
 }
 export declare class ItemRarity {
-    ranking: number;
-    score: number;
+    ranking: string;
+    score: string;
 }
 export declare class Item extends BaseEntity {
     collection: string;

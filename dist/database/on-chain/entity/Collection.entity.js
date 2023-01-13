@@ -32,8 +32,8 @@ __decorate([
     __metadata("design:type", String)
 ], CollectionAttribute.prototype, "value", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => graphql_1.Int),
-    __metadata("design:type", Number)
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
 ], CollectionAttribute.prototype, "count", void 0);
 CollectionAttribute = __decorate([
     (0, graphql_1.ObjectType)()
@@ -176,8 +176,8 @@ __decorate([
     __metadata("design:type", String)
 ], Collection.prototype, "totalSupply", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => graphql_1.Int, { nullable: true }),
-    __metadata("design:type", Number)
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
 ], Collection.prototype, "ownerCount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __1.Order, { nullable: true }),

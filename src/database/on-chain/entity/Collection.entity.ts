@@ -20,8 +20,8 @@ export class CollectionAttribute {
     @Field()
     value!: string;
 
-    @Field(() => Int)
-    count!: number;
+    @Field()
+    count!: string;
 
 }
 
@@ -138,8 +138,8 @@ export class Collection extends BaseEntity {
     @Field({ nullable: true })
     totalSupply?: string;
 
-    @Field(() => Int, { nullable: true })
-    ownerCount?: number;
+    @Field({ nullable: true })
+    ownerCount?: string;
 
     @Field(() => Order, { nullable: true })
     buyNow?: Order;

@@ -50,11 +50,11 @@ let ItemRarity = class ItemRarity {
 };
 __decorate([
     (0, graphql_1.Field)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], ItemRarity.prototype, "ranking", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], ItemRarity.prototype, "score", void 0);
 ItemRarity = __decorate([
     (0, graphql_1.ObjectType)()
@@ -91,12 +91,12 @@ __decorate([
     __metadata("design:type", String)
 ], Item.prototype, "tokenUri", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [ItemAttribute], { defaultValue: [] }),
+    (0, graphql_1.Field)(() => [ItemAttribute], { nullable: true }),
     (0, typeorm_1.Column)('jsonb', { nullable: true }),
     __metadata("design:type", Array)
 ], Item.prototype, "attributes", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [ItemMedia], { defaultValue: [] }),
+    (0, graphql_1.Field)(() => [ItemMedia], { nullable: true }),
     (0, typeorm_1.Column)('jsonb', { nullable: true }),
     __metadata("design:type", Array)
 ], Item.prototype, "medias", void 0);

@@ -32,10 +32,10 @@ export class ItemMedia {
 export class ItemRarity {
 
   @Field()
-  ranking!: number;
+  ranking!: string;
 
   @Field()
-  score!: number;
+  score!: string;
 
 }
 
@@ -65,11 +65,11 @@ export class Item extends BaseEntity {
   @Column({ nullable: true })
   tokenUri?: string;
 
-  @Field(() => [ItemAttribute], { defaultValue: [] })
+  @Field(() => [ItemAttribute], { nullable: true })
   @Column('jsonb', { nullable: true })
   attributes?: ItemAttribute[];
 
-  @Field(() => [ItemMedia], { defaultValue: [] })
+  @Field(() => [ItemMedia], { nullable: true })
   @Column('jsonb', { nullable: true })
   medias?: ItemMedia[];
 
