@@ -18,7 +18,7 @@ export class CollectionAttribute {
     trait!: string;
 
     @Field()
-    type!: string;
+    value!: string;
 
     @Field(() => Int)
     count!: number;

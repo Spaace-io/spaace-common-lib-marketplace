@@ -6,7 +6,7 @@ export declare enum CollectionType {
 }
 export declare class CollectionAttribute {
     trait: string;
-    type: string;
+    value: string;
     count: number;
 }
 export declare class CollectionVolume {

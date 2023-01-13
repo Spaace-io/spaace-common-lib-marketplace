@@ -30,7 +30,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
-], CollectionAttribute.prototype, "type", void 0);
+], CollectionAttribute.prototype, "value", void 0);
 __decorate([
     (0, graphql_1.Field)(() => graphql_1.Int),
     __metadata("design:type", Number)
