@@ -19,7 +19,7 @@ export declare class CollectionVolume {
     volume: string;
 }
 export declare class CollectionFloor {
-    floorPrice: string;
+    floorPrice?: string;
     floorChange24h: string;
     floorChange7d: string;
     floorChange30d: string;

@@ -76,7 +76,7 @@ exports.CollectionVolume = CollectionVolume;
 let CollectionFloor = class CollectionFloor {
 };
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
 ], CollectionFloor.prototype, "floorPrice", void 0);
 __decorate([

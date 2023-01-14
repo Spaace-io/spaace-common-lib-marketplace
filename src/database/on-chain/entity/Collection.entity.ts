@@ -54,8 +54,8 @@ export class CollectionVolume {
 @ObjectType()
 export class CollectionFloor {
 
-    @Field()
-    floorPrice!: string;
+    @Field({ nullable: true })
+    floorPrice?: string;
 
     @Field()
     floorChange24h!: string;
