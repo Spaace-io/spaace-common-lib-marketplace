@@ -36,7 +36,7 @@ exports.TimescaleDatabase = new typeorm_1.DataSource({
     synchronize: false,
     migrationsRun: true,
     logging: false,
-    entities: [__dirname + '/entity/**.entity{.js,.ts}'],
+    entities: [__dirname + '/entity/**{.entity,.view}{.js,.ts}'],
     migrations: [__dirname + '/migration/*{.js,.ts}'],
     subscribers: [],
 });

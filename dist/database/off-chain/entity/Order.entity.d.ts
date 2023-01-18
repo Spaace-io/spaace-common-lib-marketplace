@@ -1,4 +1,4 @@
-import { BaseEntity } from "typeorm";
+import { BaseEntity } from 'typeorm';
 export declare class Order extends BaseEntity {
     hash: string;
     user: string;
