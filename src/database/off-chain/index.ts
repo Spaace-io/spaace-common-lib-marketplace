@@ -10,19 +10,19 @@ const database = process.env.OFF_CHAIN_DB_DATABASE;
 const schema = process.env.OFF_CHAIN_DB_SCHEMA;
 
 export const OffChainDatabase = new DataSource({
-    type: 'postgres',
-    host,
-    port,
-    username,
-    password,
-    database,
-    schema,
-    synchronize: false,
-    migrationsRun: true,
-    logging: false,
-    entities: [__dirname + '/entity/**.entity{.js,.ts}'],
-    migrations: [__dirname + '/migration/*{.js,.ts}'],
-    subscribers: [],
+  type: 'postgres',
+  host,
+  port,
+  username,
+  password,
+  database,
+  schema,
+  synchronize: false,
+  migrationsRun: true,
+  logging: false,
+  entities: [__dirname + '/entity/**.entity{.js,.ts}'],
+  migrations: [__dirname + '/migration/*{.js,.ts}'],
+  subscribers: [],
 });
 
 export * from './entity';

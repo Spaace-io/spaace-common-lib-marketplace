@@ -1,22 +1,26 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 import { Collection, CollectionType } from '..';
 import { Order } from '../..';
 
 @ObjectType()
 export class ItemAttribute {
-
   @Field()
   trait!: string;
 
   @Field()
   value!: string;
-
 }
 
 @ObjectType()
 export class ItemMedia {
-
   @Field()
   raw!: string;
 
@@ -25,24 +29,20 @@ export class ItemMedia {
 
   @Field()
   gateway!: string;
-
 }
 
 @ObjectType()
 export class ItemRarity {
-
   @Field()
   ranking!: string;
 
   @Field()
   score!: string;
-
 }
 
 @ObjectType()
 @Entity({ name: 'items' })
 export class Item extends BaseEntity {
-
   @Field()
   @PrimaryColumn()
   @ManyToOne(() => Collection)
@@ -91,5 +91,4 @@ export class Item extends BaseEntity {
 
   @Field(() => Order, { nullable: true })
   sellNow?: Order;
-
 }
