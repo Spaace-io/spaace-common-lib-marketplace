@@ -10,7 +10,7 @@ import { Sale } from '..';
       .select('"collection"')
       .addSelect('"currency"')
       .addSelect('time_bucket(INTERVAL \'1 day\', "timestamp") AS "bucket"')
-      .addSelect('SUM("amount")', 'amount')
+      .addSelect('SUM("price")', 'volume')
       .groupBy('"collection"')
       .addGroupBy('"currency"')
       .addGroupBy('"bucket"');
@@ -27,5 +27,5 @@ export class Volume24h extends BaseEntity {
   bucket!: Date;
 
   @ViewColumn()
-  amount!: string;
+  volume!: string;
 }

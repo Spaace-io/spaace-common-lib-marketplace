@@ -5,7 +5,7 @@ export class volume24h1674040208953 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE MATERIALIZED VIEW "volume24h" WITH (timescaledb.continuous) AS SELECT "collection", "currency", time_bucket(INTERVAL '1 day', "timestamp") AS "bucket", SUM("amount") AS "amount" FROM "sales" "sale" GROUP BY "collection", "currency", "bucket" WITH NO DATA`,
+      `CREATE MATERIALIZED VIEW "volume24h" WITH (timescaledb.continuous) AS SELECT "collection", "currency", time_bucket(INTERVAL '1 day', "timestamp") AS "bucket", SUM("price") AS "volume" FROM "sales" "sale" GROUP BY "collection", "currency", "bucket" WITH NO DATA`,
     );
     await queryRunner.query(
       `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
@@ -13,7 +13,7 @@ export class volume24h1674040208953 implements MigrationInterface {
         'public',
         'MATERIALIZED_VIEW',
         'volume24h',
-        'SELECT "collection", "currency", time_bucket(INTERVAL \'1 day\', "timestamp") AS "bucket", SUM("amount") AS "amount" FROM "sales" "sale" GROUP BY "collection", "currency", "bucket"',
+        'SELECT "collection", "currency", time_bucket(INTERVAL \'1 day\', "timestamp") AS "bucket", SUM("price") AS "volume" FROM "sales" "sale" GROUP BY "collection", "currency", "bucket"',
       ],
     );
   }

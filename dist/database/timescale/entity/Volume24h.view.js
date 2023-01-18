@@ -29,7 +29,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Volume24h.prototype, "amount", void 0);
+], Volume24h.prototype, "volume", void 0);
 Volume24h = __decorate([
     (0, typeorm_1.ViewEntity)({
         materialized: true,
@@ -40,7 +40,7 @@ Volume24h = __decorate([
                 .select('"collection"')
                 .addSelect('"currency"')
                 .addSelect('time_bucket(INTERVAL \'1 day\', "timestamp") AS "bucket"')
-                .addSelect('SUM("amount")', 'amount')
+                .addSelect('SUM("price")', 'volume')
                 .groupBy('"collection"')
                 .addGroupBy('"currency"')
                 .addGroupBy('"bucket"');

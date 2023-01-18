@@ -3,5 +3,5 @@ export declare class Volume24h extends BaseEntity {
     collection: string;
     currency: string;
     bucket: Date;
-    amount: string;
+    volume: string;
 }
