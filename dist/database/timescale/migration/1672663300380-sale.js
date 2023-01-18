@@ -17,7 +17,7 @@ class sale1672663300380 {
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
             yield queryRunner.query(`CREATE TABLE "sales" ("txHash" character(64) NOT NULL, "logIdx" integer NOT NULL, "orderHash" character(64) NOT NULL, "collection" character varying NOT NULL, "tokenId" character varying NOT NULL, "amount" numeric(78) NOT NULL DEFAULT '1', "from" character(40) NOT NULL, "to" character(40) NOT NULL, "price" numeric(78) NOT NULL, "currency" character varying NOT NULL, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_ac5eeb91eb3fc340e8348ec230d" PRIMARY KEY ("txHash", "logIdx", "collection", "tokenId", "timestamp"))`);
-            yield queryRunner.query(`SELECT create_hypertable('sales', 'timestamp');`);
+            yield queryRunner.query(`SELECT create_hypertable('sales', 'timestamp')`);
         });
     }
     down(queryRunner) {

@@ -17,4 +17,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./Transfer.entity"), exports);
 __exportStar(require("./Sale.entity"), exports);
 __exportStar(require("./Volume24h.view"), exports);
+__exportStar(require("./Volume7d.view"), exports);
+__exportStar(require("./Volume30d.view"), exports);
 //# sourceMappingURL=index.js.map

@@ -9,14 +9,14 @@ import { Sale } from '..';
       .from(Sale, 'sale')
       .select('"collection"')
       .addSelect('"currency"')
-      .addSelect('time_bucket(INTERVAL \'7 days\', "timestamp") AS "bucket"')
+      .addSelect('time_bucket(INTERVAL \'30 days\', "timestamp") AS "bucket"')
       .addSelect('SUM("price")', 'volume')
       .groupBy('"collection"')
       .addGroupBy('"currency"')
       .addGroupBy('"bucket"');
   },
 })
-export class Volume7d extends BaseEntity {
+export class Volume30d extends BaseEntity {
   @ViewColumn()
   collection!: string;
 

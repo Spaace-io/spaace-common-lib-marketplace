@@ -18,7 +18,7 @@ class hypertable1672419222346 {
         return __awaiter(this, void 0, void 0, function* () {
             yield queryRunner.query(`ALTER TABLE "transfers" DROP CONSTRAINT "PK_8014320111bae3fc011967a73de"`);
             yield queryRunner.query(`ALTER TABLE "transfers" ADD CONSTRAINT "PK_391afc4e8fd540698f989c14d2b" PRIMARY KEY ("txHash", "logIdx", "from", "to", "collection", "item", "timestamp")`);
-            yield queryRunner.query(`SELECT create_hypertable('transfers', 'timestamp');`);
+            yield queryRunner.query(`SELECT create_hypertable('transfers', 'timestamp')`);
         });
     }
     down(queryRunner) {

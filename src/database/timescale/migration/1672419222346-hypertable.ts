@@ -11,7 +11,7 @@ export class hypertable1672419222346 implements MigrationInterface {
       `ALTER TABLE "transfers" ADD CONSTRAINT "PK_391afc4e8fd540698f989c14d2b" PRIMARY KEY ("txHash", "logIdx", "from", "to", "collection", "item", "timestamp")`,
     );
     await queryRunner.query(
-      `SELECT create_hypertable('transfers', 'timestamp');`,
+      `SELECT create_hypertable('transfers', 'timestamp')`,
     );
   }
 

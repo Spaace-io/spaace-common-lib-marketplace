@@ -9,28 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Volume7d = void 0;
+exports.Volume30d = void 0;
 const typeorm_1 = require("typeorm");
 const __1 = require("..");
-let Volume7d = class Volume7d extends typeorm_1.BaseEntity {
+let Volume30d = class Volume30d extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Volume7d.prototype, "collection", void 0);
+], Volume30d.prototype, "collection", void 0);
 __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Volume7d.prototype, "currency", void 0);
+], Volume30d.prototype, "currency", void 0);
 __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
-], Volume7d.prototype, "bucket", void 0);
+], Volume30d.prototype, "bucket", void 0);
 __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Volume7d.prototype, "volume", void 0);
-Volume7d = __decorate([
+], Volume30d.prototype, "volume", void 0);
+Volume30d = __decorate([
     (0, typeorm_1.ViewEntity)({
         materialized: true,
         expression: (dataSource) => {
@@ -39,13 +39,13 @@ Volume7d = __decorate([
                 .from(__1.Sale, 'sale')
                 .select('"collection"')
                 .addSelect('"currency"')
-                .addSelect('time_bucket(INTERVAL \'7 days\', "timestamp") AS "bucket"')
+                .addSelect('time_bucket(INTERVAL \'30 days\', "timestamp") AS "bucket"')
                 .addSelect('SUM("price")', 'volume')
                 .groupBy('"collection"')
                 .addGroupBy('"currency"')
                 .addGroupBy('"bucket"');
         },
     })
-], Volume7d);
-exports.Volume7d = Volume7d;
-//# sourceMappingURL=Volume7d.view.js.map
+], Volume30d);
+exports.Volume30d = Volume30d;
+//# sourceMappingURL=Volume30d.view.js.map
