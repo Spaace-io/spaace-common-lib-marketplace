@@ -19,4 +19,6 @@ __exportStar(require("./Sale.entity"), exports);
 __exportStar(require("./Volume24h.view"), exports);
 __exportStar(require("./Volume7d.view"), exports);
 __exportStar(require("./Volume30d.view"), exports);
+__exportStar(require("./Balance.view"), exports);
+__exportStar(require("./LastRefresh.entity"), exports);
 //# sourceMappingURL=index.js.map
