@@ -23,7 +23,6 @@ export declare class Collection extends BaseEntity {
     deployedAt?: Date;
     deployer?: string;
     attributes?: CollectionAttribute[];
-    lastImport?: Date;
     volume24h: string;
     change24h: string;
     volume7d: string;
@@ -35,9 +34,10 @@ export declare class Collection extends BaseEntity {
     floorChange24h: string;
     floorChange7d: string;
     floorChange30d: string;
+    totalSupply: string;
+    ownerCount: string;
+    lastImport?: Date;
     importItems: boolean;
-    totalSupply?: string;
-    ownerCount?: string;
     buyNow?: Order;
     sellNow?: Order;
 }

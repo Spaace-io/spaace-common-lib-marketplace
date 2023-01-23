@@ -107,11 +107,6 @@ __decorate([
     __metadata("design:type", Array)
 ], Collection.prototype, "attributes", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", Date)
-], Collection.prototype, "lastImport", void 0);
-__decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
     ,
@@ -168,17 +163,24 @@ __decorate([
     __metadata("design:type", String)
 ], Collection.prototype, "floorChange30d", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: false }),
-    __metadata("design:type", Boolean)
-], Collection.prototype, "importItems", void 0);
-__decorate([
-    (0, graphql_1.Field)({ nullable: true }),
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
 ], Collection.prototype, "totalSupply", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
 ], Collection.prototype, "ownerCount", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Date)
+], Collection.prototype, "lastImport", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: false }),
+    __metadata("design:type", Boolean)
+], Collection.prototype, "importItems", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
     __metadata("design:type", __1.Order)

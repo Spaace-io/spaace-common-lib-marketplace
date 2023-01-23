@@ -10,10 +10,6 @@ export declare class ItemMedia {
     thumbnail: string;
     gateway: string;
 }
-export declare class ItemRarity {
-    ranking: string;
-    score: string;
-}
 export declare class Item extends BaseEntity {
     collection: string;
     tokenId: string;
@@ -22,7 +18,8 @@ export declare class Item extends BaseEntity {
     tokenUri?: string;
     attributes?: ItemAttribute[];
     medias?: ItemMedia[];
-    rarity?: ItemRarity;
+    ranking?: string;
+    score?: string;
     lastImport?: Date;
     type?: CollectionType;
     buyNow?: Order;

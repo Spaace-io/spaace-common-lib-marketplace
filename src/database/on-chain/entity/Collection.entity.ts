@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 import { Order } from '../..';
 
@@ -78,10 +78,6 @@ export class Collection extends BaseEntity {
   @Column('jsonb', { nullable: true })
   attributes?: CollectionAttribute[];
 
-  @Field({ nullable: true })
-  @Column({ nullable: true })
-  lastImport?: Date;
-
   @Field()
   @Column('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
   volume24h!: string;
@@ -126,18 +122,24 @@ export class Collection extends BaseEntity {
   @Column('numeric', { precision: 78, default: '0' })
   floorChange30d!: string;
 
+  @Field()
+  @Column('numeric', { precision: 78, default: '0' })
+  totalSupply!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, default: '0' })
+  ownerCount!: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  lastImport?: Date;
+
   // Database only fields
 
   @Column({ default: false })
   importItems!: boolean;
 
   // GraphQL only fields
-
-  @Field({ nullable: true })
-  totalSupply?: string;
-
-  @Field({ nullable: true })
-  ownerCount?: string;
 
   @Field(() => Order, { nullable: true })
   buyNow?: Order;
