@@ -24,7 +24,7 @@ __decorate([
 ], Volume7d.prototype, "currency", void 0);
 __decorate([
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", Date)
+    __metadata("design:type", Number)
 ], Volume7d.prototype, "bucket", void 0);
 __decorate([
     (0, typeorm_1.ViewColumn)(),
@@ -32,15 +32,15 @@ __decorate([
 ], Volume7d.prototype, "volume", void 0);
 Volume7d = __decorate([
     (0, typeorm_1.ViewEntity)({
-        materialized: true,
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
                 .from(__1.Sale, 'sale')
                 .select('"collection"')
                 .addSelect('"currency"')
-                .addSelect('time_bucket(INTERVAL \'7 days\', "timestamp") AS "bucket"')
+                .addSelect('FLOOR(EXTRACT(EPOCH FROM NOW() - "timestamp") / (7 * 24 * 60 * 60))', 'bucket')
                 .addSelect('SUM("price")', 'volume')
+                .where('"timestamp" > NOW() - INTERVAL \'14 days\'')
                 .groupBy('"collection"')
                 .addGroupBy('"currency"')
                 .addGroupBy('"bucket"');
