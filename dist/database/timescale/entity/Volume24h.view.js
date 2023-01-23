@@ -24,7 +24,7 @@ __decorate([
 ], Volume24h.prototype, "currency", void 0);
 __decorate([
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", Date)
+    __metadata("design:type", Number)
 ], Volume24h.prototype, "bucket", void 0);
 __decorate([
     (0, typeorm_1.ViewColumn)(),
@@ -32,15 +32,15 @@ __decorate([
 ], Volume24h.prototype, "volume", void 0);
 Volume24h = __decorate([
     (0, typeorm_1.ViewEntity)({
-        materialized: true,
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
                 .from(__1.Sale, 'sale')
                 .select('"collection"')
                 .addSelect('"currency"')
-                .addSelect('time_bucket(INTERVAL \'1 day\', "timestamp") AS "bucket"')
+                .addSelect('FLOOR(EXTRACT(EPOCH FROM NOW() - "timestamp") / (24 * 60 * 60))', 'bucket')
                 .addSelect('SUM("price")', 'volume')
+                .where('"timestamp" > NOW() - INTERVAL \'2 days\'')
                 .groupBy('"collection"')
                 .addGroupBy('"currency"')
                 .addGroupBy('"bucket"');

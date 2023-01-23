@@ -24,49 +24,10 @@ export class CollectionAttribute {
 }
 
 @ObjectType()
-export class CollectionVolume {
-  @Field()
-  volume24h!: string;
-
-  @Field()
-  change24h!: string;
-
-  @Field()
-  volume7d!: string;
-
-  @Field()
-  change7d!: string;
-
-  @Field()
-  volume30d!: string;
-
-  @Field()
-  change30d!: string;
-
-  @Field()
-  volume!: string;
-}
-
-@ObjectType()
-export class CollectionFloor {
-  @Field({ nullable: true })
-  floorPrice?: string;
-
-  @Field()
-  floorChange24h!: string;
-
-  @Field()
-  floorChange7d!: string;
-
-  @Field()
-  floorChange30d!: string;
-}
-
-@ObjectType()
 @Entity({ name: 'collections' })
 export class Collection extends BaseEntity {
   @Field()
-  @PrimaryColumn()
+  @PrimaryColumn('char', { length: 40 })
   address!: string;
 
   @Field(() => CollectionType)
@@ -110,7 +71,7 @@ export class Collection extends BaseEntity {
   deployedAt?: Date;
 
   @Field({ nullable: true })
-  @Column({ nullable: true })
+  @Column('char', { length: 40, nullable: true })
   deployer?: string;
 
   @Field(() => [CollectionAttribute], { nullable: true })
@@ -120,6 +81,50 @@ export class Collection extends BaseEntity {
   @Field({ nullable: true })
   @Column({ nullable: true })
   lastImport?: Date;
+
+  @Field()
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
+  volume24h!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, default: '0' })
+  change24h!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  volume7d!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, default: '0' })
+  change7d!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  volume30d!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, default: '0' })
+  change30d!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  volume!: string;
+
+  @Field({ nullable: true })
+  @Column('numeric', { precision: 78, unsigned: true, nullable: true })
+  floorPrice?: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, default: '0' })
+  floorChange24h!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, default: '0' })
+  floorChange7d!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, default: '0' })
+  floorChange30d!: string;
 
   // Database only fields
 
@@ -139,10 +144,4 @@ export class Collection extends BaseEntity {
 
   @Field(() => Order, { nullable: true })
   sellNow?: Order;
-
-  @Field({ nullable: true })
-  volume?: CollectionVolume;
-
-  @Field({ nullable: true })
-  floor?: CollectionFloor;
 }

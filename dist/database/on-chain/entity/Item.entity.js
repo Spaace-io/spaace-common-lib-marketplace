@@ -64,7 +64,7 @@ let Item = class Item extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.PrimaryColumn)(),
+    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => __1.Collection),
     (0, typeorm_1.JoinColumn)({ name: 'collection', referencedColumnName: 'address' }),
     __metadata("design:type", String)

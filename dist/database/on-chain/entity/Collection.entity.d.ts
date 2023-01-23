@@ -9,21 +9,6 @@ export declare class CollectionAttribute {
     value: string;
     count: string;
 }
-export declare class CollectionVolume {
-    volume24h: string;
-    change24h: string;
-    volume7d: string;
-    change7d: string;
-    volume30d: string;
-    change30d: string;
-    volume: string;
-}
-export declare class CollectionFloor {
-    floorPrice?: string;
-    floorChange24h: string;
-    floorChange7d: string;
-    floorChange30d: string;
-}
 export declare class Collection extends BaseEntity {
     address: string;
     type: CollectionType;
@@ -39,11 +24,20 @@ export declare class Collection extends BaseEntity {
     deployer?: string;
     attributes?: CollectionAttribute[];
     lastImport?: Date;
+    volume24h: string;
+    change24h: string;
+    volume7d: string;
+    change7d: string;
+    volume30d: string;
+    change30d: string;
+    volume: string;
+    floorPrice?: string;
+    floorChange24h: string;
+    floorChange7d: string;
+    floorChange30d: string;
     importItems: boolean;
     totalSupply?: string;
     ownerCount?: string;
     buyNow?: Order;
     sellNow?: Order;
-    volume?: CollectionVolume;
-    floor?: CollectionFloor;
 }

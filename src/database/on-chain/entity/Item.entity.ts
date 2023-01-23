@@ -44,7 +44,7 @@ export class ItemRarity {
 @Entity({ name: 'items' })
 export class Item extends BaseEntity {
   @Field()
-  @PrimaryColumn()
+  @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => Collection)
   @JoinColumn({ name: 'collection', referencedColumnName: 'address' })
   collection!: string;
