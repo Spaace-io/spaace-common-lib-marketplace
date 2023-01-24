@@ -18,8 +18,8 @@ export declare class Item extends BaseEntity {
     tokenUri?: string;
     attributes?: ItemAttribute[];
     medias?: ItemMedia[];
-    ranking?: string;
-    score?: string;
+    rarityRanking?: string;
+    rarityScore?: string;
     lastImport?: Date;
     type?: CollectionType;
     buyNow?: Order;

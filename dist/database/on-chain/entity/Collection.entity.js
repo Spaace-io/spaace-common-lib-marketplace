@@ -116,7 +116,7 @@ __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
-], Collection.prototype, "change24h", void 0);
+], Collection.prototype, "volumeChange24h", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
@@ -126,7 +126,7 @@ __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
-], Collection.prototype, "change7d", void 0);
+], Collection.prototype, "volumeChange7d", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
@@ -136,7 +136,7 @@ __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
-], Collection.prototype, "change30d", void 0);
+], Collection.prototype, "volumeChange30d", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),

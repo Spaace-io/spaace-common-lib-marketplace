@@ -19,14 +19,14 @@ class supply1674498421496 {
             yield queryRunner.query(`ALTER TABLE "items" DROP COLUMN "rarity"`);
             yield queryRunner.query(`ALTER TABLE "collections" ADD "totalSupply" numeric(78) NOT NULL DEFAULT '0'`);
             yield queryRunner.query(`ALTER TABLE "collections" ADD "ownerCount" numeric(78) NOT NULL DEFAULT '0'`);
-            yield queryRunner.query(`ALTER TABLE "items" ADD "ranking" numeric(78)`);
-            yield queryRunner.query(`ALTER TABLE "items" ADD "score" numeric(19)`);
+            yield queryRunner.query(`ALTER TABLE "items" ADD "rarityRanking" numeric(78)`);
+            yield queryRunner.query(`ALTER TABLE "items" ADD "rarityScore" numeric(19)`);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "items" DROP COLUMN "score"`);
-            yield queryRunner.query(`ALTER TABLE "items" DROP COLUMN "ranking"`);
+            yield queryRunner.query(`ALTER TABLE "items" DROP COLUMN "rarityScore"`);
+            yield queryRunner.query(`ALTER TABLE "items" DROP COLUMN "rarityRanking"`);
             yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "ownerCount"`);
             yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "totalSupply"`);
             yield queryRunner.query(`ALTER TABLE "items" ADD "rarity" jsonb`);

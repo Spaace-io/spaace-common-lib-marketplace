@@ -8,19 +8,19 @@ export class volumes1674476945779 implements MigrationInterface {
       `ALTER TABLE "collections" ADD "volume24h" numeric(78) NOT NULL DEFAULT '0'`,
     );
     await queryRunner.query(
-      `ALTER TABLE "collections" ADD "change24h" numeric(78) NOT NULL DEFAULT '0'`,
+      `ALTER TABLE "collections" ADD "volumeChange24h" numeric(78) NOT NULL DEFAULT '0'`,
     );
     await queryRunner.query(
       `ALTER TABLE "collections" ADD "volume7d" numeric(78) NOT NULL DEFAULT '0'`,
     );
     await queryRunner.query(
-      `ALTER TABLE "collections" ADD "change7d" numeric(78) NOT NULL DEFAULT '0'`,
+      `ALTER TABLE "collections" ADD "volumeChange7d" numeric(78) NOT NULL DEFAULT '0'`,
     );
     await queryRunner.query(
       `ALTER TABLE "collections" ADD "volume30d" numeric(78) NOT NULL DEFAULT '0'`,
     );
     await queryRunner.query(
-      `ALTER TABLE "collections" ADD "change30d" numeric(78) NOT NULL DEFAULT '0'`,
+      `ALTER TABLE "collections" ADD "volumeChange30d" numeric(78) NOT NULL DEFAULT '0'`,
     );
     await queryRunner.query(
       `ALTER TABLE "collections" ADD "volume" numeric(78) NOT NULL DEFAULT '0'`,
@@ -108,15 +108,17 @@ export class volumes1674476945779 implements MigrationInterface {
     );
     await queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "volume"`);
     await queryRunner.query(
-      `ALTER TABLE "collections" DROP COLUMN "change30d"`,
+      `ALTER TABLE "collections" DROP COLUMN "volumeChange30d"`,
     );
     await queryRunner.query(
       `ALTER TABLE "collections" DROP COLUMN "volume30d"`,
     );
-    await queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "change7d"`);
+    await queryRunner.query(
+      `ALTER TABLE "collections" DROP COLUMN "volumeChange7d"`,
+    );
     await queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "volume7d"`);
     await queryRunner.query(
-      `ALTER TABLE "collections" DROP COLUMN "change24h"`,
+      `ALTER TABLE "collections" DROP COLUMN "volumeChange24h"`,
     );
     await queryRunner.query(
       `ALTER TABLE "collections" DROP COLUMN "volume24h"`,

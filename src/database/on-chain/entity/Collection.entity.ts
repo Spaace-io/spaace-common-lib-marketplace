@@ -84,7 +84,7 @@ export class Collection extends BaseEntity {
 
   @Field()
   @Column('numeric', { precision: 78, default: '0' })
-  change24h!: string;
+  volumeChange24h!: string;
 
   @Field()
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
@@ -92,7 +92,7 @@ export class Collection extends BaseEntity {
 
   @Field()
   @Column('numeric', { precision: 78, default: '0' })
-  change7d!: string;
+  volumeChange7d!: string;
 
   @Field()
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
@@ -100,7 +100,7 @@ export class Collection extends BaseEntity {
 
   @Field()
   @Column('numeric', { precision: 78, default: '0' })
-  change30d!: string;
+  volumeChange30d!: string;
 
   @Field()
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })

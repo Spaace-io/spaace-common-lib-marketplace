@@ -66,11 +66,11 @@ export class Item extends BaseEntity {
 
   @Field(() => Int, { nullable: true })
   @Column('numeric', { precision: 78, unsigned: true, nullable: true })
-  ranking?: string;
+  rarityRanking?: string;
 
   @Field(() => Int, { nullable: true })
   @Column('numeric', { precision: 19, unsigned: true, nullable: true })
-  score?: string;
+  rarityScore?: string;
 
   @Field({ nullable: true })
   @Column({ nullable: true })

@@ -24,11 +24,11 @@ export declare class Collection extends BaseEntity {
     deployer?: string;
     attributes?: CollectionAttribute[];
     volume24h: string;
-    change24h: string;
+    volumeChange24h: string;
     volume7d: string;
-    change7d: string;
+    volumeChange7d: string;
     volume30d: string;
-    change30d: string;
+    volumeChange30d: string;
     volume: string;
     floorPrice?: string;
     floorChange24h: string;

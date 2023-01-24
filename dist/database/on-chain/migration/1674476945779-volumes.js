@@ -17,11 +17,11 @@ class volumes1674476945779 {
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
             yield queryRunner.query(`ALTER TABLE "collections" ADD "volume24h" numeric(78) NOT NULL DEFAULT '0'`);
-            yield queryRunner.query(`ALTER TABLE "collections" ADD "change24h" numeric(78) NOT NULL DEFAULT '0'`);
+            yield queryRunner.query(`ALTER TABLE "collections" ADD "volumeChange24h" numeric(78) NOT NULL DEFAULT '0'`);
             yield queryRunner.query(`ALTER TABLE "collections" ADD "volume7d" numeric(78) NOT NULL DEFAULT '0'`);
-            yield queryRunner.query(`ALTER TABLE "collections" ADD "change7d" numeric(78) NOT NULL DEFAULT '0'`);
+            yield queryRunner.query(`ALTER TABLE "collections" ADD "volumeChange7d" numeric(78) NOT NULL DEFAULT '0'`);
             yield queryRunner.query(`ALTER TABLE "collections" ADD "volume30d" numeric(78) NOT NULL DEFAULT '0'`);
-            yield queryRunner.query(`ALTER TABLE "collections" ADD "change30d" numeric(78) NOT NULL DEFAULT '0'`);
+            yield queryRunner.query(`ALTER TABLE "collections" ADD "volumeChange30d" numeric(78) NOT NULL DEFAULT '0'`);
             yield queryRunner.query(`ALTER TABLE "collections" ADD "volume" numeric(78) NOT NULL DEFAULT '0'`);
             yield queryRunner.query(`ALTER TABLE "collections" ADD "floorPrice" numeric(78)`);
             yield queryRunner.query(`ALTER TABLE "collections" ADD "floorChange24h" numeric(78) NOT NULL DEFAULT '0'`);
@@ -54,11 +54,11 @@ class volumes1674476945779 {
             yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "floorChange24h"`);
             yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "floorPrice"`);
             yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "volume"`);
-            yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "change30d"`);
+            yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "volumeChange30d"`);
             yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "volume30d"`);
-            yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "change7d"`);
+            yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "volumeChange7d"`);
             yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "volume7d"`);
-            yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "change24h"`);
+            yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "volumeChange24h"`);
             yield queryRunner.query(`ALTER TABLE "collections" DROP COLUMN "volume24h"`);
         });
     }
