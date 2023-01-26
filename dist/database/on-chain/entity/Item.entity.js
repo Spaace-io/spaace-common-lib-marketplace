@@ -87,12 +87,12 @@ __decorate([
     __metadata("design:type", Array)
 ], Item.prototype, "medias", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => graphql_1.Int, { nullable: true }),
+    (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
     __metadata("design:type", String)
 ], Item.prototype, "rarityRanking", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => graphql_1.Int, { nullable: true }),
+    (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)('numeric', { precision: 19, unsigned: true, nullable: true }),
     __metadata("design:type", String)
 ], Item.prototype, "rarityScore", void 0);

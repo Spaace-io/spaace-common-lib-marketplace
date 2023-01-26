@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   BaseEntity,
   Column,
@@ -64,11 +64,11 @@ export class Item extends BaseEntity {
   @Column('jsonb', { nullable: true })
   medias?: ItemMedia[];
 
-  @Field(() => Int, { nullable: true })
+  @Field({ nullable: true })
   @Column('numeric', { precision: 78, unsigned: true, nullable: true })
   rarityRanking?: string;
 
-  @Field(() => Int, { nullable: true })
+  @Field({ nullable: true })
   @Column('numeric', { precision: 19, unsigned: true, nullable: true })
   rarityScore?: string;
 
