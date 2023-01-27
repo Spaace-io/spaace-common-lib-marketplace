@@ -12,15 +12,21 @@ registerEnumType(CollectionType, {
 });
 
 @ObjectType()
-export class CollectionAttribute {
-  @Field()
-  trait!: string;
-
+export class CollectionAttributeValue {
   @Field()
   value!: string;
 
   @Field()
   count!: string;
+}
+
+@ObjectType()
+export class CollectionAttribute {
+  @Field()
+  trait!: string;
+
+  @Field(() => [CollectionAttributeValue])
+  values!: CollectionAttributeValue[];
 }
 
 @ObjectType()

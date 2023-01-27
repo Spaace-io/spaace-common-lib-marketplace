@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Collection = exports.CollectionAttribute = exports.CollectionType = void 0;
+exports.Collection = exports.CollectionAttribute = exports.CollectionAttributeValue = exports.CollectionType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const __1 = require("../..");
@@ -21,6 +21,20 @@ var CollectionType;
 (0, graphql_1.registerEnumType)(CollectionType, {
     name: 'CollectionType',
 });
+let CollectionAttributeValue = class CollectionAttributeValue {
+};
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CollectionAttributeValue.prototype, "value", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CollectionAttributeValue.prototype, "count", void 0);
+CollectionAttributeValue = __decorate([
+    (0, graphql_1.ObjectType)()
+], CollectionAttributeValue);
+exports.CollectionAttributeValue = CollectionAttributeValue;
 let CollectionAttribute = class CollectionAttribute {
 };
 __decorate([
@@ -28,13 +42,9 @@ __decorate([
     __metadata("design:type", String)
 ], CollectionAttribute.prototype, "trait", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
-    __metadata("design:type", String)
-], CollectionAttribute.prototype, "value", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    __metadata("design:type", String)
-], CollectionAttribute.prototype, "count", void 0);
+    (0, graphql_1.Field)(() => [CollectionAttributeValue]),
+    __metadata("design:type", Array)
+], CollectionAttribute.prototype, "values", void 0);
 CollectionAttribute = __decorate([
     (0, graphql_1.ObjectType)()
 ], CollectionAttribute);

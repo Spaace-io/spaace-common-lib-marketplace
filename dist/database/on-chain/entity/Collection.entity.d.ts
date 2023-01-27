@@ -4,10 +4,13 @@ export declare enum CollectionType {
     ERC721 = "ERC721",
     ERC1155 = "ERC1155"
 }
-export declare class CollectionAttribute {
-    trait: string;
+export declare class CollectionAttributeValue {
     value: string;
     count: string;
+}
+export declare class CollectionAttribute {
+    trait: string;
+    values: CollectionAttributeValue[];
 }
 export declare class Collection extends BaseEntity {
     address: string;
