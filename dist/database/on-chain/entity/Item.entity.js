@@ -18,14 +18,34 @@ let ItemAttribute = class ItemAttribute {
 };
 __decorate([
     (0, graphql_1.Field)(),
+    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
+    (0, typeorm_1.ManyToOne)(() => Item),
+    (0, typeorm_1.JoinColumn)([
+        { name: 'collection', referencedColumnName: 'collection' },
+        { name: 'tokenId', referencedColumnName: 'tokenId' },
+    ]),
+    __metadata("design:type", String)
+], ItemAttribute.prototype, "collection", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    ,
+    __metadata("design:type", String)
+], ItemAttribute.prototype, "tokenId", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('text'),
+    (0, typeorm_1.Unique)(['collection', 'tokenId', 'trait']),
     __metadata("design:type", String)
 ], ItemAttribute.prototype, "trait", void 0);
 __decorate([
     (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], ItemAttribute.prototype, "value", void 0);
 ItemAttribute = __decorate([
-    (0, graphql_1.ObjectType)()
+    (0, graphql_1.ObjectType)(),
+    (0, typeorm_1.Entity)({ name: 'item_attributes' })
 ], ItemAttribute);
 exports.ItemAttribute = ItemAttribute;
 let ItemMedia = class ItemMedia {
@@ -77,11 +97,6 @@ __decorate([
     __metadata("design:type", String)
 ], Item.prototype, "tokenUri", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [ItemAttribute], { nullable: true }),
-    (0, typeorm_1.Column)('jsonb', { nullable: true }),
-    __metadata("design:type", Array)
-], Item.prototype, "attributes", void 0);
-__decorate([
     (0, graphql_1.Field)(() => [ItemMedia], { nullable: true }),
     (0, typeorm_1.Column)('jsonb', { nullable: true }),
     __metadata("design:type", Array)
@@ -101,6 +116,11 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Date)
 ], Item.prototype, "lastImport", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [ItemAttribute], { nullable: true }),
+    (0, typeorm_1.OneToMany)(() => ItemAttribute, (attribute) => [attribute.collection, attribute.tokenId]),
+    __metadata("design:type", Array)
+], Item.prototype, "attributes", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __1.CollectionType),
     __metadata("design:type", String)

@@ -11,7 +11,6 @@ import { Item } from './Item.entity';
 
 // Primary key = (txHash, logIdx, from, to, collection, item, timestamp)
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
-// Timestamp is required to be in all unique keys, including the primary one, by TimescaleDB
 
 @ObjectType()
 @Entity({ name: 'transfers' })

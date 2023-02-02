@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-export declare class volume7d1674495942148 implements MigrationInterface {
+export declare class itemAttributes1675359942694 implements MigrationInterface {
     name: string;
     up(queryRunner: QueryRunner): Promise<void>;
     down(queryRunner: QueryRunner): Promise<void>;
