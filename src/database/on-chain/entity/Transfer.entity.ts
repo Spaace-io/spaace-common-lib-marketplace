@@ -1,5 +1,13 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity, Column, Entity, Index, PrimaryColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
+import { Item } from './Item.entity';
 
 // Primary key = (txHash, logIdx, from, to, collection, item, timestamp)
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
@@ -26,6 +34,11 @@ export class Transfer extends BaseEntity {
 
   @Field()
   @PrimaryColumn('char', { length: 40 })
+  @ManyToOne(() => Item)
+  @JoinColumn([
+    { name: 'collection', referencedColumnName: 'collection' },
+    { name: 'tokenId', referencedColumnName: 'tokenId' },
+  ])
   collection!: string;
 
   @Field()
@@ -37,7 +50,6 @@ export class Transfer extends BaseEntity {
   amount!: string;
 
   @Field()
-  @PrimaryColumn({ default: () => 'CURRENT_TIMESTAMP' })
-  @Index('transfers_timestamp_idx') // Required for TimescaleDB's create_hypertable
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
 }
