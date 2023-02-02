@@ -5,17 +5,36 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
+  Unique,
 } from 'typeorm';
 import { Collection, CollectionType } from '..';
 import { Order } from '../..';
 
 @ObjectType()
+@Entity({ name: 'item_attributes' })
 export class ItemAttribute {
   @Field()
+  @PrimaryColumn('char', { length: 40 })
+  @ManyToOne(() => Item)
+  @JoinColumn([
+    { name: 'collection', referencedColumnName: 'collection' },
+    { name: 'tokenId', referencedColumnName: 'tokenId' },
+  ])
+  collection!: string;
+
+  @Field()
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  tokenId!: string;
+
+  @Field()
+  @Column('text')
+  @Unique(['collection', 'tokenId', 'trait'])
   trait!: string;
 
   @Field()
+  @Column('text')
   value!: string;
 }
 
@@ -56,10 +75,6 @@ export class Item extends BaseEntity {
   @Column({ nullable: true })
   tokenUri?: string;
 
-  @Field(() => [ItemAttribute], { nullable: true })
-  @Column('jsonb', { nullable: true })
-  attributes?: ItemAttribute[];
-
   @Field(() => [ItemMedia], { nullable: true })
   @Column('jsonb', { nullable: true })
   medias?: ItemMedia[];
@@ -75,6 +90,13 @@ export class Item extends BaseEntity {
   @Field({ nullable: true })
   @Column({ nullable: true })
   lastImport?: Date;
+
+  @Field(() => [ItemAttribute], { nullable: true })
+  @OneToMany(
+    () => ItemAttribute,
+    (attribute) => [attribute.collection, attribute.tokenId],
+  )
+  attributes?: ItemAttribute[];
 
   // GraphQL only fields
 
