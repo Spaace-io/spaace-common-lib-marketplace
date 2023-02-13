@@ -7,14 +7,13 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryColumn,
-  Unique,
 } from 'typeorm';
 import { Collection, CollectionType } from '..';
 import { Order } from '../..';
 
 @ObjectType()
 @Entity({ name: 'item_attributes' })
-export class ItemAttribute {
+export class ItemAttribute extends BaseEntity {
   @Field()
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => Item)
@@ -29,8 +28,7 @@ export class ItemAttribute {
   tokenId!: string;
 
   @Field()
-  @Column('text')
-  @Unique(['collection', 'tokenId', 'trait'])
+  @PrimaryColumn('text')
   trait!: string;
 
   @Field()

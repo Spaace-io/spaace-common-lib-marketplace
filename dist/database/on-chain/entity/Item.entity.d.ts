@@ -1,7 +1,7 @@
 import { BaseEntity } from 'typeorm';
 import { CollectionType } from '..';
 import { Order } from '../..';
-export declare class ItemAttribute {
+export declare class ItemAttribute extends BaseEntity {
     collection: string;
     tokenId: string;
     trait: string;

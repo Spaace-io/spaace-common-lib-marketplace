@@ -14,7 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const __1 = require("..");
 const __2 = require("../..");
-let ItemAttribute = class ItemAttribute {
+let ItemAttribute = class ItemAttribute extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(),
@@ -34,8 +34,7 @@ __decorate([
 ], ItemAttribute.prototype, "tokenId", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)('text'),
-    (0, typeorm_1.Unique)(['collection', 'tokenId', 'trait']),
+    (0, typeorm_1.PrimaryColumn)('text'),
     __metadata("design:type", String)
 ], ItemAttribute.prototype, "trait", void 0);
 __decorate([
