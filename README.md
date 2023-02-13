@@ -51,21 +51,15 @@ npm i git+ssh://git@git.era2140.tech/Staake/common-lib.git#dev
 
 Because this repository contains the TypeORM database entities, it must also contain migrations for the on-chain and off-chain databases.
 
-To automatically generate migrations, first make sure the `dist` folder is up to date with:
+To automatically generate migrations, use the TypeORM CLI through the provided NPM scripts with:
 
 ```sh
-npm run build
-```
-
-Then, use the TypeORM CLI to generate the migrations in the correct folder by running:
-
-```sh
-npx typeorm migration:generate -d dist/database/on-chain src/database/on-chain/migration/<name>
+npm run migration:generate:on-chain --name=<name>
 # OR
-npx typeorm migration:generate -d dist/database/off-chain src/database/off-chain/migration/<name>
+npm run migration:generate:off-chain --name=<name>
 ```
 
-Finally, before commiting, update the `dist` folder again to add migrations with:
+Finally, before commiting, update the `dist` folder to add the migrations by running:
 
 ```sh
 npm run build
