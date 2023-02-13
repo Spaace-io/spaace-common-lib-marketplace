@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Item } from './Item.entity';
 
-// Primary key = (txHash, logIdx, from, to, collection, item, timestamp)
+// Primary key = (txHash, logIdx, from, to, collection, item)
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
 
 @ObjectType()

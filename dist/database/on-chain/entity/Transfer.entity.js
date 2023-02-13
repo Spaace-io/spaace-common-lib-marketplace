@@ -13,7 +13,7 @@ exports.Transfer = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const Item_entity_1 = require("./Item.entity");
-// Primary key = (txHash, logIdx, from, to, collection, item, timestamp)
+// Primary key = (txHash, logIdx, from, to, collection, item)
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
 let Transfer = class Transfer extends typeorm_1.BaseEntity {
 };
