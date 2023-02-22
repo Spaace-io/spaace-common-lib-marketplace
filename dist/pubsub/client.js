@@ -73,16 +73,18 @@ class PubSubClient {
      * @returns Message ID or null if error
      */
     publish(topicName, data) {
-        const dataBuffer = Buffer.from(JSON.stringify(data));
-        try {
-            return this.pubsub.topic(topicName).publishMessage({
-                data: dataBuffer,
-            });
-        }
-        catch (error) {
-            console.log('Error publishing message:', error);
-            return null;
-        }
+        return __awaiter(this, void 0, void 0, function* () {
+            const dataBuffer = Buffer.from(JSON.stringify(data));
+            try {
+                return this.pubsub.topic(topicName).publishMessage({
+                    data: dataBuffer,
+                });
+            }
+            catch (error) {
+                console.log('Error publishing message:', error);
+                return null;
+            }
+        });
     }
     /**
      * Subscribe to a topic and listen for related messages
@@ -90,8 +92,10 @@ class PubSubClient {
      * @param callback - Callback function
      */
     subscribe(subscriptionName, callback) {
-        const subscription = this.pubsub.subscription(subscriptionName);
-        subscription.on('message', callback);
+        return __awaiter(this, void 0, void 0, function* () {
+            const subscription = this.pubsub.subscription(subscriptionName);
+            subscription.on('message', callback);
+        });
     }
 }
 exports.default = new PubSubClient();

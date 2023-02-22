@@ -21,13 +21,13 @@ declare class PubSubClient {
      * @param data - Data to publish
      * @returns Message ID or null if error
      */
-    publish(topicName: Topics, data: any): Promise<string> | null;
+    publish(topicName: Topics, data: any): Promise<string | null>;
     /**
      * Subscribe to a topic and listen for related messages
      * @param subscriptionName - Subscription name
      * @param callback - Callback function
      */
-    subscribe(subscriptionName: Subscriptions, callback: () => any): void;
+    subscribe(subscriptionName: Subscriptions, callback: () => any): Promise<void>;
 }
 declare const _default: PubSubClient;
 export default _default;

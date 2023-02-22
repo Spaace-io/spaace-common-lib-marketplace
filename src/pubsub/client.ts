@@ -66,7 +66,7 @@ class PubSubClient {
    * @param data - Data to publish
    * @returns Message ID or null if error
    */
-  public publish(topicName: Topics, data: any): Promise<string> | null {
+  public async publish(topicName: Topics, data: any): Promise<string | null> {
     const dataBuffer = Buffer.from(JSON.stringify(data));
     try {
       return this.pubsub.topic(topicName).publishMessage({
@@ -83,7 +83,7 @@ class PubSubClient {
    * @param subscriptionName - Subscription name
    * @param callback - Callback function
    */
-  public subscribe(subscriptionName: Subscriptions, callback: () => any) {
+  public async subscribe(subscriptionName: Subscriptions, callback: () => any) {
     const subscription = this.pubsub.subscription(subscriptionName);
     subscription.on('message', callback);
   }
