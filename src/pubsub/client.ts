@@ -9,7 +9,7 @@ class PubSubClient {
 
   constructor() {
     this.pubsub = new PubSub({
-      projectId: process.env.PUBSUB_PROJECT_ID,
+      projectId: process.env.PUBSUB_PROJECT_ID ?? 'staake',
     });
   }
 
