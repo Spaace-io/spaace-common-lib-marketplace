@@ -1,3 +1,7 @@
 import PubSubClient from './client';
 
-PubSubClient.init();
+async function main() {
+  await PubSubClient.init();
+}
+
+main();
