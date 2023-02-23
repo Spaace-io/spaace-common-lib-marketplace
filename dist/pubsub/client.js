@@ -76,9 +76,11 @@ class PubSubClient {
         return __awaiter(this, void 0, void 0, function* () {
             const dataBuffer = Buffer.from(JSON.stringify(data));
             try {
-                return this.pubsub.topic(topicName).publishMessage({
+                console.log('Publishing message:', data);
+                const messageId = this.pubsub.topic(topicName).publishMessage({
                     data: dataBuffer,
                 });
+                return messageId;
             }
             catch (error) {
                 console.log('Error publishing message:', error);

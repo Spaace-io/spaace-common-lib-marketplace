@@ -1,3 +1,4 @@
+import { Message } from '@google-cloud/pubsub';
 import { Topics, Subscriptions } from './types';
 declare class PubSubClient {
     private pubsub;
@@ -27,7 +28,7 @@ declare class PubSubClient {
      * @param subscriptionName - Subscription name
      * @param callback - Callback function
      */
-    subscribe(subscriptionName: Subscriptions, callback: () => any): Promise<void>;
+    subscribe(subscriptionName: Subscriptions, callback: (message: Message) => any): Promise<void>;
 }
 declare const _default: PubSubClient;
 export default _default;
