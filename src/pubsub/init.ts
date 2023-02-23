@@ -6,7 +6,7 @@ import { Topics } from './types';
    npm run dev:pubsub
 */
 async function main() {
-  await PubSubClient.init();
+  await PubSubClient.initialize();
   await PubSubClient.publish(Topics.EVENT, 'Hello world!');
 }
 

@@ -24,7 +24,7 @@ class PubSubClient {
      * Initialize the PubSub client.
      * Create topics and subscriptions if they don't exist.
      */
-    init() {
+    initialize() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.createTopics();
             yield this.createSubscriptions();

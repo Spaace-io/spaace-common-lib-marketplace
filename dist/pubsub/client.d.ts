@@ -7,7 +7,7 @@ declare class PubSubClient {
      * Initialize the PubSub client.
      * Create topics and subscriptions if they don't exist.
      */
-    init(): Promise<void>;
+    initialize(): Promise<void>;
     /**
      * Create topics if they don't exist
      */
