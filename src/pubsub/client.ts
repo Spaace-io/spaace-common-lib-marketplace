@@ -77,7 +77,10 @@ class PubSubClient {
    * @param data - Data to publish
    * @returns Message ID or null if error
    */
-  public async publish(topicName: Topics, data: any): Promise<string | null> {
+  public async publish<T = any>(
+    topicName: Topics,
+    data: T,
+  ): Promise<string | null> {
     const dataBuffer = Buffer.from(JSON.stringify(data));
     try {
       console.log('Publishing message:', data);

@@ -22,7 +22,7 @@ declare class PubSubClient {
      * @param data - Data to publish
      * @returns Message ID or null if error
      */
-    publish(topicName: Topics, data: any): Promise<string | null>;
+    publish<T = any>(topicName: Topics, data: T): Promise<string | null>;
     /**
      * Subscribe to a topic and listen for related messages
      * @param subscriptionName - Subscription name
