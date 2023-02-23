@@ -38,11 +38,17 @@ class PubSubClient {
             const topics = Object.values(types_1.Topics);
             for (const topic of topics) {
                 try {
-                    yield this.pubsub.createTopic(topic);
-                    console.log(`Topic ${topic} created`);
+                    const [exists] = yield this.pubsub.topic(topic).exists();
+                    if (exists) {
+                        console.log(`Topic ${topic} already exists, skipping.`);
+                    }
+                    else {
+                        yield this.pubsub.createTopic(topic);
+                        console.log(`Topic ${topic} created.`);
+                    }
                 }
                 catch (error) {
-                    console.log('Topic already exists:', topic);
+                    console.log(`Error creating topic ${topic}:`, error);
                 }
             }
         });
@@ -57,11 +63,17 @@ class PubSubClient {
             subscriptions.forEach((subscription, idx) => __awaiter(this, void 0, void 0, function* () {
                 const topic = topics[idx];
                 try {
-                    yield topic.createSubscription(subscription);
-                    console.log(`Subscription ${subscription} to topic ${topic.name} created`);
+                    const [exists] = yield topic.subscription(subscription).exists();
+                    if (exists) {
+                        console.log(`Subscription ${subscription} to topic ${topic.name} already exists, skipping.`);
+                    }
+                    else {
+                        yield topic.createSubscription(subscription);
+                        console.log(`Subscription ${subscription} to topic ${topic.name} created.`);
+                    }
                 }
                 catch (error) {
-                    console.log(`Subscription ${subscription} to topic ${topic.name} already exists`);
+                    console.log(`Error creating subscription ${subscription}:`, error);
                 }
             }));
         });

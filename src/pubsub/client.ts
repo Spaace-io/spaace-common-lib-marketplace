@@ -29,10 +29,15 @@ class PubSubClient {
     const topics = Object.values(Topics);
     for (const topic of topics) {
       try {
-        await this.pubsub.createTopic(topic);
-        console.log(`Topic ${topic} created`);
+        const [exists] = await this.pubsub.topic(topic).exists();
+        if (exists) {
+          console.log(`Topic ${topic} already exists, skipping.`);
+        } else {
+          await this.pubsub.createTopic(topic);
+          console.log(`Topic ${topic} created.`);
+        }
       } catch (error) {
-        console.log('Topic already exists:', topic);
+        console.log(`Error creating topic ${topic}:`, error);
       }
     }
   }
@@ -48,14 +53,20 @@ class PubSubClient {
       const topic = topics[idx];
 
       try {
-        await topic.createSubscription(subscription);
-        console.log(
-          `Subscription ${subscription} to topic ${topic.name} created`,
-        );
+        const [exists] = await topic.subscription(subscription).exists();
+
+        if (exists) {
+          console.log(
+            `Subscription ${subscription} to topic ${topic.name} already exists, skipping.`,
+          );
+        } else {
+          await topic.createSubscription(subscription);
+          console.log(
+            `Subscription ${subscription} to topic ${topic.name} created.`,
+          );
+        }
       } catch (error) {
-        console.log(
-          `Subscription ${subscription} to topic ${topic.name} already exists`,
-        );
+        console.log(`Error creating subscription ${subscription}:`, error);
       }
     });
   }
