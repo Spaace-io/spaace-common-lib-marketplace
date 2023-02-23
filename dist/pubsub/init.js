@@ -11,6 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("./client");
 const types_1 = require("./types");
+/* This is a test code only, for sending messages during development phase
+   Use the following command to run this code:
+   npm run dev:pubsub
+*/
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         yield client_1.default.init();
