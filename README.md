@@ -15,18 +15,25 @@ npm i git+ssh://git@git.era2140.tech/Staake/common-lib.git
 It can then be used as follows:
 
 ```typescript
-import { OnChainDatabase, OffChainDatabase } from 'staake-common-lib';
+import {
+  OnChainDatabase,
+  OffChainDatabase,
+  PubSubClient,
+} from 'staake-common-lib';
 
 await OnChainDatabase.initialize();
 await OffChainDatabase.initialize();
+await PubSubClient.initialize();
 
 // OR
 
 import { OnChainDatabase } from 'staake-common-lib/dist/database/on-chain';
 import { OffChainDatabase } from 'staake-common-lib/dist/database/off-chain';
+import { PubSubClient } from 'staake-common-lib/dist/pubsub/client';
 
 await OnChainDatabase.initialize();
 await OffChainDatabase.initialize();
+await PubSubClient.initialize();
 ```
 
 Only databases on which the service is dependendant should (and must) be initialized.
