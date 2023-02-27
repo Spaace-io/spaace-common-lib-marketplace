@@ -1,5 +1,5 @@
 import PubSubClient from './client';
-import { Topics } from './types';
+import { Events, Topics } from './types';
 
 /* This is a test code only, for sending messages during development phase
    Use the following command to run this code:
@@ -7,7 +7,10 @@ import { Topics } from './types';
 */
 async function main() {
   await PubSubClient.initialize();
-  await PubSubClient.publish(Topics.EVENT, 'Hello world!');
+  await PubSubClient.publish(Topics.EVENT, {
+    event: Events.GREETING,
+    data: 'Hello World',
+  });
 }
 
 main();

@@ -1,6 +1,6 @@
-import { PubSub, Message } from '@google-cloud/pubsub';
+import { Message, PubSub } from '@google-cloud/pubsub';
 import * as dotenv from 'dotenv';
-import { Topics, Subscriptions } from './types';
+import { Topics, Subscriptions, CustomMessageData } from './types';
 
 dotenv.config();
 
@@ -79,15 +79,14 @@ class PubSubClient {
    */
   public async publish<T = any>(
     topicName: Topics,
-    data: T,
+    data: CustomMessageData<T>,
   ): Promise<string | null> {
     const dataBuffer = Buffer.from(JSON.stringify(data));
     try {
       console.log('Publishing message:', data);
-      const messageId = this.pubsub.topic(topicName).publishMessage({
+      return this.pubsub.topic(topicName).publishMessage({
         data: dataBuffer,
       });
-      return messageId;
     } catch (error) {
       console.log('Error publishing message:', error);
       return null;
