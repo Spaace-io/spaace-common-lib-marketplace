@@ -9,7 +9,7 @@ import {
 dotenv.config();
 
 class PubSubClient {
-  private pubsub: PubSub;
+  private readonly pubsub: PubSub;
 
   constructor() {
     this.pubsub = new PubSub({
