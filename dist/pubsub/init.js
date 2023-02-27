@@ -18,8 +18,8 @@ const types_1 = require("./types");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         yield client_1.default.initialize();
-        yield client_1.default.publish(types_1.Topics.EVENT, {
-            event: types_1.Events.GREETING,
+        yield client_1.default.publish(types_1.PubSubTopics.EVENT, {
+            event: types_1.PubSubEvents.GREETING,
             data: 'Hello World',
         });
     });

@@ -35,7 +35,7 @@ class PubSubClient {
      */
     createTopics() {
         return __awaiter(this, void 0, void 0, function* () {
-            const topics = Object.values(types_1.Topics);
+            const topics = Object.values(types_1.PubSubTopics);
             for (const topic of topics) {
                 try {
                     const [exists] = yield this.pubsub.topic(topic).exists();
@@ -59,7 +59,7 @@ class PubSubClient {
     createSubscriptions() {
         return __awaiter(this, void 0, void 0, function* () {
             const [topics] = yield this.pubsub.getTopics();
-            const subscriptions = Object.values(types_1.Subscriptions);
+            const subscriptions = Object.values(types_1.PubSubSubscriptions);
             subscriptions.forEach((subscription, idx) => __awaiter(this, void 0, void 0, function* () {
                 const topic = topics[idx];
                 try {

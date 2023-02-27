@@ -1,21 +1,21 @@
-export enum Topics {
+export enum PubSubTopics {
   EVENT = 'event',
   NOTIFICATION = 'notification',
 }
 
-export enum Subscriptions {
+export enum PubSubSubscriptions {
   EVENT = 'event',
   NOTIFICATION = 'notification',
 }
 
-export enum Events {
+export enum PubSubEvents {
   GREETING = 'greeting',
   ORDER = 'order',
   TRANSFER = 'transfer',
   SALE = 'sale',
 }
 
-export type CustomMessageData<T = any> = {
-  event: Events;
+export type PubSubCustomMessageData<T = any> = {
+  event: PubSubEvents;
   data: T;
 };

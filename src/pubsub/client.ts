@@ -1,6 +1,10 @@
 import { Message, PubSub } from '@google-cloud/pubsub';
 import * as dotenv from 'dotenv';
-import { Topics, Subscriptions, CustomMessageData } from './types';
+import {
+  PubSubCustomMessageData,
+  PubSubTopics,
+  PubSubSubscriptions,
+} from './types';
 
 dotenv.config();
 
@@ -26,7 +30,7 @@ class PubSubClient {
    * Create topics if they don't exist
    */
   private async createTopics() {
-    const topics = Object.values(Topics);
+    const topics = Object.values(PubSubTopics);
     for (const topic of topics) {
       try {
         const [exists] = await this.pubsub.topic(topic).exists();
@@ -47,7 +51,7 @@ class PubSubClient {
    */
   private async createSubscriptions() {
     const [topics] = await this.pubsub.getTopics();
-    const subscriptions = Object.values(Subscriptions);
+    const subscriptions = Object.values(PubSubSubscriptions);
 
     subscriptions.forEach(async (subscription, idx) => {
       const topic = topics[idx];
@@ -78,8 +82,8 @@ class PubSubClient {
    * @returns Message ID or null if error
    */
   public async publish<T = any>(
-    topicName: Topics,
-    data: CustomMessageData<T>,
+    topicName: PubSubTopics,
+    data: PubSubCustomMessageData<T>,
   ): Promise<string | null> {
     const dataBuffer = Buffer.from(JSON.stringify(data));
     try {
@@ -99,7 +103,7 @@ class PubSubClient {
    * @param callback - Callback function
    */
   public async subscribe(
-    subscriptionName: Subscriptions,
+    subscriptionName: PubSubSubscriptions,
     callback: (message: Message) => any,
   ) {
     const subscription = this.pubsub.subscription(subscriptionName);

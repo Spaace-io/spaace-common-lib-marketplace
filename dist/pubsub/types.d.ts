@@ -1,18 +1,18 @@
-export declare enum Topics {
+export declare enum PubSubTopics {
     EVENT = "event",
     NOTIFICATION = "notification"
 }
-export declare enum Subscriptions {
+export declare enum PubSubSubscriptions {
     EVENT = "event",
     NOTIFICATION = "notification"
 }
-export declare enum Events {
+export declare enum PubSubEvents {
     GREETING = "greeting",
     ORDER = "order",
     TRANSFER = "transfer",
     SALE = "sale"
 }
-export type CustomMessageData<T = any> = {
-    event: Events;
+export type PubSubCustomMessageData<T = any> = {
+    event: PubSubEvents;
     data: T;
 };

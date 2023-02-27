@@ -1,5 +1,5 @@
 import { Message } from '@google-cloud/pubsub';
-import { Topics, Subscriptions, CustomMessageData } from './types';
+import { PubSubCustomMessageData, PubSubTopics, PubSubSubscriptions } from './types';
 declare class PubSubClient {
     private pubsub;
     constructor();
@@ -22,13 +22,13 @@ declare class PubSubClient {
      * @param data - Data to publish
      * @returns Message ID or null if error
      */
-    publish<T = any>(topicName: Topics, data: CustomMessageData<T>): Promise<string | null>;
+    publish<T = any>(topicName: PubSubTopics, data: PubSubCustomMessageData<T>): Promise<string | null>;
     /**
      * Subscribe to a topic and listen for related messages
      * @param subscriptionName - Subscription name
      * @param callback - Callback function
      */
-    subscribe(subscriptionName: Subscriptions, callback: (message: Message) => any): Promise<void>;
+    subscribe(subscriptionName: PubSubSubscriptions, callback: (message: Message) => any): Promise<void>;
 }
 declare const _default: PubSubClient;
 export default _default;
