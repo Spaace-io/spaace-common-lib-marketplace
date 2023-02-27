@@ -14,7 +14,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./on-chain"), exports);
-__exportStar(require("./off-chain"), exports);
-__exportStar(require("./firestore"), exports);
+exports.FirestoreClient = void 0;
+var client_1 = require("./client");
+Object.defineProperty(exports, "FirestoreClient", { enumerable: true, get: function () { return client_1.default; } });
+__exportStar(require("./types"), exports);
 //# sourceMappingURL=index.js.map

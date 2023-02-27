@@ -1,7 +1,7 @@
 import { Message } from '@google-cloud/pubsub';
 import { PubSubCustomMessageData, PubSubTopics, PubSubSubscriptions } from './types';
 declare class PubSubClient {
-    private pubsub;
+    private readonly pubsub;
     constructor();
     /**
      * Initialize the PubSub client.
