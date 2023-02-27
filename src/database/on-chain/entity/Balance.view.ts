@@ -1,6 +1,8 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
-import { Transfer } from './Transfer.entity';
+import { Item, Transfer } from '.';
 
+@ObjectType()
 @ViewEntity({
   materialized: true,
   expression: (dataSource: DataSource) => {
@@ -42,15 +44,24 @@ import { Transfer } from './Transfer.entity';
   name: 'balances',
 })
 export class Balance extends BaseEntity {
+  @Field()
   @ViewColumn()
   collection!: string;
 
+  @Field()
   @ViewColumn()
   tokenId!: string;
 
+  @Field()
   @ViewColumn()
   user!: string;
 
+  @Field()
   @ViewColumn()
   balance!: string;
+
+  // GraphQL only fields
+
+  @Field(() => Item)
+  item?: Item;
 }

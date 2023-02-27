@@ -10,34 +10,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Balance = void 0;
+const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-const Transfer_entity_1 = require("./Transfer.entity");
+const _1 = require(".");
 let Balance = class Balance extends typeorm_1.BaseEntity {
 };
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Balance.prototype, "collection", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Balance.prototype, "tokenId", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Balance.prototype, "user", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Balance.prototype, "balance", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => _1.Item),
+    __metadata("design:type", _1.Item)
+], Balance.prototype, "item", void 0);
 Balance = __decorate([
+    (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         materialized: true,
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
                 .from((query) => query
-                .from(Transfer_entity_1.Transfer, 'transfer')
+                .from(_1.Transfer, 'transfer')
                 .select('"collection"')
                 .addSelect('"tokenId"')
                 .addSelect('"to"', 'user')
@@ -46,7 +56,7 @@ Balance = __decorate([
                 .addGroupBy('"tokenId"')
                 .addGroupBy('"to"'), 'sent')
                 .leftJoin((query) => query
-                .from(Transfer_entity_1.Transfer, 'transfer')
+                .from(_1.Transfer, 'transfer')
                 .select('"collection"')
                 .addSelect('"tokenId"')
                 .addSelect('"from"', 'user')
