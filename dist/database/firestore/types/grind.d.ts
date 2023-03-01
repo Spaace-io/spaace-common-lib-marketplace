@@ -6,9 +6,14 @@ export type Season = {
     grinds?: Grind[];
 };
 export type Grind = {
-    rule?: Rule;
+    rules?: Rule[];
     rewards?: Reward[];
+    status?: 'pending' | 'done';
+    infinite?: boolean;
+    daily?: boolean;
+    maxCall?: number;
 };
 export type Reward = {
     stakingBonus?: number;
+    grindPoints?: number;
 };

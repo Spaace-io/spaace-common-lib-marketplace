@@ -10,33 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("./client");
-const types_1 = require("./types");
 /* This is a test code only, for retrieving a doc during development phase
    Use the following command to run this code:
    npm run dev:firestore
 */
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    const newSeason = yield client_1.default.collection('seasons').add({
-        name: 'Welcome to Spaace',
-        number: 1,
-        startDate: new Date(),
-        grinds: [
-            {
-                rule: {
-                    property: types_1.RuleProperty.LISTED,
-                    operator: types_1.RuleOperator.GTE,
-                    value: 1,
-                },
-                rewards: [
-                    {
-                        stakingBonus: 0.1,
-                    },
-                ],
-            },
-        ],
-    });
-    const doc = (yield client_1.default.collection('seasons').doc(newSeason.id).get()).data();
-    return doc;
+    yield client_1.default.initialize();
 });
-main().then((data) => console.log(data));
+main();
 //# sourceMappingURL=init.js.map

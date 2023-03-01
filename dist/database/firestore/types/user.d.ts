@@ -5,8 +5,15 @@ export type GrindUser = {
     completed?: string[];
 };
 export type Counters = {
-    listed?: number;
-    listedTotalValue?: number;
-    sold?: number;
-    soldTotalValue?: number;
+    last24hBuyCount?: number;
+    last24hSoldCount?: number;
+    last24hListedFixedPriceCount?: number;
+    last24hListedAuctionCount?: number;
+    last24hSweepFloorCount?: number;
+    last24hSellNowCount?: number;
+    last24hCollectionOfferCount?: number;
+    last24hOfferOnListingCount?: number;
+    last24hBidOnAuctionCount?: number;
+    last24hClaimedRewardsCount?: number;
+    last24hBuySwapSpaaceTokenCount?: number;
 };

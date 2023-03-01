@@ -1,0 +1,13 @@
+import { Grind } from '../types';
+export declare const BUY_NFT: Grind;
+export declare const SELL_NFT: Grind;
+export declare const LIST_FIXED_PRICE: Grind;
+export declare const LIST_AUCTION: Grind;
+export declare const USE_SWEEP_FLOOR: Grind;
+export declare const USE_SELL_NOW: Grind;
+export declare const USE_COLLECTION_OFFER: Grind;
+export declare const MAKE_OFFER_ON_LISTING: Grind;
+export declare const MAKE_BID_ON_AUCTION: Grind;
+export declare const CLAIM_DAILY_REWARDS: Grind;
+export declare const BUY_SWAP_SPAACE_TOKEN: Grind;
+export declare const firstSeasonDailyGrinds: Grind[];
