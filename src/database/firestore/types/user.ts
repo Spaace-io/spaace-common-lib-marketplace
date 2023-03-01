@@ -6,9 +6,27 @@ export type GrindUser = {
 };
 
 export type Counters = {
-  listed?: number;
-  listedTotalValue?: number;
+  last24hBuyCount?: number;
 
-  sold?: number;
-  soldTotalValue?: number;
+  last24hSoldCount?: number;
+
+  last24hListedFixedPriceCount?: number;
+
+  last24hListedAuctionCount?: number;
+
+  last24hSweepFloorCount?: number;
+
+  last24hSellNowCount?: number;
+
+  last24hCollectionOfferCount?: number;
+
+  last24hOfferOnListingCount?: number;
+
+  last24hBidOnAuctionCount?: number;
+
+  // TODO: Can probably be a boolean
+  last24hClaimedRewardsCount?: number;
+
+  // TODO: Can probably be a boolean
+  last24hBuySwapSpaaceTokenCount?: number;
 };
