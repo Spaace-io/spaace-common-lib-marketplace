@@ -19,21 +19,25 @@ import {
   OnChainDatabase,
   OffChainDatabase,
   PubSubClient,
+  FirestoreClient,
 } from 'staake-common-lib';
 
 await OnChainDatabase.initialize();
 await OffChainDatabase.initialize();
 await PubSubClient.initialize();
+await FirestoreClient.initialize();
 
 // OR
 
 import { OnChainDatabase } from 'staake-common-lib/dist/database/on-chain';
 import { OffChainDatabase } from 'staake-common-lib/dist/database/off-chain';
 import { PubSubClient } from 'staake-common-lib/dist/pubsub/client';
+import { FirestoreClient } from 'staake-common-lin/dist/database/firestore';
 
 await OnChainDatabase.initialize();
 await OffChainDatabase.initialize();
 await PubSubClient.initialize();
+await FirestoreClient.initialize();
 ```
 
 Only databases on which the service is dependendant should (and must) be initialized.
