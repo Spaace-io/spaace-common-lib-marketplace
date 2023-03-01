@@ -33,6 +33,7 @@ class FirestoreClient {
 
   public async initialize() {
     await this.createInitialSeason();
+    console.log('Firestore client initialized.');
   }
 
   public async getSeasonByNumber(number: number): Promise<Season | null> {

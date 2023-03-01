@@ -15,9 +15,8 @@ const types_1 = require("./types");
 dotenv.config();
 class PubSubClient {
     constructor() {
-        var _a;
         this.pubsub = new pubsub_1.PubSub({
-            projectId: (_a = process.env.PUBSUB_PROJECT_ID) !== null && _a !== void 0 ? _a : 'staake',
+            projectId: process.env.PUBSUB_PROJECT_ID,
         });
     }
     /**

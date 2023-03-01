@@ -39,6 +39,7 @@ class FirestoreClient {
     initialize() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.createInitialSeason();
+            console.log('Firestore client initialized.');
         });
     }
     getSeasonByNumber(number) {
