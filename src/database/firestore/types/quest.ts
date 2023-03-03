@@ -4,15 +4,13 @@ export type Season = {
   name?: string;
   number?: number;
   startDate?: Date;
-  grinds?: Grind[];
+  quests?: Quest[];
 };
 
-export type Grind = {
+export type Quest = {
+  initRules?: Rule[];
   rules?: Rule[];
   rewards?: Reward[];
-  // Used to track grinds that need a validation from blocklistener.
-  // Pending means that the grind was started by the user but needs to be validated by blocklistener.
-  status?: 'pending' | 'done';
   infinite?: boolean;
   daily?: boolean;
   maxCall?: number;
@@ -20,5 +18,5 @@ export type Grind = {
 
 export type Reward = {
   stakingBonus?: number;
-  grindPoints?: number;
+  questPoints?: number;
 };

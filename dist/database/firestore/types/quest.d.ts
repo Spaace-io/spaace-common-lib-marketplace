@@ -3,17 +3,17 @@ export type Season = {
     name?: string;
     number?: number;
     startDate?: Date;
-    grinds?: Grind[];
+    quests?: Quest[];
 };
-export type Grind = {
+export type Quest = {
+    initRules?: Rule[];
     rules?: Rule[];
     rewards?: Reward[];
-    status?: 'pending' | 'done';
     infinite?: boolean;
     daily?: boolean;
     maxCall?: number;
 };
 export type Reward = {
     stakingBonus?: number;
-    grindPoints?: number;
+    questPoints?: number;
 };

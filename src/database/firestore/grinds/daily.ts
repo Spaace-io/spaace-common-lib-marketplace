@@ -1,14 +1,14 @@
 import {
-  Grind,
+  Quest,
   RuleEventProperty,
   RuleOperator,
   RuleCounterProperty,
 } from '../types';
 import { MIN_SALE_PRICE, TOP_50_VOLUME, activityTime } from './constants';
 
-/* DAILY GRINDS */
+/* DAILY QuestS */
 
-export const BUY_NFT: Grind = {
+export const BUY_NFT: Quest = {
   daily: true,
   rules: [
     {
@@ -21,12 +21,12 @@ export const BUY_NFT: Grind = {
   ],
   rewards: [
     {
-      grindPoints: 5,
+      questPoints: 5,
     },
   ],
 };
 
-export const SELL_NFT: Grind = {
+export const SELL_NFT: Quest = {
   daily: true,
   rules: [
     {
@@ -39,14 +39,14 @@ export const SELL_NFT: Grind = {
   ],
   rewards: [
     {
-      grindPoints: 5,
+      questPoints: 5,
     },
   ],
 };
 
-export const LIST_FIXED_PRICE: Grind = {
+export const LIST_FIXED_PRICE: Quest = {
   daily: true,
-  rules: [
+  initRules: [
     {
       property: RuleCounterProperty.LAST_24H_LISTED_FIXED_PRICE_COUNT,
       operator: RuleOperator.LTE,
@@ -54,16 +54,16 @@ export const LIST_FIXED_PRICE: Grind = {
     },
     MIN_SALE_PRICE,
     TOP_50_VOLUME,
-    activityTime('24'),
   ],
+  rules: [activityTime('24')],
   rewards: [
     {
-      grindPoints: 3,
+      questPoints: 3,
     },
   ],
 };
 
-export const LIST_AUCTION: Grind = {
+export const LIST_AUCTION: Quest = {
   daily: true,
   rules: [
     {
@@ -77,12 +77,12 @@ export const LIST_AUCTION: Grind = {
   ],
   rewards: [
     {
-      grindPoints: 3,
+      questPoints: 3,
     },
   ],
 };
 
-export const USE_SWEEP_FLOOR: Grind = {
+export const USE_SWEEP_FLOOR: Quest = {
   daily: true,
   rules: [
     {
@@ -95,12 +95,12 @@ export const USE_SWEEP_FLOOR: Grind = {
   ],
   rewards: [
     {
-      grindPoints: 5,
+      questPoints: 5,
     },
   ],
 };
 
-export const USE_SELL_NOW: Grind = {
+export const USE_SELL_NOW: Quest = {
   daily: true,
   rules: [
     {
@@ -113,12 +113,12 @@ export const USE_SELL_NOW: Grind = {
   ],
   rewards: [
     {
-      grindPoints: 5,
+      questPoints: 5,
     },
   ],
 };
 
-export const USE_COLLECTION_OFFER: Grind = {
+export const USE_COLLECTION_OFFER: Quest = {
   daily: true,
   rules: [
     {
@@ -132,7 +132,7 @@ export const USE_COLLECTION_OFFER: Grind = {
   ],
 };
 
-export const MAKE_OFFER_ON_LISTING: Grind = {
+export const MAKE_OFFER_ON_LISTING: Quest = {
   daily: true,
   rules: [
     {
@@ -146,12 +146,12 @@ export const MAKE_OFFER_ON_LISTING: Grind = {
   ],
   rewards: [
     {
-      grindPoints: 5,
+      questPoints: 5,
     },
   ],
 };
 
-export const MAKE_BID_ON_AUCTION: Grind = {
+export const MAKE_BID_ON_AUCTION: Quest = {
   daily: true,
   rules: [
     {
@@ -165,12 +165,12 @@ export const MAKE_BID_ON_AUCTION: Grind = {
   ],
   rewards: [
     {
-      grindPoints: 5,
+      questPoints: 5,
     },
   ],
 };
 
-export const CLAIM_DAILY_REWARDS: Grind = {
+export const CLAIM_DAILY_REWARDS: Quest = {
   daily: true,
   rules: [
     {
@@ -181,12 +181,12 @@ export const CLAIM_DAILY_REWARDS: Grind = {
   ],
   rewards: [
     {
-      grindPoints: 2,
+      questPoints: 2,
     },
   ],
 };
 
-export const BUY_SWAP_SPAACE_TOKEN: Grind = {
+export const BUY_SWAP_SPAACE_TOKEN: Quest = {
   daily: true,
   rules: [
     {
@@ -203,12 +203,12 @@ export const BUY_SWAP_SPAACE_TOKEN: Grind = {
   ],
   rewards: [
     {
-      grindPoints: 10,
+      questPoints: 10,
     },
   ],
 };
 
-export const firstSeasonDailyGrinds = [
+export const firstSeasonDailyQuests = [
   BUY_NFT,
   SELL_NFT,
   LIST_FIXED_PRICE,

@@ -1,11 +1,34 @@
-import { Firestore } from '@google-cloud/firestore';
 import { Season } from './types';
 declare class FirestoreClient {
-    readonly store: Firestore;
+    private readonly store;
+    readonly seasons: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
+    readonly quests: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
     constructor();
-    private createInitialSeason;
+    /**
+     * Initialize the Firestore client
+     * Create initial season and quests if not exists
+     */
     initialize(): Promise<void>;
+    /**
+     * Create initial season and quests if not exists
+     */
+    private createInitialSeason;
+    /**
+     * Create initial quests
+     * @param season Season reference
+     */
+    private createInitialQuests;
+    /**
+     * Get season by season number
+     * @param number Season number
+     * @returns Season or null if not found
+     */
     getSeasonByNumber(number: number): Promise<Season | null>;
+    /**
+     * Retrieve current season
+     * @returns Current season or null if not found
+     */
+    getCurrentSeason(): Promise<Season | null>;
 }
 declare const _default: FirestoreClient;
 export default _default;

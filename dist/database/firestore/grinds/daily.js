@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.firstSeasonDailyGrinds = exports.BUY_SWAP_SPAACE_TOKEN = exports.CLAIM_DAILY_REWARDS = exports.MAKE_BID_ON_AUCTION = exports.MAKE_OFFER_ON_LISTING = exports.USE_COLLECTION_OFFER = exports.USE_SELL_NOW = exports.USE_SWEEP_FLOOR = exports.LIST_AUCTION = exports.LIST_FIXED_PRICE = exports.SELL_NFT = exports.BUY_NFT = void 0;
+exports.firstSeasonDailyQuests = exports.BUY_SWAP_SPAACE_TOKEN = exports.CLAIM_DAILY_REWARDS = exports.MAKE_BID_ON_AUCTION = exports.MAKE_OFFER_ON_LISTING = exports.USE_COLLECTION_OFFER = exports.USE_SELL_NOW = exports.USE_SWEEP_FLOOR = exports.LIST_AUCTION = exports.LIST_FIXED_PRICE = exports.SELL_NFT = exports.BUY_NFT = void 0;
 const types_1 = require("../types");
 const constants_1 = require("./constants");
-/* DAILY GRINDS */
+/* DAILY QuestS */
 exports.BUY_NFT = {
     daily: true,
     rules: [
@@ -17,7 +17,7 @@ exports.BUY_NFT = {
     ],
     rewards: [
         {
-            grindPoints: 5,
+            questPoints: 5,
         },
     ],
 };
@@ -34,13 +34,13 @@ exports.SELL_NFT = {
     ],
     rewards: [
         {
-            grindPoints: 5,
+            questPoints: 5,
         },
     ],
 };
 exports.LIST_FIXED_PRICE = {
     daily: true,
-    rules: [
+    initRules: [
         {
             property: types_1.RuleCounterProperty.LAST_24H_LISTED_FIXED_PRICE_COUNT,
             operator: types_1.RuleOperator.LTE,
@@ -48,11 +48,11 @@ exports.LIST_FIXED_PRICE = {
         },
         constants_1.MIN_SALE_PRICE,
         constants_1.TOP_50_VOLUME,
-        (0, constants_1.activityTime)('24'),
     ],
+    rules: [(0, constants_1.activityTime)('24')],
     rewards: [
         {
-            grindPoints: 3,
+            questPoints: 3,
         },
     ],
 };
@@ -70,7 +70,7 @@ exports.LIST_AUCTION = {
     ],
     rewards: [
         {
-            grindPoints: 3,
+            questPoints: 3,
         },
     ],
 };
@@ -87,7 +87,7 @@ exports.USE_SWEEP_FLOOR = {
     ],
     rewards: [
         {
-            grindPoints: 5,
+            questPoints: 5,
         },
     ],
 };
@@ -104,7 +104,7 @@ exports.USE_SELL_NOW = {
     ],
     rewards: [
         {
-            grindPoints: 5,
+            questPoints: 5,
         },
     ],
 };
@@ -135,7 +135,7 @@ exports.MAKE_OFFER_ON_LISTING = {
     ],
     rewards: [
         {
-            grindPoints: 5,
+            questPoints: 5,
         },
     ],
 };
@@ -153,7 +153,7 @@ exports.MAKE_BID_ON_AUCTION = {
     ],
     rewards: [
         {
-            grindPoints: 5,
+            questPoints: 5,
         },
     ],
 };
@@ -168,7 +168,7 @@ exports.CLAIM_DAILY_REWARDS = {
     ],
     rewards: [
         {
-            grindPoints: 2,
+            questPoints: 2,
         },
     ],
 };
@@ -189,11 +189,11 @@ exports.BUY_SWAP_SPAACE_TOKEN = {
     ],
     rewards: [
         {
-            grindPoints: 10,
+            questPoints: 10,
         },
     ],
 };
-exports.firstSeasonDailyGrinds = [
+exports.firstSeasonDailyQuests = [
     exports.BUY_NFT,
     exports.SELL_NFT,
     exports.LIST_FIXED_PRICE,

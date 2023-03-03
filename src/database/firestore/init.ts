@@ -6,6 +6,15 @@ import FirestoreClient from './client';
 */
 const main = async () => {
   await FirestoreClient.initialize();
+
+  const season = await FirestoreClient.getCurrentSeason();
+
+  if (!season) {
+    console.log('No season found');
+    return;
+  }
+
+  console.log('Current season:', season);
 };
 
 main();

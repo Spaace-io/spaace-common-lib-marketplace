@@ -16,6 +16,12 @@ const client_1 = require("./client");
 */
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     yield client_1.default.initialize();
+    const season = yield client_1.default.getCurrentSeason();
+    if (!season) {
+        console.log('No season found');
+        return;
+    }
+    console.log('Current season:', season);
 });
 main();
 //# sourceMappingURL=init.js.map
