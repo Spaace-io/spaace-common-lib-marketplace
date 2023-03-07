@@ -1,4 +1,4 @@
-import { Firestore } from '@google-cloud/firestore';
+import { Firestore, CollectionReference, DocumentData } from '@google-cloud/firestore';
 import * as dotenv from 'dotenv';
 
 import { firstSeasonDailyQuests } from './grinds';
@@ -8,8 +8,8 @@ dotenv.config();
 
 class FirestoreClient {
   private readonly store: Firestore;
-  public readonly seasons: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
-  public readonly quests: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
+  public readonly seasons: CollectionReference<DocumentData>;
+  public readonly quests: CollectionReference<DocumentData>;
 
   constructor() {
     this.store = new Firestore({

@@ -1,8 +1,9 @@
+import { CollectionReference, DocumentData } from '@google-cloud/firestore';
 import { Season } from './types';
 declare class FirestoreClient {
     private readonly store;
-    readonly seasons: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
-    readonly quests: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
+    readonly seasons: CollectionReference<DocumentData>;
+    readonly quests: CollectionReference<DocumentData>;
     constructor();
     /**
      * Initialize the Firestore client
