@@ -82,7 +82,7 @@ export class Item extends BaseEntity {
   rarityRanking?: string;
 
   @Field({ nullable: true })
-  @Column('numeric', { precision: 19, unsigned: true, nullable: true })
+  @Column('float', { unsigned: true, nullable: true })
   rarityScore?: string;
 
   @Field({ nullable: true })

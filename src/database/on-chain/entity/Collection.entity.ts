@@ -140,12 +140,10 @@ export class Collection extends BaseEntity {
   @Column({ nullable: true })
   lastImport?: Date;
 
-  // Database only fields
-
-  @Column({ default: false })
-  importItems!: boolean;
-
   // GraphQL only fields
+
+  @Field()
+  listedCount!: string;
 
   @Field(() => Order, { nullable: true })
   buyNow?: Order;

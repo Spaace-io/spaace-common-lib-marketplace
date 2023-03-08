@@ -107,7 +107,7 @@ __decorate([
 ], Item.prototype, "rarityRanking", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
-    (0, typeorm_1.Column)('numeric', { precision: 19, unsigned: true, nullable: true }),
+    (0, typeorm_1.Column)('float', { unsigned: true, nullable: true }),
     __metadata("design:type", String)
 ], Item.prototype, "rarityScore", void 0);
 __decorate([

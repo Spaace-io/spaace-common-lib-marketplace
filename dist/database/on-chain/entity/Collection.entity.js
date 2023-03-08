@@ -188,9 +188,9 @@ __decorate([
     __metadata("design:type", Date)
 ], Collection.prototype, "lastImport", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: false }),
-    __metadata("design:type", Boolean)
-], Collection.prototype, "importItems", void 0);
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], Collection.prototype, "listedCount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
     __metadata("design:type", __1.Order)

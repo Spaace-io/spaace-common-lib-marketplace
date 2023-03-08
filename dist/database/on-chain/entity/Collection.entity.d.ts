@@ -40,7 +40,7 @@ export declare class Collection extends BaseEntity {
     totalSupply: string;
     ownerCount: string;
     lastImport?: Date;
-    importItems: boolean;
+    listedCount: string;
     buyNow?: Order;
     sellNow?: Order;
 }

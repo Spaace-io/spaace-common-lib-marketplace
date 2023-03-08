@@ -1,4 +1,8 @@
-import { Firestore, CollectionReference, DocumentData } from '@google-cloud/firestore';
+import {
+  Firestore,
+  CollectionReference,
+  DocumentData,
+} from '@google-cloud/firestore';
 import * as dotenv from 'dotenv';
 
 import { firstSeasonDailyQuests } from './grinds';
