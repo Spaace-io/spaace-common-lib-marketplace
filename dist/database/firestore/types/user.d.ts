@@ -17,3 +17,5 @@ export type Counters = {
     last24hClaimedRewardsCount?: number;
     last24hBuySwapSpaaceTokenCount?: number;
 };
+export declare const defaultUser: GrindUser;
+export declare const defaultCounters: Counters;

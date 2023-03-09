@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const firestore_1 = require("@google-cloud/firestore");
 const dotenv = require("dotenv");
 const grinds_1 = require("./grinds");
+const types_1 = require("./types");
 dotenv.config();
 class FirestoreClient {
     constructor() {
@@ -134,6 +135,44 @@ class FirestoreClient {
                 return Object.assign(Object.assign({}, quest), { initRules: initRules.docs.map((doc) => doc.data()), rules: rules.docs.map((doc) => doc.data()), rewards: rewards.docs.map((doc) => doc.data()) });
             })));
             return season;
+        });
+    }
+    /**
+     * Get user by address
+     * @param address The user address
+     * @returns User or null if not found
+     */
+    getUser(address) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.store.collection('users').doc(address).get();
+            if (!user.exists) {
+                return null;
+            }
+            return user.data();
+        });
+    }
+    /**
+     * Create user if not exists
+     * @param address The user address
+     */
+    createUser(address) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.store
+                .collection('users')
+                .doc(address)
+                .set(Object.assign({ address }, types_1.defaultUser));
+            yield Promise.all([
+                yield this.store
+                    .collection('users')
+                    .doc(address)
+                    .collection('counters')
+                    .add(types_1.defaultCounters),
+                yield this.store
+                    .collection('users')
+                    .doc(address)
+                    .collection('quests')
+                    .add({}),
+            ]);
         });
     }
 }
