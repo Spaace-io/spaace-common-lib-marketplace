@@ -4,9 +4,17 @@ import {
   DocumentData,
 } from '@google-cloud/firestore';
 import * as dotenv from 'dotenv';
+import { User } from '../off-chain';
 
 import { firstSeasonDailyQuests } from './grinds';
-import { Quest, Reward, Rule, Season } from './types';
+import {
+  Quest,
+  Reward,
+  Rule,
+  Season,
+  defaultCounters,
+  defaultUser,
+} from './types';
 
 dotenv.config();
 
@@ -151,6 +159,49 @@ class FirestoreClient {
     );
 
     return season;
+  }
+
+  /**
+   * Get user by address
+   * @param address The user address
+   * @returns User or null if not found
+   */
+  public async getUser(address: string): Promise<User | null> {
+    const user = await this.store.collection('users').doc(address).get();
+
+    if (!user.exists) {
+      return null;
+    }
+
+    return user.data() as User;
+  }
+
+  /**
+   * Create user if not exists
+   * @param address The user address
+   */
+  public async createUser(address: string): Promise<void> {
+    await this.store
+      .collection('users')
+      .doc(address)
+      .set({
+        address,
+        ...defaultUser,
+      });
+
+    await Promise.all([
+      await this.store
+        .collection('users')
+        .doc(address)
+        .collection('counters')
+        .add(defaultCounters),
+
+      await this.store
+        .collection('users')
+        .doc(address)
+        .collection('quests')
+        .add({}),
+    ]);
   }
 }
 
