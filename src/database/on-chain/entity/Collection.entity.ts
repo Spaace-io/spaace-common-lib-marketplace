@@ -11,6 +11,29 @@ registerEnumType(CollectionType, {
   name: 'CollectionType',
 });
 
+export enum CollectionLinkType {
+  CUSTOM = 'custom',
+  TWITTER = 'twitter',
+  DISCORD = 'discord',
+  INSTAGRAM = 'instagram',
+  TELEGRAM = 'telegram',
+  MEDIUM = 'medium',
+  // WIKI, CHAT
+}
+
+registerEnumType(CollectionLinkType, {
+  name: 'CollectionLinkType',
+});
+
+@ObjectType()
+export class CollectionLink {
+  @Field(() => CollectionLinkType)
+  type!: CollectionLinkType;
+
+  @Field()
+  url!: string;
+}
+
 @ObjectType()
 export class CollectionAttributeValue {
   @Field()
@@ -83,6 +106,10 @@ export class Collection extends BaseEntity {
   @Field(() => [CollectionAttribute], { nullable: true })
   @Column('jsonb', { nullable: true })
   attributes?: CollectionAttribute[];
+
+  @Field(() => [CollectionLink])
+  @Column('jsonb', { default: [] })
+  links!: CollectionLink[];
 
   @Field()
   @Column('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value

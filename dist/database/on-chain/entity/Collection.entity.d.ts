@@ -4,6 +4,18 @@ export declare enum CollectionType {
     ERC721 = "ERC721",
     ERC1155 = "ERC1155"
 }
+export declare enum CollectionLinkType {
+    CUSTOM = "custom",
+    TWITTER = "twitter",
+    DISCORD = "discord",
+    INSTAGRAM = "instagram",
+    TELEGRAM = "telegram",
+    MEDIUM = "medium"
+}
+export declare class CollectionLink {
+    type: CollectionLinkType;
+    url: string;
+}
 export declare class CollectionAttributeValue {
     value: string;
     count: string;
@@ -26,6 +38,7 @@ export declare class Collection extends BaseEntity {
     deployedAt?: Date;
     deployer?: string;
     attributes?: CollectionAttribute[];
+    links: CollectionLink[];
     volume24h: string;
     volumeChange24h: string;
     volume7d: string;

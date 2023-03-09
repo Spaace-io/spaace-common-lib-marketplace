@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Collection = exports.CollectionAttribute = exports.CollectionAttributeValue = exports.CollectionType = void 0;
+exports.Collection = exports.CollectionAttribute = exports.CollectionAttributeValue = exports.CollectionLink = exports.CollectionLinkType = exports.CollectionType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const __1 = require("../..");
@@ -21,6 +21,33 @@ var CollectionType;
 (0, graphql_1.registerEnumType)(CollectionType, {
     name: 'CollectionType',
 });
+var CollectionLinkType;
+(function (CollectionLinkType) {
+    CollectionLinkType["CUSTOM"] = "custom";
+    CollectionLinkType["TWITTER"] = "twitter";
+    CollectionLinkType["DISCORD"] = "discord";
+    CollectionLinkType["INSTAGRAM"] = "instagram";
+    CollectionLinkType["TELEGRAM"] = "telegram";
+    CollectionLinkType["MEDIUM"] = "medium";
+    // WIKI, CHAT
+})(CollectionLinkType = exports.CollectionLinkType || (exports.CollectionLinkType = {}));
+(0, graphql_1.registerEnumType)(CollectionLinkType, {
+    name: 'CollectionLinkType',
+});
+let CollectionLink = class CollectionLink {
+};
+__decorate([
+    (0, graphql_1.Field)(() => CollectionLinkType),
+    __metadata("design:type", String)
+], CollectionLink.prototype, "type", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CollectionLink.prototype, "url", void 0);
+CollectionLink = __decorate([
+    (0, graphql_1.ObjectType)()
+], CollectionLink);
+exports.CollectionLink = CollectionLink;
 let CollectionAttributeValue = class CollectionAttributeValue {
 };
 __decorate([
@@ -116,6 +143,11 @@ __decorate([
     (0, typeorm_1.Column)('jsonb', { nullable: true }),
     __metadata("design:type", Array)
 ], Collection.prototype, "attributes", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [CollectionLink]),
+    (0, typeorm_1.Column)('jsonb', { default: [] }),
+    __metadata("design:type", Array)
+], Collection.prototype, "links", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
