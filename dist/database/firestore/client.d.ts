@@ -40,8 +40,9 @@ declare class FirestoreClient {
     /**
      * Create user if not exists
      * @param address The user address
+     * @returns User that was created
      */
-    createUser(address: string): Promise<void>;
+    createUser(address: string): Promise<User>;
 }
 declare const _default: FirestoreClient;
 export default _default;

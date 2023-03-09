@@ -154,6 +154,7 @@ class FirestoreClient {
     /**
      * Create user if not exists
      * @param address The user address
+     * @returns User that was created
      */
     createUser(address) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -173,6 +174,7 @@ class FirestoreClient {
                     .collection('quests')
                     .add({}),
             ]);
+            return (yield this.getUser(address));
         });
     }
 }

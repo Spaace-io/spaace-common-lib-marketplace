@@ -179,8 +179,9 @@ class FirestoreClient {
   /**
    * Create user if not exists
    * @param address The user address
+   * @returns User that was created
    */
-  public async createUser(address: string): Promise<void> {
+  public async createUser(address: string): Promise<User> {
     await this.store
       .collection('users')
       .doc(address)
@@ -202,6 +203,8 @@ class FirestoreClient {
         .collection('quests')
         .add({}),
     ]);
+
+    return (await this.getUser(address)) as User;
   }
 }
 
