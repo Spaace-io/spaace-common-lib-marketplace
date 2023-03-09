@@ -11,8 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Balance = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
 const _1 = require(".");
+const __1 = require("../../..");
 let Balance = class Balance extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -54,7 +56,7 @@ Balance = __decorate([
                 .addSelect('SUM("amount")', 'total')
                 .groupBy('"collection"')
                 .addGroupBy('"tokenId"')
-                .addGroupBy('"to"'), 'sent')
+                .addGroupBy('"to"'), 'received')
                 .leftJoin((query) => query
                 .from(_1.Transfer, 'transfer')
                 .select('"collection"')
@@ -63,12 +65,13 @@ Balance = __decorate([
                 .addSelect('SUM("amount")', 'total')
                 .groupBy('"collection"')
                 .addGroupBy('"tokenId"')
-                .addGroupBy('"from"'), 'received', '"sent"."collection" = "received"."collection" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."user" = "received"."user"')
+                .addGroupBy('"from"'), 'sent', '"sent"."collection" = "received"."collection" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."user" = "received"."user"')
                 .select('"received"."collection"')
                 .addSelect('"received"."tokenId"')
                 .addSelect('"received"."user"')
                 .addSelect('"received"."total" - COALESCE("sent"."total", 0)', 'balance')
-                .where('"received"."total" > COALESCE("sent"."total", 0)');
+                .where('"received"."total" > COALESCE("sent"."total", 0)')
+                .andWhere(`"received"."user" <> '${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}'`);
         },
         name: 'balances',
     })

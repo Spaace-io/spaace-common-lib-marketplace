@@ -1,6 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Item, Transfer } from '.';
+import { utils } from '../../..';
 
 @ObjectType()
 @ViewEntity({
@@ -19,7 +21,7 @@ import { Item, Transfer } from '.';
             .groupBy('"collection"')
             .addGroupBy('"tokenId"')
             .addGroupBy('"to"'),
-        'sent',
+        'received',
       )
       .leftJoin(
         (query) =>
@@ -32,14 +34,17 @@ import { Item, Transfer } from '.';
             .groupBy('"collection"')
             .addGroupBy('"tokenId"')
             .addGroupBy('"from"'),
-        'received',
+        'sent',
         '"sent"."collection" = "received"."collection" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."user" = "received"."user"',
       )
       .select('"received"."collection"')
       .addSelect('"received"."tokenId"')
       .addSelect('"received"."user"')
       .addSelect('"received"."total" - COALESCE("sent"."total", 0)', 'balance')
-      .where('"received"."total" > COALESCE("sent"."total", 0)');
+      .where('"received"."total" > COALESCE("sent"."total", 0)')
+      .andWhere(
+        `"received"."user" <> '${utils.strip0x(ethers.constants.AddressZero)}'`,
+      );
   },
   name: 'balances',
 })
