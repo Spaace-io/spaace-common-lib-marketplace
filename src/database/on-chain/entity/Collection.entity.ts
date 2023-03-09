@@ -128,28 +128,28 @@ export class Collection extends BaseEntity {
   @Column('numeric', { precision: 78, default: '0' })
   floorChange30d!: string;
 
-  @Field({ nullable: true })
-  @Column('numeric', { precision: 78, unsigned: true, nullable: true })
-  saleCount?: string;
+  @Field()
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  saleCount!: string;
 
   @Field()
-  @Column('numeric', { precision: 78, default: '0' })
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount24h!: string;
 
   @Field()
-  @Column('numeric', { precision: 78, default: '0' })
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount7d!: string;
 
   @Field()
-  @Column('numeric', { precision: 78, default: '0' })
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount30d!: string;
 
   @Field()
-  @Column('numeric', { precision: 78, default: '0' })
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   totalSupply!: string;
 
   @Field()
-  @Column('numeric', { precision: 78, default: '0' })
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   ownerCount!: string;
 
   @Field({ nullable: true })

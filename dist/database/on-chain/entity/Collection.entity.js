@@ -173,33 +173,33 @@ __decorate([
     __metadata("design:type", String)
 ], Collection.prototype, "floorChange30d", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount24h", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount7d", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount30d", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], Collection.prototype, "totalSupply", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], Collection.prototype, "ownerCount", void 0);
 __decorate([

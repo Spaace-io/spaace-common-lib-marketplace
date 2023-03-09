@@ -37,7 +37,7 @@ export declare class Collection extends BaseEntity {
     floorChange24h: string;
     floorChange7d: string;
     floorChange30d: string;
-    saleCount?: string;
+    saleCount: string;
     saleCount24h: string;
     saleCount7d: string;
     saleCount30d: string;
