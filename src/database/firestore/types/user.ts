@@ -30,3 +30,22 @@ export type Counters = {
   // TODO: Can probably be a boolean
   last24hBuySwapSpaaceTokenCount?: number;
 };
+
+export const defaultUser: GrindUser = {
+  points: 0,
+  level: 1,
+};
+
+export const defaultCounters: Counters = {
+  last24hBuyCount: 0,
+  last24hSoldCount: 0,
+  last24hListedFixedPriceCount: 0,
+  last24hListedAuctionCount: 0,
+  last24hSweepFloorCount: 0,
+  last24hSellNowCount: 0,
+  last24hCollectionOfferCount: 0,
+  last24hOfferOnListingCount: 0,
+  last24hBidOnAuctionCount: 0,
+  last24hClaimedRewardsCount: 0,
+  last24hBuySwapSpaaceTokenCount: 0,
+};
