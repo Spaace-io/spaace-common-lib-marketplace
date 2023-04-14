@@ -20,5 +20,10 @@ __exportStar(require("./Collection.entity"), exports);
 __exportStar(require("./Item.entity"), exports);
 __exportStar(require("./Transfer.entity"), exports);
 __exportStar(require("./Sale.entity"), exports);
+__exportStar(require("./TradingReward.entity"), exports);
+__exportStar(require("./ReferralReward.entity"), exports);
+__exportStar(require("./StakingDeposit.entity"), exports);
 __exportStar(require("./Balance.view"), exports);
+__exportStar(require("./BuyVolume.view"), exports);
+__exportStar(require("./SellVolume.view"), exports);
 //# sourceMappingURL=index.js.map
