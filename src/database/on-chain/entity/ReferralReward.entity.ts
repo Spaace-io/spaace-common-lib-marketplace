@@ -1,9 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import {
-  BaseEntity,
-  Column,
-  Entity,
-} from 'typeorm';
+import { BaseEntity, Column, Entity } from 'typeorm';
 
 @ObjectType()
 @Entity({ name: 'referral_rewards' })

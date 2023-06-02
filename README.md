@@ -1,4 +1,4 @@
-# Staake common-lib
+# Spaace common-lib
 
 This repository is a Node.js package.\
 It is ment to be shared between all backend services.\
@@ -9,7 +9,7 @@ It contains database connections, TypeORM entities, and other reused helper func
 To install this package in **target** services, run:
 
 ```sh
-npm i git+ssh://git@git.era2140.tech/Staake/common-lib.git
+npm i @spaace/common-lib
 ```
 
 It can then be used as follows:
@@ -20,7 +20,7 @@ import {
   OffChainDatabase,
   PubSubClient,
   FirestoreClient,
-} from 'staake-common-lib';
+} from '@spaace/common-lib';
 
 await OnChainDatabase.initialize();
 await OffChainDatabase.initialize();
@@ -29,9 +29,9 @@ await FirestoreClient.initialize();
 
 // OR
 
-import { OnChainDatabase } from 'staake-common-lib/dist/database/on-chain';
-import { OffChainDatabase } from 'staake-common-lib/dist/database/off-chain';
-import { PubSubClient } from 'staake-common-lib/dist/pubsub/client';
+import { OnChainDatabase } from '@spaace/common-lib/dist/database/on-chain';
+import { OffChainDatabase } from '@spaace/common-lib/dist/database/off-chain';
+import { PubSubClient } from '@spaace/common-lib/dist/pubsub/client';
 import { FirestoreClient } from 'staake-common-lin/dist/database/firestore';
 
 await OnChainDatabase.initialize();
@@ -55,7 +55,7 @@ You can then push all changes to the `dev` branch.
 To test out the changes in **target** services, run:
 
 ```sh
-npm i git+ssh://git@git.era2140.tech/Staake/common-lib.git#dev
+npm i git+ssh://git@github.com/avicenne-studio/spaace-common-lib.git#dev
 ```
 
 ## TypeORM migrations
@@ -83,5 +83,5 @@ After each change to this package merged onto the `main` branch, **target** serv
 To do so, run the following in the **target** services:
 
 ```sh
-npm up staake-common-lib
+npm up @spaace/common-lib
 ```
