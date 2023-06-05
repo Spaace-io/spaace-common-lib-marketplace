@@ -1,12 +1,20 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity, Column, Entity } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 
 @ObjectType()
 @Entity({ name: 'referral_rewards' })
 export class ReferralReward extends BaseEntity {
   @Field()
-  @Column('char', { length: 40 })
+  @PrimaryColumn('char', { length: 40 })
   user!: string;
+
+  @Field()
+  @PrimaryColumn('date', { default: () => 'CURRENT_DATE' })
+  date!: Date;
+
+  @Field()
+  @PrimaryColumn('char', { length: 40 })
+  referrer!: string;
 
   @Field()
   @Column('numeric', { precision: 78, unsigned: true })
@@ -15,8 +23,4 @@ export class ReferralReward extends BaseEntity {
   @Field()
   @Column('numeric', { precision: 78, unsigned: true })
   referredAmount!: string;
-
-  @Field()
-  @Column({ default: () => 'CURRENT_DATE' })
-  date!: Date;
 }

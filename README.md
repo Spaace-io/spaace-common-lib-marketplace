@@ -32,7 +32,7 @@ await FirestoreClient.initialize();
 import { OnChainDatabase } from '@spaace/common-lib/dist/database/on-chain';
 import { OffChainDatabase } from '@spaace/common-lib/dist/database/off-chain';
 import { PubSubClient } from '@spaace/common-lib/dist/pubsub/client';
-import { FirestoreClient } from 'staake-common-lin/dist/database/firestore';
+import { FirestoreClient } from '@spaace/common-lib/dist/database/firestore';
 
 await OnChainDatabase.initialize();
 await OffChainDatabase.initialize();

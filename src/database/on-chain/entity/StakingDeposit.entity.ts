@@ -1,12 +1,16 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity, Column, Entity } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 
 @ObjectType()
 @Entity({ name: 'staking_deposits' })
 export class StakingDeposit extends BaseEntity {
   @Field()
-  @Column('char', { length: 40 })
+  @PrimaryColumn('char', { length: 40 })
   user!: string;
+
+  @Field()
+  @PrimaryColumn({ default: () => 'CURRENT_TIMESTAMP' })
+  timestamp!: Date;
 
   @Field()
   @Column('char', { length: 40 })
@@ -15,8 +19,4 @@ export class StakingDeposit extends BaseEntity {
   @Field()
   @Column('numeric', { precision: 78 })
   amount!: string;
-
-  @Field()
-  @Column({ default: () => 'CURRENT_DATE' })
-  date!: Date;
 }

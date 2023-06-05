@@ -16,9 +16,14 @@ let TradingReward = class TradingReward extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     __metadata("design:type", String)
 ], TradingReward.prototype, "user", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.PrimaryColumn)('date', { default: () => 'CURRENT_DATE' }),
+    __metadata("design:type", Date)
+], TradingReward.prototype, "date", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
@@ -29,11 +34,6 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
 ], TradingReward.prototype, "sellAmount", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)({ default: () => 'CURRENT_DATE' }),
-    __metadata("design:type", Date)
-], TradingReward.prototype, "date", void 0);
 TradingReward = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'trading_rewards' })
