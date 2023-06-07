@@ -7,8 +7,10 @@ import {
 } from 'typeorm';
 import { User } from './User.entity';
 
+import { ObjectType } from '@nestjs/graphql';
 export const LOGIN_NONCE_VALID_PERIOD = 5 * 60 * 1000;
 
+@ObjectType()
 @Entity()
 export class LoginNonce {
   @PrimaryGeneratedColumn('uuid')
