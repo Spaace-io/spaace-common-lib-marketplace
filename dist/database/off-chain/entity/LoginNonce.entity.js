@@ -21,7 +21,7 @@ __decorate([
 ], LoginNonce.prototype, "nonce", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => User_entity_1.User),
-    (0, typeorm_1.JoinColumn)({ name: 'user', referencedColumnName: 'id' }),
+    (0, typeorm_1.JoinColumn)({ name: 'user', referencedColumnName: 'address' }),
     __metadata("design:type", User_entity_1.User)
 ], LoginNonce.prototype, "user", void 0);
 __decorate([

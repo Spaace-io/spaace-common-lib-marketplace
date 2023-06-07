@@ -15,7 +15,7 @@ export class LoginNonce {
   nonce!: string;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'user', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'user', referencedColumnName: 'address' })
   user!: User;
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
