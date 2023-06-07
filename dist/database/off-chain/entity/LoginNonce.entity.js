@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoginNonce = exports.LOGIN_NONCE_VALID_PERIOD = void 0;
 const typeorm_1 = require("typeorm");
 const User_entity_1 = require("./User.entity");
+const graphql_1 = require("@nestjs/graphql");
 exports.LOGIN_NONCE_VALID_PERIOD = 5 * 60 * 1000;
 let LoginNonce = class LoginNonce {
 };
@@ -29,6 +30,7 @@ __decorate([
     __metadata("design:type", Date)
 ], LoginNonce.prototype, "timestamp", void 0);
 LoginNonce = __decorate([
+    (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()
 ], LoginNonce);
 exports.LoginNonce = LoginNonce;
