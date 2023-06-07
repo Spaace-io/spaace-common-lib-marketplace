@@ -16,14 +16,14 @@ class addLoginNonce1686152338407 {
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "login_nonce" ADD "nonce" character(32) NOT NULL`);
-            yield queryRunner.query(`ALTER TABLE "login_nonce" ADD CONSTRAINT "PK_b563be4d1127e83321bd33c9d16" PRIMARY KEY ("nonce")`);
+            yield queryRunner.query(`CREATE TABLE "login_nonce" ("nonce" character(32) NOT NULL, CONSTRAINT "PK_b563be4d1127e83321bd33c9d16" PRIMARY KEY ("nonce"))`);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
             yield queryRunner.query(`ALTER TABLE "login_nonce" DROP CONSTRAINT "PK_b563be4d1127e83321bd33c9d16"`);
             yield queryRunner.query(`ALTER TABLE "login_nonce" DROP COLUMN "nonce"`);
+            yield queryRunner.query(`DROP TABLE "login_nonce"`);
         });
     }
 }
