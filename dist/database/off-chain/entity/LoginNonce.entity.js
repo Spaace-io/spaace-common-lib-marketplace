@@ -13,19 +13,31 @@ exports.LoginNonce = exports.LOGIN_NONCE_VALID_PERIOD = void 0;
 const typeorm_1 = require("typeorm");
 const User_entity_1 = require("./User.entity");
 const graphql_1 = require("@nestjs/graphql");
+const crypto_1 = require("crypto");
 exports.LOGIN_NONCE_VALID_PERIOD = 5 * 60 * 1000;
 let LoginNonce = class LoginNonce {
+    generateUuid() {
+        this.nonce = (0, crypto_1.randomUUID)().replace(/-/g, '');
+    }
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.PrimaryColumn)('char', { length: 32 }),
     __metadata("design:type", String)
 ], LoginNonce.prototype, "nonce", void 0);
+__decorate([
+    (0, typeorm_1.BeforeInsert)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], LoginNonce.prototype, "generateUuid", null);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => User_entity_1.User),
     (0, typeorm_1.JoinColumn)({ name: 'user', referencedColumnName: 'address' }),
     __metadata("design:type", User_entity_1.User)
 ], LoginNonce.prototype, "user", void 0);
 __decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], LoginNonce.prototype, "timestamp", void 0);
