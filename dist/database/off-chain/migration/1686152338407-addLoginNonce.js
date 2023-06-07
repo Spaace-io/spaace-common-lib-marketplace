@@ -9,23 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addLoginNonce1686140983672 = void 0;
-class addLoginNonce1686140983672 {
+exports.addLoginNonce1686152338407 = void 0;
+class addLoginNonce1686152338407 {
     constructor() {
-        this.name = 'addLoginNonce1686140983672';
+        this.name = 'addLoginNonce1686152338407';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`CREATE TABLE "login_nonce" ("nonce" uuid NOT NULL DEFAULT uuid_generate_v4(), "timestamp" TIMESTAMP NOT NULL DEFAULT now(), "user" character(40), CONSTRAINT "PK_b563be4d1127e83321bd33c9d16" PRIMARY KEY ("nonce"))`);
-            yield queryRunner.query(`ALTER TABLE "login_nonce" ADD CONSTRAINT "FK_4137d2aae20dffff1f82a7284c6" FOREIGN KEY ("user") REFERENCES "users"("address") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+            yield queryRunner.query(`ALTER TABLE "login_nonce" ADD "nonce" character(32) NOT NULL`);
+            yield queryRunner.query(`ALTER TABLE "login_nonce" ADD CONSTRAINT "PK_b563be4d1127e83321bd33c9d16" PRIMARY KEY ("nonce")`);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "login_nonce" DROP CONSTRAINT "FK_4137d2aae20dffff1f82a7284c6"`);
-            yield queryRunner.query(`DROP TABLE "login_nonce"`);
+            yield queryRunner.query(`ALTER TABLE "login_nonce" DROP CONSTRAINT "PK_b563be4d1127e83321bd33c9d16"`);
+            yield queryRunner.query(`ALTER TABLE "login_nonce" DROP COLUMN "nonce"`);
         });
     }
 }
-exports.addLoginNonce1686140983672 = addLoginNonce1686140983672;
-//# sourceMappingURL=1686140983672-addLoginNonce.js.map
+exports.addLoginNonce1686152338407 = addLoginNonce1686152338407;
+//# sourceMappingURL=1686152338407-addLoginNonce.js.map
