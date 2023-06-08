@@ -19,11 +19,6 @@ export class LoginNonce {
   @PrimaryColumn('char', { length: 32 })
   nonce!: string;
 
-  @BeforeInsert()
-  generateUuid() {
-      this.nonce = randomUUID().replace(/-/g, '');
-  }
-
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user', referencedColumnName: 'address' })
   user!: User;
@@ -31,4 +26,9 @@ export class LoginNonce {
   @Field()
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
+
+  @BeforeInsert()
+  generateUuid() {
+    this.nonce = randomUUID().replace(/-/g, '');
+  }
 }

@@ -26,12 +26,6 @@ __decorate([
     __metadata("design:type", String)
 ], LoginNonce.prototype, "nonce", void 0);
 __decorate([
-    (0, typeorm_1.BeforeInsert)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], LoginNonce.prototype, "generateUuid", null);
-__decorate([
     (0, typeorm_1.ManyToOne)(() => User_entity_1.User),
     (0, typeorm_1.JoinColumn)({ name: 'user', referencedColumnName: 'address' }),
     __metadata("design:type", User_entity_1.User)
@@ -41,6 +35,12 @@ __decorate([
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], LoginNonce.prototype, "timestamp", void 0);
+__decorate([
+    (0, typeorm_1.BeforeInsert)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], LoginNonce.prototype, "generateUuid", null);
 LoginNonce = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

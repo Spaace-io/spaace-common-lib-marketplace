@@ -153,6 +153,26 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", String)
+], Collection.prototype, "volume1h", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
+    __metadata("design:type", String)
+], Collection.prototype, "volumeChange1h", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], Collection.prototype, "volume6h", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
+    __metadata("design:type", String)
+], Collection.prototype, "volumeChange6h", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
 ], Collection.prototype, "volume24h", void 0);
 __decorate([
     (0, graphql_1.Field)(),
@@ -193,6 +213,16 @@ __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
+], Collection.prototype, "floorChange1h", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
+    __metadata("design:type", String)
+], Collection.prototype, "floorChange6h", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
+    __metadata("design:type", String)
 ], Collection.prototype, "floorChange24h", void 0);
 __decorate([
     (0, graphql_1.Field)(),
@@ -209,6 +239,16 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], Collection.prototype, "saleCount1h", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], Collection.prototype, "saleCount6h", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),

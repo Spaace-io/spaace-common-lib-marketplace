@@ -113,6 +113,22 @@ export class Collection extends BaseEntity {
 
   @Field()
   @Column('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
+  volume1h!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, default: '0' })
+  volumeChange1h!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  volume6h!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, default: '0' })
+  volumeChange6h!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   volume24h!: string;
 
   @Field()
@@ -145,6 +161,14 @@ export class Collection extends BaseEntity {
 
   @Field()
   @Column('numeric', { precision: 78, default: '0' })
+  floorChange1h!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, default: '0' })
+  floorChange6h!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, default: '0' })
   floorChange24h!: string;
 
   @Field()
@@ -158,6 +182,14 @@ export class Collection extends BaseEntity {
   @Field()
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  saleCount1h!: string;
+
+  @Field()
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  saleCount6h!: string;
 
   @Field()
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
