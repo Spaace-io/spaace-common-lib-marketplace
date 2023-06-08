@@ -1,4 +1,5 @@
 import { BaseEntity } from 'typeorm';
+import { Item } from '../../on-chain';
 export declare class Order extends BaseEntity {
     hash: string;
     user: string;
@@ -10,4 +11,5 @@ export declare class Order extends BaseEntity {
     startTime: Date;
     endTime: Date;
     signature: string;
+    item?: Item;
 }

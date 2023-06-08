@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import { Item } from '../../on-chain';
 
 @ObjectType()
 @Entity({ name: 'orders' })
@@ -43,4 +44,9 @@ export class Order extends BaseEntity {
   @Field()
   @Column()
   signature!: string;
+
+  // GraphQL only fields
+
+  @Field(() => Item)
+  item?: Item;
 }

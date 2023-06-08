@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Order = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
+const on_chain_1 = require("../../on-chain");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -65,6 +66,10 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Order.prototype, "signature", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => on_chain_1.Item),
+    __metadata("design:type", on_chain_1.Item)
+], Order.prototype, "item", void 0);
 Order = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'orders' })
