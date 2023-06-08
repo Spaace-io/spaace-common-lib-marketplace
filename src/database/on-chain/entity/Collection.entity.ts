@@ -225,4 +225,7 @@ export class Collection extends BaseEntity {
 
   @Field(() => Order, { nullable: true })
   sellNow?: Order;
+
+  @Field()
+  notable!: boolean;
 }

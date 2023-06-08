@@ -291,6 +291,10 @@ __decorate([
     (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
     __metadata("design:type", __1.Order)
 ], Collection.prototype, "sellNow", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Boolean)
+], Collection.prototype, "notable", void 0);
 Collection = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'collections' })

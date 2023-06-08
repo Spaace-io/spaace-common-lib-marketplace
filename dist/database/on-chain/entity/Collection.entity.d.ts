@@ -68,4 +68,5 @@ export declare class Collection extends BaseEntity {
     listedCount: string;
     buyNow?: Order;
     sellNow?: Order;
+    notable: boolean;
 }
