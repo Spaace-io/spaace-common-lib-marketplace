@@ -46,8 +46,8 @@ class PubSubClient {
                         console.log(`Topic ${topic} created.`);
                     }
                 }
-                catch (error) {
-                    console.log(`Error creating topic ${topic}:`, error);
+                catch (e) {
+                    console.error(`Error creating topic ${topic}:`, e);
                 }
             }
         });
@@ -71,8 +71,8 @@ class PubSubClient {
                         console.log(`Subscription ${subscription} to topic ${topic.name} created.`);
                     }
                 }
-                catch (error) {
-                    console.log(`Error creating subscription ${subscription}:`, error);
+                catch (e) {
+                    console.error(`Error creating subscription ${subscription}:`, e);
                 }
             }));
         });
@@ -87,13 +87,13 @@ class PubSubClient {
         return __awaiter(this, void 0, void 0, function* () {
             const dataBuffer = Buffer.from(JSON.stringify(data));
             try {
-                console.log('Publishing message:', data);
+                console.debug('Publishing message:', data);
                 return this.pubsub.topic(topicName).publishMessage({
                     data: dataBuffer,
                 });
             }
-            catch (error) {
-                console.log('Error publishing message:', error);
+            catch (e) {
+                console.error('Error publishing message:', e);
                 return null;
             }
         });

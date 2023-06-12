@@ -111,15 +111,15 @@ __decorate([
     __metadata("design:type", String)
 ], Item.prototype, "rarityScore", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", Date)
-], Item.prototype, "lastImport", void 0);
-__decorate([
     (0, graphql_1.Field)(() => [ItemAttribute], { nullable: true }),
     (0, typeorm_1.OneToMany)(() => ItemAttribute, (attribute) => [attribute.collection, attribute.tokenId]),
     __metadata("design:type", Array)
 ], Item.prototype, "attributes", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Date)
+], Item.prototype, "lastImport", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __1.CollectionType),
     __metadata("design:type", String)
@@ -136,6 +136,14 @@ __decorate([
     (0, graphql_1.Field)(() => __1.Sale, { nullable: true }),
     __metadata("design:type", __1.Sale)
 ], Item.prototype, "lastSale", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], Item.prototype, "ownerCount", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [__1.Balance], { nullable: true }),
+    __metadata("design:type", Array)
+], Item.prototype, "owners", void 0);
 Item = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'items' })

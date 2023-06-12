@@ -8,7 +8,7 @@ import {
   OneToMany,
   PrimaryColumn,
 } from 'typeorm';
-import { Collection, CollectionType, Sale } from '..';
+import { Balance, Collection, CollectionType, Sale } from '..';
 import { Order } from '../..';
 
 @ObjectType()
@@ -85,10 +85,6 @@ export class Item extends BaseEntity {
   @Column('float', { unsigned: true, nullable: true })
   rarityScore?: string;
 
-  @Field({ nullable: true })
-  @Column({ nullable: true })
-  lastImport?: Date;
-
   @Field(() => [ItemAttribute], { nullable: true })
   @OneToMany(
     () => ItemAttribute,
@@ -96,10 +92,14 @@ export class Item extends BaseEntity {
   )
   attributes?: ItemAttribute[];
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  lastImport?: Date;
+
   // GraphQL only fields
 
   @Field(() => CollectionType)
-  type?: CollectionType;
+  type!: CollectionType;
 
   @Field(() => Order, { nullable: true })
   buyNow?: Order;
@@ -109,4 +109,10 @@ export class Item extends BaseEntity {
 
   @Field(() => Sale, { nullable: true })
   lastSale?: Sale;
+
+  @Field()
+  ownerCount!: string;
+
+  @Field(() => [Balance], { nullable: true })
+  owners!: Balance[];
 }
