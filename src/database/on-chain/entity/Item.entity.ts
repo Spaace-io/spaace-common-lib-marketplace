@@ -8,7 +8,7 @@ import {
   OneToMany,
   PrimaryColumn,
 } from 'typeorm';
-import { Collection, CollectionType } from '..';
+import { Collection, CollectionType, Sale } from '..';
 import { Order } from '../..';
 
 @ObjectType()
@@ -106,4 +106,7 @@ export class Item extends BaseEntity {
 
   @Field(() => Order, { nullable: true })
   sellNow?: Order;
+
+  @Field(() => Sale, { nullable: true })
+  lastSale?: Sale;
 }

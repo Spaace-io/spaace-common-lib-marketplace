@@ -132,6 +132,10 @@ __decorate([
     (0, graphql_1.Field)(() => __2.Order, { nullable: true }),
     __metadata("design:type", __2.Order)
 ], Item.prototype, "sellNow", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => __1.Sale, { nullable: true }),
+    __metadata("design:type", __1.Sale)
+], Item.prototype, "lastSale", void 0);
 Item = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'items' })

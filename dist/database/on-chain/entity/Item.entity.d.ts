@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-import { CollectionType } from '..';
+import { CollectionType, Sale } from '..';
 import { Order } from '../..';
 export declare class ItemAttribute extends BaseEntity {
     collection: string;
@@ -26,4 +26,5 @@ export declare class Item extends BaseEntity {
     type?: CollectionType;
     buyNow?: Order;
     sellNow?: Order;
+    lastSale?: Sale;
 }
