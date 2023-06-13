@@ -37,9 +37,9 @@ export class Order extends BaseEntity {
   @Column()
   startTime!: Date;
 
-  @Field()
-  @Column()
-  endTime!: Date;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  endTime?: Date;
 
   @Field()
   @Column('numeric', { precision: 78, unsigned: true })

@@ -9,7 +9,7 @@ export declare class Order extends BaseEntity {
     price: string;
     currency: string;
     startTime: Date;
-    endTime: Date;
+    endTime?: Date;
     counter: string;
     signature: string;
     item?: Item;
