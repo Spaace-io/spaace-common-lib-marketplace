@@ -10,6 +10,7 @@ export declare class Order extends BaseEntity {
     currency: string;
     startTime: Date;
     endTime: Date;
+    counter: string;
     signature: string;
     item?: Item;
 }

@@ -42,6 +42,10 @@ export class Order extends BaseEntity {
   endTime!: Date;
 
   @Field()
+  @Column('numeric', { precision: 78, unsigned: true })
+  counter!: string;
+
+  @Field()
   @Column()
   signature!: string;
 

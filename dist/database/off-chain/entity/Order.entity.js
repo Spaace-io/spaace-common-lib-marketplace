@@ -63,6 +63,11 @@ __decorate([
 ], Order.prototype, "endTime", void 0);
 __decorate([
     (0, graphql_1.Field)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
+    __metadata("design:type", String)
+], Order.prototype, "counter", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Order.prototype, "signature", void 0);
