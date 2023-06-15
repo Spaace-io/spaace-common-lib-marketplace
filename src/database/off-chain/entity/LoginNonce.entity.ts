@@ -1,15 +1,8 @@
-import {
-  BeforeInsert,
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryColumn,
-} from 'typeorm';
-import { User } from './User.entity';
+import { BeforeInsert, Column, Entity, PrimaryColumn } from 'typeorm';
 
 import { Field, ObjectType } from '@nestjs/graphql';
 import { randomUUID } from 'crypto';
+
 export const LOGIN_NONCE_VALID_PERIOD = 5 * 60 * 1000;
 
 @ObjectType()
@@ -19,16 +12,16 @@ export class LoginNonce {
   @PrimaryColumn('char', { length: 32 })
   nonce!: string;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'user', referencedColumnName: 'address' })
-  user!: User;
+  @Field()
+  @Column('char', { length: 40 })
+  address!: string;
 
   @Field()
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
 
   @BeforeInsert()
-  generateUuid() {
-    this.nonce = randomUUID().replace(/-/g, '');
+  generateNonce() {
+    this.nonce ??= randomUUID().replace(/-/g, '');
   }
 }
