@@ -6,5 +6,5 @@ import { BaseEntity, Entity, PrimaryColumn } from 'typeorm';
 export class NotableCollection extends BaseEntity {
   @Field()
   @PrimaryColumn('char', { length: 40 })
-  collection!: string;
+  collectionAddress!: string;
 }

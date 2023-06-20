@@ -18,7 +18,7 @@ __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     __metadata("design:type", String)
-], NotableCollection.prototype, "collection", void 0);
+], NotableCollection.prototype, "collectionAddress", void 0);
 NotableCollection = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'notable_collections' })

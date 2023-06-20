@@ -29,7 +29,7 @@ __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('char', { length: 40 }),
     __metadata("design:type", String)
-], Order.prototype, "collection", void 0);
+], Order.prototype, "collectionAddress", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
