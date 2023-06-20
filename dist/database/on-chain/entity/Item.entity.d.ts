@@ -1,8 +1,8 @@
 import { BaseEntity } from 'typeorm';
-import { Balance, CollectionType, Sale } from '..';
+import { Balance, Collection, CollectionType, Sale } from '..';
 import { Order } from '../..';
 export declare class ItemAttribute extends BaseEntity {
-    collection: string;
+    collectionAddress: string;
     tokenId: string;
     trait: string;
     value: string;
@@ -13,7 +13,8 @@ export declare class ItemMedia {
     gateway: string;
 }
 export declare class Item extends BaseEntity {
-    collection: string;
+    collectionAddress: string;
+    collection: Collection;
     tokenId: string;
     title?: string;
     description?: string;

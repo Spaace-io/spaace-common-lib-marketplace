@@ -15,7 +15,7 @@ export class Order extends BaseEntity {
 
   @Field()
   @Column('char', { length: 40 })
-  collection!: string;
+  collectionAddress!: string;
 
   @Field({ nullable: true })
   @Column({ nullable: true })

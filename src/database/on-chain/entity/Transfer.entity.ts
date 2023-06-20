@@ -35,10 +35,10 @@ export class Transfer extends BaseEntity {
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => Item)
   @JoinColumn([
-    { name: 'collection', referencedColumnName: 'collection' },
+    { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
     { name: 'tokenId', referencedColumnName: 'tokenId' },
   ])
-  collection!: string;
+  collectionAddress!: string;
 
   @Field()
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
