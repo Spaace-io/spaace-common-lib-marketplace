@@ -57,9 +57,6 @@ export class Item extends BaseEntity {
   @JoinColumn({ name: 'collectionAddress', referencedColumnName: 'address' })
   collectionAddress!: string;
 
-  @Field(() => Collection)
-  collection!: Collection;
-
   @Field()
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   tokenId!: string;
@@ -118,4 +115,7 @@ export class Item extends BaseEntity {
 
   @Field(() => [Balance], { nullable: true })
   owners!: Balance[];
+
+  @Field(() => Collection)
+  collection!: Collection;
 }
