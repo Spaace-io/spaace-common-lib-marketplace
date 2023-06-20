@@ -18,10 +18,10 @@ export class ItemAttribute extends BaseEntity {
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => Item)
   @JoinColumn([
-    { name: 'collection', referencedColumnName: 'collection' },
+    { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
     { name: 'tokenId', referencedColumnName: 'tokenId' },
   ])
-  collection!: string;
+  collectionAddress!: string;
 
   @Field()
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -54,8 +54,11 @@ export class Item extends BaseEntity {
   @Field()
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => Collection)
-  @JoinColumn({ name: 'collection', referencedColumnName: 'address' })
-  collection!: string;
+  @JoinColumn({ name: 'collectionAddress', referencedColumnName: 'address' })
+  collectionAddress!: string;
+
+  @Field(() => Collection)
+  collection!: Collection;
 
   @Field()
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -88,7 +91,7 @@ export class Item extends BaseEntity {
   @Field(() => [ItemAttribute], { nullable: true })
   @OneToMany(
     () => ItemAttribute,
-    (attribute) => [attribute.collection, attribute.tokenId],
+    (attribute) => [attribute.collectionAddress, attribute.tokenId],
   )
   attributes?: ItemAttribute[];
 

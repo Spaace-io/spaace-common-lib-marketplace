@@ -3,7 +3,7 @@ export declare class Sale extends BaseEntity {
     txHash: string;
     logIdx: number;
     orderHash: string;
-    collection: string;
+    collectionAddress: string;
     tokenId: string;
     amount: string;
     from: string;

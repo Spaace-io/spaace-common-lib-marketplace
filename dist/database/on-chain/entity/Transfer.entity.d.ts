@@ -4,7 +4,7 @@ export declare class Transfer extends BaseEntity {
     logIdx: number;
     from: string;
     to: string;
-    collection: string;
+    collectionAddress: string;
     tokenId: string;
     amount: string;
     timestamp: Date;

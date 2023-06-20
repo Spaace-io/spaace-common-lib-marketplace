@@ -21,11 +21,11 @@ __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => Item),
     (0, typeorm_1.JoinColumn)([
-        { name: 'collection', referencedColumnName: 'collection' },
+        { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
         { name: 'tokenId', referencedColumnName: 'tokenId' },
     ]),
     __metadata("design:type", String)
-], ItemAttribute.prototype, "collection", void 0);
+], ItemAttribute.prototype, "collectionAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -71,8 +71,12 @@ __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => __1.Collection),
-    (0, typeorm_1.JoinColumn)({ name: 'collection', referencedColumnName: 'address' }),
+    (0, typeorm_1.JoinColumn)({ name: 'collectionAddress', referencedColumnName: 'address' }),
     __metadata("design:type", String)
+], Item.prototype, "collectionAddress", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => __1.Collection),
+    __metadata("design:type", __1.Collection)
 ], Item.prototype, "collection", void 0);
 __decorate([
     (0, graphql_1.Field)(),
@@ -112,7 +116,7 @@ __decorate([
 ], Item.prototype, "rarityScore", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [ItemAttribute], { nullable: true }),
-    (0, typeorm_1.OneToMany)(() => ItemAttribute, (attribute) => [attribute.collection, attribute.tokenId]),
+    (0, typeorm_1.OneToMany)(() => ItemAttribute, (attribute) => [attribute.collectionAddress, attribute.tokenId]),
     __metadata("design:type", Array)
 ], Item.prototype, "attributes", void 0);
 __decorate([

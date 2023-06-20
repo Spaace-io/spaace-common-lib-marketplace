@@ -21,7 +21,7 @@ __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Balance.prototype, "collection", void 0);
+], Balance.prototype, "collectionAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.ViewColumn)(),

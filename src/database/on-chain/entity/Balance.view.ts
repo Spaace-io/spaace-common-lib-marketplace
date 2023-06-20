@@ -51,7 +51,7 @@ import { utils } from '../../..';
 export class Balance extends BaseEntity {
   @Field()
   @ViewColumn()
-  collection!: string;
+  collectionAddress!: string;
 
   @Field()
   @ViewColumn()

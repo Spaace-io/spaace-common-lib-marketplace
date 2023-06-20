@@ -42,11 +42,11 @@ __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => Item_entity_1.Item),
     (0, typeorm_1.JoinColumn)([
-        { name: 'collection', referencedColumnName: 'collection' },
+        { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
         { name: 'tokenId', referencedColumnName: 'tokenId' },
     ]),
     __metadata("design:type", String)
-], Transfer.prototype, "collection", void 0);
+], Transfer.prototype, "collectionAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
