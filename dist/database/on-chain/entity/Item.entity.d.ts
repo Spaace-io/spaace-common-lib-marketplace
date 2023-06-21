@@ -14,7 +14,6 @@ export declare class ItemMedia {
 }
 export declare class Item extends BaseEntity {
     collectionAddress: string;
-    collection: Collection;
     tokenId: string;
     title?: string;
     description?: string;
@@ -30,4 +29,5 @@ export declare class Item extends BaseEntity {
     lastSale?: Sale;
     ownerCount: string;
     owners: Balance[];
+    collection: Collection;
 }

@@ -75,10 +75,6 @@ __decorate([
     __metadata("design:type", String)
 ], Item.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => __1.Collection),
-    __metadata("design:type", __1.Collection)
-], Item.prototype, "collection", void 0);
-__decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
@@ -148,6 +144,10 @@ __decorate([
     (0, graphql_1.Field)(() => [__1.Balance], { nullable: true }),
     __metadata("design:type", Array)
 ], Item.prototype, "owners", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => __1.Collection),
+    __metadata("design:type", __1.Collection)
+], Item.prototype, "collection", void 0);
 Item = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'items' })
