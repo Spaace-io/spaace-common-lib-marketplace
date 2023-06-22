@@ -121,9 +121,9 @@ __decorate([
     __metadata("design:type", Date)
 ], Item.prototype, "lastImport", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => __1.CollectionType),
-    __metadata("design:type", String)
-], Item.prototype, "type", void 0);
+    (0, graphql_1.Field)(() => __1.Collection),
+    __metadata("design:type", __1.Collection)
+], Item.prototype, "collection", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __2.Order, { nullable: true }),
     __metadata("design:type", __2.Order)
@@ -144,10 +144,6 @@ __decorate([
     (0, graphql_1.Field)(() => [__1.Balance], { nullable: true }),
     __metadata("design:type", Array)
 ], Item.prototype, "owners", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => __1.Collection),
-    __metadata("design:type", __1.Collection)
-], Item.prototype, "collection", void 0);
 Item = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'items' })

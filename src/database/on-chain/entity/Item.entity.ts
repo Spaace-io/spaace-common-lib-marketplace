@@ -8,7 +8,7 @@ import {
   OneToMany,
   PrimaryColumn,
 } from 'typeorm';
-import { Balance, Collection, CollectionType, Sale } from '..';
+import { Balance, Collection, Sale } from '..';
 import { Order } from '../..';
 
 @ObjectType()
@@ -98,8 +98,8 @@ export class Item extends BaseEntity {
 
   // GraphQL only fields
 
-  @Field(() => CollectionType)
-  type!: CollectionType;
+  @Field(() => Collection)
+  collection!: Collection;
 
   @Field(() => Order, { nullable: true })
   buyNow?: Order;
@@ -115,7 +115,4 @@ export class Item extends BaseEntity {
 
   @Field(() => [Balance], { nullable: true })
   owners!: Balance[];
-
-  @Field(() => Collection)
-  collection!: Collection;
 }
