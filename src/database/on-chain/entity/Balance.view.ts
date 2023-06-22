@@ -14,11 +14,11 @@ import { utils } from '../../..';
         (query) =>
           query
             .from(Transfer, 'transfer')
-            .select('"collection"')
+            .select('"collectionAddress"')
             .addSelect('"tokenId"')
             .addSelect('"to"', 'user')
             .addSelect('SUM("amount")', 'total')
-            .groupBy('"collection"')
+            .groupBy('"collectionAddress"')
             .addGroupBy('"tokenId"')
             .addGroupBy('"to"'),
         'received',
@@ -27,17 +27,17 @@ import { utils } from '../../..';
         (query) =>
           query
             .from(Transfer, 'transfer')
-            .select('"collection"')
+            .select('"collectionAddress"')
             .addSelect('"tokenId"')
             .addSelect('"from"', 'user')
             .addSelect('SUM("amount")', 'total')
-            .groupBy('"collection"')
+            .groupBy('"collectionAddress"')
             .addGroupBy('"tokenId"')
             .addGroupBy('"from"'),
         'sent',
-        '"sent"."collection" = "received"."collection" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."user" = "received"."user"',
+        '"sent"."collectionAddress" = "received"."collectionAddress" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."user" = "received"."user"',
       )
-      .select('"received"."collection"')
+      .select('"received"."collectionAddress"')
       .addSelect('"received"."tokenId"')
       .addSelect('"received"."user"')
       .addSelect('"received"."total" - COALESCE("sent"."total", 0)', 'balance')
