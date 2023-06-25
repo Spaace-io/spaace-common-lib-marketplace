@@ -16,6 +16,7 @@ const __1 = require("..");
 const __2 = require("../..");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
+const class_validator_1 = require("class-validator");
 let ItemAttribute = class ItemAttribute extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -106,6 +107,8 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => [ItemMedia], { nullable: true }),
     (0, typeorm_1.Column)('jsonb', { nullable: true }),
+    (0, class_transformer_1.Type)(() => ItemMedia),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Object)
 ], Item.prototype, "medias", void 0);
 __decorate([
@@ -121,6 +124,8 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => [ItemAttribute], { nullable: true }),
     (0, typeorm_1.OneToMany)(() => ItemAttribute, (attribute) => [attribute.collectionAddress, attribute.tokenId]),
+    (0, class_transformer_1.Type)(() => ItemAttribute),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Object)
 ], Item.prototype, "attributes", void 0);
 __decorate([
@@ -130,18 +135,26 @@ __decorate([
 ], Item.prototype, "lastImport", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __1.Collection),
+    (0, class_transformer_1.Type)(() => __1.Collection),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", __1.Collection)
 ], Item.prototype, "collection", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __2.Order, { nullable: true }),
+    (0, class_transformer_1.Type)(() => __2.Order),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Item.prototype, "buyNow", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __2.Order, { nullable: true }),
+    (0, class_transformer_1.Type)(() => __2.Order),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Item.prototype, "sellNow", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __1.Sale, { nullable: true }),
+    (0, class_transformer_1.Type)(() => __1.Sale),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Item.prototype, "lastSale", void 0);
 __decorate([
@@ -150,6 +163,8 @@ __decorate([
 ], Item.prototype, "ownerCount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [__1.Balance], { nullable: true }),
+    (0, class_transformer_1.Type)(() => __1.Balance),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], Item.prototype, "owners", void 0);
 Item = __decorate([

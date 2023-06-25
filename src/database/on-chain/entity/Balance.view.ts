@@ -3,7 +3,8 @@ import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Item, Transfer } from '.';
 import { utils } from '../../..';
-import { Transform } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
+import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 @ViewEntity({
@@ -72,5 +73,7 @@ export class Balance extends BaseEntity {
   // GraphQL only fields
 
   @Field(() => Item)
+  @Type(() => Item)
+  @ValidateNested()
   item?: Item;
 }

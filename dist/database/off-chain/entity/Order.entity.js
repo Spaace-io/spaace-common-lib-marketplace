@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 const on_chain_1 = require("../../on-chain");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
+const class_validator_1 = require("class-validator");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -90,10 +91,14 @@ __decorate([
 ], Order.prototype, "signature", void 0);
 __decorate([
     (0, graphql_1.Field)(() => on_chain_1.Collection, { nullable: true }),
+    (0, class_transformer_1.Type)(() => on_chain_1.Collection),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Order.prototype, "collection", void 0);
 __decorate([
     (0, graphql_1.Field)(() => on_chain_1.Item, { nullable: true }),
+    (0, class_transformer_1.Type)(() => on_chain_1.Item),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Order.prototype, "item", void 0);
 Order = __decorate([

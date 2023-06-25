@@ -10,8 +10,9 @@ import {
 } from 'typeorm';
 import { Balance, Collection, Sale } from '..';
 import { Order } from '../..';
-import { Transform } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { ethers } from 'ethers';
+import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 @Entity({ name: 'item_attributes' })
@@ -83,6 +84,8 @@ export class Item extends BaseEntity {
 
   @Field(() => [ItemMedia], { nullable: true })
   @Column('jsonb', { nullable: true })
+  @Type(() => ItemMedia)
+  @ValidateNested({ each: true })
   medias!: ItemMedia[] | null;
 
   @Field(() => String, { nullable: true })
@@ -98,6 +101,8 @@ export class Item extends BaseEntity {
     () => ItemAttribute,
     (attribute) => [attribute.collectionAddress, attribute.tokenId],
   )
+  @Type(() => ItemAttribute)
+  @ValidateNested({ each: true })
   attributes!: ItemAttribute[] | null;
 
   @Field(() => Date, { nullable: true })
@@ -107,20 +112,30 @@ export class Item extends BaseEntity {
   // GraphQL only fields
 
   @Field(() => Collection)
+  @Type(() => Collection)
+  @ValidateNested()
   collection!: Collection;
 
   @Field(() => Order, { nullable: true })
+  @Type(() => Order)
+  @ValidateNested()
   buyNow!: Order | null;
 
   @Field(() => Order, { nullable: true })
+  @Type(() => Order)
+  @ValidateNested()
   sellNow!: Order | null;
 
   @Field(() => Sale, { nullable: true })
+  @Type(() => Sale)
+  @ValidateNested()
   lastSale!: Sale | null;
 
   @Field(() => String)
   ownerCount!: string;
 
   @Field(() => [Balance], { nullable: true })
+  @Type(() => Balance)
+  @ValidateNested({ each: true })
   owners!: Balance[];
 }

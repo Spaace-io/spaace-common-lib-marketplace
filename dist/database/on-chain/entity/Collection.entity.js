@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 const __1 = require("../..");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
+const class_validator_1 = require("class-validator");
 var CollectionType;
 (function (CollectionType) {
     CollectionType["ERC721"] = "ERC721";
@@ -72,6 +73,8 @@ __decorate([
 ], CollectionAttribute.prototype, "trait", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [CollectionAttributeValue]),
+    (0, class_transformer_1.Type)(() => CollectionAttributeValue),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], CollectionAttribute.prototype, "values", void 0);
 CollectionAttribute = __decorate([
@@ -149,11 +152,15 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => [CollectionAttribute], { nullable: true }),
     (0, typeorm_1.Column)('jsonb', { nullable: true }),
+    (0, class_transformer_1.Type)(() => CollectionAttribute),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Object)
 ], Collection.prototype, "attributes", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [CollectionLink]),
     (0, typeorm_1.Column)('jsonb', { default: [] }),
+    (0, class_transformer_1.Type)(() => CollectionLink),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], Collection.prototype, "links", void 0);
 __decorate([
@@ -293,10 +300,14 @@ __decorate([
 ], Collection.prototype, "listedCount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
+    (0, class_transformer_1.Type)(() => __1.Order),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "buyNow", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
+    (0, class_transformer_1.Type)(() => __1.Order),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "sellNow", void 0);
 __decorate([

@@ -1,8 +1,9 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 import { Order } from '../..';
-import { Transform } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { ethers } from 'ethers';
+import { ValidateNested } from 'class-validator';
 
 export enum CollectionType {
   ERC721 = 'ERC721',
@@ -51,6 +52,8 @@ export class CollectionAttribute {
   trait!: string;
 
   @Field(() => [CollectionAttributeValue])
+  @Type(() => CollectionAttributeValue)
+  @ValidateNested({ each: true })
   values!: CollectionAttributeValue[];
 }
 
@@ -116,10 +119,14 @@ export class Collection extends BaseEntity {
 
   @Field(() => [CollectionAttribute], { nullable: true })
   @Column('jsonb', { nullable: true })
+  @Type(() => CollectionAttribute)
+  @ValidateNested({ each: true })
   attributes!: CollectionAttribute[] | null;
 
   @Field(() => [CollectionLink])
   @Column('jsonb', { default: [] })
+  @Type(() => CollectionLink)
+  @ValidateNested({ each: true })
   links!: CollectionLink[];
 
   @Field(() => String)
@@ -232,9 +239,13 @@ export class Collection extends BaseEntity {
   listedCount!: string;
 
   @Field(() => Order, { nullable: true })
+  @Type(() => Order)
+  @ValidateNested()
   buyNow!: Order | null;
 
   @Field(() => Order, { nullable: true })
+  @Type(() => Order)
+  @ValidateNested()
   sellNow!: Order | null;
 
   @Field(() => Boolean)
