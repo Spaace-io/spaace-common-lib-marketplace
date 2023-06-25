@@ -32,15 +32,15 @@ export class Order extends BaseEntity {
   collectionAddress!: string;
 
   @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Column('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
   tokenId!: string | null;
 
   @Field(() => Boolean)
-  @Column()
+  @Column('boolean')
   isAsk!: boolean;
 
   @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  @Column('numeric', { precision: 78, unsigned: true })
   price!: string;
 
   @Field(() => String)
@@ -51,11 +51,11 @@ export class Order extends BaseEntity {
   currency!: string;
 
   @Field(() => Date)
-  @Column()
+  @Column('timestamp without time zone')
   startTime!: Date;
 
   @Field(() => Date, { nullable: true })
-  @Column({ nullable: true })
+  @Column('timestamp without time zone', { nullable: true })
   endTime!: Date | null;
 
   @Field(() => String)
@@ -63,7 +63,7 @@ export class Order extends BaseEntity {
   counter!: string;
 
   @Field(() => String)
-  @Column()
+  @Column('text')
   @Transform(
     ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
     {

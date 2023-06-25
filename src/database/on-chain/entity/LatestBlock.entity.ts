@@ -6,12 +6,12 @@ export class LatestBlock extends BaseEntity {
   @Check('pk = TRUE')
   pk!: boolean;
 
-  @Column()
+  @Column('numeric', { precision: 78 })
   number!: number;
 
   @Column('char', { length: 64 })
   hash!: string;
 
-  @Column({ default: () => 'CURRENT_TIMESTAMP' })
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
 }

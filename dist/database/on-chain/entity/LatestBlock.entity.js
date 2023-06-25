@@ -19,7 +19,7 @@ __decorate([
     __metadata("design:type", Boolean)
 ], LatestBlock.prototype, "pk", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('numeric', { precision: 78 }),
     __metadata("design:type", Number)
 ], LatestBlock.prototype, "number", void 0);
 __decorate([
@@ -27,7 +27,7 @@ __decorate([
     __metadata("design:type", String)
 ], LatestBlock.prototype, "hash", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
+    (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], LatestBlock.prototype, "timestamp", void 0);
 LatestBlock = __decorate([

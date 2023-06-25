@@ -66,6 +66,6 @@ export class Transfer extends BaseEntity {
   amount!: string;
 
   @Field(() => Date)
-  @Column({ default: () => 'CURRENT_TIMESTAMP' })
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
 }

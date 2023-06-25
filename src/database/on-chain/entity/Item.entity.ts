@@ -70,15 +70,15 @@ export class Item extends BaseEntity {
   tokenId!: string;
 
   @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Column('text', { nullable: true })
   title!: string | null;
 
   @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Column('text', { nullable: true })
   description!: string | null;
 
   @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Column('text', { nullable: true })
   tokenUri!: string | null;
 
   @Field(() => [ItemMedia], { nullable: true })
@@ -101,7 +101,7 @@ export class Item extends BaseEntity {
   attributes!: ItemAttribute[] | null;
 
   @Field(() => Date, { nullable: true })
-  @Column({ nullable: true })
+  @Column('timestamp without time zone', { nullable: true })
   lastImport!: Date | null;
 
   // GraphQL only fields

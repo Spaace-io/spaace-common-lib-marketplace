@@ -94,7 +94,7 @@ __decorate([
 ], Sale.prototype, "currency", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
+    (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], Sale.prototype, "timestamp", void 0);
 Sale = __decorate([

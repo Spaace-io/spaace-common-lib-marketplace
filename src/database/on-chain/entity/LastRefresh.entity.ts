@@ -6,6 +6,6 @@ export class LastRefresh extends BaseEntity {
   @Check('"pk" = TRUE')
   pk!: boolean;
 
-  @Column({ default: () => 'CURRENT_TIMESTAMP' })
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
 }

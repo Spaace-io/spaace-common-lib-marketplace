@@ -69,39 +69,39 @@ export class Collection extends BaseEntity {
   type!: CollectionType;
 
   @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Column('text', { nullable: true })
   name!: string | null;
 
   @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Column('text', { nullable: true })
   symbol!: string | null;
 
   @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Column('text', { nullable: true })
   imageUrl!: string | null;
 
   @Field(() => Boolean)
-  @Column({ default: true })
+  @Column('boolean', { default: true })
   active!: boolean;
 
   @Field(() => Boolean)
-  @Column({ default: false })
+  @Column('boolean', { default: false })
   verified!: boolean;
 
   @Field(() => Boolean)
-  @Column({ default: false })
+  @Column('boolean', { default: false })
   explicit!: boolean;
 
   @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Column('text', { nullable: true })
   bannerUrl!: string | null;
 
   @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Column('text', { nullable: true })
   description!: string | null;
 
   @Field(() => Date, { nullable: true })
-  @Column({ nullable: true })
+  @Column('timestamp without time zone', { nullable: true })
   deployedAt!: Date | null;
 
   @Field(() => String, { nullable: true })
@@ -223,7 +223,7 @@ export class Collection extends BaseEntity {
   ownerCount!: string;
 
   @Field(() => Date, { nullable: true })
-  @Column({ nullable: true })
+  @Column('timestamp without time zone', { nullable: true })
   lastImport!: Date | null;
 
   // GraphQL only fields

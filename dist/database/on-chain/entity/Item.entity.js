@@ -90,17 +90,17 @@ __decorate([
 ], Item.prototype, "tokenId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], Item.prototype, "title", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], Item.prototype, "description", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], Item.prototype, "tokenUri", void 0);
 __decorate([
@@ -125,7 +125,7 @@ __decorate([
 ], Item.prototype, "attributes", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date, { nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], Item.prototype, "lastImport", void 0);
 __decorate([

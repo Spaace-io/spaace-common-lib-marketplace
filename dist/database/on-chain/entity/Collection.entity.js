@@ -95,47 +95,47 @@ __decorate([
 ], Collection.prototype, "type", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], Collection.prototype, "name", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], Collection.prototype, "symbol", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], Collection.prototype, "imageUrl", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Boolean),
-    (0, typeorm_1.Column)({ default: true }),
+    (0, typeorm_1.Column)('boolean', { default: true }),
     __metadata("design:type", Boolean)
 ], Collection.prototype, "active", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Boolean),
-    (0, typeorm_1.Column)({ default: false }),
+    (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)
 ], Collection.prototype, "verified", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Boolean),
-    (0, typeorm_1.Column)({ default: false }),
+    (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)
 ], Collection.prototype, "explicit", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], Collection.prototype, "bannerUrl", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], Collection.prototype, "description", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date, { nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], Collection.prototype, "deployedAt", void 0);
 __decorate([
@@ -284,7 +284,7 @@ __decorate([
 ], Collection.prototype, "ownerCount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date, { nullable: true }),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], Collection.prototype, "lastImport", void 0);
 __decorate([

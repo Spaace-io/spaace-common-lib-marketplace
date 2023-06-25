@@ -22,7 +22,7 @@ export class LoginNonce {
   address!: string;
 
   @Field(() => Date)
-  @Column({ default: () => 'CURRENT_TIMESTAMP' })
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
 
   @BeforeInsert()
