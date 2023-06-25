@@ -1,6 +1,8 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 import { Order } from '../..';
+import { Transform } from 'class-transformer';
+import { ethers } from 'ethers';
 
 export enum CollectionType {
   ERC721 = 'ERC721',
@@ -57,6 +59,9 @@ export class CollectionAttribute {
 export class Collection extends BaseEntity {
   @Field()
   @PrimaryColumn('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   address!: string;
 
   @Field(() => CollectionType)
@@ -101,6 +106,12 @@ export class Collection extends BaseEntity {
 
   @Field({ nullable: true })
   @Column('char', { length: 40, nullable: true })
+  @Transform(
+    ({ value }) => (value !== null ? ethers.utils.getAddress(value) : null),
+    {
+      toPlainOnly: true,
+    },
+  )
   deployer?: string;
 
   @Field(() => [CollectionAttribute], { nullable: true })

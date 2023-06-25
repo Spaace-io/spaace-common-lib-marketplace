@@ -10,6 +10,8 @@ import {
 } from 'typeorm';
 import { Balance, Collection, Sale } from '..';
 import { Order } from '../..';
+import { Transform } from 'class-transformer';
+import { ethers } from 'ethers';
 
 @ObjectType()
 @Entity({ name: 'item_attributes' })
@@ -21,6 +23,9 @@ export class ItemAttribute extends BaseEntity {
     { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
     { name: 'tokenId', referencedColumnName: 'tokenId' },
   ])
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   collectionAddress!: string;
 
   @Field()
@@ -55,6 +60,9 @@ export class Item extends BaseEntity {
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => Collection)
   @JoinColumn({ name: 'collectionAddress', referencedColumnName: 'address' })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   collectionAddress!: string;
 
   @Field()

@@ -15,11 +15,15 @@ const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
 const _1 = require(".");
 const __1 = require("../../..");
+const class_transformer_1 = require("class-transformer");
 let Balance = class Balance extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.ViewColumn)(),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Balance.prototype, "collectionAddress", void 0);
 __decorate([

@@ -13,6 +13,8 @@ exports.Transfer = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const Item_entity_1 = require("./Item.entity");
+const class_transformer_1 = require("class-transformer");
+const ethers_1 = require("ethers");
 // Primary key = (txHash, logIdx, from, to, collection, item)
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
 let Transfer = class Transfer extends typeorm_1.BaseEntity {
@@ -20,6 +22,9 @@ let Transfer = class Transfer extends typeorm_1.BaseEntity {
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Transfer.prototype, "txHash", void 0);
 __decorate([
@@ -30,11 +35,17 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Transfer.prototype, "from", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Transfer.prototype, "to", void 0);
 __decorate([
@@ -45,6 +56,9 @@ __decorate([
         { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
         { name: 'tokenId', referencedColumnName: 'tokenId' },
     ]),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Transfer.prototype, "collectionAddress", void 0);
 __decorate([

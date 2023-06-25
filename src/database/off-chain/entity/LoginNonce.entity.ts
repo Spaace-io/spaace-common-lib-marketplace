@@ -2,6 +2,8 @@ import { BeforeInsert, Column, Entity, PrimaryColumn } from 'typeorm';
 
 import { Field, ObjectType } from '@nestjs/graphql';
 import { randomUUID } from 'crypto';
+import { Transform } from 'class-transformer';
+import { ethers } from 'ethers';
 
 export const LOGIN_NONCE_VALID_PERIOD = 5 * 60 * 1000;
 
@@ -14,6 +16,9 @@ export class LoginNonce {
 
   @Field()
   @Column('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   address!: string;
 
   @Field()

@@ -1,11 +1,16 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { Transform } from 'class-transformer';
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import { ethers } from 'ethers';
 
 @ObjectType()
 @Entity({ name: 'referral_rewards' })
 export class ReferralReward extends BaseEntity {
   @Field()
   @PrimaryColumn('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   user!: string;
 
   @Field()
@@ -14,6 +19,9 @@ export class ReferralReward extends BaseEntity {
 
   @Field()
   @PrimaryColumn('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   referrer!: string;
 
   @Field()

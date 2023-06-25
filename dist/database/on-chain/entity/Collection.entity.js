@@ -13,6 +13,8 @@ exports.Collection = exports.CollectionAttribute = exports.CollectionAttributeVa
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const __1 = require("../..");
+const class_transformer_1 = require("class-transformer");
+const ethers_1 = require("ethers");
 var CollectionType;
 (function (CollectionType) {
     CollectionType["ERC721"] = "ERC721";
@@ -81,6 +83,9 @@ let Collection = class Collection extends typeorm_1.BaseEntity {
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Collection.prototype, "address", void 0);
 __decorate([
@@ -136,6 +141,9 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     (0, typeorm_1.Column)('char', { length: 40, nullable: true }),
+    (0, class_transformer_1.Transform)(({ value }) => (value !== null ? ethers_1.ethers.utils.getAddress(value) : null), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Collection.prototype, "deployer", void 0);
 __decorate([

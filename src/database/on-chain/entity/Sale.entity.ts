@@ -8,12 +8,20 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { Item } from './Item.entity';
+import { Transform } from 'class-transformer';
+import { ethers } from 'ethers';
 
 @ObjectType()
 @Entity({ name: 'sales' })
 export class Sale extends BaseEntity {
   @Field()
   @PrimaryColumn('char', { length: 64 })
+  @Transform(
+    ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
+    {
+      toPlainOnly: true,
+    },
+  )
   txHash!: string;
 
   @Field()
@@ -22,6 +30,12 @@ export class Sale extends BaseEntity {
 
   @Field()
   @Column('char', { length: 64 })
+  @Transform(
+    ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
+    {
+      toPlainOnly: true,
+    },
+  )
   orderHash!: string;
 
   @Field()
@@ -31,6 +45,9 @@ export class Sale extends BaseEntity {
     { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
     { name: 'tokenId', referencedColumnName: 'tokenId' },
   ])
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   collectionAddress!: string;
 
   @Field()
@@ -43,10 +60,16 @@ export class Sale extends BaseEntity {
 
   @Field()
   @Column('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   from!: string;
 
   @Field()
   @Column('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   to!: string;
 
   @Field()
@@ -55,6 +78,9 @@ export class Sale extends BaseEntity {
 
   @Field()
   @Column('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   currency!: string;
 
   @Field()

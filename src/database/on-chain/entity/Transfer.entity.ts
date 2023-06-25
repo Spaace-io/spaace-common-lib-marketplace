@@ -8,6 +8,8 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { Item } from './Item.entity';
+import { Transform } from 'class-transformer';
+import { ethers } from 'ethers';
 
 // Primary key = (txHash, logIdx, from, to, collection, item)
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
@@ -17,6 +19,12 @@ import { Item } from './Item.entity';
 export class Transfer extends BaseEntity {
   @Field()
   @PrimaryColumn('char', { length: 64 })
+  @Transform(
+    ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
+    {
+      toPlainOnly: true,
+    },
+  )
   txHash!: string;
 
   @Field()
@@ -25,10 +33,16 @@ export class Transfer extends BaseEntity {
 
   @Field()
   @PrimaryColumn('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   from!: string;
 
   @Field()
   @PrimaryColumn('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   to!: string;
 
   @Field()
@@ -38,6 +52,9 @@ export class Transfer extends BaseEntity {
     { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
     { name: 'tokenId', referencedColumnName: 'tokenId' },
   ])
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   collectionAddress!: string;
 
   @Field()

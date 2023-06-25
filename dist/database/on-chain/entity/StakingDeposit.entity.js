@@ -11,12 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StakingDeposit = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
+const ethers_1 = require("ethers");
 let StakingDeposit = class StakingDeposit extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], StakingDeposit.prototype, "user", void 0);
 __decorate([
@@ -27,6 +32,9 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], StakingDeposit.prototype, "pool", void 0);
 __decorate([

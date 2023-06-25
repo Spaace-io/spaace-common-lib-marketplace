@@ -1,20 +1,34 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 import { Item } from '../../on-chain';
+import { Transform } from 'class-transformer';
+import { ethers } from 'ethers';
 
 @ObjectType()
 @Entity({ name: 'orders' })
 export class Order extends BaseEntity {
   @Field()
   @PrimaryColumn('char', { length: 64 })
+  @Transform(
+    ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
+    {
+      toPlainOnly: true,
+    },
+  )
   hash!: string;
 
   @Field()
   @Column('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   user!: string;
 
   @Field()
   @Column('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   collectionAddress!: string;
 
   @Field({ nullable: true })
@@ -30,7 +44,10 @@ export class Order extends BaseEntity {
   price!: string;
 
   @Field()
-  @Column()
+  @Column('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   currency!: string;
 
   @Field()
@@ -47,6 +64,12 @@ export class Order extends BaseEntity {
 
   @Field()
   @Column()
+  @Transform(
+    ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
+    {
+      toPlainOnly: true,
+    },
+  )
   signature!: string;
 
   // GraphQL only fields

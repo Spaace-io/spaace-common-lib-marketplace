@@ -24,6 +24,7 @@
     "@google-cloud/firestore": "^6.4.3",
     "@google-cloud/pubsub": "^3.3.0",
     "@nestjs/graphql": "^10.1.7",
+    "class-transformer": "^0.5.1",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
     "pg": "^8.4.0",

@@ -14,6 +14,8 @@ const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const __1 = require("..");
 const __2 = require("../..");
+const class_transformer_1 = require("class-transformer");
+const ethers_1 = require("ethers");
 let ItemAttribute = class ItemAttribute extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -24,6 +26,9 @@ __decorate([
         { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
         { name: 'tokenId', referencedColumnName: 'tokenId' },
     ]),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], ItemAttribute.prototype, "collectionAddress", void 0);
 __decorate([
@@ -72,6 +77,9 @@ __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => __1.Collection),
     (0, typeorm_1.JoinColumn)({ name: 'collectionAddress', referencedColumnName: 'address' }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Item.prototype, "collectionAddress", void 0);
 __decorate([

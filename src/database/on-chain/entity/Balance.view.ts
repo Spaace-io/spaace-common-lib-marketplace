@@ -3,6 +3,7 @@ import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Item, Transfer } from '.';
 import { utils } from '../../..';
+import { Transform } from 'class-transformer';
 
 @ObjectType()
 @ViewEntity({
@@ -51,6 +52,9 @@ import { utils } from '../../..';
 export class Balance extends BaseEntity {
   @Field()
   @ViewColumn()
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   collectionAddress!: string;
 
   @Field()

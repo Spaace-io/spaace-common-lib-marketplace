@@ -1,6 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Sale } from '.';
+import { Transform } from 'class-transformer';
+import { ethers } from 'ethers';
 
 @ObjectType()
 @ViewEntity({
@@ -22,10 +24,16 @@ import { Sale } from '.';
 export class BuyVolume extends BaseEntity {
   @Field()
   @ViewColumn()
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   user!: string;
 
   @Field()
   @ViewColumn()
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   currency!: string;
 
   @Field()

@@ -13,21 +13,32 @@ exports.Order = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const on_chain_1 = require("../../on-chain");
+const class_transformer_1 = require("class-transformer");
+const ethers_1 = require("ethers");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Order.prototype, "hash", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Order.prototype, "user", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Order.prototype, "collectionAddress", void 0);
 __decorate([
@@ -48,7 +59,10 @@ __decorate([
 ], Order.prototype, "price", void 0);
 __decorate([
     (0, graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Order.prototype, "currency", void 0);
 __decorate([
@@ -69,6 +83,9 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Order.prototype, "signature", void 0);
 __decorate([

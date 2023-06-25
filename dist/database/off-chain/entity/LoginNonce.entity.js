@@ -13,6 +13,8 @@ exports.LoginNonce = exports.LOGIN_NONCE_VALID_PERIOD = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const crypto_1 = require("crypto");
+const class_transformer_1 = require("class-transformer");
+const ethers_1 = require("ethers");
 exports.LOGIN_NONCE_VALID_PERIOD = 5 * 60 * 1000;
 let LoginNonce = class LoginNonce {
     generateNonce() {
@@ -28,6 +30,9 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], LoginNonce.prototype, "address", void 0);
 __decorate([

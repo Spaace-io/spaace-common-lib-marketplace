@@ -13,16 +13,24 @@ exports.BuyVolume = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const _1 = require(".");
+const class_transformer_1 = require("class-transformer");
+const ethers_1 = require("ethers");
 let BuyVolume = class BuyVolume extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.ViewColumn)(),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], BuyVolume.prototype, "user", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.ViewColumn)(),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], BuyVolume.prototype, "currency", void 0);
 __decorate([
