@@ -10,18 +10,18 @@ export const LOGIN_NONCE_VALID_PERIOD = 5 * 60 * 1000;
 @ObjectType()
 @Entity()
 export class LoginNonce {
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 32 })
   nonce!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   address!: string;
 
-  @Field()
+  @Field(() => Date)
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
 

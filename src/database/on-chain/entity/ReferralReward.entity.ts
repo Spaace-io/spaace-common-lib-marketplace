@@ -6,29 +6,29 @@ import { ethers } from 'ethers';
 @ObjectType()
 @Entity({ name: 'referral_rewards' })
 export class ReferralReward extends BaseEntity {
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   user!: string;
 
-  @Field()
+  @Field(() => Date)
   @PrimaryColumn('date', { default: () => 'CURRENT_DATE' })
   date!: Date;
 
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   referrer!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true })
   referrerAmount!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true })
   referredAmount!: string;
 }

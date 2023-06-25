@@ -4,14 +4,14 @@ export declare class Order extends BaseEntity {
     hash: string;
     user: string;
     collectionAddress: string;
-    tokenId?: string;
+    tokenId: string | null;
     isAsk: boolean;
     price: string;
     currency: string;
     startTime: Date;
-    endTime?: Date;
+    endTime: Date | null;
     counter: string;
     signature: string;
-    collection?: Collection;
-    item?: Item;
+    collection: Collection | null;
+    item: Item | null;
 }

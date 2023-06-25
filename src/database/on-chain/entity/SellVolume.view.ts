@@ -22,25 +22,25 @@ import { ethers } from 'ethers';
   name: 'sell_volumes',
 })
 export class SellVolume extends BaseEntity {
-  @Field()
+  @Field(() => String)
   @ViewColumn()
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   user!: string;
 
-  @Field()
+  @Field(() => String)
   @ViewColumn()
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   currency!: string;
 
-  @Field()
+  @Field(() => String)
   @ViewColumn()
   volume!: string;
 
-  @Field()
+  @Field(() => Date)
   @ViewColumn()
   date!: Date;
 }

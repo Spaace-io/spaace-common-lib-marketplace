@@ -32,22 +32,22 @@ export class CollectionLink {
   @Field(() => CollectionLinkType)
   type!: CollectionLinkType;
 
-  @Field()
+  @Field(() => String)
   url!: string;
 }
 
 @ObjectType()
 export class CollectionAttributeValue {
-  @Field()
+  @Field(() => String)
   value!: string;
 
-  @Field()
+  @Field(() => String)
   count!: string;
 }
 
 @ObjectType()
 export class CollectionAttribute {
-  @Field()
+  @Field(() => String)
   trait!: string;
 
   @Field(() => [CollectionAttributeValue])
@@ -57,7 +57,7 @@ export class CollectionAttribute {
 @ObjectType()
 @Entity({ name: 'collections' })
 export class Collection extends BaseEntity {
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
@@ -68,43 +68,43 @@ export class Collection extends BaseEntity {
   @Column('enum', { enum: CollectionType, enumName: 'collection_type' })
   type!: CollectionType;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  name?: string;
+  name!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  symbol?: string;
+  symbol!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  imageUrl?: string;
+  imageUrl!: string | null;
 
-  @Field()
+  @Field(() => Boolean)
   @Column({ default: true })
   active!: boolean;
 
-  @Field()
+  @Field(() => Boolean)
   @Column({ default: false })
   verified!: boolean;
 
-  @Field()
+  @Field(() => Boolean)
   @Column({ default: false })
   explicit!: boolean;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  bannerUrl?: string;
+  bannerUrl!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  description?: string;
+  description!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   @Column({ nullable: true })
-  deployedAt?: Date;
+  deployedAt!: Date | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column('char', { length: 40, nullable: true })
   @Transform(
     ({ value }) => (value !== null ? ethers.utils.getAddress(value) : null),
@@ -112,131 +112,131 @@ export class Collection extends BaseEntity {
       toPlainOnly: true,
     },
   )
-  deployer?: string;
+  deployer!: string | null;
 
   @Field(() => [CollectionAttribute], { nullable: true })
   @Column('jsonb', { nullable: true })
-  attributes?: CollectionAttribute[];
+  attributes!: CollectionAttribute[] | null;
 
   @Field(() => [CollectionLink])
   @Column('jsonb', { default: [] })
   links!: CollectionLink[];
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
   volume1h!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, default: '0' })
   volumeChange1h!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   volume6h!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, default: '0' })
   volumeChange6h!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   volume24h!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, default: '0' })
   volumeChange24h!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   volume7d!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, default: '0' })
   volumeChange7d!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   volume30d!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, default: '0' })
   volumeChange30d!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   volume!: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column('numeric', { precision: 78, unsigned: true, nullable: true })
-  floorPrice?: string;
+  floorPrice!: string | null;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, default: '0' })
   floorChange1h!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, default: '0' })
   floorChange6h!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, default: '0' })
   floorChange24h!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, default: '0' })
   floorChange7d!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, default: '0' })
   floorChange30d!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount1h!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount6h!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount24h!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount7d!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount30d!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   totalSupply!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   ownerCount!: string;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   @Column({ nullable: true })
-  lastImport?: Date;
+  lastImport!: Date | null;
 
   // GraphQL only fields
 
-  @Field()
+  @Field(() => String)
   listedCount!: string;
 
   @Field(() => Order, { nullable: true })
-  buyNow?: Order;
+  buyNow!: Order | null;
 
   @Field(() => Order, { nullable: true })
-  sellNow?: Order;
+  sellNow!: Order | null;
 
-  @Field()
+  @Field(() => Boolean)
   notable!: boolean;
 }

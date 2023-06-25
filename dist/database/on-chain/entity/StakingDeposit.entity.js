@@ -17,7 +17,7 @@ const ethers_1 = require("ethers");
 let StakingDeposit = class StakingDeposit extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -25,12 +25,12 @@ __decorate([
     __metadata("design:type", String)
 ], StakingDeposit.prototype, "user", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.PrimaryColumn)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], StakingDeposit.prototype, "timestamp", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -38,7 +38,7 @@ __decorate([
     __metadata("design:type", String)
 ], StakingDeposit.prototype, "pool", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78 }),
     __metadata("design:type", String)
 ], StakingDeposit.prototype, "amount", void 0);

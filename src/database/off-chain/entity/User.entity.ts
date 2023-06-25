@@ -6,7 +6,7 @@ import { ethers } from 'ethers';
 @ObjectType()
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,

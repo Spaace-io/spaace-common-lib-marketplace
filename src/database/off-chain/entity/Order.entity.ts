@@ -7,7 +7,7 @@ import { ethers } from 'ethers';
 @ObjectType()
 @Entity({ name: 'orders' })
 export class Order extends BaseEntity {
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 64 })
   @Transform(
     ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
@@ -17,52 +17,52 @@ export class Order extends BaseEntity {
   )
   hash!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   user!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   collectionAddress!: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  tokenId?: string;
+  tokenId!: string | null;
 
-  @Field()
+  @Field(() => Boolean)
   @Column()
   isAsk!: boolean;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   price!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   currency!: string;
 
-  @Field()
+  @Field(() => Date)
   @Column()
   startTime!: Date;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   @Column({ nullable: true })
-  endTime?: Date;
+  endTime!: Date | null;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true })
   counter!: string;
 
-  @Field()
+  @Field(() => String)
   @Column()
   @Transform(
     ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
@@ -75,8 +75,8 @@ export class Order extends BaseEntity {
   // GraphQL only fields
 
   @Field(() => Collection, { nullable: true })
-  collection?: Collection;
+  collection!: Collection | null;
 
   @Field(() => Item, { nullable: true })
-  item?: Item;
+  item!: Item | null;
 }

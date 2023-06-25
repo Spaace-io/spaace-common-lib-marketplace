@@ -6,22 +6,22 @@ import { ethers } from 'ethers';
 @ObjectType()
 @Entity({ name: 'trading_rewards' })
 export class TradingReward extends BaseEntity {
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   user!: string;
 
-  @Field()
+  @Field(() => Date)
   @PrimaryColumn('date', { default: () => 'CURRENT_DATE' })
   date!: Date;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true })
   buyAmount!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true })
   sellAmount!: string;
 }

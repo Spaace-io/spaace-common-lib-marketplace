@@ -19,7 +19,7 @@ const class_transformer_1 = require("class-transformer");
 let Balance = class Balance extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -27,17 +27,17 @@ __decorate([
     __metadata("design:type", String)
 ], Balance.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Balance.prototype, "tokenId", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Balance.prototype, "user", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Balance.prototype, "balance", void 0);

@@ -16,7 +16,7 @@ import { ethers } from 'ethers';
 @ObjectType()
 @Entity({ name: 'item_attributes' })
 export class ItemAttribute extends BaseEntity {
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => Item)
   @JoinColumn([
@@ -28,35 +28,35 @@ export class ItemAttribute extends BaseEntity {
   })
   collectionAddress!: string;
 
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   tokenId!: string;
 
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('text')
   trait!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('text')
   value!: string;
 }
 
 @ObjectType()
 export class ItemMedia {
-  @Field()
+  @Field(() => String)
   raw!: string;
 
-  @Field()
+  @Field(() => String)
   thumbnail!: string;
 
-  @Field()
+  @Field(() => String)
   gateway!: string;
 }
 
 @ObjectType()
 @Entity({ name: 'items' })
 export class Item extends BaseEntity {
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => Collection)
   @JoinColumn({ name: 'collectionAddress', referencedColumnName: 'address' })
@@ -65,44 +65,44 @@ export class Item extends BaseEntity {
   })
   collectionAddress!: string;
 
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   tokenId!: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  title?: string;
+  title!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  description?: string;
+  description!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  tokenUri?: string;
+  tokenUri!: string | null;
 
   @Field(() => [ItemMedia], { nullable: true })
   @Column('jsonb', { nullable: true })
-  medias?: ItemMedia[];
+  medias!: ItemMedia[] | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column('numeric', { precision: 78, unsigned: true, nullable: true })
-  rarityRanking?: string;
+  rarityRanking!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Column('float', { unsigned: true, nullable: true })
-  rarityScore?: string;
+  rarityScore!: string | null;
 
   @Field(() => [ItemAttribute], { nullable: true })
   @OneToMany(
     () => ItemAttribute,
     (attribute) => [attribute.collectionAddress, attribute.tokenId],
   )
-  attributes?: ItemAttribute[];
+  attributes!: ItemAttribute[] | null;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   @Column({ nullable: true })
-  lastImport?: Date;
+  lastImport!: Date | null;
 
   // GraphQL only fields
 
@@ -110,15 +110,15 @@ export class Item extends BaseEntity {
   collection!: Collection;
 
   @Field(() => Order, { nullable: true })
-  buyNow?: Order;
+  buyNow!: Order | null;
 
   @Field(() => Order, { nullable: true })
-  sellNow?: Order;
+  sellNow!: Order | null;
 
   @Field(() => Sale, { nullable: true })
-  lastSale?: Sale;
+  lastSale!: Sale | null;
 
-  @Field()
+  @Field(() => String)
   ownerCount!: string;
 
   @Field(() => [Balance], { nullable: true })

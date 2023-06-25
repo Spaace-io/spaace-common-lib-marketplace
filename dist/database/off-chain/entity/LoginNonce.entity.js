@@ -23,12 +23,12 @@ let LoginNonce = class LoginNonce {
     }
 };
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 32 }),
     __metadata("design:type", String)
 ], LoginNonce.prototype, "nonce", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -36,7 +36,7 @@ __decorate([
     __metadata("design:type", String)
 ], LoginNonce.prototype, "address", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], LoginNonce.prototype, "timestamp", void 0);

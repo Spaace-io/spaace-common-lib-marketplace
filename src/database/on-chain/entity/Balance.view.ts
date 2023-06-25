@@ -50,22 +50,22 @@ import { Transform } from 'class-transformer';
   name: 'balances',
 })
 export class Balance extends BaseEntity {
-  @Field()
+  @Field(() => String)
   @ViewColumn()
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   collectionAddress!: string;
 
-  @Field()
+  @Field(() => String)
   @ViewColumn()
   tokenId!: string;
 
-  @Field()
+  @Field(() => String)
   @ViewColumn()
   user!: string;
 
-  @Field()
+  @Field(() => String)
   @ViewColumn()
   balance!: string;
 

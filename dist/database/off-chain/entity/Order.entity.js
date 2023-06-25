@@ -18,7 +18,7 @@ const ethers_1 = require("ethers");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
         toPlainOnly: true,
@@ -26,7 +26,7 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "hash", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -34,7 +34,7 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "user", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -42,23 +42,23 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], Order.prototype, "tokenId", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.Column)(),
     __metadata("design:type", Boolean)
 ], Order.prototype, "isAsk", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", String)
 ], Order.prototype, "price", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -66,22 +66,22 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "currency", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)(),
     __metadata("design:type", Date)
 ], Order.prototype, "startTime", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
+    (0, graphql_1.Field)(() => Date, { nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", Date)
+    __metadata("design:type", Object)
 ], Order.prototype, "endTime", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
 ], Order.prototype, "counter", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)(),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
         toPlainOnly: true,
@@ -90,11 +90,11 @@ __decorate([
 ], Order.prototype, "signature", void 0);
 __decorate([
     (0, graphql_1.Field)(() => on_chain_1.Collection, { nullable: true }),
-    __metadata("design:type", on_chain_1.Collection)
+    __metadata("design:type", Object)
 ], Order.prototype, "collection", void 0);
 __decorate([
     (0, graphql_1.Field)(() => on_chain_1.Item, { nullable: true }),
-    __metadata("design:type", on_chain_1.Item)
+    __metadata("design:type", Object)
 ], Order.prototype, "item", void 0);
 Order = __decorate([
     (0, graphql_1.ObjectType)(),

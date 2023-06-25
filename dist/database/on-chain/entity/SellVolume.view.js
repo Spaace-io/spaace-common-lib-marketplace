@@ -18,7 +18,7 @@ const ethers_1 = require("ethers");
 let SellVolume = class SellVolume extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -26,7 +26,7 @@ __decorate([
     __metadata("design:type", String)
 ], SellVolume.prototype, "user", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -34,12 +34,12 @@ __decorate([
     __metadata("design:type", String)
 ], SellVolume.prototype, "currency", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], SellVolume.prototype, "volume", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
 ], SellVolume.prototype, "date", void 0);

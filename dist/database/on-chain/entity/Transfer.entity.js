@@ -20,7 +20,7 @@ const ethers_1 = require("ethers");
 let Transfer = class Transfer extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
         toPlainOnly: true,
@@ -28,12 +28,12 @@ __decorate([
     __metadata("design:type", String)
 ], Transfer.prototype, "txHash", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => Number),
     (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", Number)
 ], Transfer.prototype, "logIdx", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -41,7 +41,7 @@ __decorate([
     __metadata("design:type", String)
 ], Transfer.prototype, "from", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -49,7 +49,7 @@ __decorate([
     __metadata("design:type", String)
 ], Transfer.prototype, "to", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => Item_entity_1.Item),
     (0, typeorm_1.JoinColumn)([
@@ -62,18 +62,18 @@ __decorate([
     __metadata("design:type", String)
 ], Transfer.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", String)
 ], Transfer.prototype, "tokenId", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),
     __metadata("design:type", String)
 ], Transfer.prototype, "amount", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], Transfer.prototype, "timestamp", void 0);

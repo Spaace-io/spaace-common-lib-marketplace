@@ -6,25 +6,25 @@ import { ethers } from 'ethers';
 @ObjectType()
 @Entity({ name: 'staking_deposits' })
 export class StakingDeposit extends BaseEntity {
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   user!: string;
 
-  @Field()
+  @Field(() => Date)
   @PrimaryColumn({ default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
 
-  @Field()
+  @Field(() => String)
   @Column('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   pool!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78 })
   amount!: string;
 }

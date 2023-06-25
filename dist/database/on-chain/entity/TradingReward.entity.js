@@ -17,7 +17,7 @@ const ethers_1 = require("ethers");
 let TradingReward = class TradingReward extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -25,17 +25,17 @@ __decorate([
     __metadata("design:type", String)
 ], TradingReward.prototype, "user", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.PrimaryColumn)('date', { default: () => 'CURRENT_DATE' }),
     __metadata("design:type", Date)
 ], TradingReward.prototype, "date", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
 ], TradingReward.prototype, "buyAmount", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
 ], TradingReward.prototype, "sellAmount", void 0);

@@ -19,7 +19,7 @@ const ethers_1 = require("ethers");
 let ItemAttribute = class ItemAttribute extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => Item),
     (0, typeorm_1.JoinColumn)([
@@ -32,18 +32,18 @@ __decorate([
     __metadata("design:type", String)
 ], ItemAttribute.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", String)
 ], ItemAttribute.prototype, "tokenId", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
     __metadata("design:type", String)
 ], ItemAttribute.prototype, "trait", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], ItemAttribute.prototype, "value", void 0);
@@ -55,15 +55,15 @@ exports.ItemAttribute = ItemAttribute;
 let ItemMedia = class ItemMedia {
 };
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], ItemMedia.prototype, "raw", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], ItemMedia.prototype, "thumbnail", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], ItemMedia.prototype, "gateway", void 0);
 ItemMedia = __decorate([
@@ -73,7 +73,7 @@ exports.ItemMedia = ItemMedia;
 let Item = class Item extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => __1.Collection),
     (0, typeorm_1.JoinColumn)({ name: 'collectionAddress', referencedColumnName: 'address' }),
@@ -83,50 +83,50 @@ __decorate([
     __metadata("design:type", String)
 ], Item.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", String)
 ], Item.prototype, "tokenId", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], Item.prototype, "title", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], Item.prototype, "description", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], Item.prototype, "tokenUri", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [ItemMedia], { nullable: true }),
     (0, typeorm_1.Column)('jsonb', { nullable: true }),
-    __metadata("design:type", Array)
+    __metadata("design:type", Object)
 ], Item.prototype, "medias", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], Item.prototype, "rarityRanking", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('float', { unsigned: true, nullable: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], Item.prototype, "rarityScore", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [ItemAttribute], { nullable: true }),
     (0, typeorm_1.OneToMany)(() => ItemAttribute, (attribute) => [attribute.collectionAddress, attribute.tokenId]),
-    __metadata("design:type", Array)
+    __metadata("design:type", Object)
 ], Item.prototype, "attributes", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: true }),
+    (0, graphql_1.Field)(() => Date, { nullable: true }),
     (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", Date)
+    __metadata("design:type", Object)
 ], Item.prototype, "lastImport", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __1.Collection),
@@ -134,18 +134,18 @@ __decorate([
 ], Item.prototype, "collection", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __2.Order, { nullable: true }),
-    __metadata("design:type", __2.Order)
+    __metadata("design:type", Object)
 ], Item.prototype, "buyNow", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __2.Order, { nullable: true }),
-    __metadata("design:type", __2.Order)
+    __metadata("design:type", Object)
 ], Item.prototype, "sellNow", void 0);
 __decorate([
     (0, graphql_1.Field)(() => __1.Sale, { nullable: true }),
-    __metadata("design:type", __1.Sale)
+    __metadata("design:type", Object)
 ], Item.prototype, "lastSale", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], Item.prototype, "ownerCount", void 0);
 __decorate([

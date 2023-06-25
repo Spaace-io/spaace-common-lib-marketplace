@@ -27,17 +27,17 @@ export declare class CollectionAttribute {
 export declare class Collection extends BaseEntity {
     address: string;
     type: CollectionType;
-    name?: string;
-    symbol?: string;
-    imageUrl?: string;
+    name: string | null;
+    symbol: string | null;
+    imageUrl: string | null;
     active: boolean;
     verified: boolean;
     explicit: boolean;
-    bannerUrl?: string;
-    description?: string;
-    deployedAt?: Date;
-    deployer?: string;
-    attributes?: CollectionAttribute[];
+    bannerUrl: string | null;
+    description: string | null;
+    deployedAt: Date | null;
+    deployer: string | null;
+    attributes: CollectionAttribute[] | null;
     links: CollectionLink[];
     volume1h: string;
     volumeChange1h: string;
@@ -50,7 +50,7 @@ export declare class Collection extends BaseEntity {
     volume30d: string;
     volumeChange30d: string;
     volume: string;
-    floorPrice?: string;
+    floorPrice: string | null;
     floorChange1h: string;
     floorChange6h: string;
     floorChange24h: string;
@@ -64,9 +64,9 @@ export declare class Collection extends BaseEntity {
     saleCount30d: string;
     totalSupply: string;
     ownerCount: string;
-    lastImport?: Date;
+    lastImport: Date | null;
     listedCount: string;
-    buyNow?: Order;
-    sellNow?: Order;
+    buyNow: Order | null;
+    sellNow: Order | null;
     notable: boolean;
 }

@@ -17,7 +17,7 @@ import { ethers } from 'ethers';
 @ObjectType()
 @Entity({ name: 'transfers' })
 export class Transfer extends BaseEntity {
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 64 })
   @Transform(
     ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
@@ -27,25 +27,25 @@ export class Transfer extends BaseEntity {
   )
   txHash!: string;
 
-  @Field()
+  @Field(() => Number)
   @PrimaryColumn()
   logIdx!: number;
 
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   from!: string;
 
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   to!: string;
 
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => Item)
   @JoinColumn([
@@ -57,15 +57,15 @@ export class Transfer extends BaseEntity {
   })
   collectionAddress!: string;
 
-  @Field()
+  @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   tokenId!: string;
 
-  @Field()
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '1' })
   amount!: string;
 
-  @Field()
+  @Field(() => Date)
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
 }

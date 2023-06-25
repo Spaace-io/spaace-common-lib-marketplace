@@ -15,18 +15,18 @@ export declare class ItemMedia {
 export declare class Item extends BaseEntity {
     collectionAddress: string;
     tokenId: string;
-    title?: string;
-    description?: string;
-    tokenUri?: string;
-    medias?: ItemMedia[];
-    rarityRanking?: string;
-    rarityScore?: string;
-    attributes?: ItemAttribute[];
-    lastImport?: Date;
+    title: string | null;
+    description: string | null;
+    tokenUri: string | null;
+    medias: ItemMedia[] | null;
+    rarityRanking: string | null;
+    rarityScore: string | null;
+    attributes: ItemAttribute[] | null;
+    lastImport: Date | null;
     collection: Collection;
-    buyNow?: Order;
-    sellNow?: Order;
-    lastSale?: Sale;
+    buyNow: Order | null;
+    sellNow: Order | null;
+    lastSale: Sale | null;
     ownerCount: string;
     owners: Balance[];
 }
