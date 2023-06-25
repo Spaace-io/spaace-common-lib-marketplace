@@ -89,7 +89,11 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "signature", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => on_chain_1.Item),
+    (0, graphql_1.Field)(() => on_chain_1.Collection, { nullable: true }),
+    __metadata("design:type", on_chain_1.Collection)
+], Order.prototype, "collection", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => on_chain_1.Item, { nullable: true }),
     __metadata("design:type", on_chain_1.Item)
 ], Order.prototype, "item", void 0);
 Order = __decorate([

@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
-import { Item } from '../../on-chain';
+import { Collection, Item } from '../../on-chain';
 import { Transform } from 'class-transformer';
 import { ethers } from 'ethers';
 
@@ -74,6 +74,9 @@ export class Order extends BaseEntity {
 
   // GraphQL only fields
 
-  @Field(() => Item)
+  @Field(() => Collection, { nullable: true })
+  collection?: Collection;
+
+  @Field(() => Item, { nullable: true })
   item?: Item;
 }
