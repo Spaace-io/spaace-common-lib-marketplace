@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
-import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
+import { BaseEntity, DataSource, Index, ViewColumn, ViewEntity } from 'typeorm';
 import { Item, Transfer } from '.';
 import { utils } from '../../..';
 import { Transform, Type } from 'class-transformer';
@@ -50,6 +50,7 @@ import { ValidateNested } from 'class-validator';
   },
   name: 'balances',
 })
+@Index(['collectionAddress', 'tokenId'])
 export class Balance extends BaseEntity {
   @Field(() => String)
   @ViewColumn()

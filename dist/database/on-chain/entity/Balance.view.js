@@ -81,7 +81,8 @@ Balance = __decorate([
                 .andWhere(`"received"."user" <> '${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}'`);
         },
         name: 'balances',
-    })
+    }),
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId'])
 ], Balance);
 exports.Balance = Balance;
 //# sourceMappingURL=Balance.view.js.map
