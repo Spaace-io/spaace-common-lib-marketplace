@@ -1,5 +1,12 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 import { Collection, Item } from '../../on-chain';
 import { Transform, Type } from 'class-transformer';
 import { ethers } from 'ethers';
@@ -27,6 +34,8 @@ export class Order extends BaseEntity {
 
   @Field(() => String)
   @Column('char', { length: 40 })
+  @ManyToOne(() => Collection)
+  @JoinColumn({ name: 'collectionAddress', referencedColumnName: 'address' })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
@@ -34,6 +43,11 @@ export class Order extends BaseEntity {
 
   @Field(() => String, { nullable: true })
   @Column('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
+  @ManyToOne(() => Item, { nullable: true })
+  @JoinColumn([
+    { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
+    { name: 'tokenId', referencedColumnName: 'tokenId' },
+  ])
   tokenId!: string | null;
 
   @Field(() => Boolean)
