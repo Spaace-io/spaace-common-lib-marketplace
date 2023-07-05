@@ -19,6 +19,8 @@ export declare class CollectionLink {
 export declare class CollectionAttributeValue {
     value: string;
     count: string;
+    buyNow: Order;
+    sellNow: Order;
 }
 export declare class CollectionAttribute {
     trait: string;

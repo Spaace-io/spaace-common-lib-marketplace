@@ -61,6 +61,14 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], CollectionAttributeValue.prototype, "count", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => __1.Order),
+    __metadata("design:type", __1.Order)
+], CollectionAttributeValue.prototype, "buyNow", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => __1.Order),
+    __metadata("design:type", __1.Order)
+], CollectionAttributeValue.prototype, "sellNow", void 0);
 CollectionAttributeValue = __decorate([
     (0, graphql_1.ObjectType)()
 ], CollectionAttributeValue);
