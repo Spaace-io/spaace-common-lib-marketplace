@@ -56,6 +56,14 @@ let CollectionAttributeValue = class CollectionAttributeValue {
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
+], CollectionAttributeValue.prototype, "collectionAddress", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], CollectionAttributeValue.prototype, "trait", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
 ], CollectionAttributeValue.prototype, "value", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -75,6 +83,10 @@ CollectionAttributeValue = __decorate([
 exports.CollectionAttributeValue = CollectionAttributeValue;
 let CollectionAttribute = class CollectionAttribute {
 };
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], CollectionAttribute.prototype, "collectionAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)

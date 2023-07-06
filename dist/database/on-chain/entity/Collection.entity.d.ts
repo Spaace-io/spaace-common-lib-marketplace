@@ -17,12 +17,15 @@ export declare class CollectionLink {
     url: string;
 }
 export declare class CollectionAttributeValue {
+    collectionAddress: string;
+    trait: string;
     value: string;
     count: string;
     buyNow: Order;
     sellNow: Order;
 }
 export declare class CollectionAttribute {
+    collectionAddress: string;
     trait: string;
     values: CollectionAttributeValue[];
 }
