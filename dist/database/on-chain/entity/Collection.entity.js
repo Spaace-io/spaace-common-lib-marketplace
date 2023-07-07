@@ -70,11 +70,11 @@ __decorate([
     __metadata("design:type", String)
 ], CollectionAttributeValue.prototype, "count", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => __1.Order),
+    (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
     __metadata("design:type", Object)
 ], CollectionAttributeValue.prototype, "buyNow", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => __1.Order),
+    (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
     __metadata("design:type", Object)
 ], CollectionAttributeValue.prototype, "sellNow", void 0);
 CollectionAttributeValue = __decorate([
