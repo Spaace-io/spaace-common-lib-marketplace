@@ -1,2 +1,2 @@
-export { default as FirestoreClient } from './client';
-export * from './types';
+export { default as firestore } from './client';
+export * from './entity';
