@@ -18,7 +18,7 @@ function* splitChunks(array, chunkSize) {
 exports.splitChunks = splitChunks;
 function runChunks(array, chunkSize, job) {
     return __awaiter(this, void 0, void 0, function* () {
-        for (var chunk of splitChunks(array, chunkSize))
+        for (const chunk of splitChunks(array, chunkSize))
             yield job(chunk);
     });
 }

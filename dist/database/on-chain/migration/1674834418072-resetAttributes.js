@@ -16,6 +16,7 @@ class resetAttributes1674834418072 {
             yield queryRunner.query(`UPDATE "collections" SET "attributes" = NULL`);
         });
     }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     down() {
         return __awaiter(this, void 0, void 0, function* () { });
     }

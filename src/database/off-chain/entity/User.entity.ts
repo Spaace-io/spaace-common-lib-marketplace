@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Transform, Type } from 'class-transformer';
+import { Transform } from 'class-transformer';
 import { Entity, PrimaryColumn, BaseEntity } from 'typeorm';
 import { ethers } from 'ethers';
 

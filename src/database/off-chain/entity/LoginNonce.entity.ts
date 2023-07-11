@@ -2,7 +2,7 @@ import { BeforeInsert, Column, Entity, PrimaryColumn } from 'typeorm';
 
 import { Field, ObjectType } from '@nestjs/graphql';
 import { randomUUID } from 'crypto';
-import { Transform, Type } from 'class-transformer';
+import { Transform } from 'class-transformer';
 import { ethers } from 'ethers';
 
 export const LOGIN_NONCE_VALID_PERIOD = 5 * 60 * 1000;

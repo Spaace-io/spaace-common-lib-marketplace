@@ -7,12 +7,12 @@ function isAddress(address) {
 }
 exports.isAddress = isAddress;
 // https://www.emailregex.com
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 function isEmail(email) {
     return EMAIL_REGEX.test(email);
 }
 exports.isEmail = isEmail;
-const USERNAME_REGEX = /^[a-z0-9]+(?:[-_\.][a-z0-9]+)*$/i;
+const USERNAME_REGEX = /^[a-z0-9]+(?:[-_.][a-z0-9]+)*$/i;
 function isUsername(username) {
     return (username.length >= 3 &&
         username.length <= 24 &&

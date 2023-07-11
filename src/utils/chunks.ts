@@ -8,5 +8,5 @@ export async function runChunks<T>(
   chunkSize: number,
   job: (chunk: T[]) => Promise<void>,
 ) {
-  for (var chunk of splitChunks(array, chunkSize)) await job(chunk);
+  for (const chunk of splitChunks(array, chunkSize)) await job(chunk);
 }

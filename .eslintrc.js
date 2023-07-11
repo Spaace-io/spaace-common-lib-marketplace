@@ -1,10 +1,13 @@
 module.exports = {
   plugins: ['@typescript-eslint'],
   extends: [
-    'standard',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
-    'plugin:node/recommended',
   ],
   parser: '@typescript-eslint/parser',
   root: true,
+  env: {
+    node: true,
+  },
 };
