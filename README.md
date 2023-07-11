@@ -19,25 +19,21 @@ import {
   OnChainDatabase,
   OffChainDatabase,
   PubSubClient,
-  FirestoreClient,
 } from '@spaace/common-lib';
 
 await OnChainDatabase.initialize();
 await OffChainDatabase.initialize();
 await PubSubClient.initialize();
-await FirestoreClient.initialize();
 
 // OR
 
 import { OnChainDatabase } from '@spaace/common-lib/dist/database/on-chain';
 import { OffChainDatabase } from '@spaace/common-lib/dist/database/off-chain';
 import { PubSubClient } from '@spaace/common-lib/dist/pubsub/client';
-import { FirestoreClient } from '@spaace/common-lib/dist/database/firestore';
 
 await OnChainDatabase.initialize();
 await OffChainDatabase.initialize();
 await PubSubClient.initialize();
-await FirestoreClient.initialize();
 ```
 
 Only databases on which the service is dependendant should (and must) be initialized.

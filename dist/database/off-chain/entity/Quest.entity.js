@@ -9,8 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Season = exports.Rank = exports.Quest = exports.QuestPeriod = exports.QuestStep = exports.QuestRule = exports.QuestRuleOperator = exports.QuestReward = exports.CosmeticQuestReward = exports.SpaaceTokensQuestReward = exports.StakingBonusQuestReward = exports.LoyaltyPointsQuestReward = exports.QuestTrigger = void 0;
+exports.Quest = exports.QuestPeriod = exports.QuestReward = exports.CosmeticQuestReward = exports.SpaaceTokensQuestReward = exports.StakingBonusQuestReward = exports.LoyaltyPointsQuestReward = exports.QuestStep = exports.QuestRule = exports.QuestRuleOperator = exports.QuestTrigger = void 0;
+const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
+const class_transformer_1 = require("class-transformer");
 var QuestTrigger;
 (function (QuestTrigger) {
     QuestTrigger["SALE"] = "Sale";
@@ -29,6 +31,55 @@ var QuestTrigger;
 (0, graphql_1.registerEnumType)(QuestTrigger, {
     name: 'QuestTrigger',
 });
+var QuestRuleOperator;
+(function (QuestRuleOperator) {
+    QuestRuleOperator["EQ"] = "=";
+    QuestRuleOperator["GT"] = ">";
+    QuestRuleOperator["GTE"] = ">=";
+    QuestRuleOperator["LT"] = "<";
+    QuestRuleOperator["LTE"] = "<=";
+    QuestRuleOperator["NEQ"] = "!=";
+})(QuestRuleOperator = exports.QuestRuleOperator || (exports.QuestRuleOperator = {}));
+(0, graphql_1.registerEnumType)(QuestRuleOperator, {
+    name: 'QuestRuleOperator',
+});
+let QuestRule = class QuestRule {
+};
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], QuestRule.prototype, "property", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => QuestRuleOperator),
+    __metadata("design:type", String)
+], QuestRule.prototype, "operator", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], QuestRule.prototype, "value", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", Object)
+], QuestRule.prototype, "delta", void 0);
+QuestRule = __decorate([
+    (0, graphql_1.ObjectType)()
+], QuestRule);
+exports.QuestRule = QuestRule;
+let QuestStep = class QuestStep {
+};
+__decorate([
+    (0, graphql_1.Field)(() => QuestTrigger),
+    __metadata("design:type", String)
+], QuestStep.prototype, "trigger", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [QuestRule]),
+    (0, class_transformer_1.Type)(() => QuestRule),
+    __metadata("design:type", Array)
+], QuestStep.prototype, "rules", void 0);
+QuestStep = __decorate([
+    (0, graphql_1.ObjectType)()
+], QuestStep);
+exports.QuestStep = QuestStep;
 let LoyaltyPointsQuestReward = class LoyaltyPointsQuestReward {
 };
 __decorate([
@@ -78,54 +129,6 @@ exports.QuestReward = (0, graphql_1.createUnionType)({
         CosmeticQuestReward,
     ],
 });
-var QuestRuleOperator;
-(function (QuestRuleOperator) {
-    QuestRuleOperator["EQ"] = "=";
-    QuestRuleOperator["GT"] = ">";
-    QuestRuleOperator["GTE"] = ">=";
-    QuestRuleOperator["LT"] = "<";
-    QuestRuleOperator["LTE"] = "<=";
-    QuestRuleOperator["NEQ"] = "!=";
-})(QuestRuleOperator = exports.QuestRuleOperator || (exports.QuestRuleOperator = {}));
-(0, graphql_1.registerEnumType)(QuestRuleOperator, {
-    name: 'QuestRuleOperator',
-});
-let QuestRule = class QuestRule {
-};
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], QuestRule.prototype, "property", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => QuestRuleOperator),
-    __metadata("design:type", String)
-], QuestRule.prototype, "operator", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], QuestRule.prototype, "value", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
-    __metadata("design:type", Object)
-], QuestRule.prototype, "delta", void 0);
-QuestRule = __decorate([
-    (0, graphql_1.ObjectType)()
-], QuestRule);
-exports.QuestRule = QuestRule;
-let QuestStep = class QuestStep {
-};
-__decorate([
-    (0, graphql_1.Field)(() => QuestTrigger),
-    __metadata("design:type", String)
-], QuestStep.prototype, "trigger", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [QuestRule]),
-    __metadata("design:type", Array)
-], QuestStep.prototype, "rules", void 0);
-QuestStep = __decorate([
-    (0, graphql_1.ObjectType)()
-], QuestStep);
-exports.QuestStep = QuestStep;
 var QuestPeriod;
 (function (QuestPeriod) {
     QuestPeriod["DAILY"] = "day";
@@ -137,71 +140,57 @@ var QuestPeriod;
 let Quest = class Quest {
 };
 __decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    __metadata("design:type", String)
+], Quest.prototype, "id", void 0);
+__decorate([
     (0, graphql_1.Field)(() => [QuestStep]),
+    (0, typeorm_1.Column)('jsonb', { default: [] }),
+    (0, class_transformer_1.Type)(() => QuestStep),
     __metadata("design:type", Array)
 ], Quest.prototype, "steps", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [exports.QuestReward]),
+    (0, typeorm_1.Column)('jsonb', { default: [] }),
+    (0, class_transformer_1.Type)(() => Object, {
+        discriminator: {
+            property: '__typename',
+            subTypes: [
+                {
+                    name: 'LoyaltyPointsQuestReward',
+                    value: LoyaltyPointsQuestReward,
+                },
+                {
+                    name: 'StakingBonusQuestReward',
+                    value: StakingBonusQuestReward,
+                },
+                {
+                    name: 'SpaaceTokensQuestReward',
+                    value: SpaaceTokensQuestReward,
+                },
+                {
+                    name: 'CosmeticQuestReward',
+                    value: CosmeticQuestReward,
+                },
+            ],
+        },
+    }),
     __metadata("design:type", Array)
 ], Quest.prototype, "rewards", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number, { nullable: true }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
+    ,
     __metadata("design:type", Object)
 ], Quest.prototype, "limit", void 0);
 __decorate([
     (0, graphql_1.Field)(() => QuestPeriod, { nullable: true }),
+    (0, typeorm_1.Column)('enum', { enum: QuestPeriod, enumName: 'quest_period' }),
     __metadata("design:type", Object)
 ], Quest.prototype, "period", void 0);
 Quest = __decorate([
-    (0, graphql_1.ObjectType)()
+    (0, graphql_1.ObjectType)(),
+    (0, typeorm_1.Entity)()
 ], Quest);
 exports.Quest = Quest;
-let Rank = class Rank {
-};
-__decorate([
-    (0, graphql_1.Field)(() => Number),
-    __metadata("design:type", Number)
-], Rank.prototype, "id", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], Rank.prototype, "name", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], Rank.prototype, "loyaltyPointsThreshold", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [exports.QuestReward]),
-    __metadata("design:type", Array)
-], Rank.prototype, "rewards", void 0);
-Rank = __decorate([
-    (0, graphql_1.ObjectType)()
-], Rank);
-exports.Rank = Rank;
-let Season = class Season {
-};
-__decorate([
-    (0, graphql_1.Field)(() => Number),
-    __metadata("design:type", Number)
-], Season.prototype, "id", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Date),
-    __metadata("design:type", Date)
-], Season.prototype, "startDate", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Date, { nullable: true }),
-    __metadata("design:type", Object)
-], Season.prototype, "endDate", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [Quest]),
-    __metadata("design:type", Array)
-], Season.prototype, "quests", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [Rank]),
-    __metadata("design:type", Array)
-], Season.prototype, "ranks", void 0);
-Season = __decorate([
-    (0, graphql_1.ObjectType)()
-], Season);
-exports.Season = Season;
-//# sourceMappingURL=Season.entity.js.map
+//# sourceMappingURL=Quest.entity.js.map

@@ -16,5 +16,4 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./on-chain"), exports);
 __exportStar(require("./off-chain"), exports);
-__exportStar(require("./firestore"), exports);
 //# sourceMappingURL=index.js.map

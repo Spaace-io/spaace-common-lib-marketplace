@@ -15,13 +15,11 @@
     "lint": "eslint --fix .",
     "typeorm": "ts-node ./node_modules/.bin/typeorm",
     "dev:pubsub": "ts-node ./src/pubsub/init.ts",
-    "dev:firestore": "ts-node ./src/database/firestore/init.ts",
     "migration:generate": "npm run typeorm -- migration:generate -d src/database/$npm_config_database src/database/$npm_config_database/migration/$npm_config_name",
     "migration:generate:on-chain": "npm run migration:generate --database=on-chain",
     "migration:generate:off-chain": "npm run migration:generate --database=off-chain"
   },
   "dependencies": {
-    "@google-cloud/firestore": "^6.4.3",
     "@google-cloud/pubsub": "^3.3.0",
     "@nestjs/graphql": "^10.1.7",
     "class-transformer": "^0.5.1",
