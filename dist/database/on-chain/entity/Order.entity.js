@@ -62,7 +62,7 @@ __decorate([
 ], Order.prototype, "isAsk", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
     __metadata("design:type", String)
 ], Order.prototype, "price", void 0);
 __decorate([
