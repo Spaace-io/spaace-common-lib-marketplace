@@ -12,29 +12,19 @@ export declare enum QuestTrigger {
     TWITTER_RT = "TwitterRT",
     CRON = "Cron"
 }
-export declare enum QuestRewardType {
-    LOYALTY_POINTS = "LoyaltyPoints",
-    STAKING_BONUS = "StakingBonus",
-    SPAACE_TOKENS = "SpaaceTokens",
-    COSMETIC = "Cosmetic"
-}
 export declare class LoyaltyPointsQuestReward {
-    readonly type = QuestRewardType.LOYALTY_POINTS;
     amount: string;
 }
 export declare class StakingBonusQuestReward {
-    readonly type = QuestRewardType.STAKING_BONUS;
     amount: string;
 }
 export declare class SpaaceTokensQuestReward {
-    readonly type = QuestRewardType.SPAACE_TOKENS;
     amount: string;
 }
 export declare class CosmeticQuestReward {
-    readonly type = QuestRewardType.COSMETIC;
     id: string;
 }
-export type QuestReward = LoyaltyPointsQuestReward | StakingBonusQuestReward | SpaaceTokensQuestReward | CosmeticQuestReward;
+export declare const QuestReward: LoyaltyPointsQuestReward | CosmeticQuestReward;
 export declare enum QuestRuleOperator {
     EQ = "=",
     GT = ">",
@@ -47,7 +37,7 @@ export declare class QuestRule {
     property: string;
     operator: QuestRuleOperator;
     value: string;
-    delta?: string;
+    delta: string | null;
 }
 export declare class QuestStep {
     trigger: QuestTrigger;
@@ -59,20 +49,20 @@ export declare enum QuestPeriod {
 }
 export declare class Quest {
     steps: QuestStep[];
-    rewards: QuestReward[];
-    limit?: number;
-    period?: QuestPeriod;
+    rewards: (typeof QuestReward)[];
+    limit: number | null;
+    period: QuestPeriod | null;
 }
 export declare class Rank {
     id: number;
     name: string;
     loyaltyPointsThreshold: string;
-    rewards: QuestReward[];
+    rewards: (typeof QuestReward)[];
 }
 export declare class Season {
     id: number;
     startDate: Date;
-    endDate?: Date;
+    endDate: Date | null;
     quests: Quest[];
     ranks: Rank[];
 }

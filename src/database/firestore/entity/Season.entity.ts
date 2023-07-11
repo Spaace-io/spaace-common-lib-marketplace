@@ -1,3 +1,10 @@
+import {
+  Field,
+  ObjectType,
+  createUnionType,
+  registerEnumType,
+} from '@nestjs/graphql';
+
 export enum QuestTrigger {
   SALE = 'Sale',
   ORDER = 'Order',
@@ -13,38 +20,43 @@ export enum QuestTrigger {
   CRON = 'Cron',
 }
 
-export enum QuestRewardType {
-  LOYALTY_POINTS = 'LoyaltyPoints',
-  STAKING_BONUS = 'StakingBonus',
-  SPAACE_TOKENS = 'SpaaceTokens',
-  COSMETIC = 'Cosmetic',
-}
+registerEnumType(QuestTrigger, {
+  name: 'QuestTrigger',
+});
 
+@ObjectType()
 export class LoyaltyPointsQuestReward {
-  readonly type = QuestRewardType.LOYALTY_POINTS;
+  @Field(() => String)
   amount!: string;
 }
 
+@ObjectType()
 export class StakingBonusQuestReward {
-  readonly type = QuestRewardType.STAKING_BONUS;
+  @Field(() => String)
   amount!: string;
 }
 
+@ObjectType()
 export class SpaaceTokensQuestReward {
-  readonly type = QuestRewardType.SPAACE_TOKENS;
+  @Field(() => String)
   amount!: string;
 }
 
+@ObjectType()
 export class CosmeticQuestReward {
-  readonly type = QuestRewardType.COSMETIC;
+  @Field(() => String)
   id!: string;
 }
 
-export type QuestReward =
-  | LoyaltyPointsQuestReward
-  | StakingBonusQuestReward
-  | SpaaceTokensQuestReward
-  | CosmeticQuestReward;
+export const QuestReward = createUnionType({
+  name: 'QuestReward',
+  types: () => [
+    LoyaltyPointsQuestReward,
+    StakingBonusQuestReward,
+    SpaaceTokensQuestReward,
+    CosmeticQuestReward,
+  ],
+});
 
 export enum QuestRuleOperator {
   EQ = '=',
@@ -55,15 +67,31 @@ export enum QuestRuleOperator {
   NEQ = '!=',
 }
 
+registerEnumType(QuestRuleOperator, {
+  name: 'QuestRuleOperator',
+});
+
+@ObjectType()
 export class QuestRule {
+  @Field(() => String)
   property!: string;
+
+  @Field(() => QuestRuleOperator)
   operator!: QuestRuleOperator;
+
+  @Field(() => String)
   value!: string;
-  delta?: string;
+
+  @Field(() => String, { nullable: true })
+  delta!: string | null;
 }
 
+@ObjectType()
 export class QuestStep {
+  @Field(() => QuestTrigger)
   trigger!: QuestTrigger;
+
+  @Field(() => [QuestRule])
   rules!: QuestRule[];
 }
 
@@ -72,24 +100,54 @@ export enum QuestPeriod {
   SEASONAL = 'season',
 }
 
+registerEnumType(QuestPeriod, {
+  name: 'QuestPeriod',
+});
+
+@ObjectType()
 export class Quest {
+  @Field(() => [QuestStep])
   steps!: QuestStep[];
-  rewards!: QuestReward[];
-  limit?: number;
-  period?: QuestPeriod;
+
+  @Field(() => [QuestReward])
+  rewards!: (typeof QuestReward)[];
+
+  @Field(() => Number, { nullable: true })
+  limit!: number | null;
+
+  @Field(() => QuestPeriod, { nullable: true })
+  period!: QuestPeriod | null;
 }
 
+@ObjectType()
 export class Rank {
+  @Field(() => Number)
   id!: number;
+
+  @Field(() => String)
   name!: string;
+
+  @Field(() => String)
   loyaltyPointsThreshold!: string;
-  rewards!: QuestReward[];
+
+  @Field(() => [QuestReward])
+  rewards!: (typeof QuestReward)[];
 }
 
+@ObjectType()
 export class Season {
+  @Field(() => Number)
   id!: number;
+
+  @Field(() => Date)
   startDate!: Date;
-  endDate?: Date;
+
+  @Field(() => Date, { nullable: true })
+  endDate!: Date | null;
+
+  @Field(() => [Quest])
   quests!: Quest[];
+
+  @Field(() => [Rank])
   ranks!: Rank[];
 }
