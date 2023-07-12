@@ -1,5 +1,6 @@
 import { BaseEntity } from 'typeorm';
 import { Order } from '../..';
+import { CollectionAttribute, CollectionAttributeValue } from '../../..';
 export declare enum CollectionType {
     ERC721 = "ERC721",
     ERC1155 = "ERC1155"
@@ -16,19 +17,6 @@ export declare class CollectionLink {
     type: CollectionLinkType;
     url: string;
 }
-export declare class CollectionAttributeValue {
-    collectionAddress: string;
-    trait: string;
-    value: string;
-    count: string;
-    buyNow: Order | null;
-    sellNow: Order | null;
-}
-export declare class CollectionAttribute {
-    collectionAddress: string;
-    trait: string;
-    values: CollectionAttributeValue[];
-}
 export declare class Collection extends BaseEntity {
     address: string;
     type: CollectionType;
@@ -42,7 +30,9 @@ export declare class Collection extends BaseEntity {
     description: string | null;
     deployedAt: Date | null;
     deployer: string | null;
-    attributes: CollectionAttribute[] | null;
+    attributes: (Pick<CollectionAttribute, 'trait'> & {
+        values: Pick<CollectionAttributeValue, 'value' | 'count'>[];
+    })[] | null;
     links: CollectionLink[];
     volume1h: string;
     volumeChange1h: string;

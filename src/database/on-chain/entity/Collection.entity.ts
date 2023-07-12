@@ -4,6 +4,7 @@ import { Order } from '../..';
 import { Transform, Type } from 'class-transformer';
 import { ethers } from 'ethers';
 import { ValidateNested } from 'class-validator';
+import { CollectionAttribute, CollectionAttributeValue } from '../../..';
 
 export enum CollectionType {
   ERC721 = 'ERC721',
@@ -35,41 +36,6 @@ export class CollectionLink {
 
   @Field(() => String)
   url!: string;
-}
-
-@ObjectType()
-export class CollectionAttributeValue {
-  @Field(() => String)
-  collectionAddress!: string;
-
-  @Field(() => String)
-  trait!: string;
-
-  @Field(() => String)
-  value!: string;
-
-  @Field(() => String)
-  count!: string;
-
-  @Field(() => Order, { nullable: true })
-  buyNow!: Order | null;
-
-  @Field(() => Order, { nullable: true })
-  sellNow!: Order | null;
-}
-
-@ObjectType()
-export class CollectionAttribute {
-  @Field(() => String)
-  collectionAddress!: string;
-
-  @Field(() => String)
-  trait!: string;
-
-  @Field(() => [CollectionAttributeValue])
-  @Type(() => CollectionAttributeValue)
-  @ValidateNested({ each: true })
-  values!: CollectionAttributeValue[];
 }
 
 @ObjectType()
@@ -134,9 +100,11 @@ export class Collection extends BaseEntity {
 
   @Field(() => [CollectionAttribute], { nullable: true })
   @Column('jsonb', { nullable: true })
-  @Type(() => CollectionAttribute)
-  @ValidateNested({ each: true })
-  attributes!: CollectionAttribute[] | null;
+  attributes!:
+    | (Pick<CollectionAttribute, 'trait'> & {
+        values: Pick<CollectionAttributeValue, 'value' | 'count'>[];
+      })[]
+    | null;
 
   @Field(() => [CollectionLink])
   @Column('jsonb', { default: [] })

@@ -9,13 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Collection = exports.CollectionAttribute = exports.CollectionAttributeValue = exports.CollectionLink = exports.CollectionLinkType = exports.CollectionType = void 0;
+exports.Collection = exports.CollectionLink = exports.CollectionLinkType = exports.CollectionType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const __1 = require("../..");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
 const class_validator_1 = require("class-validator");
+const __2 = require("../../..");
 var CollectionType;
 (function (CollectionType) {
     CollectionType["ERC721"] = "ERC721";
@@ -51,56 +52,6 @@ CollectionLink = __decorate([
     (0, graphql_1.ObjectType)()
 ], CollectionLink);
 exports.CollectionLink = CollectionLink;
-let CollectionAttributeValue = class CollectionAttributeValue {
-};
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], CollectionAttributeValue.prototype, "collectionAddress", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], CollectionAttributeValue.prototype, "trait", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], CollectionAttributeValue.prototype, "value", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], CollectionAttributeValue.prototype, "count", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
-    __metadata("design:type", Object)
-], CollectionAttributeValue.prototype, "buyNow", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
-    __metadata("design:type", Object)
-], CollectionAttributeValue.prototype, "sellNow", void 0);
-CollectionAttributeValue = __decorate([
-    (0, graphql_1.ObjectType)()
-], CollectionAttributeValue);
-exports.CollectionAttributeValue = CollectionAttributeValue;
-let CollectionAttribute = class CollectionAttribute {
-};
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], CollectionAttribute.prototype, "collectionAddress", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], CollectionAttribute.prototype, "trait", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [CollectionAttributeValue]),
-    (0, class_transformer_1.Type)(() => CollectionAttributeValue),
-    (0, class_validator_1.ValidateNested)({ each: true }),
-    __metadata("design:type", Array)
-], CollectionAttribute.prototype, "values", void 0);
-CollectionAttribute = __decorate([
-    (0, graphql_1.ObjectType)()
-], CollectionAttribute);
-exports.CollectionAttribute = CollectionAttribute;
 let Collection = class Collection extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -170,10 +121,8 @@ __decorate([
     __metadata("design:type", Object)
 ], Collection.prototype, "deployer", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [CollectionAttribute], { nullable: true }),
+    (0, graphql_1.Field)(() => [__2.CollectionAttribute], { nullable: true }),
     (0, typeorm_1.Column)('jsonb', { nullable: true }),
-    (0, class_transformer_1.Type)(() => CollectionAttribute),
-    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Object)
 ], Collection.prototype, "attributes", void 0);
 __decorate([
