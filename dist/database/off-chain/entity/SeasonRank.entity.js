@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SeasonRank = void 0;
+exports.SeasonRank = exports.Rank = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const _1 = require(".");
@@ -41,7 +41,7 @@ var Rank;
     Rank["DIAMOND_3"] = "diamond3";
     Rank["DIAMOND_2"] = "diamond2";
     Rank["DIAMOND_1"] = "diamond1";
-})(Rank || (Rank = {}));
+})(Rank = exports.Rank || (exports.Rank = {}));
 (0, graphql_1.registerEnumType)(Rank, {
     name: 'Rank',
 });
@@ -52,6 +52,7 @@ __decorate([
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     (0, typeorm_1.ManyToOne)(() => _1.Season),
+    (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
     __metadata("design:type", Number)
 ], SeasonRank.prototype, "seasonNumber", void 0);
 __decorate([

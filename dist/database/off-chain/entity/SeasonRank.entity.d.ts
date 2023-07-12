@@ -1,5 +1,5 @@
 import { QuestReward } from '.';
-declare enum Rank {
+export declare enum Rank {
     BRONZE_5 = "bronze5",
     BRONZE_4 = "bronze4",
     BRONZE_3 = "bronze3",
@@ -32,4 +32,3 @@ export declare class SeasonRank {
     threshold: string;
     rewards: (typeof QuestReward)[];
 }
-export {};

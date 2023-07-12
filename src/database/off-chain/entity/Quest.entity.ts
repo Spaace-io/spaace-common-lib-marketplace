@@ -1,4 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import {
   Field,
@@ -7,6 +13,7 @@ import {
   registerEnumType,
 } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
+import { Season } from '.';
 
 export enum QuestTrigger {
   SALE = 'Sale',
@@ -111,8 +118,19 @@ registerEnumType(QuestPeriod, {
 @ObjectType()
 @Entity()
 export class Quest {
+  @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
   id!: string;
+
+  @Field(() => Number)
+  @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  @ManyToOne(() => Season)
+  @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
+  seasonNumber!: number;
+
+  @Field(() => String)
+  @Column('text')
+  name!: string;
 
   @Field(() => [QuestStep])
   @Column('jsonb', { default: [] })

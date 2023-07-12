@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
@@ -11,7 +11,7 @@ import {
 } from '.';
 import { Type } from 'class-transformer';
 
-enum Rank {
+export enum Rank {
   BRONZE_5 = 'bronze5',
   BRONZE_4 = 'bronze4',
   BRONZE_3 = 'bronze3',
@@ -49,6 +49,7 @@ export class SeasonRank {
   @Field(() => Number)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   @ManyToOne(() => Season)
+  @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
   seasonNumber!: number;
 
   @Field(() => Rank)

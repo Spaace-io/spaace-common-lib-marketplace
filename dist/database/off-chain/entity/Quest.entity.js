@@ -13,6 +13,7 @@ exports.Quest = exports.QuestPeriod = exports.QuestReward = exports.CosmeticQues
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
+const _1 = require(".");
 var QuestTrigger;
 (function (QuestTrigger) {
     QuestTrigger["SALE"] = "Sale";
@@ -140,9 +141,23 @@ var QuestPeriod;
 let Quest = class Quest {
 };
 __decorate([
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
 ], Quest.prototype, "id", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Number),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    ,
+    (0, typeorm_1.ManyToOne)(() => _1.Season),
+    (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
+    __metadata("design:type", Number)
+], Quest.prototype, "seasonNumber", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text'),
+    __metadata("design:type", String)
+], Quest.prototype, "name", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [QuestStep]),
     (0, typeorm_1.Column)('jsonb', { default: [] }),

@@ -49,6 +49,8 @@ export declare enum QuestPeriod {
 }
 export declare class Quest {
     id: string;
+    seasonNumber: number;
+    name: string;
     steps: QuestStep[];
     rewards: (typeof QuestReward)[];
     limit: number | null;
