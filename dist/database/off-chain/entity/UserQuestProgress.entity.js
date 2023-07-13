@@ -50,6 +50,11 @@ __decorate([
     (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)
 ], UserQuestProgress.prototype, "completed", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Date),
+    (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
+    __metadata("design:type", Date)
+], UserQuestProgress.prototype, "timestamp", void 0);
 UserQuestProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

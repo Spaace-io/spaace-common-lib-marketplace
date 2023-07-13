@@ -92,4 +92,8 @@ export class UserSeasonRankClaim {
     },
   })
   rewards!: (typeof LoyaltyRewardClaim)[];
+
+  @Field(() => Date)
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
+  timestamp!: Date;
 }

@@ -122,6 +122,11 @@ __decorate([
     }),
     __metadata("design:type", Array)
 ], UserSeasonRankClaim.prototype, "rewards", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Date),
+    (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
+    __metadata("design:type", Date)
+], UserSeasonRankClaim.prototype, "timestamp", void 0);
 UserSeasonRankClaim = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

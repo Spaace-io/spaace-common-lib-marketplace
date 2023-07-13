@@ -1,3 +1,4 @@
+import { UserSeasonRankClaim } from '.';
 export declare enum LoyaltyRank {
     BRONZE_5 = "B5",
     BRONZE_4 = "B4",
@@ -46,4 +47,7 @@ export declare class SeasonRank {
     rank: LoyaltyRank;
     threshold: string;
     rewards: (typeof LoyaltyReward)[];
+    previousRank?: SeasonRank | null;
+    nextRank?: SeasonRank | null;
+    claim?: UserSeasonRankClaim | null;
 }

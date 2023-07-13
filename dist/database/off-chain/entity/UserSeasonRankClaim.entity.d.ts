@@ -17,4 +17,5 @@ export declare class UserSeasonRankClaim {
     seasonNumber: number;
     rank: LoyaltyRank;
     rewards: (typeof LoyaltyRewardClaim)[];
+    timestamp: Date;
 }

@@ -1,3 +1,4 @@
+import { UserQuestProgress } from '.';
 export declare enum QuestTrigger {
     SALE = "Sale",
     ORDER = "Order",
@@ -42,4 +43,5 @@ export declare class Quest {
     loyaltyPoints: string;
     limit: number | null;
     period: QuestPeriod | null;
+    progress?: UserQuestProgress | null;
 }

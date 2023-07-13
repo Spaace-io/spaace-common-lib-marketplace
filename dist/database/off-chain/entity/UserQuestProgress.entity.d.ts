@@ -3,4 +3,5 @@ export declare class UserQuestProgress {
     seasonNumber: number;
     questId: string;
     completed: boolean;
+    timestamp: Date;
 }

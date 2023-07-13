@@ -6,7 +6,7 @@ import {
   createUnionType,
   registerEnumType,
 } from '@nestjs/graphql';
-import { Season } from '.';
+import { Season, UserSeasonRankClaim } from '.';
 import { Type } from 'class-transformer';
 
 export enum LoyaltyRank {
@@ -127,4 +127,18 @@ export class SeasonRank {
     },
   })
   rewards!: (typeof LoyaltyReward)[];
+
+  // GraphQL only fields
+
+  @Field(() => SeasonRank, { nullable: true })
+  @Type(() => SeasonRank)
+  previousRank?: SeasonRank | null;
+
+  @Field(() => SeasonRank, { nullable: true })
+  @Type(() => SeasonRank)
+  nextRank?: SeasonRank | null;
+
+  @Field(() => UserSeasonRankClaim, { nullable: true })
+  @Type(() => UserSeasonRankClaim)
+  claim?: UserSeasonRankClaim | null;
 }

@@ -9,7 +9,7 @@ import {
 
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
-import { Season } from '.';
+import { Season, UserQuestProgress } from '.';
 
 export enum QuestTrigger {
   SALE = 'Sale',
@@ -110,4 +110,10 @@ export class Quest {
   @Field(() => QuestPeriod, { nullable: true })
   @Column('enum', { enum: QuestPeriod, enumName: 'quest_period' })
   period!: QuestPeriod | null;
+
+  // GraphQL only fields
+
+  @Field(() => UserQuestProgress, { nullable: true })
+  @Type(() => UserQuestProgress)
+  progress?: UserQuestProgress | null;
 }

@@ -35,4 +35,8 @@ export class UserQuestProgress {
   @Field(() => Boolean)
   @Column('boolean', { default: false })
   completed!: boolean;
+
+  @Field(() => Date)
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
+  timestamp!: Date;
 }
