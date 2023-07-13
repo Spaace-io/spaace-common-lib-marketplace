@@ -219,18 +219,18 @@ export class Collection extends BaseEntity {
   // GraphQL only fields
 
   @Field(() => String)
-  listedCount!: string;
+  listedCount?: string;
 
   @Field(() => Order, { nullable: true })
   @Type(() => Order)
   @ValidateNested()
-  buyNow!: Order | null;
+  buyNow?: Order | null;
 
   @Field(() => Order, { nullable: true })
   @Type(() => Order)
   @ValidateNested()
-  sellNow!: Order | null;
+  sellNow?: Order | null;
 
   @Field(() => Boolean)
-  notable!: boolean;
+  notable?: boolean;
 }

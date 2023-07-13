@@ -114,28 +114,28 @@ export class Item extends BaseEntity {
   @Field(() => Collection)
   @Type(() => Collection)
   @ValidateNested()
-  collection!: Collection;
+  collection?: Collection;
 
   @Field(() => Order, { nullable: true })
   @Type(() => Order)
   @ValidateNested()
-  buyNow!: Order | null;
+  buyNow?: Order | null;
 
   @Field(() => Order, { nullable: true })
   @Type(() => Order)
   @ValidateNested()
-  sellNow!: Order | null;
+  sellNow?: Order | null;
 
   @Field(() => Sale, { nullable: true })
   @Type(() => Sale)
   @ValidateNested()
-  lastSale!: Sale | null;
+  lastSale?: Sale | null;
 
   @Field(() => String)
-  ownerCount!: string;
+  ownerCount?: string;
 
   @Field(() => [Balance], { nullable: true })
   @Type(() => Balance)
   @ValidateNested({ each: true })
-  owners!: Balance[];
+  owners?: Balance[];
 }

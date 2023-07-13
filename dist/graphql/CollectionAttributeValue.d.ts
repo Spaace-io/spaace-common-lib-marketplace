@@ -4,6 +4,6 @@ export declare class CollectionAttributeValue {
     trait: string;
     value: string;
     count: string;
-    buyNow: Order | null;
-    sellNow: Order | null;
+    buyNow?: Order | null;
+    sellNow?: Order | null;
 }

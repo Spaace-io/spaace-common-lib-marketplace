@@ -23,10 +23,10 @@ export declare class Item extends BaseEntity {
     rarityScore: string | null;
     attributes: ItemAttribute[] | null;
     lastImport: Date | null;
-    collection: Collection;
-    buyNow: Order | null;
-    sellNow: Order | null;
-    lastSale: Sale | null;
-    ownerCount: string;
-    owners: Balance[];
+    collection?: Collection;
+    buyNow?: Order | null;
+    sellNow?: Order | null;
+    lastSale?: Sale | null;
+    ownerCount?: string;
+    owners?: Balance[];
 }

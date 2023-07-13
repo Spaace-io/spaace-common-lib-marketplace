@@ -15,9 +15,11 @@ export class CollectionAttributeValue {
   @Field(() => String)
   count!: string;
 
-  @Field(() => Order, { nullable: true })
-  buyNow!: Order | null;
+  // GraphQL only fields
 
   @Field(() => Order, { nullable: true })
-  sellNow!: Order | null;
+  buyNow?: Order | null;
+
+  @Field(() => Order, { nullable: true })
+  sellNow?: Order | null;
 }

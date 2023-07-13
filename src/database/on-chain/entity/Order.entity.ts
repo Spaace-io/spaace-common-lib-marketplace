@@ -92,10 +92,10 @@ export class Order extends BaseEntity {
   @Field(() => Collection, { nullable: true })
   @Type(() => Collection)
   @ValidateNested()
-  collection!: Collection | null;
+  collection?: Collection | null;
 
   @Field(() => Item, { nullable: true })
   @Type(() => Item)
   @ValidateNested()
-  item!: Item | null;
+  item?: Item | null;
 }

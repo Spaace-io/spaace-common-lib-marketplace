@@ -60,8 +60,8 @@ export declare class Collection extends BaseEntity {
     totalSupply: string;
     ownerCount: string;
     lastImport: Date | null;
-    listedCount: string;
-    buyNow: Order | null;
-    sellNow: Order | null;
-    notable: boolean;
+    listedCount?: string;
+    buyNow?: Order | null;
+    sellNow?: Order | null;
+    notable?: boolean;
 }

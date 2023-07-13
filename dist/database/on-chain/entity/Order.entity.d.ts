@@ -12,6 +12,6 @@ export declare class Order extends BaseEntity {
     endTime: Date | null;
     counter: string;
     signature: string;
-    collection: Collection | null;
-    item: Item | null;
+    collection?: Collection | null;
+    item?: Item | null;
 }

@@ -23,9 +23,9 @@ export class Season {
 
   @Field(() => [Quest])
   @Type(() => Quest)
-  quests!: Quest[];
+  quests?: Quest[];
 
   @Field(() => [SeasonRank])
   @Type(() => SeasonRank)
-  ranks!: SeasonRank[];
+  ranks?: SeasonRank[];
 }
