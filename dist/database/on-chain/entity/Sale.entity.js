@@ -80,8 +80,7 @@ __decorate([
 ], Sale.prototype, "to", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-    ,
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
 ], Sale.prototype, "price", void 0);
 __decorate([

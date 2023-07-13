@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Quest = exports.QuestPeriod = exports.QuestReward = exports.CosmeticQuestReward = exports.SpaaceTokensQuestReward = exports.StakingBonusQuestReward = exports.LoyaltyPointsQuestReward = exports.QuestStep = exports.QuestRule = exports.QuestRuleOperator = exports.QuestTrigger = void 0;
+exports.Quest = exports.QuestPeriod = exports.QuestStep = exports.QuestRule = exports.QuestRuleOperator = exports.QuestTrigger = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
@@ -81,55 +81,6 @@ QuestStep = __decorate([
     (0, graphql_1.ObjectType)()
 ], QuestStep);
 exports.QuestStep = QuestStep;
-let LoyaltyPointsQuestReward = class LoyaltyPointsQuestReward {
-};
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], LoyaltyPointsQuestReward.prototype, "amount", void 0);
-LoyaltyPointsQuestReward = __decorate([
-    (0, graphql_1.ObjectType)()
-], LoyaltyPointsQuestReward);
-exports.LoyaltyPointsQuestReward = LoyaltyPointsQuestReward;
-let StakingBonusQuestReward = class StakingBonusQuestReward {
-};
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], StakingBonusQuestReward.prototype, "amount", void 0);
-StakingBonusQuestReward = __decorate([
-    (0, graphql_1.ObjectType)()
-], StakingBonusQuestReward);
-exports.StakingBonusQuestReward = StakingBonusQuestReward;
-let SpaaceTokensQuestReward = class SpaaceTokensQuestReward {
-};
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], SpaaceTokensQuestReward.prototype, "amount", void 0);
-SpaaceTokensQuestReward = __decorate([
-    (0, graphql_1.ObjectType)()
-], SpaaceTokensQuestReward);
-exports.SpaaceTokensQuestReward = SpaaceTokensQuestReward;
-let CosmeticQuestReward = class CosmeticQuestReward {
-};
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], CosmeticQuestReward.prototype, "id", void 0);
-CosmeticQuestReward = __decorate([
-    (0, graphql_1.ObjectType)()
-], CosmeticQuestReward);
-exports.CosmeticQuestReward = CosmeticQuestReward;
-exports.QuestReward = (0, graphql_1.createUnionType)({
-    name: 'QuestReward',
-    types: () => [
-        LoyaltyPointsQuestReward,
-        StakingBonusQuestReward,
-        SpaaceTokensQuestReward,
-        CosmeticQuestReward,
-    ],
-});
 var QuestPeriod;
 (function (QuestPeriod) {
     QuestPeriod["DAILY"] = "day";
@@ -141,18 +92,18 @@ var QuestPeriod;
 let Quest = class Quest {
 };
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-    __metadata("design:type", String)
-], Quest.prototype, "id", void 0);
-__decorate([
     (0, graphql_1.Field)(() => Number),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     (0, typeorm_1.ManyToOne)(() => _1.Season),
     (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
     __metadata("design:type", Number)
 ], Quest.prototype, "seasonNumber", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    __metadata("design:type", String)
+], Quest.prototype, "id", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
@@ -165,37 +116,13 @@ __decorate([
     __metadata("design:type", Array)
 ], Quest.prototype, "steps", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [exports.QuestReward]),
-    (0, typeorm_1.Column)('jsonb', { default: [] }),
-    (0, class_transformer_1.Type)(() => Object, {
-        discriminator: {
-            property: '__typename',
-            subTypes: [
-                {
-                    name: 'LoyaltyPointsQuestReward',
-                    value: LoyaltyPointsQuestReward,
-                },
-                {
-                    name: 'StakingBonusQuestReward',
-                    value: StakingBonusQuestReward,
-                },
-                {
-                    name: 'SpaaceTokensQuestReward',
-                    value: SpaaceTokensQuestReward,
-                },
-                {
-                    name: 'CosmeticQuestReward',
-                    value: CosmeticQuestReward,
-                },
-            ],
-        },
-    }),
-    __metadata("design:type", Array)
-], Quest.prototype, "rewards", void 0);
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
+    __metadata("design:type", String)
+], Quest.prototype, "loyaltyPoints", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number, { nullable: true }),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
-    ,
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
     __metadata("design:type", Object)
 ], Quest.prototype, "limit", void 0);
 __decorate([

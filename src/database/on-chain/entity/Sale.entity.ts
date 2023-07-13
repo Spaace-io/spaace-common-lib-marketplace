@@ -73,7 +73,7 @@ export class Sale extends BaseEntity {
   to!: string;
 
   @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  @Column('numeric', { precision: 78, unsigned: true })
   price!: string;
 
   @Field(() => String)

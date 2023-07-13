@@ -1,34 +1,49 @@
-import { QuestReward } from '.';
-export declare enum Rank {
-    BRONZE_5 = "bronze5",
-    BRONZE_4 = "bronze4",
-    BRONZE_3 = "bronze3",
-    BRONZE_2 = "bronze2",
-    BRONZE_1 = "bronze1",
-    SILVER_5 = "silver5",
-    SILVER_4 = "silver4",
-    SILVER_3 = "silver3",
-    SILVER_2 = "silver2",
-    SILVER_1 = "silver1",
-    GOLD_5 = "gold5",
-    GOLD_4 = "gold4",
-    GOLD_3 = "gold3",
-    GOLD_2 = "gold2",
-    GOLD_1 = "gold1",
-    PLATINUM_5 = "platinum5",
-    PLATINUM_4 = "platinum4",
-    PLATINUM_3 = "platinum3",
-    PLATINUM_2 = "platinum2",
-    PLATINUM_1 = "platinum1",
-    DIAMOND_5 = "diamond5",
-    DIAMOND_4 = "diamond4",
-    DIAMOND_3 = "diamond3",
-    DIAMOND_2 = "diamond2",
-    DIAMOND_1 = "diamond1"
+export declare enum LoyaltyRank {
+    BRONZE_5 = "B5",
+    BRONZE_4 = "B4",
+    BRONZE_3 = "B3",
+    BRONZE_2 = "B2",
+    BRONZE_1 = "B1",
+    SILVER_5 = "S5",
+    SILVER_4 = "S4",
+    SILVER_3 = "S3",
+    SILVER_2 = "S2",
+    SILVER_1 = "S1",
+    GOLD_5 = "G5",
+    GOLD_4 = "G4",
+    GOLD_3 = "G3",
+    GOLD_2 = "G2",
+    GOLD_1 = "G1",
+    PLATINUM_5 = "P5",
+    PLATINUM_4 = "P4",
+    PLATINUM_3 = "P3",
+    PLATINUM_2 = "P2",
+    PLATINUM_1 = "P1",
+    DIAMOND_5 = "D5",
+    DIAMOND_4 = "D4",
+    DIAMOND_3 = "D3",
+    DIAMOND_2 = "D2",
+    DIAMOND_1 = "D1"
 }
+export declare class LoyaltyPointsLoyaltyReward {
+    min: string;
+    max: string;
+}
+export declare class StakingBonusLoyaltyReward {
+    min: string;
+    max: string;
+}
+export declare class SpaaceTokensLoyaltyReward {
+    min: string;
+    max: string;
+}
+export declare class CosmeticLoyaltyReward {
+    ids: string[];
+}
+export declare const LoyaltyReward: LoyaltyPointsLoyaltyReward | CosmeticLoyaltyReward;
 export declare class SeasonRank {
     seasonNumber: number;
-    rank: Rank;
+    rank: LoyaltyRank;
     threshold: string;
-    rewards: (typeof QuestReward)[];
+    rewards: (typeof LoyaltyReward)[];
 }

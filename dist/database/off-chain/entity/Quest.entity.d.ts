@@ -30,29 +30,16 @@ export declare class QuestStep {
     trigger: QuestTrigger;
     rules: QuestRule[];
 }
-export declare class LoyaltyPointsQuestReward {
-    amount: string;
-}
-export declare class StakingBonusQuestReward {
-    amount: string;
-}
-export declare class SpaaceTokensQuestReward {
-    amount: string;
-}
-export declare class CosmeticQuestReward {
-    id: string;
-}
-export declare const QuestReward: LoyaltyPointsQuestReward | CosmeticQuestReward;
 export declare enum QuestPeriod {
     DAILY = "day",
     SEASONAL = "season"
 }
 export declare class Quest {
-    id: string;
     seasonNumber: number;
+    id: string;
     name: string;
     steps: QuestStep[];
-    rewards: (typeof QuestReward)[];
+    loyaltyPoints: string;
     limit: number | null;
     period: QuestPeriod | null;
 }

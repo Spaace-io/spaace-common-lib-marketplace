@@ -9,41 +9,102 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SeasonRank = exports.Rank = void 0;
+exports.SeasonRank = exports.LoyaltyReward = exports.CosmeticLoyaltyReward = exports.SpaaceTokensLoyaltyReward = exports.StakingBonusLoyaltyReward = exports.LoyaltyPointsLoyaltyReward = exports.LoyaltyRank = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const _1 = require(".");
 const class_transformer_1 = require("class-transformer");
-var Rank;
-(function (Rank) {
-    Rank["BRONZE_5"] = "bronze5";
-    Rank["BRONZE_4"] = "bronze4";
-    Rank["BRONZE_3"] = "bronze3";
-    Rank["BRONZE_2"] = "bronze2";
-    Rank["BRONZE_1"] = "bronze1";
-    Rank["SILVER_5"] = "silver5";
-    Rank["SILVER_4"] = "silver4";
-    Rank["SILVER_3"] = "silver3";
-    Rank["SILVER_2"] = "silver2";
-    Rank["SILVER_1"] = "silver1";
-    Rank["GOLD_5"] = "gold5";
-    Rank["GOLD_4"] = "gold4";
-    Rank["GOLD_3"] = "gold3";
-    Rank["GOLD_2"] = "gold2";
-    Rank["GOLD_1"] = "gold1";
-    Rank["PLATINUM_5"] = "platinum5";
-    Rank["PLATINUM_4"] = "platinum4";
-    Rank["PLATINUM_3"] = "platinum3";
-    Rank["PLATINUM_2"] = "platinum2";
-    Rank["PLATINUM_1"] = "platinum1";
-    Rank["DIAMOND_5"] = "diamond5";
-    Rank["DIAMOND_4"] = "diamond4";
-    Rank["DIAMOND_3"] = "diamond3";
-    Rank["DIAMOND_2"] = "diamond2";
-    Rank["DIAMOND_1"] = "diamond1";
-})(Rank = exports.Rank || (exports.Rank = {}));
-(0, graphql_1.registerEnumType)(Rank, {
-    name: 'Rank',
+var LoyaltyRank;
+(function (LoyaltyRank) {
+    LoyaltyRank["BRONZE_5"] = "B5";
+    LoyaltyRank["BRONZE_4"] = "B4";
+    LoyaltyRank["BRONZE_3"] = "B3";
+    LoyaltyRank["BRONZE_2"] = "B2";
+    LoyaltyRank["BRONZE_1"] = "B1";
+    LoyaltyRank["SILVER_5"] = "S5";
+    LoyaltyRank["SILVER_4"] = "S4";
+    LoyaltyRank["SILVER_3"] = "S3";
+    LoyaltyRank["SILVER_2"] = "S2";
+    LoyaltyRank["SILVER_1"] = "S1";
+    LoyaltyRank["GOLD_5"] = "G5";
+    LoyaltyRank["GOLD_4"] = "G4";
+    LoyaltyRank["GOLD_3"] = "G3";
+    LoyaltyRank["GOLD_2"] = "G2";
+    LoyaltyRank["GOLD_1"] = "G1";
+    LoyaltyRank["PLATINUM_5"] = "P5";
+    LoyaltyRank["PLATINUM_4"] = "P4";
+    LoyaltyRank["PLATINUM_3"] = "P3";
+    LoyaltyRank["PLATINUM_2"] = "P2";
+    LoyaltyRank["PLATINUM_1"] = "P1";
+    LoyaltyRank["DIAMOND_5"] = "D5";
+    LoyaltyRank["DIAMOND_4"] = "D4";
+    LoyaltyRank["DIAMOND_3"] = "D3";
+    LoyaltyRank["DIAMOND_2"] = "D2";
+    LoyaltyRank["DIAMOND_1"] = "D1";
+})(LoyaltyRank = exports.LoyaltyRank || (exports.LoyaltyRank = {}));
+(0, graphql_1.registerEnumType)(LoyaltyRank, {
+    name: 'LoyaltyRank',
+});
+let LoyaltyPointsLoyaltyReward = class LoyaltyPointsLoyaltyReward {
+};
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], LoyaltyPointsLoyaltyReward.prototype, "min", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], LoyaltyPointsLoyaltyReward.prototype, "max", void 0);
+LoyaltyPointsLoyaltyReward = __decorate([
+    (0, graphql_1.ObjectType)()
+], LoyaltyPointsLoyaltyReward);
+exports.LoyaltyPointsLoyaltyReward = LoyaltyPointsLoyaltyReward;
+let StakingBonusLoyaltyReward = class StakingBonusLoyaltyReward {
+};
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], StakingBonusLoyaltyReward.prototype, "min", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], StakingBonusLoyaltyReward.prototype, "max", void 0);
+StakingBonusLoyaltyReward = __decorate([
+    (0, graphql_1.ObjectType)()
+], StakingBonusLoyaltyReward);
+exports.StakingBonusLoyaltyReward = StakingBonusLoyaltyReward;
+let SpaaceTokensLoyaltyReward = class SpaaceTokensLoyaltyReward {
+};
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], SpaaceTokensLoyaltyReward.prototype, "min", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], SpaaceTokensLoyaltyReward.prototype, "max", void 0);
+SpaaceTokensLoyaltyReward = __decorate([
+    (0, graphql_1.ObjectType)()
+], SpaaceTokensLoyaltyReward);
+exports.SpaaceTokensLoyaltyReward = SpaaceTokensLoyaltyReward;
+let CosmeticLoyaltyReward = class CosmeticLoyaltyReward {
+};
+__decorate([
+    (0, graphql_1.Field)(() => [String]),
+    __metadata("design:type", Array)
+], CosmeticLoyaltyReward.prototype, "ids", void 0);
+CosmeticLoyaltyReward = __decorate([
+    (0, graphql_1.ObjectType)()
+], CosmeticLoyaltyReward);
+exports.CosmeticLoyaltyReward = CosmeticLoyaltyReward;
+exports.LoyaltyReward = (0, graphql_1.createUnionType)({
+    name: 'LoyaltyReward',
+    types: () => [
+        LoyaltyPointsLoyaltyReward,
+        StakingBonusLoyaltyReward,
+        SpaaceTokensLoyaltyReward,
+        CosmeticLoyaltyReward,
+    ],
 });
 let SeasonRank = class SeasonRank {
 };
@@ -56,8 +117,8 @@ __decorate([
     __metadata("design:type", Number)
 ], SeasonRank.prototype, "seasonNumber", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Rank),
-    (0, typeorm_1.PrimaryColumn)('enum', { enum: Rank, enumName: 'rank' }),
+    (0, graphql_1.Field)(() => LoyaltyRank),
+    (0, typeorm_1.PrimaryColumn)('enum', { enum: LoyaltyRank, enumName: 'rank' }),
     __metadata("design:type", String)
 ], SeasonRank.prototype, "rank", void 0);
 __decorate([
@@ -66,27 +127,27 @@ __decorate([
     __metadata("design:type", String)
 ], SeasonRank.prototype, "threshold", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [_1.QuestReward]),
+    (0, graphql_1.Field)(() => [exports.LoyaltyReward]),
     (0, typeorm_1.Column)('jsonb', { default: [] }),
     (0, class_transformer_1.Type)(() => Object, {
         discriminator: {
             property: '__typename',
             subTypes: [
                 {
-                    name: 'LoyaltyPointsQuestReward',
-                    value: _1.LoyaltyPointsQuestReward,
+                    name: 'LoyaltyPointsLoyaltyReward',
+                    value: LoyaltyPointsLoyaltyReward,
                 },
                 {
-                    name: 'StakingBonusQuestReward',
-                    value: _1.StakingBonusQuestReward,
+                    name: 'StakingBonusLoyaltyReward',
+                    value: StakingBonusLoyaltyReward,
                 },
                 {
-                    name: 'SpaaceTokensQuestReward',
-                    value: _1.SpaaceTokensQuestReward,
+                    name: 'SpaaceTokensLoyaltyReward',
+                    value: SpaaceTokensLoyaltyReward,
                 },
                 {
-                    name: 'CosmeticQuestReward',
-                    value: _1.CosmeticQuestReward,
+                    name: 'CosmeticLoyaltyReward',
+                    value: CosmeticLoyaltyReward,
                 },
             ],
         },

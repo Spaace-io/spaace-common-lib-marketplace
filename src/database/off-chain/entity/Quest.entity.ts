@@ -3,15 +3,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import {
-  Field,
-  ObjectType,
-  createUnionType,
-  registerEnumType,
-} from '@nestjs/graphql';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
 import { Season } from '.';
 
@@ -72,40 +68,6 @@ export class QuestStep {
   rules!: QuestRule[];
 }
 
-@ObjectType()
-export class LoyaltyPointsQuestReward {
-  @Field(() => String)
-  amount!: string;
-}
-
-@ObjectType()
-export class StakingBonusQuestReward {
-  @Field(() => String)
-  amount!: string;
-}
-
-@ObjectType()
-export class SpaaceTokensQuestReward {
-  @Field(() => String)
-  amount!: string;
-}
-
-@ObjectType()
-export class CosmeticQuestReward {
-  @Field(() => String)
-  id!: string;
-}
-
-export const QuestReward = createUnionType({
-  name: 'QuestReward',
-  types: () => [
-    LoyaltyPointsQuestReward,
-    StakingBonusQuestReward,
-    SpaaceTokensQuestReward,
-    CosmeticQuestReward,
-  ],
-});
-
 export enum QuestPeriod {
   DAILY = 'day',
   SEASONAL = 'season',
@@ -118,15 +80,15 @@ registerEnumType(QuestPeriod, {
 @ObjectType()
 @Entity()
 export class Quest {
-  @Field(() => String)
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
-
   @Field(() => Number)
-  @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   @ManyToOne(() => Season)
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
   seasonNumber!: number;
+
+  @Field(() => String)
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
   @Field(() => String)
   @Column('text')
@@ -137,35 +99,12 @@ export class Quest {
   @Type(() => QuestStep)
   steps!: QuestStep[];
 
-  @Field(() => [QuestReward])
-  @Column('jsonb', { default: [] })
-  @Type(() => Object, {
-    discriminator: {
-      property: '__typename',
-      subTypes: [
-        {
-          name: 'LoyaltyPointsQuestReward',
-          value: LoyaltyPointsQuestReward,
-        },
-        {
-          name: 'StakingBonusQuestReward',
-          value: StakingBonusQuestReward,
-        },
-        {
-          name: 'SpaaceTokensQuestReward',
-          value: SpaaceTokensQuestReward,
-        },
-        {
-          name: 'CosmeticQuestReward',
-          value: CosmeticQuestReward,
-        },
-      ],
-    },
-  })
-  rewards!: (typeof QuestReward)[];
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true })
+  loyaltyPoints!: string;
 
   @Field(() => Number, { nullable: true })
-  @Column('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
+  @Column('numeric', { precision: 78, unsigned: true, nullable: true })
   limit!: number | null;
 
   @Field(() => QuestPeriod, { nullable: true })
