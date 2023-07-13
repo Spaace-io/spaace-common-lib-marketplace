@@ -7,6 +7,7 @@ export * from './Sale.entity';
 export * from './TradingReward.entity';
 export * from './ReferralReward.entity';
 export * from './StakingDeposit.entity';
+export * from './HideItem.entity';
 export * from './Order.entity';
 export * from './Balance.view';
 export * from './BuyVolume.view';
