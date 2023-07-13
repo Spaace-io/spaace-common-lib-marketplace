@@ -12,7 +12,7 @@ export declare enum PubSubEvents {
     TRANSFER = "transfer",
     SALE = "sale"
 }
-export type PubSubCustomMessageData<T = any> = {
+export type PubSubCustomMessageData<T> = {
     event: PubSubEvents;
     data: T;
 };

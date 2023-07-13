@@ -10,9 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const pubsub_1 = require("@google-cloud/pubsub");
-const dotenv = require("dotenv");
 const types_1 = require("./types");
-dotenv.config();
 class PubSubClient {
     constructor() {
         this.pubsub = new pubsub_1.PubSub({
@@ -34,22 +32,16 @@ class PubSubClient {
      */
     createTopics() {
         return __awaiter(this, void 0, void 0, function* () {
-            const topics = Object.values(types_1.PubSubTopics);
-            for (const topic of topics) {
-                try {
-                    const [exists] = yield this.pubsub.topic(topic).exists();
-                    if (exists) {
-                        console.log(`Topic ${topic} already exists, skipping.`);
-                    }
-                    else {
-                        yield this.pubsub.createTopic(topic);
-                        console.log(`Topic ${topic} created.`);
-                    }
+            yield Promise.all(Object.values(types_1.PubSubTopics).map((topic) => __awaiter(this, void 0, void 0, function* () {
+                const [exists] = yield this.pubsub.topic(topic).exists();
+                if (exists) {
+                    console.log(`Topic ${topic} already exists, skipping.`);
                 }
-                catch (e) {
-                    console.error(`Error creating topic ${topic}:`, e);
+                else {
+                    yield this.pubsub.createTopic(topic);
+                    console.log(`Topic ${topic} created.`);
                 }
-            }
+            })));
         });
     }
     /**
@@ -58,9 +50,14 @@ class PubSubClient {
     createSubscriptions() {
         return __awaiter(this, void 0, void 0, function* () {
             const [topics] = yield this.pubsub.getTopics();
-            const subscriptions = Object.values(types_1.PubSubSubscriptions);
-            subscriptions.forEach((subscription, idx) => __awaiter(this, void 0, void 0, function* () {
-                const topic = topics[idx];
+            Object.values(types_1.PubSubSubscriptions).forEach((subscription) => __awaiter(this, void 0, void 0, function* () {
+                const topic = topics.find((topic) => topic.name.replace(/^projects\/[a-z0-9-]+\/topics\//, '') ===
+                    subscription);
+                if (topic === undefined) {
+                    throw new Error(`Unknown topic ${subscription} (found ${topics
+                        .map((topic) => topic.name.replace(/^projects\/[a-z0-9-]+\/topics\//, ''))
+                        .join(', ')})`);
+                }
                 try {
                     const [exists] = yield topic.subscription(subscription).exists();
                     if (exists) {

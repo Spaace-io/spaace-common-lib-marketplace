@@ -1,12 +1,9 @@
 import { Message, PubSub } from '@google-cloud/pubsub';
-import * as dotenv from 'dotenv';
 import {
   PubSubCustomMessageData,
   PubSubTopics,
   PubSubSubscriptions,
 } from './types';
-
-dotenv.config();
 
 class PubSubClient {
   private readonly pubsub: PubSub;
@@ -30,20 +27,18 @@ class PubSubClient {
    * Create topics if they don't exist
    */
   private async createTopics() {
-    const topics = Object.values(PubSubTopics);
-    for (const topic of topics) {
-      try {
+    await Promise.all(
+      Object.values(PubSubTopics).map(async (topic) => {
         const [exists] = await this.pubsub.topic(topic).exists();
+
         if (exists) {
           console.log(`Topic ${topic} already exists, skipping.`);
         } else {
           await this.pubsub.createTopic(topic);
           console.log(`Topic ${topic} created.`);
         }
-      } catch (e) {
-        console.error(`Error creating topic ${topic}:`, e);
-      }
-    }
+      }),
+    );
   }
 
   /**
@@ -51,10 +46,22 @@ class PubSubClient {
    */
   private async createSubscriptions() {
     const [topics] = await this.pubsub.getTopics();
-    const subscriptions = Object.values(PubSubSubscriptions);
 
-    subscriptions.forEach(async (subscription, idx) => {
-      const topic = topics[idx];
+    Object.values(PubSubSubscriptions).forEach(async (subscription) => {
+      const topic = topics.find(
+        (topic) =>
+          topic.name.replace(/^projects\/[a-z0-9-]+\/topics\//, '') ===
+          subscription,
+      );
+      if (topic === undefined) {
+        throw new Error(
+          `Unknown topic ${subscription} (found ${topics
+            .map((topic) =>
+              topic.name.replace(/^projects\/[a-z0-9-]+\/topics\//, ''),
+            )
+            .join(', ')})`,
+        );
+      }
 
       try {
         const [exists] = await topic.subscription(subscription).exists();
@@ -81,7 +88,7 @@ class PubSubClient {
    * @param data - Data to publish
    * @returns Message ID or null if error
    */
-  public async publish<T = any>(
+  public async publish<T>(
     topicName: PubSubTopics,
     data: PubSubCustomMessageData<T>,
   ): Promise<string | null> {
@@ -104,7 +111,7 @@ class PubSubClient {
    */
   public async subscribe(
     subscriptionName: PubSubSubscriptions,
-    callback: (message: Message) => any,
+    callback: (message: Message) => void,
   ) {
     const subscription = this.pubsub.subscription(subscriptionName);
     subscription.on('message', callback);
