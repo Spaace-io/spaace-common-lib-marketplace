@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserQuests1689251634807 = void 0;
-class UserQuests1689251634807 {
+exports.userQuests1689251634807 = void 0;
+class userQuests1689251634807 {
     constructor() {
-        this.name = 'UserQuests1689251634807';
+        this.name = 'userQuests1689251634807';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -57,5 +57,5 @@ class UserQuests1689251634807 {
         });
     }
 }
-exports.UserQuests1689251634807 = UserQuests1689251634807;
-//# sourceMappingURL=1689251634807-UserQuests.js.map
+exports.userQuests1689251634807 = userQuests1689251634807;
+//# sourceMappingURL=1689251634807-userQuests.js.map

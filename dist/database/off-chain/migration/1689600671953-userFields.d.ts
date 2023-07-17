@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-export declare class UserQuests1689251634807 implements MigrationInterface {
+export declare class userFields1689600671953 implements MigrationInterface {
     name: string;
     up(queryRunner: QueryRunner): Promise<void>;
     down(queryRunner: QueryRunner): Promise<void>;

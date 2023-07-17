@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Quests1689180036478 = void 0;
-class Quests1689180036478 {
+exports.quests1689180036478 = void 0;
+class quests1689180036478 {
     constructor() {
-        this.name = 'Quests1689180036478';
+        this.name = 'quests1689180036478';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -37,5 +37,5 @@ class Quests1689180036478 {
         });
     }
 }
-exports.Quests1689180036478 = Quests1689180036478;
-//# sourceMappingURL=1689180036478-Quests.js.map
+exports.quests1689180036478 = quests1689180036478;
+//# sourceMappingURL=1689180036478-quests.js.map
