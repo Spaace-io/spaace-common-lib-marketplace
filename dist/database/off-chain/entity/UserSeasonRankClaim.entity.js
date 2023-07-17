@@ -64,7 +64,7 @@ exports.LoyaltyRewardClaim = (0, graphql_1.createUnionType)({
         CosmeticLoyaltyRewardClaim,
     ],
 });
-let UserSeasonRankClaim = class UserSeasonRankClaim {
+let UserSeasonRankClaim = class UserSeasonRankClaim extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -129,7 +129,7 @@ __decorate([
 ], UserSeasonRankClaim.prototype, "timestamp", void 0);
 UserSeasonRankClaim = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)({ name: 'user_season_rank_claims' })
 ], UserSeasonRankClaim);
 exports.UserSeasonRankClaim = UserSeasonRankClaim;
 //# sourceMappingURL=UserSeasonRankClaim.entity.js.map

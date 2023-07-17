@@ -1,4 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Quest, Season, User } from '.';
@@ -6,8 +13,8 @@ import { ethers } from 'ethers';
 import { Transform } from 'class-transformer';
 
 @ObjectType()
-@Entity()
-export class UserQuestProgress {
+@Entity({ name: 'user_quest_progress' })
+export class UserQuestProgress extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => User)

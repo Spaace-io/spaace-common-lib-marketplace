@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   Entity,
   JoinColumn,
@@ -78,8 +79,8 @@ registerEnumType(QuestPeriod, {
 });
 
 @ObjectType()
-@Entity()
-export class Quest {
+@Entity({ name: 'quests' })
+export class Quest extends BaseEntity {
   @Field(() => Number)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   @ManyToOne(() => Season)

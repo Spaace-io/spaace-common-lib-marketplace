@@ -1,3 +1,4 @@
+import { BaseEntity } from 'typeorm';
 import { UserQuestProgress } from '.';
 export declare enum QuestTrigger {
     SALE = "Sale",
@@ -35,7 +36,7 @@ export declare enum QuestPeriod {
     DAILY = "day",
     SEASONAL = "season"
 }
-export declare class Quest {
+export declare class Quest extends BaseEntity {
     seasonNumber: number;
     id: string;
     name: string;

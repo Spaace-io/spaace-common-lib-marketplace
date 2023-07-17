@@ -1,4 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 
 import {
   Field,
@@ -85,8 +92,8 @@ export const LoyaltyReward = createUnionType({
 });
 
 @ObjectType()
-@Entity()
-export class SeasonRank {
+@Entity({ name: 'season_ranks' })
+export class SeasonRank extends BaseEntity {
   @Field(() => Number)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   @ManyToOne(() => Season)

@@ -1,3 +1,4 @@
+import { BaseEntity } from 'typeorm';
 import { LoyaltyRank } from '.';
 export declare class LoyaltyPointsLoyaltyRewardClaim {
     amount: string;
@@ -12,7 +13,7 @@ export declare class CosmeticLoyaltyRewardClaim {
     id: string;
 }
 export declare const LoyaltyRewardClaim: LoyaltyPointsLoyaltyRewardClaim | CosmeticLoyaltyRewardClaim;
-export declare class UserSeasonRankClaim {
+export declare class UserSeasonRankClaim extends BaseEntity {
     userAddress: string;
     seasonNumber: number;
     rank: LoyaltyRank;

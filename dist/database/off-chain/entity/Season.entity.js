@@ -14,7 +14,7 @@ const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const _1 = require(".");
 const class_transformer_1 = require("class-transformer");
-let Season = class Season {
+let Season = class Season extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => Number),
@@ -44,7 +44,7 @@ __decorate([
 ], Season.prototype, "ranks", void 0);
 Season = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)({ name: 'seasons' })
 ], Season);
 exports.Season = Season;
 //# sourceMappingURL=Season.entity.js.map

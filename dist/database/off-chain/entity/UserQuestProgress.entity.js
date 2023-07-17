@@ -15,7 +15,7 @@ const graphql_1 = require("@nestjs/graphql");
 const _1 = require(".");
 const ethers_1 = require("ethers");
 const class_transformer_1 = require("class-transformer");
-let UserQuestProgress = class UserQuestProgress {
+let UserQuestProgress = class UserQuestProgress extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -57,7 +57,7 @@ __decorate([
 ], UserQuestProgress.prototype, "timestamp", void 0);
 UserQuestProgress = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)({ name: 'user_quest_progress' })
 ], UserQuestProgress);
 exports.UserQuestProgress = UserQuestProgress;
 //# sourceMappingURL=UserQuestProgress.entity.js.map

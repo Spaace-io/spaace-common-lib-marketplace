@@ -1,4 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 
 import { Field, ObjectType, createUnionType } from '@nestjs/graphql';
 import { LoyaltyRank, Season, SeasonRank, User } from '.';
@@ -40,8 +47,8 @@ export const LoyaltyRewardClaim = createUnionType({
 });
 
 @ObjectType()
-@Entity()
-export class UserSeasonRankClaim {
+@Entity({ name: 'user_season_rank_claims' })
+export class UserSeasonRankClaim extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => User)

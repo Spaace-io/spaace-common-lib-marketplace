@@ -16,7 +16,7 @@ const crypto_1 = require("crypto");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
 exports.LOGIN_NONCE_VALID_PERIOD = 5 * 60 * 1000;
-let LoginNonce = class LoginNonce {
+let LoginNonce = class LoginNonce extends typeorm_1.BaseEntity {
     generateNonce() {
         var _a;
         (_a = this.nonce) !== null && _a !== void 0 ? _a : (this.nonce = (0, crypto_1.randomUUID)().replace(/-/g, ''));
@@ -48,7 +48,7 @@ __decorate([
 ], LoginNonce.prototype, "generateNonce", null);
 LoginNonce = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)({ name: 'login_nonces' })
 ], LoginNonce);
 exports.LoginNonce = LoginNonce;
 //# sourceMappingURL=LoginNonce.entity.js.map

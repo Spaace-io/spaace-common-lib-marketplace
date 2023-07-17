@@ -1,4 +1,10 @@
-import { BeforeInsert, Column, Entity, PrimaryColumn } from 'typeorm';
+import {
+  BaseEntity,
+  BeforeInsert,
+  Column,
+  Entity,
+  PrimaryColumn,
+} from 'typeorm';
 
 import { Field, ObjectType } from '@nestjs/graphql';
 import { randomUUID } from 'crypto';
@@ -8,8 +14,8 @@ import { ethers } from 'ethers';
 export const LOGIN_NONCE_VALID_PERIOD = 5 * 60 * 1000;
 
 @ObjectType()
-@Entity()
-export class LoginNonce {
+@Entity({ name: 'login_nonces' })
+export class LoginNonce extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('char', { length: 32 })
   nonce!: string;

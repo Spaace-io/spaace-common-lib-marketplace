@@ -1,3 +1,4 @@
+import { BaseEntity } from 'typeorm';
 import { UserSeasonRankClaim } from '.';
 export declare enum LoyaltyRank {
     BRONZE_5 = "B5",
@@ -42,7 +43,7 @@ export declare class CosmeticLoyaltyReward {
     ids: string[];
 }
 export declare const LoyaltyReward: LoyaltyPointsLoyaltyReward | CosmeticLoyaltyReward;
-export declare class SeasonRank {
+export declare class SeasonRank extends BaseEntity {
     seasonNumber: number;
     rank: LoyaltyRank;
     threshold: string;

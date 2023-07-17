@@ -89,7 +89,7 @@ var QuestPeriod;
 (0, graphql_1.registerEnumType)(QuestPeriod, {
     name: 'QuestPeriod',
 });
-let Quest = class Quest {
+let Quest = class Quest extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => Number),
@@ -137,7 +137,7 @@ __decorate([
 ], Quest.prototype, "progress", void 0);
 Quest = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)({ name: 'quests' })
 ], Quest);
 exports.Quest = Quest;
 //# sourceMappingURL=Quest.entity.js.map

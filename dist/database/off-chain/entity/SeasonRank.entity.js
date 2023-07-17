@@ -107,7 +107,7 @@ exports.LoyaltyReward = (0, graphql_1.createUnionType)({
         CosmeticLoyaltyReward,
     ],
 });
-let SeasonRank = SeasonRank_1 = class SeasonRank {
+let SeasonRank = SeasonRank_1 = class SeasonRank extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => Number),
@@ -172,7 +172,7 @@ __decorate([
 ], SeasonRank.prototype, "claim", void 0);
 SeasonRank = SeasonRank_1 = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)({ name: 'season_ranks' })
 ], SeasonRank);
 exports.SeasonRank = SeasonRank;
 //# sourceMappingURL=SeasonRank.entity.js.map
