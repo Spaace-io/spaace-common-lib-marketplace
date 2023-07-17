@@ -118,13 +118,13 @@ export class Quest extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true })
   loyaltyPoints!: string;
 
-  @Field(() => Number, { nullable: true })
-  @Column('numeric', { precision: 78, unsigned: true, nullable: true })
-  limit!: number | null;
+  @Field(() => Number)
+  @Column('numeric', { precision: 78, unsigned: true, default: '1' })
+  limit!: number;
 
-  @Field(() => QuestPeriod, { nullable: true })
+  @Field(() => QuestPeriod)
   @Column('enum', { enum: QuestPeriod, enumName: 'quest_period' })
-  period!: QuestPeriod | null;
+  period!: QuestPeriod;
 
   // GraphQL only fields
 

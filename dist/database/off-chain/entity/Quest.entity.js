@@ -137,14 +137,14 @@ __decorate([
     __metadata("design:type", String)
 ], Quest.prototype, "loyaltyPoints", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Number, { nullable: true }),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
-    __metadata("design:type", Object)
+    (0, graphql_1.Field)(() => Number),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),
+    __metadata("design:type", Number)
 ], Quest.prototype, "limit", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => QuestPeriod, { nullable: true }),
+    (0, graphql_1.Field)(() => QuestPeriod),
     (0, typeorm_1.Column)('enum', { enum: QuestPeriod, enumName: 'quest_period' }),
-    __metadata("design:type", Object)
+    __metadata("design:type", String)
 ], Quest.prototype, "period", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Quest_1, { nullable: true }),
