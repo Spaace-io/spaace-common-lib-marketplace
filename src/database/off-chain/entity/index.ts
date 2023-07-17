@@ -6,3 +6,4 @@ export * from './SeasonRank.entity';
 export * from './Quest.entity';
 export * from './UserQuestProgress.entity';
 export * from './UserSeasonRankClaim.entity';
+export * from './HideItem.entity';
