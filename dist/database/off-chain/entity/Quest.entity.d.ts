@@ -39,10 +39,14 @@ export declare enum QuestPeriod {
 export declare class Quest extends BaseEntity {
     seasonNumber: number;
     id: string;
+    previousQuestId: string | null;
     name: string;
+    prime: boolean;
     steps: QuestStep[];
     loyaltyPoints: string;
     limit: number | null;
     period: QuestPeriod | null;
+    previousQuest?: Quest | null;
+    nextQuest?: Quest | null;
     progress?: UserQuestProgress[] | null;
 }

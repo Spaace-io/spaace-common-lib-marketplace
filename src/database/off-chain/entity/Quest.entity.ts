@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -91,9 +92,22 @@ export class Quest extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
+  @Field(() => String, { nullable: true })
+  @Column('uuid', { nullable: true })
+  @OneToOne(() => Quest)
+  @JoinColumn([
+    { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
+    { name: 'previousQuestId', referencedColumnName: 'id' },
+  ])
+  previousQuestId!: string | null;
+
   @Field(() => String)
   @Column('text')
   name!: string;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  prime!: boolean;
 
   @Field(() => [QuestStep])
   @Column('jsonb', { default: [] })
@@ -113,6 +127,14 @@ export class Quest extends BaseEntity {
   period!: QuestPeriod | null;
 
   // GraphQL only fields
+
+  @Field(() => Quest, { nullable: true })
+  @Type(() => Quest)
+  previousQuest?: Quest | null;
+
+  @Field(() => Quest, { nullable: true })
+  @Type(() => Quest)
+  nextQuest?: Quest | null;
 
   @Field(() => [UserQuestProgress], { nullable: true })
   @Type(() => UserQuestProgress)

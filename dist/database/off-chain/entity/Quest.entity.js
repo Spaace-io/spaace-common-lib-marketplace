@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var Quest_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Quest = exports.QuestPeriod = exports.QuestStep = exports.QuestRule = exports.QuestRuleOperator = exports.QuestTrigger = void 0;
 const typeorm_1 = require("typeorm");
@@ -89,7 +90,7 @@ var QuestPeriod;
 (0, graphql_1.registerEnumType)(QuestPeriod, {
     name: 'QuestPeriod',
 });
-let Quest = class Quest extends typeorm_1.BaseEntity {
+let Quest = Quest_1 = class Quest extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => Number),
@@ -105,10 +106,25 @@ __decorate([
     __metadata("design:type", String)
 ], Quest.prototype, "id", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('uuid', { nullable: true }),
+    (0, typeorm_1.OneToOne)(() => Quest_1),
+    (0, typeorm_1.JoinColumn)([
+        { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
+        { name: 'previousQuestId', referencedColumnName: 'id' },
+    ]),
+    __metadata("design:type", Object)
+], Quest.prototype, "previousQuestId", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], Quest.prototype, "name", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    __metadata("design:type", Boolean)
+], Quest.prototype, "prime", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [QuestStep]),
     (0, typeorm_1.Column)('jsonb', { default: [] }),
@@ -131,11 +147,21 @@ __decorate([
     __metadata("design:type", Object)
 ], Quest.prototype, "period", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => Quest_1, { nullable: true }),
+    (0, class_transformer_1.Type)(() => Quest_1),
+    __metadata("design:type", Object)
+], Quest.prototype, "previousQuest", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Quest_1, { nullable: true }),
+    (0, class_transformer_1.Type)(() => Quest_1),
+    __metadata("design:type", Object)
+], Quest.prototype, "nextQuest", void 0);
+__decorate([
     (0, graphql_1.Field)(() => [_1.UserQuestProgress], { nullable: true }),
     (0, class_transformer_1.Type)(() => _1.UserQuestProgress),
     __metadata("design:type", Object)
 ], Quest.prototype, "progress", void 0);
-Quest = __decorate([
+Quest = Quest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'quests' })
 ], Quest);
