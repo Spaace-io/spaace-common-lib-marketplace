@@ -131,7 +131,7 @@ __decorate([
     __metadata("design:type", Object)
 ], Quest.prototype, "period", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => _1.UserQuestProgress, { nullable: true }),
+    (0, graphql_1.Field)(() => [_1.UserQuestProgress], { nullable: true }),
     (0, class_transformer_1.Type)(() => _1.UserQuestProgress),
     __metadata("design:type", Object)
 ], Quest.prototype, "progress", void 0);

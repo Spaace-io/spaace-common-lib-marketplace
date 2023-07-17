@@ -46,6 +46,11 @@ __decorate([
     __metadata("design:type", String)
 ], UserQuestProgress.prototype, "questId", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    __metadata("design:type", String)
+], UserQuestProgress.prototype, "nonce", void 0);
+__decorate([
     (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)

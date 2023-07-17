@@ -5,6 +5,7 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Field, ObjectType } from '@nestjs/graphql';
@@ -38,6 +39,10 @@ export class UserQuestProgress extends BaseEntity {
     { name: 'questId', referencedColumnName: 'id' },
   ])
   questId!: string;
+
+  @Field(() => String)
+  @PrimaryGeneratedColumn('uuid')
+  nonce!: string;
 
   @Field(() => Boolean)
   @Column('boolean', { default: false })

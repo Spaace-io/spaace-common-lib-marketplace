@@ -114,7 +114,7 @@ export class Quest extends BaseEntity {
 
   // GraphQL only fields
 
-  @Field(() => UserQuestProgress, { nullable: true })
+  @Field(() => [UserQuestProgress], { nullable: true })
   @Type(() => UserQuestProgress)
-  progress?: UserQuestProgress | null;
+  progress?: UserQuestProgress[] | null;
 }
