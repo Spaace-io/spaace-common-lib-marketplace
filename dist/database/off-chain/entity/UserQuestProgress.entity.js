@@ -28,7 +28,7 @@ __decorate([
     __metadata("design:type", String)
 ], UserQuestProgress.prototype, "userAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Number),
+    (0, graphql_1.Field)(() => graphql_1.Int),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     (0, typeorm_1.ManyToOne)(() => _1.Season),

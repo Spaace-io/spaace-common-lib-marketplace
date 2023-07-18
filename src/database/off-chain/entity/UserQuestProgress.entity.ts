@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Quest, Season, User } from '.';
 import { ethers } from 'ethers';
 import { Transform } from 'class-transformer';
@@ -25,7 +25,7 @@ export class UserQuestProgress extends BaseEntity {
   })
   userAddress!: string;
 
-  @Field(() => Number)
+  @Field(() => Int)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   @ManyToOne(() => Season)
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })

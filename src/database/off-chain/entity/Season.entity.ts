@@ -1,13 +1,13 @@
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Quest, SeasonRank } from '.';
 import { Type } from 'class-transformer';
 
 @ObjectType()
 @Entity({ name: 'seasons' })
 export class Season extends BaseEntity {
-  @Field(() => Number)
+  @Field(() => Int)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   number!: number;
 

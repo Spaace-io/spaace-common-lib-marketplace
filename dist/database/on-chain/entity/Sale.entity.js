@@ -26,7 +26,7 @@ __decorate([
     __metadata("design:type", String)
 ], Sale.prototype, "txHash", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Number),
+    (0, graphql_1.Field)(() => graphql_1.Int),
     (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", Number)
 ], Sale.prototype, "logIdx", void 0);

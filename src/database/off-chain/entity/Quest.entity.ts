@@ -9,7 +9,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
 import { Season, UserQuestProgress } from '.';
 
@@ -82,7 +82,7 @@ registerEnumType(QuestPeriod, {
 @ObjectType()
 @Entity({ name: 'quests' })
 export class Quest extends BaseEntity {
-  @Field(() => Number)
+  @Field(() => Int)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   @ManyToOne(() => Season)
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
@@ -118,7 +118,7 @@ export class Quest extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true })
   loyaltyPoints!: string;
 
-  @Field(() => Number)
+  @Field(() => Int)
   @Column('numeric', { precision: 78, unsigned: true, default: '1' })
   limit!: number;
 

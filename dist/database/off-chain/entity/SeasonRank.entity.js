@@ -110,7 +110,7 @@ exports.LoyaltyReward = (0, graphql_1.createUnionType)({
 let SeasonRank = SeasonRank_1 = class SeasonRank extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => Number),
+    (0, graphql_1.Field)(() => graphql_1.Int),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     (0, typeorm_1.ManyToOne)(() => _1.Season),

@@ -9,6 +9,7 @@ import {
 
 import {
   Field,
+  Int,
   ObjectType,
   createUnionType,
   registerEnumType,
@@ -94,7 +95,7 @@ export const LoyaltyReward = createUnionType({
 @ObjectType()
 @Entity({ name: 'season_ranks' })
 export class SeasonRank extends BaseEntity {
-  @Field(() => Number)
+  @Field(() => Int)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   @ManyToOne(() => Season)
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
