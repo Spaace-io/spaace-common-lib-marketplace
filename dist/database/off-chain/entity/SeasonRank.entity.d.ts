@@ -28,18 +28,22 @@ export declare enum LoyaltyRank {
     DIAMOND_1 = "D1"
 }
 export declare class LoyaltyPointsLoyaltyReward {
+    constructor(min: string, max: string);
     min: string;
     max: string;
 }
 export declare class StakingBonusLoyaltyReward {
+    constructor(min: string, max: string);
     min: string;
     max: string;
 }
 export declare class SpaaceTokensLoyaltyReward {
+    constructor(min: string, max: string);
     min: string;
     max: string;
 }
 export declare class CosmeticLoyaltyReward {
+    constructor(ids: string[]);
     ids: string[];
 }
 export declare const LoyaltyReward: LoyaltyPointsLoyaltyReward | CosmeticLoyaltyReward;

@@ -51,6 +51,11 @@ registerEnumType(LoyaltyRank, {
 
 @ObjectType()
 export class LoyaltyPointsLoyaltyReward {
+  constructor(min: string, max: string) {
+    this.min = min;
+    this.max = max;
+  }
+
   @Field(() => String)
   min!: string;
 
@@ -60,6 +65,11 @@ export class LoyaltyPointsLoyaltyReward {
 
 @ObjectType()
 export class StakingBonusLoyaltyReward {
+  constructor(min: string, max: string) {
+    this.min = min;
+    this.max = max;
+  }
+
   @Field(() => String)
   min!: string;
 
@@ -69,6 +79,11 @@ export class StakingBonusLoyaltyReward {
 
 @ObjectType()
 export class SpaaceTokensLoyaltyReward {
+  constructor(min: string, max: string) {
+    this.min = min;
+    this.max = max;
+  }
+
   @Field(() => String)
   min!: string;
 
@@ -78,6 +93,10 @@ export class SpaaceTokensLoyaltyReward {
 
 @ObjectType()
 export class CosmeticLoyaltyReward {
+  constructor(ids: string[]) {
+    this.ids = ids;
+  }
+
   @Field(() => [String])
   ids!: string[];
 }

@@ -14,24 +14,40 @@ import { Transform, Type } from 'class-transformer';
 
 @ObjectType()
 export class LoyaltyPointsLoyaltyRewardClaim {
+  constructor(amount: string) {
+    this.amount = amount;
+  }
+
   @Field(() => String)
   amount!: string;
 }
 
 @ObjectType()
 export class StakingBonusLoyaltyRewardClaim {
+  constructor(amount: string) {
+    this.amount = amount;
+  }
+
   @Field(() => String)
   amount!: string;
 }
 
 @ObjectType()
 export class SpaaceTokensLoyaltyRewardClaim {
+  constructor(amount: string) {
+    this.amount = amount;
+  }
+
   @Field(() => String)
   amount!: string;
 }
 
 @ObjectType()
 export class CosmeticLoyaltyRewardClaim {
+  constructor(id: string) {
+    this.id = id;
+  }
+
   @Field(() => String)
   id!: string;
 }

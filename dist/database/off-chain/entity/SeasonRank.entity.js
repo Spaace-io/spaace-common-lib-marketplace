@@ -47,6 +47,10 @@ var LoyaltyRank;
     name: 'LoyaltyRank',
 });
 let LoyaltyPointsLoyaltyReward = class LoyaltyPointsLoyaltyReward {
+    constructor(min, max) {
+        this.min = min;
+        this.max = max;
+    }
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -57,10 +61,15 @@ __decorate([
     __metadata("design:type", String)
 ], LoyaltyPointsLoyaltyReward.prototype, "max", void 0);
 LoyaltyPointsLoyaltyReward = __decorate([
-    (0, graphql_1.ObjectType)()
+    (0, graphql_1.ObjectType)(),
+    __metadata("design:paramtypes", [String, String])
 ], LoyaltyPointsLoyaltyReward);
 exports.LoyaltyPointsLoyaltyReward = LoyaltyPointsLoyaltyReward;
 let StakingBonusLoyaltyReward = class StakingBonusLoyaltyReward {
+    constructor(min, max) {
+        this.min = min;
+        this.max = max;
+    }
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -71,10 +80,15 @@ __decorate([
     __metadata("design:type", String)
 ], StakingBonusLoyaltyReward.prototype, "max", void 0);
 StakingBonusLoyaltyReward = __decorate([
-    (0, graphql_1.ObjectType)()
+    (0, graphql_1.ObjectType)(),
+    __metadata("design:paramtypes", [String, String])
 ], StakingBonusLoyaltyReward);
 exports.StakingBonusLoyaltyReward = StakingBonusLoyaltyReward;
 let SpaaceTokensLoyaltyReward = class SpaaceTokensLoyaltyReward {
+    constructor(min, max) {
+        this.min = min;
+        this.max = max;
+    }
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -85,17 +99,22 @@ __decorate([
     __metadata("design:type", String)
 ], SpaaceTokensLoyaltyReward.prototype, "max", void 0);
 SpaaceTokensLoyaltyReward = __decorate([
-    (0, graphql_1.ObjectType)()
+    (0, graphql_1.ObjectType)(),
+    __metadata("design:paramtypes", [String, String])
 ], SpaaceTokensLoyaltyReward);
 exports.SpaaceTokensLoyaltyReward = SpaaceTokensLoyaltyReward;
 let CosmeticLoyaltyReward = class CosmeticLoyaltyReward {
+    constructor(ids) {
+        this.ids = ids;
+    }
 };
 __decorate([
     (0, graphql_1.Field)(() => [String]),
     __metadata("design:type", Array)
 ], CosmeticLoyaltyReward.prototype, "ids", void 0);
 CosmeticLoyaltyReward = __decorate([
-    (0, graphql_1.ObjectType)()
+    (0, graphql_1.ObjectType)(),
+    __metadata("design:paramtypes", [Array])
 ], CosmeticLoyaltyReward);
 exports.CosmeticLoyaltyReward = CosmeticLoyaltyReward;
 exports.LoyaltyReward = (0, graphql_1.createUnionType)({
