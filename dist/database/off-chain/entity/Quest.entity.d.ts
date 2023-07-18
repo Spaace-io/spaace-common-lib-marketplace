@@ -2,6 +2,7 @@ import { BaseEntity } from 'typeorm';
 import { UserQuestProgress } from '.';
 export declare enum QuestTrigger {
     SALE = "Sale",
+    TRANSFER = "Transfer",
     ORDER = "Order",
     UNISWAP = "Uniswap",
     STAKING_REWARD = "StakingReward",

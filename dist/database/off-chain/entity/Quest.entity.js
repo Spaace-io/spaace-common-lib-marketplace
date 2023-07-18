@@ -18,6 +18,7 @@ const _1 = require(".");
 var QuestTrigger;
 (function (QuestTrigger) {
     QuestTrigger["SALE"] = "Sale";
+    QuestTrigger["TRANSFER"] = "Transfer";
     QuestTrigger["ORDER"] = "Order";
     QuestTrigger["UNISWAP"] = "Uniswap";
     QuestTrigger["STAKING_REWARD"] = "StakingReward";

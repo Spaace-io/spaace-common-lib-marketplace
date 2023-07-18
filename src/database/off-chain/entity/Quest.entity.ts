@@ -15,6 +15,7 @@ import { Season, UserQuestProgress } from '.';
 
 export enum QuestTrigger {
   SALE = 'Sale',
+  TRANSFER = 'Transfer',
   ORDER = 'Order',
   UNISWAP = 'Uniswap',
   STAKING_REWARD = 'StakingReward',

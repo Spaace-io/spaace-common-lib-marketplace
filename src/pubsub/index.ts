@@ -1,2 +1,2 @@
-export { default as PubSubClient } from './client';
-export * from './types';
+export * from './client';
+export * from './types/trigger';

@@ -9,103 +9,61 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.pubsub = void 0;
 const pubsub_1 = require("@google-cloud/pubsub");
-const types_1 = require("./types");
+const trigger_1 = require("./types/trigger");
 class PubSubClient {
     constructor() {
         this.pubsub = new pubsub_1.PubSub({
-            projectId: process.env.PUBSUB_PROJECT_ID,
+            projectId: process.env.GCP_PROJECT,
         });
     }
-    /**
-     * Initialize the PubSub client.
-     * Create topics and subscriptions if they don't exist.
-     */
     initialize() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.createTopics();
-            yield this.createSubscriptions();
         });
     }
-    /**
-     * Create topics if they don't exist
-     */
     createTopics() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield Promise.all(Object.values(types_1.PubSubTopics).map((topic) => __awaiter(this, void 0, void 0, function* () {
+            const topics = [trigger_1.PUBSUB_TRIGGER_TOPIC];
+            yield Promise.all(topics.map((topic) => __awaiter(this, void 0, void 0, function* () {
                 const [exists] = yield this.pubsub.topic(topic).exists();
-                if (exists) {
-                    console.log(`Topic ${topic} already exists, skipping.`);
-                }
-                else {
-                    yield this.pubsub.createTopic(topic);
-                    console.log(`Topic ${topic} created.`);
-                }
+                if (exists)
+                    return;
+                yield this.pubsub.createTopic(topic);
             })));
         });
     }
-    /**
-     * Create subscriptions if they don't exist
-     */
-    createSubscriptions() {
+    subscribe(topic, name) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [topics] = yield this.pubsub.getTopics();
-            Object.values(types_1.PubSubSubscriptions).forEach((subscription) => __awaiter(this, void 0, void 0, function* () {
-                const topic = topics.find((topic) => topic.name.replace(/^projects\/[a-z0-9-]+\/topics\//, '') ===
-                    subscription);
-                if (topic === undefined) {
-                    throw new Error(`Unknown topic ${subscription} (found ${topics
-                        .map((topic) => topic.name.replace(/^projects\/[a-z0-9-]+\/topics\//, ''))
-                        .join(', ')})`);
-                }
+            let subscription = this.pubsub.topic(topic).subscription(name);
+            const [exists] = yield subscription.exists();
+            if (!exists)
+                [subscription] = yield subscription.create();
+            return subscription;
+        });
+    }
+    trigger(...messages) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const topic = this.pubsub.topic(trigger_1.PUBSUB_TRIGGER_TOPIC);
+            return yield Promise.all(messages.map((json) => topic.publishMessage({ json })));
+        });
+    }
+    onTrigger(name, listener) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const subscription = yield this.subscribe(trigger_1.PUBSUB_TRIGGER_TOPIC, name);
+            subscription.on('message', (message) => __awaiter(this, void 0, void 0, function* () {
                 try {
-                    const [exists] = yield topic.subscription(subscription).exists();
-                    if (exists) {
-                        console.log(`Subscription ${subscription} to topic ${topic.name} already exists, skipping.`);
-                    }
-                    else {
-                        yield topic.createSubscription(subscription);
-                        console.log(`Subscription ${subscription} to topic ${topic.name} created.`);
-                    }
+                    yield listener(JSON.parse(message.data.toString()));
+                    message.ack();
                 }
                 catch (e) {
-                    console.error(`Error creating subscription ${subscription}:`, e);
+                    message.nack();
+                    throw e;
                 }
             }));
         });
     }
-    /**
-     * Publish a message to a topic
-     * @param topicName - Topic name
-     * @param data - Data to publish
-     * @returns Message ID or null if error
-     */
-    publish(topicName, data) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const dataBuffer = Buffer.from(JSON.stringify(data));
-            try {
-                console.debug('Publishing message:', data);
-                return this.pubsub.topic(topicName).publishMessage({
-                    data: dataBuffer,
-                });
-            }
-            catch (e) {
-                console.error('Error publishing message:', e);
-                return null;
-            }
-        });
-    }
-    /**
-     * Subscribe to a topic and listen for related messages
-     * @param subscriptionName - Subscription name
-     * @param callback - Callback function
-     */
-    subscribe(subscriptionName, callback) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const subscription = this.pubsub.subscription(subscriptionName);
-            subscription.on('message', callback);
-        });
-    }
 }
-exports.default = new PubSubClient();
+exports.pubsub = new PubSubClient();
 //# sourceMappingURL=client.js.map
