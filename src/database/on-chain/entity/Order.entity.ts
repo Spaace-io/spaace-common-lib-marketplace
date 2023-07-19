@@ -7,10 +7,10 @@ import {
   ManyToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { Collection, Item } from '../../on-chain';
 import { Transform, Type } from 'class-transformer';
 import { ethers } from 'ethers';
 import { ValidateNested } from 'class-validator';
+import { Item, Collection } from '.';
 
 @ObjectType()
 @Entity({ name: 'orders' })

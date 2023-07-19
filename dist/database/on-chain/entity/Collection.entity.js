@@ -12,11 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Collection = exports.CollectionLink = exports.CollectionLinkType = exports.CollectionType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-const __1 = require("../..");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
 const class_validator_1 = require("class-validator");
-const __2 = require("../../..");
+const _1 = require(".");
+const __1 = require("../../..");
 var CollectionType;
 (function (CollectionType) {
     CollectionType["ERC721"] = "ERC721";
@@ -121,7 +121,7 @@ __decorate([
     __metadata("design:type", Object)
 ], Collection.prototype, "deployer", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [__2.CollectionAttribute], { nullable: true }),
+    (0, graphql_1.Field)(() => [__1.CollectionAttribute], { nullable: true }),
     (0, typeorm_1.Column)('jsonb', { nullable: true }),
     __metadata("design:type", Object)
 ], Collection.prototype, "attributes", void 0);
@@ -268,14 +268,14 @@ __decorate([
     __metadata("design:type", String)
 ], Collection.prototype, "listedCount", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
-    (0, class_transformer_1.Type)(() => __1.Order),
+    (0, graphql_1.Field)(() => _1.Order, { nullable: true }),
+    (0, class_transformer_1.Type)(() => _1.Order),
     (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "buyNow", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
-    (0, class_transformer_1.Type)(() => __1.Order),
+    (0, graphql_1.Field)(() => _1.Order, { nullable: true }),
+    (0, class_transformer_1.Type)(() => _1.Order),
     (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "sellNow", void 0);

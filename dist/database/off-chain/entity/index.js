@@ -17,6 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./LoginNonce.entity"), exports);
 __exportStar(require("./User.entity"), exports);
 __exportStar(require("./NotableCollection.entity"), exports);
+__exportStar(require("./HiddenItem.entity"), exports);
 __exportStar(require("./Season.entity"), exports);
 __exportStar(require("./SeasonRank.entity"), exports);
 __exportStar(require("./Quest.entity"), exports);

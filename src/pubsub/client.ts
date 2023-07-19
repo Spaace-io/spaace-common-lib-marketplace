@@ -1,6 +1,6 @@
 import { Message, PubSub } from '@google-cloud/pubsub';
 import { PUBSUB_TRIGGER_TOPIC, PubSubTrigger } from './types/trigger';
-import { QuestTrigger } from '../database';
+import { QuestTrigger } from '..';
 
 class PubSubClient {
   private readonly pubsub: PubSub;

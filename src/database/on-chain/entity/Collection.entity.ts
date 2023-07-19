@@ -1,9 +1,9 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
-import { Order } from '../..';
 import { Transform, Type } from 'class-transformer';
 import { ethers } from 'ethers';
 import { ValidateNested } from 'class-validator';
+import { Order } from '.';
 import { CollectionAttribute, CollectionAttributeValue } from '../../..';
 
 export enum CollectionType {

@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-import { Order } from '../..';
+import { Order } from '.';
 import { CollectionAttribute, CollectionAttributeValue } from '../../..';
 export declare enum CollectionType {
     ERC721 = "ERC721",

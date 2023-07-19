@@ -1,12 +1,5 @@
 import { BaseEntity } from 'typeorm';
-import { Balance, Collection, Sale } from '..';
-import { Order } from '../..';
-export declare class ItemAttribute extends BaseEntity {
-    collectionAddress: string;
-    tokenId: string;
-    trait: string;
-    value: string;
-}
+import { Balance, Collection, ItemAttribute, Order, Sale } from '.';
 export declare class ItemMedia {
     raw: string;
     thumbnail: string;

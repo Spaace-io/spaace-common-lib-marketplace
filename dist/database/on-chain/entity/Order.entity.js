@@ -12,10 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Order = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-const on_chain_1 = require("../../on-chain");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
 const class_validator_1 = require("class-validator");
+const _1 = require(".");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -37,7 +37,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
-    (0, typeorm_1.ManyToOne)(() => on_chain_1.Collection),
+    (0, typeorm_1.ManyToOne)(() => _1.Collection),
     (0, typeorm_1.JoinColumn)({ name: 'collectionAddress', referencedColumnName: 'address' }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -48,7 +48,7 @@ __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
     ,
-    (0, typeorm_1.ManyToOne)(() => on_chain_1.Item, { nullable: true }),
+    (0, typeorm_1.ManyToOne)(() => _1.Item, { nullable: true }),
     (0, typeorm_1.JoinColumn)([
         { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
         { name: 'tokenId', referencedColumnName: 'tokenId' },
@@ -97,14 +97,14 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "signature", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => on_chain_1.Collection, { nullable: true }),
-    (0, class_transformer_1.Type)(() => on_chain_1.Collection),
+    (0, graphql_1.Field)(() => _1.Collection, { nullable: true }),
+    (0, class_transformer_1.Type)(() => _1.Collection),
     (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Order.prototype, "collection", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => on_chain_1.Item, { nullable: true }),
-    (0, class_transformer_1.Type)(() => on_chain_1.Item),
+    (0, graphql_1.Field)(() => _1.Item, { nullable: true }),
+    (0, class_transformer_1.Type)(() => _1.Item),
     (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Order.prototype, "item", void 0);

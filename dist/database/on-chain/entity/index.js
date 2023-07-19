@@ -18,6 +18,7 @@ __exportStar(require("./LatestBlock.entity"), exports);
 __exportStar(require("./LastRefresh.entity"), exports);
 __exportStar(require("./Collection.entity"), exports);
 __exportStar(require("./Item.entity"), exports);
+__exportStar(require("./ItemAttribute.entity"), exports);
 __exportStar(require("./Transfer.entity"), exports);
 __exportStar(require("./Sale.entity"), exports);
 __exportStar(require("./TradingReward.entity"), exports);

@@ -1,5 +1,5 @@
 import { PubSubTrigger } from './types/trigger';
-import { QuestTrigger } from '../database';
+import { QuestTrigger } from '..';
 declare class PubSubClient {
     private readonly pubsub;
     constructor();
