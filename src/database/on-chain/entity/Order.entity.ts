@@ -30,7 +30,7 @@ export class Order extends BaseEntity {
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
-  user!: string;
+  userAddress!: string;
 
   @Field(() => String)
   @Column('char', { length: 40 })

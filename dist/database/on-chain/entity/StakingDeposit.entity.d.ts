@@ -1,6 +1,6 @@
 import { BaseEntity } from 'typeorm';
 export declare class StakingDeposit extends BaseEntity {
-    user: string;
+    userAddress: string;
     timestamp: Date;
     pool: string;
     amount: string;

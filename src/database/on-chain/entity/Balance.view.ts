@@ -18,7 +18,7 @@ import { ValidateNested } from 'class-validator';
             .from(Transfer, 'transfer')
             .select('"collectionAddress"')
             .addSelect('"tokenId"')
-            .addSelect('"to"', 'user')
+            .addSelect('"to"', 'userAddress')
             .addSelect('SUM("amount")', 'total')
             .groupBy('"collectionAddress"')
             .addGroupBy('"tokenId"')
@@ -31,21 +31,23 @@ import { ValidateNested } from 'class-validator';
             .from(Transfer, 'transfer')
             .select('"collectionAddress"')
             .addSelect('"tokenId"')
-            .addSelect('"from"', 'user')
+            .addSelect('"from"', 'userAddress')
             .addSelect('SUM("amount")', 'total')
             .groupBy('"collectionAddress"')
             .addGroupBy('"tokenId"')
             .addGroupBy('"from"'),
         'sent',
-        '"sent"."collectionAddress" = "received"."collectionAddress" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."user" = "received"."user"',
+        '"sent"."collectionAddress" = "received"."collectionAddress" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."userAddress" = "received"."userAddress"',
       )
       .select('"received"."collectionAddress"')
       .addSelect('"received"."tokenId"')
-      .addSelect('"received"."user"')
+      .addSelect('"received"."userAddress"')
       .addSelect('"received"."total" - COALESCE("sent"."total", 0)', 'balance')
       .where('"received"."total" > COALESCE("sent"."total", 0)')
       .andWhere(
-        `"received"."user" <> '${utils.strip0x(ethers.constants.AddressZero)}'`,
+        `"received"."userAddress" <> '${utils.strip0x(
+          ethers.constants.AddressZero,
+        )}'`,
       );
   },
   name: 'balances',
@@ -65,7 +67,7 @@ export class Balance extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
-  user!: string;
+  userAddress!: string;
 
   @Field(() => String)
   @ViewColumn()

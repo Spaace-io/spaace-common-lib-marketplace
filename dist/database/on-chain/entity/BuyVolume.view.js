@@ -24,7 +24,7 @@ __decorate([
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
-], BuyVolume.prototype, "user", void 0);
+], BuyVolume.prototype, "userAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -51,7 +51,7 @@ BuyVolume = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from(_1.Sale, 'sale')
-                .select('"to"', 'user')
+                .select('"to"', 'userAddress')
                 .addSelect('"currency"')
                 .addSelect('DATE_TRUNC(\'day\', "timestamp")::DATE', 'date')
                 .addSelect('SUM("price")', 'volume')

@@ -36,7 +36,7 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Balance.prototype, "user", void 0);
+], Balance.prototype, "userAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -59,7 +59,7 @@ Balance = __decorate([
                 .from(_1.Transfer, 'transfer')
                 .select('"collectionAddress"')
                 .addSelect('"tokenId"')
-                .addSelect('"to"', 'user')
+                .addSelect('"to"', 'userAddress')
                 .addSelect('SUM("amount")', 'total')
                 .groupBy('"collectionAddress"')
                 .addGroupBy('"tokenId"')
@@ -68,17 +68,17 @@ Balance = __decorate([
                 .from(_1.Transfer, 'transfer')
                 .select('"collectionAddress"')
                 .addSelect('"tokenId"')
-                .addSelect('"from"', 'user')
+                .addSelect('"from"', 'userAddress')
                 .addSelect('SUM("amount")', 'total')
                 .groupBy('"collectionAddress"')
                 .addGroupBy('"tokenId"')
-                .addGroupBy('"from"'), 'sent', '"sent"."collectionAddress" = "received"."collectionAddress" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."user" = "received"."user"')
+                .addGroupBy('"from"'), 'sent', '"sent"."collectionAddress" = "received"."collectionAddress" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."userAddress" = "received"."userAddress"')
                 .select('"received"."collectionAddress"')
                 .addSelect('"received"."tokenId"')
-                .addSelect('"received"."user"')
+                .addSelect('"received"."userAddress"')
                 .addSelect('"received"."total" - COALESCE("sent"."total", 0)', 'balance')
                 .where('"received"."total" > COALESCE("sent"."total", 0)')
-                .andWhere(`"received"."user" <> '${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}'`);
+                .andWhere(`"received"."userAddress" <> '${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}'`);
         },
         name: 'balances',
     }),

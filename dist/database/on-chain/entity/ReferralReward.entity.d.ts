@@ -1,6 +1,6 @@
 import { BaseEntity } from 'typeorm';
 export declare class ReferralReward extends BaseEntity {
-    user: string;
+    userAddress: string;
     date: Date;
     referrer: string;
     referrerAmount: string;

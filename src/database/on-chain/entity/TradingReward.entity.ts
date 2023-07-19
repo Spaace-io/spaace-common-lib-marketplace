@@ -11,7 +11,7 @@ export class TradingReward extends BaseEntity {
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
-  user!: string;
+  userAddress!: string;
 
   @Field(() => Date)
   @PrimaryColumn('date', { default: () => 'CURRENT_DATE' })

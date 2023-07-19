@@ -3,7 +3,7 @@ import { Item } from '.';
 export declare class Balance extends BaseEntity {
     collectionAddress: string;
     tokenId: string;
-    user: string;
+    userAddress: string;
     balance: string;
     item?: Item;
 }

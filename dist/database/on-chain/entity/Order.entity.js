@@ -33,7 +33,7 @@ __decorate([
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
-], Order.prototype, "user", void 0);
+], Order.prototype, "userAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),

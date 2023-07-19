@@ -2,7 +2,7 @@ import { BaseEntity } from 'typeorm';
 import { Item, Collection } from '.';
 export declare class Order extends BaseEntity {
     hash: string;
-    user: string;
+    userAddress: string;
     collectionAddress: string;
     tokenId: string | null;
     isAsk: boolean;

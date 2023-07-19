@@ -23,7 +23,7 @@ __decorate([
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
-], StakingDeposit.prototype, "user", void 0);
+], StakingDeposit.prototype, "userAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.PrimaryColumn)({ default: () => 'CURRENT_TIMESTAMP' }),

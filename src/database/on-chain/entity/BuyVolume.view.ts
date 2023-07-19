@@ -11,7 +11,7 @@ import { ethers } from 'ethers';
     return dataSource
       .createQueryBuilder()
       .from(Sale, 'sale')
-      .select('"to"', 'user')
+      .select('"to"', 'userAddress')
       .addSelect('"currency"')
       .addSelect('DATE_TRUNC(\'day\', "timestamp")::DATE', 'date')
       .addSelect('SUM("price")', 'volume')
@@ -27,7 +27,7 @@ export class BuyVolume extends BaseEntity {
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
-  user!: string;
+  userAddress!: string;
 
   @Field(() => String)
   @ViewColumn()
