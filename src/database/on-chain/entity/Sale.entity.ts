@@ -40,11 +40,6 @@ export class Sale extends BaseEntity {
 
   @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
-  @ManyToOne(() => Item)
-  @JoinColumn([
-    { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
-    { name: 'tokenId', referencedColumnName: 'tokenId' },
-  ])
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
@@ -52,6 +47,11 @@ export class Sale extends BaseEntity {
 
   @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  @ManyToOne(() => Item)
+  @JoinColumn([
+    { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
+    { name: 'tokenId', referencedColumnName: 'tokenId' },
+  ])
   tokenId!: string;
 
   @Field(() => String)

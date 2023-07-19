@@ -96,8 +96,6 @@ __decorate([
     (0, graphql_1.Field)(() => graphql_1.Int),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
-    (0, typeorm_1.ManyToOne)(() => _1.Season),
-    (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
     __metadata("design:type", Number)
 ], UserSeasonRankClaim.prototype, "seasonNumber", void 0);
 __decorate([

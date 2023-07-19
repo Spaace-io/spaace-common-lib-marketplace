@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import { Field, Int, ObjectType, createUnionType } from '@nestjs/graphql';
-import { LoyaltyRank, Season, SeasonRank, User } from '.';
+import { LoyaltyRank, SeasonRank, User } from '.';
 import { ethers } from 'ethers';
 import { Transform, Type } from 'class-transformer';
 
@@ -76,8 +76,6 @@ export class UserSeasonRankClaim extends BaseEntity {
 
   @Field(() => Int)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-  @ManyToOne(() => Season)
-  @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
   seasonNumber!: number;
 
   @Field(() => LoyaltyRank)
