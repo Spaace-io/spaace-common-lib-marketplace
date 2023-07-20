@@ -7,6 +7,7 @@ import {
   OneToOne,
   PrimaryColumn,
   PrimaryGeneratedColumn,
+  Unique,
 } from 'typeorm';
 
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
@@ -82,6 +83,7 @@ registerEnumType(QuestPeriod, {
 
 @ObjectType()
 @Entity({ name: 'quests' })
+@Unique(['seasonNumber', 'name'])
 export class Quest extends BaseEntity {
   @Field(() => Int)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -93,6 +95,10 @@ export class Quest extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
+  @Field(() => String)
+  @Column('text')
+  name!: string;
+
   @Field(() => String, { nullable: true })
   @Column('uuid', { nullable: true })
   @OneToOne(() => Quest)
@@ -101,10 +107,6 @@ export class Quest extends BaseEntity {
     { name: 'previousQuestId', referencedColumnName: 'id' },
   ])
   previousQuestId!: string | null;
-
-  @Field(() => String)
-  @Column('text')
-  name!: string;
 
   @Field(() => Boolean)
   @Column('boolean', { default: false })
