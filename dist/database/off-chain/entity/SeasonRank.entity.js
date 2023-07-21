@@ -48,6 +48,7 @@ var LoyaltyRank;
 });
 let LoyaltyPointsLoyaltyReward = class LoyaltyPointsLoyaltyReward {
     constructor(min, max) {
+        this.__typename = 'LoyaltyPointsLoyaltyReward';
         this.min = min;
         this.max = max;
     }
@@ -67,6 +68,7 @@ LoyaltyPointsLoyaltyReward = __decorate([
 exports.LoyaltyPointsLoyaltyReward = LoyaltyPointsLoyaltyReward;
 let StakingBonusLoyaltyReward = class StakingBonusLoyaltyReward {
     constructor(min, max) {
+        this.__typename = 'StakingBonusLoyaltyReward';
         this.min = min;
         this.max = max;
     }
@@ -86,6 +88,7 @@ StakingBonusLoyaltyReward = __decorate([
 exports.StakingBonusLoyaltyReward = StakingBonusLoyaltyReward;
 let SpaaceTokensLoyaltyReward = class SpaaceTokensLoyaltyReward {
     constructor(min, max) {
+        this.__typename = 'SpaaceTokensLoyaltyReward';
         this.min = min;
         this.max = max;
     }
@@ -105,6 +108,7 @@ SpaaceTokensLoyaltyReward = __decorate([
 exports.SpaaceTokensLoyaltyReward = SpaaceTokensLoyaltyReward;
 let CosmeticLoyaltyReward = class CosmeticLoyaltyReward {
     constructor(ids) {
+        this.__typename = 'CosmeticLoyaltyReward';
         this.ids = ids;
     }
 };

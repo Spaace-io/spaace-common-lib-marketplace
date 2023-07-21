@@ -14,6 +14,8 @@ import { Transform, Type } from 'class-transformer';
 
 @ObjectType()
 export class LoyaltyPointsLoyaltyRewardClaim {
+  readonly __typename = 'LoyaltyPointsLoyaltyRewardClaim';
+
   constructor(amount: string) {
     this.amount = amount;
   }
@@ -24,6 +26,8 @@ export class LoyaltyPointsLoyaltyRewardClaim {
 
 @ObjectType()
 export class StakingBonusLoyaltyRewardClaim {
+  readonly __typename = 'StakingBonusLoyaltyRewardClaim';
+
   constructor(amount: string) {
     this.amount = amount;
   }
@@ -34,6 +38,8 @@ export class StakingBonusLoyaltyRewardClaim {
 
 @ObjectType()
 export class SpaaceTokensLoyaltyRewardClaim {
+  readonly __typename = 'SpaaceTokensLoyaltyRewardClaim';
+
   constructor(amount: string) {
     this.amount = amount;
   }
@@ -44,6 +50,8 @@ export class SpaaceTokensLoyaltyRewardClaim {
 
 @ObjectType()
 export class CosmeticLoyaltyRewardClaim {
+  readonly __typename = 'CosmeticLoyaltyRewardClaim';
+
   constructor(id: string) {
     this.id = id;
   }

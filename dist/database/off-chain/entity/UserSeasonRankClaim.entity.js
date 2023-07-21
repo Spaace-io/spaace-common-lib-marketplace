@@ -17,6 +17,7 @@ const ethers_1 = require("ethers");
 const class_transformer_1 = require("class-transformer");
 let LoyaltyPointsLoyaltyRewardClaim = class LoyaltyPointsLoyaltyRewardClaim {
     constructor(amount) {
+        this.__typename = 'LoyaltyPointsLoyaltyRewardClaim';
         this.amount = amount;
     }
 };
@@ -31,6 +32,7 @@ LoyaltyPointsLoyaltyRewardClaim = __decorate([
 exports.LoyaltyPointsLoyaltyRewardClaim = LoyaltyPointsLoyaltyRewardClaim;
 let StakingBonusLoyaltyRewardClaim = class StakingBonusLoyaltyRewardClaim {
     constructor(amount) {
+        this.__typename = 'StakingBonusLoyaltyRewardClaim';
         this.amount = amount;
     }
 };
@@ -45,6 +47,7 @@ StakingBonusLoyaltyRewardClaim = __decorate([
 exports.StakingBonusLoyaltyRewardClaim = StakingBonusLoyaltyRewardClaim;
 let SpaaceTokensLoyaltyRewardClaim = class SpaaceTokensLoyaltyRewardClaim {
     constructor(amount) {
+        this.__typename = 'SpaaceTokensLoyaltyRewardClaim';
         this.amount = amount;
     }
 };
@@ -59,6 +62,7 @@ SpaaceTokensLoyaltyRewardClaim = __decorate([
 exports.SpaaceTokensLoyaltyRewardClaim = SpaaceTokensLoyaltyRewardClaim;
 let CosmeticLoyaltyRewardClaim = class CosmeticLoyaltyRewardClaim {
     constructor(id) {
+        this.__typename = 'CosmeticLoyaltyRewardClaim';
         this.id = id;
     }
 };
