@@ -16,6 +16,10 @@ export class User extends BaseEntity {
   address!: string;
 
   @Field(() => String)
+  @Column('text', { unique: true })
+  referralCode!: string;
+
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   loyaltyPoints!: string;
 
@@ -26,6 +30,10 @@ export class User extends BaseEntity {
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   loyaltyRewardsClaimed!: string;
+
+  @Field(() => Date)
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
+  timestamp!: Date;
 
   // GraphQL only fields
 
