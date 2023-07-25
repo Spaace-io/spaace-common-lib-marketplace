@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var User_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const graphql_1 = require("@nestjs/graphql");
@@ -16,7 +17,7 @@ const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
 const _1 = require(".");
 const class_validator_1 = require("class-validator");
-let User = class User extends typeorm_1.BaseEntity {
+let User = User_1 = class User extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -31,6 +32,16 @@ __decorate([
     (0, typeorm_1.Column)('text', { unique: true }),
     __metadata("design:type", String)
 ], User.prototype, "referralCode", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('char', { length: 40, nullable: true }),
+    (0, typeorm_1.ManyToOne)(() => User_1, { nullable: true }),
+    (0, typeorm_1.JoinColumn)({ name: 'referrerAddress', referencedColumnName: 'address' }),
+    (0, class_transformer_1.Transform)(({ value }) => (value !== null ? ethers_1.ethers.utils.getAddress(value) : null), {
+        toPlainOnly: true,
+    }),
+    __metadata("design:type", Object)
+], User.prototype, "referrerAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
@@ -57,7 +68,13 @@ __decorate([
     (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], User.prototype, "rank", void 0);
-User = __decorate([
+__decorate([
+    (0, graphql_1.Field)(() => User_1, { nullable: true }),
+    (0, class_transformer_1.Type)(() => User_1),
+    (0, class_validator_1.ValidateNested)(),
+    __metadata("design:type", Object)
+], User.prototype, "referrer", void 0);
+User = User_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'users' })
 ], User);

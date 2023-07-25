@@ -1,6 +1,13 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Transform, Type } from 'class-transformer';
-import { Entity, PrimaryColumn, BaseEntity, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryColumn,
+  BaseEntity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { ethers } from 'ethers';
 import { SeasonRank } from '.';
 import { ValidateNested } from 'class-validator';
@@ -18,6 +25,18 @@ export class User extends BaseEntity {
   @Field(() => String)
   @Column('text', { unique: true })
   referralCode!: string;
+
+  @Field(() => String, { nullable: true })
+  @Column('char', { length: 40, nullable: true })
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'referrerAddress', referencedColumnName: 'address' })
+  @Transform(
+    ({ value }) => (value !== null ? ethers.utils.getAddress(value) : null),
+    {
+      toPlainOnly: true,
+    },
+  )
+  referrerAddress!: string | null;
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
@@ -41,4 +60,9 @@ export class User extends BaseEntity {
   @Type(() => SeasonRank)
   @ValidateNested()
   rank?: SeasonRank | null;
+
+  @Field(() => User, { nullable: true })
+  @Type(() => User)
+  @ValidateNested()
+  referrer?: User | null;
 }
