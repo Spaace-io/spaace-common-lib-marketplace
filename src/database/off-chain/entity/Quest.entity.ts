@@ -13,6 +13,7 @@ import {
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
 import { Season, UserQuestProgress } from '.';
+import { ValidateNested } from 'class-validator';
 
 export enum QuestTrigger {
   SALE = 'Sale',
@@ -69,6 +70,7 @@ export class QuestStep {
 
   @Field(() => [QuestRule])
   @Type(() => QuestRule)
+  @ValidateNested()
   rules!: QuestRule[];
 }
 
@@ -115,6 +117,7 @@ export class Quest extends BaseEntity {
   @Field(() => [QuestStep])
   @Column('jsonb', { default: [] })
   @Type(() => QuestStep)
+  @ValidateNested()
   steps!: QuestStep[];
 
   @Field(() => String)
@@ -133,13 +136,16 @@ export class Quest extends BaseEntity {
 
   @Field(() => Quest, { nullable: true })
   @Type(() => Quest)
+  @ValidateNested()
   previousQuest?: Quest | null;
 
   @Field(() => Quest, { nullable: true })
   @Type(() => Quest)
+  @ValidateNested()
   nextQuest?: Quest | null;
 
   @Field(() => [UserQuestProgress], { nullable: true })
   @Type(() => UserQuestProgress)
+  @ValidateNested()
   progress?: UserQuestProgress[] | null;
 }

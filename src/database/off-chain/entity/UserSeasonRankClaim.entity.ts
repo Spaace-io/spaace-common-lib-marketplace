@@ -8,13 +8,14 @@ import {
 } from 'typeorm';
 
 import { Field, Int, ObjectType, createUnionType } from '@nestjs/graphql';
-import { LoyaltyRank, SeasonRank, User } from '.';
+import { LoyaltyRank, LoyaltyRewardType, SeasonRank, User } from '.';
 import { ethers } from 'ethers';
 import { Transform, Type } from 'class-transformer';
+import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 export class LoyaltyPointsLoyaltyRewardClaim {
-  readonly __typename = 'LoyaltyPointsLoyaltyRewardClaim';
+  readonly type = LoyaltyRewardType.LOYALTY_POINTS;
 
   constructor(amount: string) {
     this.amount = amount;
@@ -26,7 +27,7 @@ export class LoyaltyPointsLoyaltyRewardClaim {
 
 @ObjectType()
 export class StakingBonusLoyaltyRewardClaim {
-  readonly __typename = 'StakingBonusLoyaltyRewardClaim';
+  readonly type = LoyaltyRewardType.STAKING_BONUS;
 
   constructor(amount: string) {
     this.amount = amount;
@@ -38,7 +39,7 @@ export class StakingBonusLoyaltyRewardClaim {
 
 @ObjectType()
 export class SpaaceTokensLoyaltyRewardClaim {
-  readonly __typename = 'SpaaceTokensLoyaltyRewardClaim';
+  readonly type = LoyaltyRewardType.SPAACE_TOKENS;
 
   constructor(amount: string) {
     this.amount = amount;
@@ -50,7 +51,7 @@ export class SpaaceTokensLoyaltyRewardClaim {
 
 @ObjectType()
 export class CosmeticLoyaltyRewardClaim {
-  readonly __typename = 'CosmeticLoyaltyRewardClaim';
+  readonly type = LoyaltyRewardType.COSMETIC;
 
   constructor(id: string) {
     this.id = id;
@@ -93,33 +94,35 @@ export class UserSeasonRankClaim extends BaseEntity {
     { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
     { name: 'rank', referencedColumnName: 'rank' },
   ])
+  @ValidateNested()
   rank!: LoyaltyRank;
 
   @Field(() => [LoyaltyRewardClaim])
   @Column('jsonb', { default: [] })
   @Type(() => Object, {
     discriminator: {
-      property: '__typename',
+      property: 'type',
       subTypes: [
         {
-          name: 'LoyaltyPointsLoyaltyRewardClaim',
+          name: LoyaltyRewardType.LOYALTY_POINTS,
           value: LoyaltyPointsLoyaltyRewardClaim,
         },
         {
-          name: 'StakingBonusLoyaltyRewardClaim',
+          name: LoyaltyRewardType.STAKING_BONUS,
           value: StakingBonusLoyaltyRewardClaim,
         },
         {
-          name: 'SpaaceTokensLoyaltyRewardClaim',
+          name: LoyaltyRewardType.SPAACE_TOKENS,
           value: SpaaceTokensLoyaltyRewardClaim,
         },
         {
-          name: 'CosmeticLoyaltyRewardClaim',
+          name: LoyaltyRewardType.COSMETIC,
           value: CosmeticLoyaltyRewardClaim,
         },
       ],
     },
   })
+  @ValidateNested()
   rewards!: (typeof LoyaltyRewardClaim)[];
 
   @Field(() => Date)

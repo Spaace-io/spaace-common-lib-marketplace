@@ -27,26 +27,32 @@ export declare enum LoyaltyRank {
     DIAMOND_2 = "D2",
     DIAMOND_1 = "D1"
 }
+export declare enum LoyaltyRewardType {
+    LOYALTY_POINTS = "LoyaltyPoints",
+    STAKING_BONUS = "StakingBonus",
+    SPAACE_TOKENS = "SpaaceTokens",
+    COSMETIC = "Cosmetic"
+}
 export declare class LoyaltyPointsLoyaltyReward {
-    readonly __typename = "LoyaltyPointsLoyaltyReward";
+    readonly type = LoyaltyRewardType.LOYALTY_POINTS;
     constructor(min: string, max: string);
     min: string;
     max: string;
 }
 export declare class StakingBonusLoyaltyReward {
-    readonly __typename = "StakingBonusLoyaltyReward";
+    readonly type = LoyaltyRewardType.STAKING_BONUS;
     constructor(min: string, max: string);
     min: string;
     max: string;
 }
 export declare class SpaaceTokensLoyaltyReward {
-    readonly __typename = "SpaaceTokensLoyaltyReward";
+    readonly type = LoyaltyRewardType.SPAACE_TOKENS;
     constructor(min: string, max: string);
     min: string;
     max: string;
 }
 export declare class CosmeticLoyaltyReward {
-    readonly __typename = "CosmeticLoyaltyReward";
+    readonly type = LoyaltyRewardType.COSMETIC;
     constructor(ids: string[]);
     ids: string[];
 }

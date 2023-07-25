@@ -15,6 +15,7 @@ const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
 const _1 = require(".");
+const class_validator_1 = require("class-validator");
 let User = class User extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -43,6 +44,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => _1.SeasonRank, { nullable: true }),
     (0, class_transformer_1.Type)(() => _1.SeasonRank),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], User.prototype, "rank", void 0);
 User = __decorate([

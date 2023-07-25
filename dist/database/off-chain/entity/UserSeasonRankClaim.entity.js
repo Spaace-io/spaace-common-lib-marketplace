@@ -15,9 +15,10 @@ const graphql_1 = require("@nestjs/graphql");
 const _1 = require(".");
 const ethers_1 = require("ethers");
 const class_transformer_1 = require("class-transformer");
+const class_validator_1 = require("class-validator");
 let LoyaltyPointsLoyaltyRewardClaim = class LoyaltyPointsLoyaltyRewardClaim {
     constructor(amount) {
-        this.__typename = 'LoyaltyPointsLoyaltyRewardClaim';
+        this.type = _1.LoyaltyRewardType.LOYALTY_POINTS;
         this.amount = amount;
     }
 };
@@ -32,7 +33,7 @@ LoyaltyPointsLoyaltyRewardClaim = __decorate([
 exports.LoyaltyPointsLoyaltyRewardClaim = LoyaltyPointsLoyaltyRewardClaim;
 let StakingBonusLoyaltyRewardClaim = class StakingBonusLoyaltyRewardClaim {
     constructor(amount) {
-        this.__typename = 'StakingBonusLoyaltyRewardClaim';
+        this.type = _1.LoyaltyRewardType.STAKING_BONUS;
         this.amount = amount;
     }
 };
@@ -47,7 +48,7 @@ StakingBonusLoyaltyRewardClaim = __decorate([
 exports.StakingBonusLoyaltyRewardClaim = StakingBonusLoyaltyRewardClaim;
 let SpaaceTokensLoyaltyRewardClaim = class SpaaceTokensLoyaltyRewardClaim {
     constructor(amount) {
-        this.__typename = 'SpaaceTokensLoyaltyRewardClaim';
+        this.type = _1.LoyaltyRewardType.SPAACE_TOKENS;
         this.amount = amount;
     }
 };
@@ -62,7 +63,7 @@ SpaaceTokensLoyaltyRewardClaim = __decorate([
 exports.SpaaceTokensLoyaltyRewardClaim = SpaaceTokensLoyaltyRewardClaim;
 let CosmeticLoyaltyRewardClaim = class CosmeticLoyaltyRewardClaim {
     constructor(id) {
-        this.__typename = 'CosmeticLoyaltyRewardClaim';
+        this.type = _1.LoyaltyRewardType.COSMETIC;
         this.id = id;
     }
 };
@@ -110,6 +111,7 @@ __decorate([
         { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
         { name: 'rank', referencedColumnName: 'rank' },
     ]),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", String)
 ], UserSeasonRankClaim.prototype, "rank", void 0);
 __decorate([
@@ -117,27 +119,28 @@ __decorate([
     (0, typeorm_1.Column)('jsonb', { default: [] }),
     (0, class_transformer_1.Type)(() => Object, {
         discriminator: {
-            property: '__typename',
+            property: 'type',
             subTypes: [
                 {
-                    name: 'LoyaltyPointsLoyaltyRewardClaim',
+                    name: _1.LoyaltyRewardType.LOYALTY_POINTS,
                     value: LoyaltyPointsLoyaltyRewardClaim,
                 },
                 {
-                    name: 'StakingBonusLoyaltyRewardClaim',
+                    name: _1.LoyaltyRewardType.STAKING_BONUS,
                     value: StakingBonusLoyaltyRewardClaim,
                 },
                 {
-                    name: 'SpaaceTokensLoyaltyRewardClaim',
+                    name: _1.LoyaltyRewardType.SPAACE_TOKENS,
                     value: SpaaceTokensLoyaltyRewardClaim,
                 },
                 {
-                    name: 'CosmeticLoyaltyRewardClaim',
+                    name: _1.LoyaltyRewardType.COSMETIC,
                     value: CosmeticLoyaltyRewardClaim,
                 },
             ],
         },
     }),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Array)
 ], UserSeasonRankClaim.prototype, "rewards", void 0);
 __decorate([

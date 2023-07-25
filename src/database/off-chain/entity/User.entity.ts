@@ -3,6 +3,7 @@ import { Transform, Type } from 'class-transformer';
 import { Entity, PrimaryColumn, BaseEntity, Column } from 'typeorm';
 import { ethers } from 'ethers';
 import { SeasonRank } from '.';
+import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 @Entity({ name: 'users' })
@@ -30,5 +31,6 @@ export class User extends BaseEntity {
 
   @Field(() => SeasonRank, { nullable: true })
   @Type(() => SeasonRank)
+  @ValidateNested()
   rank?: SeasonRank | null;
 }

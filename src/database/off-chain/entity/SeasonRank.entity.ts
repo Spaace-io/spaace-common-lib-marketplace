@@ -16,6 +16,7 @@ import {
 } from '@nestjs/graphql';
 import { Season, UserSeasonRankClaim } from '.';
 import { Type } from 'class-transformer';
+import { ValidateNested } from 'class-validator';
 
 export enum LoyaltyRank {
   BRONZE_5 = 'B5',
@@ -49,9 +50,20 @@ registerEnumType(LoyaltyRank, {
   name: 'LoyaltyRank',
 });
 
+export enum LoyaltyRewardType {
+  LOYALTY_POINTS = 'LoyaltyPoints',
+  STAKING_BONUS = 'StakingBonus',
+  SPAACE_TOKENS = 'SpaaceTokens',
+  COSMETIC = 'Cosmetic',
+}
+
+registerEnumType(LoyaltyRewardType, {
+  name: 'LoyaltyRewardType',
+});
+
 @ObjectType()
 export class LoyaltyPointsLoyaltyReward {
-  readonly __typename = 'LoyaltyPointsLoyaltyReward';
+  readonly type = LoyaltyRewardType.LOYALTY_POINTS;
 
   constructor(min: string, max: string) {
     this.min = min;
@@ -59,15 +71,15 @@ export class LoyaltyPointsLoyaltyReward {
   }
 
   @Field(() => String)
-  min!: string;
+  min: string;
 
   @Field(() => String)
-  max!: string;
+  max: string;
 }
 
 @ObjectType()
 export class StakingBonusLoyaltyReward {
-  readonly __typename = 'StakingBonusLoyaltyReward';
+  readonly type = LoyaltyRewardType.STAKING_BONUS;
 
   constructor(min: string, max: string) {
     this.min = min;
@@ -75,15 +87,15 @@ export class StakingBonusLoyaltyReward {
   }
 
   @Field(() => String)
-  min!: string;
+  min: string;
 
   @Field(() => String)
-  max!: string;
+  max: string;
 }
 
 @ObjectType()
 export class SpaaceTokensLoyaltyReward {
-  readonly __typename = 'SpaaceTokensLoyaltyReward';
+  readonly type = LoyaltyRewardType.SPAACE_TOKENS;
 
   constructor(min: string, max: string) {
     this.min = min;
@@ -91,22 +103,22 @@ export class SpaaceTokensLoyaltyReward {
   }
 
   @Field(() => String)
-  min!: string;
+  min: string;
 
   @Field(() => String)
-  max!: string;
+  max: string;
 }
 
 @ObjectType()
 export class CosmeticLoyaltyReward {
-  readonly __typename = 'CosmeticLoyaltyReward';
+  readonly type = LoyaltyRewardType.COSMETIC;
 
   constructor(ids: string[]) {
     this.ids = ids;
   }
 
   @Field(() => [String])
-  ids!: string[];
+  ids: string[];
 }
 
 export const LoyaltyReward = createUnionType({
@@ -130,6 +142,7 @@ export class SeasonRank extends BaseEntity {
 
   @Field(() => LoyaltyRank)
   @PrimaryColumn('enum', { enum: LoyaltyRank, enumName: 'rank' })
+  @ValidateNested()
   rank!: LoyaltyRank;
 
   @Field(() => String)
@@ -140,40 +153,44 @@ export class SeasonRank extends BaseEntity {
   @Column('jsonb', { default: [] })
   @Type(() => Object, {
     discriminator: {
-      property: '__typename',
+      property: 'type',
       subTypes: [
         {
-          name: 'LoyaltyPointsLoyaltyReward',
+          name: LoyaltyRewardType.LOYALTY_POINTS,
           value: LoyaltyPointsLoyaltyReward,
         },
         {
-          name: 'StakingBonusLoyaltyReward',
+          name: LoyaltyRewardType.STAKING_BONUS,
           value: StakingBonusLoyaltyReward,
         },
         {
-          name: 'SpaaceTokensLoyaltyReward',
+          name: LoyaltyRewardType.SPAACE_TOKENS,
           value: SpaaceTokensLoyaltyReward,
         },
         {
-          name: 'CosmeticLoyaltyReward',
+          name: LoyaltyRewardType.COSMETIC,
           value: CosmeticLoyaltyReward,
         },
       ],
     },
   })
+  @ValidateNested()
   rewards!: (typeof LoyaltyReward)[];
 
   // GraphQL only fields
 
   @Field(() => SeasonRank, { nullable: true })
   @Type(() => SeasonRank)
+  @ValidateNested()
   previousRank?: SeasonRank | null;
 
   @Field(() => SeasonRank, { nullable: true })
   @Type(() => SeasonRank)
+  @ValidateNested()
   nextRank?: SeasonRank | null;
 
   @Field(() => UserSeasonRankClaim, { nullable: true })
   @Type(() => UserSeasonRankClaim)
+  @ValidateNested()
   claim?: UserSeasonRankClaim | null;
 }

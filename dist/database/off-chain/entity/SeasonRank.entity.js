@@ -10,11 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var SeasonRank_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SeasonRank = exports.LoyaltyReward = exports.CosmeticLoyaltyReward = exports.SpaaceTokensLoyaltyReward = exports.StakingBonusLoyaltyReward = exports.LoyaltyPointsLoyaltyReward = exports.LoyaltyRank = void 0;
+exports.SeasonRank = exports.LoyaltyReward = exports.CosmeticLoyaltyReward = exports.SpaaceTokensLoyaltyReward = exports.StakingBonusLoyaltyReward = exports.LoyaltyPointsLoyaltyReward = exports.LoyaltyRewardType = exports.LoyaltyRank = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const _1 = require(".");
 const class_transformer_1 = require("class-transformer");
+const class_validator_1 = require("class-validator");
 var LoyaltyRank;
 (function (LoyaltyRank) {
     LoyaltyRank["BRONZE_5"] = "B5";
@@ -46,9 +47,19 @@ var LoyaltyRank;
 (0, graphql_1.registerEnumType)(LoyaltyRank, {
     name: 'LoyaltyRank',
 });
+var LoyaltyRewardType;
+(function (LoyaltyRewardType) {
+    LoyaltyRewardType["LOYALTY_POINTS"] = "LoyaltyPoints";
+    LoyaltyRewardType["STAKING_BONUS"] = "StakingBonus";
+    LoyaltyRewardType["SPAACE_TOKENS"] = "SpaaceTokens";
+    LoyaltyRewardType["COSMETIC"] = "Cosmetic";
+})(LoyaltyRewardType = exports.LoyaltyRewardType || (exports.LoyaltyRewardType = {}));
+(0, graphql_1.registerEnumType)(LoyaltyRewardType, {
+    name: 'LoyaltyRewardType',
+});
 let LoyaltyPointsLoyaltyReward = class LoyaltyPointsLoyaltyReward {
     constructor(min, max) {
-        this.__typename = 'LoyaltyPointsLoyaltyReward';
+        this.type = LoyaltyRewardType.LOYALTY_POINTS;
         this.min = min;
         this.max = max;
     }
@@ -68,7 +79,7 @@ LoyaltyPointsLoyaltyReward = __decorate([
 exports.LoyaltyPointsLoyaltyReward = LoyaltyPointsLoyaltyReward;
 let StakingBonusLoyaltyReward = class StakingBonusLoyaltyReward {
     constructor(min, max) {
-        this.__typename = 'StakingBonusLoyaltyReward';
+        this.type = LoyaltyRewardType.STAKING_BONUS;
         this.min = min;
         this.max = max;
     }
@@ -88,7 +99,7 @@ StakingBonusLoyaltyReward = __decorate([
 exports.StakingBonusLoyaltyReward = StakingBonusLoyaltyReward;
 let SpaaceTokensLoyaltyReward = class SpaaceTokensLoyaltyReward {
     constructor(min, max) {
-        this.__typename = 'SpaaceTokensLoyaltyReward';
+        this.type = LoyaltyRewardType.SPAACE_TOKENS;
         this.min = min;
         this.max = max;
     }
@@ -108,7 +119,7 @@ SpaaceTokensLoyaltyReward = __decorate([
 exports.SpaaceTokensLoyaltyReward = SpaaceTokensLoyaltyReward;
 let CosmeticLoyaltyReward = class CosmeticLoyaltyReward {
     constructor(ids) {
-        this.__typename = 'CosmeticLoyaltyReward';
+        this.type = LoyaltyRewardType.COSMETIC;
         this.ids = ids;
     }
 };
@@ -143,6 +154,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => LoyaltyRank),
     (0, typeorm_1.PrimaryColumn)('enum', { enum: LoyaltyRank, enumName: 'rank' }),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", String)
 ], SeasonRank.prototype, "rank", void 0);
 __decorate([
@@ -155,42 +167,46 @@ __decorate([
     (0, typeorm_1.Column)('jsonb', { default: [] }),
     (0, class_transformer_1.Type)(() => Object, {
         discriminator: {
-            property: '__typename',
+            property: 'type',
             subTypes: [
                 {
-                    name: 'LoyaltyPointsLoyaltyReward',
+                    name: LoyaltyRewardType.LOYALTY_POINTS,
                     value: LoyaltyPointsLoyaltyReward,
                 },
                 {
-                    name: 'StakingBonusLoyaltyReward',
+                    name: LoyaltyRewardType.STAKING_BONUS,
                     value: StakingBonusLoyaltyReward,
                 },
                 {
-                    name: 'SpaaceTokensLoyaltyReward',
+                    name: LoyaltyRewardType.SPAACE_TOKENS,
                     value: SpaaceTokensLoyaltyReward,
                 },
                 {
-                    name: 'CosmeticLoyaltyReward',
+                    name: LoyaltyRewardType.COSMETIC,
                     value: CosmeticLoyaltyReward,
                 },
             ],
         },
     }),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Array)
 ], SeasonRank.prototype, "rewards", void 0);
 __decorate([
     (0, graphql_1.Field)(() => SeasonRank_1, { nullable: true }),
     (0, class_transformer_1.Type)(() => SeasonRank_1),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], SeasonRank.prototype, "previousRank", void 0);
 __decorate([
     (0, graphql_1.Field)(() => SeasonRank_1, { nullable: true }),
     (0, class_transformer_1.Type)(() => SeasonRank_1),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], SeasonRank.prototype, "nextRank", void 0);
 __decorate([
     (0, graphql_1.Field)(() => _1.UserSeasonRankClaim, { nullable: true }),
     (0, class_transformer_1.Type)(() => _1.UserSeasonRankClaim),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], SeasonRank.prototype, "claim", void 0);
 SeasonRank = SeasonRank_1 = __decorate([

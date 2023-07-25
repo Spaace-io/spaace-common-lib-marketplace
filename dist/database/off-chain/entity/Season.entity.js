@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const _1 = require(".");
 const class_transformer_1 = require("class-transformer");
+const class_validator_1 = require("class-validator");
 let Season = class Season extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -35,11 +36,13 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => [_1.Quest]),
     (0, class_transformer_1.Type)(() => _1.Quest),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Array)
 ], Season.prototype, "quests", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [_1.SeasonRank]),
     (0, class_transformer_1.Type)(() => _1.SeasonRank),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Array)
 ], Season.prototype, "ranks", void 0);
 Season = __decorate([

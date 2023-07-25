@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const _1 = require(".");
+const class_validator_1 = require("class-validator");
 var QuestTrigger;
 (function (QuestTrigger) {
     QuestTrigger["SALE"] = "Sale";
@@ -77,6 +78,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => [QuestRule]),
     (0, class_transformer_1.Type)(() => QuestRule),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Array)
 ], QuestStep.prototype, "rules", void 0);
 QuestStep = __decorate([
@@ -130,6 +132,7 @@ __decorate([
     (0, graphql_1.Field)(() => [QuestStep]),
     (0, typeorm_1.Column)('jsonb', { default: [] }),
     (0, class_transformer_1.Type)(() => QuestStep),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Array)
 ], Quest.prototype, "steps", void 0);
 __decorate([
@@ -150,16 +153,19 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => Quest_1, { nullable: true }),
     (0, class_transformer_1.Type)(() => Quest_1),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Quest.prototype, "previousQuest", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Quest_1, { nullable: true }),
     (0, class_transformer_1.Type)(() => Quest_1),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Quest.prototype, "nextQuest", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [_1.UserQuestProgress], { nullable: true }),
     (0, class_transformer_1.Type)(() => _1.UserQuestProgress),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Quest.prototype, "progress", void 0);
 Quest = Quest_1 = __decorate([

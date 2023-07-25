@@ -3,6 +3,7 @@ import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Quest, SeasonRank } from '.';
 import { Type } from 'class-transformer';
+import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 @Entity({ name: 'seasons' })
@@ -23,9 +24,11 @@ export class Season extends BaseEntity {
 
   @Field(() => [Quest])
   @Type(() => Quest)
+  @ValidateNested()
   quests?: Quest[];
 
   @Field(() => [SeasonRank])
   @Type(() => SeasonRank)
+  @ValidateNested()
   ranks?: SeasonRank[];
 }
