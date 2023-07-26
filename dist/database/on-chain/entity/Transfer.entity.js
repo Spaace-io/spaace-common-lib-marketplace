@@ -28,9 +28,9 @@ __decorate([
     __metadata("design:type", String)
 ], Transfer.prototype, "txHash", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => graphql_1.Int),
-    (0, typeorm_1.PrimaryColumn)(),
-    __metadata("design:type", Number)
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
+    __metadata("design:type", String)
 ], Transfer.prototype, "logIdx", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),

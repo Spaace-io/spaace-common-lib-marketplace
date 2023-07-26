@@ -19,7 +19,8 @@ __decorate([
     __metadata("design:type", Boolean)
 ], LatestBlock.prototype, "pk", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78 }),
+    (0, typeorm_1.Column)('numeric', { precision: 78 }) // 78 digits = Maximum uint256 value
+    ,
     __metadata("design:type", Number)
 ], LatestBlock.prototype, "number", void 0);
 __decorate([

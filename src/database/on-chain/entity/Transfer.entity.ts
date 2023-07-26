@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   BaseEntity,
   Column,
@@ -27,9 +27,9 @@ export class Transfer extends BaseEntity {
   )
   txHash!: string;
 
-  @Field(() => Int)
-  @PrimaryColumn()
-  logIdx!: number;
+  @Field(() => String)
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true })
+  logIdx!: string;
 
   @Field(() => String)
   @PrimaryColumn('char', { length: 40 })

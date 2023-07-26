@@ -32,7 +32,7 @@ export class HiddenItem extends BaseEntity {
   collectionAddress!: string;
 
   @Field(() => String)
-  @PrimaryColumn('numeric', { precision: 78, unsigned: true })
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   tokenId!: string;
 
   // GraphQL only fields

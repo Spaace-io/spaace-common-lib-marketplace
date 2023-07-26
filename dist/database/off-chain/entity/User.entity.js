@@ -44,7 +44,8 @@ __decorate([
 ], User.prototype, "referrerAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
+    ,
     __metadata("design:type", String)
 ], User.prototype, "loyaltyPoints", void 0);
 __decorate([

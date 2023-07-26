@@ -39,7 +39,7 @@ export class User extends BaseEntity {
   referrerAddress!: string | null;
 
   @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
   loyaltyPoints!: string;
 
   @Field(() => String)

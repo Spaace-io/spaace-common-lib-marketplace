@@ -39,7 +39,8 @@ __decorate([
 ], StakingDeposit.prototype, "pool", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78 }),
+    (0, typeorm_1.Column)('numeric', { precision: 78 }) // 78 digits = Maximum uint256 value
+    ,
     __metadata("design:type", String)
 ], StakingDeposit.prototype, "amount", void 0);
 StakingDeposit = __decorate([

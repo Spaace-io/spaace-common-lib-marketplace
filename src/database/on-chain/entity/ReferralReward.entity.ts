@@ -25,7 +25,7 @@ export class ReferralReward extends BaseEntity {
   referrer!: string;
 
   @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true })
+  @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   referrerAmount!: string;
 
   @Field(() => String)

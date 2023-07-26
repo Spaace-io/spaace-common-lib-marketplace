@@ -25,6 +25,6 @@ export class StakingDeposit extends BaseEntity {
   pool!: string;
 
   @Field(() => String)
-  @Column('numeric', { precision: 78 })
+  @Column('numeric', { precision: 78 }) // 78 digits = Maximum uint256 value
   amount!: string;
 }

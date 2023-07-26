@@ -39,7 +39,8 @@ __decorate([
 ], HiddenItem.prototype, "collectionAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    ,
     __metadata("design:type", String)
 ], HiddenItem.prototype, "tokenId", void 0);
 __decorate([

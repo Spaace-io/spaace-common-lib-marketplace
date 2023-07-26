@@ -31,7 +31,8 @@ __decorate([
 ], TradingReward.prototype, "date", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    ,
     __metadata("design:type", String)
 ], TradingReward.prototype, "buyAmount", void 0);
 __decorate([

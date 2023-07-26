@@ -18,7 +18,7 @@ export class TradingReward extends BaseEntity {
   date!: Date;
 
   @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true })
+  @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   buyAmount!: string;
 
   @Field(() => String)

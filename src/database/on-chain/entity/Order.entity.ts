@@ -87,6 +87,24 @@ export class Order extends BaseEntity {
   )
   signature!: string;
 
+  @Field(() => String)
+  @Column('char', { length: 64 })
+  @Transform(
+    ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
+    {
+      toPlainOnly: true,
+    },
+  )
+  cancelTxHash!: string;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true })
+  cancelLogIdx!: string;
+
+  @Field(() => Date)
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
+  cancelTimestamp!: Date;
+
   // GraphQL only fields
 
   @Field(() => Collection, { nullable: true })

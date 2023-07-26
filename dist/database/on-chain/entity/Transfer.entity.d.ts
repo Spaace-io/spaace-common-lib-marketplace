@@ -1,7 +1,7 @@
 import { BaseEntity } from 'typeorm';
 export declare class Transfer extends BaseEntity {
     txHash: string;
-    logIdx: number;
+    logIdx: string;
     from: string;
     to: string;
     collectionAddress: string;

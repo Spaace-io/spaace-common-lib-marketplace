@@ -1,7 +1,7 @@
 import { BaseEntity } from 'typeorm';
 export declare class Sale extends BaseEntity {
     txHash: string;
-    logIdx: number;
+    logIdx: string;
     orderHash: string;
     collectionAddress: string;
     tokenId: string;
