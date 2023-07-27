@@ -99,7 +99,9 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('char', { length: 64, nullable: true }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
+    (0, class_transformer_1.Transform)(({ value }) => value !== null
+        ? ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true })
+        : null, {
         toPlainOnly: true,
     }),
     __metadata("design:type", Object)

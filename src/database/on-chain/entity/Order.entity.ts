@@ -90,7 +90,10 @@ export class Order extends BaseEntity {
   @Field(() => String, { nullable: true })
   @Column('char', { length: 64, nullable: true })
   @Transform(
-    ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
+    ({ value }) =>
+      value !== null
+        ? ethers.utils.hexlify(value, { allowMissingPrefix: true })
+        : null,
     {
       toPlainOnly: true,
     },
