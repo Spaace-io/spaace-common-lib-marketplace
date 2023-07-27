@@ -17,13 +17,13 @@ export class txHash1690470462891 implements MigrationInterface {
       `ALTER TABLE "staking_deposits" ADD CONSTRAINT "PK_a9faf6c57ab8c33732fb50dfa2c" PRIMARY KEY ("txHash", "logIdx")`,
     );
     await queryRunner.query(
-      `ALTER TABLE "orders" ADD "cancelTxHash" character(64) NOT NULL`,
+      `ALTER TABLE "orders" ADD "cancelTxHash" character(64)`,
     );
     await queryRunner.query(
-      `ALTER TABLE "orders" ADD "cancelLogIdx" numeric(78) NOT NULL`,
+      `ALTER TABLE "orders" ADD "cancelLogIdx" numeric(78)`,
     );
     await queryRunner.query(
-      `ALTER TABLE "orders" ADD "cancelTimestamp" TIMESTAMP NOT NULL DEFAULT now()`,
+      `ALTER TABLE "orders" ADD "cancelTimestamp" TIMESTAMP`,
     );
     await queryRunner.query(
       `ALTER TABLE "transfers" ALTER COLUMN "logIdx" TYPE numeric(78)`,
@@ -46,7 +46,7 @@ export class txHash1690470462891 implements MigrationInterface {
     await queryRunner.query(`ALTER TABLE "orders" DROP COLUMN "cancelLogIdx"`);
     await queryRunner.query(`ALTER TABLE "orders" DROP COLUMN "cancelTxHash"`);
     await queryRunner.query(
-      `ALTER TABLE "staking_deposits" ADD CONSTRAINT "PK_0e702ca6f5217d2bad5e0db3371" PRIMARY KEY ("userAddress", "timestamp", "txHash")`,
+      `ALTER TABLE "staking_deposits" DROP CONSTRAINT "PK_a9faf6c57ab8c33732fb50dfa2c"`,
     );
     await queryRunner.query(
       `ALTER TABLE "staking_deposits" ADD CONSTRAINT "PK_41126261e9a22d2405c6ebde644" PRIMARY KEY ("userAddress", "timestamp")`,

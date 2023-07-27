@@ -20,9 +20,9 @@ class txHash1690470462891 {
             yield queryRunner.query(`ALTER TABLE "staking_deposits" ADD "logIdx" numeric(78) NOT NULL`);
             yield queryRunner.query(`ALTER TABLE "staking_deposits" DROP CONSTRAINT "PK_41126261e9a22d2405c6ebde644"`);
             yield queryRunner.query(`ALTER TABLE "staking_deposits" ADD CONSTRAINT "PK_a9faf6c57ab8c33732fb50dfa2c" PRIMARY KEY ("txHash", "logIdx")`);
-            yield queryRunner.query(`ALTER TABLE "orders" ADD "cancelTxHash" character(64) NOT NULL`);
-            yield queryRunner.query(`ALTER TABLE "orders" ADD "cancelLogIdx" numeric(78) NOT NULL`);
-            yield queryRunner.query(`ALTER TABLE "orders" ADD "cancelTimestamp" TIMESTAMP NOT NULL DEFAULT now()`);
+            yield queryRunner.query(`ALTER TABLE "orders" ADD "cancelTxHash" character(64)`);
+            yield queryRunner.query(`ALTER TABLE "orders" ADD "cancelLogIdx" numeric(78)`);
+            yield queryRunner.query(`ALTER TABLE "orders" ADD "cancelTimestamp" TIMESTAMP`);
             yield queryRunner.query(`ALTER TABLE "transfers" ALTER COLUMN "logIdx" TYPE numeric(78)`);
             yield queryRunner.query(`ALTER TABLE "sales" ALTER COLUMN "logIdx" TYPE numeric(78)`);
         });
@@ -34,7 +34,7 @@ class txHash1690470462891 {
             yield queryRunner.query(`ALTER TABLE "orders" DROP COLUMN "cancelTimestamp"`);
             yield queryRunner.query(`ALTER TABLE "orders" DROP COLUMN "cancelLogIdx"`);
             yield queryRunner.query(`ALTER TABLE "orders" DROP COLUMN "cancelTxHash"`);
-            yield queryRunner.query(`ALTER TABLE "staking_deposits" ADD CONSTRAINT "PK_0e702ca6f5217d2bad5e0db3371" PRIMARY KEY ("userAddress", "timestamp", "txHash")`);
+            yield queryRunner.query(`ALTER TABLE "staking_deposits" DROP CONSTRAINT "PK_a9faf6c57ab8c33732fb50dfa2c"`);
             yield queryRunner.query(`ALTER TABLE "staking_deposits" ADD CONSTRAINT "PK_41126261e9a22d2405c6ebde644" PRIMARY KEY ("userAddress", "timestamp")`);
             yield queryRunner.query(`ALTER TABLE "staking_deposits" DROP COLUMN "logIdx"`);
             yield queryRunner.query(`ALTER TABLE "staking_deposits" DROP COLUMN "txHash"`);

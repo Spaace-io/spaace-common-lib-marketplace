@@ -97,22 +97,22 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "signature", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('char', { length: 64 }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('char', { length: 64, nullable: true }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
         toPlainOnly: true,
     }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], Order.prototype, "cancelTxHash", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
-    __metadata("design:type", String)
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
+    __metadata("design:type", Object)
 ], Order.prototype, "cancelLogIdx", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
-    __metadata("design:type", Date)
+    (0, graphql_1.Field)(() => Date, { nullable: true }),
+    (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
+    __metadata("design:type", Object)
 ], Order.prototype, "cancelTimestamp", void 0);
 __decorate([
     (0, graphql_1.Field)(() => _1.Collection, { nullable: true }),

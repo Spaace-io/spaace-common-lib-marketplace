@@ -12,9 +12,9 @@ export declare class Order extends BaseEntity {
     endTime: Date | null;
     counter: string;
     signature: string;
-    cancelTxHash: string;
-    cancelLogIdx: string;
-    cancelTimestamp: Date;
+    cancelTxHash: string | null;
+    cancelLogIdx: string | null;
+    cancelTimestamp: Date | null;
     collection?: Collection | null;
     item?: Item | null;
 }
