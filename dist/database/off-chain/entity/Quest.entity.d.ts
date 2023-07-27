@@ -41,6 +41,7 @@ export declare class Quest extends BaseEntity {
     seasonNumber: number;
     id: string;
     name: string;
+    description: string;
     previousQuestId: string | null;
     prime: boolean;
     steps: QuestStep[];

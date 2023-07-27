@@ -101,6 +101,10 @@ export class Quest extends BaseEntity {
   @Column('text')
   name!: string;
 
+  @Field(() => String)
+  @Column('text')
+  description!: string;
+
   @Field(() => String, { nullable: true })
   @Column('uuid', { nullable: true })
   @OneToOne(() => Quest)

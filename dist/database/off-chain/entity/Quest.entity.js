@@ -114,6 +114,11 @@ __decorate([
     __metadata("design:type", String)
 ], Quest.prototype, "name", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text'),
+    __metadata("design:type", String)
+], Quest.prototype, "description", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('uuid', { nullable: true }),
     (0, typeorm_1.OneToOne)(() => Quest_1),
