@@ -9,48 +9,64 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReferralReward = void 0;
+exports.StakingReward = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
-let ReferralReward = class ReferralReward extends typeorm_1.BaseEntity {
+let StakingReward = class StakingReward extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
+    (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
+        toPlainOnly: true,
+    }),
+    __metadata("design:type", String)
+], StakingReward.prototype, "txHash", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
+    __metadata("design:type", String)
+], StakingReward.prototype, "logIdx", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
-], ReferralReward.prototype, "userAddress", void 0);
+], StakingReward.prototype, "userAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.PrimaryColumn)('date', { default: () => 'CURRENT_DATE' }),
+    (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
-], ReferralReward.prototype, "date", void 0);
+], StakingReward.prototype, "timestamp", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
+    (0, typeorm_1.Column)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
-], ReferralReward.prototype, "referrer", void 0);
+], StakingReward.prototype, "pool", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
+    __metadata("design:type", String)
+], StakingReward.prototype, "token", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78 }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", String)
-], ReferralReward.prototype, "referrerAmount", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
-    __metadata("design:type", String)
-], ReferralReward.prototype, "referredAmount", void 0);
-ReferralReward = __decorate([
+], StakingReward.prototype, "amount", void 0);
+StakingReward = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'referral_rewards' })
-], ReferralReward);
-exports.ReferralReward = ReferralReward;
-//# sourceMappingURL=ReferralReward.entity.js.map
+    (0, typeorm_1.Entity)({ name: 'staking_rewards' })
+], StakingReward);
+exports.StakingReward = StakingReward;
+//# sourceMappingURL=StakingReward.entity.js.map

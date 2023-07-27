@@ -6,12 +6,12 @@ export declare enum CollectionType {
     ERC1155 = "ERC1155"
 }
 export declare enum CollectionLinkType {
-    CUSTOM = "custom",
-    TWITTER = "twitter",
-    DISCORD = "discord",
-    INSTAGRAM = "instagram",
-    TELEGRAM = "telegram",
-    MEDIUM = "medium"
+    CUSTOM = "Custom",
+    TWITTER = "Twitter",
+    DISCORD = "Discord",
+    INSTAGRAM = "Instagram",
+    TELEGRAM = "Telegram",
+    MEDIUM = "Medium"
 }
 export declare class CollectionLink {
     type: CollectionLinkType;

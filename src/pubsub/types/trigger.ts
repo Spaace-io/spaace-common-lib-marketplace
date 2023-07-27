@@ -2,9 +2,11 @@ import {
   Order,
   QuestTrigger,
   Sale,
-  TradingReward,
+  DistributorReward,
   Transfer,
   UserQuestProgress,
+  StakingDeposit,
+  StakingReward,
 } from '../../database';
 
 export const PUBSUB_TRIGGER_TOPIC = 'trigger';
@@ -18,10 +20,12 @@ export type PubSubTriggerData<T extends QuestTrigger> =
     ? Order
     : T extends QuestTrigger.UNISWAP
     ? undefined
+    : T extends QuestTrigger.STAKING_DEPOSIT
+    ? StakingDeposit
     : T extends QuestTrigger.STAKING_REWARD
-    ? undefined
-    : T extends QuestTrigger.TRADING_REWARD
-    ? TradingReward
+    ? StakingReward
+    : T extends QuestTrigger.DISTRIBUTOR_REWARD
+    ? DistributorReward
     : T extends QuestTrigger.QUEST
     ? UserQuestProgress
     : T extends QuestTrigger.REFERRAL
