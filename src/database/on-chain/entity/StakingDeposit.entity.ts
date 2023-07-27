@@ -7,14 +7,28 @@ import { ethers } from 'ethers';
 @Entity({ name: 'staking_deposits' })
 export class StakingDeposit extends BaseEntity {
   @Field(() => String)
-  @PrimaryColumn('char', { length: 40 })
+  @PrimaryColumn('char', { length: 64 })
+  @Transform(
+    ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
+    {
+      toPlainOnly: true,
+    },
+  )
+  txHash!: string;
+
+  @Field(() => String)
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true })
+  logIdx!: string;
+
+  @Field(() => String)
+  @Column('char', { length: 40 })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   userAddress!: string;
 
   @Field(() => Date)
-  @PrimaryColumn({ default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
 
   @Field(() => String)
