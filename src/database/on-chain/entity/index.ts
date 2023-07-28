@@ -8,6 +8,7 @@ export * from './Sale.entity';
 export * from './StakingDeposit.entity';
 export * from './StakingReward.entity';
 export * from './DistributorReward.entity';
+export * from './RewardPeriod.entity';
 export * from './Order.entity';
 export * from './Balance.view';
 export * from './BuyVolume.view';

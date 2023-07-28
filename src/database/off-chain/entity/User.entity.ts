@@ -22,6 +22,10 @@ export class User extends BaseEntity {
   })
   address!: string;
 
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  admin!: boolean;
+
   @Field(() => String)
   @Column('text', { unique: true })
   referralCode!: string;

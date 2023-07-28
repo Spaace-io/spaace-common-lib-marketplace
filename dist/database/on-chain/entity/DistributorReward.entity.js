@@ -49,7 +49,7 @@ __decorate([
 ], DistributorReward.prototype, "amount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.PrimaryColumn)('timestamp without time zone', {
+    (0, typeorm_1.Column)('timestamp without time zone', {
         default: () => 'CURRENT_TIMESTAMP',
     }),
     __metadata("design:type", Date)

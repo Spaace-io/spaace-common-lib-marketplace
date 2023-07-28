@@ -35,7 +35,7 @@ export class DistributorReward extends BaseEntity {
   amount!: string;
 
   @Field(() => Date)
-  @PrimaryColumn('timestamp without time zone', {
+  @Column('timestamp without time zone', {
     default: () => 'CURRENT_TIMESTAMP',
   })
   timestamp!: Date;

@@ -28,6 +28,11 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "address", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    __metadata("design:type", Boolean)
+], User.prototype, "admin", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text', { unique: true }),
     __metadata("design:type", String)

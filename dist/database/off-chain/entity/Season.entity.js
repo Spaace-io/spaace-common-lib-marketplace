@@ -27,12 +27,12 @@ __decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
-], Season.prototype, "startDate", void 0);
+], Season.prototype, "startTime", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date, { nullable: true }),
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
-], Season.prototype, "endDate", void 0);
+], Season.prototype, "endTime", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [_1.Quest]),
     (0, class_transformer_1.Type)(() => _1.Quest),

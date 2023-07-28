@@ -24,6 +24,7 @@ __exportStar(require("./Sale.entity"), exports);
 __exportStar(require("./StakingDeposit.entity"), exports);
 __exportStar(require("./StakingReward.entity"), exports);
 __exportStar(require("./DistributorReward.entity"), exports);
+__exportStar(require("./RewardPeriod.entity"), exports);
 __exportStar(require("./Order.entity"), exports);
 __exportStar(require("./Balance.view"), exports);
 __exportStar(require("./BuyVolume.view"), exports);

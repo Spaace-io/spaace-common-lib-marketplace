@@ -2,6 +2,7 @@ import { BaseEntity } from 'typeorm';
 import { SeasonRank } from '.';
 export declare class User extends BaseEntity {
     address: string;
+    admin: boolean;
     referralCode: string;
     referrerAddress: string | null;
     loyaltyPoints: string;

@@ -14,11 +14,11 @@ export class Season extends BaseEntity {
 
   @Field(() => Date)
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
-  startDate!: Date;
+  startTime!: Date;
 
   @Field(() => Date, { nullable: true })
   @Column('timestamp without time zone', { nullable: true })
-  endDate!: Date | null;
+  endTime!: Date | null;
 
   // GraphQL only fields
 

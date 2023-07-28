@@ -28,8 +28,8 @@ class rewards1690485116301 {
             yield queryRunner.query(`DROP TABLE "distributor_rewards"`);
             yield queryRunner.query(`DROP TYPE "public"."distributor_contract"`);
             yield queryRunner.query(`DROP TABLE "staking_rewards"`);
-            yield queryRunner.query(`CREATE TABLE "referral_rewards" ("userAddress" character(40) NOT NULL, "date" date NOT NULL DEFAULT ('now'::text)::date, "referrer" character(40) NOT NULL, "referrerAmount" numeric(78) NOT NULL, "referredAmount" numeric(78) NOT NULL, CONSTRAINT "PK_747a45a7f86106e2925a99113da" PRIMARY KEY ("user", "date", "referrer"))`);
-            yield queryRunner.query(`CREATE TABLE "trading_rewards" ("userAddress" character(40) NOT NULL, "date" date NOT NULL DEFAULT ('now'::text)::date, "buyAmount" numeric(78) NOT NULL, "sellAmount" numeric(78) NOT NULL, CONSTRAINT "PK_afc958bd5194d51375325441597" PRIMARY KEY ("user", "date"))`);
+            yield queryRunner.query(`CREATE TABLE "referral_rewards" ("userAddress" character(40) NOT NULL, "date" date NOT NULL DEFAULT ('now'::text)::date, "referrer" character(40) NOT NULL, "referrerAmount" numeric(78) NOT NULL, "referredAmount" numeric(78) NOT NULL, CONSTRAINT "PK_747a45a7f86106e2925a99113da" PRIMARY KEY ("userAddress", "date", "referrer"))`);
+            yield queryRunner.query(`CREATE TABLE "trading_rewards" ("userAddress" character(40) NOT NULL, "date" date NOT NULL DEFAULT ('now'::text)::date, "buyAmount" numeric(78) NOT NULL, "sellAmount" numeric(78) NOT NULL, CONSTRAINT "PK_afc958bd5194d51375325441597" PRIMARY KEY ("userAddress", "date"))`);
         });
     }
 }
