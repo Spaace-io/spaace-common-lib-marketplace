@@ -38,6 +38,14 @@ export class UserQuestProgress extends BaseEntity {
   ])
   questId!: string;
 
+  @Field(() => Int)
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  progressCurrentStep!: number;
+
+  @Field(() => Int)
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  countForCurrentStep!: number;
+
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
   nonce!: string;

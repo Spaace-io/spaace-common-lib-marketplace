@@ -73,6 +73,10 @@ export class QuestStep {
   @Type(() => QuestRule)
   @ValidateNested()
   rules!: QuestRule[];
+
+  @Field(() => Int)
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  count!: number;
 }
 
 export enum QuestPeriod {
