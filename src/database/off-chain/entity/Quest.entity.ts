@@ -75,7 +75,7 @@ export class QuestStep {
   rules!: QuestRule[];
 
   @Field(() => Int)
-  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true, default: 1 }) // 78 digits = Maximum uint256 value
   count!: number;
 }
 

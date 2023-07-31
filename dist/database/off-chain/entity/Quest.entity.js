@@ -84,7 +84,7 @@ __decorate([
 ], QuestStep.prototype, "rules", void 0);
 __decorate([
     (0, graphql_1.Field)(() => graphql_1.Int),
-    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true, default: 1 }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", Number)
 ], QuestStep.prototype, "count", void 0);
