@@ -1,12 +1,9 @@
 import { BaseEntity } from 'typeorm';
-export declare enum RewardPeriodType {
-    TRADING_REWARDS = "Trading",
-    REFERRAL_REWARDS = "Referral"
-}
+import { DistributorContract } from '.';
 export declare class RewardPeriod extends BaseEntity {
-    distributor: RewardPeriodType;
+    distributor: DistributorContract;
     startTime: Date;
-    endTime: Date | null;
+    endTime: Date;
     amount: string;
     distributed: boolean;
 }

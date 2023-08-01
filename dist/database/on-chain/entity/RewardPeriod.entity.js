@@ -9,24 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RewardPeriod = exports.RewardPeriodType = void 0;
+exports.RewardPeriod = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-var RewardPeriodType;
-(function (RewardPeriodType) {
-    RewardPeriodType["TRADING_REWARDS"] = "Trading";
-    RewardPeriodType["REFERRAL_REWARDS"] = "Referral";
-})(RewardPeriodType = exports.RewardPeriodType || (exports.RewardPeriodType = {}));
-(0, graphql_1.registerEnumType)(RewardPeriodType, {
-    name: 'RewardPeriodType',
-});
+const _1 = require(".");
 let RewardPeriod = class RewardPeriod extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => RewardPeriodType),
+    (0, graphql_1.Field)(() => _1.DistributorContract),
     (0, typeorm_1.PrimaryColumn)('enum', {
-        enum: RewardPeriodType,
-        enumName: 'reward_period_type',
+        enum: _1.DistributorContract,
+        enumName: 'distributor_contract',
     }),
     __metadata("design:type", String)
 ], RewardPeriod.prototype, "distributor", void 0);
@@ -38,9 +31,9 @@ __decorate([
     __metadata("design:type", Date)
 ], RewardPeriod.prototype, "startTime", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Date, { nullable: true }),
-    (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
-    __metadata("design:type", Object)
+    (0, graphql_1.Field)(() => Date),
+    (0, typeorm_1.Column)('timestamp without time zone'),
+    __metadata("design:type", Date)
 ], RewardPeriod.prototype, "endTime", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),

@@ -1,24 +1,16 @@
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
-
-export enum RewardPeriodType {
-  TRADING_REWARDS = 'Trading',
-  REFERRAL_REWARDS = 'Referral',
-}
-
-registerEnumType(RewardPeriodType, {
-  name: 'RewardPeriodType',
-});
+import { DistributorContract } from '.';
 
 @ObjectType()
 @Entity({ name: 'reward_periods' })
 export class RewardPeriod extends BaseEntity {
-  @Field(() => RewardPeriodType)
+  @Field(() => DistributorContract)
   @PrimaryColumn('enum', {
-    enum: RewardPeriodType,
-    enumName: 'reward_period_type',
+    enum: DistributorContract,
+    enumName: 'distributor_contract',
   })
-  distributor!: RewardPeriodType;
+  distributor!: DistributorContract;
 
   @Field(() => Date)
   @PrimaryColumn('timestamp without time zone', {
@@ -26,9 +18,9 @@ export class RewardPeriod extends BaseEntity {
   })
   startTime!: Date;
 
-  @Field(() => Date, { nullable: true })
-  @Column('timestamp without time zone', { nullable: true })
-  endTime!: Date | null;
+  @Field(() => Date)
+  @Column('timestamp without time zone')
+  endTime!: Date;
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
