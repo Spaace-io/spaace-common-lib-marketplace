@@ -19,8 +19,10 @@
     "migration:generate:off-chain": "npm run migration:generate --database=off-chain"
   },
   "dependencies": {
+    "@google-cloud/kms": "^3.8.0",
     "@google-cloud/pubsub": "^3.3.0",
     "@nestjs/graphql": "^10.1.7",
+    "asn1": "^0.2.6",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
@@ -29,6 +31,7 @@
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
+    "@types/asn1": "^0.2.1",
     "@types/node": "^16.11.10",
     "@types/ws": "^8.5.3",
     "@typescript-eslint/eslint-plugin": "^5.45.1",

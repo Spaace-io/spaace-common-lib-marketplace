@@ -18,5 +18,6 @@ exports.utils = void 0;
 __exportStar(require("./database"), exports);
 __exportStar(require("./graphql"), exports);
 __exportStar(require("./pubsub"), exports);
+__exportStar(require("./blockchain"), exports);
 exports.utils = require("./utils");
 //# sourceMappingURL=index.js.map

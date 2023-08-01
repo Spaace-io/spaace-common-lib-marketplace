@@ -19,7 +19,6 @@ class rewardsSignature1691087839483 {
             yield queryRunner.query(`ALTER TABLE "last_refresh" DROP CONSTRAINT "CHK_502e27f4e8ff88c013b483e6f5"`);
             yield queryRunner.query(`ALTER TABLE "distributor_rewards" ADD "signature" text NOT NULL`);
             yield queryRunner.query(`ALTER TYPE "public"."reward_period_type" RENAME TO "reward_period_type_old"`);
-            yield queryRunner.query(`CREATE TYPE "public"."distributor_contract" AS ENUM('Trading', 'Referral', 'Loyalty')`);
             yield queryRunner.query(`ALTER TABLE "reward_periods" ALTER COLUMN "distributor" TYPE "public"."distributor_contract" USING "distributor"::"text"::"public"."distributor_contract"`);
             yield queryRunner.query(`DROP TYPE "public"."reward_period_type_old"`);
             yield queryRunner.query(`ALTER TABLE "reward_periods" ALTER COLUMN "endTime" SET NOT NULL`);
@@ -32,7 +31,6 @@ class rewardsSignature1691087839483 {
             yield queryRunner.query(`ALTER TABLE "reward_periods" ALTER COLUMN "endTime" DROP NOT NULL`);
             yield queryRunner.query(`CREATE TYPE "public"."reward_period_type_old" AS ENUM('Trading', 'Referral')`);
             yield queryRunner.query(`ALTER TABLE "reward_periods" ALTER COLUMN "distributor" TYPE "public"."reward_period_type_old" USING "distributor"::"text"::"public"."reward_period_type_old"`);
-            yield queryRunner.query(`DROP TYPE "public"."distributor_contract"`);
             yield queryRunner.query(`ALTER TYPE "public"."reward_period_type_old" RENAME TO "reward_period_type"`);
             yield queryRunner.query(`ALTER TABLE "distributor_rewards" DROP COLUMN "signature"`);
             yield queryRunner.query(`ALTER TABLE "last_refresh" ADD CONSTRAINT "CHK_502e27f4e8ff88c013b483e6f5" CHECK ((pk = true))`);
