@@ -8,13 +8,14 @@ export declare enum QuestTrigger {
     STAKING_DEPOSIT = "StakingDeposit",
     STAKING_REWARD = "StakingReward",
     DISTRIBUTOR_REWARD = "DistributorReward",
-    QUEST = "Quest",
+    USER_QUEST_PROGRESS = "UserQuestProgress",
     REFERRAL = "Referral",
     CART_ITEM = "CartItem",
     TWITTER_POST = "TwitterPost",
     TWITTER_LIKE = "TwitterLike",
     TWITTER_RT = "TwitterRT",
-    CRON = "Cron"
+    CRON = "Cron",
+    USER_INTERACTION = "UserInteraction"
 }
 export declare enum QuestRuleOperator {
     EQ = "=",

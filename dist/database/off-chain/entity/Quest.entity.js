@@ -25,13 +25,14 @@ var QuestTrigger;
     QuestTrigger["STAKING_DEPOSIT"] = "StakingDeposit";
     QuestTrigger["STAKING_REWARD"] = "StakingReward";
     QuestTrigger["DISTRIBUTOR_REWARD"] = "DistributorReward";
-    QuestTrigger["QUEST"] = "Quest";
+    QuestTrigger["USER_QUEST_PROGRESS"] = "UserQuestProgress";
     QuestTrigger["REFERRAL"] = "Referral";
     QuestTrigger["CART_ITEM"] = "CartItem";
     QuestTrigger["TWITTER_POST"] = "TwitterPost";
     QuestTrigger["TWITTER_LIKE"] = "TwitterLike";
     QuestTrigger["TWITTER_RT"] = "TwitterRT";
     QuestTrigger["CRON"] = "Cron";
+    QuestTrigger["USER_INTERACTION"] = "UserInteraction";
 })(QuestTrigger = exports.QuestTrigger || (exports.QuestTrigger = {}));
 (0, graphql_1.registerEnumType)(QuestTrigger, {
     name: 'QuestTrigger',
