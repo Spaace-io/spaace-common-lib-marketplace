@@ -18,10 +18,10 @@ const class_validator_1 = require("class-validator");
 let Season = class Season extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => graphql_1.Int),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], Season.prototype, "number", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),

@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Quest, User } from '.';
 import { ethers } from 'ethers';
 import { Transform } from 'class-transformer';
@@ -25,9 +25,9 @@ export class UserQuestProgress extends BaseEntity {
   })
   userAddress!: string;
 
-  @Field(() => Int)
+  @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-  seasonNumber!: number;
+  seasonNumber!: string;
 
   @Field(() => String)
   @PrimaryColumn('uuid')
@@ -38,17 +38,13 @@ export class UserQuestProgress extends BaseEntity {
   ])
   questId!: string;
 
-  @Field(() => Int)
-  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-  progressCurrentStep!: number;
-
-  @Field(() => Int)
-  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-  countForCurrentStep!: number;
-
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
   nonce!: string;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  currentStep!: string;
 
   @Field(() => Boolean)
   @Column('boolean', { default: false })

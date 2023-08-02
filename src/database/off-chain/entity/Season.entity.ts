@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Quest, SeasonRank } from '.';
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
@@ -8,9 +8,9 @@ import { ValidateNested } from 'class-validator';
 @ObjectType()
 @Entity({ name: 'seasons' })
 export class Season extends BaseEntity {
-  @Field(() => Int)
+  @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-  number!: number;
+  number!: string;
 
   @Field(() => Date)
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })

@@ -10,7 +10,7 @@ import {
   Unique,
 } from 'typeorm';
 
-import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
 import { Season, UserQuestProgress } from '.';
 import { ValidateNested } from 'class-validator';
@@ -92,11 +92,11 @@ registerEnumType(QuestPeriod, {
 @Entity({ name: 'quests' })
 @Unique(['seasonNumber', 'name'])
 export class Quest extends BaseEntity {
-  @Field(() => Int)
+  @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   @ManyToOne(() => Season)
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
-  seasonNumber!: number;
+  seasonNumber!: string;
 
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
@@ -105,10 +105,6 @@ export class Quest extends BaseEntity {
   @Field(() => String)
   @Column('text')
   name!: string;
-
-  @Field(() => String)
-  @Column('text')
-  description!: string;
 
   @Field(() => String, { nullable: true })
   @Column('uuid', { nullable: true })
@@ -133,9 +129,9 @@ export class Quest extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true })
   loyaltyPoints!: string;
 
-  @Field(() => Int)
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '1' })
-  limit!: number;
+  limit!: string;
 
   @Field(() => QuestPeriod)
   @Column('enum', { enum: QuestPeriod, enumName: 'quest_period' })

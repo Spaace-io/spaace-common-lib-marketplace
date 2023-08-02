@@ -102,12 +102,12 @@ var QuestPeriod;
 let Quest = Quest_1 = class Quest extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => graphql_1.Int),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     (0, typeorm_1.ManyToOne)(() => _1.Season),
     (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], Quest.prototype, "seasonNumber", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -119,11 +119,6 @@ __decorate([
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], Quest.prototype, "name", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('text'),
-    __metadata("design:type", String)
-], Quest.prototype, "description", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('uuid', { nullable: true }),
@@ -152,9 +147,9 @@ __decorate([
     __metadata("design:type", String)
 ], Quest.prototype, "loyaltyPoints", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => graphql_1.Int),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], Quest.prototype, "limit", void 0);
 __decorate([
     (0, graphql_1.Field)(() => QuestPeriod),

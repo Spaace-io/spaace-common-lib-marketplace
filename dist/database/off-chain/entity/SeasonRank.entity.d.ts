@@ -58,7 +58,7 @@ export declare class CosmeticLoyaltyReward {
 }
 export declare const LoyaltyReward: LoyaltyPointsLoyaltyReward | StakingBonusLoyaltyReward | SpaaceTokensLoyaltyReward | CosmeticLoyaltyReward;
 export declare class SeasonRank extends BaseEntity {
-    seasonNumber: number;
+    seasonNumber: string;
     rank: LoyaltyRank;
     threshold: string;
     rewards: (typeof LoyaltyReward)[];

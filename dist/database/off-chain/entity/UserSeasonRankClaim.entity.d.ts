@@ -23,7 +23,7 @@ export declare class CosmeticLoyaltyRewardClaim {
 export declare const LoyaltyRewardClaim: LoyaltyPointsLoyaltyRewardClaim | StakingBonusLoyaltyRewardClaim | SpaaceTokensLoyaltyRewardClaim | CosmeticLoyaltyRewardClaim;
 export declare class UserSeasonRankClaim extends BaseEntity {
     userAddress: string;
-    seasonNumber: number;
+    seasonNumber: string;
     rank: LoyaltyRank;
     rewards: (typeof LoyaltyRewardClaim)[];
     timestamp: Date;

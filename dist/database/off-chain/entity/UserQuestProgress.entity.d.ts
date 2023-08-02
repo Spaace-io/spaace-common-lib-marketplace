@@ -1,11 +1,10 @@
 import { BaseEntity } from 'typeorm';
 export declare class UserQuestProgress extends BaseEntity {
     userAddress: string;
-    seasonNumber: number;
+    seasonNumber: string;
     questId: string;
-    progressCurrentStep: number;
-    countForCurrentStep: number;
     nonce: string;
+    currentStep: string;
     completed: boolean;
     timestamp: Date;
 }
