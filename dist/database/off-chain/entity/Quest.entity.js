@@ -79,14 +79,12 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => [QuestRule]),
     (0, class_transformer_1.Type)(() => QuestRule),
-    (0, class_validator_1.ValidateNested)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], QuestStep.prototype, "rules", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => graphql_1.Int),
-    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true, default: 1 }) // 78 digits = Maximum uint256 value
-    ,
-    __metadata("design:type", Number)
+    (0, graphql_1.Field)(() => String, { defaultValue: '1' }),
+    __metadata("design:type", String)
 ], QuestStep.prototype, "count", void 0);
 QuestStep = __decorate([
     (0, graphql_1.ObjectType)()
@@ -144,7 +142,7 @@ __decorate([
     (0, graphql_1.Field)(() => [QuestStep]),
     (0, typeorm_1.Column)('jsonb', { default: [] }),
     (0, class_transformer_1.Type)(() => QuestStep),
-    (0, class_validator_1.ValidateNested)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], Quest.prototype, "steps", void 0);
 __decorate([
@@ -177,7 +175,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => [_1.UserQuestProgress], { nullable: true }),
     (0, class_transformer_1.Type)(() => _1.UserQuestProgress),
-    (0, class_validator_1.ValidateNested)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Object)
 ], Quest.prototype, "progress", void 0);
 Quest = Quest_1 = __decorate([

@@ -122,7 +122,7 @@ export class UserSeasonRankClaim extends BaseEntity {
       ],
     },
   })
-  @ValidateNested()
+  @ValidateNested({ each: true })
   rewards!: (typeof LoyaltyRewardClaim)[];
 
   @Field(() => Date)

@@ -36,13 +36,13 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => [_1.Quest]),
     (0, class_transformer_1.Type)(() => _1.Quest),
-    (0, class_validator_1.ValidateNested)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], Season.prototype, "quests", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [_1.SeasonRank]),
     (0, class_transformer_1.Type)(() => _1.SeasonRank),
-    (0, class_validator_1.ValidateNested)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], Season.prototype, "ranks", void 0);
 Season = __decorate([

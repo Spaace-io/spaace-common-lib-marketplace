@@ -174,7 +174,7 @@ export class SeasonRank extends BaseEntity {
       ],
     },
   })
-  @ValidateNested()
+  @ValidateNested({ each: true })
   rewards!: (typeof LoyaltyReward)[];
 
   // GraphQL only fields

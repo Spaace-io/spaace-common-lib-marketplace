@@ -24,11 +24,11 @@ export class Season extends BaseEntity {
 
   @Field(() => [Quest])
   @Type(() => Quest)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   quests?: Quest[];
 
   @Field(() => [SeasonRank])
   @Type(() => SeasonRank)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   ranks?: SeasonRank[];
 }

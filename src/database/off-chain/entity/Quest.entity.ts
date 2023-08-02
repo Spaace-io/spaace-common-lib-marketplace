@@ -71,12 +71,11 @@ export class QuestStep {
 
   @Field(() => [QuestRule])
   @Type(() => QuestRule)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   rules!: QuestRule[];
 
-  @Field(() => Int)
-  @PrimaryColumn('numeric', { precision: 78, unsigned: true, default: 1 }) // 78 digits = Maximum uint256 value
-  count!: number;
+  @Field(() => String, { defaultValue: '1' })
+  count?: string;
 }
 
 export enum QuestPeriod {
@@ -126,7 +125,7 @@ export class Quest extends BaseEntity {
   @Field(() => [QuestStep])
   @Column('jsonb', { default: [] })
   @Type(() => QuestStep)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   steps!: QuestStep[];
 
   @Field(() => String)
@@ -155,6 +154,6 @@ export class Quest extends BaseEntity {
 
   @Field(() => [UserQuestProgress], { nullable: true })
   @Type(() => UserQuestProgress)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   progress?: UserQuestProgress[] | null;
 }

@@ -33,7 +33,7 @@ export declare class QuestRule {
 export declare class QuestStep {
     trigger: QuestTrigger;
     rules: QuestRule[];
-    count: number;
+    count?: string;
 }
 export declare enum QuestPeriod {
     DAILY = "day",

@@ -140,7 +140,7 @@ __decorate([
             ],
         },
     }),
-    (0, class_validator_1.ValidateNested)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], UserSeasonRankClaim.prototype, "rewards", void 0);
 __decorate([

@@ -188,7 +188,7 @@ __decorate([
             ],
         },
     }),
-    (0, class_validator_1.ValidateNested)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], SeasonRank.prototype, "rewards", void 0);
 __decorate([
