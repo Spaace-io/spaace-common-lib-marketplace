@@ -48,6 +48,8 @@ export declare class Quest extends BaseEntity {
     prime: boolean;
     steps: QuestStep[];
     loyaltyPoints: string;
+    boost: string;
+    boostLimit: string | null;
     limit: string;
     period: QuestPeriod;
     previousQuest?: Quest | null;

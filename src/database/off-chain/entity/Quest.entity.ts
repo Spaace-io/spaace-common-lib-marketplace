@@ -126,8 +126,16 @@ export class Quest extends BaseEntity {
   steps!: QuestStep[];
 
   @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true })
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   loyaltyPoints!: string;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  boost!: string;
+
+  @Field(() => String, { nullable: true })
+  @Column('numeric', { precision: 78, unsigned: true, nullable: true })
+  boostLimit!: string | null;
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '1' })
