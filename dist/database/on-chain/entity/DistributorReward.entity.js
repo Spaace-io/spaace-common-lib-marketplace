@@ -48,6 +48,14 @@ __decorate([
     __metadata("design:type", String)
 ], DistributorReward.prototype, "amount", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text'),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
+        toPlainOnly: true,
+    }),
+    __metadata("design:type", String)
+], DistributorReward.prototype, "signature", void 0);
+__decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)('timestamp without time zone', {
         default: () => 'CURRENT_TIMESTAMP',

@@ -34,6 +34,16 @@ export class DistributorReward extends BaseEntity {
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   amount!: string;
 
+  @Field(() => String)
+  @Column('text')
+  @Transform(
+    ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
+    {
+      toPlainOnly: true,
+    },
+  )
+  signature!: string;
+
   @Field(() => Date)
   @Column('timestamp without time zone', {
     default: () => 'CURRENT_TIMESTAMP',
