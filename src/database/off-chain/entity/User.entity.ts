@@ -22,6 +22,22 @@ export class User extends BaseEntity {
   })
   address!: string;
 
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  name!: string | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  biography!: string | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  imageUrl!: string | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  bannerUrl!: string | null;
+
   @Field(() => Boolean)
   @Column('boolean', { default: false })
   admin!: boolean;
