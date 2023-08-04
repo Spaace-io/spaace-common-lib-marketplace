@@ -25,7 +25,7 @@ class PubSubClient {
     }
     createTopics() {
         return __awaiter(this, void 0, void 0, function* () {
-            const topics = [trigger_1.PUBSUB_TRIGGER_TOPIC];
+            const topics = [trigger_1.PUBSUB_TRIGGERS_TOPIC];
             yield Promise.all(topics.map((topic) => __awaiter(this, void 0, void 0, function* () {
                 const [exists] = yield this.pubsub.topic(topic).exists();
                 if (exists)
@@ -45,13 +45,13 @@ class PubSubClient {
     }
     trigger(...messages) {
         return __awaiter(this, void 0, void 0, function* () {
-            const topic = this.pubsub.topic(trigger_1.PUBSUB_TRIGGER_TOPIC);
+            const topic = this.pubsub.topic(trigger_1.PUBSUB_TRIGGERS_TOPIC);
             return yield Promise.all(messages.map((json) => topic.publishMessage({ json })));
         });
     }
     onTrigger(name, listener) {
         return __awaiter(this, void 0, void 0, function* () {
-            const subscription = yield this.subscribe(trigger_1.PUBSUB_TRIGGER_TOPIC, name);
+            const subscription = yield this.subscribe(trigger_1.PUBSUB_TRIGGERS_TOPIC, name);
             subscription.on('message', (message) => __awaiter(this, void 0, void 0, function* () {
                 try {
                     yield listener(JSON.parse(message.data.toString()));

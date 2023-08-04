@@ -1,5 +1,5 @@
 import { Message, PubSub } from '@google-cloud/pubsub';
-import { PUBSUB_TRIGGER_TOPIC, PubSubTrigger } from './types/trigger';
+import { PUBSUB_TRIGGERS_TOPIC, PubSubTrigger } from './types/trigger';
 import { QuestTrigger } from '..';
 
 class PubSubClient {
@@ -16,7 +16,7 @@ class PubSubClient {
   }
 
   private async createTopics() {
-    const topics = [PUBSUB_TRIGGER_TOPIC];
+    const topics = [PUBSUB_TRIGGERS_TOPIC];
 
     await Promise.all(
       topics.map(async (topic) => {
@@ -38,7 +38,7 @@ class PubSubClient {
   }
 
   public async trigger(...messages: PubSubTrigger<QuestTrigger>[]) {
-    const topic = this.pubsub.topic(PUBSUB_TRIGGER_TOPIC);
+    const topic = this.pubsub.topic(PUBSUB_TRIGGERS_TOPIC);
     return await Promise.all(
       messages.map((json) => topic.publishMessage({ json })),
     );
@@ -48,7 +48,7 @@ class PubSubClient {
     name: string,
     listener: (trigger: PubSubTrigger<QuestTrigger>) => Promise<void>,
   ) {
-    const subscription = await this.subscribe(PUBSUB_TRIGGER_TOPIC, name);
+    const subscription = await this.subscribe(PUBSUB_TRIGGERS_TOPIC, name);
     subscription.on('message', async (message: Message) => {
       try {
         await listener(JSON.parse(message.data.toString()));
