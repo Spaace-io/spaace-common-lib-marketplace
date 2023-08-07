@@ -1,5 +1,6 @@
 export * from './LatestBlock.entity';
 export * from './LastRefresh.entity';
+export * from './TokenTransfer.entity';
 export * from './Collection.entity';
 export * from './Item.entity';
 export * from './ItemAttribute.entity';
@@ -10,6 +11,7 @@ export * from './StakingReward.entity';
 export * from './DistributorReward.entity';
 export * from './RewardPeriod.entity';
 export * from './Order.entity';
+export * from './TokenBalance.view';
 export * from './Balance.view';
 export * from './BuyVolume.view';
 export * from './SellVolume.view';

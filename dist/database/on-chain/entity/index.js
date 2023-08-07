@@ -16,6 +16,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./LatestBlock.entity"), exports);
 __exportStar(require("./LastRefresh.entity"), exports);
+__exportStar(require("./TokenTransfer.entity"), exports);
 __exportStar(require("./Collection.entity"), exports);
 __exportStar(require("./Item.entity"), exports);
 __exportStar(require("./ItemAttribute.entity"), exports);
@@ -26,6 +27,7 @@ __exportStar(require("./StakingReward.entity"), exports);
 __exportStar(require("./DistributorReward.entity"), exports);
 __exportStar(require("./RewardPeriod.entity"), exports);
 __exportStar(require("./Order.entity"), exports);
+__exportStar(require("./TokenBalance.view"), exports);
 __exportStar(require("./Balance.view"), exports);
 __exportStar(require("./BuyVolume.view"), exports);
 __exportStar(require("./SellVolume.view"), exports);

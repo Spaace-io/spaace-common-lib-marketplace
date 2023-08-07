@@ -1,21 +1,19 @@
 import { BaseEntity } from 'typeorm';
 import { UserQuestProgress } from '.';
 export declare enum QuestTrigger {
-    SALE = "Sale",
-    TRANSFER = "Transfer",
-    ORDER = "Order",
+    TOKEN_TRANSFER = "TokenTransfer",
     UNISWAP = "Uniswap",
+    TRANSFER = "Transfer",
+    SALE = "Sale",
+    ORDER = "Order",
     STAKING_DEPOSIT = "StakingDeposit",
     STAKING_REWARD = "StakingReward",
     DISTRIBUTOR_REWARD = "DistributorReward",
     USER_QUEST_PROGRESS = "UserQuestProgress",
     REFERRAL = "Referral",
     CART_ITEM = "CartItem",
-    TWITTER_POST = "TwitterPost",
-    TWITTER_LIKE = "TwitterLike",
-    TWITTER_RT = "TwitterRT",
-    CRON = "Cron",
-    USER_INTERACTION = "UserInteraction"
+    USER_INTERACTION = "UserInteraction",
+    CRON = "Cron"
 }
 export declare enum QuestRuleOperator {
     EQ = "=",

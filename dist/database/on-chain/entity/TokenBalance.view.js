@@ -9,15 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Balance = void 0;
+exports.TokenBalance = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
 const _1 = require(".");
 const __1 = require("../../..");
 const class_transformer_1 = require("class-transformer");
-const class_validator_1 = require("class-validator");
-let Balance = class Balance extends typeorm_1.BaseEntity {
+let TokenBalance = class TokenBalance extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -26,29 +25,18 @@ __decorate([
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
-], Balance.prototype, "collectionAddress", void 0);
+], TokenBalance.prototype, "currency", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Balance.prototype, "tokenId", void 0);
+], TokenBalance.prototype, "userAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Balance.prototype, "userAddress", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], Balance.prototype, "balance", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => _1.Item),
-    (0, class_transformer_1.Type)(() => _1.Item),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", _1.Item)
-], Balance.prototype, "item", void 0);
-Balance = __decorate([
+], TokenBalance.prototype, "balance", void 0);
+TokenBalance = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         materialized: true,
@@ -56,33 +44,28 @@ Balance = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from((query) => query
-                .from(_1.Transfer, 'transfer')
-                .select('"collectionAddress"')
-                .addSelect('"tokenId"')
+                .from(_1.TokenTransfer, 'transfer')
+                .select('"currency"')
                 .addSelect('"to"', 'userAddress')
                 .addSelect('SUM("amount")', 'total')
-                .groupBy('"collectionAddress"')
-                .addGroupBy('"tokenId"')
+                .groupBy('"currency"')
                 .addGroupBy('"to"'), 'received')
                 .leftJoin((query) => query
-                .from(_1.Transfer, 'transfer')
-                .select('"collectionAddress"')
-                .addSelect('"tokenId"')
+                .from(_1.TokenTransfer, 'transfer')
+                .select('"currency"')
                 .addSelect('"from"', 'userAddress')
                 .addSelect('SUM("amount")', 'total')
-                .groupBy('"collectionAddress"')
-                .addGroupBy('"tokenId"')
-                .addGroupBy('"from"'), 'sent', '"sent"."collectionAddress" = "received"."collectionAddress" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."userAddress" = "received"."userAddress"')
-                .select('"received"."collectionAddress"')
-                .addSelect('"received"."tokenId"')
+                .groupBy('"currency"')
+                .addGroupBy('"from"'), 'sent', '"sent"."currency" = "received"."currency" AND "sent"."userAddress" = "received"."userAddress"')
+                .select('"received"."currency"')
                 .addSelect('"received"."userAddress"')
                 .addSelect('"received"."total" - COALESCE("sent"."total", 0)', 'balance')
                 .where('"received"."total" > COALESCE("sent"."total", 0)')
                 .andWhere(`"received"."userAddress" <> '${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}'`);
         },
-        name: 'balances',
+        name: 'token_balances',
     }),
-    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'userAddress'])
-], Balance);
-exports.Balance = Balance;
-//# sourceMappingURL=Balance.view.js.map
+    (0, typeorm_1.Index)(['currency', 'userAddress'])
+], TokenBalance);
+exports.TokenBalance = TokenBalance;
+//# sourceMappingURL=TokenBalance.view.js.map

@@ -8,6 +8,7 @@ import {
   StakingDeposit,
   StakingReward,
   User,
+  TokenTransfer,
 } from '../../database';
 import { UserInteraction } from '../../graphql';
 
@@ -16,14 +17,16 @@ export const PUBSUB_TRIGGERS_TOPIC = `triggers-${
 }`;
 
 export type PubSubTriggerData<T extends QuestTrigger> =
-  T extends QuestTrigger.SALE
-    ? Sale
-    : T extends QuestTrigger.TRANSFER
-    ? Transfer
-    : T extends QuestTrigger.ORDER
-    ? Order
+  T extends QuestTrigger.TOKEN_TRANSFER
+    ? TokenTransfer
     : T extends QuestTrigger.UNISWAP
     ? undefined
+    : T extends QuestTrigger.TRANSFER
+    ? Transfer
+    : T extends QuestTrigger.SALE
+    ? Sale
+    : T extends QuestTrigger.ORDER
+    ? Order
     : T extends QuestTrigger.STAKING_DEPOSIT
     ? StakingDeposit
     : T extends QuestTrigger.STAKING_REWARD
@@ -35,12 +38,6 @@ export type PubSubTriggerData<T extends QuestTrigger> =
     : T extends QuestTrigger.REFERRAL
     ? User
     : T extends QuestTrigger.CART_ITEM
-    ? undefined
-    : T extends QuestTrigger.TWITTER_POST
-    ? undefined
-    : T extends QuestTrigger.TWITTER_LIKE
-    ? undefined
-    : T extends QuestTrigger.TWITTER_RT
     ? undefined
     : T extends QuestTrigger.CRON
     ? undefined
