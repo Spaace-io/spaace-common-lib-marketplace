@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-import { Balance, Collection, ItemAttribute, Order, Sale } from '.';
+import { Collection, ItemAttribute, Order, Sale } from '.';
 export declare class ItemMedia {
     raw: string;
     thumbnail: string;
@@ -17,9 +17,8 @@ export declare class Item extends BaseEntity {
     attributes: ItemAttribute[] | null;
     lastImport: Date | null;
     collection?: Collection;
+    ownerCount?: string;
     buyNow?: Order | null;
     sellNow?: Order | null;
     lastSale?: Sale | null;
-    ownerCount?: string;
-    owners?: Balance[];
 }

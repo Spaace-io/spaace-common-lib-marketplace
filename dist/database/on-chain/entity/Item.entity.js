@@ -103,6 +103,10 @@ __decorate([
     __metadata("design:type", _1.Collection)
 ], Item.prototype, "collection", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], Item.prototype, "ownerCount", void 0);
+__decorate([
     (0, graphql_1.Field)(() => _1.Order, { nullable: true }),
     (0, class_transformer_1.Type)(() => _1.Order),
     (0, class_validator_1.ValidateNested)(),
@@ -120,16 +124,6 @@ __decorate([
     (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Item.prototype, "lastSale", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], Item.prototype, "ownerCount", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [_1.Balance], { nullable: true }),
-    (0, class_transformer_1.Type)(() => _1.Balance),
-    (0, class_validator_1.ValidateNested)({ each: true }),
-    __metadata("design:type", Array)
-], Item.prototype, "owners", void 0);
 Item = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'items' })
