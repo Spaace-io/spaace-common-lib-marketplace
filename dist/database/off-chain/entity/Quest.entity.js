@@ -18,22 +18,20 @@ const _1 = require(".");
 const class_validator_1 = require("class-validator");
 var QuestTrigger;
 (function (QuestTrigger) {
-    QuestTrigger["SALE"] = "Sale";
-    QuestTrigger["TRANSFER"] = "Transfer";
-    QuestTrigger["ORDER"] = "Order";
+    QuestTrigger["TOKEN_TRANSFER"] = "TokenTransfer";
     QuestTrigger["UNISWAP"] = "Uniswap";
+    QuestTrigger["TRANSFER"] = "Transfer";
+    QuestTrigger["SALE"] = "Sale";
+    QuestTrigger["ORDER"] = "Order";
     QuestTrigger["STAKING_DEPOSIT"] = "StakingDeposit";
     QuestTrigger["STAKING_REWARD"] = "StakingReward";
     QuestTrigger["DISTRIBUTOR_REWARD"] = "DistributorReward";
     QuestTrigger["USER_QUEST_PROGRESS"] = "UserQuestProgress";
     QuestTrigger["REFERRAL"] = "Referral";
     QuestTrigger["CART_ITEM"] = "CartItem";
-    QuestTrigger["TWITTER_POST"] = "TwitterPost";
-    QuestTrigger["TWITTER_LIKE"] = "TwitterLike";
-    QuestTrigger["TWITTER_RT"] = "TwitterRT";
-    QuestTrigger["CRON"] = "Cron";
     QuestTrigger["USER_INTERACTION"] = "UserInteraction";
     QuestTrigger["DATA_COMPILED"] = "DataCompiled";
+    QuestTrigger["CRON"] = "Cron";
 })(QuestTrigger = exports.QuestTrigger || (exports.QuestTrigger = {}));
 (0, graphql_1.registerEnumType)(QuestTrigger, {
     name: 'QuestTrigger',

@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CollectionAttributeValue = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const __1 = require("..");
+const class_transformer_1 = require("class-transformer");
+const class_validator_1 = require("class-validator");
 let CollectionAttributeValue = class CollectionAttributeValue {
 };
 __decorate([
@@ -31,6 +33,10 @@ __decorate([
     __metadata("design:type", String)
 ], CollectionAttributeValue.prototype, "count", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], CollectionAttributeValue.prototype, "listedCount", void 0);
+__decorate([
     (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
     __metadata("design:type", Object)
 ], CollectionAttributeValue.prototype, "buyNow", void 0);
@@ -38,6 +44,12 @@ __decorate([
     (0, graphql_1.Field)(() => __1.Order, { nullable: true }),
     __metadata("design:type", Object)
 ], CollectionAttributeValue.prototype, "sellNow", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => __1.Sale, { nullable: true }),
+    (0, class_transformer_1.Type)(() => __1.Sale),
+    (0, class_validator_1.ValidateNested)(),
+    __metadata("design:type", Object)
+], CollectionAttributeValue.prototype, "lastSale", void 0);
 CollectionAttributeValue = __decorate([
     (0, graphql_1.ObjectType)()
 ], CollectionAttributeValue);

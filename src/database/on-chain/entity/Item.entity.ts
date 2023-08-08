@@ -8,7 +8,7 @@ import {
   OneToMany,
   PrimaryColumn,
 } from 'typeorm';
-import { Balance, Collection, ItemAttribute, Order, Sale } from '.';
+import { Collection, ItemAttribute, Order, Sale } from '.';
 import { Transform, Type } from 'class-transformer';
 import { ethers } from 'ethers';
 import { ValidateNested } from 'class-validator';
@@ -87,6 +87,9 @@ export class Item extends BaseEntity {
   @ValidateNested()
   collection?: Collection;
 
+  @Field(() => String)
+  ownerCount?: string;
+
   @Field(() => Order, { nullable: true })
   @Type(() => Order)
   @ValidateNested()
@@ -101,12 +104,4 @@ export class Item extends BaseEntity {
   @Type(() => Sale)
   @ValidateNested()
   lastSale?: Sale | null;
-
-  @Field(() => String)
-  ownerCount?: string;
-
-  @Field(() => [Balance], { nullable: true })
-  @Type(() => Balance)
-  @ValidateNested({ each: true })
-  owners?: Balance[];
 }
