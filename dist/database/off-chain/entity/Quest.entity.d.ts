@@ -15,7 +15,8 @@ export declare enum QuestTrigger {
     TWITTER_LIKE = "TwitterLike",
     TWITTER_RT = "TwitterRT",
     CRON = "Cron",
-    USER_INTERACTION = "UserInteraction"
+    USER_INTERACTION = "UserInteraction",
+    DATA_COMPILED = "DataCompiled"
 }
 export declare enum QuestRuleOperator {
     EQ = "=",

@@ -33,6 +33,7 @@ var QuestTrigger;
     QuestTrigger["TWITTER_RT"] = "TwitterRT";
     QuestTrigger["CRON"] = "Cron";
     QuestTrigger["USER_INTERACTION"] = "UserInteraction";
+    QuestTrigger["DATA_COMPILED"] = "DataCompiled";
 })(QuestTrigger = exports.QuestTrigger || (exports.QuestTrigger = {}));
 (0, graphql_1.registerEnumType)(QuestTrigger, {
     name: 'QuestTrigger',

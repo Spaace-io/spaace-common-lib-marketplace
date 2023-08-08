@@ -46,6 +46,8 @@ export type PubSubTriggerData<T extends QuestTrigger> =
     ? undefined
     : T extends QuestTrigger.USER_INTERACTION
     ? UserInteraction
+    : T extends QuestTrigger.DATA_COMPILED
+    ? object
     : never;
 
 export interface PubSubTrigger<T extends QuestTrigger> {

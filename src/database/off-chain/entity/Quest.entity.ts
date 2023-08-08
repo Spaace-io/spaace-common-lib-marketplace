@@ -31,6 +31,7 @@ export enum QuestTrigger {
   TWITTER_RT = 'TwitterRT',
   CRON = 'Cron',
   USER_INTERACTION = 'UserInteraction',
+  DATA_COMPILED = 'DataCompiled',
 }
 
 registerEnumType(QuestTrigger, {
