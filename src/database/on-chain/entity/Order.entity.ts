@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   BaseEntity,
   Column,
@@ -11,6 +11,17 @@ import { Transform, Type } from 'class-transformer';
 import { ethers } from 'ethers';
 import { ValidateNested } from 'class-validator';
 import { Item, Collection } from '.';
+
+export enum OrderType {
+  ASK = 'Ask',
+  BID = 'Bid',
+  ENGLISH_AUCTION = 'EnglishAuction',
+  DUTCH_AUCTION = 'DutchAuction',
+}
+
+registerEnumType(OrderType, {
+  name: 'OrderType',
+});
 
 @ObjectType()
 @Entity({ name: 'orders' })
@@ -50,13 +61,17 @@ export class Order extends BaseEntity {
   ])
   tokenId!: string | null;
 
-  @Field(() => Boolean)
-  @Column('boolean')
-  isAsk!: boolean;
+  @Field(() => OrderType)
+  @Column('enum', { enum: OrderType, enumName: 'order_type' })
+  type!: OrderType;
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true })
   price!: string;
+
+  @Field(() => String, { nullable: true })
+  @Column('numeric', { precision: 78, unsigned: true, nullable: true })
+  startingPrice!: string | null;
 
   @Field(() => String)
   @Column('char', { length: 40 })
@@ -77,7 +92,8 @@ export class Order extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true })
   counter!: string;
 
-  @Field(() => String)
+  // Nullable only on GraphQL because it's hidden from the frontend for English auctions
+  @Field(() => String, { nullable: true })
   @Column('text')
   @Transform(
     ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),

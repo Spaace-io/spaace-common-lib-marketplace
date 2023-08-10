@@ -12,10 +12,6 @@ import {
 } from '../../database';
 import { UserInteraction } from '../../graphql';
 
-export const PUBSUB_TRIGGERS_TOPIC = `triggers-${
-  process.env.TESTNET ? 'goerli' : 'ethereum'
-}`;
-
 export type PubSubTriggerData<T extends QuestTrigger> =
   T extends QuestTrigger.TOKEN_TRANSFER
     ? TokenTransfer

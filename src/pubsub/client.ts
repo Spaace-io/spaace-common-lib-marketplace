@@ -1,6 +1,10 @@
 import { Message, PubSub } from '@google-cloud/pubsub';
-import { PUBSUB_TRIGGERS_TOPIC, PubSubTrigger } from './types/trigger';
+import { PubSubTrigger } from './types/trigger';
 import { QuestTrigger } from '..';
+
+export const PUBSUB_TRIGGERS_TOPIC = `triggers-${
+  !process.env.TESTNET ? 'ethereum' : 'goerli'
+}`;
 
 class PubSubClient {
   private readonly pubsub: PubSub;

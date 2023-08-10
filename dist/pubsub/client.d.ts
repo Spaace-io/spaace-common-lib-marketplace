@@ -1,5 +1,6 @@
 import { PubSubTrigger } from './types/trigger';
 import { QuestTrigger } from '..';
+export declare const PUBSUB_TRIGGERS_TOPIC: string;
 declare class PubSubClient {
     private readonly pubsub;
     constructor();

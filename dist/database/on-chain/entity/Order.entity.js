@@ -9,13 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Order = void 0;
+exports.Order = exports.OrderType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
 const class_validator_1 = require("class-validator");
 const _1 = require(".");
+var OrderType;
+(function (OrderType) {
+    OrderType["ASK"] = "Ask";
+    OrderType["BID"] = "Bid";
+    OrderType["ENGLISH_AUCTION"] = "EnglishAuction";
+    OrderType["DUTCH_AUCTION"] = "DutchAuction";
+})(OrderType = exports.OrderType || (exports.OrderType = {}));
+(0, graphql_1.registerEnumType)(OrderType, {
+    name: 'OrderType',
+});
 let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -56,15 +66,20 @@ __decorate([
     __metadata("design:type", Object)
 ], Order.prototype, "tokenId", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Boolean),
-    (0, typeorm_1.Column)('boolean'),
-    __metadata("design:type", Boolean)
-], Order.prototype, "isAsk", void 0);
+    (0, graphql_1.Field)(() => OrderType),
+    (0, typeorm_1.Column)('enum', { enum: OrderType, enumName: 'order_type' }),
+    __metadata("design:type", String)
+], Order.prototype, "type", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
 ], Order.prototype, "price", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
+    __metadata("design:type", Object)
+], Order.prototype, "startingPrice", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
@@ -89,7 +104,7 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "counter", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text'),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
         toPlainOnly: true,

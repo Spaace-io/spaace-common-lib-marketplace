@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pubsub = void 0;
+exports.pubsub = exports.PUBSUB_TRIGGERS_TOPIC = void 0;
 const pubsub_1 = require("@google-cloud/pubsub");
-const trigger_1 = require("./types/trigger");
+exports.PUBSUB_TRIGGERS_TOPIC = `triggers-${!process.env.TESTNET ? 'ethereum' : 'goerli'}`;
 class PubSubClient {
     constructor() {
         this.pubsub = new pubsub_1.PubSub({
@@ -25,7 +25,7 @@ class PubSubClient {
     }
     createTopics() {
         return __awaiter(this, void 0, void 0, function* () {
-            const topics = [trigger_1.PUBSUB_TRIGGERS_TOPIC];
+            const topics = [exports.PUBSUB_TRIGGERS_TOPIC];
             yield Promise.all(topics.map((topic) => __awaiter(this, void 0, void 0, function* () {
                 const [exists] = yield this.pubsub.topic(topic).exists();
                 if (exists)
@@ -45,13 +45,13 @@ class PubSubClient {
     }
     trigger(...messages) {
         return __awaiter(this, void 0, void 0, function* () {
-            const topic = this.pubsub.topic(trigger_1.PUBSUB_TRIGGERS_TOPIC);
+            const topic = this.pubsub.topic(exports.PUBSUB_TRIGGERS_TOPIC);
             return yield Promise.all(messages.map((json) => topic.publishMessage({ json })));
         });
     }
     onTrigger(name, listener) {
         return __awaiter(this, void 0, void 0, function* () {
-            const subscription = yield this.subscribe(trigger_1.PUBSUB_TRIGGERS_TOPIC, name);
+            const subscription = yield this.subscribe(exports.PUBSUB_TRIGGERS_TOPIC, name);
             subscription.on('message', (message) => __awaiter(this, void 0, void 0, function* () {
                 try {
                     yield listener(JSON.parse(message.data.toString()));
