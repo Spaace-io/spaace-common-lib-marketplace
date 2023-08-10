@@ -192,3 +192,7 @@ export const rewardsDistributorSigner = new GoogleCloudKMSSigner(
   process.env.REWARDS_DISTRIBUTOR_KMS_KEY_NAME ??
     'REWARDS_DISTRIBUTOR_KMS_KEY_NAME',
 );
+
+export const marketMakingSigner = new GoogleCloudKMSSigner(
+  process.env.MARKET_MAKING_KMS_KEY_NAME ?? 'MARKET_MAKING_KMS_KEY_NAME',
+);

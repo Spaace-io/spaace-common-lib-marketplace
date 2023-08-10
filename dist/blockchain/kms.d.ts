@@ -14,3 +14,4 @@ export declare class GoogleCloudKMSSigner extends Signer {
     connect(provider: Provider): Signer;
 }
 export declare const rewardsDistributorSigner: GoogleCloudKMSSigner;
+export declare const marketMakingSigner: GoogleCloudKMSSigner;

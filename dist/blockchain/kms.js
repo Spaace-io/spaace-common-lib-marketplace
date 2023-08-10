@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.rewardsDistributorSigner = exports.GoogleCloudKMSSigner = void 0;
+exports.marketMakingSigner = exports.rewardsDistributorSigner = exports.GoogleCloudKMSSigner = void 0;
 const crypto = require("crypto");
 const asn1_1 = require("asn1");
 const kms_1 = require("@google-cloud/kms");
@@ -147,4 +147,5 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
 }
 exports.GoogleCloudKMSSigner = GoogleCloudKMSSigner;
 exports.rewardsDistributorSigner = new GoogleCloudKMSSigner((_a = process.env.REWARDS_DISTRIBUTOR_KMS_KEY_NAME) !== null && _a !== void 0 ? _a : 'REWARDS_DISTRIBUTOR_KMS_KEY_NAME');
+exports.marketMakingSigner = new GoogleCloudKMSSigner((_b = process.env.MARKET_MAKING_KMS_KEY_NAME) !== null && _b !== void 0 ? _b : 'MARKET_MAKING_KMS_KEY_NAME');
 //# sourceMappingURL=kms.js.map
