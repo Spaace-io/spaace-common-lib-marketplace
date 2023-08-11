@@ -9,13 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserQuestProgress = void 0;
-const typeorm_1 = require("typeorm");
+exports.UserLoyalty = void 0;
 const graphql_1 = require("@nestjs/graphql");
-const _1 = require(".");
-const ethers_1 = require("ethers");
 const class_transformer_1 = require("class-transformer");
-let UserQuestProgress = class UserQuestProgress extends typeorm_1.BaseEntity {
+const typeorm_1 = require("typeorm");
+const ethers_1 = require("ethers");
+const _1 = require(".");
+const class_validator_1 = require("class-validator");
+let UserLoyalty = class UserLoyalty extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -26,7 +27,7 @@ __decorate([
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
-], UserQuestProgress.prototype, "userAddress", void 0);
+], UserLoyalty.prototype, "userAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -34,40 +35,32 @@ __decorate([
     (0, typeorm_1.ManyToOne)(() => _1.Season),
     (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
     __metadata("design:type", String)
-], UserQuestProgress.prototype, "seasonNumber", void 0);
+], UserLoyalty.prototype, "seasonNumber", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('uuid'),
-    (0, typeorm_1.ManyToOne)(() => _1.Quest),
-    (0, typeorm_1.JoinColumn)([
-        { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
-        { name: 'questId', referencedColumnName: 'id' },
-    ]),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
+    ,
     __metadata("design:type", String)
-], UserQuestProgress.prototype, "questId", void 0);
+], UserLoyalty.prototype, "points", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => _1.User),
+    (0, class_transformer_1.Type)(() => _1.User),
+    (0, class_validator_1.ValidateNested)(),
+    __metadata("design:type", _1.User)
+], UserLoyalty.prototype, "user", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => _1.SeasonRank, { nullable: true }),
+    (0, class_transformer_1.Type)(() => _1.SeasonRank),
+    (0, class_validator_1.ValidateNested)(),
+    __metadata("design:type", Object)
+], UserLoyalty.prototype, "rank", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
-], UserQuestProgress.prototype, "nonce", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], UserQuestProgress.prototype, "currentStep", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Boolean),
-    (0, typeorm_1.Column)('boolean', { default: false }),
-    __metadata("design:type", Boolean)
-], UserQuestProgress.prototype, "completed", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
-    __metadata("design:type", Date)
-], UserQuestProgress.prototype, "timestamp", void 0);
-UserQuestProgress = __decorate([
+], UserLoyalty.prototype, "ranking", void 0);
+UserLoyalty = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'user_quest_progress' })
-], UserQuestProgress);
-exports.UserQuestProgress = UserQuestProgress;
-//# sourceMappingURL=UserQuestProgress.entity.js.map
+    (0, typeorm_1.Entity)({ name: 'user_loyalties' })
+], UserLoyalty);
+exports.UserLoyalty = UserLoyalty;
+//# sourceMappingURL=UserLoyalty.entity.js.map

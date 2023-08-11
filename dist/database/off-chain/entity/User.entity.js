@@ -68,32 +68,16 @@ __decorate([
     __metadata("design:type", Object)
 ], User.prototype, "referrerAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
-    ,
-    __metadata("design:type", String)
-], User.prototype, "loyaltyPoints", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], User.prototype, "loyaltyRewards", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], User.prototype, "loyaltyRewardsClaimed", void 0);
-__decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], User.prototype, "timestamp", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => _1.SeasonRank, { nullable: true }),
-    (0, class_transformer_1.Type)(() => _1.SeasonRank),
+    (0, graphql_1.Field)(() => _1.UserLoyalty, { nullable: true }),
+    (0, class_transformer_1.Type)(() => _1.UserLoyalty),
     (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
-], User.prototype, "rank", void 0);
+], User.prototype, "loyalty", void 0);
 __decorate([
     (0, graphql_1.Field)(() => User_1, { nullable: true }),
     (0, class_transformer_1.Type)(() => User_1),

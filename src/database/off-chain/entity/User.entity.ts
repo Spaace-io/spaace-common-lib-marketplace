@@ -9,7 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { ethers } from 'ethers';
-import { SeasonRank } from '.';
+import { UserLoyalty } from '.';
 import { ValidateNested } from 'class-validator';
 
 @ObjectType()
@@ -58,28 +58,16 @@ export class User extends BaseEntity {
   )
   referrerAddress!: string | null;
 
-  @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
-  loyaltyPoints!: string;
-
-  @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
-  loyaltyRewards!: string;
-
-  @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
-  loyaltyRewardsClaimed!: string;
-
   @Field(() => Date)
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
 
   // GraphQL only fields
 
-  @Field(() => SeasonRank, { nullable: true })
-  @Type(() => SeasonRank)
+  @Field(() => UserLoyalty, { nullable: true })
+  @Type(() => UserLoyalty)
   @ValidateNested()
-  rank?: SeasonRank | null;
+  loyalty?: UserLoyalty | null;
 
   @Field(() => User, { nullable: true })
   @Type(() => User)
