@@ -179,7 +179,7 @@ export class GoogleCloudKMSSigner extends Signer {
     return await this._sign(digest); // TODO: https://ethereum.stackexchange.com/a/107498
   }
 
-  override connect(provider: Provider): Signer {
+  override connect(provider: Provider): GoogleCloudKMSSigner {
     return new GoogleCloudKMSSigner(
       this._cryptoKeyName,
       this._cryptoKeyVersion,

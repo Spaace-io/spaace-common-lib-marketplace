@@ -11,7 +11,7 @@ export declare class GoogleCloudKMSSigner extends Signer {
     getAddress(): Promise<string>;
     signMessage(message: string | Bytes): Promise<string>;
     signTransaction(transaction: ethers.utils.Deferrable<TransactionRequest>): Promise<string>;
-    connect(provider: Provider): Signer;
+    connect(provider: Provider): GoogleCloudKMSSigner;
     _signTypedData(domain: {
         name?: string;
         version?: string;
