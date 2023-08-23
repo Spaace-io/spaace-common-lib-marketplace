@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.marketMakingSigner = exports.rewardsDistributorSigner = exports.GoogleCloudKMSSigner = void 0;
 const crypto = require("crypto");
 const asn1_1 = require("asn1");
+const hash_1 = require("@ethersproject/hash");
 const kms_1 = require("@google-cloud/kms");
 const ethers_1 = require("ethers");
 class GoogleCloudKMSSigner extends ethers_1.Signer {
@@ -143,6 +144,19 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
     }
     connect(provider) {
         return new GoogleCloudKMSSigner(this._cryptoKeyName, this._cryptoKeyVersion, this._address, provider);
+    }
+    // Seaport Signer
+    _signTypedData(domain, types, value) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const populated = yield hash_1._TypedDataEncoder.resolveNames(domain, types, value, (name) => __awaiter(this, void 0, void 0, function* () {
+                var _a;
+                const address = yield ((_a = this.provider) === null || _a === void 0 ? void 0 : _a.resolveName(name));
+                if (!address)
+                    throw new Error('Failed to resolve ENS');
+                return address;
+            }));
+            return this._sign(ethers_1.ethers.utils.arrayify(hash_1._TypedDataEncoder.hash(populated.domain, types, populated.value)));
+        });
     }
 }
 exports.GoogleCloudKMSSigner = GoogleCloudKMSSigner;

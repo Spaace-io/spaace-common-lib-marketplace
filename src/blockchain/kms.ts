@@ -1,8 +1,9 @@
 import * as crypto from 'crypto';
 import { Ber, BerReader } from 'asn1';
 import { Provider, TransactionRequest } from '@ethersproject/abstract-provider';
+import { _TypedDataEncoder } from '@ethersproject/hash';
 import { KeyManagementServiceClient } from '@google-cloud/kms';
-import { Bytes, Signer, ethers } from 'ethers';
+import { BigNumberish, Bytes, Signer, TypedDataField, ethers } from 'ethers';
 
 export class GoogleCloudKMSSigner extends Signer {
   private readonly _kms = new KeyManagementServiceClient();
@@ -184,6 +185,38 @@ export class GoogleCloudKMSSigner extends Signer {
       this._cryptoKeyVersion,
       this._address,
       provider,
+    );
+  }
+
+  // Seaport Signer
+  async _signTypedData(
+    domain: {
+      name?: string;
+      version?: string;
+      chainId?: BigNumberish;
+      verifyingContract?: string;
+      salt?: ArrayLike<number> | string;
+    },
+    types: Record<string, Array<TypedDataField>>,
+    value: Record<string, unknown>,
+  ): Promise<string> {
+    const populated = await _TypedDataEncoder.resolveNames(
+      domain,
+      types,
+      value,
+      async (name: string) => {
+        const address = await this.provider?.resolveName(name);
+
+        if (!address) throw new Error('Failed to resolve ENS');
+
+        return address;
+      },
+    );
+
+    return this._sign(
+      ethers.utils.arrayify(
+        _TypedDataEncoder.hash(populated.domain, types, populated.value),
+      ),
     );
   }
 }
