@@ -13,10 +13,10 @@ exports.UserInteraction = exports.UserInteractionType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 var UserInteractionType;
 (function (UserInteractionType) {
-    UserInteractionType[UserInteractionType["DAILY_CLAIM"] = 0] = "DAILY_CLAIM";
-    UserInteractionType[UserInteractionType["BUY_NOW"] = 1] = "BUY_NOW";
-    UserInteractionType[UserInteractionType["SELL_INSTANTLY"] = 2] = "SELL_INSTANTLY";
-    UserInteractionType[UserInteractionType["SWEEP_FLOOR"] = 3] = "SWEEP_FLOOR";
+    UserInteractionType["DAILY_CLAIM"] = "DAILY_CLAIM";
+    UserInteractionType["BUY_NOW"] = "BUY_NOW";
+    UserInteractionType["SELL_INSTANTLY"] = "SELL_INSTANTLY";
+    UserInteractionType["SWEEP_FLOOR"] = "SWEEP_FLOOR";
 })(UserInteractionType = exports.UserInteractionType || (exports.UserInteractionType = {}));
 (0, graphql_1.registerEnumType)(UserInteractionType, {
     name: 'UserInteractionType',
@@ -25,7 +25,7 @@ let UserInteraction = class UserInteraction {
 };
 __decorate([
     (0, graphql_1.Field)(() => UserInteractionType),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], UserInteraction.prototype, "type", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),

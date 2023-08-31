@@ -18,10 +18,10 @@ const class_validator_1 = require("class-validator");
 const _1 = require(".");
 var OrderType;
 (function (OrderType) {
-    OrderType["ASK"] = "Ask";
-    OrderType["BID"] = "Bid";
-    OrderType["ENGLISH_AUCTION"] = "EnglishAuction";
-    OrderType["DUTCH_AUCTION"] = "DutchAuction";
+    OrderType["ASK"] = "ASK";
+    OrderType["BID"] = "BID";
+    OrderType["ENGLISH_AUCTION"] = "ENGLISH_AUCTION";
+    OrderType["DUTCH_AUCTION"] = "DUTCH_AUCTION";
 })(OrderType = exports.OrderType || (exports.OrderType = {}));
 (0, graphql_1.registerEnumType)(OrderType, {
     name: 'OrderType',

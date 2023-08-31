@@ -18,32 +18,32 @@ const _1 = require(".");
 const class_validator_1 = require("class-validator");
 var QuestTrigger;
 (function (QuestTrigger) {
-    QuestTrigger["TOKEN_TRANSFER"] = "TokenTransfer";
-    QuestTrigger["UNISWAP"] = "Uniswap";
-    QuestTrigger["TRANSFER"] = "Transfer";
-    QuestTrigger["SALE"] = "Sale";
-    QuestTrigger["ORDER"] = "Order";
-    QuestTrigger["STAKING_DEPOSIT"] = "StakingDeposit";
-    QuestTrigger["STAKING_REWARD"] = "StakingReward";
-    QuestTrigger["DISTRIBUTOR_REWARD"] = "DistributorReward";
-    QuestTrigger["USER_QUEST_PROGRESS"] = "UserQuestProgress";
-    QuestTrigger["REFERRAL"] = "Referral";
-    QuestTrigger["CART_ITEM"] = "CartItem";
-    QuestTrigger["USER_INTERACTION"] = "UserInteraction";
-    QuestTrigger["DATA_COMPILED"] = "DataCompiled";
-    QuestTrigger["CRON"] = "Cron";
+    QuestTrigger["TOKEN_TRANSFER"] = "TOKEN_TRANSFER";
+    QuestTrigger["UNISWAP"] = "UNISWAP";
+    QuestTrigger["TRANSFER"] = "TRANSFER";
+    QuestTrigger["SALE"] = "SALE";
+    QuestTrigger["ORDER"] = "ORDER";
+    QuestTrigger["STAKING_DEPOSIT"] = "STAKING_DEPOSIT";
+    QuestTrigger["STAKING_REWARD"] = "STAKING_REWARD";
+    QuestTrigger["DISTRIBUTOR_REWARD"] = "DISTRIBUTOR_REWARD";
+    QuestTrigger["USER_QUEST_PROGRESS"] = "USER_QUEST_PROGRESS";
+    QuestTrigger["REFERRAL"] = "REFERRAL";
+    QuestTrigger["CART_ITEM"] = "CART_ITEM";
+    QuestTrigger["USER_INTERACTION"] = "USER_INTERACTION";
+    QuestTrigger["DATA_COMPILED"] = "DATA_COMPILED";
+    QuestTrigger["CRON"] = "CRON";
 })(QuestTrigger = exports.QuestTrigger || (exports.QuestTrigger = {}));
 (0, graphql_1.registerEnumType)(QuestTrigger, {
     name: 'QuestTrigger',
 });
 var QuestRuleOperator;
 (function (QuestRuleOperator) {
-    QuestRuleOperator["EQ"] = "=";
-    QuestRuleOperator["GT"] = ">";
-    QuestRuleOperator["GTE"] = ">=";
-    QuestRuleOperator["LT"] = "<";
-    QuestRuleOperator["LTE"] = "<=";
-    QuestRuleOperator["NEQ"] = "!=";
+    QuestRuleOperator["EQ"] = "EQ";
+    QuestRuleOperator["GT"] = "GT";
+    QuestRuleOperator["GTE"] = "GTE";
+    QuestRuleOperator["LT"] = "LT";
+    QuestRuleOperator["LTE"] = "LTE";
+    QuestRuleOperator["NEQ"] = "NEQ";
 })(QuestRuleOperator = exports.QuestRuleOperator || (exports.QuestRuleOperator = {}));
 (0, graphql_1.registerEnumType)(QuestRuleOperator, {
     name: 'QuestRuleOperator',
@@ -92,8 +92,8 @@ QuestStep = __decorate([
 exports.QuestStep = QuestStep;
 var QuestPeriod;
 (function (QuestPeriod) {
-    QuestPeriod["DAILY"] = "day";
-    QuestPeriod["SEASONAL"] = "season";
+    QuestPeriod["DAILY"] = "DAILY";
+    QuestPeriod["SEASONAL"] = "SEASONAL";
 })(QuestPeriod = exports.QuestPeriod || (exports.QuestPeriod = {}));
 (0, graphql_1.registerEnumType)(QuestPeriod, {
     name: 'QuestPeriod',
