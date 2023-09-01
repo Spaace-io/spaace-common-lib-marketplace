@@ -52,7 +52,8 @@ import { ValidateNested } from 'class-validator';
   },
   name: 'balances',
 })
-@Index(['collectionAddress', 'tokenId', 'userAddress'])
+@Index(['userAddress', 'collectionAddress', 'tokenId']) // User portfolio
+@Index(['collectionAddress', 'tokenId']) // Owner count
 export class Balance extends BaseEntity {
   @Field(() => String)
   @ViewColumn()

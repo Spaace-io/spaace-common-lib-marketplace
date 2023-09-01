@@ -82,7 +82,9 @@ Balance = __decorate([
         },
         name: 'balances',
     }),
-    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'userAddress'])
+    (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId']) // User portfolio
+    ,
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId']) // Owner count
 ], Balance);
 exports.Balance = Balance;
 //# sourceMappingURL=Balance.view.js.map

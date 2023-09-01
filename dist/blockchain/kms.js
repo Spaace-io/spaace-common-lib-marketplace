@@ -95,6 +95,7 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
                     return signature;
             }
             // Can happen in some extremely rare cases, where v is 29 or 30.
+            // These signatures are not accepted on the Ethereum blockchain.
             throw new Error(`Invalid signature: ${ethers_1.ethers.utils.hexlify(derBuffer)} for digest ${ethers_1.ethers.utils.hexlify(digest)}`);
         });
     }
@@ -120,7 +121,7 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
             // The first 23 or so bytes of the SPKI format are metadata, and the last 65
             // are the raw public key which we need to hash to get the corresponding
             // Ethereum address.
-            // We could (probably?) decode this with X.509 or ASN.1 instead of slicing.
+            // TODO: Decode this with X.509 or ASN.1 instead of slicing.
             return (this._address = ethers_1.ethers.utils.computeAddress(buffer.slice(-65)));
         });
     }
@@ -139,13 +140,12 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
             }
             const serialized = ethers_1.ethers.utils.serializeTransaction(resolved);
             const digest = ethers_1.ethers.utils.arrayify(ethers_1.ethers.utils.keccak256(serialized));
-            return yield this._sign(digest); // TODO: https://ethereum.stackexchange.com/a/107498
+            return yield this._sign(digest);
         });
     }
     connect(provider) {
         return new GoogleCloudKMSSigner(this._cryptoKeyName, this._cryptoKeyVersion, this._address, provider);
     }
-    // Seaport Signer
     _signTypedData(domain, types, value) {
         return __awaiter(this, void 0, void 0, function* () {
             const populated = yield hash_1._TypedDataEncoder.resolveNames(domain, types, value, (name) => __awaiter(this, void 0, void 0, function* () {

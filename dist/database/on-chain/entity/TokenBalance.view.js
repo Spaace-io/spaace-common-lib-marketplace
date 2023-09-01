@@ -65,7 +65,7 @@ TokenBalance = __decorate([
         },
         name: 'token_balances',
     }),
-    (0, typeorm_1.Index)(['currency', 'userAddress'])
+    (0, typeorm_1.Index)(['userAddress', 'currency']) // User balance
 ], TokenBalance);
 exports.TokenBalance = TokenBalance;
 //# sourceMappingURL=TokenBalance.view.js.map

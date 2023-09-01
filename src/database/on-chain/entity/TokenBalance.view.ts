@@ -46,7 +46,7 @@ import { Transform } from 'class-transformer';
   },
   name: 'token_balances',
 })
-@Index(['currency', 'userAddress'])
+@Index(['userAddress', 'currency']) // User balance
 export class TokenBalance extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
