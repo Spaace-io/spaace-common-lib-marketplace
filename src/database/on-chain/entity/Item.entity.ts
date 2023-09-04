@@ -100,6 +100,11 @@ export class Item extends BaseEntity {
   @ValidateNested()
   sellNow?: Order | null;
 
+  @Field(() => Order, { nullable: true })
+  @Type(() => Order)
+  @ValidateNested()
+  auction?: Order | null;
+
   @Field(() => Sale, { nullable: true })
   @Type(() => Sale)
   @ValidateNested()

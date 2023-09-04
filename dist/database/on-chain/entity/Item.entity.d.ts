@@ -20,5 +20,6 @@ export declare class Item extends BaseEntity {
     ownerCount?: string;
     buyNow?: Order | null;
     sellNow?: Order | null;
+    auction?: Order | null;
     lastSale?: Sale | null;
 }
