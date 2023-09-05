@@ -24,4 +24,6 @@ __exportStar(require("./Quest.entity"), exports);
 __exportStar(require("./UserLoyalty.entity"), exports);
 __exportStar(require("./UserQuestProgress.entity"), exports);
 __exportStar(require("./UserSeasonRankClaim.entity"), exports);
+__exportStar(require("./CartItem.entity"), exports);
+__exportStar(require("./Like.entity"), exports);
 //# sourceMappingURL=index.js.map

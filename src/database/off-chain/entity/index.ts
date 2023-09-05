@@ -8,3 +8,5 @@ export * from './Quest.entity';
 export * from './UserLoyalty.entity';
 export * from './UserQuestProgress.entity';
 export * from './UserSeasonRankClaim.entity';
+export * from './CartItem.entity';
+export * from './Like.entity';
