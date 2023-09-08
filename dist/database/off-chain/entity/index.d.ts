@@ -10,3 +10,4 @@ export * from './UserQuestProgress.entity';
 export * from './UserSeasonRankClaim.entity';
 export * from './CartItem.entity';
 export * from './Like.entity';
+export * from './Report.entity';
