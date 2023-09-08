@@ -9,11 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Report = void 0;
+exports.Report = exports.ReportReason = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
+var ReportReason;
+(function (ReportReason) {
+    ReportReason["FAKE"] = "FAKE";
+    ReportReason["EXPLICIT"] = "EXPLICIT";
+    ReportReason["SPAM"] = "SPAM";
+    ReportReason["OTHER"] = "OTHER";
+})(ReportReason = exports.ReportReason || (exports.ReportReason = {}));
+(0, graphql_1.registerEnumType)(ReportReason, {
+    name: 'ReportReason',
+});
 let Report = class Report extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -38,6 +48,11 @@ __decorate([
     ,
     __metadata("design:type", Object)
 ], Report.prototype, "tokenId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => ReportReason),
+    (0, typeorm_1.Column)('enum', { enum: ReportReason, enumName: 'report_reason' }),
+    __metadata("design:type", String)
+], Report.prototype, "reason", void 0);
 Report = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'reports' })
