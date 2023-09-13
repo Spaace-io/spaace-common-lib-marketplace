@@ -47,9 +47,12 @@ __decorate([
     __metadata("design:type", String)
 ], Report.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
+    (0, class_transformer_1.Transform)(({ value }) => value === ethers_1.BigNumber.from(2).pow(256).toString() ? null : value, {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], Report.prototype, "tokenId", void 0);
 __decorate([

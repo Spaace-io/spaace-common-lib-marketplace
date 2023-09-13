@@ -8,7 +8,7 @@ import {
   Unique,
 } from 'typeorm';
 
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 
 export enum ReportReason {
   FAKE = 'FAKE',
@@ -42,8 +42,15 @@ export class Report extends BaseEntity {
   })
   collectionAddress!: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  @Transform(
+    ({ value }) =>
+      value === BigNumber.from(2).pow(256).toString() ? null : value,
+    {
+      toPlainOnly: true,
+    },
+  )
   tokenId!: string;
 
   @Field(() => ReportReason)
