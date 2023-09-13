@@ -42,9 +42,9 @@ export class Report extends BaseEntity {
   })
   collectionAddress!: string;
 
-  @Field(() => String, { nullable: true })
-  @Column('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
-  tokenId!: string | null;
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  tokenId!: string;
 
   @Field(() => ReportReason)
   @Column('enum', { enum: ReportReason, enumName: 'report_reason' })

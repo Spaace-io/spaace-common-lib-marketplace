@@ -3,5 +3,5 @@ export declare class Like extends BaseEntity {
     id: string;
     userAddress: string;
     collectionAddress: string;
-    tokenId: string | null;
+    tokenId: string;
 }

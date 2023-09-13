@@ -9,6 +9,6 @@ export declare class Report extends BaseEntity {
     id: string;
     userAddress: string;
     collectionAddress: string;
-    tokenId: string | null;
+    tokenId: string;
     reason: ReportReason;
 }
