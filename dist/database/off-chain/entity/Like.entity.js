@@ -17,8 +17,12 @@ const ethers_1 = require("ethers");
 let Like = class Like extends typeorm_1.BaseEntity {
 };
 __decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    __metadata("design:type", String)
+], Like.prototype, "id", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
+    (0, typeorm_1.Column)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
     }),
@@ -26,7 +30,7 @@ __decorate([
 ], Like.prototype, "userAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
+    (0, typeorm_1.Column)('char', { length: 40 }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
     }),
@@ -34,13 +38,14 @@ __decorate([
 ], Like.prototype, "collectionAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", Object)
 ], Like.prototype, "tokenId", void 0);
 Like = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'likes' })
+    (0, typeorm_1.Entity)({ name: 'likes' }),
+    (0, typeorm_1.Unique)(['userAddress', 'collectionAddress', 'tokenId'])
 ], Like);
 exports.Like = Like;
 //# sourceMappingURL=Like.entity.js.map
