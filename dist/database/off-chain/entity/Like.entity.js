@@ -17,6 +17,7 @@ const ethers_1 = require("ethers");
 let Like = class Like extends typeorm_1.BaseEntity {
 };
 __decorate([
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
 ], Like.prototype, "id", void 0);

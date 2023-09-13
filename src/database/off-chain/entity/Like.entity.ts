@@ -14,6 +14,7 @@ import { BigNumber, ethers } from 'ethers';
 @Entity({ name: 'likes' })
 @Unique(['userAddress', 'collectionAddress', 'tokenId'])
 export class Like extends BaseEntity {
+  @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
