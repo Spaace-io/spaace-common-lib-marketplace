@@ -8,7 +8,7 @@ import {
   OneToMany,
   PrimaryColumn,
 } from 'typeorm';
-import { Collection, ItemAttribute, Order, Sale } from '.';
+import { Collection, CollectionEntity, ItemAttribute, Order, Sale } from '.';
 import { Transform, Type } from 'class-transformer';
 import { ethers } from 'ethers';
 import { ValidateNested } from 'class-validator';
@@ -30,7 +30,7 @@ export class ItemMedia {
 export class Item extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
-  @ManyToOne(() => Collection)
+  @ManyToOne(() => CollectionEntity)
   @JoinColumn({ name: 'collectionAddress', referencedColumnName: 'address' })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,

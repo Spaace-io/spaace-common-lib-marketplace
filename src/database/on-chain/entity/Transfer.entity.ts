@@ -3,6 +3,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryColumn,
@@ -16,6 +17,8 @@ import { ethers } from 'ethers';
 
 @ObjectType()
 @Entity({ name: 'transfers' })
+@Index(['from', 'collectionAddress', 'tokenId'])
+@Index(['to', 'collectionAddress', 'tokenId'])
 export class Transfer extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('char', { length: 64 })

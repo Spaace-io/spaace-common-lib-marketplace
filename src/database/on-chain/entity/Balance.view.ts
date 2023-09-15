@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
-import { BaseEntity, DataSource, Index, ViewColumn, ViewEntity } from 'typeorm';
+import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Item, Transfer } from '.';
 import { utils } from '../../..';
 import { Transform, Type } from 'class-transformer';
@@ -8,7 +8,6 @@ import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 @ViewEntity({
-  materialized: true,
   expression: (dataSource: DataSource) => {
     return dataSource
       .createQueryBuilder()
@@ -50,10 +49,8 @@ import { ValidateNested } from 'class-validator';
         )}'`,
       );
   },
-  name: 'balances',
+  name: 'balances_view',
 })
-@Index(['userAddress', 'collectionAddress', 'tokenId']) // User portfolio
-@Index(['collectionAddress', 'tokenId']) // Owner count
 export class Balance extends BaseEntity {
   @Field(() => String)
   @ViewColumn()

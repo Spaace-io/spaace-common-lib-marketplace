@@ -79,7 +79,9 @@ __decorate([
 ], Transfer.prototype, "timestamp", void 0);
 Transfer = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'transfers' })
+    (0, typeorm_1.Entity)({ name: 'transfers' }),
+    (0, typeorm_1.Index)(['from', 'collectionAddress', 'tokenId']),
+    (0, typeorm_1.Index)(['to', 'collectionAddress', 'tokenId'])
 ], Transfer);
 exports.Transfer = Transfer;
 //# sourceMappingURL=Transfer.entity.js.map

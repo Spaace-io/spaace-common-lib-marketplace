@@ -7,7 +7,6 @@ import { Transform } from 'class-transformer';
 
 @ObjectType()
 @ViewEntity({
-  materialized: true,
   expression: (dataSource: DataSource) => {
     return dataSource
       .createQueryBuilder()
@@ -44,7 +43,7 @@ import { Transform } from 'class-transformer';
         )}'`,
       );
   },
-  name: 'token_balances',
+  name: 'token_balances_view',
 })
 @Index(['userAddress', 'currency']) // User balance
 export class TokenBalance extends BaseEntity {

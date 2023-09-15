@@ -9,14 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Collection = exports.CollectionLink = exports.CollectionLinkType = exports.CollectionType = void 0;
+exports.CollectionEntity = exports.CollectionLink = exports.CollectionLinkType = exports.CollectionType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-const class_transformer_1 = require("class-transformer");
-const ethers_1 = require("ethers");
-const class_validator_1 = require("class-validator");
-const _1 = require(".");
-const __1 = require("../../..");
 var CollectionType;
 (function (CollectionType) {
     CollectionType["ERC721"] = "ERC721";
@@ -51,240 +46,66 @@ CollectionLink = __decorate([
     (0, graphql_1.ObjectType)()
 ], CollectionLink);
 exports.CollectionLink = CollectionLink;
-let Collection = class Collection extends typeorm_1.BaseEntity {
+let CollectionEntity = class CollectionEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], Collection.prototype, "address", void 0);
+], CollectionEntity.prototype, "address", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => CollectionType),
     (0, typeorm_1.Column)('enum', { enum: CollectionType, enumName: 'collection_type' }),
     __metadata("design:type", String)
-], Collection.prototype, "type", void 0);
+], CollectionEntity.prototype, "type", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
-], Collection.prototype, "name", void 0);
+], CollectionEntity.prototype, "name", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
-], Collection.prototype, "symbol", void 0);
+], CollectionEntity.prototype, "symbol", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
-], Collection.prototype, "imageUrl", void 0);
+], CollectionEntity.prototype, "imageUrl", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.Column)('boolean', { default: true }),
     __metadata("design:type", Boolean)
-], Collection.prototype, "active", void 0);
+], CollectionEntity.prototype, "active", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)
-], Collection.prototype, "verified", void 0);
+], CollectionEntity.prototype, "verified", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)
-], Collection.prototype, "explicit", void 0);
+], CollectionEntity.prototype, "explicit", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
-], Collection.prototype, "bannerUrl", void 0);
+], CollectionEntity.prototype, "bannerUrl", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
-], Collection.prototype, "description", void 0);
+], CollectionEntity.prototype, "description", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Date, { nullable: true }),
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
-], Collection.prototype, "deployedAt", void 0);
+], CollectionEntity.prototype, "deployedAt", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('char', { length: 40, nullable: true }),
-    (0, class_transformer_1.Transform)(({ value }) => (value !== null ? ethers_1.ethers.utils.getAddress(value) : null), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", Object)
-], Collection.prototype, "deployer", void 0);
+], CollectionEntity.prototype, "deployer", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [__1.CollectionAttribute], { nullable: true }),
-    (0, typeorm_1.Column)('jsonb', { nullable: true }),
-    __metadata("design:type", Object)
-], Collection.prototype, "attributes", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [CollectionLink]),
     (0, typeorm_1.Column)('jsonb', { default: [] }),
-    (0, class_transformer_1.Type)(() => CollectionLink),
-    (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
-], Collection.prototype, "links", void 0);
+], CollectionEntity.prototype, "links", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
-    ,
-    __metadata("design:type", String)
-], Collection.prototype, "volume1h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "volumeChange1h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "volume6h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "volumeChange6h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "volume24h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "volumeChange24h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "volume7d", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "volumeChange7d", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "volume30d", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "volumeChange30d", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "volume", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
-    __metadata("design:type", Object)
-], Collection.prototype, "floorPrice", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "floorChange1h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "floorChange6h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "floorChange24h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "floorChange7d", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "floorChange30d", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "saleCount", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "saleCount1h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "saleCount6h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "saleCount24h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "saleCount7d", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "saleCount30d", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "totalSupply", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], Collection.prototype, "ownerCount", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Date, { nullable: true }),
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
-], Collection.prototype, "lastImport", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], Collection.prototype, "listedCount", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => _1.Order, { nullable: true }),
-    (0, class_transformer_1.Type)(() => _1.Order),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", Object)
-], Collection.prototype, "buyNow", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => _1.Order, { nullable: true }),
-    (0, class_transformer_1.Type)(() => _1.Order),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", Object)
-], Collection.prototype, "sellNow", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Boolean),
-    __metadata("design:type", Boolean)
-], Collection.prototype, "notable", void 0);
-Collection = __decorate([
-    (0, graphql_1.ObjectType)(),
+], CollectionEntity.prototype, "lastImport", void 0);
+CollectionEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'collections' })
-], Collection);
-exports.Collection = Collection;
+], CollectionEntity);
+exports.CollectionEntity = CollectionEntity;
 //# sourceMappingURL=Collection.entity.js.map

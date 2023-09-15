@@ -39,7 +39,7 @@ let Item = class Item extends typeorm_1.BaseEntity {
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
-    (0, typeorm_1.ManyToOne)(() => _1.Collection),
+    (0, typeorm_1.ManyToOne)(() => _1.CollectionEntity),
     (0, typeorm_1.JoinColumn)({ name: 'collectionAddress', referencedColumnName: 'address' }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,

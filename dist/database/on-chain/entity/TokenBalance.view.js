@@ -39,7 +39,6 @@ __decorate([
 TokenBalance = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
-        materialized: true,
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
@@ -63,7 +62,7 @@ TokenBalance = __decorate([
                 .where('"received"."total" > COALESCE("sent"."total", 0)')
                 .andWhere(`"received"."userAddress" <> '${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}'`);
         },
-        name: 'token_balances',
+        name: 'token_balances_view',
     }),
     (0, typeorm_1.Index)(['userAddress', 'currency']) // User balance
 ], TokenBalance);

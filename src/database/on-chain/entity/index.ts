@@ -11,7 +11,7 @@ export * from './StakingReward.entity';
 export * from './DistributorReward.entity';
 export * from './RewardPeriod.entity';
 export * from './Order.entity';
+
+export * from './Collection.view';
 export * from './TokenBalance.view';
 export * from './Balance.view';
-export * from './BuyVolume.view';
-export * from './SellVolume.view';

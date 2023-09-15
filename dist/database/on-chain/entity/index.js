@@ -27,8 +27,7 @@ __exportStar(require("./StakingReward.entity"), exports);
 __exportStar(require("./DistributorReward.entity"), exports);
 __exportStar(require("./RewardPeriod.entity"), exports);
 __exportStar(require("./Order.entity"), exports);
+__exportStar(require("./Collection.view"), exports);
 __exportStar(require("./TokenBalance.view"), exports);
 __exportStar(require("./Balance.view"), exports);
-__exportStar(require("./BuyVolume.view"), exports);
-__exportStar(require("./SellVolume.view"), exports);
 //# sourceMappingURL=index.js.map

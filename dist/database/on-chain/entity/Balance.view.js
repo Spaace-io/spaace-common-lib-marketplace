@@ -51,7 +51,6 @@ __decorate([
 Balance = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
-        materialized: true,
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
@@ -80,11 +79,8 @@ Balance = __decorate([
                 .where('"received"."total" > COALESCE("sent"."total", 0)')
                 .andWhere(`"received"."userAddress" <> '${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}'`);
         },
-        name: 'balances',
-    }),
-    (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId']) // User portfolio
-    ,
-    (0, typeorm_1.Index)(['collectionAddress', 'tokenId']) // Owner count
+        name: 'balances_view',
+    })
 ], Balance);
 exports.Balance = Balance;
 //# sourceMappingURL=Balance.view.js.map

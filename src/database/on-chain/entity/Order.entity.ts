@@ -10,7 +10,7 @@ import {
 import { Transform, Type } from 'class-transformer';
 import { ethers } from 'ethers';
 import { ValidateNested } from 'class-validator';
-import { Item, Collection } from '.';
+import { Item, Collection, CollectionEntity } from '.';
 
 export enum OrderType {
   ASK = 'ASK',
@@ -45,7 +45,7 @@ export class Order extends BaseEntity {
 
   @Field(() => String)
   @Column('char', { length: 40 })
-  @ManyToOne(() => Collection)
+  @ManyToOne(() => CollectionEntity)
   @JoinColumn({ name: 'collectionAddress', referencedColumnName: 'address' })
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
