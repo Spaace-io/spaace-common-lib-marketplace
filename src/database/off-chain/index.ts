@@ -21,11 +21,11 @@ export const OffChainDatabase = new DataSource({
   migrationsRun: true,
   logging: false,
   entities: [
-    __dirname + '/entity/**.entity.{js,ts}',
-    __dirname + '/view/**.view.{js,ts}',
+    __dirname + '/tables/**.{entity,view}.{js,ts}',
+    __dirname + '/types/**.view.{js,ts}',
   ],
-  migrations: [__dirname + '/migration/*-*.{js,ts}'],
+  migrations: [__dirname + '/migrations/*-*.{js,ts}'],
   subscribers: [],
 });
 
-export * from './entity';
+export * from './tables';

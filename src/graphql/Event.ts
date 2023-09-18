@@ -1,7 +1,7 @@
 import { createUnionType } from '@nestjs/graphql';
-import { Order, SaleEntity, TransferEntity } from '..';
+import { Order, Sale, Transfer } from '..';
 
-export const Event: TransferEntity | Order | SaleEntity = createUnionType({
+export const Event: Transfer | Order | Sale = createUnionType({
   name: 'Event',
-  types: () => [TransferEntity, Order, SaleEntity],
+  types: () => [Transfer, Order, Sale],
 });

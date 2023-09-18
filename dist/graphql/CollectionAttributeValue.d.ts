@@ -1,11 +1,6 @@
-import { Order, SaleEntity } from '..';
 export declare class CollectionAttributeValue {
     collectionAddress: string;
     trait: string;
     value: string;
     count: string;
-    listedCount?: string;
-    buyNow?: Order | null;
-    sellNow?: Order | null;
-    lastSale?: SaleEntity | null;
 }
