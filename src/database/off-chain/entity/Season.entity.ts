@@ -1,9 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Quest, SeasonRank } from '.';
-import { Type } from 'class-transformer';
-import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 @Entity({ name: 'seasons' })
@@ -19,16 +16,4 @@ export class Season extends BaseEntity {
   @Field(() => Date, { nullable: true })
   @Column('timestamp without time zone', { nullable: true })
   endTime!: Date | null;
-
-  // GraphQL only fields
-
-  @Field(() => [Quest])
-  @Type(() => Quest)
-  @ValidateNested({ each: true })
-  quests?: Quest[];
-
-  @Field(() => [SeasonRank])
-  @Type(() => SeasonRank)
-  @ValidateNested({ each: true })
-  ranks?: SeasonRank[];
 }

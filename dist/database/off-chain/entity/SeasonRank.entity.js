@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var SeasonRank_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeasonRank = exports.LoyaltyReward = exports.CosmeticLoyaltyReward = exports.SpaaceTokensLoyaltyReward = exports.StakingBonusLoyaltyReward = exports.LoyaltyPointsLoyaltyReward = exports.LoyaltyRewardType = exports.LoyaltyRank = void 0;
 const typeorm_1 = require("typeorm");
@@ -141,7 +140,7 @@ exports.LoyaltyReward = (0, graphql_1.createUnionType)({
         CosmeticLoyaltyReward,
     ],
 });
-let SeasonRank = SeasonRank_1 = class SeasonRank extends typeorm_1.BaseEntity {
+let SeasonRank = class SeasonRank extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -191,25 +190,7 @@ __decorate([
     (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], SeasonRank.prototype, "rewards", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => SeasonRank_1, { nullable: true }),
-    (0, class_transformer_1.Type)(() => SeasonRank_1),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", Object)
-], SeasonRank.prototype, "previousRank", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => SeasonRank_1, { nullable: true }),
-    (0, class_transformer_1.Type)(() => SeasonRank_1),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", Object)
-], SeasonRank.prototype, "nextRank", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => _1.UserSeasonRankClaim, { nullable: true }),
-    (0, class_transformer_1.Type)(() => _1.UserSeasonRankClaim),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", Object)
-], SeasonRank.prototype, "claim", void 0);
-SeasonRank = SeasonRank_1 = __decorate([
+SeasonRank = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'season_ranks' })
 ], SeasonRank);

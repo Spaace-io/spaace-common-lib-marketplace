@@ -14,9 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
-const class_validator_1 = require("class-validator");
 const _1 = require(".");
-const __1 = require("../..");
 let HiddenItem = class HiddenItem extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -43,12 +41,6 @@ __decorate([
     ,
     __metadata("design:type", String)
 ], HiddenItem.prototype, "tokenId", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => __1.Item),
-    (0, class_transformer_1.Type)(() => __1.Item),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", __1.Item)
-], HiddenItem.prototype, "item", void 0);
 HiddenItem = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'hidden_items' })

@@ -36,9 +36,13 @@ exports.OnChainDatabase = new typeorm_1.DataSource({
     synchronize: false,
     migrationsRun: true,
     logging: false,
-    entities: [__dirname + '/entity/**{.entity,.view}{.js,.ts}'],
-    migrations: [__dirname + '/migration/*{.js,.ts}'],
+    entities: [
+        __dirname + '/entity/**.entity.{js,ts}',
+        __dirname + '/view/**.view.{js,ts}',
+    ],
+    migrations: [__dirname + '/migration/*-*.{js,ts}'],
     subscribers: [],
 });
 __exportStar(require("./entity"), exports);
+__exportStar(require("./view"), exports);
 //# sourceMappingURL=index.js.map

@@ -1,5 +1,4 @@
 import { BaseEntity } from 'typeorm';
-import { UserSeasonRankClaim } from '.';
 export declare enum LoyaltyRank {
     BRONZE_5 = "BRONZE_5",
     BRONZE_4 = "BRONZE_4",
@@ -62,7 +61,4 @@ export declare class SeasonRank extends BaseEntity {
     rank: LoyaltyRank;
     threshold: string;
     rewards: (typeof LoyaltyReward)[];
-    previousRank?: SeasonRank | null;
-    nextRank?: SeasonRank | null;
-    claim?: UserSeasonRankClaim | null;
 }

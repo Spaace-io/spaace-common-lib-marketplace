@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-import { CollectionLink, CollectionType, Order } from '.';
+import { CollectionLink, CollectionType, Order } from '..';
 import { CollectionAttribute } from '../../../graphql';
 export declare class Collection extends BaseEntity {
     address: string;

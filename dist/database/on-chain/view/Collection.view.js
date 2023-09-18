@@ -11,35 +11,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Collection = void 0;
 const typeorm_1 = require("typeorm");
-const _1 = require(".");
+const __1 = require("..");
 const graphql_1 = require("../../../graphql");
-const __1 = require("../../..");
+const __2 = require("../../..");
 const ethers_1 = require("ethers");
 const graphql_2 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 function getSaleCountQuery(interval) {
     return (query) => query
-        .from(_1.Sale, 'sale')
+        .from(__1.SaleEntity, 'sale')
         .select('COUNT(*)')
         .where('"sale"."collectionAddress" = "collection"."address"')
-        .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`)
+        .andWhere(`"sale"."currency" IN ('${__2.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__2.utils.strip0x(__2.utils.constants.WETH_ADDRESS)}')`)
         .andWhere(`"sale"."timestamp" > NOW() - INTERVAL '${interval}'`);
 }
 function getVolumeQuery(interval) {
     return (query) => query
-        .from(_1.Sale, 'sale')
+        .from(__1.SaleEntity, 'sale')
         .select('SUM("sale"."price")')
         .where('"sale"."collectionAddress" = "collection"."address"')
-        .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`)
+        .andWhere(`"sale"."currency" IN ('${__2.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__2.utils.strip0x(__2.utils.constants.WETH_ADDRESS)}')`)
         .andWhere(`"sale"."timestamp" > NOW() - INTERVAL '${interval}'`);
 }
 function getVolumeChangeQuery(interval) {
     return (query) => query
-        .from(_1.Sale, 'sale')
+        .from(__1.SaleEntity, 'sale')
         .select(`${getVolumeQuery(interval)(query.subQuery()).getQuery()} - SUM("sale"."price")`)
         .where('"sale"."collectionAddress" = "collection"."address"')
-        .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`)
+        .andWhere(`"sale"."currency" IN ('${__2.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__2.utils.strip0x(__2.utils.constants.WETH_ADDRESS)}')`)
         .andWhere(`"sale"."timestamp" > NOW() - (INTERVAL '${interval}' * 2)`)
         .andWhere(`"sale"."timestamp" <= NOW() - INTERVAL '${interval}'`);
 }
@@ -54,7 +54,7 @@ __decorate([
     __metadata("design:type", String)
 ], Collection.prototype, "address", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => _1.CollectionType),
+    (0, graphql_2.Field)(() => __1.CollectionType),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "type", void 0);
@@ -112,9 +112,9 @@ __decorate([
     __metadata("design:type", Object)
 ], Collection.prototype, "deployer", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => [_1.CollectionLink]),
+    (0, graphql_2.Field)(() => [__1.CollectionLink]),
     (0, typeorm_1.ViewColumn)(),
-    (0, class_transformer_1.Type)(() => _1.CollectionLink),
+    (0, class_transformer_1.Type)(() => __1.CollectionLink),
     (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], Collection.prototype, "links", void 0);
@@ -130,18 +130,18 @@ __decorate([
     __metadata("design:type", Object)
 ], Collection.prototype, "attributes", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => _1.Order, { nullable: true })
+    (0, graphql_2.Field)(() => __1.Order, { nullable: true })
     // @ViewColumn()
     ,
-    (0, class_transformer_1.Type)(() => _1.Order),
+    (0, class_transformer_1.Type)(() => __1.Order),
     (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "buyNow", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => _1.Order, { nullable: true })
+    (0, graphql_2.Field)(() => __1.Order, { nullable: true })
     // @ViewColumn()
     ,
-    (0, class_transformer_1.Type)(() => _1.Order),
+    (0, class_transformer_1.Type)(() => __1.Order),
     (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "sellNow", void 0);
@@ -281,7 +281,7 @@ Collection = __decorate([
         expression: (dataSource) => {
             return (dataSource
                 .createQueryBuilder()
-                .from(_1.CollectionEntity, 'collection')
+                .from(__1.CollectionEntity, 'collection')
                 .select('"collection".*')
                 // TODO: attributes
                 // TODO: buyNow
@@ -297,10 +297,10 @@ Collection = __decorate([
                 .addSelect(getVolumeQuery('30 days'), 'volume30d')
                 .addSelect(getVolumeChangeQuery('30 days'), 'volumeChange30d')
                 .addSelect((query) => query
-                .from(_1.Sale, 'sale')
+                .from(__1.SaleEntity, 'sale')
                 .select('SUM("sale"."price")')
                 .where('"sale"."collectionAddress" = "collection"."address"')
-                .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`), 'volume')
+                .andWhere(`"sale"."currency" IN ('${__2.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__2.utils.strip0x(__2.utils.constants.WETH_ADDRESS)}')`), 'volume')
                 // TODO: floorChange1h
                 // TODO: floorChange6h
                 // TODO: floorChange24h
@@ -312,22 +312,22 @@ Collection = __decorate([
                 .addSelect(getSaleCountQuery('7 days'), 'saleCount7d')
                 .addSelect(getSaleCountQuery('30 days'), 'saleCount30d')
                 .addSelect((query) => query
-                .from(_1.Sale, 'sale')
+                .from(__1.SaleEntity, 'sale')
                 .select('COUNT(*)')
                 .where('"sale"."collectionAddress" = "collection"."address"')
-                .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`), 'saleCount')
+                .andWhere(`"sale"."currency" IN ('${__2.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__2.utils.strip0x(__2.utils.constants.WETH_ADDRESS)}')`), 'saleCount')
                 .addSelect((query) => query
-                .from(_1.Balance, 'balance')
+                .from(__1.Balance, 'balance')
                 .select('SUM("balance"."balance")')
                 .where('"balance"."collectionAddress" = "collection"."address"'), 'totalSupply')
                 .addSelect((query) => query
-                .from(_1.Balance, 'balance')
+                .from(__1.Balance, 'balance')
                 .select('COUNT(DISTINCT "balance"."userAddress")')
                 .where('"balance"."collectionAddress" = "collection"."address"'), 'ownerCount')
                 .addSelect((query) => query
-                .from(_1.Order, 'order')
+                .from(__1.OrderEntity, 'order')
                 .select('COUNT(DISTINCT "order"."tokenId")')
-                .where(`"order"."type" IN ('${_1.OrderType.ASK}', '${_1.OrderType.DUTCH_AUCTION}', '${_1.OrderType.ENGLISH_AUCTION}')`)
+                .where(`"order"."type" IN ('${__1.OrderType.ASK}', '${__1.OrderType.DUTCH_AUCTION}', '${__1.OrderType.ENGLISH_AUCTION}')`)
                 .andWhere('"order"."collectionAddress" = "collection"."address"')
                 .andWhere('"order"."startTime" <= NOW()')
                 .andWhere(new typeorm_1.Brackets((query) => query
@@ -336,14 +336,14 @@ Collection = __decorate([
                 .andWhere('"order"."cancelTimestamp" IS NULL')
                 .andWhere((query) => `NOT EXISTS ${query
                 .subQuery()
-                .from(_1.Sale, 'sale')
+                .from(__1.SaleEntity, 'sale')
                 .where('"sale"."orderHash" = "order"."hash"')
                 .getQuery()}`)
-                .andWhere(`"order"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`)
+                .andWhere(`"order"."currency" IN ('${__2.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__2.utils.strip0x(__2.utils.constants.WETH_ADDRESS)}')`)
                 .andWhere((query) => `${query
                 .subQuery()
                 .select('"balance"."balance"')
-                .from(_1.Balance, 'balance')
+                .from(__1.Balance, 'balance')
                 .where('"balance"."userAddress" = "order"."userAddress"')
                 .andWhere('"balance"."collectionAddress" = "order"."collectionAddress"')
                 .andWhere('"balance"."tokenId" = "order"."tokenId"')

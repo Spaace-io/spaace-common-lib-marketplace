@@ -1,12 +1,11 @@
 import { BaseEntity } from 'typeorm';
-import { Item, Collection } from '.';
 export declare enum OrderType {
     ASK = "ASK",
     BID = "BID",
     ENGLISH_AUCTION = "ENGLISH_AUCTION",
     DUTCH_AUCTION = "DUTCH_AUCTION"
 }
-export declare class Order extends BaseEntity {
+export declare class OrderEntity extends BaseEntity {
     hash: string;
     userAddress: string;
     collectionAddress: string;
@@ -22,6 +21,4 @@ export declare class Order extends BaseEntity {
     cancelTxHash: string | null;
     cancelLogIdx: string | null;
     cancelTimestamp: Date | null;
-    collection?: Collection | null;
-    item?: Item | null;
 }

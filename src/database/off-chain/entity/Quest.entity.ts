@@ -12,7 +12,7 @@ import {
 
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
-import { Season, UserQuestProgress } from '.';
+import { Season } from '.';
 import { ValidateNested } from 'class-validator';
 
 export enum QuestTrigger {
@@ -143,21 +143,4 @@ export class Quest extends BaseEntity {
   @Field(() => QuestPeriod)
   @Column('enum', { enum: QuestPeriod, enumName: 'quest_period' })
   period!: QuestPeriod;
-
-  // GraphQL only fields
-
-  @Field(() => Quest, { nullable: true })
-  @Type(() => Quest)
-  @ValidateNested()
-  previousQuest?: Quest | null;
-
-  @Field(() => Quest, { nullable: true })
-  @Type(() => Quest)
-  @ValidateNested()
-  nextQuest?: Quest | null;
-
-  @Field(() => [UserQuestProgress], { nullable: true })
-  @Type(() => UserQuestProgress)
-  @ValidateNested({ each: true })
-  progress?: UserQuestProgress[] | null;
 }

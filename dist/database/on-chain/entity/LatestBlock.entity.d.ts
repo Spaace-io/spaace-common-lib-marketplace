@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-export declare class LatestBlock extends BaseEntity {
+export declare class LatestBlockEntity extends BaseEntity {
     pk: boolean;
     number: number;
     hash: string;

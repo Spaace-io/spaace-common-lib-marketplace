@@ -1,5 +1,4 @@
 import { BaseEntity } from 'typeorm';
-import { UserQuestProgress } from '.';
 export declare enum QuestTrigger {
     TOKEN_TRANSFER = "TOKEN_TRANSFER",
     UNISWAP = "UNISWAP",
@@ -51,7 +50,4 @@ export declare class Quest extends BaseEntity {
     boostLimit: string | null;
     limit: string;
     period: QuestPeriod;
-    previousQuest?: Quest | null;
-    nextQuest?: Quest | null;
-    progress?: UserQuestProgress[] | null;
 }

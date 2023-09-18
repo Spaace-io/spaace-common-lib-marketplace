@@ -9,63 +9,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TokenTransfer = void 0;
-const graphql_1 = require("@nestjs/graphql");
+exports.TokenTransferEntity = void 0;
 const typeorm_1 = require("typeorm");
-const class_transformer_1 = require("class-transformer");
-const ethers_1 = require("ethers");
-let TokenTransfer = class TokenTransfer extends typeorm_1.BaseEntity {
+let TokenTransferEntity = class TokenTransferEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], TokenTransfer.prototype, "txHash", void 0);
+], TokenTransferEntity.prototype, "txHash", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
-], TokenTransfer.prototype, "logIdx", void 0);
+], TokenTransferEntity.prototype, "logIdx", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], TokenTransfer.prototype, "from", void 0);
+], TokenTransferEntity.prototype, "from", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], TokenTransfer.prototype, "to", void 0);
+], TokenTransferEntity.prototype, "to", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], TokenTransfer.prototype, "currency", void 0);
+], TokenTransferEntity.prototype, "currency", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),
     __metadata("design:type", String)
-], TokenTransfer.prototype, "amount", void 0);
+], TokenTransferEntity.prototype, "amount", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
-], TokenTransfer.prototype, "timestamp", void 0);
-TokenTransfer = __decorate([
-    (0, graphql_1.ObjectType)(),
+], TokenTransferEntity.prototype, "timestamp", void 0);
+TokenTransferEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'token_transfers' })
-], TokenTransfer);
-exports.TokenTransfer = TokenTransfer;
+], TokenTransferEntity);
+exports.TokenTransferEntity = TokenTransferEntity;
 //# sourceMappingURL=TokenTransfer.entity.js.map

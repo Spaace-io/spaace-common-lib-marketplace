@@ -15,7 +15,6 @@ const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
 const _1 = require(".");
-const class_validator_1 = require("class-validator");
 let UserLoyalty = class UserLoyalty extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -42,22 +41,6 @@ __decorate([
     ,
     __metadata("design:type", String)
 ], UserLoyalty.prototype, "points", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => _1.User),
-    (0, class_transformer_1.Type)(() => _1.User),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", _1.User)
-], UserLoyalty.prototype, "user", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => _1.SeasonRank, { nullable: true }),
-    (0, class_transformer_1.Type)(() => _1.SeasonRank),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", Object)
-], UserLoyalty.prototype, "rank", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], UserLoyalty.prototype, "ranking", void 0);
 UserLoyalty = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'user_loyalties' })

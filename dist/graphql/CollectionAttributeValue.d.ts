@@ -1,4 +1,4 @@
-import { Order, Sale } from '..';
+import { Order, SaleEntity } from '..';
 export declare class CollectionAttributeValue {
     collectionAddress: string;
     trait: string;
@@ -7,5 +7,5 @@ export declare class CollectionAttributeValue {
     listedCount?: string;
     buyNow?: Order | null;
     sellNow?: Order | null;
-    lastSale?: Sale | null;
+    lastSale?: SaleEntity | null;
 }

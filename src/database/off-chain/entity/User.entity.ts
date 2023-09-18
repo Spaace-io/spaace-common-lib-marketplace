@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Transform, Type } from 'class-transformer';
+import { Transform } from 'class-transformer';
 import {
   Entity,
   PrimaryColumn,
@@ -9,8 +9,6 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { ethers } from 'ethers';
-import { UserLoyalty } from '.';
-import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 @Entity({ name: 'users' })
@@ -61,16 +59,4 @@ export class User extends BaseEntity {
   @Field(() => Date)
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
-
-  // GraphQL only fields
-
-  @Field(() => UserLoyalty, { nullable: true })
-  @Type(() => UserLoyalty)
-  @ValidateNested()
-  loyalty?: UserLoyalty | null;
-
-  @Field(() => User, { nullable: true })
-  @Type(() => User)
-  @ValidateNested()
-  referrer?: User | null;
 }

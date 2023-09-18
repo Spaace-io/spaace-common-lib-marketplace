@@ -4,7 +4,7 @@ export declare enum DistributorContract {
     REFERRAL_REWARDS = "REFERRAL_REWARDS",
     LOYALTY_REWARDS = "LOYALTY_REWARDS"
 }
-export declare class DistributorReward extends BaseEntity {
+export declare class DistributorRewardEntity extends BaseEntity {
     userAddress: string;
     distributor: DistributorContract;
     amount: string;

@@ -9,11 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DistributorReward = exports.DistributorContract = void 0;
+exports.DistributorRewardEntity = exports.DistributorContract = void 0;
 const graphql_1 = require("@nestjs/graphql");
-const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
-const ethers_1 = require("ethers");
 var DistributorContract;
 (function (DistributorContract) {
     DistributorContract["TRADING_REWARDS"] = "TRADING_REWARDS";
@@ -23,68 +21,48 @@ var DistributorContract;
 (0, graphql_1.registerEnumType)(DistributorContract, {
     name: 'DistributorContract',
 });
-let DistributorReward = class DistributorReward extends typeorm_1.BaseEntity {
+let DistributorRewardEntity = class DistributorRewardEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], DistributorReward.prototype, "userAddress", void 0);
+], DistributorRewardEntity.prototype, "userAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => DistributorContract),
     (0, typeorm_1.PrimaryColumn)('enum', {
         enum: DistributorContract,
         enumName: 'distributor_contract',
     }),
     __metadata("design:type", String)
-], DistributorReward.prototype, "distributor", void 0);
+], DistributorRewardEntity.prototype, "distributor", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", String)
-], DistributorReward.prototype, "amount", void 0);
+], DistributorRewardEntity.prototype, "amount", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], DistributorReward.prototype, "signature", void 0);
+], DistributorRewardEntity.prototype, "signature", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)('timestamp without time zone', {
         default: () => 'CURRENT_TIMESTAMP',
     }),
     __metadata("design:type", Date)
-], DistributorReward.prototype, "timestamp", void 0);
+], DistributorRewardEntity.prototype, "timestamp", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('char', { length: 64, nullable: true }),
-    (0, class_transformer_1.Transform)(({ value }) => value !== null
-        ? ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true })
-        : null, {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", Object)
-], DistributorReward.prototype, "harvestTxHash", void 0);
+], DistributorRewardEntity.prototype, "harvestTxHash", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
     __metadata("design:type", Object)
-], DistributorReward.prototype, "harvestLogIdx", void 0);
+], DistributorRewardEntity.prototype, "harvestLogIdx", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Date, { nullable: true }),
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
-], DistributorReward.prototype, "harvestTimestamp", void 0);
-DistributorReward = __decorate([
-    (0, graphql_1.ObjectType)(),
+], DistributorRewardEntity.prototype, "harvestTimestamp", void 0);
+DistributorRewardEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'distributor_rewards' })
-], DistributorReward);
-exports.DistributorReward = DistributorReward;
+], DistributorRewardEntity);
+exports.DistributorRewardEntity = DistributorRewardEntity;
 //# sourceMappingURL=DistributorReward.entity.js.map

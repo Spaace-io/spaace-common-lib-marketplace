@@ -20,9 +20,13 @@ export const OnChainDatabase = new DataSource({
   synchronize: false,
   migrationsRun: true,
   logging: false,
-  entities: [__dirname + '/entity/**{.entity,.view}{.js,.ts}'],
-  migrations: [__dirname + '/migration/*{.js,.ts}'],
+  entities: [
+    __dirname + '/entity/**.entity.{js,ts}',
+    __dirname + '/view/**.view.{js,ts}',
+  ],
+  migrations: [__dirname + '/migration/*-*.{js,ts}'],
   subscribers: [],
 });
 
 export * from './entity';
+export * from './view';

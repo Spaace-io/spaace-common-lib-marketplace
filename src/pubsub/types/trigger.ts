@@ -1,35 +1,35 @@
 import {
   Order,
   QuestTrigger,
-  Sale,
-  DistributorReward,
-  Transfer,
+  SaleEntity,
+  DistributorRewardEntity,
+  TransferEntity,
   UserQuestProgress,
-  StakingDeposit,
-  StakingReward,
+  StakingDepositEntity,
+  StakingRewardEntity,
   User,
-  TokenTransfer,
+  TokenTransferEntity,
   CartItem,
 } from '../../database';
 import { UserInteraction } from '../../graphql';
 
 export type PubSubTriggerData<T extends QuestTrigger> =
   T extends QuestTrigger.TOKEN_TRANSFER
-    ? TokenTransfer
+    ? TokenTransferEntity
     : T extends QuestTrigger.UNISWAP
     ? undefined
     : T extends QuestTrigger.TRANSFER
-    ? Transfer
+    ? TransferEntity
     : T extends QuestTrigger.SALE
-    ? Sale
+    ? SaleEntity
     : T extends QuestTrigger.ORDER
     ? Order
     : T extends QuestTrigger.STAKING_DEPOSIT
-    ? StakingDeposit
+    ? StakingDepositEntity
     : T extends QuestTrigger.STAKING_REWARD
-    ? StakingReward
+    ? StakingRewardEntity
     : T extends QuestTrigger.DISTRIBUTOR_REWARD
-    ? DistributorReward
+    ? DistributorRewardEntity
     : T extends QuestTrigger.USER_QUEST_PROGRESS
     ? UserQuestProgress
     : T extends QuestTrigger.REFERRAL

@@ -12,9 +12,10 @@ import {
   CollectionLink,
   CollectionType,
   Order,
+  OrderEntity,
   OrderType,
-  Sale,
-} from '.';
+  SaleEntity,
+} from '..';
 import { CollectionAttribute } from '../../../graphql';
 import { utils } from '../../..';
 import { ethers } from 'ethers';
@@ -25,7 +26,7 @@ import { ValidateNested } from 'class-validator';
 function getSaleCountQuery(interval: string) {
   return (query: SelectQueryBuilder<object>) =>
     query
-      .from(Sale, 'sale')
+      .from(SaleEntity, 'sale')
       .select('COUNT(*)')
       .where('"sale"."collectionAddress" = "collection"."address"')
       .andWhere(
@@ -39,7 +40,7 @@ function getSaleCountQuery(interval: string) {
 function getVolumeQuery(interval: string) {
   return (query: SelectQueryBuilder<object>) =>
     query
-      .from(Sale, 'sale')
+      .from(SaleEntity, 'sale')
       .select('SUM("sale"."price")')
       .where('"sale"."collectionAddress" = "collection"."address"')
       .andWhere(
@@ -53,7 +54,7 @@ function getVolumeQuery(interval: string) {
 function getVolumeChangeQuery(interval: string) {
   return (query: SelectQueryBuilder<object>) =>
     query
-      .from(Sale, 'sale')
+      .from(SaleEntity, 'sale')
       .select(
         `${getVolumeQuery(interval)(
           query.subQuery(),
@@ -93,7 +94,7 @@ function getVolumeChangeQuery(interval: string) {
         .addSelect(
           (query) =>
             query
-              .from(Sale, 'sale')
+              .from(SaleEntity, 'sale')
               .select('SUM("sale"."price")')
               .where('"sale"."collectionAddress" = "collection"."address"')
               .andWhere(
@@ -116,7 +117,7 @@ function getVolumeChangeQuery(interval: string) {
         .addSelect(
           (query) =>
             query
-              .from(Sale, 'sale')
+              .from(SaleEntity, 'sale')
               .select('COUNT(*)')
               .where('"sale"."collectionAddress" = "collection"."address"')
               .andWhere(
@@ -145,7 +146,7 @@ function getVolumeChangeQuery(interval: string) {
         .addSelect(
           (query) =>
             query
-              .from(Order, 'order')
+              .from(OrderEntity, 'order')
               .select('COUNT(DISTINCT "order"."tokenId")')
               .where(
                 `"order"."type" IN ('${OrderType.ASK}', '${OrderType.DUTCH_AUCTION}', '${OrderType.ENGLISH_AUCTION}')`,
@@ -164,7 +165,7 @@ function getVolumeChangeQuery(interval: string) {
                 (query) =>
                   `NOT EXISTS ${query
                     .subQuery()
-                    .from(Sale, 'sale')
+                    .from(SaleEntity, 'sale')
                     .where('"sale"."orderHash" = "order"."hash"')
                     .getQuery()}`,
               )

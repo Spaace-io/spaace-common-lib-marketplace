@@ -15,8 +15,6 @@ const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
-const _1 = require(".");
-const class_validator_1 = require("class-validator");
 let User = User_1 = class User extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -72,18 +70,6 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], User.prototype, "timestamp", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => _1.UserLoyalty, { nullable: true }),
-    (0, class_transformer_1.Type)(() => _1.UserLoyalty),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", Object)
-], User.prototype, "loyalty", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => User_1, { nullable: true }),
-    (0, class_transformer_1.Type)(() => User_1),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", Object)
-], User.prototype, "referrer", void 0);
 User = User_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'users' })

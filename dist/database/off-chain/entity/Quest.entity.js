@@ -165,24 +165,6 @@ __decorate([
     (0, typeorm_1.Column)('enum', { enum: QuestPeriod, enumName: 'quest_period' }),
     __metadata("design:type", String)
 ], Quest.prototype, "period", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Quest_1, { nullable: true }),
-    (0, class_transformer_1.Type)(() => Quest_1),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", Object)
-], Quest.prototype, "previousQuest", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Quest_1, { nullable: true }),
-    (0, class_transformer_1.Type)(() => Quest_1),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", Object)
-], Quest.prototype, "nextQuest", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [_1.UserQuestProgress], { nullable: true }),
-    (0, class_transformer_1.Type)(() => _1.UserQuestProgress),
-    (0, class_validator_1.ValidateNested)({ each: true }),
-    __metadata("design:type", Object)
-], Quest.prototype, "progress", void 0);
 Quest = Quest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'quests' }),

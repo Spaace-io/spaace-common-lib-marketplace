@@ -13,8 +13,8 @@ exports.TokenBalance = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
-const _1 = require(".");
 const __1 = require("../../..");
+const entity_1 = require("../entity");
 const class_transformer_1 = require("class-transformer");
 let TokenBalance = class TokenBalance extends typeorm_1.BaseEntity {
 };
@@ -43,14 +43,14 @@ TokenBalance = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from((query) => query
-                .from(_1.TokenTransfer, 'transfer')
+                .from(entity_1.TokenTransferEntity, 'transfer')
                 .select('"currency"')
                 .addSelect('"to"', 'userAddress')
                 .addSelect('SUM("amount")', 'total')
                 .groupBy('"currency"')
                 .addGroupBy('"to"'), 'received')
                 .leftJoin((query) => query
-                .from(_1.TokenTransfer, 'transfer')
+                .from(entity_1.TokenTransferEntity, 'transfer')
                 .select('"currency"')
                 .addSelect('"from"', 'userAddress')
                 .addSelect('SUM("amount")', 'total')
@@ -64,7 +64,7 @@ TokenBalance = __decorate([
         },
         name: 'token_balances_view',
     }),
-    (0, typeorm_1.Index)(['userAddress', 'currency']) // User balance
+    (0, typeorm_1.Index)(['userAddress', 'currency'])
 ], TokenBalance);
 exports.TokenBalance = TokenBalance;
 //# sourceMappingURL=TokenBalance.view.js.map

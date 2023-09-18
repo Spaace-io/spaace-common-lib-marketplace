@@ -13,7 +13,7 @@ import {
   createUnionType,
   registerEnumType,
 } from '@nestjs/graphql';
-import { Season, UserSeasonRankClaim } from '.';
+import { Season } from '.';
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 
@@ -175,21 +175,4 @@ export class SeasonRank extends BaseEntity {
   })
   @ValidateNested({ each: true })
   rewards!: (typeof LoyaltyReward)[];
-
-  // GraphQL only fields
-
-  @Field(() => SeasonRank, { nullable: true })
-  @Type(() => SeasonRank)
-  @ValidateNested()
-  previousRank?: SeasonRank | null;
-
-  @Field(() => SeasonRank, { nullable: true })
-  @Type(() => SeasonRank)
-  @ValidateNested()
-  nextRank?: SeasonRank | null;
-
-  @Field(() => UserSeasonRankClaim, { nullable: true })
-  @Type(() => UserSeasonRankClaim)
-  @ValidateNested()
-  claim?: UserSeasonRankClaim | null;
 }

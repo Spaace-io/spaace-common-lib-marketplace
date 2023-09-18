@@ -1,2 +1,2 @@
-import { Order, Sale, Transfer } from '..';
-export declare const Event: Transfer | Order | Sale;
+import { Order, SaleEntity, TransferEntity } from '..';
+export declare const Event: TransferEntity | Order | SaleEntity;

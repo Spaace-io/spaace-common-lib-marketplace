@@ -13,10 +13,9 @@ exports.Balance = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
-const _1 = require(".");
+const entity_1 = require("../entity");
 const __1 = require("../../..");
 const class_transformer_1 = require("class-transformer");
-const class_validator_1 = require("class-validator");
 let Balance = class Balance extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -42,12 +41,6 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Balance.prototype, "balance", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => _1.Item),
-    (0, class_transformer_1.Type)(() => _1.Item),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", _1.Item)
-], Balance.prototype, "item", void 0);
 Balance = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
@@ -55,7 +48,7 @@ Balance = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from((query) => query
-                .from(_1.Transfer, 'transfer')
+                .from(entity_1.TransferEntity, 'transfer')
                 .select('"collectionAddress"')
                 .addSelect('"tokenId"')
                 .addSelect('"to"', 'userAddress')
@@ -64,7 +57,7 @@ Balance = __decorate([
                 .addGroupBy('"tokenId"')
                 .addGroupBy('"to"'), 'received')
                 .leftJoin((query) => query
-                .from(_1.Transfer, 'transfer')
+                .from(entity_1.TransferEntity, 'transfer')
                 .select('"collectionAddress"')
                 .addSelect('"tokenId"')
                 .addSelect('"from"', 'userAddress')

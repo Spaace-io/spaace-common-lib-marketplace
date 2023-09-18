@@ -9,96 +9,63 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Sale = void 0;
-const graphql_1 = require("@nestjs/graphql");
+exports.SaleEntity = void 0;
 const typeorm_1 = require("typeorm");
 const Item_entity_1 = require("./Item.entity");
-const class_transformer_1 = require("class-transformer");
-const ethers_1 = require("ethers");
-let Sale = class Sale extends typeorm_1.BaseEntity {
+let SaleEntity = class SaleEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], Sale.prototype, "txHash", void 0);
+], SaleEntity.prototype, "txHash", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
-], Sale.prototype, "logIdx", void 0);
+], SaleEntity.prototype, "logIdx", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 64 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], Sale.prototype, "orderHash", void 0);
+], SaleEntity.prototype, "orderHash", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], Sale.prototype, "collectionAddress", void 0);
+], SaleEntity.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
-    (0, typeorm_1.ManyToOne)(() => Item_entity_1.Item),
+    (0, typeorm_1.ManyToOne)(() => Item_entity_1.ItemEntity),
     (0, typeorm_1.JoinColumn)([
         { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
         { name: 'tokenId', referencedColumnName: 'tokenId' },
     ]),
     __metadata("design:type", String)
-], Sale.prototype, "tokenId", void 0);
+], SaleEntity.prototype, "tokenId", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),
     __metadata("design:type", String)
-], Sale.prototype, "amount", void 0);
+], SaleEntity.prototype, "amount", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], Sale.prototype, "from", void 0);
+], SaleEntity.prototype, "from", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], Sale.prototype, "to", void 0);
+], SaleEntity.prototype, "to", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
-], Sale.prototype, "price", void 0);
+], SaleEntity.prototype, "price", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], Sale.prototype, "currency", void 0);
+], SaleEntity.prototype, "currency", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
-], Sale.prototype, "timestamp", void 0);
-Sale = __decorate([
-    (0, graphql_1.ObjectType)(),
+], SaleEntity.prototype, "timestamp", void 0);
+SaleEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'sales' })
-], Sale);
-exports.Sale = Sale;
+], SaleEntity);
+exports.SaleEntity = SaleEntity;
 //# sourceMappingURL=Sale.entity.js.map

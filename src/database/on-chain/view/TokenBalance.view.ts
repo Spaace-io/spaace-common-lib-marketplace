@@ -1,10 +1,9 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
-import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
-import { Item, Transfer } from '.';
+import { BaseEntity, DataSource, Index, ViewColumn, ViewEntity } from 'typeorm';
 import { utils } from '../../..';
-import { Transform, Type } from 'class-transformer';
-import { ValidateNested } from 'class-validator';
+import { TokenTransferEntity } from '../entity';
+import { Transform } from 'class-transformer';
 
 @ObjectType()
 @ViewEntity({
@@ -14,32 +13,27 @@ import { ValidateNested } from 'class-validator';
       .from(
         (query) =>
           query
-            .from(Transfer, 'transfer')
-            .select('"collectionAddress"')
-            .addSelect('"tokenId"')
+            .from(TokenTransferEntity, 'transfer')
+            .select('"currency"')
             .addSelect('"to"', 'userAddress')
             .addSelect('SUM("amount")', 'total')
-            .groupBy('"collectionAddress"')
-            .addGroupBy('"tokenId"')
+            .groupBy('"currency"')
             .addGroupBy('"to"'),
         'received',
       )
       .leftJoin(
         (query) =>
           query
-            .from(Transfer, 'transfer')
-            .select('"collectionAddress"')
-            .addSelect('"tokenId"')
+            .from(TokenTransferEntity, 'transfer')
+            .select('"currency"')
             .addSelect('"from"', 'userAddress')
             .addSelect('SUM("amount")', 'total')
-            .groupBy('"collectionAddress"')
-            .addGroupBy('"tokenId"')
+            .groupBy('"currency"')
             .addGroupBy('"from"'),
         'sent',
-        '"sent"."collectionAddress" = "received"."collectionAddress" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."userAddress" = "received"."userAddress"',
+        '"sent"."currency" = "received"."currency" AND "sent"."userAddress" = "received"."userAddress"',
       )
-      .select('"received"."collectionAddress"')
-      .addSelect('"received"."tokenId"')
+      .select('"received"."currency"')
       .addSelect('"received"."userAddress"')
       .addSelect('"received"."total" - COALESCE("sent"."total", 0)', 'balance')
       .where('"received"."total" > COALESCE("sent"."total", 0)')
@@ -49,19 +43,16 @@ import { ValidateNested } from 'class-validator';
         )}'`,
       );
   },
-  name: 'balances_view',
+  name: 'token_balances_view',
 })
-export class Balance extends BaseEntity {
+@Index(['userAddress', 'currency'])
+export class TokenBalance extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
-  collectionAddress!: string;
-
-  @Field(() => String)
-  @ViewColumn()
-  tokenId!: string;
+  currency!: string;
 
   @Field(() => String)
   @ViewColumn()
@@ -70,11 +61,4 @@ export class Balance extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   balance!: string;
-
-  // GraphQL only fields
-
-  @Field(() => Item)
-  @Type(() => Item)
-  @ValidateNested()
-  item?: Item;
 }

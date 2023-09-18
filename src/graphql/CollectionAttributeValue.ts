@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Order, Sale } from '..';
+import { Order, SaleEntity } from '..';
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 
@@ -28,8 +28,8 @@ export class CollectionAttributeValue {
   @Field(() => Order, { nullable: true })
   sellNow?: Order | null;
 
-  @Field(() => Sale, { nullable: true })
-  @Type(() => Sale)
+  @Field(() => SaleEntity, { nullable: true })
+  @Type(() => SaleEntity)
   @ValidateNested()
-  lastSale?: Sale | null;
+  lastSale?: SaleEntity | null;
 }

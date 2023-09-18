@@ -45,8 +45,8 @@ __decorate([
     __metadata("design:type", Object)
 ], CollectionAttributeValue.prototype, "sellNow", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => __1.Sale, { nullable: true }),
-    (0, class_transformer_1.Type)(() => __1.Sale),
+    (0, graphql_1.Field)(() => __1.SaleEntity, { nullable: true }),
+    (0, class_transformer_1.Type)(() => __1.SaleEntity),
     (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", Object)
 ], CollectionAttributeValue.prototype, "lastSale", void 0);

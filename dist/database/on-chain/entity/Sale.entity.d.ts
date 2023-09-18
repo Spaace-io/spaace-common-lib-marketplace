@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-export declare class Sale extends BaseEntity {
+export declare class SaleEntity extends BaseEntity {
     txHash: string;
     logIdx: string;
     orderHash: string;

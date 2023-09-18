@@ -9,79 +9,55 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Transfer = void 0;
-const graphql_1 = require("@nestjs/graphql");
+exports.TransferEntity = void 0;
 const typeorm_1 = require("typeorm");
-const Item_entity_1 = require("./Item.entity");
-const class_transformer_1 = require("class-transformer");
-const ethers_1 = require("ethers");
+const _1 = require(".");
 // Primary key = (txHash, logIdx, from, to, collection, item)
-// Because one event (txHash + logIdx) can equal multiple transfers (e.g. TransferBatch)
-let Transfer = class Transfer extends typeorm_1.BaseEntity {
+// Because one event (txHash + logIdx) can equal multiple transfers (e.g. ERC1155's TransferBatch)
+let TransferEntity = class TransferEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.hexlify(value, { allowMissingPrefix: true }), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], Transfer.prototype, "txHash", void 0);
+], TransferEntity.prototype, "txHash", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
-], Transfer.prototype, "logIdx", void 0);
+], TransferEntity.prototype, "logIdx", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], Transfer.prototype, "from", void 0);
+], TransferEntity.prototype, "from", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], Transfer.prototype, "to", void 0);
+], TransferEntity.prototype, "to", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], Transfer.prototype, "collectionAddress", void 0);
+], TransferEntity.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
-    (0, typeorm_1.ManyToOne)(() => Item_entity_1.Item),
+    (0, typeorm_1.ManyToOne)(() => _1.ItemEntity),
     (0, typeorm_1.JoinColumn)([
         { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
         { name: 'tokenId', referencedColumnName: 'tokenId' },
     ]),
     __metadata("design:type", String)
-], Transfer.prototype, "tokenId", void 0);
+], TransferEntity.prototype, "tokenId", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),
     __metadata("design:type", String)
-], Transfer.prototype, "amount", void 0);
+], TransferEntity.prototype, "amount", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
-], Transfer.prototype, "timestamp", void 0);
-Transfer = __decorate([
-    (0, graphql_1.ObjectType)(),
+], TransferEntity.prototype, "timestamp", void 0);
+TransferEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'transfers' }),
     (0, typeorm_1.Index)(['from', 'collectionAddress', 'tokenId']),
     (0, typeorm_1.Index)(['to', 'collectionAddress', 'tokenId'])
-], Transfer);
-exports.Transfer = Transfer;
+], TransferEntity);
+exports.TransferEntity = TransferEntity;
 //# sourceMappingURL=Transfer.entity.js.map

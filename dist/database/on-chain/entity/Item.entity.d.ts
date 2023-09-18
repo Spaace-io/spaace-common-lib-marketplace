@@ -1,11 +1,10 @@
 import { BaseEntity } from 'typeorm';
-import { Collection, ItemAttribute, Order, Sale } from '.';
 export declare class ItemMedia {
     raw: string;
     thumbnail: string;
     gateway: string;
 }
-export declare class Item extends BaseEntity {
+export declare class ItemEntity extends BaseEntity {
     collectionAddress: string;
     tokenId: string;
     title: string | null;
@@ -14,12 +13,5 @@ export declare class Item extends BaseEntity {
     medias: ItemMedia[] | null;
     rarityRanking: string | null;
     rarityScore: string | null;
-    attributes: ItemAttribute[] | null;
     lastImport: Date | null;
-    collection?: Collection;
-    ownerCount?: string;
-    buyNow?: Order | null;
-    sellNow?: Order | null;
-    auction?: Order | null;
-    lastSale?: Sale | null;
 }
