@@ -15,6 +15,10 @@ const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
 const tables_1 = require("../tables");
+const Sale_view_1 = require("./Sale.view");
+const TokenBalance_view_1 = require("./TokenBalance.view");
+const Balance_view_1 = require("./Balance.view");
+const __1 = require("../../..");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -112,6 +116,11 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Order.prototype, "cancelTimestamp", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Boolean)
+], Order.prototype, "active", void 0);
 Order = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
@@ -119,7 +128,27 @@ Order = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from(tables_1.OrderEntity, 'order')
-                .select('"order".*');
+                .select('"order".*')
+                .addSelect((query) => query
+                .fromDummy()
+                .select(`"order"."startTime" <= NOW() AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) AND "order"."cancelTimestamp" IS NULL AND NOT EXISTS ${query
+                .subQuery()
+                .from(Sale_view_1.Sale, 'sale')
+                .where('"sale"."orderHash" = "order"."hash"')
+                .getQuery()} AND "order"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}') AND CASE WHEN "order"."type" = '${tables_1.OrderType.DUTCH_AUCTION}' THEN ${query
+                .subQuery()
+                .select('"balance"."balance"')
+                .from(TokenBalance_view_1.TokenBalance, 'balance')
+                .where('"balance"."currency" = "order"."currency"')
+                .andWhere('"balance"."userAddress" = "order"."userAddress"')
+                .getQuery()} > "order"."price" ELSE ${query
+                .subQuery()
+                .select('"balance"."balance"')
+                .from(Balance_view_1.Balance, 'balance')
+                .where('"balance"."userAddress" = "order"."userAddress"')
+                .andWhere('"balance"."collectionAddress" = "order"."collectionAddress"')
+                .andWhere('"balance"."tokenId" = "order"."tokenId"')
+                .getQuery()} > 0 END`), 'active');
         },
         name: 'orders_view',
     })

@@ -1,6 +1,5 @@
 import {
   BaseEntity,
-  Brackets,
   DataSource,
   SelectQueryBuilder,
   ViewColumn,
@@ -11,11 +10,11 @@ import {
   CollectionEntity,
   CollectionLink,
   CollectionType,
-  CollectionVolume,
+  CollectionRanking,
   ItemAttributeEntity,
-  OrderEntity,
   OrderType,
   SaleEntity,
+  Order,
 } from '..';
 import { CollectionAttribute } from '../../../graphql';
 import { utils } from '../../..';
@@ -46,22 +45,28 @@ function getSaleCountQuery(interval: string) {
         .createQueryBuilder()
         .from(CollectionEntity, 'collection')
         .innerJoin(
-          CollectionVolume,
-          'volume',
-          '"volume"."address" = "collection"."address"',
+          CollectionRanking,
+          'ranking',
+          '"ranking"."address" = "collection"."address"',
         )
         .select('"collection".*')
-        .addSelect('"volume"."volume1h"')
-        .addSelect('"volume"."volumeChange1h"')
-        .addSelect('"volume"."volume6h"')
-        .addSelect('"volume"."volumeChange6h"')
-        .addSelect('"volume"."volume24h"')
-        .addSelect('"volume"."volumeChange24h"')
-        .addSelect('"volume"."volume7d"')
-        .addSelect('"volume"."volumeChange7d"')
-        .addSelect('"volume"."volume30d"')
-        .addSelect('"volume"."volumeChange30d"')
-        .addSelect('"volume"."volume"')
+        .addSelect('"ranking"."volume1h"')
+        .addSelect('"ranking"."volumeChange1h"')
+        .addSelect('"ranking"."volume6h"')
+        .addSelect('"ranking"."volumeChange6h"')
+        .addSelect('"ranking"."volume24h"')
+        .addSelect('"ranking"."volumeChange24h"')
+        .addSelect('"ranking"."volume7d"')
+        .addSelect('"ranking"."volumeChange7d"')
+        .addSelect('"ranking"."volume30d"')
+        .addSelect('"ranking"."volumeChange30d"')
+        .addSelect('"ranking"."volume"')
+        .addSelect('"ranking"."floorChange1h"')
+        .addSelect('"ranking"."floorChange6h"')
+        .addSelect('"ranking"."floorChange24h"')
+        .addSelect('"ranking"."floorChange7d"')
+        .addSelect('"ranking"."floorChange30d"')
+        .addSelect('"ranking"."floorPrice"')
         .addSelect(
           (query) =>
             query.fromDummy().select(
@@ -132,47 +137,11 @@ function getSaleCountQuery(interval: string) {
         .addSelect(
           (query) =>
             query
-              .from(OrderEntity, 'order')
+              .from(Order, 'order')
               .select('COUNT(DISTINCT "order"."tokenId")')
-              .where(
-                `"order"."type" IN ('${OrderType.ASK}', '${OrderType.DUTCH_AUCTION}', '${OrderType.ENGLISH_AUCTION}')`,
-              )
+              .where(`"order"."type" <> '${OrderType.BID}'`)
               .andWhere('"order"."collectionAddress" = "collection"."address"')
-              .andWhere('"order"."startTime" <= NOW()')
-              .andWhere(
-                new Brackets((query) =>
-                  query
-                    .where('"order"."endTime" > NOW()')
-                    .orWhere('"order"."endTime" IS NULL'),
-                ),
-              )
-              .andWhere('"order"."cancelTimestamp" IS NULL')
-              .andWhere(
-                (query) =>
-                  `NOT EXISTS ${query
-                    .subQuery()
-                    .from(SaleEntity, 'sale')
-                    .where('"sale"."orderHash" = "order"."hash"')
-                    .getQuery()}`,
-              )
-              .andWhere(
-                `"order"."currency" IN ('${utils.strip0x(
-                  ethers.constants.AddressZero,
-                )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
-              )
-              .andWhere(
-                (query) =>
-                  `${query
-                    .subQuery()
-                    .select('"balance"."balance"')
-                    .from(Balance, 'balance')
-                    .where('"balance"."userAddress" = "order"."userAddress"')
-                    .andWhere(
-                      '"balance"."collectionAddress" = "order"."collectionAddress"',
-                    )
-                    .andWhere('"balance"."tokenId" = "order"."tokenId"')
-                    .getQuery()} > 0`,
-              ),
+              .andWhere('"order"."active"'),
           'listedCount',
         )
     );

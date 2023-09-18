@@ -11,4 +11,4 @@ export * from './DistributorReward.entity';
 export * from './RewardPeriod.entity';
 export * from './Order.entity';
 
-export * from './CollectionVolume.view';
+export * from './CollectionRanking.view';

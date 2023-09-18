@@ -3,6 +3,10 @@ import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
 import { ethers } from 'ethers';
 import { OrderEntity, OrderType } from '../tables';
+import { Sale } from './Sale.view';
+import { TokenBalance } from './TokenBalance.view';
+import { Balance } from './Balance.view';
+import { utils } from '../../..';
 
 @ObjectType()
 @ViewEntity({
@@ -10,7 +14,41 @@ import { OrderEntity, OrderType } from '../tables';
     return dataSource
       .createQueryBuilder()
       .from(OrderEntity, 'order')
-      .select('"order".*');
+      .select('"order".*')
+      .addSelect(
+        (query) =>
+          query
+            .fromDummy()
+            .select(
+              `"order"."startTime" <= NOW() AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) AND "order"."cancelTimestamp" IS NULL AND NOT EXISTS ${query
+                .subQuery()
+                .from(Sale, 'sale')
+                .where('"sale"."orderHash" = "order"."hash"')
+                .getQuery()} AND "order"."currency" IN ('${utils.strip0x(
+                ethers.constants.AddressZero,
+              )}', '${utils.strip0x(
+                utils.constants.WETH_ADDRESS,
+              )}') AND CASE WHEN "order"."type" = '${
+                OrderType.DUTCH_AUCTION
+              }' THEN ${query
+                .subQuery()
+                .select('"balance"."balance"')
+                .from(TokenBalance, 'balance')
+                .where('"balance"."currency" = "order"."currency"')
+                .andWhere('"balance"."userAddress" = "order"."userAddress"')
+                .getQuery()} > "order"."price" ELSE ${query
+                .subQuery()
+                .select('"balance"."balance"')
+                .from(Balance, 'balance')
+                .where('"balance"."userAddress" = "order"."userAddress"')
+                .andWhere(
+                  '"balance"."collectionAddress" = "order"."collectionAddress"',
+                )
+                .andWhere('"balance"."tokenId" = "order"."tokenId"')
+                .getQuery()} > 0 END`,
+            ),
+        'active',
+      );
   },
   name: 'orders_view',
 })
@@ -105,5 +143,7 @@ export class Order extends BaseEntity {
   @ViewColumn()
   cancelTimestamp!: Date | null;
 
-  // TODO: active
+  @Field(() => Boolean)
+  @ViewColumn()
+  active!: boolean;
 }

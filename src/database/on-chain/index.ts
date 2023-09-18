@@ -19,7 +19,7 @@ export const OnChainDatabase = new DataSource({
   schema,
   synchronize: false,
   migrationsRun: true,
-  logging: false,
+  logging: true,
   entities: [
     __dirname + '/tables/**.{entity,view}.{js,ts}',
     __dirname + '/types/**.view.{js,ts}',
