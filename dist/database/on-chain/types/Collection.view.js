@@ -261,7 +261,20 @@ Collection = __decorate([
                 .addSelect('"volume"."volume30d"')
                 .addSelect('"volume"."volumeChange30d"')
                 .addSelect('"volume"."volume"')
-                // TODO: attributes
+                .addSelect((query) => query.fromDummy().select(`array_to_json(ARRAY ${query
+                .subQuery()
+                .from(__1.ItemAttributeEntity, 'attribute')
+                .select(`json_build_object('collectionAddress', "collection"."address", 'trait', "attribute"."trait", 'values', array_to_json(ARRAY ${query
+                .subQuery()
+                .from(__1.ItemAttributeEntity, 'value')
+                .select(`json_build_object('collectionAddress', "collection"."address", 'trait', "attribute"."trait", 'value', "value"."value", 'count', COUNT(DISTINCT "value"."tokenId"))`)
+                .where('"value"."collectionAddress" = "collection"."address"')
+                .andWhere('"value"."trait" = "attribute"."trait"')
+                .groupBy('"value"."value"')
+                .getQuery()}))`)
+                .where('"attribute"."collectionAddress" = "collection"."address"')
+                .groupBy('"attribute"."trait"')
+                .getQuery()})`), 'attributes')
                 // TODO: floorChange1h
                 // TODO: floorChange6h
                 // TODO: floorChange24h
