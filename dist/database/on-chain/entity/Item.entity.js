@@ -119,6 +119,12 @@ __decorate([
     __metadata("design:type", Object)
 ], Item.prototype, "sellNow", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => _1.Order, { nullable: true }),
+    (0, class_transformer_1.Type)(() => _1.Order),
+    (0, class_validator_1.ValidateNested)(),
+    __metadata("design:type", Object)
+], Item.prototype, "auction", void 0);
+__decorate([
     (0, graphql_1.Field)(() => _1.Sale, { nullable: true }),
     (0, class_transformer_1.Type)(() => _1.Sale),
     (0, class_validator_1.ValidateNested)(),

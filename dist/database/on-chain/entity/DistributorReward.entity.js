@@ -16,9 +16,9 @@ const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
 var DistributorContract;
 (function (DistributorContract) {
-    DistributorContract["TRADING_REWARDS"] = "Trading";
-    DistributorContract["REFERRAL_REWARDS"] = "Referral";
-    DistributorContract["LOYALTY_REWARDS"] = "Loyalty";
+    DistributorContract["TRADING_REWARDS"] = "TRADING_REWARDS";
+    DistributorContract["REFERRAL_REWARDS"] = "REFERRAL_REWARDS";
+    DistributorContract["LOYALTY_REWARDS"] = "LOYALTY_REWARDS";
 })(DistributorContract = exports.DistributorContract || (exports.DistributorContract = {}));
 (0, graphql_1.registerEnumType)(DistributorContract, {
     name: 'DistributorContract',

@@ -13,10 +13,10 @@ import { ValidateNested } from 'class-validator';
 import { Item, Collection } from '.';
 
 export enum OrderType {
-  ASK = 'Ask',
-  BID = 'Bid',
-  ENGLISH_AUCTION = 'EnglishAuction',
-  DUTCH_AUCTION = 'DutchAuction',
+  ASK = 'ASK',
+  BID = 'BID',
+  ENGLISH_AUCTION = 'ENGLISH_AUCTION',
+  DUTCH_AUCTION = 'DUTCH_AUCTION',
 }
 
 registerEnumType(OrderType, {

@@ -1,8 +1,8 @@
 export declare enum UserInteractionType {
-    DAILY_CLAIM = 0,
-    BUY_NOW = 1,
-    SELL_INSTANTLY = 2,
-    SWEEP_FLOOR = 3
+    DAILY_CLAIM = "DAILY_CLAIM",
+    BUY_NOW = "BUY_NOW",
+    SELL_INSTANTLY = "SELL_INSTANTLY",
+    SWEEP_FLOOR = "SWEEP_FLOOR"
 }
 export declare class UserInteraction {
     type: UserInteractionType;

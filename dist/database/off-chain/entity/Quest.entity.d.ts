@@ -1,28 +1,28 @@
 import { BaseEntity } from 'typeorm';
 import { UserQuestProgress } from '.';
 export declare enum QuestTrigger {
-    TOKEN_TRANSFER = "TokenTransfer",
-    UNISWAP = "Uniswap",
-    TRANSFER = "Transfer",
-    SALE = "Sale",
-    ORDER = "Order",
-    STAKING_DEPOSIT = "StakingDeposit",
-    STAKING_REWARD = "StakingReward",
-    DISTRIBUTOR_REWARD = "DistributorReward",
-    USER_QUEST_PROGRESS = "UserQuestProgress",
-    REFERRAL = "Referral",
-    CART_ITEM = "CartItem",
-    USER_INTERACTION = "UserInteraction",
-    DATA_COMPILED = "DataCompiled",
-    CRON = "Cron"
+    TOKEN_TRANSFER = "TOKEN_TRANSFER",
+    UNISWAP = "UNISWAP",
+    TRANSFER = "TRANSFER",
+    SALE = "SALE",
+    ORDER = "ORDER",
+    STAKING_DEPOSIT = "STAKING_DEPOSIT",
+    STAKING_REWARD = "STAKING_REWARD",
+    DISTRIBUTOR_REWARD = "DISTRIBUTOR_REWARD",
+    USER_QUEST_PROGRESS = "USER_QUEST_PROGRESS",
+    REFERRAL = "REFERRAL",
+    CART_ITEM = "CART_ITEM",
+    USER_INTERACTION = "USER_INTERACTION",
+    DATA_COMPILED = "DATA_COMPILED",
+    CRON = "CRON"
 }
 export declare enum QuestRuleOperator {
-    EQ = "=",
-    GT = ">",
-    GTE = ">=",
-    LT = "<",
-    LTE = "<=",
-    NEQ = "!="
+    EQ = "EQ",
+    GT = "GT",
+    GTE = "GTE",
+    LT = "LT",
+    LTE = "LTE",
+    NEQ = "NEQ"
 }
 export declare class QuestRule {
     property: string;
@@ -36,8 +36,8 @@ export declare class QuestStep {
     count?: string;
 }
 export declare enum QuestPeriod {
-    DAILY = "day",
-    SEASONAL = "season"
+    DAILY = "DAILY",
+    SEASONAL = "SEASONAL"
 }
 export declare class Quest extends BaseEntity {
     seasonNumber: string;

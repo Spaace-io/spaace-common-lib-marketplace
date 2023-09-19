@@ -16,13 +16,12 @@ registerEnumType(CollectionType, {
 });
 
 export enum CollectionLinkType {
-  CUSTOM = 'Custom',
-  TWITTER = 'Twitter',
-  DISCORD = 'Discord',
-  INSTAGRAM = 'Instagram',
-  TELEGRAM = 'Telegram',
-  MEDIUM = 'Medium',
-  // WIKI, CHAT
+  CUSTOM = 'CUSTOM',
+  TWITTER = 'TWITTER',
+  DISCORD = 'DISCORD',
+  INSTAGRAM = 'INSTAGRAM',
+  TELEGRAM = 'TELEGRAM',
+  MEDIUM = 'MEDIUM',
 }
 
 registerEnumType(CollectionLinkType, {

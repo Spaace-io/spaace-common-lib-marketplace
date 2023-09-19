@@ -9,6 +9,7 @@ import {
   StakingReward,
   User,
   TokenTransfer,
+  CartItem,
 } from '../../database';
 import { UserInteraction } from '../../graphql';
 
@@ -34,7 +35,7 @@ export type PubSubTriggerData<T extends QuestTrigger> =
     : T extends QuestTrigger.REFERRAL
     ? User
     : T extends QuestTrigger.CART_ITEM
-    ? undefined
+    ? CartItem
     : T extends QuestTrigger.CRON
     ? undefined
     : T extends QuestTrigger.USER_INTERACTION

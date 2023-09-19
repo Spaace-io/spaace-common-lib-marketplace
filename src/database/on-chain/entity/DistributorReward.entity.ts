@@ -4,9 +4,9 @@ import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 import { ethers } from 'ethers';
 
 export enum DistributorContract {
-  TRADING_REWARDS = 'Trading',
-  REFERRAL_REWARDS = 'Referral',
-  LOYALTY_REWARDS = 'Loyalty',
+  TRADING_REWARDS = 'TRADING_REWARDS',
+  REFERRAL_REWARDS = 'REFERRAL_REWARDS',
+  LOYALTY_REWARDS = 'LOYALTY_REWARDS',
 }
 
 registerEnumType(DistributorContract, {

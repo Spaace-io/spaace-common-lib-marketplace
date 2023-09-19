@@ -95,6 +95,7 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
                     return signature;
             }
             // Can happen in some extremely rare cases, where v is 29 or 30.
+            // These signatures are not accepted on the Ethereum blockchain.
             throw new Error(`Invalid signature: ${ethers_1.ethers.utils.hexlify(derBuffer)} for digest ${ethers_1.ethers.utils.hexlify(digest)}`);
         });
     }
@@ -120,7 +121,7 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
             // The first 23 or so bytes of the SPKI format are metadata, and the last 65
             // are the raw public key which we need to hash to get the corresponding
             // Ethereum address.
-            // We could (probably?) decode this with X.509 or ASN.1 instead of slicing.
+            // TODO: Decode this with X.509 or ASN.1 instead of slicing.
             return (this._address = ethers_1.ethers.utils.computeAddress(buffer.slice(-65)));
         });
     }
@@ -133,18 +134,15 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
     signTransaction(transaction) {
         return __awaiter(this, void 0, void 0, function* () {
             const resolved = yield ethers_1.ethers.utils.resolveProperties(transaction);
-            console.log('Resolved', resolved);
-            console.log('#1');
             const address = yield this.getAddress();
             if (resolved.from !== undefined && resolved.from !== address) {
                 throw new Error(`Invalid from address: ${resolved.from} (expected ${address})`);
             }
-            console.log('#2');
             const serialized = ethers_1.ethers.utils.serializeTransaction(resolved);
-            console.log('#3');
             const digest = ethers_1.ethers.utils.arrayify(ethers_1.ethers.utils.keccak256(serialized));
-            console.log('#4');
-            return yield this._sign(digest); // TODO: https://ethereum.stackexchange.com/a/107498
+            const signature = yield this._sign(digest);
+            // TODO: https://ethereum.stackexchange.com/a/107498
+            return ethers_1.ethers.utils.serializeTransaction(resolved, signature);
         });
     }
     connect(provider) {

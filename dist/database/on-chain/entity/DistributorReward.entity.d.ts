@@ -1,8 +1,8 @@
 import { BaseEntity } from 'typeorm';
 export declare enum DistributorContract {
-    TRADING_REWARDS = "Trading",
-    REFERRAL_REWARDS = "Referral",
-    LOYALTY_REWARDS = "Loyalty"
+    TRADING_REWARDS = "TRADING_REWARDS",
+    REFERRAL_REWARDS = "REFERRAL_REWARDS",
+    LOYALTY_REWARDS = "LOYALTY_REWARDS"
 }
 export declare class DistributorReward extends BaseEntity {
     userAddress: string;

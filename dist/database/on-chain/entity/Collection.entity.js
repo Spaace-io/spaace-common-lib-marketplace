@@ -27,13 +27,12 @@ var CollectionType;
 });
 var CollectionLinkType;
 (function (CollectionLinkType) {
-    CollectionLinkType["CUSTOM"] = "Custom";
-    CollectionLinkType["TWITTER"] = "Twitter";
-    CollectionLinkType["DISCORD"] = "Discord";
-    CollectionLinkType["INSTAGRAM"] = "Instagram";
-    CollectionLinkType["TELEGRAM"] = "Telegram";
-    CollectionLinkType["MEDIUM"] = "Medium";
-    // WIKI, CHAT
+    CollectionLinkType["CUSTOM"] = "CUSTOM";
+    CollectionLinkType["TWITTER"] = "TWITTER";
+    CollectionLinkType["DISCORD"] = "DISCORD";
+    CollectionLinkType["INSTAGRAM"] = "INSTAGRAM";
+    CollectionLinkType["TELEGRAM"] = "TELEGRAM";
+    CollectionLinkType["MEDIUM"] = "MEDIUM";
 })(CollectionLinkType = exports.CollectionLinkType || (exports.CollectionLinkType = {}));
 (0, graphql_1.registerEnumType)(CollectionLinkType, {
     name: 'CollectionLinkType',

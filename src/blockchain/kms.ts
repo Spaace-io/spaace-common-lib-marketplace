@@ -3,7 +3,7 @@ import { Ber, BerReader } from 'asn1';
 import { Provider, TransactionRequest } from '@ethersproject/abstract-provider';
 import { _TypedDataEncoder } from '@ethersproject/hash';
 import { KeyManagementServiceClient } from '@google-cloud/kms';
-import { BigNumberish, Bytes, Signer, TypedDataField, ethers } from 'ethers';
+import { Bytes, Signer, TypedDataDomain, TypedDataField, ethers } from 'ethers';
 
 export class GoogleCloudKMSSigner extends Signer {
   private readonly _kms = new KeyManagementServiceClient();
@@ -115,6 +115,7 @@ export class GoogleCloudKMSSigner extends Signer {
     }
 
     // Can happen in some extremely rare cases, where v is 29 or 30.
+    // These signatures are not accepted on the Ethereum blockchain.
     throw new Error(
       `Invalid signature: ${ethers.utils.hexlify(
         derBuffer,
@@ -150,7 +151,7 @@ export class GoogleCloudKMSSigner extends Signer {
     // The first 23 or so bytes of the SPKI format are metadata, and the last 65
     // are the raw public key which we need to hash to get the corresponding
     // Ethereum address.
-    // We could (probably?) decode this with X.509 or ASN.1 instead of slicing.
+    // TODO: Decode this with X.509 or ASN.1 instead of slicing.
     return (this._address = ethers.utils.computeAddress(buffer.slice(-65)));
   }
 
@@ -164,25 +165,25 @@ export class GoogleCloudKMSSigner extends Signer {
   ): Promise<string> {
     const resolved = await ethers.utils.resolveProperties(transaction);
 
-    console.log('Resolved', resolved);
-
-    console.log('#1');
     const address = await this.getAddress();
     if (resolved.from !== undefined && resolved.from !== address) {
       throw new Error(
         `Invalid from address: ${resolved.from} (expected ${address})`,
       );
     }
-    console.log('#2');
 
     const serialized = ethers.utils.serializeTransaction(
       resolved as ethers.utils.UnsignedTransaction,
     );
-    console.log('#3');
 
     const digest = ethers.utils.arrayify(ethers.utils.keccak256(serialized));
-    console.log('#4');
-    return await this._sign(digest); // TODO: https://ethereum.stackexchange.com/a/107498
+    const signature = await this._sign(digest);
+
+    // TODO: https://ethereum.stackexchange.com/a/107498
+    return ethers.utils.serializeTransaction(
+      resolved as ethers.utils.UnsignedTransaction,
+      signature,
+    );
   }
 
   override connect(provider: Provider): GoogleCloudKMSSigner {
@@ -196,13 +197,7 @@ export class GoogleCloudKMSSigner extends Signer {
 
   // Seaport Signer needs this function
   async _signTypedData(
-    domain: {
-      name?: string;
-      version?: string;
-      chainId?: BigNumberish;
-      verifyingContract?: string;
-      salt?: ArrayLike<number> | string;
-    },
+    domain: TypedDataDomain,
     types: Record<string, Array<TypedDataField>>,
     value: Record<string, unknown>,
   ): Promise<string> {
