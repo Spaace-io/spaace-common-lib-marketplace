@@ -195,6 +195,11 @@ __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
+], Collection.prototype, "floorPrice", void 0);
+__decorate([
+    (0, graphql_2.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
 ], Collection.prototype, "saleCount1h", void 0);
 __decorate([
     (0, graphql_2.Field)(() => String),
@@ -236,6 +241,11 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "listedCount", void 0);
+__decorate([
+    (0, graphql_2.Field)(() => Boolean),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Boolean)
+], Collection.prototype, "notable", void 0);
 Collection = __decorate([
     (0, graphql_2.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
@@ -304,7 +314,15 @@ Collection = __decorate([
                 .select('COUNT(DISTINCT "order"."tokenId")')
                 .where(`"order"."type" <> '${__1.OrderType.BID}'`)
                 .andWhere('"order"."collectionAddress" = "collection"."address"')
-                .andWhere('"order"."active"'), 'listedCount'));
+                .andWhere('"order"."active"'), 'listedCount')
+                .addSelect((query) => query
+                .fromDummy()
+                .select(`EXISTS ${query
+                .subQuery()
+                .select('1')
+                .from(__1.NotableCollection, 'notable')
+                .where('"notable"."collectionAddress" = "collection"."address"')
+                .getQuery()}`), 'notable'));
         },
         name: 'collections_view',
     })

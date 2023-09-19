@@ -15,7 +15,8 @@
     "lint": "eslint --fix .",
     "typeorm": "ts-node ./node_modules/.bin/typeorm",
     "migration:generate": "npm run typeorm -- migration:generate -d src/database src/database/migrations/$npm_config_name",
-    "migrate": "npm run typeorm -- migration:run -d src/database"
+    "migrate": "npm run typeorm -- migration:run -d src/database",
+    "migration:revert": "npm run typeorm -- migration:revert -d src/database"
   },
   "dependencies": {
     "@google-cloud/kms": "^3.8.0",

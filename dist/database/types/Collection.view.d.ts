@@ -33,6 +33,7 @@ export declare class Collection extends BaseEntity {
     floorChange24h: string;
     floorChange7d: string;
     floorChange30d: string;
+    floorPrice: string;
     saleCount1h: string;
     saleCount6h: string;
     saleCount24h: string;
@@ -42,4 +43,5 @@ export declare class Collection extends BaseEntity {
     totalSupply: string;
     ownerCount: string;
     listedCount: string;
+    notable: boolean;
 }

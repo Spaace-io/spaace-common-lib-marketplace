@@ -15,10 +15,7 @@ npm i @spaace/common-lib
 It can then be used as follows:
 
 ```typescript
-import {
-  Database,
-  pubsub,
-} from '@spaace/common-lib';
+import { Database, pubsub } from '@spaace/common-lib';
 
 await Database.initialize();
 await pubsub.initialize();

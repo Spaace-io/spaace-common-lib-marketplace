@@ -15,6 +15,7 @@ import {
   OrderType,
   SaleEntity,
   Order,
+  NotableCollection,
 } from '..';
 import { CollectionAttribute } from '../../graphql';
 import { utils } from '../..';
@@ -149,6 +150,22 @@ function getSaleCountQuery(interval: string) {
               .andWhere('"order"."collectionAddress" = "collection"."address"')
               .andWhere('"order"."active"'),
           'listedCount',
+        )
+        .addSelect(
+          (query) =>
+            query
+              .fromDummy()
+              .select(
+                `EXISTS ${query
+                  .subQuery()
+                  .select('1')
+                  .from(NotableCollection, 'notable')
+                  .where(
+                    '"notable"."collectionAddress" = "collection"."address"',
+                  )
+                  .getQuery()}`,
+              ),
+          'notable',
         )
     );
   },
@@ -294,6 +311,10 @@ export class Collection extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
+  floorPrice!: string;
+
+  @Field(() => String)
+  @ViewColumn()
   saleCount1h!: string;
 
   @Field(() => String)
@@ -327,4 +348,8 @@ export class Collection extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   listedCount!: string;
+
+  @Field(() => Boolean)
+  @ViewColumn()
+  notable!: boolean;
 }
