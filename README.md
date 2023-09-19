@@ -16,24 +16,20 @@ It can then be used as follows:
 
 ```typescript
 import {
-  OnChainDatabase,
-  OffChainDatabase,
-  PubSubClient,
+  Database,
+  pubsub,
 } from '@spaace/common-lib';
 
-await OnChainDatabase.initialize();
-await OffChainDatabase.initialize();
-await PubSubClient.initialize();
+await Database.initialize();
+await pubsub.initialize();
 
 // OR
 
-import { OnChainDatabase } from '@spaace/common-lib/dist/database/on-chain';
-import { OffChainDatabase } from '@spaace/common-lib/dist/database/off-chain';
-import { PubSubClient } from '@spaace/common-lib/dist/pubsub/client';
+import { Database } from '@spaace/common-lib/dist/database';
+import { pubsub } from '@spaace/common-lib/dist/pubsub/client';
 
-await OnChainDatabase.initialize();
-await OffChainDatabase.initialize();
-await PubSubClient.initialize();
+await Database.initialize();
+await pubsub.initialize();
 ```
 
 Only databases on which the service is dependendant should (and must) be initialized.

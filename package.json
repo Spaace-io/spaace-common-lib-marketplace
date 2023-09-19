@@ -14,9 +14,8 @@
     "build": "rm -rf ./dist && tsc",
     "lint": "eslint --fix .",
     "typeorm": "ts-node ./node_modules/.bin/typeorm",
-    "migration:generate": "npm run typeorm -- migration:generate -d src/database/$npm_config_database src/database/$npm_config_database/migrations/$npm_config_name",
-    "migration:generate:on-chain": "npm run migration:generate --database=on-chain",
-    "migration:generate:off-chain": "npm run migration:generate --database=off-chain"
+    "migration:generate": "npm run typeorm -- migration:generate -d src/database src/database/migrations/$npm_config_name",
+    "migrate": "npm run typeorm -- migration:run -d src/database"
   },
   "dependencies": {
     "@google-cloud/kms": "^3.8.0",

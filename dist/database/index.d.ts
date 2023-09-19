@@ -1,2 +1,6 @@
-export * from './on-chain';
-export * from './off-chain';
+import 'reflect-metadata';
+import { DataSource } from 'typeorm';
+import '../config';
+export declare const Database: DataSource;
+export * from './tables';
+export * from './types';
