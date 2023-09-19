@@ -164,18 +164,24 @@ export class GoogleCloudKMSSigner extends Signer {
   ): Promise<string> {
     const resolved = await ethers.utils.resolveProperties(transaction);
 
+    console.log('Resolved', resolved);
+
+    console.log('#1');
     const address = await this.getAddress();
     if (resolved.from !== undefined && resolved.from !== address) {
       throw new Error(
         `Invalid from address: ${resolved.from} (expected ${address})`,
       );
     }
+    console.log('#2');
 
     const serialized = ethers.utils.serializeTransaction(
       resolved as ethers.utils.UnsignedTransaction,
     );
+    console.log('#3');
 
     const digest = ethers.utils.arrayify(ethers.utils.keccak256(serialized));
+    console.log('#4');
     return await this._sign(digest); // TODO: https://ethereum.stackexchange.com/a/107498
   }
 
@@ -188,7 +194,7 @@ export class GoogleCloudKMSSigner extends Signer {
     );
   }
 
-  // Seaport Signer
+  // Seaport Signer needs this function
   async _signTypedData(
     domain: {
       name?: string;
