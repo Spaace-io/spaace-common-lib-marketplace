@@ -281,6 +281,7 @@ CollectionRanking = __decorate([
         name: 'collection_rankings',
         materialized: true,
     }),
+    (0, typeorm_1.Index)(['address'], { unique: true }),
     (0, typeorm_1.Index)(['volume1h']),
     (0, typeorm_1.Index)(['volumeChange1h']),
     (0, typeorm_1.Index)(['volume6h']),

@@ -23,7 +23,7 @@ const host = (_a = process.env.DATABASE_HOST) !== null && _a !== void 0 ? _a : '
 const port = parseInt((_b = process.env.DATABASE_PORT) !== null && _b !== void 0 ? _b : '5432', 10);
 const username = (_c = process.env.DATABASE_USERNAME) !== null && _c !== void 0 ? _c : 'root';
 const password = process.env.DATABASE_PASSWORD;
-const database = process.env.DATABASE_DATABASE;
+const database = process.env.DATABASE_NAME;
 const schema = process.env.DATABASE_SCHEMA;
 exports.Database = new typeorm_1.DataSource({
     type: 'postgres',

@@ -232,6 +232,7 @@ function getSaleCountQuery(interval: string) {
   name: 'collection_rankings',
   materialized: true,
 })
+@Index(['address'], { unique: true })
 @Index(['volume1h'])
 @Index(['volumeChange1h'])
 @Index(['volume6h'])
