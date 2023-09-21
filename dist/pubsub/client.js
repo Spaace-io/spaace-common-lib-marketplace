@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pubsub = exports.PUBSUB_TRIGGERS_TOPIC = void 0;
+exports.pubsub = void 0;
 const pubsub_1 = require("@google-cloud/pubsub");
-exports.PUBSUB_TRIGGERS_TOPIC = `triggers-${!process.env.TESTNET ? 'ethereum' : 'goerli'}`;
+const __1 = require("..");
 class PubSubClient {
     constructor() {
         this.pubsub = new pubsub_1.PubSub({
@@ -25,7 +25,7 @@ class PubSubClient {
     }
     createTopics() {
         return __awaiter(this, void 0, void 0, function* () {
-            const topics = [exports.PUBSUB_TRIGGERS_TOPIC];
+            const topics = Object.values(__1.PUBSUB_TOPICS);
             yield Promise.all(topics.map((topic) => __awaiter(this, void 0, void 0, function* () {
                 const [exists] = yield this.pubsub.topic(topic).exists();
                 if (exists)
@@ -34,24 +34,29 @@ class PubSubClient {
             })));
         });
     }
-    subscribe(topic, name) {
+    getTopicFromName(topicName) {
+        return __1.PUBSUB_TOPICS[topicName];
+    }
+    subscribe(topicName, name) {
         return __awaiter(this, void 0, void 0, function* () {
-            let subscription = this.pubsub.topic(topic).subscription(name);
+            let subscription = this.pubsub
+                .topic(this.getTopicFromName(topicName))
+                .subscription(name);
             const [exists] = yield subscription.exists();
             if (!exists)
                 [subscription] = yield subscription.create();
             return subscription;
         });
     }
-    trigger(...messages) {
+    publish(topicName, ...messages) {
         return __awaiter(this, void 0, void 0, function* () {
-            const topic = this.pubsub.topic(exports.PUBSUB_TRIGGERS_TOPIC);
+            const topic = this.pubsub.topic(this.getTopicFromName(topicName));
             return yield Promise.all(messages.map((json) => topic.publishMessage({ json })));
         });
     }
-    onTrigger(name, listener) {
+    onTrigger(name, topicName, listener) {
         return __awaiter(this, void 0, void 0, function* () {
-            const subscription = yield this.subscribe(exports.PUBSUB_TRIGGERS_TOPIC, name);
+            const subscription = yield this.subscribe(topicName, name);
             subscription.on('message', (message) => __awaiter(this, void 0, void 0, function* () {
                 try {
                     yield listener(JSON.parse(message.data.toString()));

@@ -1,10 +1,6 @@
 import { Message, PubSub } from '@google-cloud/pubsub';
-import { PubSubTrigger } from './types/trigger';
-import { QuestTrigger } from '..';
-
-export const PUBSUB_TRIGGERS_TOPIC = `triggers-${
-  !process.env.TESTNET ? 'ethereum' : 'goerli'
-}`;
+import { MetadataImportTrigger, PubSubTrigger } from './types/trigger';
+import { PUBSUB_TOPICS, PubsubTopic, QuestTrigger } from '..';
 
 class PubSubClient {
   private readonly pubsub: PubSub;
@@ -20,7 +16,7 @@ class PubSubClient {
   }
 
   private async createTopics() {
-    const topics = [PUBSUB_TRIGGERS_TOPIC];
+    const topics = Object.values(PUBSUB_TOPICS);
 
     await Promise.all(
       topics.map(async (topic) => {
@@ -32,8 +28,14 @@ class PubSubClient {
     );
   }
 
-  private async subscribe(topic: string, name: string) {
-    let subscription = this.pubsub.topic(topic).subscription(name);
+  private getTopicFromName(topicName: PubsubTopic) {
+    return PUBSUB_TOPICS[topicName];
+  }
+
+  private async subscribe(topicName: PubsubTopic, name: string) {
+    let subscription = this.pubsub
+      .topic(this.getTopicFromName(topicName))
+      .subscription(name);
 
     const [exists] = await subscription.exists();
     if (!exists) [subscription] = await subscription.create();
@@ -41,8 +43,11 @@ class PubSubClient {
     return subscription;
   }
 
-  public async trigger(...messages: PubSubTrigger<QuestTrigger>[]) {
-    const topic = this.pubsub.topic(PUBSUB_TRIGGERS_TOPIC);
+  public async publish(
+    topicName: PubsubTopic,
+    ...messages: PubSubTrigger<QuestTrigger | MetadataImportTrigger>[]
+  ) {
+    const topic = this.pubsub.topic(this.getTopicFromName(topicName));
     return await Promise.all(
       messages.map((json) => topic.publishMessage({ json })),
     );
@@ -50,9 +55,12 @@ class PubSubClient {
 
   public async onTrigger(
     name: string,
-    listener: (trigger: PubSubTrigger<QuestTrigger>) => Promise<void>,
+    topicName: PubsubTopic,
+    listener: (
+      trigger: PubSubTrigger<QuestTrigger | MetadataImportTrigger>,
+    ) => Promise<void>,
   ) {
-    const subscription = await this.subscribe(PUBSUB_TRIGGERS_TOPIC, name);
+    const subscription = await this.subscribe(topicName, name);
     subscription.on('message', async (message: Message) => {
       try {
         await listener(JSON.parse(message.data.toString()));

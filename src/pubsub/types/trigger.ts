@@ -10,10 +10,17 @@ import {
   User,
   TokenTransferEntity,
   CartItem,
+  Item,
+  Collection,
 } from '../../database';
 import { UserInteraction } from '../../graphql';
 
-export type PubSubTriggerData<T extends QuestTrigger> =
+export enum MetadataImportTrigger {
+  ITEM = 'ITEM',
+  COLLECTION = 'COLLECTION',
+}
+
+export type PubSubTriggerData<T extends QuestTrigger | MetadataImportTrigger> =
   T extends QuestTrigger.TOKEN_TRANSFER
     ? TokenTransferEntity
     : T extends QuestTrigger.UNISWAP
@@ -42,9 +49,13 @@ export type PubSubTriggerData<T extends QuestTrigger> =
     ? UserInteraction
     : T extends QuestTrigger.DATA_COMPILED
     ? object
+    : T extends MetadataImportTrigger.ITEM
+    ? Item
+    : T extends MetadataImportTrigger.COLLECTION
+    ? Collection
     : never;
 
-export interface PubSubTrigger<T extends QuestTrigger> {
+export interface PubSubTrigger<T extends QuestTrigger | MetadataImportTrigger> {
   trigger: T;
   data: PubSubTriggerData<T>;
 }
