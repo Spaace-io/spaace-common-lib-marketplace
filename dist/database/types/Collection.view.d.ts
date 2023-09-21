@@ -16,7 +16,6 @@ export declare class Collection extends BaseEntity {
     deployer: string | null;
     links: CollectionLink[];
     lastImport: Date | null;
-    attributes: CollectionAttribute[] | null;
     volume1h: string;
     volumeChange1h: string;
     volume6h: string;
@@ -43,5 +42,6 @@ export declare class Collection extends BaseEntity {
     totalSupply: string;
     ownerCount: string;
     listedCount: string;
+    attributes: CollectionAttribute[] | null;
     notable: boolean;
 }

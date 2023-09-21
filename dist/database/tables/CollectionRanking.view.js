@@ -81,6 +81,14 @@ function getFloorChangeQuery(interval) {
         .fromDummy()
         .select(`COALESCE(${getFloorPriceQuery()(query.subQuery()).getQuery()}, 0) - COALESCE(${getFloorPriceQuery(`(NOW() - INTERVAL '${interval}')`)(query.subQuery()).getQuery()}, 0)`);
 }
+function getSaleCountQuery(interval) {
+    return (query) => query
+        .from(Sale_entity_1.SaleEntity, 'sale')
+        .select('COUNT(*)')
+        .where('"sale"."collectionAddress" = "collection"."address"')
+        .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`)
+        .andWhere(`"sale"."timestamp" > NOW() - INTERVAL '${interval}'`);
+}
 let CollectionRanking = class CollectionRanking extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -172,6 +180,51 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], CollectionRanking.prototype, "floorPrice", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionRanking.prototype, "saleCount1h", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionRanking.prototype, "saleCount6h", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionRanking.prototype, "saleCount24h", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionRanking.prototype, "saleCount7d", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionRanking.prototype, "saleCount30d", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionRanking.prototype, "saleCount", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionRanking.prototype, "totalSupply", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionRanking.prototype, "ownerCount", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionRanking.prototype, "listedCount", void 0);
 CollectionRanking = __decorate([
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -199,7 +252,31 @@ CollectionRanking = __decorate([
                 .addSelect(getFloorChangeQuery('6 hours'), 'floorChange6h')
                 .addSelect(getFloorChangeQuery('1 day'), 'floorChange24h')
                 .addSelect(getFloorChangeQuery('7 days'), 'floorChange7d')
-                .addSelect(getFloorChangeQuery('30 days'), 'floorChange30d');
+                .addSelect(getFloorChangeQuery('30 days'), 'floorChange30d')
+                .addSelect(getSaleCountQuery('1 hour'), 'saleCount1h')
+                .addSelect(getSaleCountQuery('6 hours'), 'saleCount6h')
+                .addSelect(getSaleCountQuery('1 day'), 'saleCount24h')
+                .addSelect(getSaleCountQuery('7 days'), 'saleCount7d')
+                .addSelect(getSaleCountQuery('30 days'), 'saleCount30d')
+                .addSelect((query) => query
+                .from(Sale_entity_1.SaleEntity, 'sale')
+                .select('COUNT(*)')
+                .where('"sale"."collectionAddress" = "collection"."address"')
+                .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`), 'saleCount')
+                .addSelect((query) => query
+                .from(types_1.Balance, 'balance')
+                .select('SUM("balance"."balance")')
+                .where('"balance"."collectionAddress" = "collection"."address"'), 'totalSupply')
+                .addSelect((query) => query
+                .from(types_1.Balance, 'balance')
+                .select('COUNT(DISTINCT "balance"."userAddress")')
+                .where('"balance"."collectionAddress" = "collection"."address"'), 'ownerCount')
+                .addSelect((query) => query
+                .from(types_1.Order, 'order')
+                .select('COUNT(DISTINCT "order"."tokenId")')
+                .where(`"order"."type" <> '${Order_entity_1.OrderType.BID}'`)
+                .andWhere('"order"."collectionAddress" = "collection"."address"')
+                .andWhere('"order"."active"'), 'listedCount');
         },
         name: 'collection_rankings',
         materialized: true,

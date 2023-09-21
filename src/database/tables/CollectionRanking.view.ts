@@ -135,6 +135,20 @@ function getFloorChangeQuery(interval: string) {
       );
 }
 
+function getSaleCountQuery(interval: string) {
+  return (query: SelectQueryBuilder<object>) =>
+    query
+      .from(SaleEntity, 'sale')
+      .select('COUNT(*)')
+      .where('"sale"."collectionAddress" = "collection"."address"')
+      .andWhere(
+        `"sale"."currency" IN ('${utils.strip0x(
+          ethers.constants.AddressZero,
+        )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+      )
+      .andWhere(`"sale"."timestamp" > NOW() - INTERVAL '${interval}'`);
+}
+
 @ViewEntity({
   expression: (dataSource: DataSource) => {
     return dataSource
@@ -169,7 +183,51 @@ function getFloorChangeQuery(interval: string) {
       .addSelect(getFloorChangeQuery('6 hours'), 'floorChange6h')
       .addSelect(getFloorChangeQuery('1 day'), 'floorChange24h')
       .addSelect(getFloorChangeQuery('7 days'), 'floorChange7d')
-      .addSelect(getFloorChangeQuery('30 days'), 'floorChange30d');
+      .addSelect(getFloorChangeQuery('30 days'), 'floorChange30d')
+      .addSelect(getSaleCountQuery('1 hour'), 'saleCount1h')
+      .addSelect(getSaleCountQuery('6 hours'), 'saleCount6h')
+      .addSelect(getSaleCountQuery('1 day'), 'saleCount24h')
+      .addSelect(getSaleCountQuery('7 days'), 'saleCount7d')
+      .addSelect(getSaleCountQuery('30 days'), 'saleCount30d')
+      .addSelect(
+        (query) =>
+          query
+            .from(SaleEntity, 'sale')
+            .select('COUNT(*)')
+            .where('"sale"."collectionAddress" = "collection"."address"')
+            .andWhere(
+              `"sale"."currency" IN ('${utils.strip0x(
+                ethers.constants.AddressZero,
+              )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+            ),
+        'saleCount',
+      )
+      .addSelect(
+        (query) =>
+          query
+            .from(Balance, 'balance')
+            .select('SUM("balance"."balance")')
+            .where('"balance"."collectionAddress" = "collection"."address"'),
+        'totalSupply',
+      )
+      .addSelect(
+        (query) =>
+          query
+            .from(Balance, 'balance')
+            .select('COUNT(DISTINCT "balance"."userAddress")')
+            .where('"balance"."collectionAddress" = "collection"."address"'),
+        'ownerCount',
+      )
+      .addSelect(
+        (query) =>
+          query
+            .from(Order, 'order')
+            .select('COUNT(DISTINCT "order"."tokenId")')
+            .where(`"order"."type" <> '${OrderType.BID}'`)
+            .andWhere('"order"."collectionAddress" = "collection"."address"')
+            .andWhere('"order"."active"'),
+        'listedCount',
+      );
   },
   name: 'collection_rankings',
   materialized: true,
@@ -262,4 +320,40 @@ export class CollectionRanking extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   floorPrice!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  saleCount1h!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  saleCount6h!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  saleCount24h!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  saleCount7d!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  saleCount30d!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  saleCount!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  totalSupply!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  ownerCount!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  listedCount!: string;
 }

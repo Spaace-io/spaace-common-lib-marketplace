@@ -18,4 +18,13 @@ export declare class CollectionRanking extends BaseEntity {
     floorChange7d: string;
     floorChange30d: string;
     floorPrice: string;
+    saleCount1h: string;
+    saleCount6h: string;
+    saleCount24h: string;
+    saleCount7d: string;
+    saleCount30d: string;
+    saleCount: string;
+    totalSupply: string;
+    ownerCount: string;
+    listedCount: string;
 }

@@ -13,19 +13,10 @@ exports.Collection = void 0;
 const typeorm_1 = require("typeorm");
 const __1 = require("..");
 const graphql_1 = require("../../graphql");
-const __2 = require("../..");
 const ethers_1 = require("ethers");
 const graphql_2 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
-function getSaleCountQuery(interval) {
-    return (query) => query
-        .from(__1.SaleEntity, 'sale')
-        .select('COUNT(*)')
-        .where('"sale"."collectionAddress" = "collection"."address"')
-        .andWhere(`"sale"."currency" IN ('${__2.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__2.utils.strip0x(__2.utils.constants.WETH_ADDRESS)}')`)
-        .andWhere(`"sale"."timestamp" > NOW() - INTERVAL '${interval}'`);
-}
 let Collection = class Collection extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -106,11 +97,6 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "lastImport", void 0);
-__decorate([
-    (0, graphql_2.Field)(() => [graphql_1.CollectionAttribute], { nullable: true }),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", Object)
-], Collection.prototype, "attributes", void 0);
 __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -242,6 +228,11 @@ __decorate([
     __metadata("design:type", String)
 ], Collection.prototype, "listedCount", void 0);
 __decorate([
+    (0, graphql_2.Field)(() => [graphql_1.CollectionAttribute], { nullable: true }),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Object)
+], Collection.prototype, "attributes", void 0);
+__decorate([
     (0, graphql_2.Field)(() => Boolean),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Boolean)
@@ -250,7 +241,7 @@ Collection = __decorate([
     (0, graphql_2.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
-            return (dataSource
+            return dataSource
                 .createQueryBuilder()
                 .from(__1.CollectionEntity, 'collection')
                 .innerJoin(__1.CollectionRanking, 'ranking', '"ranking"."address" = "collection"."address"')
@@ -272,6 +263,15 @@ Collection = __decorate([
                 .addSelect('COALESCE("ranking"."floorChange7d", 0)', 'floorChange7d')
                 .addSelect('COALESCE("ranking"."floorChange30d", 0)', 'floorChange30d')
                 .addSelect('COALESCE("ranking"."floorPrice", 0)', 'floorPrice')
+                .addSelect('COALESCE("ranking"."saleCount1h", 0)', 'saleCount1h')
+                .addSelect('COALESCE("ranking"."saleCount6h", 0)', 'saleCount6h')
+                .addSelect('COALESCE("ranking"."saleCount24h", 0)', 'saleCount24h')
+                .addSelect('COALESCE("ranking"."saleCount7d", 0)', 'saleCount7d')
+                .addSelect('COALESCE("ranking"."saleCount30d", 0)', 'saleCount30d')
+                .addSelect('COALESCE("ranking"."saleCount", 0)', 'saleCount')
+                .addSelect('COALESCE("ranking"."totalSupply", 0)', 'totalSupply')
+                .addSelect('COALESCE("ranking"."ownerCount", 0)', 'ownerCount')
+                .addSelect('COALESCE("ranking"."listedCount", 0)', 'listedCount')
                 .addSelect((query) => query.fromDummy().select(`array_to_json(ARRAY ${query
                 .subQuery()
                 .from(__1.ItemAttributeEntity, 'attribute')
@@ -286,35 +286,6 @@ Collection = __decorate([
                 .where('"attribute"."collectionAddress" = "collection"."address"')
                 .groupBy('"attribute"."trait"')
                 .getQuery()})`), 'attributes')
-                // TODO: floorChange1h
-                // TODO: floorChange6h
-                // TODO: floorChange24h
-                // TODO: floorChange7d
-                // TODO: floorChange30d
-                .addSelect(getSaleCountQuery('1 hour'), 'saleCount1h')
-                .addSelect(getSaleCountQuery('6 hours'), 'saleCount6h')
-                .addSelect(getSaleCountQuery('1 day'), 'saleCount24h')
-                .addSelect(getSaleCountQuery('7 days'), 'saleCount7d')
-                .addSelect(getSaleCountQuery('30 days'), 'saleCount30d')
-                .addSelect((query) => query
-                .from(__1.SaleEntity, 'sale')
-                .select('COUNT(*)')
-                .where('"sale"."collectionAddress" = "collection"."address"')
-                .andWhere(`"sale"."currency" IN ('${__2.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__2.utils.strip0x(__2.utils.constants.WETH_ADDRESS)}')`), 'saleCount')
-                .addSelect((query) => query
-                .from(__1.Balance, 'balance')
-                .select('SUM("balance"."balance")')
-                .where('"balance"."collectionAddress" = "collection"."address"'), 'totalSupply')
-                .addSelect((query) => query
-                .from(__1.Balance, 'balance')
-                .select('COUNT(DISTINCT "balance"."userAddress")')
-                .where('"balance"."collectionAddress" = "collection"."address"'), 'ownerCount')
-                .addSelect((query) => query
-                .from(__1.Order, 'order')
-                .select('COUNT(DISTINCT "order"."tokenId")')
-                .where(`"order"."type" <> '${__1.OrderType.BID}'`)
-                .andWhere('"order"."collectionAddress" = "collection"."address"')
-                .andWhere('"order"."active"'), 'listedCount')
                 .addSelect((query) => query
                 .fromDummy()
                 .select(`EXISTS ${query
@@ -322,7 +293,7 @@ Collection = __decorate([
                 .select('1')
                 .from(__1.NotableCollection, 'notable')
                 .where('"notable"."collectionAddress" = "collection"."address"')
-                .getQuery()}`), 'notable'));
+                .getQuery()}`), 'notable');
         },
         name: 'collections_view',
     })
