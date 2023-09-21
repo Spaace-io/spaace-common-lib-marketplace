@@ -37,8 +37,9 @@ __decorate([
     __metadata("design:type", String)
 ], ItemAttributeEntity.prototype, "value", void 0);
 ItemAttributeEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'item_attributes' }),
-    (0, typeorm_1.Index)(['collectionAddress', 'trait', 'value']),
+    (0, typeorm_1.Entity)({ name: 'item_attributes' })
+    // TODO: @Index(['collectionAddress', 'trait', 'value']) doesn't work when trait or value is too long (exceeds max index row size)
+    ,
     (0, typeorm_1.Index)(['collectionAddress', 'tokenId'])
 ], ItemAttributeEntity);
 exports.ItemAttributeEntity = ItemAttributeEntity;

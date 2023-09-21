@@ -10,7 +10,7 @@ import {
 import { ItemEntity } from '.';
 
 @Entity({ name: 'item_attributes' })
-@Index(['collectionAddress', 'trait', 'value'])
+// TODO: @Index(['collectionAddress', 'trait', 'value']) doesn't work when trait or value is too long (exceeds max index row size)
 @Index(['collectionAddress', 'tokenId'])
 export class ItemAttributeEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 40 })
