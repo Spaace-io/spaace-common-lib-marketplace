@@ -1,8 +1,8 @@
 export enum PubsubTopic {
   // Kept for backwards compatibility
-  Triggers = 'triggers',
+  TRIGGERS = 'triggers',
   // New one for metadata import
-  MetadataImportTrigger = 'metadata-import-trigger',
+  METADATA_IMPORT_TRIGGERS = 'metadata-import-triggers',
 }
 
 export const PUBSUB_TOPICS = Object.entries(PubsubTopic).reduce(
