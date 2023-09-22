@@ -16,6 +16,7 @@ const typeorm_1 = require("typeorm");
 const tables_1 = require("../tables");
 const __1 = require("../..");
 const class_transformer_1 = require("class-transformer");
+const class_validator_1 = require("class-validator");
 let Balance = class Balance extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -41,6 +42,12 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Balance.prototype, "balance", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => __1.Item),
+    (0, class_transformer_1.Type)(() => __1.Item),
+    (0, class_validator_1.ValidateNested)(),
+    __metadata("design:type", __1.Item)
+], Balance.prototype, "item", void 0);
 Balance = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({

@@ -19,9 +19,6 @@ export class SaleEntity extends BaseEntity {
   @PrimaryColumn('numeric', { precision: 78, unsigned: true })
   logIdx!: string;
 
-  @Column('char', { length: 64 })
-  orderHash!: string;
-
   @PrimaryColumn('char', { length: 40 })
   collectionAddress!: string;
 
@@ -32,6 +29,9 @@ export class SaleEntity extends BaseEntity {
     { name: 'tokenId', referencedColumnName: 'tokenId' },
   ])
   tokenId!: string;
+
+  @Column('char', { length: 64 })
+  orderHash!: string;
 
   @Column('numeric', { precision: 78, unsigned: true, default: '1' })
   amount!: string;

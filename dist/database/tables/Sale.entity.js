@@ -23,10 +23,6 @@ __decorate([
     __metadata("design:type", String)
 ], SaleEntity.prototype, "logIdx", void 0);
 __decorate([
-    (0, typeorm_1.Column)('char', { length: 64 }),
-    __metadata("design:type", String)
-], SaleEntity.prototype, "orderHash", void 0);
-__decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     __metadata("design:type", String)
 ], SaleEntity.prototype, "collectionAddress", void 0);
@@ -40,6 +36,10 @@ __decorate([
     ]),
     __metadata("design:type", String)
 ], SaleEntity.prototype, "tokenId", void 0);
+__decorate([
+    (0, typeorm_1.Column)('char', { length: 64 }),
+    __metadata("design:type", String)
+], SaleEntity.prototype, "orderHash", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),
     __metadata("design:type", String)
