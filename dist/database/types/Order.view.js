@@ -17,7 +17,6 @@ const ethers_1 = require("ethers");
 const tables_1 = require("../tables");
 const Sale_view_1 = require("./Sale.view");
 const TokenBalance_view_1 = require("./TokenBalance.view");
-const Balance_view_1 = require("./Balance.view");
 const __1 = require("../..");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
@@ -135,20 +134,20 @@ Order = __decorate([
                 .subQuery()
                 .from(Sale_view_1.Sale, 'sale')
                 .where('"sale"."orderHash" = "order"."hash"')
-                .getQuery()} AND "order"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}') AND CASE WHEN "order"."type" = '${tables_1.OrderType.DUTCH_AUCTION}' THEN ${query
+                .getQuery()} AND "order"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}') AND CASE WHEN "order"."type" = '${tables_1.OrderType.DUTCH_AUCTION}' THEN COALESCE(${query
                 .subQuery()
                 .select('"balance"."balance"')
                 .from(TokenBalance_view_1.TokenBalance, 'balance')
                 .where('"balance"."currency" = "order"."currency"')
                 .andWhere('"balance"."userAddress" = "order"."userAddress"')
-                .getQuery()} > "order"."price" ELSE ${query
+                .getQuery()}, 0) > "order"."price" ELSE COALESCE(${query
                 .subQuery()
                 .select('"balance"."balance"')
-                .from(Balance_view_1.Balance, 'balance')
+                .from(tables_1.BalanceEntity, 'balance')
                 .where('"balance"."userAddress" = "order"."userAddress"')
                 .andWhere('"balance"."collectionAddress" = "order"."collectionAddress"')
                 .andWhere('"balance"."tokenId" = "order"."tokenId"')
-                .getQuery()} > 0 END`), 'active');
+                .getQuery()}, 0) > 0 END`), 'active');
         },
         name: 'orders_view',
     })

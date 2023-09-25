@@ -2,10 +2,9 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
 import { ethers } from 'ethers';
-import { OrderEntity, OrderType } from '../tables';
+import { BalanceEntity, OrderEntity, OrderType } from '../tables';
 import { Sale } from './Sale.view';
 import { TokenBalance } from './TokenBalance.view';
-import { Balance } from './Balance.view';
 import { utils } from '../..';
 
 @ObjectType()
@@ -30,22 +29,22 @@ import { utils } from '../..';
                 utils.constants.WETH_ADDRESS,
               )}') AND CASE WHEN "order"."type" = '${
                 OrderType.DUTCH_AUCTION
-              }' THEN ${query
+              }' THEN COALESCE(${query
                 .subQuery()
                 .select('"balance"."balance"')
                 .from(TokenBalance, 'balance')
                 .where('"balance"."currency" = "order"."currency"')
                 .andWhere('"balance"."userAddress" = "order"."userAddress"')
-                .getQuery()} > "order"."price" ELSE ${query
+                .getQuery()}, 0) > "order"."price" ELSE COALESCE(${query
                 .subQuery()
                 .select('"balance"."balance"')
-                .from(Balance, 'balance')
+                .from(BalanceEntity, 'balance')
                 .where('"balance"."userAddress" = "order"."userAddress"')
                 .andWhere(
                   '"balance"."collectionAddress" = "order"."collectionAddress"',
                 )
                 .andWhere('"balance"."tokenId" = "order"."tokenId"')
-                .getQuery()} > 0 END`,
+                .getQuery()}, 0) > 0 END`,
             ),
         'active',
       );

@@ -7,6 +7,8 @@ export * from './Transfer.entity';
 export * from './Sale.entity';
 export * from './StakingDeposit.entity';
 export * from './StakingReward.entity';
+export * from './Balance.entity';
+export * from './TokenBalance.entity';
 
 export * from './DistributorReward.entity';
 export * from './RewardPeriod.entity';

@@ -10,8 +10,9 @@ import {
 import { ItemEntity } from './Item.entity';
 
 @Entity({ name: 'sales' })
-@Index(['collectionAddress', 'tokenId'])
-@Index(['orderHash', 'collectionAddress', 'tokenId'])
+@Index(['collectionAddress', 'timestamp'])
+@Index(['collectionAddress', 'tokenId', 'timestamp'])
+@Index(['orderHash'])
 export class SaleEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   txHash!: string;

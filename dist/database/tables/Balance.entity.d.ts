@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-export declare class Balance extends BaseEntity {
+export declare class BalanceEntity extends BaseEntity {
     collectionAddress: string;
     tokenId: string;
     userAddress: string;

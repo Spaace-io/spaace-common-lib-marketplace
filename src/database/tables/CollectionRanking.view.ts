@@ -15,45 +15,31 @@ import { CollectionEntity } from './Collection.entity';
 import { OrderType } from './Order.entity';
 import { Balance, Order } from '../types';
 
-function getVolumeQuery(interval: string) {
-  return (query: SelectQueryBuilder<object>) =>
-    query.fromDummy().select(
-      `COALESCE(${query
-        .subQuery()
-        .from(SaleEntity, 'sale')
-        .select('SUM("sale"."price")')
-        .where('"sale"."collectionAddress" = "collection"."address"')
-        .andWhere(
-          `"sale"."currency" IN ('${utils.strip0x(
-            ethers.constants.AddressZero,
-          )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
-        )
-        .andWhere(`"sale"."timestamp" > NOW() - INTERVAL '${interval}'`)
-        .getQuery()}, 0)`,
-    );
-}
+function getVolumeQuery(interval: string, previous = false) {
+  return (query: SelectQueryBuilder<object>) => {
+    let subQuery = query
+      .subQuery()
+      .from(SaleEntity, 'sale')
+      .select('SUM("sale"."price")')
+      .where('"sale"."collectionAddress" = "collection"."address"')
+      .andWhere(
+        `"sale"."currency" IN ('${utils.strip0x(
+          ethers.constants.AddressZero,
+        )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+      );
 
-function getVolumeChangeQuery(interval: string) {
-  return (query: SelectQueryBuilder<object>) =>
-    query.fromDummy().select(
-      `COALESCE(${query
-        .subQuery()
-        .from(SaleEntity, 'sale')
-        .select(
-          `${getVolumeQuery(interval)(
-            query.subQuery(),
-          ).getQuery()} - SUM("sale"."price")`,
-        )
-        .where('"sale"."collectionAddress" = "collection"."address"')
-        .andWhere(
-          `"sale"."currency" IN ('${utils.strip0x(
-            ethers.constants.AddressZero,
-          )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
-        )
+    if (previous) {
+      subQuery = subQuery
         .andWhere(`"sale"."timestamp" > NOW() - (INTERVAL '${interval}' * 2)`)
-        .andWhere(`"sale"."timestamp" <= NOW() - INTERVAL '${interval}'`)
-        .getQuery()}, 0)`,
-    );
+        .andWhere(`"sale"."timestamp" <= NOW() - INTERVAL '${interval}'`);
+    } else {
+      subQuery = subQuery.andWhere(
+        `"sale"."timestamp" > NOW() - INTERVAL '${interval}'`,
+      );
+    }
+
+    return query.fromDummy().select(`COALESCE(${subQuery.getQuery()}, 0)`);
+  };
 }
 
 function getFloorPriceQuery(timestamp?: string) {
@@ -122,19 +108,6 @@ function getFloorPriceQuery(timestamp?: string) {
   };
 }
 
-function getFloorChangeQuery(interval: string) {
-  return (query: SelectQueryBuilder<object>) =>
-    query
-      .fromDummy()
-      .select(
-        `COALESCE(${getFloorPriceQuery()(
-          query.subQuery(),
-        ).getQuery()}, 0) - COALESCE(${getFloorPriceQuery(
-          `(NOW() - INTERVAL '${interval}')`,
-        )(query.subQuery()).getQuery()}, 0)`,
-      );
-}
-
 function getSaleCountQuery(interval: string) {
   return (query: SelectQueryBuilder<object>) =>
     query
@@ -153,106 +126,147 @@ function getSaleCountQuery(interval: string) {
   expression: (dataSource: DataSource) => {
     return dataSource
       .createQueryBuilder()
-      .from(CollectionEntity, 'collection')
-      .select('"collection"."address"')
-      .addSelect(getVolumeQuery('1 hour'), 'volume1h')
-      .addSelect(getVolumeChangeQuery('1 hour'), 'volumeChange1h')
-      .addSelect(getVolumeQuery('6 hours'), 'volume6h')
-      .addSelect(getVolumeChangeQuery('6 hours'), 'volumeChange6h')
-      .addSelect(getVolumeQuery('1 day'), 'volume24h')
-      .addSelect(getVolumeChangeQuery('1 day'), 'volumeChange24h')
-      .addSelect(getVolumeQuery('7 days'), 'volume7d')
-      .addSelect(getVolumeChangeQuery('7 days'), 'volumeChange7d')
-      .addSelect(getVolumeChangeQuery('30 days'), 'volumeChange30d')
-      .addSelect(getVolumeQuery('30 days'), 'volume30d')
-      .addSelect(
-        (query) =>
-          query
-            .from(SaleEntity, 'sale')
-            .select('SUM("sale"."price")')
-            .where('"sale"."collectionAddress" = "collection"."address"')
-            .andWhere(
-              `"sale"."currency" IN ('${utils.strip0x(
-                ethers.constants.AddressZero,
-              )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+      .from(
+        (q) =>
+          q
+            .from(CollectionEntity, 'collection')
+            .select('"collection"."address"')
+            .addSelect(
+              (query) =>
+                query
+                  .from(SaleEntity, 'sale')
+                  .select('SUM("sale"."price")')
+                  .where('"sale"."collectionAddress" = "collection"."address"')
+                  .andWhere(
+                    `"sale"."currency" IN ('${utils.strip0x(
+                      ethers.constants.AddressZero,
+                    )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+                  ),
+              'volume',
+            )
+            .addSelect(getVolumeQuery('1 hour'), 'volume1h')
+            .addSelect(getVolumeQuery('6 hours'), 'volume6h')
+            .addSelect(getVolumeQuery('1 day'), 'volume24h')
+            .addSelect(getVolumeQuery('7 days'), 'volume7d')
+            .addSelect(getVolumeQuery('30 days'), 'volume30d')
+            .addSelect(getVolumeQuery('1 hour', true), 'volumePrevious1h')
+            .addSelect(getVolumeQuery('6 hours', true), 'volumePrevious6h')
+            .addSelect(getVolumeQuery('1 day', true), 'volumePrevious24h')
+            .addSelect(getVolumeQuery('7 days', true), 'volumePrevious7d')
+            .addSelect(getVolumeQuery('30 days', true), 'volumePrevious30d')
+            .addSelect(getFloorPriceQuery(), 'floorPrice')
+            .addSelect(
+              getFloorPriceQuery("NOW() - INTERVAL '1 hour'"),
+              'floorPrevious1h',
+            )
+            .addSelect(
+              getFloorPriceQuery("NOW() - INTERVAL '6 hours'"),
+              'floorPrevious6h',
+            )
+            .addSelect(
+              getFloorPriceQuery("NOW() - INTERVAL '1 day'"),
+              'floorPrevious24h',
+            )
+            .addSelect(
+              getFloorPriceQuery("NOW() - INTERVAL '7 days'"),
+              'floorPrevious7d',
+            )
+            .addSelect(
+              getFloorPriceQuery("NOW() - INTERVAL '30 days'"),
+              'floorPrevious30d',
+            )
+            .addSelect(
+              (query) =>
+                query
+                  .from(SaleEntity, 'sale')
+                  .select('COUNT(*)')
+                  .where('"sale"."collectionAddress" = "collection"."address"')
+                  .andWhere(
+                    `"sale"."currency" IN ('${utils.strip0x(
+                      ethers.constants.AddressZero,
+                    )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+                  ),
+              'saleCount',
+            )
+            .addSelect(getSaleCountQuery('1 hour'), 'saleCount1h')
+            .addSelect(getSaleCountQuery('6 hours'), 'saleCount6h')
+            .addSelect(getSaleCountQuery('1 day'), 'saleCount24h')
+            .addSelect(getSaleCountQuery('7 days'), 'saleCount7d')
+            .addSelect(getSaleCountQuery('30 days'), 'saleCount30d')
+            .addSelect(
+              (query) =>
+                query
+                  .from(Balance, 'balance')
+                  .select('SUM("balance"."balance")')
+                  .where(
+                    '"balance"."collectionAddress" = "collection"."address"',
+                  ),
+              'totalSupply',
+            )
+            .addSelect(
+              (query) =>
+                query
+                  .from(Balance, 'balance')
+                  .select('COUNT(DISTINCT "balance"."userAddress")')
+                  .where(
+                    '"balance"."collectionAddress" = "collection"."address"',
+                  ),
+              'ownerCount',
+            )
+            .addSelect(
+              (query) =>
+                query
+                  .from(Order, 'order')
+                  .select('COUNT(DISTINCT "order"."tokenId")')
+                  .where(`"order"."type" <> '${OrderType.BID}'`)
+                  .andWhere(
+                    '"order"."collectionAddress" = "collection"."address"',
+                  )
+                  .andWhere('"order"."active"'),
+              'listedCount',
             ),
-        'volume',
+        'collection',
       )
-      .addSelect(getFloorPriceQuery(), 'floorPrice')
-      .addSelect(getFloorChangeQuery('1 hour'), 'floorChange1h')
-      .addSelect(getFloorChangeQuery('6 hours'), 'floorChange6h')
-      .addSelect(getFloorChangeQuery('1 day'), 'floorChange24h')
-      .addSelect(getFloorChangeQuery('7 days'), 'floorChange7d')
-      .addSelect(getFloorChangeQuery('30 days'), 'floorChange30d')
-      .addSelect(getSaleCountQuery('1 hour'), 'saleCount1h')
-      .addSelect(getSaleCountQuery('6 hours'), 'saleCount6h')
-      .addSelect(getSaleCountQuery('1 day'), 'saleCount24h')
-      .addSelect(getSaleCountQuery('7 days'), 'saleCount7d')
-      .addSelect(getSaleCountQuery('30 days'), 'saleCount30d')
-      .addSelect(
-        (query) =>
-          query
-            .from(SaleEntity, 'sale')
-            .select('COUNT(*)')
-            .where('"sale"."collectionAddress" = "collection"."address"')
-            .andWhere(
-              `"sale"."currency" IN ('${utils.strip0x(
-                ethers.constants.AddressZero,
-              )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
-            ),
-        'saleCount',
-      )
-      .addSelect(
-        (query) =>
-          query
-            .from(Balance, 'balance')
-            .select('SUM("balance"."balance")')
-            .where('"balance"."collectionAddress" = "collection"."address"'),
-        'totalSupply',
-      )
-      .addSelect(
-        (query) =>
-          query
-            .from(Balance, 'balance')
-            .select('COUNT(DISTINCT "balance"."userAddress")')
-            .where('"balance"."collectionAddress" = "collection"."address"'),
-        'ownerCount',
-      )
-      .addSelect(
-        (query) =>
-          query
-            .from(Order, 'order')
-            .select('COUNT(DISTINCT "order"."tokenId")')
-            .where(`"order"."type" <> '${OrderType.BID}'`)
-            .andWhere('"order"."collectionAddress" = "collection"."address"')
-            .andWhere('"order"."active"'),
-        'listedCount',
-      );
+      .select('*')
+      .addSelect('"volume1h" - "volumePrevious1h"', 'volumeChange1h')
+      .addSelect('"volume6h" - "volumePrevious6h"', 'volumeChange6h')
+      .addSelect('"volume24h" - "volumePrevious24h"', 'volumeChange24h')
+      .addSelect('"volume7d" - "volumePrevious7d"', 'volumeChange7d')
+      .addSelect('"volume30d" - "volumePrevious30d"', 'volumeChange30d')
+      .addSelect('"floorPrice" - "floorPrevious1h"', 'floorChange1h')
+      .addSelect('"floorPrice" - "floorPrevious6h"', 'floorChange6h')
+      .addSelect('"floorPrice" - "floorPrevious24h"', 'floorChange24h')
+      .addSelect('"floorPrice" - "floorPrevious7d"', 'floorChange7d')
+      .addSelect('"floorPrice" - "floorPrevious30d"', 'floorChange30d');
   },
   name: 'collection_rankings',
   materialized: true,
 })
 @Index(['address'], { unique: true })
-@Index(['volume1h'])
-@Index(['volumeChange1h'])
-@Index(['volume6h'])
-@Index(['volumeChange6h'])
-@Index(['volume24h'])
-@Index(['volumeChange24h'])
-@Index(['volume7d'])
-@Index(['volumeChange7d'])
-@Index(['volume30d'])
-@Index(['volumeChange30d'])
 @Index(['volume'])
+@Index(['volume1h'])
+@Index(['volume6h'])
+@Index(['volume24h'])
+@Index(['volume7d'])
+@Index(['volume30d'])
+@Index(['volumeChange1h'])
+@Index(['volumeChange6h'])
+@Index(['volumeChange24h'])
+@Index(['volumeChange7d'])
+@Index(['volumeChange30d'])
+@Index(['floorPrice'])
 @Index(['floorChange1h'])
 @Index(['floorChange6h'])
 @Index(['floorChange24h'])
 @Index(['floorChange7d'])
 @Index(['floorChange30d'])
-@Index(['floorPrice'])
 export class CollectionRanking extends BaseEntity {
   @ViewColumn()
   address!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  volume!: string;
 
   @Field(() => String)
   @ViewColumn()
@@ -260,15 +274,7 @@ export class CollectionRanking extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
-  volumeChange1h!: string;
-
-  @Field(() => String)
-  @ViewColumn()
   volume6h!: string;
-
-  @Field(() => String)
-  @ViewColumn()
-  volumeChange6h!: string;
 
   @Field(() => String)
   @ViewColumn()
@@ -276,15 +282,7 @@ export class CollectionRanking extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
-  volumeChange24h!: string;
-
-  @Field(() => String)
-  @ViewColumn()
   volume7d!: string;
-
-  @Field(() => String)
-  @ViewColumn()
-  volumeChange7d!: string;
 
   @Field(() => String)
   @ViewColumn()
@@ -292,11 +290,27 @@ export class CollectionRanking extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
+  volumeChange1h!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  volumeChange6h!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  volumeChange24h!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  volumeChange7d!: string;
+
+  @Field(() => String)
+  @ViewColumn()
   volumeChange30d!: string;
 
   @Field(() => String)
   @ViewColumn()
-  volume!: string;
+  floorPrice!: string;
 
   @Field(() => String)
   @ViewColumn()
@@ -317,10 +331,6 @@ export class CollectionRanking extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   floorChange30d!: string;
-
-  @Field(() => String)
-  @ViewColumn()
-  floorPrice!: string;
 
   @Field(() => String)
   @ViewColumn()

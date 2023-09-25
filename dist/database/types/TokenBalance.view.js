@@ -13,9 +13,8 @@ exports.TokenBalance = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
-const __1 = require("../..");
-const tables_1 = require("../tables");
 const class_transformer_1 = require("class-transformer");
+const tables_1 = require("../tables");
 let TokenBalance = class TokenBalance extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -42,25 +41,9 @@ TokenBalance = __decorate([
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from((query) => query
-                .from(tables_1.TokenTransferEntity, 'transfer')
-                .select('"currency"')
-                .addSelect('"to"', 'userAddress')
-                .addSelect('SUM("amount")', 'total')
-                .groupBy('"currency"')
-                .addGroupBy('"to"'), 'received')
-                .leftJoin((query) => query
-                .from(tables_1.TokenTransferEntity, 'transfer')
-                .select('"currency"')
-                .addSelect('"from"', 'userAddress')
-                .addSelect('SUM("amount")', 'total')
-                .groupBy('"currency"')
-                .addGroupBy('"from"'), 'sent', '"sent"."currency" = "received"."currency" AND "sent"."userAddress" = "received"."userAddress"')
-                .select('"received"."currency"')
-                .addSelect('"received"."userAddress"')
-                .addSelect('"received"."total" - COALESCE("sent"."total", 0)', 'balance')
-                .where('"received"."total" > COALESCE("sent"."total", 0)')
-                .andWhere(`"received"."userAddress" <> '${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}'`);
+                .from(tables_1.TokenBalanceEntity, 'balance')
+                .select('"balance".*')
+                .where('"balance"."balance" > 0');
         },
         name: 'token_balances_view',
     }),

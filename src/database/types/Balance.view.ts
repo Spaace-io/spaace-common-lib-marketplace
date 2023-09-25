@@ -1,53 +1,17 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
-import { TransferEntity } from '../tables';
-import { Item, utils } from '../..';
-import { Transform, Type } from 'class-transformer';
-import { ValidateNested } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { BalanceEntity } from '../tables';
 
 @ObjectType()
 @ViewEntity({
   expression: (dataSource: DataSource) => {
     return dataSource
       .createQueryBuilder()
-      .from(
-        (query) =>
-          query
-            .from(TransferEntity, 'transfer')
-            .select('"collectionAddress"')
-            .addSelect('"tokenId"')
-            .addSelect('"to"', 'userAddress')
-            .addSelect('SUM("amount")', 'total')
-            .groupBy('"collectionAddress"')
-            .addGroupBy('"tokenId"')
-            .addGroupBy('"to"'),
-        'received',
-      )
-      .leftJoin(
-        (query) =>
-          query
-            .from(TransferEntity, 'transfer')
-            .select('"collectionAddress"')
-            .addSelect('"tokenId"')
-            .addSelect('"from"', 'userAddress')
-            .addSelect('SUM("amount")', 'total')
-            .groupBy('"collectionAddress"')
-            .addGroupBy('"tokenId"')
-            .addGroupBy('"from"'),
-        'sent',
-        '"sent"."collectionAddress" = "received"."collectionAddress" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."userAddress" = "received"."userAddress"',
-      )
-      .select('"received"."collectionAddress"')
-      .addSelect('"received"."tokenId"')
-      .addSelect('"received"."userAddress"')
-      .addSelect('"received"."total" - COALESCE("sent"."total", 0)', 'balance')
-      .where('"received"."total" > COALESCE("sent"."total", 0)')
-      .andWhere(
-        `"received"."userAddress" <> '${utils.strip0x(
-          ethers.constants.AddressZero,
-        )}'`,
-      );
+      .from(BalanceEntity, 'balance')
+      .select('"balance".*')
+      .where('"balance"."balance" > 0');
   },
   name: 'balances_view',
 })
@@ -70,9 +34,4 @@ export class Balance extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   balance!: string;
-
-  @Field(() => Item)
-  @Type(() => Item)
-  @ValidateNested()
-  item!: Item;
 }

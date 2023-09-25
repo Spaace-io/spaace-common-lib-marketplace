@@ -25,29 +25,29 @@ import { ValidateNested } from 'class-validator';
         '"ranking"."address" = "collection"."address"',
       )
       .select('"collection".*')
-      .addSelect('COALESCE("ranking"."volume1h", 0)', 'volume1h')
-      .addSelect('COALESCE("ranking"."volumeChange1h", 0)', 'volumeChange1h')
-      .addSelect('COALESCE("ranking"."volume6h", 0)', 'volume6h')
-      .addSelect('COALESCE("ranking"."volumeChange6h", 0)', 'volumeChange6h')
-      .addSelect('COALESCE("ranking"."volume24h", 0)', 'volume24h')
-      .addSelect('COALESCE("ranking"."volumeChange24h", 0)', 'volumeChange24h')
-      .addSelect('COALESCE("ranking"."volume7d", 0)', 'volume7d')
-      .addSelect('COALESCE("ranking"."volumeChange7d", 0)', 'volumeChange7d')
-      .addSelect('COALESCE("ranking"."volume30d", 0)', 'volume30d')
-      .addSelect('COALESCE("ranking"."volumeChange30d", 0)', 'volumeChange30d')
       .addSelect('COALESCE("ranking"."volume", 0)', 'volume')
+      .addSelect('COALESCE("ranking"."volume1h", 0)', 'volume1h')
+      .addSelect('COALESCE("ranking"."volume6h", 0)', 'volume6h')
+      .addSelect('COALESCE("ranking"."volume24h", 0)', 'volume24h')
+      .addSelect('COALESCE("ranking"."volume7d", 0)', 'volume7d')
+      .addSelect('COALESCE("ranking"."volume30d", 0)', 'volume30d')
+      .addSelect('COALESCE("ranking"."volumeChange1h", 0)', 'volumeChange1h')
+      .addSelect('COALESCE("ranking"."volumeChange6h", 0)', 'volumeChange6h')
+      .addSelect('COALESCE("ranking"."volumeChange24h", 0)', 'volumeChange24h')
+      .addSelect('COALESCE("ranking"."volumeChange7d", 0)', 'volumeChange7d')
+      .addSelect('COALESCE("ranking"."volumeChange30d", 0)', 'volumeChange30d')
+      .addSelect('COALESCE("ranking"."floorPrice", 0)', 'floorPrice')
       .addSelect('COALESCE("ranking"."floorChange1h", 0)', 'floorChange1h')
       .addSelect('COALESCE("ranking"."floorChange6h", 0)', 'floorChange6h')
       .addSelect('COALESCE("ranking"."floorChange24h", 0)', 'floorChange24h')
       .addSelect('COALESCE("ranking"."floorChange7d", 0)', 'floorChange7d')
       .addSelect('COALESCE("ranking"."floorChange30d", 0)', 'floorChange30d')
-      .addSelect('COALESCE("ranking"."floorPrice", 0)', 'floorPrice')
+      .addSelect('COALESCE("ranking"."saleCount", 0)', 'saleCount')
       .addSelect('COALESCE("ranking"."saleCount1h", 0)', 'saleCount1h')
       .addSelect('COALESCE("ranking"."saleCount6h", 0)', 'saleCount6h')
       .addSelect('COALESCE("ranking"."saleCount24h", 0)', 'saleCount24h')
       .addSelect('COALESCE("ranking"."saleCount7d", 0)', 'saleCount7d')
       .addSelect('COALESCE("ranking"."saleCount30d", 0)', 'saleCount30d')
-      .addSelect('COALESCE("ranking"."saleCount", 0)', 'saleCount')
       .addSelect('COALESCE("ranking"."totalSupply", 0)', 'totalSupply')
       .addSelect('COALESCE("ranking"."ownerCount", 0)', 'ownerCount')
       .addSelect('COALESCE("ranking"."listedCount", 0)', 'listedCount')
@@ -164,11 +164,11 @@ export class Collection extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
-  volume1h!: string;
+  volume!: string;
 
   @Field(() => String)
   @ViewColumn()
-  volumeChange1h!: string;
+  volume1h!: string;
 
   @Field(() => String)
   @ViewColumn()
@@ -176,15 +176,7 @@ export class Collection extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
-  volumeChange6h!: string;
-
-  @Field(() => String)
-  @ViewColumn()
   volume24h!: string;
-
-  @Field(() => String)
-  @ViewColumn()
-  volumeChange24h!: string;
 
   @Field(() => String)
   @ViewColumn()
@@ -192,11 +184,23 @@ export class Collection extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
-  volumeChange7d!: string;
+  volume30d!: string;
 
   @Field(() => String)
   @ViewColumn()
-  volume30d!: string;
+  volumeChange1h!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  volumeChange6h!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  volumeChange24h!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  volumeChange7d!: string;
 
   @Field(() => String)
   @ViewColumn()
@@ -204,7 +208,7 @@ export class Collection extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
-  volume!: string;
+  floorPrice!: string;
 
   @Field(() => String)
   @ViewColumn()
@@ -228,7 +232,7 @@ export class Collection extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
-  floorPrice!: string;
+  saleCount!: string;
 
   @Field(() => String)
   @ViewColumn()
@@ -249,10 +253,6 @@ export class Collection extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   saleCount30d!: string;
-
-  @Field(() => String)
-  @ViewColumn()
-  saleCount!: string;
 
   @Field(() => String)
   @ViewColumn()

@@ -66,8 +66,9 @@ __decorate([
 ], SaleEntity.prototype, "timestamp", void 0);
 SaleEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'sales' }),
-    (0, typeorm_1.Index)(['collectionAddress', 'tokenId']),
-    (0, typeorm_1.Index)(['orderHash', 'collectionAddress', 'tokenId'])
+    (0, typeorm_1.Index)(['collectionAddress', 'timestamp']),
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'timestamp']),
+    (0, typeorm_1.Index)(['orderHash'])
 ], SaleEntity);
 exports.SaleEntity = SaleEntity;
 //# sourceMappingURL=Sale.entity.js.map

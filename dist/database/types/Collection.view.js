@@ -101,12 +101,12 @@ __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "volume1h", void 0);
+], Collection.prototype, "volume", void 0);
 __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "volumeChange1h", void 0);
+], Collection.prototype, "volume1h", void 0);
 __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -116,17 +116,7 @@ __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "volumeChange6h", void 0);
-__decorate([
-    (0, graphql_2.Field)(() => String),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
 ], Collection.prototype, "volume24h", void 0);
-__decorate([
-    (0, graphql_2.Field)(() => String),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], Collection.prototype, "volumeChange24h", void 0);
 __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -136,12 +126,27 @@ __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "volumeChange7d", void 0);
+], Collection.prototype, "volume30d", void 0);
 __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "volume30d", void 0);
+], Collection.prototype, "volumeChange1h", void 0);
+__decorate([
+    (0, graphql_2.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Collection.prototype, "volumeChange6h", void 0);
+__decorate([
+    (0, graphql_2.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Collection.prototype, "volumeChange24h", void 0);
+__decorate([
+    (0, graphql_2.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Collection.prototype, "volumeChange7d", void 0);
 __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -151,7 +156,7 @@ __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "volume", void 0);
+], Collection.prototype, "floorPrice", void 0);
 __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -181,7 +186,7 @@ __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "floorPrice", void 0);
+], Collection.prototype, "saleCount", void 0);
 __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -207,11 +212,6 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount30d", void 0);
-__decorate([
-    (0, graphql_2.Field)(() => String),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], Collection.prototype, "saleCount", void 0);
 __decorate([
     (0, graphql_2.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -246,29 +246,29 @@ Collection = __decorate([
                 .from(__1.CollectionEntity, 'collection')
                 .innerJoin(__1.CollectionRanking, 'ranking', '"ranking"."address" = "collection"."address"')
                 .select('"collection".*')
-                .addSelect('COALESCE("ranking"."volume1h", 0)', 'volume1h')
-                .addSelect('COALESCE("ranking"."volumeChange1h", 0)', 'volumeChange1h')
-                .addSelect('COALESCE("ranking"."volume6h", 0)', 'volume6h')
-                .addSelect('COALESCE("ranking"."volumeChange6h", 0)', 'volumeChange6h')
-                .addSelect('COALESCE("ranking"."volume24h", 0)', 'volume24h')
-                .addSelect('COALESCE("ranking"."volumeChange24h", 0)', 'volumeChange24h')
-                .addSelect('COALESCE("ranking"."volume7d", 0)', 'volume7d')
-                .addSelect('COALESCE("ranking"."volumeChange7d", 0)', 'volumeChange7d')
-                .addSelect('COALESCE("ranking"."volume30d", 0)', 'volume30d')
-                .addSelect('COALESCE("ranking"."volumeChange30d", 0)', 'volumeChange30d')
                 .addSelect('COALESCE("ranking"."volume", 0)', 'volume')
+                .addSelect('COALESCE("ranking"."volume1h", 0)', 'volume1h')
+                .addSelect('COALESCE("ranking"."volume6h", 0)', 'volume6h')
+                .addSelect('COALESCE("ranking"."volume24h", 0)', 'volume24h')
+                .addSelect('COALESCE("ranking"."volume7d", 0)', 'volume7d')
+                .addSelect('COALESCE("ranking"."volume30d", 0)', 'volume30d')
+                .addSelect('COALESCE("ranking"."volumeChange1h", 0)', 'volumeChange1h')
+                .addSelect('COALESCE("ranking"."volumeChange6h", 0)', 'volumeChange6h')
+                .addSelect('COALESCE("ranking"."volumeChange24h", 0)', 'volumeChange24h')
+                .addSelect('COALESCE("ranking"."volumeChange7d", 0)', 'volumeChange7d')
+                .addSelect('COALESCE("ranking"."volumeChange30d", 0)', 'volumeChange30d')
+                .addSelect('COALESCE("ranking"."floorPrice", 0)', 'floorPrice')
                 .addSelect('COALESCE("ranking"."floorChange1h", 0)', 'floorChange1h')
                 .addSelect('COALESCE("ranking"."floorChange6h", 0)', 'floorChange6h')
                 .addSelect('COALESCE("ranking"."floorChange24h", 0)', 'floorChange24h')
                 .addSelect('COALESCE("ranking"."floorChange7d", 0)', 'floorChange7d')
                 .addSelect('COALESCE("ranking"."floorChange30d", 0)', 'floorChange30d')
-                .addSelect('COALESCE("ranking"."floorPrice", 0)', 'floorPrice')
+                .addSelect('COALESCE("ranking"."saleCount", 0)', 'saleCount')
                 .addSelect('COALESCE("ranking"."saleCount1h", 0)', 'saleCount1h')
                 .addSelect('COALESCE("ranking"."saleCount6h", 0)', 'saleCount6h')
                 .addSelect('COALESCE("ranking"."saleCount24h", 0)', 'saleCount24h')
                 .addSelect('COALESCE("ranking"."saleCount7d", 0)', 'saleCount7d')
                 .addSelect('COALESCE("ranking"."saleCount30d", 0)', 'saleCount30d')
-                .addSelect('COALESCE("ranking"."saleCount", 0)', 'saleCount')
                 .addSelect('COALESCE("ranking"."totalSupply", 0)', 'totalSupply')
                 .addSelect('COALESCE("ranking"."ownerCount", 0)', 'ownerCount')
                 .addSelect('COALESCE("ranking"."listedCount", 0)', 'listedCount')

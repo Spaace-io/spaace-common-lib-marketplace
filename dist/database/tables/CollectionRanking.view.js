@@ -18,26 +18,24 @@ const ethers_1 = require("ethers");
 const Collection_entity_1 = require("./Collection.entity");
 const Order_entity_1 = require("./Order.entity");
 const types_1 = require("../types");
-function getVolumeQuery(interval) {
-    return (query) => query.fromDummy().select(`COALESCE(${query
-        .subQuery()
-        .from(Sale_entity_1.SaleEntity, 'sale')
-        .select('SUM("sale"."price")')
-        .where('"sale"."collectionAddress" = "collection"."address"')
-        .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`)
-        .andWhere(`"sale"."timestamp" > NOW() - INTERVAL '${interval}'`)
-        .getQuery()}, 0)`);
-}
-function getVolumeChangeQuery(interval) {
-    return (query) => query.fromDummy().select(`COALESCE(${query
-        .subQuery()
-        .from(Sale_entity_1.SaleEntity, 'sale')
-        .select(`${getVolumeQuery(interval)(query.subQuery()).getQuery()} - SUM("sale"."price")`)
-        .where('"sale"."collectionAddress" = "collection"."address"')
-        .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`)
-        .andWhere(`"sale"."timestamp" > NOW() - (INTERVAL '${interval}' * 2)`)
-        .andWhere(`"sale"."timestamp" <= NOW() - INTERVAL '${interval}'`)
-        .getQuery()}, 0)`);
+function getVolumeQuery(interval, previous = false) {
+    return (query) => {
+        let subQuery = query
+            .subQuery()
+            .from(Sale_entity_1.SaleEntity, 'sale')
+            .select('SUM("sale"."price")')
+            .where('"sale"."collectionAddress" = "collection"."address"')
+            .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`);
+        if (previous) {
+            subQuery = subQuery
+                .andWhere(`"sale"."timestamp" > NOW() - (INTERVAL '${interval}' * 2)`)
+                .andWhere(`"sale"."timestamp" <= NOW() - INTERVAL '${interval}'`);
+        }
+        else {
+            subQuery = subQuery.andWhere(`"sale"."timestamp" > NOW() - INTERVAL '${interval}'`);
+        }
+        return query.fromDummy().select(`COALESCE(${subQuery.getQuery()}, 0)`);
+    };
 }
 function getFloorPriceQuery(timestamp) {
     return (query) => {
@@ -76,11 +74,6 @@ function getFloorPriceQuery(timestamp) {
         return query;
     };
 }
-function getFloorChangeQuery(interval) {
-    return (query) => query
-        .fromDummy()
-        .select(`COALESCE(${getFloorPriceQuery()(query.subQuery()).getQuery()}, 0) - COALESCE(${getFloorPriceQuery(`(NOW() - INTERVAL '${interval}')`)(query.subQuery()).getQuery()}, 0)`);
-}
 function getSaleCountQuery(interval) {
     return (query) => query
         .from(Sale_entity_1.SaleEntity, 'sale')
@@ -99,12 +92,12 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volume1h", void 0);
+], CollectionRanking.prototype, "volume", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volumeChange1h", void 0);
+], CollectionRanking.prototype, "volume1h", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -114,17 +107,7 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volumeChange6h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
 ], CollectionRanking.prototype, "volume24h", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], CollectionRanking.prototype, "volumeChange24h", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -134,12 +117,27 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volumeChange7d", void 0);
+], CollectionRanking.prototype, "volume30d", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volume30d", void 0);
+], CollectionRanking.prototype, "volumeChange1h", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionRanking.prototype, "volumeChange6h", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionRanking.prototype, "volumeChange24h", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionRanking.prototype, "volumeChange7d", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -149,7 +147,7 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volume", void 0);
+], CollectionRanking.prototype, "floorPrice", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -175,11 +173,6 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], CollectionRanking.prototype, "floorChange30d", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], CollectionRanking.prototype, "floorPrice", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -230,39 +223,40 @@ CollectionRanking = __decorate([
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
+                .from((q) => q
                 .from(Collection_entity_1.CollectionEntity, 'collection')
                 .select('"collection"."address"')
-                .addSelect(getVolumeQuery('1 hour'), 'volume1h')
-                .addSelect(getVolumeChangeQuery('1 hour'), 'volumeChange1h')
-                .addSelect(getVolumeQuery('6 hours'), 'volume6h')
-                .addSelect(getVolumeChangeQuery('6 hours'), 'volumeChange6h')
-                .addSelect(getVolumeQuery('1 day'), 'volume24h')
-                .addSelect(getVolumeChangeQuery('1 day'), 'volumeChange24h')
-                .addSelect(getVolumeQuery('7 days'), 'volume7d')
-                .addSelect(getVolumeChangeQuery('7 days'), 'volumeChange7d')
-                .addSelect(getVolumeChangeQuery('30 days'), 'volumeChange30d')
-                .addSelect(getVolumeQuery('30 days'), 'volume30d')
                 .addSelect((query) => query
                 .from(Sale_entity_1.SaleEntity, 'sale')
                 .select('SUM("sale"."price")')
                 .where('"sale"."collectionAddress" = "collection"."address"')
                 .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`), 'volume')
+                .addSelect(getVolumeQuery('1 hour'), 'volume1h')
+                .addSelect(getVolumeQuery('6 hours'), 'volume6h')
+                .addSelect(getVolumeQuery('1 day'), 'volume24h')
+                .addSelect(getVolumeQuery('7 days'), 'volume7d')
+                .addSelect(getVolumeQuery('30 days'), 'volume30d')
+                .addSelect(getVolumeQuery('1 hour', true), 'volumePrevious1h')
+                .addSelect(getVolumeQuery('6 hours', true), 'volumePrevious6h')
+                .addSelect(getVolumeQuery('1 day', true), 'volumePrevious24h')
+                .addSelect(getVolumeQuery('7 days', true), 'volumePrevious7d')
+                .addSelect(getVolumeQuery('30 days', true), 'volumePrevious30d')
                 .addSelect(getFloorPriceQuery(), 'floorPrice')
-                .addSelect(getFloorChangeQuery('1 hour'), 'floorChange1h')
-                .addSelect(getFloorChangeQuery('6 hours'), 'floorChange6h')
-                .addSelect(getFloorChangeQuery('1 day'), 'floorChange24h')
-                .addSelect(getFloorChangeQuery('7 days'), 'floorChange7d')
-                .addSelect(getFloorChangeQuery('30 days'), 'floorChange30d')
-                .addSelect(getSaleCountQuery('1 hour'), 'saleCount1h')
-                .addSelect(getSaleCountQuery('6 hours'), 'saleCount6h')
-                .addSelect(getSaleCountQuery('1 day'), 'saleCount24h')
-                .addSelect(getSaleCountQuery('7 days'), 'saleCount7d')
-                .addSelect(getSaleCountQuery('30 days'), 'saleCount30d')
+                .addSelect(getFloorPriceQuery("NOW() - INTERVAL '1 hour'"), 'floorPrevious1h')
+                .addSelect(getFloorPriceQuery("NOW() - INTERVAL '6 hours'"), 'floorPrevious6h')
+                .addSelect(getFloorPriceQuery("NOW() - INTERVAL '1 day'"), 'floorPrevious24h')
+                .addSelect(getFloorPriceQuery("NOW() - INTERVAL '7 days'"), 'floorPrevious7d')
+                .addSelect(getFloorPriceQuery("NOW() - INTERVAL '30 days'"), 'floorPrevious30d')
                 .addSelect((query) => query
                 .from(Sale_entity_1.SaleEntity, 'sale')
                 .select('COUNT(*)')
                 .where('"sale"."collectionAddress" = "collection"."address"')
                 .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`), 'saleCount')
+                .addSelect(getSaleCountQuery('1 hour'), 'saleCount1h')
+                .addSelect(getSaleCountQuery('6 hours'), 'saleCount6h')
+                .addSelect(getSaleCountQuery('1 day'), 'saleCount24h')
+                .addSelect(getSaleCountQuery('7 days'), 'saleCount7d')
+                .addSelect(getSaleCountQuery('30 days'), 'saleCount30d')
                 .addSelect((query) => query
                 .from(types_1.Balance, 'balance')
                 .select('SUM("balance"."balance")')
@@ -276,29 +270,40 @@ CollectionRanking = __decorate([
                 .select('COUNT(DISTINCT "order"."tokenId")')
                 .where(`"order"."type" <> '${Order_entity_1.OrderType.BID}'`)
                 .andWhere('"order"."collectionAddress" = "collection"."address"')
-                .andWhere('"order"."active"'), 'listedCount');
+                .andWhere('"order"."active"'), 'listedCount'), 'collection')
+                .select('*')
+                .addSelect('"volume1h" - "volumePrevious1h"', 'volumeChange1h')
+                .addSelect('"volume6h" - "volumePrevious6h"', 'volumeChange6h')
+                .addSelect('"volume24h" - "volumePrevious24h"', 'volumeChange24h')
+                .addSelect('"volume7d" - "volumePrevious7d"', 'volumeChange7d')
+                .addSelect('"volume30d" - "volumePrevious30d"', 'volumeChange30d')
+                .addSelect('"floorPrice" - "floorPrevious1h"', 'floorChange1h')
+                .addSelect('"floorPrice" - "floorPrevious6h"', 'floorChange6h')
+                .addSelect('"floorPrice" - "floorPrevious24h"', 'floorChange24h')
+                .addSelect('"floorPrice" - "floorPrevious7d"', 'floorChange7d')
+                .addSelect('"floorPrice" - "floorPrevious30d"', 'floorChange30d');
         },
         name: 'collection_rankings',
         materialized: true,
     }),
     (0, typeorm_1.Index)(['address'], { unique: true }),
-    (0, typeorm_1.Index)(['volume1h']),
-    (0, typeorm_1.Index)(['volumeChange1h']),
-    (0, typeorm_1.Index)(['volume6h']),
-    (0, typeorm_1.Index)(['volumeChange6h']),
-    (0, typeorm_1.Index)(['volume24h']),
-    (0, typeorm_1.Index)(['volumeChange24h']),
-    (0, typeorm_1.Index)(['volume7d']),
-    (0, typeorm_1.Index)(['volumeChange7d']),
-    (0, typeorm_1.Index)(['volume30d']),
-    (0, typeorm_1.Index)(['volumeChange30d']),
     (0, typeorm_1.Index)(['volume']),
+    (0, typeorm_1.Index)(['volume1h']),
+    (0, typeorm_1.Index)(['volume6h']),
+    (0, typeorm_1.Index)(['volume24h']),
+    (0, typeorm_1.Index)(['volume7d']),
+    (0, typeorm_1.Index)(['volume30d']),
+    (0, typeorm_1.Index)(['volumeChange1h']),
+    (0, typeorm_1.Index)(['volumeChange6h']),
+    (0, typeorm_1.Index)(['volumeChange24h']),
+    (0, typeorm_1.Index)(['volumeChange7d']),
+    (0, typeorm_1.Index)(['volumeChange30d']),
+    (0, typeorm_1.Index)(['floorPrice']),
     (0, typeorm_1.Index)(['floorChange1h']),
     (0, typeorm_1.Index)(['floorChange6h']),
     (0, typeorm_1.Index)(['floorChange24h']),
     (0, typeorm_1.Index)(['floorChange7d']),
-    (0, typeorm_1.Index)(['floorChange30d']),
-    (0, typeorm_1.Index)(['floorPrice'])
+    (0, typeorm_1.Index)(['floorChange30d'])
 ], CollectionRanking);
 exports.CollectionRanking = CollectionRanking;
 //# sourceMappingURL=CollectionRanking.view.js.map

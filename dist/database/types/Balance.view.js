@@ -13,10 +13,8 @@ exports.Balance = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
-const tables_1 = require("../tables");
-const __1 = require("../..");
 const class_transformer_1 = require("class-transformer");
-const class_validator_1 = require("class-validator");
+const tables_1 = require("../tables");
 let Balance = class Balance extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -42,42 +40,15 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Balance.prototype, "balance", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => __1.Item),
-    (0, class_transformer_1.Type)(() => __1.Item),
-    (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", __1.Item)
-], Balance.prototype, "item", void 0);
 Balance = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from((query) => query
-                .from(tables_1.TransferEntity, 'transfer')
-                .select('"collectionAddress"')
-                .addSelect('"tokenId"')
-                .addSelect('"to"', 'userAddress')
-                .addSelect('SUM("amount")', 'total')
-                .groupBy('"collectionAddress"')
-                .addGroupBy('"tokenId"')
-                .addGroupBy('"to"'), 'received')
-                .leftJoin((query) => query
-                .from(tables_1.TransferEntity, 'transfer')
-                .select('"collectionAddress"')
-                .addSelect('"tokenId"')
-                .addSelect('"from"', 'userAddress')
-                .addSelect('SUM("amount")', 'total')
-                .groupBy('"collectionAddress"')
-                .addGroupBy('"tokenId"')
-                .addGroupBy('"from"'), 'sent', '"sent"."collectionAddress" = "received"."collectionAddress" AND "sent"."tokenId" = "received"."tokenId" AND "sent"."userAddress" = "received"."userAddress"')
-                .select('"received"."collectionAddress"')
-                .addSelect('"received"."tokenId"')
-                .addSelect('"received"."userAddress"')
-                .addSelect('"received"."total" - COALESCE("sent"."total", 0)', 'balance')
-                .where('"received"."total" > COALESCE("sent"."total", 0)')
-                .andWhere(`"received"."userAddress" <> '${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}'`);
+                .from(tables_1.BalanceEntity, 'balance')
+                .select('"balance".*')
+                .where('"balance"."balance" > 0');
         },
         name: 'balances_view',
     })
