@@ -4,8 +4,8 @@ exports.strip0x = void 0;
 function strip0x(text) {
     if (Array.isArray(text))
         return text.map((elem) => strip0x(elem));
-    if (text === null)
-        return null;
+    if (text === undefined || text === null)
+        return text;
     text = text.toLowerCase();
     return text.startsWith('0x') ? text.substring(2) : text;
 }
