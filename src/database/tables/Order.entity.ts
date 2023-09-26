@@ -3,11 +3,14 @@ import {
   BaseEntity,
   Column,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryColumn,
 } from 'typeorm';
 import { ItemEntity, CollectionEntity } from '.';
+import * as utils from '../../utils';
+import { ethers } from 'ethers';
 
 export enum OrderType {
   ASK = 'ASK',
@@ -21,6 +24,27 @@ registerEnumType(OrderType, {
 });
 
 @Entity({ name: 'orders' })
+@Index(['collectionAddress', 'tokenId', 'endTime'], {
+  where: `"type" IN ('${OrderType.ASK}', '${
+    OrderType.DUTCH_AUCTION
+  }') AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils.strip0x(
+    ethers.constants.AddressZero,
+  )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+})
+@Index(['collectionAddress', 'tokenId', 'endTime'], {
+  where: `"type" = '${
+    OrderType.BID
+  }' AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils.strip0x(
+    ethers.constants.AddressZero,
+  )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+})
+@Index(['collectionAddress', 'tokenId', 'endTime'], {
+  where: `"type" = '${
+    OrderType.ENGLISH_AUCTION
+  }' AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils.strip0x(
+    ethers.constants.AddressZero,
+  )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+})
 export class OrderEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   hash!: string;

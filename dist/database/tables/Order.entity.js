@@ -13,6 +13,8 @@ exports.OrderEntity = exports.OrderType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const _1 = require(".");
+const utils = require("../../utils");
+const ethers_1 = require("ethers");
 var OrderType;
 (function (OrderType) {
     OrderType["ASK"] = "ASK";
@@ -94,7 +96,16 @@ __decorate([
     __metadata("design:type", Object)
 ], OrderEntity.prototype, "cancelTimestamp", void 0);
 OrderEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'orders' })
+    (0, typeorm_1.Entity)({ name: 'orders' }),
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'endTime'], {
+        where: `"type" IN ('${OrderType.ASK}', '${OrderType.DUTCH_AUCTION}') AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+    }),
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'endTime'], {
+        where: `"type" = '${OrderType.BID}' AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+    }),
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'endTime'], {
+        where: `"type" = '${OrderType.ENGLISH_AUCTION}' AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+    })
 ], OrderEntity);
 exports.OrderEntity = OrderEntity;
 //# sourceMappingURL=Order.entity.js.map
