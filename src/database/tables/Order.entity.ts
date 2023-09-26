@@ -45,11 +45,13 @@ registerEnumType(OrderType, {
     ethers.constants.AddressZero,
   )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
 })
+@Index(['collectionAddress', 'counter'])
 export class OrderEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   hash!: string;
 
   @Column('char', { length: 40 })
+  // No foreign key to the User entity because of aggregation of other marketplaces
   userAddress!: string;
 
   @Column('char', { length: 40 })

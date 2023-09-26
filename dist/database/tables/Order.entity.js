@@ -32,7 +32,9 @@ __decorate([
     __metadata("design:type", String)
 ], OrderEntity.prototype, "hash", void 0);
 __decorate([
-    (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, typeorm_1.Column)('char', { length: 40 })
+    // No foreign key to the User entity because of aggregation of other marketplaces
+    ,
     __metadata("design:type", String)
 ], OrderEntity.prototype, "userAddress", void 0);
 __decorate([
@@ -105,7 +107,8 @@ OrderEntity = __decorate([
     }),
     (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'endTime'], {
         where: `"type" = '${OrderType.ENGLISH_AUCTION}' AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
-    })
+    }),
+    (0, typeorm_1.Index)(['collectionAddress', 'counter'])
 ], OrderEntity);
 exports.OrderEntity = OrderEntity;
 //# sourceMappingURL=Order.entity.js.map

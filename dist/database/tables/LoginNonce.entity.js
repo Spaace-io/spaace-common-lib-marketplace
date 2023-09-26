@@ -29,7 +29,9 @@ __decorate([
 ], LoginNonce.prototype, "nonce", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, typeorm_1.Column)('char', { length: 40 })
+    // No foreign key to the User entity because it doesn't exist during the first login
+    ,
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
     }),

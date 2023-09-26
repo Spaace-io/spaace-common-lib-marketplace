@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BalanceEntity = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
+const Item_entity_1 = require("./Item.entity");
 let BalanceEntity = class BalanceEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -21,6 +22,11 @@ __decorate([
 __decorate([
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
+    (0, typeorm_1.ManyToOne)(() => Item_entity_1.ItemEntity),
+    (0, typeorm_1.JoinColumn)([
+        { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
+        { name: 'tokenId', referencedColumnName: 'tokenId' },
+    ]),
     __metadata("design:type", String)
 ], BalanceEntity.prototype, "tokenId", void 0);
 __decorate([

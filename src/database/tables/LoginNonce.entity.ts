@@ -22,6 +22,7 @@ export class LoginNonce extends BaseEntity {
 
   @Field(() => String)
   @Column('char', { length: 40 })
+  // No foreign key to the User entity because it doesn't exist during the first login
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })

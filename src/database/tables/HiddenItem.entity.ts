@@ -8,7 +8,7 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { ethers } from 'ethers';
-import { User } from '.';
+import { ItemEntity, User } from '.';
 
 @ObjectType()
 @Entity({ name: 'hidden_items' })
@@ -31,5 +31,10 @@ export class HiddenItem extends BaseEntity {
 
   @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  @ManyToOne(() => ItemEntity)
+  @JoinColumn([
+    { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
+    { name: 'tokenId', referencedColumnName: 'tokenId' },
+  ])
   tokenId!: string;
 }

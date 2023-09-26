@@ -14,6 +14,9 @@ const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
+const User_entity_1 = require("./User.entity");
+const Item_entity_1 = require("./Item.entity");
+const Collection_entity_1 = require("./Collection.entity");
 var ReportReason;
 (function (ReportReason) {
     ReportReason["FAKE"] = "FAKE";
@@ -33,6 +36,8 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, typeorm_1.ManyToOne)(() => User_entity_1.User),
+    (0, typeorm_1.JoinColumn)({ name: 'userAddress', referencedColumnName: 'address' }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
     }),
@@ -41,6 +46,8 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, typeorm_1.ManyToOne)(() => Collection_entity_1.CollectionEntity),
+    (0, typeorm_1.JoinColumn)({ name: 'collectionAddress', referencedColumnName: 'address' }),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
     }),
@@ -50,6 +57,11 @@ __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
+    (0, typeorm_1.ManyToOne)(() => Item_entity_1.ItemEntity, { nullable: true }),
+    (0, typeorm_1.JoinColumn)([
+        { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
+        { name: 'tokenId', referencedColumnName: 'tokenId' },
+    ]),
     (0, class_transformer_1.Transform)(({ value }) => value === ethers_1.BigNumber.from(2).pow(256).toString() ? null : value, {
         toPlainOnly: true,
     }),
