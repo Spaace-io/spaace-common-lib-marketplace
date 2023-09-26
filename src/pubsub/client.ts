@@ -43,9 +43,15 @@ class PubSubClient {
     return subscription;
   }
 
-  public async publish(
-    topicName: PubsubTopic,
-    ...messages: PubSubTrigger<QuestTrigger | MetadataImportTrigger>[]
+  public async publish<T extends PubsubTopic>(
+    topicName: T,
+    ...messages: PubSubTrigger<
+      T extends PubsubTopic.TRIGGERS
+        ? QuestTrigger
+        : T extends PubsubTopic.METADATA_IMPORT_TRIGGERS
+        ? MetadataImportTrigger
+        : never
+    >[]
   ) {
     const topic = this.pubsub.topic(this.getTopicFromName(topicName));
     return await Promise.all(
@@ -53,11 +59,17 @@ class PubSubClient {
     );
   }
 
-  public async onTrigger(
+  public async onTrigger<T extends PubsubTopic>(
     name: string,
-    topicName: PubsubTopic,
+    topicName: T,
     listener: (
-      trigger: PubSubTrigger<QuestTrigger | MetadataImportTrigger>,
+      trigger: PubSubTrigger<
+        T extends PubsubTopic.TRIGGERS
+          ? QuestTrigger
+          : T extends PubsubTopic.METADATA_IMPORT_TRIGGERS
+          ? MetadataImportTrigger
+          : never
+      >,
     ) => Promise<void>,
   ) {
     const subscription = await this.subscribe(topicName, name);

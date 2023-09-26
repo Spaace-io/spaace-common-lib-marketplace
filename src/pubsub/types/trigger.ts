@@ -10,8 +10,8 @@ import {
   User,
   TokenTransferEntity,
   CartItem,
-  Item,
-  Collection,
+  CollectionEntity,
+  ItemEntity,
 } from '../../database';
 import { UserInteraction } from '../../graphql';
 
@@ -50,9 +50,9 @@ export type PubSubTriggerData<T extends QuestTrigger | MetadataImportTrigger> =
     : T extends QuestTrigger.DATA_COMPILED
     ? object
     : T extends MetadataImportTrigger.ITEM
-    ? Item
+    ? ItemEntity
     : T extends MetadataImportTrigger.COLLECTION
-    ? Collection
+    ? CollectionEntity
     : never;
 
 export interface PubSubTrigger<T extends QuestTrigger | MetadataImportTrigger> {

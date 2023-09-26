@@ -7,8 +7,8 @@ declare class PubSubClient {
     private createTopics;
     private getTopicFromName;
     private subscribe;
-    publish(topicName: PubsubTopic, ...messages: PubSubTrigger<QuestTrigger | MetadataImportTrigger>[]): Promise<string[]>;
-    onTrigger(name: string, topicName: PubsubTopic, listener: (trigger: PubSubTrigger<QuestTrigger | MetadataImportTrigger>) => Promise<void>): Promise<void>;
+    publish<T extends PubsubTopic>(topicName: T, ...messages: PubSubTrigger<T extends PubsubTopic.TRIGGERS ? QuestTrigger : T extends PubsubTopic.METADATA_IMPORT_TRIGGERS ? MetadataImportTrigger : never>[]): Promise<string[]>;
+    onTrigger<T extends PubsubTopic>(name: string, topicName: T, listener: (trigger: PubSubTrigger<T extends PubsubTopic.TRIGGERS ? QuestTrigger : T extends PubsubTopic.METADATA_IMPORT_TRIGGERS ? MetadataImportTrigger : never>) => Promise<void>): Promise<void>;
 }
 export declare const pubsub: PubSubClient;
 export {};
