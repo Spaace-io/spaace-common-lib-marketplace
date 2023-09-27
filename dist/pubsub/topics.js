@@ -8,8 +8,8 @@ var PubsubTopic;
     // New one for metadata import
     PubsubTopic["METADATA_IMPORT"] = "metadata-import";
 })(PubsubTopic = exports.PubsubTopic || (exports.PubsubTopic = {}));
-exports.PUBSUB_TOPICS = Object.fromEntries(Object.entries(PubsubTopic).map(([k, v]) => [
-    k,
-    `${v}-${process.env.ENVIRONMENT}`,
+exports.PUBSUB_TOPICS = Object.fromEntries(Object.values(PubsubTopic).map((value) => [
+    value,
+    `${value}-${process.env.ENVIRONMENT}`,
 ]));
 //# sourceMappingURL=topics.js.map

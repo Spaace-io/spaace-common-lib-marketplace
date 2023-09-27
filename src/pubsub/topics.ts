@@ -6,8 +6,8 @@ export enum PubsubTopic {
 }
 
 export const PUBSUB_TOPICS = Object.fromEntries(
-  Object.entries(PubsubTopic).map(([k, v]) => [
-    k,
-    `${v}-${process.env.ENVIRONMENT}`,
+  Object.values(PubsubTopic).map((value) => [
+    value,
+    `${value}-${process.env.ENVIRONMENT}`,
   ]),
 );
