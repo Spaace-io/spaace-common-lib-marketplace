@@ -1,5 +1,7 @@
 export declare enum PubsubTopic {
     TRIGGERS = "triggers",
-    METADATA_IMPORT_TRIGGERS = "metadata-import-triggers"
+    METADATA_IMPORT = "metadata-import"
 }
-export declare const PUBSUB_TOPICS: Record<PubsubTopic, string>;
+export declare const PUBSUB_TOPICS: {
+    [k: string]: string;
+};

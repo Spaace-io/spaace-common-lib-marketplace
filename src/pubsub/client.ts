@@ -48,7 +48,7 @@ class PubSubClient {
     ...messages: PubSubTrigger<
       T extends PubsubTopic.TRIGGERS
         ? QuestTrigger
-        : T extends PubsubTopic.METADATA_IMPORT_TRIGGERS
+        : T extends PubsubTopic.METADATA_IMPORT
         ? MetadataImportTrigger
         : never
     >[]
@@ -66,7 +66,7 @@ class PubSubClient {
       trigger: PubSubTrigger<
         T extends PubsubTopic.TRIGGERS
           ? QuestTrigger
-          : T extends PubsubTopic.METADATA_IMPORT_TRIGGERS
+          : T extends PubsubTopic.METADATA_IMPORT
           ? MetadataImportTrigger
           : never
       >,
