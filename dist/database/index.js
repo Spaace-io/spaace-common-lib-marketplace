@@ -35,7 +35,7 @@ exports.Database = new typeorm_1.DataSource({
     schema,
     synchronize: false,
     migrationsRun: true,
-    logging: true,
+    logging: false,
     entities: [
         __dirname + '/tables/**.{entity,view}.{js,ts}',
         __dirname + '/types/**.view.{js,ts}',
