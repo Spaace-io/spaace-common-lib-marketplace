@@ -19,13 +19,7 @@ export class marketplace1695980825733 implements MigrationInterface {
       `ALTER TABLE "sales" ADD "marketplace" "public"."marketplace"`,
     );
     await queryRunner.query(`
-        UPDATE "sales"
-        SET "marketplace" = 
-            CASE (SELECT COUNT("orders"."hash") FROM "orders" WHERE "orders"."hash" = "sales"."orderHash")
-                WHEN 0 THEN 'OPENSEA'::marketplace
-                ELSE 'SPAACE'::marketplace
-            END
-
+      UPDATE "sales" AS "sale" SET "marketplace" = COALESCE((SELECT "order"."marketplace" FROM "orders" AS "order" WHERE "order"."hash" = "sale"."orderHash"), 'OPENSEA'::marketplace)
     `);
     await queryRunner.query(
       `ALTER TABLE "sales" ALTER COLUMN "marketplace" SET NOT NULL`,

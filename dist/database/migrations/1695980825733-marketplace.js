@@ -21,13 +21,7 @@ class marketplace1695980825733 {
             yield queryRunner.query(`ALTER TABLE "orders" ALTER COLUMN "marketplace" DROP DEFAULT`);
             yield queryRunner.query(`ALTER TABLE "sales" ADD "marketplace" "public"."marketplace"`);
             yield queryRunner.query(`
-        UPDATE "sales"
-        SET "marketplace" = 
-            CASE (SELECT COUNT("orders"."hash") FROM "orders" WHERE "orders"."hash" = "sales"."orderHash")
-                WHEN 0 THEN 'OPENSEA'::marketplace
-                ELSE 'SPAACE'::marketplace
-            END
-
+      UPDATE "sales" AS "sale" SET "marketplace" = COALESCE((SELECT "order"."marketplace" FROM "orders" AS "order" WHERE "order"."hash" = "sale"."orderHash"), 'OPENSEA'::marketplace)
     `);
             yield queryRunner.query(`ALTER TABLE "sales" ALTER COLUMN "marketplace" SET NOT NULL`);
         });
