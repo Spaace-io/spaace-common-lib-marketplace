@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SaleEntity = void 0;
 const typeorm_1 = require("typeorm");
 const Item_entity_1 = require("./Item.entity");
+const Order_entity_1 = require("./Order.entity");
 let SaleEntity = class SaleEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -60,6 +61,10 @@ __decorate([
     (0, typeorm_1.Column)('char', { length: 40 }),
     __metadata("design:type", String)
 ], SaleEntity.prototype, "currency", void 0);
+__decorate([
+    (0, typeorm_1.Column)('enum', { enum: Order_entity_1.Marketplace, enumName: 'marketplace' }),
+    __metadata("design:type", String)
+], SaleEntity.prototype, "marketplace", void 0);
 __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)

@@ -1,4 +1,9 @@
 import { BaseEntity } from 'typeorm';
+export declare enum Marketplace {
+    SPAACE = "SPAACE",
+    OPENSEA = "OPENSEA",
+    BLUR = "BLUR"
+}
 export declare enum OrderType {
     ASK = "ASK",
     BID = "BID",
@@ -11,6 +16,7 @@ export declare class OrderEntity extends BaseEntity {
     collectionAddress: string;
     tokenId: string | null;
     type: OrderType;
+    marketplace: Marketplace;
     price: string;
     startingPrice: string | null;
     currency: string;

@@ -86,6 +86,11 @@ __decorate([
     __metadata("design:type", String)
 ], Sale.prototype, "currency", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => tables_1.Marketplace),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Sale.prototype, "marketplace", void 0);
+__decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)

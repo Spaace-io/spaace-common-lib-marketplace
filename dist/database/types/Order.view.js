@@ -55,6 +55,11 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "type", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => tables_1.Marketplace),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Order.prototype, "marketplace", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)

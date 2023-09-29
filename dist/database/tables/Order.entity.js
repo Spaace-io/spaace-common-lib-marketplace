@@ -9,12 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrderEntity = exports.OrderType = void 0;
+exports.OrderEntity = exports.OrderType = exports.Marketplace = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const _1 = require(".");
 const utils = require("../../utils");
 const ethers_1 = require("ethers");
+var Marketplace;
+(function (Marketplace) {
+    Marketplace["SPAACE"] = "SPAACE";
+    Marketplace["OPENSEA"] = "OPENSEA";
+    Marketplace["BLUR"] = "BLUR";
+})(Marketplace = exports.Marketplace || (exports.Marketplace = {}));
 var OrderType;
 (function (OrderType) {
     OrderType["ASK"] = "ASK";
@@ -57,6 +63,10 @@ __decorate([
     (0, typeorm_1.Column)('enum', { enum: OrderType, enumName: 'order_type' }),
     __metadata("design:type", String)
 ], OrderEntity.prototype, "type", void 0);
+__decorate([
+    (0, typeorm_1.Column)('enum', { enum: Marketplace, enumName: 'marketplace' }),
+    __metadata("design:type", String)
+], OrderEntity.prototype, "marketplace", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)

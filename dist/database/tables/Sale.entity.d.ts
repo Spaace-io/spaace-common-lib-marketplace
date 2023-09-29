@@ -1,4 +1,5 @@
 import { BaseEntity } from 'typeorm';
+import { Marketplace } from './Order.entity';
 export declare class SaleEntity extends BaseEntity {
     txHash: string;
     logIdx: string;
@@ -10,5 +11,6 @@ export declare class SaleEntity extends BaseEntity {
     to: string;
     price: string;
     currency: string;
+    marketplace: Marketplace;
     timestamp: Date;
 }
