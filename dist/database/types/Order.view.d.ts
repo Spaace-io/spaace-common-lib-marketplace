@@ -1,11 +1,12 @@
 import { BaseEntity } from 'typeorm';
-import { OrderType } from '../tables';
+import { Marketplace, OrderType } from '../tables';
 export declare class Order extends BaseEntity {
     hash: string;
     userAddress: string;
     collectionAddress: string;
     tokenId: string | null;
     type: OrderType;
+    marketplace: Marketplace;
     price: string;
     startingPrice: string | null;
     currency: string;

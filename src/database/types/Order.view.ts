@@ -2,7 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
 import { ethers } from 'ethers';
-import { BalanceEntity, OrderEntity, OrderType } from '../tables';
+import { BalanceEntity, Marketplace, OrderEntity, OrderType } from '../tables';
 import { Sale } from './Sale.view';
 import { TokenBalance } from './TokenBalance.view';
 import { utils } from '../..';
@@ -83,6 +83,10 @@ export class Order extends BaseEntity {
   @Field(() => OrderType)
   @ViewColumn()
   type!: OrderType;
+
+  @Field(() => Marketplace)
+  @ViewColumn()
+  marketplace!: Marketplace;
 
   @Field(() => String)
   @ViewColumn()

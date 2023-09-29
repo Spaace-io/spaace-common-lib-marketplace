@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { ethers } from 'ethers';
-import { SaleEntity } from '../tables';
+import { Marketplace, SaleEntity } from '../tables';
 import { Transform } from 'class-transformer';
 
 @ObjectType()
@@ -78,6 +78,10 @@ export class Sale extends BaseEntity {
     toPlainOnly: true,
   })
   currency!: string;
+
+  @Field(() => Marketplace)
+  @ViewColumn()
+  marketplace!: Marketplace;
 
   @Field(() => Date)
   @ViewColumn()

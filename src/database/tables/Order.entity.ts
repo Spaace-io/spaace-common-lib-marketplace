@@ -12,6 +12,12 @@ import { ItemEntity, CollectionEntity } from '.';
 import * as utils from '../../utils';
 import { ethers } from 'ethers';
 
+export enum Marketplace {
+  SPAACE = 'SPAACE',
+  OPENSEA = 'OPENSEA',
+  BLUR = 'BLUR',
+}
+
 export enum OrderType {
   ASK = 'ASK',
   BID = 'BID',
@@ -69,6 +75,9 @@ export class OrderEntity extends BaseEntity {
 
   @Column('enum', { enum: OrderType, enumName: 'order_type' })
   type!: OrderType;
+
+  @Column('enum', { enum: Marketplace, enumName: 'marketplace' })
+  marketplace!: Marketplace;
 
   @Column('numeric', { precision: 78, unsigned: true })
   price!: string;

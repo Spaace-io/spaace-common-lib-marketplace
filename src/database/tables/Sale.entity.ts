@@ -8,6 +8,7 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { ItemEntity } from './Item.entity';
+import { Marketplace } from './Order.entity';
 
 @Entity({ name: 'sales' })
 @Index(['collectionAddress', 'timestamp'])
@@ -48,6 +49,9 @@ export class SaleEntity extends BaseEntity {
 
   @Column('char', { length: 40 })
   currency!: string;
+
+  @Column('enum', { enum: Marketplace, enumName: 'marketplace' })
+  marketplace!: Marketplace;
 
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
