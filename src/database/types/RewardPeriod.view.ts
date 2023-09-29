@@ -8,7 +8,11 @@ import { DistributorContract, RewardPeriodEntity } from '../tables';
     return dataSource
       .createQueryBuilder()
       .from(RewardPeriodEntity, 'period')
-      .select('"period".*');
+      .select('"period"."distributor"', 'distributor')
+      .addSelect('"period"."startTime"', 'startTime')
+      .addSelect('"period"."endTime"', 'endTime')
+      .addSelect('"period"."amount"', 'amount')
+      .addSelect('"period"."distributed"', 'distributed');
   },
   name: 'reward_periods_view',
 })

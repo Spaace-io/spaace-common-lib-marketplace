@@ -2,9 +2,14 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
 import { ethers } from 'ethers';
-import { BalanceEntity, Marketplace, OrderEntity, OrderType } from '../tables';
-import { Sale } from './Sale.view';
-import { TokenBalance } from './TokenBalance.view';
+import {
+  BalanceEntity,
+  Marketplace,
+  OrderEntity,
+  OrderType,
+  SaleEntity,
+  TokenBalanceEntity,
+} from '../tables';
 import { utils } from '../..';
 
 @ObjectType()
@@ -13,7 +18,22 @@ import { utils } from '../..';
     return dataSource
       .createQueryBuilder()
       .from(OrderEntity, 'order')
-      .select('"order".*')
+      .select('"order"."hash"', 'hash')
+      .addSelect('"order"."userAddress"', 'userAddress')
+      .addSelect('"order"."collectionAddress"', 'collectionAddress')
+      .addSelect('"order"."tokenId"', 'tokenId')
+      .addSelect('"order"."type"', 'type')
+      .addSelect('"order"."marketplace"', 'marketplace')
+      .addSelect('"order"."price"', 'price')
+      .addSelect('"order"."startingPrice"', 'startingPrice')
+      .addSelect('"order"."currency"', 'currency')
+      .addSelect('"order"."startTime"', 'startTime')
+      .addSelect('"order"."endTime"', 'endTime')
+      .addSelect('"order"."counter"', 'counter')
+      .addSelect('"order"."signature"', 'signature')
+      .addSelect('"order"."cancelTxHash"', 'cancelTxHash')
+      .addSelect('"order"."cancelLogIdx"', 'cancelLogIdx')
+      .addSelect('"order"."cancelTimestamp"', 'cancelTimestamp')
       .addSelect(
         (query) =>
           query
@@ -21,7 +41,7 @@ import { utils } from '../..';
             .select(
               `"order"."startTime" <= NOW() AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) AND "order"."cancelTimestamp" IS NULL AND NOT EXISTS ${query
                 .subQuery()
-                .from(Sale, 'sale')
+                .from(SaleEntity, 'sale')
                 .where('"sale"."orderHash" = "order"."hash"')
                 .getQuery()} AND "order"."currency" IN ('${utils.strip0x(
                 ethers.constants.AddressZero,
@@ -32,9 +52,10 @@ import { utils } from '../..';
               }' THEN COALESCE(${query
                 .subQuery()
                 .select('"balance"."balance"')
-                .from(TokenBalance, 'balance')
+                .from(TokenBalanceEntity, 'balance')
                 .where('"balance"."currency" = "order"."currency"')
                 .andWhere('"balance"."userAddress" = "order"."userAddress"')
+                .andWhere('"balance"."balance" > 0')
                 .getQuery()}, 0) > "order"."price" ELSE COALESCE(${query
                 .subQuery()
                 .select('"balance"."balance"')
@@ -44,6 +65,7 @@ import { utils } from '../..';
                   '"balance"."collectionAddress" = "order"."collectionAddress"',
                 )
                 .andWhere('"balance"."tokenId" = "order"."tokenId"')
+                .andWhere('"balance"."balance" > 0')
                 .getQuery()}, 0) > 0 END`,
             ),
         'active',

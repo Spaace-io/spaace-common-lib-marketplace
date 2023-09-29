@@ -71,7 +71,13 @@ StakingReward = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from(tables_1.StakingRewardEntity, 'reward')
-                .select('"reward".*');
+                .select('"reward"."txHash"', 'txHash')
+                .addSelect('"reward"."logIdx"', 'logIdx')
+                .addSelect('"reward"."userAddress"', 'userAddress')
+                .addSelect('"reward"."timestamp"', 'timestamp')
+                .addSelect('"reward"."pool"', 'pool')
+                .addSelect('"reward"."token"', 'token')
+                .addSelect('"reward"."amount"', 'amount');
         },
         name: 'staking_rewards_view',
     })

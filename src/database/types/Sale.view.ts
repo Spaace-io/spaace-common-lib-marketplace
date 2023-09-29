@@ -10,7 +10,18 @@ import { Transform } from 'class-transformer';
     return dataSource
       .createQueryBuilder()
       .from(SaleEntity, 'sale')
-      .select('"sale".*');
+      .select('"sale"."txHash"', 'txHash')
+      .addSelect('"sale"."logIdx"', 'logIdx')
+      .addSelect('"sale"."orderHash"', 'orderHash')
+      .addSelect('"sale"."collectionAddress"', 'collectionAddress')
+      .addSelect('"sale"."tokenId"', 'tokenId')
+      .addSelect('"sale"."amount"', 'amount')
+      .addSelect('"sale"."from"', 'from')
+      .addSelect('"sale"."to"', 'to')
+      .addSelect('"sale"."price"', 'price')
+      .addSelect('"sale"."currency"', 'currency')
+      .addSelect('"sale"."marketplace"', 'marketplace')
+      .addSelect('"sale"."timestamp"', 'timestamp');
   },
   name: 'sales_view',
 })

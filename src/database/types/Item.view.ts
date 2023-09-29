@@ -11,7 +11,15 @@ import { ValidateNested } from 'class-validator';
     return dataSource
       .createQueryBuilder()
       .from(ItemEntity, 'item')
-      .select('"item".*');
+      .select('"item"."collectionAddress"', 'collectionAddress')
+      .addSelect('"item"."tokenId"', 'tokenId')
+      .addSelect('"item"."title"', 'title')
+      .addSelect('"item"."description"', 'description')
+      .addSelect('"item"."tokenUri"', 'tokenUri')
+      .addSelect('"item"."medias"', 'medias')
+      .addSelect('"item"."rarityRanking"', 'rarityRanking')
+      .addSelect('"item"."rarityScore"', 'rarityScore')
+      .addSelect('"item"."lastImport"', 'lastImport');
   },
   name: 'items_view',
 })

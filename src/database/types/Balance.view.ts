@@ -10,7 +10,10 @@ import { BalanceEntity } from '../tables';
     return dataSource
       .createQueryBuilder()
       .from(BalanceEntity, 'balance')
-      .select('"balance".*')
+      .select('"balance"."collectionAddress"', 'collectionAddress')
+      .addSelect('"balance"."tokenId"', 'tokenId')
+      .addSelect('"balance"."userAddress"', 'userAddress')
+      .addSelect('"balance"."balance"', 'balance')
       .where('"balance"."balance" > 0');
   },
   name: 'balances_view',

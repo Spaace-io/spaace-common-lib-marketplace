@@ -63,7 +63,12 @@ StakingDeposit = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from(tables_1.StakingDepositEntity, 'deposit')
-                .select('"deposit".*');
+                .select('"deposit"."txHash"', 'txHash')
+                .addSelect('"deposit"."logIdx"', 'logIdx')
+                .addSelect('"deposit"."userAddress"', 'userAddress')
+                .addSelect('"deposit"."timestamp"', 'timestamp')
+                .addSelect('"deposit"."pool"', 'pool')
+                .addSelect('"deposit"."amount"', 'amount');
         },
         name: 'staking_deposits_view',
     })

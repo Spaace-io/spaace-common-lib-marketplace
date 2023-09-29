@@ -45,7 +45,9 @@ TokenBalance = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from(tables_1.TokenBalanceEntity, 'balance')
-                .select('"balance".*')
+                .select('"balance"."currency"', 'currency')
+                .addSelect('"balance"."userAddress"', 'userAddress')
+                .addSelect('"balance"."balance"', 'balance')
                 .where('"balance"."balance" > 0');
         },
         name: 'token_balances_view',

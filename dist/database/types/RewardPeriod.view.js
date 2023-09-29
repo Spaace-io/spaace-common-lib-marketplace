@@ -47,7 +47,11 @@ RewardPeriod = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from(tables_1.RewardPeriodEntity, 'period')
-                .select('"period".*');
+                .select('"period"."distributor"', 'distributor')
+                .addSelect('"period"."startTime"', 'startTime')
+                .addSelect('"period"."endTime"', 'endTime')
+                .addSelect('"period"."amount"', 'amount')
+                .addSelect('"period"."distributed"', 'distributed');
         },
         name: 'reward_periods_view',
     })

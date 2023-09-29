@@ -15,8 +15,6 @@ const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
 const tables_1 = require("../tables");
-const Sale_view_1 = require("./Sale.view");
-const TokenBalance_view_1 = require("./TokenBalance.view");
 const __1 = require("../..");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
@@ -132,19 +130,35 @@ Order = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from(tables_1.OrderEntity, 'order')
-                .select('"order".*')
+                .select('"order"."hash"', 'hash')
+                .addSelect('"order"."userAddress"', 'userAddress')
+                .addSelect('"order"."collectionAddress"', 'collectionAddress')
+                .addSelect('"order"."tokenId"', 'tokenId')
+                .addSelect('"order"."type"', 'type')
+                .addSelect('"order"."marketplace"', 'marketplace')
+                .addSelect('"order"."price"', 'price')
+                .addSelect('"order"."startingPrice"', 'startingPrice')
+                .addSelect('"order"."currency"', 'currency')
+                .addSelect('"order"."startTime"', 'startTime')
+                .addSelect('"order"."endTime"', 'endTime')
+                .addSelect('"order"."counter"', 'counter')
+                .addSelect('"order"."signature"', 'signature')
+                .addSelect('"order"."cancelTxHash"', 'cancelTxHash')
+                .addSelect('"order"."cancelLogIdx"', 'cancelLogIdx')
+                .addSelect('"order"."cancelTimestamp"', 'cancelTimestamp')
                 .addSelect((query) => query
                 .fromDummy()
                 .select(`"order"."startTime" <= NOW() AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) AND "order"."cancelTimestamp" IS NULL AND NOT EXISTS ${query
                 .subQuery()
-                .from(Sale_view_1.Sale, 'sale')
+                .from(tables_1.SaleEntity, 'sale')
                 .where('"sale"."orderHash" = "order"."hash"')
                 .getQuery()} AND "order"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}') AND CASE WHEN "order"."type" = '${tables_1.OrderType.DUTCH_AUCTION}' THEN COALESCE(${query
                 .subQuery()
                 .select('"balance"."balance"')
-                .from(TokenBalance_view_1.TokenBalance, 'balance')
+                .from(tables_1.TokenBalanceEntity, 'balance')
                 .where('"balance"."currency" = "order"."currency"')
                 .andWhere('"balance"."userAddress" = "order"."userAddress"')
+                .andWhere('"balance"."balance" > 0')
                 .getQuery()}, 0) > "order"."price" ELSE COALESCE(${query
                 .subQuery()
                 .select('"balance"."balance"')
@@ -152,6 +166,7 @@ Order = __decorate([
                 .where('"balance"."userAddress" = "order"."userAddress"')
                 .andWhere('"balance"."collectionAddress" = "order"."collectionAddress"')
                 .andWhere('"balance"."tokenId" = "order"."tokenId"')
+                .andWhere('"balance"."balance" > 0')
                 .getQuery()}, 0) > 0 END`), 'active');
         },
         name: 'orders_view',

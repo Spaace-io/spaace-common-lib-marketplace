@@ -121,7 +121,8 @@ OrderEntity = __decorate([
     (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'endTime'], {
         where: `"type" = '${OrderType.ENGLISH_AUCTION}' AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
     }),
-    (0, typeorm_1.Index)(['collectionAddress', 'counter'])
+    (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId']),
+    (0, typeorm_1.Index)(['userAddress', 'counter'])
 ], OrderEntity);
 exports.OrderEntity = OrderEntity;
 //# sourceMappingURL=Order.entity.js.map

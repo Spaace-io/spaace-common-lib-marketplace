@@ -8,12 +8,10 @@ import {
   ViewColumn,
   ViewEntity,
 } from 'typeorm';
-import { SaleEntity } from './Sale.entity';
 import { utils } from '../..';
 import { ethers } from 'ethers';
-import { CollectionEntity } from './Collection.entity';
-import { OrderType } from './Order.entity';
-import { Balance, Order } from '../types';
+import { BalanceEntity, CollectionEntity, OrderType, SaleEntity } from '.';
+import { Order } from '../types';
 
 function getVolumeQuery(interval: string, previous = false) {
   return (query: SelectQueryBuilder<object>) => {
@@ -89,18 +87,17 @@ function getFloorPriceQuery(timestamp?: string) {
             ethers.constants.AddressZero,
           )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
         )
-        .andWhere(
-          (query) =>
-            `${query
-              .subQuery()
-              .select('"balance"."balance"')
-              .from(Balance, 'balance')
-              .where('"balance"."userAddress" = "order"."userAddress"')
-              .andWhere(
-                '"balance"."collectionAddress" = "order"."collectionAddress"',
-              )
-              .andWhere('"balance"."tokenId" = "order"."tokenId"')
-              .getQuery()} > 0`,
+        .andWhereExists(
+          query
+            .subQuery()
+            .select('"balance"."balance"')
+            .from(BalanceEntity, 'balance')
+            .where('"balance"."userAddress" = "order"."userAddress"')
+            .andWhere(
+              '"balance"."collectionAddress" = "order"."collectionAddress"',
+            )
+            .andWhere('"balance"."tokenId" = "order"."tokenId"')
+            .andWhere('"balance"."balance" > 0'),
         );
     }
 
@@ -196,21 +193,23 @@ function getSaleCountQuery(interval: string) {
             .addSelect(
               (query) =>
                 query
-                  .from(Balance, 'balance')
+                  .from(BalanceEntity, 'balance')
                   .select('SUM("balance"."balance")')
                   .where(
                     '"balance"."collectionAddress" = "collection"."address"',
-                  ),
+                  )
+                  .andWhere('"balance"."balance" > 0'),
               'totalSupply',
             )
             .addSelect(
               (query) =>
                 query
-                  .from(Balance, 'balance')
+                  .from(BalanceEntity, 'balance')
                   .select('COUNT(DISTINCT "balance"."userAddress")')
                   .where(
                     '"balance"."collectionAddress" = "collection"."address"',
-                  ),
+                  )
+                  .andWhere('"balance"."balance" > 0'),
               'ownerCount',
             )
             .addSelect(

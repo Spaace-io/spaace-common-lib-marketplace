@@ -71,7 +71,13 @@ TokenTransfer = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from(tables_1.TokenTransferEntity, 'transfer')
-                .select('"transfer".*');
+                .select('"transfer"."txHash"', 'txHash')
+                .addSelect('"transfer"."logIdx"', 'logIdx')
+                .addSelect('"transfer"."from"', 'from')
+                .addSelect('"transfer"."to"', 'to')
+                .addSelect('"transfer"."currency"', 'currency')
+                .addSelect('"transfer"."amount"', 'amount')
+                .addSelect('"transfer"."timestamp"', 'timestamp');
         },
         name: 'token_transfers_view',
     })

@@ -10,7 +10,13 @@ import { TokenTransferEntity } from '../tables';
     return dataSource
       .createQueryBuilder()
       .from(TokenTransferEntity, 'transfer')
-      .select('"transfer".*');
+      .select('"transfer"."txHash"', 'txHash')
+      .addSelect('"transfer"."logIdx"', 'logIdx')
+      .addSelect('"transfer"."from"', 'from')
+      .addSelect('"transfer"."to"', 'to')
+      .addSelect('"transfer"."currency"', 'currency')
+      .addSelect('"transfer"."amount"', 'amount')
+      .addSelect('"transfer"."timestamp"', 'timestamp');
   },
   name: 'token_transfers_view',
 })

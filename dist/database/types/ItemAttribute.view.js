@@ -47,7 +47,10 @@ ItemAttribute = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from(tables_1.ItemAttributeEntity, 'attribute')
-                .select('"attribute".*');
+                .select('"attribute"."collectionAddress"', 'collectionAddress')
+                .addSelect('"attribute"."tokenId"', 'tokenId')
+                .addSelect('"attribute"."trait"', 'trait')
+                .addSelect('"attribute"."value"', 'value');
         },
         name: 'item_attributes_view',
     })

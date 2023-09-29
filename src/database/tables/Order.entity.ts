@@ -55,7 +55,8 @@ registerEnumType(OrderType, {
     ethers.constants.AddressZero,
   )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
 })
-@Index(['collectionAddress', 'counter'])
+@Index(['userAddress', 'collectionAddress', 'tokenId'])
+@Index(['userAddress', 'counter'])
 export class OrderEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   hash!: string;

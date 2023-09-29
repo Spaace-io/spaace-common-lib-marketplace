@@ -10,7 +10,14 @@ import { DistributorContract, DistributorRewardEntity } from '../tables';
     return dataSource
       .createQueryBuilder()
       .from(DistributorRewardEntity, 'reward')
-      .select('"reward".*');
+      .select('"reward"."userAddress"', 'userAddress')
+      .addSelect('"reward"."distributor"', 'distributor')
+      .addSelect('"reward"."amount"', 'amount')
+      .addSelect('"reward"."signature"', 'signature')
+      .addSelect('"reward"."timestamp"', 'timestamp')
+      .addSelect('"reward"."harvestTxHash"', 'harvestTxHash')
+      .addSelect('"reward"."harvestLogIdx"', 'harvestLogIdx')
+      .addSelect('"reward"."harvestTimestamp"', 'harvestTimestamp');
   },
   name: 'distributor_rewards_view',
 })
