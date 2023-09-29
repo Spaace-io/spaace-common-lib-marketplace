@@ -21,6 +21,9 @@ var Marketplace;
     Marketplace["OPENSEA"] = "OPENSEA";
     Marketplace["BLUR"] = "BLUR";
 })(Marketplace = exports.Marketplace || (exports.Marketplace = {}));
+(0, graphql_1.registerEnumType)(Marketplace, {
+    name: 'Marketplace',
+});
 var OrderType;
 (function (OrderType) {
     OrderType["ASK"] = "ASK";

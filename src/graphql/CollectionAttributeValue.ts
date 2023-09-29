@@ -1,8 +1,13 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { Transform } from 'class-transformer';
+import { ethers } from 'ethers';
 
 @ObjectType()
 export class CollectionAttributeValue {
   @Field(() => String)
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   collectionAddress!: string;
 
   @Field(() => String)

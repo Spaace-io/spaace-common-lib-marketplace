@@ -29,6 +29,9 @@ export class Balance extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   userAddress!: string;
 
   @Field(() => String)

@@ -18,6 +18,10 @@ export enum Marketplace {
   BLUR = 'BLUR',
 }
 
+registerEnumType(Marketplace, {
+  name: 'Marketplace',
+});
+
 export enum OrderType {
   ASK = 'ASK',
   BID = 'BID',

@@ -1,4 +1,6 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Transform } from 'class-transformer';
+import { ethers } from 'ethers';
 
 export enum UserInteractionType {
   DAILY_CLAIM = 'DAILY_CLAIM',
@@ -17,5 +19,8 @@ export class UserInteraction {
   type!: UserInteractionType;
 
   @Field(() => String)
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   userAddress!: string;
 }

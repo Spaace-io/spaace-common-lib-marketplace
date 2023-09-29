@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserInteraction = exports.UserInteractionType = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const class_transformer_1 = require("class-transformer");
+const ethers_1 = require("ethers");
 var UserInteractionType;
 (function (UserInteractionType) {
     UserInteractionType["DAILY_CLAIM"] = "DAILY_CLAIM";
@@ -29,6 +31,9 @@ __decorate([
 ], UserInteraction.prototype, "type", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], UserInteraction.prototype, "userAddress", void 0);
 UserInteraction = __decorate([
