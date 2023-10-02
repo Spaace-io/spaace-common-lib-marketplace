@@ -9,7 +9,6 @@ import {
   ViewEntity,
 } from 'typeorm';
 import { utils } from '../..';
-import { ethers } from 'ethers';
 import { BalanceEntity, CollectionEntity, OrderType, SaleEntity } from '.';
 import { Order } from '../types';
 
@@ -21,9 +20,9 @@ function getVolumeQuery(interval: string, previous = false) {
       .select('SUM("sale"."price")')
       .where('"sale"."collectionAddress" = "collection"."address"')
       .andWhere(
-        `"sale"."currency" IN ('${utils.strip0x(
-          ethers.constants.AddressZero,
-        )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+        `"sale"."currency" IN ('${utils
+          .strip0x(utils.constants.ETH_TOKENS)
+          .join("','")}')`,
       );
 
     if (previous) {
@@ -56,9 +55,9 @@ function getFloorPriceQuery(timestamp?: string) {
       )
       .andWhere('"order"."collectionAddress" = "collection"."address"')
       .andWhere(
-        `"order"."currency" IN ('${utils.strip0x(
-          ethers.constants.AddressZero,
-        )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+        `"order"."currency" IN ('${utils
+          .strip0x(utils.constants.ETH_TOKENS)
+          .join("','")}')`,
       );
 
     if (timestamp === undefined) {
@@ -83,9 +82,9 @@ function getFloorPriceQuery(timestamp?: string) {
             .getQuery()}`,
         )
         .andWhere(
-          `"order"."currency" IN ('${utils.strip0x(
-            ethers.constants.AddressZero,
-          )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+          `"order"."currency" IN ('${utils
+            .strip0x(utils.constants.ETH_TOKENS)
+            .join("','")}')`,
         )
         .andWhereExists(
           query
@@ -112,9 +111,9 @@ function getSaleCountQuery(interval: string) {
       .select('COUNT(*)')
       .where('"sale"."collectionAddress" = "collection"."address"')
       .andWhere(
-        `"sale"."currency" IN ('${utils.strip0x(
-          ethers.constants.AddressZero,
-        )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+        `"sale"."currency" IN ('${utils
+          .strip0x(utils.constants.ETH_TOKENS)
+          .join("','")}')`,
       )
       .andWhere(`"sale"."timestamp" > NOW() - INTERVAL '${interval}'`);
 }
@@ -135,9 +134,9 @@ function getSaleCountQuery(interval: string) {
                   .select('SUM("sale"."price")')
                   .where('"sale"."collectionAddress" = "collection"."address"')
                   .andWhere(
-                    `"sale"."currency" IN ('${utils.strip0x(
-                      ethers.constants.AddressZero,
-                    )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+                    `"sale"."currency" IN ('${utils
+                      .strip0x(utils.constants.ETH_TOKENS)
+                      .join("','")}')`,
                   ),
               'volume',
             )
@@ -179,9 +178,9 @@ function getSaleCountQuery(interval: string) {
                   .select('COUNT(*)')
                   .where('"sale"."collectionAddress" = "collection"."address"')
                   .andWhere(
-                    `"sale"."currency" IN ('${utils.strip0x(
-                      ethers.constants.AddressZero,
-                    )}', '${utils.strip0x(utils.constants.WETH_ADDRESS)}')`,
+                    `"sale"."currency" IN ('${utils
+                      .strip0x(utils.constants.ETH_TOKENS)
+                      .join("','")}')`,
                   ),
               'saleCount',
             )
@@ -217,7 +216,7 @@ function getSaleCountQuery(interval: string) {
                 query
                   .from(Order, 'order')
                   .select('COUNT(DISTINCT "order"."tokenId")')
-                  .where(`"order"."type" <> '${OrderType.BID}'`)
+                  .where(`"order"."type" != '${OrderType.BID}'`)
                   .andWhere(
                     '"order"."collectionAddress" = "collection"."address"',
                   )

@@ -11,7 +11,7 @@ export class tokenBalance1691415181110 implements MigrationInterface {
       `CREATE TABLE "token_transfers" ("txHash" character(64) NOT NULL, "logIdx" numeric(78) NOT NULL, "from" character(40) NOT NULL, "to" character(40) NOT NULL, "currency" character(40) NOT NULL, "amount" numeric(78) NOT NULL DEFAULT '1', "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_577b7d4a5f8030441dcb95e9a7b" PRIMARY KEY ("txHash", "logIdx"))`,
     );
     await queryRunner.query(
-      `CREATE MATERIALIZED VIEW "token_balances" AS SELECT "received"."currency", "received"."userAddress", "received"."total" - COALESCE("sent"."total", 0) AS "balance" FROM (SELECT "currency", "to" AS "userAddress", SUM("amount") AS "total" FROM "token_transfers" "transfer" GROUP BY "currency", "to") "received" LEFT JOIN (SELECT "currency", "from" AS "userAddress", SUM("amount") AS "total" FROM "token_transfers" "transfer" GROUP BY "currency", "from") "sent" ON "sent"."currency" = "received"."currency" AND "sent"."userAddress" = "received"."userAddress" WHERE "received"."total" > COALESCE("sent"."total", 0) AND "received"."userAddress" <> '0000000000000000000000000000000000000000'`,
+      `CREATE MATERIALIZED VIEW "token_balances" AS SELECT "received"."currency", "received"."userAddress", "received"."total" - COALESCE("sent"."total", 0) AS "balance" FROM (SELECT "currency", "to" AS "userAddress", SUM("amount") AS "total" FROM "token_transfers" "transfer" GROUP BY "currency", "to") "received" LEFT JOIN (SELECT "currency", "from" AS "userAddress", SUM("amount") AS "total" FROM "token_transfers" "transfer" GROUP BY "currency", "from") "sent" ON "sent"."currency" = "received"."currency" AND "sent"."userAddress" = "received"."userAddress" WHERE "received"."total" > COALESCE("sent"."total", 0) AND "received"."userAddress" != '0000000000000000000000000000000000000000'`,
     );
     await queryRunner.query(
       `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
@@ -19,7 +19,7 @@ export class tokenBalance1691415181110 implements MigrationInterface {
         'public',
         'MATERIALIZED_VIEW',
         'token_balances',
-        'SELECT "received"."currency", "received"."userAddress", "received"."total" - COALESCE("sent"."total", 0) AS "balance" FROM (SELECT "currency", "to" AS "userAddress", SUM("amount") AS "total" FROM "token_transfers" "transfer" GROUP BY "currency", "to") "received" LEFT JOIN (SELECT "currency", "from" AS "userAddress", SUM("amount") AS "total" FROM "token_transfers" "transfer" GROUP BY "currency", "from") "sent" ON "sent"."currency" = "received"."currency" AND "sent"."userAddress" = "received"."userAddress" WHERE "received"."total" > COALESCE("sent"."total", 0) AND "received"."userAddress" <> \'0000000000000000000000000000000000000000\'',
+        'SELECT "received"."currency", "received"."userAddress", "received"."total" - COALESCE("sent"."total", 0) AS "balance" FROM (SELECT "currency", "to" AS "userAddress", SUM("amount") AS "total" FROM "token_transfers" "transfer" GROUP BY "currency", "to") "received" LEFT JOIN (SELECT "currency", "from" AS "userAddress", SUM("amount") AS "total" FROM "token_transfers" "transfer" GROUP BY "currency", "from") "sent" ON "sent"."currency" = "received"."currency" AND "sent"."userAddress" = "received"."userAddress" WHERE "received"."total" > COALESCE("sent"."total", 0) AND "received"."userAddress" != \'0000000000000000000000000000000000000000\'',
       ],
     );
     await queryRunner.query(

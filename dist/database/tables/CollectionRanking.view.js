@@ -13,7 +13,6 @@ exports.CollectionRanking = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const __1 = require("../..");
-const ethers_1 = require("ethers");
 const _1 = require(".");
 const types_1 = require("../types");
 function getVolumeQuery(interval, previous = false) {
@@ -23,7 +22,9 @@ function getVolumeQuery(interval, previous = false) {
             .from(_1.SaleEntity, 'sale')
             .select('SUM("sale"."price")')
             .where('"sale"."collectionAddress" = "collection"."address"')
-            .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`);
+            .andWhere(`"sale"."currency" IN ('${__1.utils
+            .strip0x(__1.utils.constants.ETH_TOKENS)
+            .join("','")}')`);
         if (previous) {
             subQuery = subQuery
                 .andWhere(`"sale"."timestamp" > NOW() - (INTERVAL '${interval}' * 2)`)
@@ -42,7 +43,9 @@ function getFloorPriceQuery(timestamp) {
             .select(`MIN(CASE WHEN "order"."type" = '${_1.OrderType.DUTCH_AUCTION}' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM ${timestamp !== null && timestamp !== void 0 ? timestamp : 'NOW()'} - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END)`)
             .where(`"order"."type" IN ('${_1.OrderType.ASK}', '${_1.OrderType.DUTCH_AUCTION}')`)
             .andWhere('"order"."collectionAddress" = "collection"."address"')
-            .andWhere(`"order"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`);
+            .andWhere(`"order"."currency" IN ('${__1.utils
+            .strip0x(__1.utils.constants.ETH_TOKENS)
+            .join("','")}')`);
         if (timestamp === undefined) {
             query = query.andWhere('"order"."active"');
         }
@@ -59,7 +62,9 @@ function getFloorPriceQuery(timestamp) {
                 .from(_1.SaleEntity, 'sale')
                 .where('"sale"."orderHash" = "order"."hash"')
                 .getQuery()}`)
-                .andWhere(`"order"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`)
+                .andWhere(`"order"."currency" IN ('${__1.utils
+                .strip0x(__1.utils.constants.ETH_TOKENS)
+                .join("','")}')`)
                 .andWhereExists(query
                 .subQuery()
                 .select('"balance"."balance"')
@@ -77,7 +82,9 @@ function getSaleCountQuery(interval) {
         .from(_1.SaleEntity, 'sale')
         .select('COUNT(*)')
         .where('"sale"."collectionAddress" = "collection"."address"')
-        .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`)
+        .andWhere(`"sale"."currency" IN ('${__1.utils
+        .strip0x(__1.utils.constants.ETH_TOKENS)
+        .join("','")}')`)
         .andWhere(`"sale"."timestamp" > NOW() - INTERVAL '${interval}'`);
 }
 let CollectionRanking = class CollectionRanking extends typeorm_1.BaseEntity {
@@ -228,7 +235,9 @@ CollectionRanking = __decorate([
                 .from(_1.SaleEntity, 'sale')
                 .select('SUM("sale"."price")')
                 .where('"sale"."collectionAddress" = "collection"."address"')
-                .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`), 'volume')
+                .andWhere(`"sale"."currency" IN ('${__1.utils
+                .strip0x(__1.utils.constants.ETH_TOKENS)
+                .join("','")}')`), 'volume')
                 .addSelect(getVolumeQuery('1 hour'), 'volume1h')
                 .addSelect(getVolumeQuery('6 hours'), 'volume6h')
                 .addSelect(getVolumeQuery('1 day'), 'volume24h')
@@ -249,7 +258,9 @@ CollectionRanking = __decorate([
                 .from(_1.SaleEntity, 'sale')
                 .select('COUNT(*)')
                 .where('"sale"."collectionAddress" = "collection"."address"')
-                .andWhere(`"sale"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}')`), 'saleCount')
+                .andWhere(`"sale"."currency" IN ('${__1.utils
+                .strip0x(__1.utils.constants.ETH_TOKENS)
+                .join("','")}')`), 'saleCount')
                 .addSelect(getSaleCountQuery('1 hour'), 'saleCount1h')
                 .addSelect(getSaleCountQuery('6 hours'), 'saleCount6h')
                 .addSelect(getSaleCountQuery('1 day'), 'saleCount24h')
@@ -268,7 +279,7 @@ CollectionRanking = __decorate([
                 .addSelect((query) => query
                 .from(types_1.Order, 'order')
                 .select('COUNT(DISTINCT "order"."tokenId")')
-                .where(`"order"."type" <> '${_1.OrderType.BID}'`)
+                .where(`"order"."type" != '${_1.OrderType.BID}'`)
                 .andWhere('"order"."collectionAddress" = "collection"."address"')
                 .andWhere('"order"."active"'), 'listedCount'), 'collection')
                 .select('*')

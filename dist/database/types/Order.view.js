@@ -15,7 +15,6 @@ const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
 const tables_1 = require("../tables");
-const __1 = require("../..");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -151,15 +150,16 @@ Order = __decorate([
                 .select(`"order"."startTime" <= NOW() AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) AND "order"."cancelTimestamp" IS NULL AND NOT EXISTS ${query
                 .subQuery()
                 .from(tables_1.SaleEntity, 'sale')
+                .select('1')
                 .where('"sale"."orderHash" = "order"."hash"')
-                .getQuery()} AND "order"."currency" IN ('${__1.utils.strip0x(ethers_1.ethers.constants.AddressZero)}', '${__1.utils.strip0x(__1.utils.constants.WETH_ADDRESS)}') AND CASE WHEN "order"."type" = '${tables_1.OrderType.DUTCH_AUCTION}' THEN COALESCE(${query
+                .getQuery()} AND CASE "order"."type" WHEN '${tables_1.OrderType.BID}' THEN COALESCE(${query
                 .subQuery()
                 .select('"balance"."balance"')
                 .from(tables_1.TokenBalanceEntity, 'balance')
                 .where('"balance"."currency" = "order"."currency"')
                 .andWhere('"balance"."userAddress" = "order"."userAddress"')
                 .andWhere('"balance"."balance" > 0')
-                .getQuery()}, 0) > "order"."price" ELSE COALESCE(${query
+                .getQuery()}, 0) >= "order"."price" ELSE COALESCE(${query
                 .subQuery()
                 .select('"balance"."balance"')
                 .from(tables_1.BalanceEntity, 'balance')

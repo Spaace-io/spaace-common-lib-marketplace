@@ -25,7 +25,7 @@ export class auctions1691656623660 implements MigrationInterface {
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`ALTER TABLE "orders" DROP COLUMN "startingPrice"`);
     await queryRunner.query(`ALTER TABLE "orders" ADD "isAsk" boolean`);
-    await queryRunner.query(`UPDATE "orders" SET "isAsk" = "type" <> 'Bid'`);
+    await queryRunner.query(`UPDATE "orders" SET "isAsk" = "type" != 'Bid'`);
     await queryRunner.query(
       `ALTER TABLE "orders" ALTER COLUMN "isAsk" SET NOT NULL`,
     );

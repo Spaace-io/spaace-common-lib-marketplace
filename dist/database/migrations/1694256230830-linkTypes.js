@@ -13,12 +13,12 @@ exports.LinkTypes1694256230830 = void 0;
 class LinkTypes1694256230830 {
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`UPDATE "collections" SET "links" = (SELECT json_agg(json_build_object('url', "l"->'url', 'type', UPPER("l"->>'type'))) FROM jsonb_array_elements("links") AS "l") WHERE jsonb_array_length("links") <> 0;`);
+            yield queryRunner.query(`UPDATE "collections" SET "links" = (SELECT json_agg(json_build_object('url', "l"->'url', 'type', UPPER("l"->>'type'))) FROM jsonb_array_elements("links") AS "l") WHERE jsonb_array_length("links") != 0;`);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`UPDATE "collections" SET "links" = (SELECT json_agg(json_build_object('url', "l"->'url', 'type', LOWER("l"->>'type'))) FROM jsonb_array_elements("links") AS "l") WHERE jsonb_array_length("links") <> 0;`);
+            yield queryRunner.query(`UPDATE "collections" SET "links" = (SELECT json_agg(json_build_object('url', "l"->'url', 'type', LOWER("l"->>'type'))) FROM jsonb_array_elements("links") AS "l") WHERE jsonb_array_length("links") != 0;`);
         });
     }
 }

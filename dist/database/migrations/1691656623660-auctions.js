@@ -28,7 +28,7 @@ class auctions1691656623660 {
         return __awaiter(this, void 0, void 0, function* () {
             yield queryRunner.query(`ALTER TABLE "orders" DROP COLUMN "startingPrice"`);
             yield queryRunner.query(`ALTER TABLE "orders" ADD "isAsk" boolean`);
-            yield queryRunner.query(`UPDATE "orders" SET "isAsk" = "type" <> 'Bid'`);
+            yield queryRunner.query(`UPDATE "orders" SET "isAsk" = "type" != 'Bid'`);
             yield queryRunner.query(`ALTER TABLE "orders" ALTER COLUMN "isAsk" SET NOT NULL`);
             yield queryRunner.query(`ALTER TABLE "orders" DROP COLUMN "type"`);
             yield queryRunner.query(`DROP TYPE "public"."order_type"`);

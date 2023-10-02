@@ -10,7 +10,6 @@ import {
   SaleEntity,
   TokenBalanceEntity,
 } from '../tables';
-import { utils } from '../..';
 
 @ObjectType()
 @ViewEntity({
@@ -42,13 +41,10 @@ import { utils } from '../..';
               `"order"."startTime" <= NOW() AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) AND "order"."cancelTimestamp" IS NULL AND NOT EXISTS ${query
                 .subQuery()
                 .from(SaleEntity, 'sale')
+                .select('1')
                 .where('"sale"."orderHash" = "order"."hash"')
-                .getQuery()} AND "order"."currency" IN ('${utils.strip0x(
-                ethers.constants.AddressZero,
-              )}', '${utils.strip0x(
-                utils.constants.WETH_ADDRESS,
-              )}') AND CASE WHEN "order"."type" = '${
-                OrderType.DUTCH_AUCTION
+                .getQuery()} AND CASE "order"."type" WHEN '${
+                OrderType.BID
               }' THEN COALESCE(${query
                 .subQuery()
                 .select('"balance"."balance"')
@@ -56,7 +52,7 @@ import { utils } from '../..';
                 .where('"balance"."currency" = "order"."currency"')
                 .andWhere('"balance"."userAddress" = "order"."userAddress"')
                 .andWhere('"balance"."balance" > 0')
-                .getQuery()}, 0) > "order"."price" ELSE COALESCE(${query
+                .getQuery()}, 0) >= "order"."price" ELSE COALESCE(${query
                 .subQuery()
                 .select('"balance"."balance"')
                 .from(BalanceEntity, 'balance')
