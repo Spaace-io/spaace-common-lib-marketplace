@@ -112,4 +112,10 @@ export class OrderEntity extends BaseEntity {
 
   @Column('timestamp without time zone', { nullable: true })
   cancelTimestamp!: Date | null;
+
+  @Column('numeric', { precision: 78, unsigned: true })
+  royalties!: string;
+
+  @Column('numeric', { precision: 78, unsigned: true, nullable: true })
+  startingRoyalties!: string | null;
 }

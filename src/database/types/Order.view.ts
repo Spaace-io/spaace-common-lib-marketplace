@@ -33,6 +33,8 @@ import {
       .addSelect('"order"."cancelTxHash"', 'cancelTxHash')
       .addSelect('"order"."cancelLogIdx"', 'cancelLogIdx')
       .addSelect('"order"."cancelTimestamp"', 'cancelTimestamp')
+      .addSelect('"order"."royalties"', 'royalties')
+      .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
       .addSelect(
         (query) =>
           query
@@ -167,4 +169,12 @@ export class Order extends BaseEntity {
   @Field(() => Boolean)
   @ViewColumn()
   active!: boolean;
+
+  @Field(() => String)
+  @ViewColumn()
+  royalties!: string;
+
+  @Field(() => String, { nullable: true })
+  @ViewColumn()
+  startingRoyalties!: string | null;
 }

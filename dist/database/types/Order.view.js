@@ -122,6 +122,16 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Boolean)
 ], Order.prototype, "active", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Order.prototype, "royalties", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Object)
+], Order.prototype, "startingRoyalties", void 0);
 Order = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
@@ -145,6 +155,8 @@ Order = __decorate([
                 .addSelect('"order"."cancelTxHash"', 'cancelTxHash')
                 .addSelect('"order"."cancelLogIdx"', 'cancelLogIdx')
                 .addSelect('"order"."cancelTimestamp"', 'cancelTimestamp')
+                .addSelect('"order"."royalties"', 'royalties')
+                .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
                 .addSelect((query) => query
                 .fromDummy()
                 .select(`"order"."startTime" <= NOW() AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) AND "order"."cancelTimestamp" IS NULL AND NOT EXISTS ${query

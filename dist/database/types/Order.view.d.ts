@@ -18,4 +18,6 @@ export declare class Order extends BaseEntity {
     cancelLogIdx: string | null;
     cancelTimestamp: Date | null;
     active: boolean;
+    royalties: string;
+    startingRoyalties: string | null;
 }
