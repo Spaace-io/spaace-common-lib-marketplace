@@ -38,7 +38,15 @@ class PubSubClient {
       .subscription(name);
 
     const [exists] = await subscription.exists();
-    if (!exists) [subscription] = await subscription.create();
+    if (!exists) {
+      [subscription] = await subscription.create({
+        expirationPolicy: {
+          ttl: {
+            seconds: 24 * 60 * 60,
+          },
+        },
+      });
+    }
 
     return subscription;
   }

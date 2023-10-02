@@ -43,8 +43,15 @@ class PubSubClient {
                 .topic(this.getTopicFromName(topicName))
                 .subscription(name);
             const [exists] = yield subscription.exists();
-            if (!exists)
-                [subscription] = yield subscription.create();
+            if (!exists) {
+                [subscription] = yield subscription.create({
+                    expirationPolicy: {
+                        ttl: {
+                            seconds: 24 * 60 * 60,
+                        },
+                    },
+                });
+            }
             return subscription;
         });
     }
