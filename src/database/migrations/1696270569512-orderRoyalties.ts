@@ -23,7 +23,10 @@ export class OrderRoyalties1696270569512 implements MigrationInterface {
       `DROP INDEX "public"."IDX_f9f7fca055c5b1ace83d1fba2c"`,
     );
     await queryRunner.query(
-      `ALTER TABLE "orders" ADD "royalties" numeric(78) NOT NULL`,
+      `ALTER TABLE "orders" ADD "royalties" numeric(78) NOT NULL DEFAULT '0'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "orders" ALTER COLUMN "royalties" DROP DEFAULT`,
     );
     await queryRunner.query(
       `ALTER TABLE "orders" ADD "startingRoyalties" numeric(78)`,
