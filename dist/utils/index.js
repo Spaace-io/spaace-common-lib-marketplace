@@ -19,5 +19,6 @@ __exportStar(require("./chunks"), exports);
 __exportStar(require("./numbers"), exports);
 __exportStar(require("./strip0x"), exports);
 __exportStar(require("./formatter"), exports);
+__exportStar(require("./hashes"), exports);
 exports.constants = require("./constants");
 //# sourceMappingURL=index.js.map
