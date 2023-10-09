@@ -1,7 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Transform, Type } from 'class-transformer';
-import { ValidateNested } from 'class-validator';
-import { CollectionAttributeValue } from '.';
+import { Transform } from 'class-transformer';
 import { ethers } from 'ethers';
 
 @ObjectType()
@@ -15,8 +13,9 @@ export class CollectionAttribute {
   @Field(() => String)
   trait!: string;
 
-  @Field(() => [CollectionAttributeValue])
-  @Type(() => CollectionAttributeValue)
-  @ValidateNested({ each: true })
-  values!: CollectionAttributeValue[];
+  @Field(() => String)
+  value!: string;
+
+  @Field(() => String)
+  count!: string;
 }

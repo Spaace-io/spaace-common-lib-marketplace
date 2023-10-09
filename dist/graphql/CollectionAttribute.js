@@ -12,8 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CollectionAttribute = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
-const class_validator_1 = require("class-validator");
-const _1 = require(".");
 const ethers_1 = require("ethers");
 let CollectionAttribute = class CollectionAttribute {
 };
@@ -29,11 +27,13 @@ __decorate([
     __metadata("design:type", String)
 ], CollectionAttribute.prototype, "trait", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [_1.CollectionAttributeValue]),
-    (0, class_transformer_1.Type)(() => _1.CollectionAttributeValue),
-    (0, class_validator_1.ValidateNested)({ each: true }),
-    __metadata("design:type", Array)
-], CollectionAttribute.prototype, "values", void 0);
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], CollectionAttribute.prototype, "value", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], CollectionAttribute.prototype, "count", void 0);
 CollectionAttribute = __decorate([
     (0, graphql_1.ObjectType)()
 ], CollectionAttribute);

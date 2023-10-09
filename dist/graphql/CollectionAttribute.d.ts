@@ -1,6 +1,6 @@
-import { CollectionAttributeValue } from '.';
 export declare class CollectionAttribute {
     collectionAddress: string;
     trait: string;
-    values: CollectionAttributeValue[];
+    value: string;
+    count: string;
 }
