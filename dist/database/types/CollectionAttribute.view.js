@@ -11,31 +11,62 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CollectionAttribute = void 0;
 const graphql_1 = require("@nestjs/graphql");
-const class_transformer_1 = require("class-transformer");
+const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
-let CollectionAttribute = class CollectionAttribute {
+const tables_1 = require("../tables");
+const class_transformer_1 = require("class-transformer");
+let CollectionAttribute = class CollectionAttribute extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
 ], CollectionAttribute.prototype, "collectionAddress", void 0);
 __decorate([
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionAttribute.prototype, "traitHash", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], CollectionAttribute.prototype, "trait", void 0);
 __decorate([
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionAttribute.prototype, "valueHash", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], CollectionAttribute.prototype, "value", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], CollectionAttribute.prototype, "count", void 0);
 CollectionAttribute = __decorate([
-    (0, graphql_1.ObjectType)()
+    (0, graphql_1.ObjectType)(),
+    (0, typeorm_1.ViewEntity)({
+        expression: (dataSource) => {
+            return dataSource
+                .createQueryBuilder()
+                .from(tables_1.ItemAttributeEntity, 'attribute')
+                .select('"attribute"."collectionAddress"')
+                .addSelect('"attribute"."traitHash"', 'traitHash')
+                .addSelect('MIN("attribute"."trait")', 'trait')
+                .addSelect('"attribute"."valueHash"', 'valueHash')
+                .addSelect('MIN("attribute"."value")', 'value')
+                .addSelect('COUNT(DISTINCT "attribute"."tokenId")', 'count')
+                .groupBy('"attribute"."collectionAddress"')
+                .addGroupBy('"attribute"."traitHash"')
+                .addGroupBy('"attribute"."valueHash"');
+        },
+        name: 'collection_attributes_view',
+    })
 ], CollectionAttribute);
 exports.CollectionAttribute = CollectionAttribute;
-//# sourceMappingURL=CollectionAttribute.js.map
+//# sourceMappingURL=CollectionAttribute.view.js.map

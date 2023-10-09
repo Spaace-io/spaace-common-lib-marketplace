@@ -10,26 +10,25 @@ import { Transform } from 'class-transformer';
     return dataSource
       .createQueryBuilder()
       .from(ItemAttributeEntity, 'attribute')
-      .select('"attribute"."collectionAddress"', 'collectionAddress')
-      .addSelect('"attribute"."tokenId"', 'tokenId')
+      .select('"attribute"."collectionAddress"')
       .addSelect('"attribute"."traitHash"', 'traitHash')
-      .addSelect('"attribute"."trait"', 'trait')
+      .addSelect('MIN("attribute"."trait")', 'trait')
       .addSelect('"attribute"."valueHash"', 'valueHash')
-      .addSelect('"attribute"."value"', 'value');
+      .addSelect('MIN("attribute"."value")', 'value')
+      .addSelect('COUNT(DISTINCT "attribute"."tokenId")', 'count')
+      .groupBy('"attribute"."collectionAddress"')
+      .addGroupBy('"attribute"."traitHash"')
+      .addGroupBy('"attribute"."valueHash"');
   },
-  name: 'item_attributes_view',
+  name: 'collection_attributes_view',
 })
-export class ItemAttribute extends BaseEntity {
+export class CollectionAttribute extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   @Transform(({ value }) => ethers.utils.getAddress(value), {
     toPlainOnly: true,
   })
   collectionAddress!: string;
-
-  @Field(() => String)
-  @ViewColumn()
-  tokenId!: string;
 
   @ViewColumn()
   traitHash!: string;
@@ -44,4 +43,8 @@ export class ItemAttribute extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   value!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  count!: string;
 }

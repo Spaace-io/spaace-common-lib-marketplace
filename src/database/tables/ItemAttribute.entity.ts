@@ -11,7 +11,7 @@ import { ItemEntity } from '.';
 
 @Entity({ name: 'item_attributes' })
 @Index(['collectionAddress', 'traitHash', 'valueHash'])
-@Index(['collectionAddress', 'tokenId', 'traitHash'], { unique: true })
+@Index(['collectionAddress', 'tokenId'])
 export class ItemAttributeEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 40 })
   collectionAddress!: string;
@@ -24,15 +24,15 @@ export class ItemAttributeEntity extends BaseEntity {
   ])
   tokenId!: string;
 
-  @PrimaryColumn('text')
-  trait!: string;
-
-  @Column('char', { length: 40 })
+  @PrimaryColumn('char', { length: 40 })
   traitHash!: string;
 
   @Column('text')
-  value!: string;
+  trait!: string;
 
   @Column('char', { length: 40 })
   valueHash!: string;
+
+  @Column('text')
+  value!: string;
 }

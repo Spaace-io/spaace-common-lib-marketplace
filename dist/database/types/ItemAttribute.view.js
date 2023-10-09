@@ -31,10 +31,18 @@ __decorate([
     __metadata("design:type", String)
 ], ItemAttribute.prototype, "tokenId", void 0);
 __decorate([
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], ItemAttribute.prototype, "traitHash", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], ItemAttribute.prototype, "trait", void 0);
+__decorate([
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], ItemAttribute.prototype, "valueHash", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -49,7 +57,9 @@ ItemAttribute = __decorate([
                 .from(tables_1.ItemAttributeEntity, 'attribute')
                 .select('"attribute"."collectionAddress"', 'collectionAddress')
                 .addSelect('"attribute"."tokenId"', 'tokenId')
+                .addSelect('"attribute"."traitHash"', 'traitHash')
                 .addSelect('"attribute"."trait"', 'trait')
+                .addSelect('"attribute"."valueHash"', 'valueHash')
                 .addSelect('"attribute"."value"', 'value');
         },
         name: 'item_attributes_view',
