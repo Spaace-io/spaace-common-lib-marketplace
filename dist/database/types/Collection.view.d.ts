@@ -1,6 +1,5 @@
 import { BaseEntity } from 'typeorm';
 import { CollectionLink, CollectionType } from '..';
-import { CollectionAttribute } from '../../graphql';
 export declare class Collection extends BaseEntity {
     address: string;
     type: CollectionType;
@@ -42,6 +41,5 @@ export declare class Collection extends BaseEntity {
     totalSupply: string;
     ownerCount: string;
     listedCount: string;
-    attributes: CollectionAttribute[] | null;
     notable: boolean;
 }

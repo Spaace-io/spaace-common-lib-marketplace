@@ -18,19 +18,4 @@ export class CollectionAttributeValue {
 
   @Field(() => String)
   count!: string;
-
-  // TODO
-  // @Field(() => String)
-  // listedCount?: string;
-
-  // @Field(() => Order, { nullable: true })
-  // buyNow?: Order | null;
-
-  // @Field(() => Order, { nullable: true })
-  // sellNow?: Order | null;
-
-  // @Field(() => Sale, { nullable: true })
-  // @Type(() => Sale)
-  // @ValidateNested()
-  // lastSale?: Sale | null;
 }

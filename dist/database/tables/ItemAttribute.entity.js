@@ -33,14 +33,21 @@ __decorate([
     __metadata("design:type", String)
 ], ItemAttributeEntity.prototype, "trait", void 0);
 __decorate([
+    (0, typeorm_1.Column)('char', { length: 40 }),
+    __metadata("design:type", String)
+], ItemAttributeEntity.prototype, "traitHash", void 0);
+__decorate([
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], ItemAttributeEntity.prototype, "value", void 0);
+__decorate([
+    (0, typeorm_1.Column)('char', { length: 40 }),
+    __metadata("design:type", String)
+], ItemAttributeEntity.prototype, "valueHash", void 0);
 ItemAttributeEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'item_attributes' })
-    // TODO: @Index(['collectionAddress', 'trait', 'value']) doesn't work when trait or value is too long (exceeds max index row size)
-    ,
-    (0, typeorm_1.Index)(['collectionAddress', 'tokenId'])
+    (0, typeorm_1.Entity)({ name: 'item_attributes' }),
+    (0, typeorm_1.Index)(['collectionAddress', 'traitHash', 'valueHash']),
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'traitHash'], { unique: true })
 ], ItemAttributeEntity);
 exports.ItemAttributeEntity = ItemAttributeEntity;
 //# sourceMappingURL=ItemAttribute.entity.js.map

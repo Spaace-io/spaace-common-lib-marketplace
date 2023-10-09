@@ -12,15 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Collection = void 0;
 const typeorm_1 = require("typeorm");
 const __1 = require("..");
-const graphql_1 = require("../../graphql");
 const ethers_1 = require("ethers");
-const graphql_2 = require("@nestjs/graphql");
+const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 let Collection = class Collection extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
@@ -28,57 +27,57 @@ __decorate([
     __metadata("design:type", String)
 ], Collection.prototype, "address", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => __1.CollectionType),
+    (0, graphql_1.Field)(() => __1.CollectionType),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "type", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String, { nullable: true }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "name", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String, { nullable: true }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "symbol", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String, { nullable: true }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "imageUrl", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => Boolean),
+    (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Boolean)
 ], Collection.prototype, "active", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => Boolean),
+    (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Boolean)
 ], Collection.prototype, "verified", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => Boolean),
+    (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Boolean)
 ], Collection.prototype, "explicit", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String, { nullable: true }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "bannerUrl", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String, { nullable: true }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "description", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => Date, { nullable: true }),
+    (0, graphql_1.Field)(() => Date, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "deployedAt", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String, { nullable: true }),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     (0, class_transformer_1.Transform)(({ value }) => (value !== null ? ethers_1.ethers.utils.getAddress(value) : null), {
         toPlainOnly: true,
@@ -86,159 +85,154 @@ __decorate([
     __metadata("design:type", Object)
 ], Collection.prototype, "deployer", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => [__1.CollectionLink]),
+    (0, graphql_1.Field)(() => [__1.CollectionLink]),
     (0, typeorm_1.ViewColumn)(),
     (0, class_transformer_1.Type)(() => __1.CollectionLink),
     (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], Collection.prototype, "links", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => Date, { nullable: true }),
+    (0, graphql_1.Field)(() => Date, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "lastImport", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "volume", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "volume1h", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "volume6h", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "volume24h", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "volume7d", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "volume30d", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "volumeChange1h", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "volumeChange6h", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "volumeChange24h", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "volumeChange7d", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "volumeChange30d", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "floorPrice", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "floorChange1h", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "floorChange6h", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "floorChange24h", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "floorChange7d", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "floorChange30d", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount1h", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount6h", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount24h", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount7d", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount30d", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "totalSupply", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "ownerCount", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => String),
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "listedCount", void 0);
 __decorate([
-    (0, graphql_2.Field)(() => [graphql_1.CollectionAttribute], { nullable: true }),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", Object)
-], Collection.prototype, "attributes", void 0);
-__decorate([
-    (0, graphql_2.Field)(() => Boolean),
+    (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Boolean)
 ], Collection.prototype, "notable", void 0);
 Collection = __decorate([
-    (0, graphql_2.ObjectType)(),
+    (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
             return dataSource
@@ -285,20 +279,6 @@ Collection = __decorate([
                 .addSelect('COALESCE("ranking"."totalSupply", 0)', 'totalSupply')
                 .addSelect('COALESCE("ranking"."ownerCount", 0)', 'ownerCount')
                 .addSelect('COALESCE("ranking"."listedCount", 0)', 'listedCount')
-                .addSelect((query) => query.fromDummy().select(`array_to_json(ARRAY ${query
-                .subQuery()
-                .from(__1.ItemAttributeEntity, 'attribute')
-                .select(`json_build_object('collectionAddress', "collection"."address", 'trait', "attribute"."trait", 'values', array_to_json(ARRAY ${query
-                .subQuery()
-                .from(__1.ItemAttributeEntity, 'value')
-                .select(`json_build_object('collectionAddress', "collection"."address", 'trait', "attribute"."trait", 'value', "value"."value", 'count', COUNT(DISTINCT "value"."tokenId"))`)
-                .where('"value"."collectionAddress" = "collection"."address"')
-                .andWhere('"value"."trait" = "attribute"."trait"')
-                .groupBy('"value"."value"')
-                .getQuery()}))`)
-                .where('"attribute"."collectionAddress" = "collection"."address"')
-                .groupBy('"attribute"."trait"')
-                .getQuery()})`), 'attributes')
                 .addSelect((query) => query
                 .fromDummy()
                 .select(`EXISTS ${query

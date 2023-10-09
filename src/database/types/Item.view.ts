@@ -64,33 +64,4 @@ export class Item extends BaseEntity {
   @Field(() => Date, { nullable: true })
   @ViewColumn()
   lastImport!: Date | null;
-
-  // TODO
-  // @Field(() => [ItemAttributeEntity], { nullable: true })
-  // @Type(() => ItemAttributeEntity)
-  // @ValidateNested({ each: true })
-  // attributes!: ItemAttributeEntity[] | null;
-
-  // @Field(() => String)
-  // ownerCount?: string;
-
-  // @Field(() => Order, { nullable: true })
-  // @Type(() => Order)
-  // @ValidateNested()
-  // buyNow?: Order | null;
-
-  // @Field(() => Order, { nullable: true })
-  // @Type(() => Order)
-  // @ValidateNested()
-  // sellNow?: Order | null;
-
-  // @Field(() => Order, { nullable: true })
-  // @Type(() => Order)
-  // @ValidateNested()
-  // auction?: Order | null;
-
-  // @Field(() => Sale, { nullable: true })
-  // @Type(() => Sale)
-  // @ValidateNested()
-  // lastSale?: Sale | null;
 }

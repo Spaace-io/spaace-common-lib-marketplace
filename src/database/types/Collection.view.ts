@@ -4,10 +4,8 @@ import {
   CollectionLink,
   CollectionType,
   CollectionRanking,
-  ItemAttributeEntity,
   NotableCollection,
 } from '..';
-import { CollectionAttribute } from '../../graphql';
 import { ethers } from 'ethers';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Transform, Type } from 'class-transformer';
@@ -64,30 +62,6 @@ import { ValidateNested } from 'class-validator';
       .addSelect('COALESCE("ranking"."totalSupply", 0)', 'totalSupply')
       .addSelect('COALESCE("ranking"."ownerCount", 0)', 'ownerCount')
       .addSelect('COALESCE("ranking"."listedCount", 0)', 'listedCount')
-      .addSelect(
-        (query) =>
-          query.fromDummy().select(
-            `array_to_json(ARRAY ${query
-              .subQuery()
-              .from(ItemAttributeEntity, 'attribute')
-              .select(
-                `json_build_object('collectionAddress', "collection"."address", 'trait', "attribute"."trait", 'values', array_to_json(ARRAY ${query
-                  .subQuery()
-                  .from(ItemAttributeEntity, 'value')
-                  .select(
-                    `json_build_object('collectionAddress', "collection"."address", 'trait', "attribute"."trait", 'value', "value"."value", 'count', COUNT(DISTINCT "value"."tokenId"))`,
-                  )
-                  .where('"value"."collectionAddress" = "collection"."address"')
-                  .andWhere('"value"."trait" = "attribute"."trait"')
-                  .groupBy('"value"."value"')
-                  .getQuery()}))`,
-              )
-              .where('"attribute"."collectionAddress" = "collection"."address"')
-              .groupBy('"attribute"."trait"')
-              .getQuery()})`,
-          ),
-        'attributes',
-      )
       .addSelect(
         (query) =>
           query
@@ -278,10 +252,6 @@ export class Collection extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   listedCount!: string;
-
-  @Field(() => [CollectionAttribute], { nullable: true })
-  @ViewColumn()
-  attributes!: CollectionAttribute[] | null;
 
   @Field(() => Boolean)
   @ViewColumn()
