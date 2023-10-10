@@ -1,9 +1,8 @@
 import { BaseEntity } from 'typeorm';
-export declare class CollectionAttribute extends BaseEntity {
+export declare class CollectionAttributeTrait extends BaseEntity {
     collectionAddress: string;
     traitHash: string;
     trait: string;
-    valueHash: string;
-    value: string;
+    valueCount: string;
     itemCount: string;
 }

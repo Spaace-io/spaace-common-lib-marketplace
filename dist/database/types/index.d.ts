@@ -1,6 +1,7 @@
 export * from './Balance.view';
 export * from './Collection.view';
 export * from './CollectionAttribute.view';
+export * from './CollectionAttributeTrait.view';
 export * from './DistributorReward.view';
 export * from './Item.view';
 export * from './ItemAttribute.view';

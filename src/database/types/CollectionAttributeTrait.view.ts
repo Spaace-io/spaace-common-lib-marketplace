@@ -13,16 +13,14 @@ import { Transform } from 'class-transformer';
       .select('"attribute"."collectionAddress"')
       .addSelect('"attribute"."traitHash"', 'traitHash')
       .addSelect('MIN("attribute"."trait")', 'trait')
-      .addSelect('"attribute"."valueHash"', 'valueHash')
-      .addSelect('MIN("attribute"."value")', 'value')
+      .addSelect('COUNT(DISTINCT "attribute"."valueHash")', 'valueCount')
       .addSelect('COUNT(DISTINCT "attribute"."tokenId")', 'itemCount')
       .groupBy('"attribute"."collectionAddress"')
-      .addGroupBy('"attribute"."traitHash"')
-      .addGroupBy('"attribute"."valueHash"');
+      .addGroupBy('"attribute"."traitHash"');
   },
-  name: 'collection_attributes_view',
+  name: 'collection_attribute_traits_view',
 })
-export class CollectionAttribute extends BaseEntity {
+export class CollectionAttributeTrait extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   @Transform(({ value }) => ethers.utils.getAddress(value), {
@@ -37,12 +35,9 @@ export class CollectionAttribute extends BaseEntity {
   @ViewColumn()
   trait!: string;
 
-  @ViewColumn()
-  valueHash!: string;
-
   @Field(() => String)
   @ViewColumn()
-  value!: string;
+  valueCount!: string;
 
   @Field(() => String)
   @ViewColumn()

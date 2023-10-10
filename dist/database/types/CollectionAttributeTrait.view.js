@@ -9,13 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CollectionAttribute = void 0;
+exports.CollectionAttributeTrait = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
 const tables_1 = require("../tables");
 const class_transformer_1 = require("class-transformer");
-let CollectionAttribute = class CollectionAttribute extends typeorm_1.BaseEntity {
+let CollectionAttributeTrait = class CollectionAttributeTrait extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -24,31 +24,27 @@ __decorate([
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
-], CollectionAttribute.prototype, "collectionAddress", void 0);
+], CollectionAttributeTrait.prototype, "collectionAddress", void 0);
 __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionAttribute.prototype, "traitHash", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], CollectionAttribute.prototype, "trait", void 0);
-__decorate([
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], CollectionAttribute.prototype, "valueHash", void 0);
+], CollectionAttributeTrait.prototype, "traitHash", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionAttribute.prototype, "value", void 0);
+], CollectionAttributeTrait.prototype, "trait", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionAttribute.prototype, "itemCount", void 0);
-CollectionAttribute = __decorate([
+], CollectionAttributeTrait.prototype, "valueCount", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionAttributeTrait.prototype, "itemCount", void 0);
+CollectionAttributeTrait = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -58,15 +54,13 @@ CollectionAttribute = __decorate([
                 .select('"attribute"."collectionAddress"')
                 .addSelect('"attribute"."traitHash"', 'traitHash')
                 .addSelect('MIN("attribute"."trait")', 'trait')
-                .addSelect('"attribute"."valueHash"', 'valueHash')
-                .addSelect('MIN("attribute"."value")', 'value')
+                .addSelect('COUNT(DISTINCT "attribute"."valueHash")', 'valueCount')
                 .addSelect('COUNT(DISTINCT "attribute"."tokenId")', 'itemCount')
                 .groupBy('"attribute"."collectionAddress"')
-                .addGroupBy('"attribute"."traitHash"')
-                .addGroupBy('"attribute"."valueHash"');
+                .addGroupBy('"attribute"."traitHash"');
         },
-        name: 'collection_attributes_view',
+        name: 'collection_attribute_traits_view',
     })
-], CollectionAttribute);
-exports.CollectionAttribute = CollectionAttribute;
-//# sourceMappingURL=CollectionAttribute.view.js.map
+], CollectionAttributeTrait);
+exports.CollectionAttributeTrait = CollectionAttributeTrait;
+//# sourceMappingURL=CollectionAttributeTrait.view.js.map

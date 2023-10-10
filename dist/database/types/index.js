@@ -17,6 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./Balance.view"), exports);
 __exportStar(require("./Collection.view"), exports);
 __exportStar(require("./CollectionAttribute.view"), exports);
+__exportStar(require("./CollectionAttributeTrait.view"), exports);
 __exportStar(require("./DistributorReward.view"), exports);
 __exportStar(require("./Item.view"), exports);
 __exportStar(require("./ItemAttribute.view"), exports);
