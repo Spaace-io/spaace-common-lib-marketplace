@@ -39,18 +39,15 @@ __decorate([
     __metadata("design:type", String)
 ], StakingReward.prototype, "userAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Date),
+    (0, graphql_1.Field)(() => tables_1.StakingPool),
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", Date)
-], StakingReward.prototype, "timestamp", void 0);
+    __metadata("design:type", String)
+], StakingReward.prototype, "pool", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
-], StakingReward.prototype, "pool", void 0);
+], StakingReward.prototype, "depositId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -64,6 +61,11 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], StakingReward.prototype, "amount", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Date),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Date)
+], StakingReward.prototype, "timestamp", void 0);
 StakingReward = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
@@ -74,10 +76,11 @@ StakingReward = __decorate([
                 .select('"reward"."txHash"', 'txHash')
                 .addSelect('"reward"."logIdx"', 'logIdx')
                 .addSelect('"reward"."userAddress"', 'userAddress')
-                .addSelect('"reward"."timestamp"', 'timestamp')
                 .addSelect('"reward"."pool"', 'pool')
+                .addSelect('"reward"."depositId"', 'depositId')
                 .addSelect('"reward"."token"', 'token')
-                .addSelect('"reward"."amount"', 'amount');
+                .addSelect('"reward"."amount"', 'amount')
+                .addSelect('"reward"."timestamp"', 'timestamp');
         },
         name: 'staking_rewards_view',
     })

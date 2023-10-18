@@ -39,23 +39,30 @@ __decorate([
     __metadata("design:type", String)
 ], StakingDeposit.prototype, "userAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Date),
+    (0, graphql_1.Field)(() => tables_1.StakingPool),
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", Date)
-], StakingDeposit.prototype, "timestamp", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.ViewColumn)(),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
 ], StakingDeposit.prototype, "pool", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], StakingDeposit.prototype, "amount", void 0);
+], StakingDeposit.prototype, "depositId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], StakingDeposit.prototype, "lockTypeId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], StakingDeposit.prototype, "shares", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Date),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Date)
+], StakingDeposit.prototype, "timestamp", void 0);
 StakingDeposit = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
@@ -66,9 +73,11 @@ StakingDeposit = __decorate([
                 .select('"deposit"."txHash"', 'txHash')
                 .addSelect('"deposit"."logIdx"', 'logIdx')
                 .addSelect('"deposit"."userAddress"', 'userAddress')
-                .addSelect('"deposit"."timestamp"', 'timestamp')
                 .addSelect('"deposit"."pool"', 'pool')
-                .addSelect('"deposit"."amount"', 'amount');
+                .addSelect('"deposit"."depositId"', 'depositId')
+                .addSelect('"deposit"."lockTypeId"', 'lockTypeId')
+                .addSelect('"deposit"."shares"', 'shares')
+                .addSelect('"deposit"."timestamp"', 'timestamp');
         },
         name: 'staking_deposits_view',
     })

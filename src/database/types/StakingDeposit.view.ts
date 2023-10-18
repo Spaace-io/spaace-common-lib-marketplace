@@ -2,7 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { ethers } from 'ethers';
 import { Transform } from 'class-transformer';
-import { StakingDepositEntity } from '../tables';
+import { StakingDepositEntity, StakingPool } from '../tables';
 
 @ObjectType()
 @ViewEntity({
@@ -13,9 +13,11 @@ import { StakingDepositEntity } from '../tables';
       .select('"deposit"."txHash"', 'txHash')
       .addSelect('"deposit"."logIdx"', 'logIdx')
       .addSelect('"deposit"."userAddress"', 'userAddress')
-      .addSelect('"deposit"."timestamp"', 'timestamp')
       .addSelect('"deposit"."pool"', 'pool')
-      .addSelect('"deposit"."amount"', 'amount');
+      .addSelect('"deposit"."depositId"', 'depositId')
+      .addSelect('"deposit"."lockTypeId"', 'lockTypeId')
+      .addSelect('"deposit"."shares"', 'shares')
+      .addSelect('"deposit"."timestamp"', 'timestamp');
   },
   name: 'staking_deposits_view',
 })
@@ -41,18 +43,23 @@ export class StakingDeposit extends BaseEntity {
   })
   userAddress!: string;
 
+  @Field(() => StakingPool)
+  @ViewColumn()
+  pool!: StakingPool;
+
+  @Field(() => String)
+  @ViewColumn()
+  depositId!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  lockTypeId!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  shares!: string;
+
   @Field(() => Date)
   @ViewColumn()
   timestamp!: Date;
-
-  @Field(() => String)
-  @ViewColumn()
-  @Transform(({ value }) => ethers.utils.getAddress(value), {
-    toPlainOnly: true,
-  })
-  pool!: string;
-
-  @Field(() => String)
-  @ViewColumn()
-  amount!: string;
 }

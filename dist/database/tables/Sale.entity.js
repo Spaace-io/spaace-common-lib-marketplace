@@ -20,7 +20,8 @@ __decorate([
     __metadata("design:type", String)
 ], SaleEntity.prototype, "txHash", void 0);
 __decorate([
-    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    ,
     __metadata("design:type", String)
 ], SaleEntity.prototype, "logIdx", void 0);
 __decorate([
@@ -28,8 +29,7 @@ __decorate([
     __metadata("design:type", String)
 ], SaleEntity.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-    ,
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
     (0, typeorm_1.ManyToOne)(() => Item_entity_1.ItemEntity),
     (0, typeorm_1.JoinColumn)([
         { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },

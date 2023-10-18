@@ -18,13 +18,13 @@ export class SaleEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   txHash!: string;
 
-  @PrimaryColumn('numeric', { precision: 78, unsigned: true })
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   logIdx!: string;
 
   @PrimaryColumn('char', { length: 40 })
   collectionAddress!: string;
 
-  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true })
   @ManyToOne(() => ItemEntity)
   @JoinColumn([
     { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },

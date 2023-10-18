@@ -6,7 +6,6 @@ import {
   TransferEntity,
   UserQuestProgress,
   StakingDepositEntity,
-  StakingRewardEntity,
   User,
   TokenTransferEntity,
   CartItem,
@@ -33,8 +32,6 @@ export type PubSubTriggerData<T extends QuestTrigger | MetadataImportTrigger> =
     ? Order
     : T extends QuestTrigger.STAKING_DEPOSIT
     ? StakingDepositEntity
-    : T extends QuestTrigger.STAKING_REWARD
-    ? StakingRewardEntity
     : T extends QuestTrigger.DISTRIBUTOR_REWARD
     ? DistributorRewardEntity
     : T extends QuestTrigger.USER_QUEST_PROGRESS

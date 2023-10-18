@@ -30,6 +30,6 @@ export class UserLoyalty extends BaseEntity {
   seasonNumber!: string;
 
   @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   points!: string;
 }

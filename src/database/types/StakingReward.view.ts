@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { ethers } from 'ethers';
-import { StakingRewardEntity } from '../tables';
+import { StakingPool, StakingRewardEntity } from '../tables';
 import { Transform } from 'class-transformer';
 
 @ObjectType()
@@ -13,10 +13,11 @@ import { Transform } from 'class-transformer';
       .select('"reward"."txHash"', 'txHash')
       .addSelect('"reward"."logIdx"', 'logIdx')
       .addSelect('"reward"."userAddress"', 'userAddress')
-      .addSelect('"reward"."timestamp"', 'timestamp')
       .addSelect('"reward"."pool"', 'pool')
+      .addSelect('"reward"."depositId"', 'depositId')
       .addSelect('"reward"."token"', 'token')
-      .addSelect('"reward"."amount"', 'amount');
+      .addSelect('"reward"."amount"', 'amount')
+      .addSelect('"reward"."timestamp"', 'timestamp');
   },
   name: 'staking_rewards_view',
 })
@@ -42,16 +43,13 @@ export class StakingReward extends BaseEntity {
   })
   userAddress!: string;
 
-  @Field(() => Date)
+  @Field(() => StakingPool)
   @ViewColumn()
-  timestamp!: Date;
+  pool!: StakingPool;
 
   @Field(() => String)
   @ViewColumn()
-  @Transform(({ value }) => ethers.utils.getAddress(value), {
-    toPlainOnly: true,
-  })
-  pool!: string;
+  depositId!: string;
 
   @Field(() => String)
   @ViewColumn()
@@ -63,4 +61,8 @@ export class StakingReward extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   amount!: string;
+
+  @Field(() => Date)
+  @ViewColumn()
+  timestamp!: Date;
 }

@@ -24,7 +24,6 @@ var QuestTrigger;
     QuestTrigger["SALE"] = "SALE";
     QuestTrigger["ORDER"] = "ORDER";
     QuestTrigger["STAKING_DEPOSIT"] = "STAKING_DEPOSIT";
-    QuestTrigger["STAKING_REWARD"] = "STAKING_REWARD";
     QuestTrigger["DISTRIBUTOR_REWARD"] = "DISTRIBUTOR_REWARD";
     QuestTrigger["USER_QUEST_PROGRESS"] = "USER_QUEST_PROGRESS";
     QuestTrigger["REFERRAL"] = "REFERRAL";

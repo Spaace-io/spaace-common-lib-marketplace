@@ -54,6 +54,7 @@ registerEnumType(OrderType, {
     .strip0x(utils.constants.ETH_TOKENS)
     .join("','")}')`,
 })
+@Index(['collectionAddress', 'startTime']) // Collection analytics & activity
 @Index(['userAddress', 'collectionAddress', 'tokenId'])
 @Index(['userAddress', 'counter'])
 export class OrderEntity extends BaseEntity {

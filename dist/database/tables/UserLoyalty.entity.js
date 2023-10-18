@@ -37,8 +37,7 @@ __decorate([
 ], UserLoyalty.prototype, "seasonNumber", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
-    ,
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], UserLoyalty.prototype, "points", void 0);
 UserLoyalty = __decorate([

@@ -134,6 +134,8 @@ OrderEntity = __decorate([
             .strip0x(utils.constants.ETH_TOKENS)
             .join("','")}')`,
     }),
+    (0, typeorm_1.Index)(['collectionAddress', 'startTime']) // Collection analytics & activity
+    ,
     (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId']),
     (0, typeorm_1.Index)(['userAddress', 'counter'])
 ], OrderEntity);

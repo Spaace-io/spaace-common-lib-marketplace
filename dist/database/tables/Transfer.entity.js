@@ -21,7 +21,8 @@ __decorate([
     __metadata("design:type", String)
 ], TransferEntity.prototype, "txHash", void 0);
 __decorate([
-    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    ,
     __metadata("design:type", String)
 ], TransferEntity.prototype, "logIdx", void 0);
 __decorate([
@@ -37,8 +38,7 @@ __decorate([
     __metadata("design:type", String)
 ], TransferEntity.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-    ,
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
     (0, typeorm_1.ManyToOne)(() => _1.ItemEntity),
     (0, typeorm_1.JoinColumn)([
         { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
