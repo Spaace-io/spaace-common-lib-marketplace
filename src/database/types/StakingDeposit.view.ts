@@ -17,6 +17,7 @@ import { StakingDepositEntity, StakingPool } from '../tables';
       .addSelect('"deposit"."depositId"', 'depositId')
       .addSelect('"deposit"."lockTypeId"', 'lockTypeId')
       .addSelect('"deposit"."shares"', 'shares')
+      .addSelect('"deposit"."tokens"', 'tokens')
       .addSelect('"deposit"."timestamp"', 'timestamp');
   },
   name: 'staking_deposits_view',
@@ -58,6 +59,10 @@ export class StakingDeposit extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   shares!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  tokens!: string;
 
   @Field(() => Date)
   @ViewColumn()

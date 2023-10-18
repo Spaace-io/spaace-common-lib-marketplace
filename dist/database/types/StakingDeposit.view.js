@@ -59,6 +59,11 @@ __decorate([
     __metadata("design:type", String)
 ], StakingDeposit.prototype, "shares", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], StakingDeposit.prototype, "tokens", void 0);
+__decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
@@ -77,6 +82,7 @@ StakingDeposit = __decorate([
                 .addSelect('"deposit"."depositId"', 'depositId')
                 .addSelect('"deposit"."lockTypeId"', 'lockTypeId')
                 .addSelect('"deposit"."shares"', 'shares')
+                .addSelect('"deposit"."tokens"', 'tokens')
                 .addSelect('"deposit"."timestamp"', 'timestamp');
         },
         name: 'staking_deposits_view',

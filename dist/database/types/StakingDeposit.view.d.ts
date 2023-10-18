@@ -8,5 +8,6 @@ export declare class StakingDeposit extends BaseEntity {
     depositId: string;
     lockTypeId: string;
     shares: string;
+    tokens: string;
     timestamp: Date;
 }
