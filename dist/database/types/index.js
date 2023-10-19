@@ -25,7 +25,7 @@ __exportStar(require("./Order.view"), exports);
 __exportStar(require("./RewardPeriod.view"), exports);
 __exportStar(require("./Sale.view"), exports);
 __exportStar(require("./StakingDeposit.view"), exports);
-__exportStar(require("./StakingReward.view"), exports);
+__exportStar(require("./StakingHarvest.view"), exports);
 __exportStar(require("./TokenBalance.view"), exports);
 __exportStar(require("./TokenTransfer.view"), exports);
 __exportStar(require("./Transfer.view"), exports);

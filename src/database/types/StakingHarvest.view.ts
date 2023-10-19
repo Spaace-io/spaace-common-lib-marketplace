@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { ethers } from 'ethers';
-import { StakingPool, StakingRewardEntity } from '../tables';
+import { StakingHarvestEntity } from '../tables';
 import { Transform } from 'class-transformer';
 
 @ObjectType()
@@ -9,19 +9,19 @@ import { Transform } from 'class-transformer';
   expression: (dataSource: DataSource) => {
     return dataSource
       .createQueryBuilder()
-      .from(StakingRewardEntity, 'reward')
-      .select('"reward"."txHash"', 'txHash')
-      .addSelect('"reward"."logIdx"', 'logIdx')
-      .addSelect('"reward"."userAddress"', 'userAddress')
-      .addSelect('"reward"."pool"', 'pool')
-      .addSelect('"reward"."depositId"', 'depositId')
-      .addSelect('"reward"."token"', 'token')
-      .addSelect('"reward"."amount"', 'amount')
-      .addSelect('"reward"."timestamp"', 'timestamp');
+      .from(StakingHarvestEntity, 'harvest')
+      .select('"harvest"."txHash"', 'txHash')
+      .addSelect('"harvest"."logIdx"', 'logIdx')
+      .addSelect('"harvest"."userAddress"', 'userAddress')
+      .addSelect('"harvest"."pool"', 'pool')
+      .addSelect('"harvest"."depositId"', 'depositId')
+      .addSelect('"harvest"."token"', 'token')
+      .addSelect('"harvest"."amount"', 'amount')
+      .addSelect('"harvest"."timestamp"', 'timestamp');
   },
-  name: 'staking_rewards_view',
+  name: 'staking_harvests_view',
 })
-export class StakingReward extends BaseEntity {
+export class StakingHarvest extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   @Transform(
@@ -43,9 +43,12 @@ export class StakingReward extends BaseEntity {
   })
   userAddress!: string;
 
-  @Field(() => StakingPool)
+  @Field(() => String)
   @ViewColumn()
-  pool!: StakingPool;
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
+  pool!: string;
 
   @Field(() => String)
   @ViewColumn()

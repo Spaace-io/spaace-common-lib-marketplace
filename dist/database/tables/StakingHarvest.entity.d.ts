@@ -1,10 +1,9 @@
 import { BaseEntity } from 'typeorm';
-import { StakingPool } from './StakingDeposit.entity';
-export declare class StakingRewardEntity extends BaseEntity {
+export declare class StakingHarvestEntity extends BaseEntity {
     txHash: string;
     logIdx: string;
     userAddress: string;
-    pool: StakingPool;
+    pool: string;
     depositId: string;
     token: string;
     amount: string;

@@ -1,9 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
-import { StakingPool } from './StakingDeposit.entity';
 
-@Entity({ name: 'staking_rewards' })
-export class StakingRewardEntity extends BaseEntity {
+@Entity({ name: 'staking_harvests' })
+export class StakingHarvestEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   txHash!: string;
 
@@ -13,8 +12,8 @@ export class StakingRewardEntity extends BaseEntity {
   @Column('char', { length: 40 })
   userAddress!: string;
 
-  @Column('enum', { enum: StakingPool, enumName: 'staking_pool' })
-  pool!: StakingPool;
+  @Column('char', { length: 40 })
+  pool!: string;
 
   @Column('numeric', { precision: 78, unsigned: true })
   depositId!: string;

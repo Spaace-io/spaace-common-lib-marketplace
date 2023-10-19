@@ -9,16 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StakingDepositEntity = exports.StakingPool = void 0;
+exports.PassiveStakingDepositEntity = exports.ActiveStakingDepositEntity = exports.StakingDepositEntity = exports.StakingType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-var StakingPool;
-(function (StakingPool) {
-    StakingPool["STANDARD_STAKING"] = "STANDARD_STAKING";
-    StakingPool["COMPOUND_STAKING"] = "COMPOUND_STAKING";
-})(StakingPool = exports.StakingPool || (exports.StakingPool = {}));
-(0, graphql_1.registerEnumType)(StakingPool, {
-    name: 'StakingPool',
+var StakingType;
+(function (StakingType) {
+    StakingType["PASSIVE"] = "PASSIVE";
+    StakingType["ACTIVE"] = "ACTIVE";
+})(StakingType = exports.StakingType || (exports.StakingType = {}));
+(0, graphql_1.registerEnumType)(StakingType, {
+    name: 'StakingType',
 });
 let StakingDepositEntity = class StakingDepositEntity extends typeorm_1.BaseEntity {
 };
@@ -32,22 +32,17 @@ __decorate([
     __metadata("design:type", String)
 ], StakingDepositEntity.prototype, "logIdx", void 0);
 __decorate([
-    (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, typeorm_1.Column)('enum', { enum: StakingType, enumName: 'staking_type' }),
     __metadata("design:type", String)
-], StakingDepositEntity.prototype, "userAddress", void 0);
+], StakingDepositEntity.prototype, "type", void 0);
 __decorate([
-    (0, typeorm_1.Column)('enum', { enum: StakingPool, enumName: 'staking_pool' }),
+    (0, typeorm_1.Column)('char', { length: 40 }),
     __metadata("design:type", String)
 ], StakingDepositEntity.prototype, "pool", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
+    (0, typeorm_1.Column)('char', { length: 40 }),
     __metadata("design:type", String)
-], StakingDepositEntity.prototype, "depositId", void 0);
-__decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }) // Null for withdrawals
-    ,
-    __metadata("design:type", Object)
-], StakingDepositEntity.prototype, "lockTypeId", void 0);
+], StakingDepositEntity.prototype, "userAddress", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78 }) // Negative for withdrawals
     ,
@@ -63,7 +58,33 @@ __decorate([
     __metadata("design:type", Date)
 ], StakingDepositEntity.prototype, "timestamp", void 0);
 StakingDepositEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'staking_deposits' })
+    (0, typeorm_1.Entity)({ name: 'staking_deposits' }),
+    (0, typeorm_1.TableInheritance)({ column: { name: 'type' } })
 ], StakingDepositEntity);
 exports.StakingDepositEntity = StakingDepositEntity;
+let ActiveStakingDepositEntity = class ActiveStakingDepositEntity extends StakingDepositEntity {
+};
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
+    __metadata("design:type", String)
+], ActiveStakingDepositEntity.prototype, "depositId", void 0);
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }) // Null for withdrawals
+    ,
+    __metadata("design:type", Object)
+], ActiveStakingDepositEntity.prototype, "lockTypeId", void 0);
+ActiveStakingDepositEntity = __decorate([
+    (0, typeorm_1.ChildEntity)(StakingType.ACTIVE)
+], ActiveStakingDepositEntity);
+exports.ActiveStakingDepositEntity = ActiveStakingDepositEntity;
+let PassiveStakingDepositEntity = class PassiveStakingDepositEntity extends StakingDepositEntity {
+};
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
+    __metadata("design:type", String)
+], PassiveStakingDepositEntity.prototype, "vestingTypeId", void 0);
+PassiveStakingDepositEntity = __decorate([
+    (0, typeorm_1.ChildEntity)(StakingType.PASSIVE)
+], PassiveStakingDepositEntity);
+exports.PassiveStakingDepositEntity = PassiveStakingDepositEntity;
 //# sourceMappingURL=StakingDeposit.entity.js.map

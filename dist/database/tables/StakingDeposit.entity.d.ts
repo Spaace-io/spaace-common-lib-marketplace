@@ -1,16 +1,22 @@
 import { BaseEntity } from 'typeorm';
-export declare enum StakingPool {
-    STANDARD_STAKING = "STANDARD_STAKING",
-    COMPOUND_STAKING = "COMPOUND_STAKING"
+export declare enum StakingType {
+    PASSIVE = "PASSIVE",
+    ACTIVE = "ACTIVE"
 }
 export declare class StakingDepositEntity extends BaseEntity {
     txHash: string;
     logIdx: string;
+    type: StakingType;
+    pool: string;
     userAddress: string;
-    pool: StakingPool;
-    depositId: string;
-    lockTypeId: string | null;
     shares: string;
     tokens: string;
     timestamp: Date;
+}
+export declare class ActiveStakingDepositEntity extends StakingDepositEntity {
+    depositId: string;
+    lockTypeId: string | null;
+}
+export declare class PassiveStakingDepositEntity extends StakingDepositEntity {
+    vestingTypeId: string;
 }

@@ -1,16 +1,24 @@
 import { registerEnumType } from '@nestjs/graphql';
-import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import {
+  BaseEntity,
+  ChildEntity,
+  Column,
+  Entity,
+  PrimaryColumn,
+  TableInheritance,
+} from 'typeorm';
 
-export enum StakingPool {
-  STANDARD_STAKING = 'STANDARD_STAKING',
-  COMPOUND_STAKING = 'COMPOUND_STAKING',
+export enum StakingType {
+  PASSIVE = 'PASSIVE',
+  ACTIVE = 'ACTIVE',
 }
 
-registerEnumType(StakingPool, {
-  name: 'StakingPool',
+registerEnumType(StakingType, {
+  name: 'StakingType',
 });
 
 @Entity({ name: 'staking_deposits' })
+@TableInheritance({ column: { name: 'type' } })
 export class StakingDepositEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   txHash!: string;
@@ -18,17 +26,14 @@ export class StakingDepositEntity extends BaseEntity {
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   logIdx!: string;
 
+  @Column('enum', { enum: StakingType, enumName: 'staking_type' })
+  type!: StakingType;
+
+  @Column('char', { length: 40 })
+  pool!: string;
+
   @Column('char', { length: 40 })
   userAddress!: string;
-
-  @Column('enum', { enum: StakingPool, enumName: 'staking_pool' })
-  pool!: StakingPool;
-
-  @Column('numeric', { precision: 78, unsigned: true })
-  depositId!: string;
-
-  @Column('numeric', { precision: 78, unsigned: true, nullable: true }) // Null for withdrawals
-  lockTypeId!: string | null;
 
   @Column('numeric', { precision: 78 }) // Negative for withdrawals
   shares!: string;
@@ -38,4 +43,19 @@ export class StakingDepositEntity extends BaseEntity {
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
+}
+
+@ChildEntity(StakingType.ACTIVE)
+export class ActiveStakingDepositEntity extends StakingDepositEntity {
+  @Column('numeric', { precision: 78, unsigned: true })
+  depositId!: string;
+
+  @Column('numeric', { precision: 78, unsigned: true, nullable: true }) // Null for withdrawals
+  lockTypeId!: string | null;
+}
+
+@ChildEntity(StakingType.PASSIVE)
+export class PassiveStakingDepositEntity extends StakingDepositEntity {
+  @Column('numeric', { precision: 78, unsigned: true })
+  vestingTypeId!: string;
 }

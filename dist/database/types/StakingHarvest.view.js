@@ -9,13 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StakingReward = void 0;
+exports.StakingHarvest = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
 const tables_1 = require("../tables");
 const class_transformer_1 = require("class-transformer");
-let StakingReward = class StakingReward extends typeorm_1.BaseEntity {
+let StakingHarvest = class StakingHarvest extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -24,30 +24,12 @@ __decorate([
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
-], StakingReward.prototype, "txHash", void 0);
+], StakingHarvest.prototype, "txHash", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], StakingReward.prototype, "logIdx", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.ViewColumn)(),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
-    __metadata("design:type", String)
-], StakingReward.prototype, "userAddress", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => tables_1.StakingPool),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], StakingReward.prototype, "pool", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], StakingReward.prototype, "depositId", void 0);
+], StakingHarvest.prototype, "logIdx", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -55,35 +37,56 @@ __decorate([
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
-], StakingReward.prototype, "token", void 0);
+], StakingHarvest.prototype, "userAddress", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
+    __metadata("design:type", String)
+], StakingHarvest.prototype, "pool", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], StakingReward.prototype, "amount", void 0);
+], StakingHarvest.prototype, "depositId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
+    __metadata("design:type", String)
+], StakingHarvest.prototype, "token", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], StakingHarvest.prototype, "amount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
-], StakingReward.prototype, "timestamp", void 0);
-StakingReward = __decorate([
+], StakingHarvest.prototype, "timestamp", void 0);
+StakingHarvest = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from(tables_1.StakingRewardEntity, 'reward')
-                .select('"reward"."txHash"', 'txHash')
-                .addSelect('"reward"."logIdx"', 'logIdx')
-                .addSelect('"reward"."userAddress"', 'userAddress')
-                .addSelect('"reward"."pool"', 'pool')
-                .addSelect('"reward"."depositId"', 'depositId')
-                .addSelect('"reward"."token"', 'token')
-                .addSelect('"reward"."amount"', 'amount')
-                .addSelect('"reward"."timestamp"', 'timestamp');
+                .from(tables_1.StakingHarvestEntity, 'harvest')
+                .select('"harvest"."txHash"', 'txHash')
+                .addSelect('"harvest"."logIdx"', 'logIdx')
+                .addSelect('"harvest"."userAddress"', 'userAddress')
+                .addSelect('"harvest"."pool"', 'pool')
+                .addSelect('"harvest"."depositId"', 'depositId')
+                .addSelect('"harvest"."token"', 'token')
+                .addSelect('"harvest"."amount"', 'amount')
+                .addSelect('"harvest"."timestamp"', 'timestamp');
         },
-        name: 'staking_rewards_view',
+        name: 'staking_harvests_view',
     })
-], StakingReward);
-exports.StakingReward = StakingReward;
-//# sourceMappingURL=StakingReward.view.js.map
+], StakingHarvest);
+exports.StakingHarvest = StakingHarvest;
+//# sourceMappingURL=StakingHarvest.view.js.map
