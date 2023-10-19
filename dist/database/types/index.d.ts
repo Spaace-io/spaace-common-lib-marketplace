@@ -10,6 +10,7 @@ export * from './RewardPeriod.view';
 export * from './Sale.view';
 export * from './StakingDeposit.view';
 export * from './StakingHarvest.view';
+export * from './StakingRewards.view';
 export * from './TokenBalance.view';
 export * from './TokenTransfer.view';
 export * from './Transfer.view';

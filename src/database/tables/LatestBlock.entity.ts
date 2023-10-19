@@ -6,7 +6,7 @@ export class LatestBlockEntity extends BaseEntity {
   @Check('pk = TRUE')
   pk!: boolean;
 
-  @Column('numeric', { precision: 78 }) // 78 digits = Maximum uint256 value
+  @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   number!: number;
 
   @Column('char', { length: 64 })

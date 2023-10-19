@@ -9,45 +9,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StakingHarvestEntity = void 0;
+exports.StakingRewardEntity = void 0;
 const typeorm_1 = require("typeorm");
-let StakingHarvestEntity = class StakingHarvestEntity extends typeorm_1.BaseEntity {
+let StakingRewardEntity = class StakingRewardEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
-], StakingHarvestEntity.prototype, "txHash", void 0);
+], StakingRewardEntity.prototype, "txHash", void 0);
 __decorate([
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", String)
-], StakingHarvestEntity.prototype, "logIdx", void 0);
+], StakingRewardEntity.prototype, "logIdx", void 0);
 __decorate([
     (0, typeorm_1.Column)('char', { length: 40 }),
     __metadata("design:type", String)
-], StakingHarvestEntity.prototype, "pool", void 0);
+], StakingRewardEntity.prototype, "pool", void 0);
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, nullable: true }),
+    __metadata("design:type", Object)
+], StakingRewardEntity.prototype, "vestingTypeId", void 0);
 __decorate([
     (0, typeorm_1.Column)('char', { length: 40 }),
     __metadata("design:type", String)
-], StakingHarvestEntity.prototype, "userAddress", void 0);
+], StakingRewardEntity.prototype, "token", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
-], StakingHarvestEntity.prototype, "depositId", void 0);
-__decorate([
-    (0, typeorm_1.Column)('char', { length: 40 }),
-    __metadata("design:type", String)
-], StakingHarvestEntity.prototype, "token", void 0);
-__decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78 }),
-    __metadata("design:type", String)
-], StakingHarvestEntity.prototype, "amount", void 0);
+], StakingRewardEntity.prototype, "amount", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
-], StakingHarvestEntity.prototype, "timestamp", void 0);
-StakingHarvestEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'staking_harvests' })
-], StakingHarvestEntity);
-exports.StakingHarvestEntity = StakingHarvestEntity;
-//# sourceMappingURL=StakingHarvest.entity.js.map
+], StakingRewardEntity.prototype, "timestamp", void 0);
+StakingRewardEntity = __decorate([
+    (0, typeorm_1.Entity)({ name: 'staking_rewards' })
+], StakingRewardEntity);
+exports.StakingRewardEntity = StakingRewardEntity;
+//# sourceMappingURL=StakingReward.entity.js.map
