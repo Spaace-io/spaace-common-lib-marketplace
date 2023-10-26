@@ -157,6 +157,7 @@ Item = __decorate([
                 .addSelect('"buyNow"."startTime"', 'buyNowStartTime')
                 .addSelect('"sellNow"."price"', 'sellNowPrice')
                 .addSelect('"sellNow"."startTime"', 'sellNowStartTime')
+                .addSelect('CASE WHEN "auction"."hash" IS NOT NULL THEN GREATEST("sellNow"."price", "auction"."price") ELSE NULL END', 'auctionPrice')
                 .addSelect('"auction"."endTime"', 'auctionEndTime')
                 .addSelect('"lastSale"."price"', 'lastSalePrice')
                 .addSelect('"lastSale"."timestamp"', 'lastSaleTimestamp')
