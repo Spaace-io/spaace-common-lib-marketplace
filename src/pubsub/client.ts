@@ -1,6 +1,5 @@
 import { Message, PubSub } from '@google-cloud/pubsub';
-import { MetadataImportTrigger, PubSubTrigger } from './types/trigger';
-import { PUBSUB_TOPICS, PubsubTopic, QuestTrigger } from '..';
+import { PubSubTopic, PubSubTrigger, PubSubMessage } from '.';
 
 class PubSubClient {
   private readonly pubsub: PubSub;
@@ -11,16 +10,16 @@ class PubSubClient {
     });
   }
 
-  public async initialize() {
-    await this.createTopics();
+  private _getTopicFromName(topic: PubSubTopic) {
+    return `${topic}-${process.env.ENVIRONMENT}`;
   }
 
-  private async createTopics() {
-    const topics = Object.values(PUBSUB_TOPICS);
-
+  private async _createTopics() {
     await Promise.all(
-      topics.map(async (topic) => {
-        const [exists] = await this.pubsub.topic(topic).exists();
+      Object.values(PubSubTopic).map(async (topic) => {
+        const [exists] = await this.pubsub
+          .topic(this._getTopicFromName(topic))
+          .exists();
         if (exists) return;
 
         await this.pubsub.createTopic(topic);
@@ -28,13 +27,9 @@ class PubSubClient {
     );
   }
 
-  private getTopicFromName(topicName: PubsubTopic) {
-    return PUBSUB_TOPICS[topicName];
-  }
-
-  private async subscribe(topicName: PubsubTopic, name: string) {
+  private async subscribe(topicName: PubSubTopic, name: string) {
     let subscription = this.pubsub
-      .topic(this.getTopicFromName(topicName))
+      .topic(this._getTopicFromName(topicName))
       .subscription(name);
 
     const [exists] = await subscription.exists();
@@ -51,34 +46,24 @@ class PubSubClient {
     return subscription;
   }
 
-  public async publish<T extends PubsubTopic>(
+  public async initialize() {
+    await this._createTopics();
+  }
+
+  public async publish<T extends PubSubTopic>(
     topicName: T,
-    ...messages: PubSubTrigger<
-      T extends PubsubTopic.TRIGGERS
-        ? QuestTrigger
-        : T extends PubsubTopic.METADATA_IMPORT
-        ? MetadataImportTrigger
-        : never
-    >[]
+    ...messages: PubSubMessage<PubSubTrigger<T>>[]
   ) {
-    const topic = this.pubsub.topic(this.getTopicFromName(topicName));
+    const topic = this.pubsub.topic(this._getTopicFromName(topicName));
     return await Promise.all(
       messages.map((json) => topic.publishMessage({ json })),
     );
   }
 
-  public async onTrigger<T extends PubsubTopic>(
+  public async onMessage<T extends PubSubTopic>(
     name: string,
     topicName: T,
-    listener: (
-      trigger: PubSubTrigger<
-        T extends PubsubTopic.TRIGGERS
-          ? QuestTrigger
-          : T extends PubsubTopic.METADATA_IMPORT
-          ? MetadataImportTrigger
-          : never
-      >,
-    ) => Promise<void>,
+    listener: (trigger: PubSubMessage<PubSubTrigger<T>>) => Promise<void>,
   ) {
     const subscription = await this.subscribe(topicName, name);
     subscription.on('message', async (message: Message) => {
