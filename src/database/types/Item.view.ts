@@ -7,6 +7,7 @@ import { ValidateNested } from 'class-validator';
 import { Order } from './Order.view';
 import { Sale } from './Sale.view';
 import { Transfer } from './Transfer.view';
+import { Collection } from './Collection.view';
 import { utils } from '../..';
 
 @ObjectType()
@@ -17,6 +18,11 @@ import { utils } from '../..';
         .createQueryBuilder()
         .from(ItemEntity, 'item')
 
+        .leftJoin(
+          Collection,
+          'collection',
+          '"collection"."address" = "item"."collectionAddress"',
+        )
         .leftJoin(
           (q) =>
             q
@@ -133,6 +139,10 @@ import { utils } from '../..';
         .addSelect('"item"."lastImport"', 'lastImport')
 
         // Used for sorting/filtering, but not included in the GraphQL output
+        .addSelect(
+          'CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END',
+          'rarityBasisPoints',
+        )
         .addSelect(
           `CASE WHEN "buyNow"."type" = '${OrderType.DUTCH_AUCTION}' THEN "buyNow"."startingPrice" - ("buyNow"."startingPrice" - "buyNow"."price") * EXTRACT(EPOCH FROM NOW() - "buyNow"."startTime") / EXTRACT(EPOCH FROM "buyNow"."endTime" - "buyNow"."startTime") ELSE "buyNow"."price" END`,
           'buyNowPrice',

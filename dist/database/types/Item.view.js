@@ -19,6 +19,7 @@ const class_validator_1 = require("class-validator");
 const Order_view_1 = require("./Order.view");
 const Sale_view_1 = require("./Sale.view");
 const Transfer_view_1 = require("./Transfer.view");
+const Collection_view_1 = require("./Collection.view");
 const __1 = require("../..");
 let Item = class Item extends typeorm_1.BaseEntity {
 };
@@ -79,6 +80,7 @@ Item = __decorate([
             return (dataSource
                 .createQueryBuilder()
                 .from(tables_1.ItemEntity, 'item')
+                .leftJoin(Collection_view_1.Collection, 'collection', '"collection"."address" = "item"."collectionAddress"')
                 .leftJoin((q) => q
                 .from(Order_view_1.Order, 'order')
                 .select()
@@ -153,6 +155,7 @@ Item = __decorate([
                 .addSelect('"item"."rarityScore"', 'rarityScore')
                 .addSelect('"item"."lastImport"', 'lastImport')
                 // Used for sorting/filtering, but not included in the GraphQL output
+                .addSelect('CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END', 'rarityBasisPoints')
                 .addSelect(`CASE WHEN "buyNow"."type" = '${tables_1.OrderType.DUTCH_AUCTION}' THEN "buyNow"."startingPrice" - ("buyNow"."startingPrice" - "buyNow"."price") * EXTRACT(EPOCH FROM NOW() - "buyNow"."startTime") / EXTRACT(EPOCH FROM "buyNow"."endTime" - "buyNow"."startTime") ELSE "buyNow"."price" END`, 'buyNowPrice')
                 .addSelect('"buyNow"."startTime"', 'buyNowStartTime')
                 .addSelect('"sellNow"."price"', 'sellNowPrice')
