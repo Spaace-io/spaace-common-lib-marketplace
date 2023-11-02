@@ -17,12 +17,23 @@ class PubSubClient {
   private async _createTopics() {
     await Promise.all(
       Object.values(PubSubTopic).map(async (topic) => {
-        const [exists] = await this.pubsub
-          .topic(this._getTopicFromName(topic))
-          .exists();
-        if (exists) return;
+        try {
+          const [exists] = await this.pubsub
+            .topic(this._getTopicFromName(topic))
+            .exists();
+          if (exists) return;
 
-        await this.pubsub.createTopic(topic);
+          await this.pubsub.createTopic(this._getTopicFromName(topic));
+        } catch (e) {
+          if (
+            e instanceof Error &&
+            'details' in e &&
+            e.details === 'Topic already exists'
+          ) {
+            return;
+          }
+          throw e;
+        }
       }),
     );
   }

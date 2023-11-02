@@ -24,12 +24,22 @@ class PubSubClient {
     _createTopics() {
         return __awaiter(this, void 0, void 0, function* () {
             yield Promise.all(Object.values(_1.PubSubTopic).map((topic) => __awaiter(this, void 0, void 0, function* () {
-                const [exists] = yield this.pubsub
-                    .topic(this._getTopicFromName(topic))
-                    .exists();
-                if (exists)
-                    return;
-                yield this.pubsub.createTopic(topic);
+                try {
+                    const [exists] = yield this.pubsub
+                        .topic(this._getTopicFromName(topic))
+                        .exists();
+                    if (exists)
+                        return;
+                    yield this.pubsub.createTopic(this._getTopicFromName(topic));
+                }
+                catch (e) {
+                    if (e instanceof Error &&
+                        'details' in e &&
+                        e.details === 'Topic already exists') {
+                        return;
+                    }
+                    throw e;
+                }
             })));
         });
     }
