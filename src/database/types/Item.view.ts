@@ -2,12 +2,17 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform, Type } from 'class-transformer';
 import { ethers } from 'ethers';
-import { ItemEntity, ItemMedia, Like, OrderType } from '../tables';
+import {
+  CollectionRanking,
+  ItemEntity,
+  ItemMedia,
+  Like,
+  OrderType,
+} from '../tables';
 import { ValidateNested } from 'class-validator';
 import { Order } from './Order.view';
 import { Sale } from './Sale.view';
 import { Transfer } from './Transfer.view';
-import { Collection } from './Collection.view';
 import { utils } from '../..';
 
 @ObjectType()
@@ -19,7 +24,7 @@ import { utils } from '../..';
         .from(ItemEntity, 'item')
 
         .leftJoin(
-          Collection,
+          CollectionRanking,
           'collection',
           '"collection"."address" = "item"."collectionAddress"',
         )

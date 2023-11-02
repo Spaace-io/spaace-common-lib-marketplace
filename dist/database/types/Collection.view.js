@@ -238,7 +238,7 @@ Collection = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from(__1.CollectionEntity, 'collection')
-                .innerJoin(__1.CollectionRanking, 'ranking', '"ranking"."address" = "collection"."address"')
+                .leftJoin(__1.CollectionRanking, 'ranking', '"ranking"."address" = "collection"."address"')
                 .select('"collection"."address"', 'address')
                 .addSelect('"collection"."type"', 'type')
                 .addSelect('"collection"."name"', 'name')

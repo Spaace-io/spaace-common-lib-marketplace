@@ -17,7 +17,7 @@ import { ValidateNested } from 'class-validator';
     return dataSource
       .createQueryBuilder()
       .from(CollectionEntity, 'collection')
-      .innerJoin(
+      .leftJoin(
         CollectionRanking,
         'ranking',
         '"ranking"."address" = "collection"."address"',

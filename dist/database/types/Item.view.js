@@ -19,7 +19,6 @@ const class_validator_1 = require("class-validator");
 const Order_view_1 = require("./Order.view");
 const Sale_view_1 = require("./Sale.view");
 const Transfer_view_1 = require("./Transfer.view");
-const Collection_view_1 = require("./Collection.view");
 const __1 = require("../..");
 let Item = class Item extends typeorm_1.BaseEntity {
 };
@@ -80,7 +79,7 @@ Item = __decorate([
             return (dataSource
                 .createQueryBuilder()
                 .from(tables_1.ItemEntity, 'item')
-                .leftJoin(Collection_view_1.Collection, 'collection', '"collection"."address" = "item"."collectionAddress"')
+                .leftJoin(tables_1.CollectionRanking, 'collection', '"collection"."address" = "item"."collectionAddress"')
                 .leftJoin((q) => q
                 .from(Order_view_1.Order, 'order')
                 .select()
