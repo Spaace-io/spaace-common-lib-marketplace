@@ -7,5 +7,6 @@ export declare class TransferEntity extends BaseEntity {
     collectionAddress: string;
     tokenId: string;
     amount: string;
+    batch: boolean;
     timestamp: Date;
 }

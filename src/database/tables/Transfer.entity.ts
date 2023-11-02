@@ -43,6 +43,9 @@ export class TransferEntity extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true, default: '1' })
   amount!: string;
 
+  @Column('bool', { default: false })
+  batch!: boolean;
+
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
 }

@@ -51,6 +51,10 @@ __decorate([
     __metadata("design:type", String)
 ], TransferEntity.prototype, "amount", void 0);
 __decorate([
+    (0, typeorm_1.Column)('bool', { default: false }),
+    __metadata("design:type", Boolean)
+], TransferEntity.prototype, "batch", void 0);
+__decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], TransferEntity.prototype, "timestamp", void 0);
