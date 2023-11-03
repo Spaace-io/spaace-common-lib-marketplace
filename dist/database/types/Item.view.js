@@ -16,8 +16,6 @@ const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 const __1 = require("..");
-const Sale_view_1 = require("./Sale.view");
-const Transfer_view_1 = require("./Transfer.view");
 const __2 = require("../..");
 let Item = class Item extends typeorm_1.BaseEntity {
 };
@@ -114,14 +112,14 @@ Item = __decorate([
                 .addOrderBy('"order"."endTime"', 'ASC'), // TODO: Order by highest bid
             'auction', '"auction"."collectionAddress" = "item"."collectionAddress" AND "auction"."tokenId" = "item"."tokenId"')
                 .leftJoin((q) => q
-                .from(Sale_view_1.Sale, 'sale')
+                .from(__1.SaleEntity, 'sale')
                 .select()
                 .distinctOn(['"sale"."collectionAddress"', '"sale"."tokenId"'])
                 .orderBy('"sale"."collectionAddress"')
                 .addOrderBy('"sale"."tokenId"')
                 .addOrderBy('"timestamp"', 'DESC'), 'lastSale', '"lastSale"."collectionAddress" = "item"."collectionAddress" AND "lastSale"."tokenId" = "item"."tokenId"')
                 .leftJoin((q) => q
-                .from(Transfer_view_1.Transfer, 'transfer')
+                .from(__1.TransferEntity, 'transfer')
                 .select()
                 .distinctOn([
                 '"transfer"."collectionAddress"',
@@ -131,7 +129,7 @@ Item = __decorate([
                 .addOrderBy('"transfer"."tokenId"')
                 .addOrderBy('"timestamp"', 'ASC'), 'mint', '"mint"."collectionAddress" = "item"."collectionAddress" AND "mint"."tokenId" = "item"."tokenId"')
                 .leftJoin((q) => q
-                .from(Transfer_view_1.Transfer, 'transfer')
+                .from(__1.TransferEntity, 'transfer')
                 .select()
                 .distinctOn([
                 '"transfer"."collectionAddress"',

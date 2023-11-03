@@ -17,7 +17,7 @@ import {
   SaleEntity,
   TokenBalanceEntity,
 } from '..';
-import { utils } from '../..';
+import * as utils from '../../utils';
 
 @ViewEntity({
   expression: (dataSource: DataSource) => {

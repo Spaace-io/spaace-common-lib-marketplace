@@ -10,9 +10,9 @@ import {
   ItemMedia,
   Like,
   OrderType,
+  SaleEntity,
+  TransferEntity,
 } from '..';
-import { Sale } from './Sale.view';
-import { Transfer } from './Transfer.view';
 import { utils } from '../..';
 
 @ObjectType()
@@ -90,7 +90,7 @@ import { utils } from '../..';
         .leftJoin(
           (q) =>
             q
-              .from(Sale, 'sale')
+              .from(SaleEntity, 'sale')
               .select()
               .distinctOn(['"sale"."collectionAddress"', '"sale"."tokenId"'])
               .orderBy('"sale"."collectionAddress"')
@@ -102,7 +102,7 @@ import { utils } from '../..';
         .leftJoin(
           (q) =>
             q
-              .from(Transfer, 'transfer')
+              .from(TransferEntity, 'transfer')
               .select()
               .distinctOn([
                 '"transfer"."collectionAddress"',
@@ -117,7 +117,7 @@ import { utils } from '../..';
         .leftJoin(
           (q) =>
             q
-              .from(Transfer, 'transfer')
+              .from(TransferEntity, 'transfer')
               .select()
               .distinctOn([
                 '"transfer"."collectionAddress"',
