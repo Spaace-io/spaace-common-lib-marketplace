@@ -1,15 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
-import { ethers } from 'ethers';
-import {
-  BalanceEntity,
-  Marketplace,
-  OrderEntity,
-  OrderType,
-  SaleEntity,
-  TokenBalanceEntity,
-} from '../tables';
+import { ActiveOrderCached, Marketplace, OrderEntity, OrderType } from '..';
 
 @ObjectType()
 @ViewEntity({
@@ -40,31 +33,12 @@ import {
           query
             .fromDummy()
             .select(
-              `"order"."startTime" <= NOW() AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) AND "order"."cancelTimestamp" IS NULL AND NOT EXISTS ${query
+              `EXISTS ${query
                 .subQuery()
-                .from(SaleEntity, 'sale')
+                .from(ActiveOrderCached, 'active')
                 .select('1')
-                .where('"sale"."orderHash" = "order"."hash"')
-                .getQuery()} AND CASE "order"."type" WHEN '${
-                OrderType.BID
-              }' THEN COALESCE(${query
-                .subQuery()
-                .select('"balance"."balance"')
-                .from(TokenBalanceEntity, 'balance')
-                .where('"balance"."currency" = "order"."currency"')
-                .andWhere('"balance"."userAddress" = "order"."userAddress"')
-                .andWhere('"balance"."balance" > 0')
-                .getQuery()}, 0) >= "order"."price" ELSE COALESCE(${query
-                .subQuery()
-                .select('"balance"."balance"')
-                .from(BalanceEntity, 'balance')
-                .where('"balance"."userAddress" = "order"."userAddress"')
-                .andWhere(
-                  '"balance"."collectionAddress" = "order"."collectionAddress"',
-                )
-                .andWhere('"balance"."tokenId" = "order"."tokenId"')
-                .andWhere('"balance"."balance" > 0')
-                .getQuery()}, 0) > 0 END`,
+                .where('"active"."hash" = "order"."hash"')
+                .getQuery()}`,
             ),
         'active',
       );
@@ -166,10 +140,6 @@ export class Order extends BaseEntity {
   @ViewColumn()
   cancelTimestamp!: Date | null;
 
-  @Field(() => Boolean)
-  @ViewColumn()
-  active!: boolean;
-
   @Field(() => String)
   @ViewColumn()
   royalties!: string;
@@ -177,4 +147,10 @@ export class Order extends BaseEntity {
   @Field(() => String, { nullable: true })
   @ViewColumn()
   startingRoyalties!: string | null;
+
+  // Cached columns
+
+  @Field(() => Boolean)
+  @ViewColumn()
+  active!: boolean;
 }

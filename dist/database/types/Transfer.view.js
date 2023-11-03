@@ -11,10 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Transfer = void 0;
 const graphql_1 = require("@nestjs/graphql");
-const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
-const tables_1 = require("../tables");
+const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
+const __1 = require("..");
 // Primary key = (txHash, logIdx, from, to, collection, item)
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. ERC1155's TransferBatch)
 let Transfer = class Transfer extends typeorm_1.BaseEntity {
@@ -77,7 +77,7 @@ Transfer = __decorate([
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from(tables_1.TransferEntity, 'transfer')
+                .from(__1.TransferEntity, 'transfer')
                 .select('"transfer"."txHash"', 'txHash')
                 .addSelect('"transfer"."logIdx"', 'logIdx')
                 .addSelect('"transfer"."from"', 'from')

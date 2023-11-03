@@ -48,7 +48,8 @@ __decorate([
 ], HiddenItem.prototype, "tokenId", void 0);
 HiddenItem = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'hidden_items' })
+    (0, typeorm_1.Entity)({ name: 'hidden_items' }),
+    (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId'], { unique: true })
 ], HiddenItem);
 exports.HiddenItem = HiddenItem;
 //# sourceMappingURL=HiddenItem.entity.js.map

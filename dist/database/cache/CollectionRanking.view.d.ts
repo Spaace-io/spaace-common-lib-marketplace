@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-export declare class CollectionRanking extends BaseEntity {
+export declare class CollectionRankingCached extends BaseEntity {
     address: string;
     volume: string;
     volume1h: string;

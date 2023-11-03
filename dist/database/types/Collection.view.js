@@ -10,12 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Collection = void 0;
-const typeorm_1 = require("typeorm");
-const __1 = require("..");
-const ethers_1 = require("ethers");
 const graphql_1 = require("@nestjs/graphql");
+const ethers_1 = require("ethers");
+const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
+const __1 = require("..");
 let Collection = class Collection extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -238,7 +238,7 @@ Collection = __decorate([
             return dataSource
                 .createQueryBuilder()
                 .from(__1.CollectionEntity, 'collection')
-                .leftJoin(__1.CollectionRanking, 'ranking', '"ranking"."address" = "collection"."address"')
+                .leftJoin(__1.CollectionRankingCached, 'ranking', '"ranking"."address" = "collection"."address"')
                 .select('"collection"."address"', 'address')
                 .addSelect('"collection"."type"', 'type')
                 .addSelect('"collection"."name"', 'name')

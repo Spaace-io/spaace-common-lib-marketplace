@@ -1,8 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { ethers } from 'ethers';
-import { StakingRewardEntity } from '../tables';
+import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
+import { StakingRewardEntity } from '..';
 
 @ObjectType()
 @ViewEntity({

@@ -1,8 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { ethers } from 'ethers';
-import { TransferEntity } from '../tables';
+import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
+import { TransferEntity } from '..';
 
 // Primary key = (txHash, logIdx, from, to, collection, item)
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. ERC1155's TransferBatch)

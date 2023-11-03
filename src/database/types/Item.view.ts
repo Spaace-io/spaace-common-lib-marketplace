@@ -1,16 +1,16 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform, Type } from 'class-transformer';
-import { ethers } from 'ethers';
+import { ValidateNested } from 'class-validator';
 import {
-  CollectionRanking,
+  ActiveOrderCached,
+  CollectionRankingCached,
   ItemEntity,
   ItemMedia,
   Like,
   OrderType,
-} from '../tables';
-import { ValidateNested } from 'class-validator';
-import { Order } from './Order.view';
+} from '..';
 import { Sale } from './Sale.view';
 import { Transfer } from './Transfer.view';
 import { utils } from '../..';
@@ -24,14 +24,14 @@ import { utils } from '../..';
         .from(ItemEntity, 'item')
 
         .leftJoin(
-          CollectionRanking,
+          CollectionRankingCached,
           'collection',
           '"collection"."address" = "item"."collectionAddress"',
         )
         .leftJoin(
           (q) =>
             q
-              .from(Order, 'order')
+              .from(ActiveOrderCached, 'order')
               .select()
               .where(
                 `"order"."type" IN ('${OrderType.ASK}', '${OrderType.DUTCH_AUCTION}')`,
@@ -41,7 +41,6 @@ import { utils } from '../..';
                   .strip0x(utils.constants.ETH_TOKENS)
                   .join("','")}')`,
               )
-              .andWhere('"order"."active"')
               .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
               .orderBy('"order"."collectionAddress"')
               .addOrderBy('"order"."tokenId"')
@@ -55,7 +54,7 @@ import { utils } from '../..';
         .leftJoin(
           (q) =>
             q
-              .from(Order, 'order')
+              .from(ActiveOrderCached, 'order')
               .select()
               .where(`"order"."type" = '${OrderType.BID}'`)
               .andWhere(
@@ -63,7 +62,6 @@ import { utils } from '../..';
                   .strip0x(utils.constants.ETH_TOKENS)
                   .join("','")}')`,
               )
-              .andWhere('"order"."active"')
               .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
               .orderBy('"order"."collectionAddress"')
               .addOrderBy('"order"."tokenId"')
@@ -74,7 +72,7 @@ import { utils } from '../..';
         .leftJoin(
           (q) =>
             q
-              .from(Order, 'order')
+              .from(ActiveOrderCached, 'order')
               .select()
               .where(`"order"."type" = '${OrderType.ENGLISH_AUCTION}'`)
               .andWhere(
@@ -82,7 +80,6 @@ import { utils } from '../..';
                   .strip0x(utils.constants.ETH_TOKENS)
                   .join("','")}')`,
               )
-              .andWhere('"order"."active"')
               .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
               .orderBy('"order"."collectionAddress"')
               .addOrderBy('"order"."tokenId"')

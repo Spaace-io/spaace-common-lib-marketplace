@@ -9,17 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CollectionRanking = void 0;
-const graphql_1 = require("@nestjs/graphql");
+exports.CollectionRankingCached = void 0;
 const typeorm_1 = require("typeorm");
 const __1 = require("../..");
-const _1 = require(".");
-const types_1 = require("../types");
+const __2 = require("..");
 function getVolumeQuery(interval, previous = false) {
     return (query) => {
         let subQuery = query
             .subQuery()
-            .from(_1.SaleEntity, 'sale')
+            .from(__2.SaleEntity, 'sale')
             .select('SUM("sale"."price")')
             .where('"sale"."collectionAddress" = "collection"."address"')
             .andWhere(`"sale"."currency" IN ('${__1.utils
@@ -39,9 +37,9 @@ function getVolumeQuery(interval, previous = false) {
 function getFloorPriceQuery(timestamp) {
     return (query) => {
         query = query
-            .from(types_1.Order, 'order')
-            .select(`MIN(CASE WHEN "order"."type" = '${_1.OrderType.DUTCH_AUCTION}' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM ${timestamp !== null && timestamp !== void 0 ? timestamp : 'NOW()'} - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END)`)
-            .where(`"order"."type" IN ('${_1.OrderType.ASK}', '${_1.OrderType.DUTCH_AUCTION}')`)
+            .from(__2.Order, 'order')
+            .select(`MIN(CASE WHEN "order"."type" = '${__2.OrderType.DUTCH_AUCTION}' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM ${timestamp !== null && timestamp !== void 0 ? timestamp : 'NOW()'} - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END)`)
+            .where(`"order"."type" IN ('${__2.OrderType.ASK}', '${__2.OrderType.DUTCH_AUCTION}')`)
             .andWhere('"order"."collectionAddress" = "collection"."address"')
             .andWhere(`"order"."currency" IN ('${__1.utils
             .strip0x(__1.utils.constants.ETH_TOKENS)
@@ -59,7 +57,7 @@ function getFloorPriceQuery(timestamp) {
                 .andWhere('"order"."cancelTimestamp" IS NULL')
                 .andWhere(`NOT EXISTS ${query
                 .subQuery()
-                .from(_1.SaleEntity, 'sale')
+                .from(__2.SaleEntity, 'sale')
                 .where('"sale"."orderHash" = "order"."hash"')
                 .getQuery()}`)
                 .andWhere(`"order"."currency" IN ('${__1.utils
@@ -68,7 +66,7 @@ function getFloorPriceQuery(timestamp) {
                 .andWhereExists(query
                 .subQuery()
                 .select('"balance"."balance"')
-                .from(_1.BalanceEntity, 'balance')
+                .from(__2.BalanceEntity, 'balance')
                 .where('"balance"."userAddress" = "order"."userAddress"')
                 .andWhere('"balance"."collectionAddress" = "order"."collectionAddress"')
                 .andWhere('"balance"."tokenId" = "order"."tokenId"')
@@ -79,7 +77,7 @@ function getFloorPriceQuery(timestamp) {
 }
 function getSaleCountQuery(interval) {
     return (query) => query
-        .from(_1.SaleEntity, 'sale')
+        .from(__2.SaleEntity, 'sale')
         .select('COUNT(*)')
         .where('"sale"."collectionAddress" = "collection"."address"')
         .andWhere(`"sale"."currency" IN ('${__1.utils
@@ -87,152 +85,128 @@ function getSaleCountQuery(interval) {
         .join("','")}')`)
         .andWhere(`"sale"."timestamp" > NOW() - INTERVAL '${interval}'`);
 }
-let CollectionRanking = class CollectionRanking extends typeorm_1.BaseEntity {
+let CollectionRankingCached = class CollectionRankingCached extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, typeorm_1.ViewColumn)(),
+    (0, typeorm_1.ManyToOne)(() => __2.CollectionEntity),
+    (0, typeorm_1.JoinColumn)({ name: 'address', referencedColumnName: 'address' }),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "address", void 0);
+], CollectionRankingCached.prototype, "address", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volume", void 0);
+], CollectionRankingCached.prototype, "volume", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volume1h", void 0);
+], CollectionRankingCached.prototype, "volume1h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volume6h", void 0);
+], CollectionRankingCached.prototype, "volume6h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volume24h", void 0);
+], CollectionRankingCached.prototype, "volume24h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volume7d", void 0);
+], CollectionRankingCached.prototype, "volume7d", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volume30d", void 0);
+], CollectionRankingCached.prototype, "volume30d", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volumeChange1h", void 0);
+], CollectionRankingCached.prototype, "volumeChange1h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volumeChange6h", void 0);
+], CollectionRankingCached.prototype, "volumeChange6h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volumeChange24h", void 0);
+], CollectionRankingCached.prototype, "volumeChange24h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volumeChange7d", void 0);
+], CollectionRankingCached.prototype, "volumeChange7d", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "volumeChange30d", void 0);
+], CollectionRankingCached.prototype, "volumeChange30d", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "floorPrice", void 0);
+], CollectionRankingCached.prototype, "floorPrice", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "floorChange1h", void 0);
+], CollectionRankingCached.prototype, "floorChange1h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "floorChange6h", void 0);
+], CollectionRankingCached.prototype, "floorChange6h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "floorChange24h", void 0);
+], CollectionRankingCached.prototype, "floorChange24h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "floorChange7d", void 0);
+], CollectionRankingCached.prototype, "floorChange7d", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "floorChange30d", void 0);
+], CollectionRankingCached.prototype, "floorChange30d", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "saleCount1h", void 0);
+], CollectionRankingCached.prototype, "saleCount1h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "saleCount6h", void 0);
+], CollectionRankingCached.prototype, "saleCount6h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "saleCount24h", void 0);
+], CollectionRankingCached.prototype, "saleCount24h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "saleCount7d", void 0);
+], CollectionRankingCached.prototype, "saleCount7d", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "saleCount30d", void 0);
+], CollectionRankingCached.prototype, "saleCount30d", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "saleCount", void 0);
+], CollectionRankingCached.prototype, "saleCount", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "totalSupply", void 0);
+], CollectionRankingCached.prototype, "totalSupply", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "ownerCount", void 0);
+], CollectionRankingCached.prototype, "ownerCount", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], CollectionRanking.prototype, "listedCount", void 0);
-CollectionRanking = __decorate([
+], CollectionRankingCached.prototype, "listedCount", void 0);
+CollectionRankingCached = __decorate([
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from((q) => q
-                .from(_1.CollectionEntity, 'collection')
-                .select('"collection"."address"')
+                .from((query) => query
+                .from(__2.CollectionEntity, 'collection')
+                .select('"collection"."address"', 'address')
                 .addSelect((query) => query
-                .from(_1.SaleEntity, 'sale')
+                .from(__2.SaleEntity, 'sale')
                 .select('SUM("sale"."price")')
                 .where('"sale"."collectionAddress" = "collection"."address"')
                 .andWhere(`"sale"."currency" IN ('${__1.utils
@@ -255,7 +229,7 @@ CollectionRanking = __decorate([
                 .addSelect(getFloorPriceQuery("NOW() - INTERVAL '7 days'"), 'floorPrevious7d')
                 .addSelect(getFloorPriceQuery("NOW() - INTERVAL '30 days'"), 'floorPrevious30d')
                 .addSelect((query) => query
-                .from(_1.SaleEntity, 'sale')
+                .from(__2.SaleEntity, 'sale')
                 .select('COUNT(*)')
                 .where('"sale"."collectionAddress" = "collection"."address"')
                 .andWhere(`"sale"."currency" IN ('${__1.utils
@@ -267,34 +241,49 @@ CollectionRanking = __decorate([
                 .addSelect(getSaleCountQuery('7 days'), 'saleCount7d')
                 .addSelect(getSaleCountQuery('30 days'), 'saleCount30d')
                 .addSelect((query) => query
-                .from(_1.BalanceEntity, 'balance')
+                .from(__2.BalanceEntity, 'balance')
                 .select('SUM("balance"."balance")')
                 .where('"balance"."collectionAddress" = "collection"."address"')
                 .andWhere('"balance"."balance" > 0'), 'totalSupply')
                 .addSelect((query) => query
-                .from(_1.BalanceEntity, 'balance')
+                .from(__2.BalanceEntity, 'balance')
                 .select('COUNT(DISTINCT "balance"."userAddress")')
                 .where('"balance"."collectionAddress" = "collection"."address"')
                 .andWhere('"balance"."balance" > 0'), 'ownerCount')
                 .addSelect((query) => query
-                .from(types_1.Order, 'order')
-                .select('COUNT(DISTINCT "order"."tokenId")')
-                .where(`"order"."type" != '${_1.OrderType.BID}'`)
-                .andWhere('"order"."collectionAddress" = "collection"."address"')
-                .andWhere('"order"."active"'), 'listedCount'), 'collection')
-                .select('*')
-                .addSelect('"volume1h" - "volumePrevious1h"', 'volumeChange1h')
-                .addSelect('"volume6h" - "volumePrevious6h"', 'volumeChange6h')
-                .addSelect('"volume24h" - "volumePrevious24h"', 'volumeChange24h')
-                .addSelect('"volume7d" - "volumePrevious7d"', 'volumeChange7d')
-                .addSelect('"volume30d" - "volumePrevious30d"', 'volumeChange30d')
-                .addSelect('"floorPrice" - "floorPrevious1h"', 'floorChange1h')
-                .addSelect('"floorPrice" - "floorPrevious6h"', 'floorChange6h')
-                .addSelect('"floorPrice" - "floorPrevious24h"', 'floorChange24h')
-                .addSelect('"floorPrice" - "floorPrevious7d"', 'floorChange7d')
-                .addSelect('"floorPrice" - "floorPrevious30d"', 'floorChange30d');
+                .from(__2.ActiveOrderCached, 'order')
+                .select('COUNT(DISTINCT "order"."tokenId")') // TODO: ERC1155 support
+                .where(`"order"."type" != '${__2.OrderType.BID}'`)
+                .andWhere('"order"."collectionAddress" = "collection"."address"'), 'listedCount'), 'collection')
+                .select('"collection"."address"', 'address')
+                .addSelect('"collection"."volume"', 'volume')
+                .addSelect('"collection"."volume1h"', 'volume1h')
+                .addSelect('"collection"."volume6h"', 'volume6h')
+                .addSelect('"collection"."volume24h"', 'volume24h')
+                .addSelect('"collection"."volume7d"', 'volume7d')
+                .addSelect('"collection"."volume30d"', 'volume30d')
+                .addSelect('"collection"."volume1h" - "collection"."volumePrevious1h"', 'volumeChange1h')
+                .addSelect('"collection"."volume6h" - "collection"."volumePrevious6h"', 'volumeChange6h')
+                .addSelect('"collection"."volume24h" - "collection"."volumePrevious24h"', 'volumeChange24h')
+                .addSelect('"collection"."volume7d" - "collection"."volumePrevious7d"', 'volumeChange7d')
+                .addSelect('"collection"."volume30d" - "collection"."volumePrevious30d"', 'volumeChange30d')
+                .addSelect('"collection"."floorPrice"', 'floorPrice')
+                .addSelect('"collection"."floorPrice" - "collection"."floorPrevious1h"', 'floorChange1h')
+                .addSelect('"collection"."floorPrice" - "collection"."floorPrevious6h"', 'floorChange6h')
+                .addSelect('"collection"."floorPrice" - "collection"."floorPrevious24h"', 'floorChange24h')
+                .addSelect('"collection"."floorPrice" - "collection"."floorPrevious7d"', 'floorChange7d')
+                .addSelect('"collection"."floorPrice" - "collection"."floorPrevious30d"', 'floorChange30d')
+                .addSelect('"collection"."saleCount"', 'saleCount')
+                .addSelect('"collection"."saleCount1h"', 'saleCount1h')
+                .addSelect('"collection"."saleCount6h"', 'saleCount6h')
+                .addSelect('"collection"."saleCount24h"', 'saleCount24h')
+                .addSelect('"collection"."saleCount7d"', 'saleCount7d')
+                .addSelect('"collection"."saleCount30d"', 'saleCount30d')
+                .addSelect('"collection"."totalSupply"', 'totalSupply')
+                .addSelect('"collection"."ownerCount"', 'ownerCount')
+                .addSelect('"collection"."listedCount"', 'listedCount');
         },
-        name: 'collection_rankings',
+        name: 'collection_rankings_cache',
         materialized: true,
     }),
     (0, typeorm_1.Index)(['address'], { unique: true }),
@@ -315,6 +304,6 @@ CollectionRanking = __decorate([
     (0, typeorm_1.Index)(['floorChange24h']),
     (0, typeorm_1.Index)(['floorChange7d']),
     (0, typeorm_1.Index)(['floorChange30d'])
-], CollectionRanking);
-exports.CollectionRanking = CollectionRanking;
+], CollectionRankingCached);
+exports.CollectionRankingCached = CollectionRankingCached;
 //# sourceMappingURL=CollectionRanking.view.js.map

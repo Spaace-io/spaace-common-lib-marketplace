@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-import { StakingType } from '../tables';
+import { StakingType } from '..';
 export declare class StakingDeposit extends BaseEntity {
     txHash: string;
     logIdx: string;

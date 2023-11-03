@@ -11,10 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CollectionAttribute = void 0;
 const graphql_1 = require("@nestjs/graphql");
-const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
-const tables_1 = require("../tables");
+const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
+const __1 = require("..");
 let CollectionAttribute = class CollectionAttribute extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -54,7 +54,7 @@ CollectionAttribute = __decorate([
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from(tables_1.ItemAttributeEntity, 'attribute')
+                .from(__1.ItemAttributeEntity, 'attribute')
                 .select('"attribute"."collectionAddress"')
                 .addSelect('"attribute"."traitHash"', 'traitHash')
                 .addSelect('MIN("attribute"."trait")', 'trait')

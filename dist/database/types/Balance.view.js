@@ -14,7 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
-const tables_1 = require("../tables");
+const __1 = require("..");
 let Balance = class Balance extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -49,7 +49,7 @@ Balance = __decorate([
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from(tables_1.BalanceEntity, 'balance')
+                .from(__1.BalanceEntity, 'balance')
                 .select('"balance"."collectionAddress"', 'collectionAddress')
                 .addSelect('"balance"."tokenId"', 'tokenId')
                 .addSelect('"balance"."userAddress"', 'userAddress')

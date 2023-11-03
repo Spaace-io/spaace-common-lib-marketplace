@@ -1,16 +1,23 @@
-import { Field } from '@nestjs/graphql';
 import {
   BaseEntity,
   Brackets,
   DataSource,
   Index,
+  JoinColumn,
+  ManyToOne,
   SelectQueryBuilder,
   ViewColumn,
   ViewEntity,
 } from 'typeorm';
 import { utils } from '../..';
-import { BalanceEntity, CollectionEntity, OrderType, SaleEntity } from '.';
-import { Order } from '../types';
+import {
+  ActiveOrderCached,
+  BalanceEntity,
+  CollectionEntity,
+  Order,
+  OrderType,
+  SaleEntity,
+} from '..';
 
 function getVolumeQuery(interval: string, previous = false) {
   return (query: SelectQueryBuilder<object>) => {
@@ -123,10 +130,10 @@ function getSaleCountQuery(interval: string) {
     return dataSource
       .createQueryBuilder()
       .from(
-        (q) =>
-          q
+        (query) =>
+          query
             .from(CollectionEntity, 'collection')
-            .select('"collection"."address"')
+            .select('"collection"."address"', 'address')
             .addSelect(
               (query) =>
                 query
@@ -214,30 +221,75 @@ function getSaleCountQuery(interval: string) {
             .addSelect(
               (query) =>
                 query
-                  .from(Order, 'order')
-                  .select('COUNT(DISTINCT "order"."tokenId")')
+                  .from(ActiveOrderCached, 'order')
+                  .select('COUNT(DISTINCT "order"."tokenId")') // TODO: ERC1155 support
                   .where(`"order"."type" != '${OrderType.BID}'`)
                   .andWhere(
                     '"order"."collectionAddress" = "collection"."address"',
-                  )
-                  .andWhere('"order"."active"'),
+                  ),
               'listedCount',
             ),
         'collection',
       )
-      .select('*')
-      .addSelect('"volume1h" - "volumePrevious1h"', 'volumeChange1h')
-      .addSelect('"volume6h" - "volumePrevious6h"', 'volumeChange6h')
-      .addSelect('"volume24h" - "volumePrevious24h"', 'volumeChange24h')
-      .addSelect('"volume7d" - "volumePrevious7d"', 'volumeChange7d')
-      .addSelect('"volume30d" - "volumePrevious30d"', 'volumeChange30d')
-      .addSelect('"floorPrice" - "floorPrevious1h"', 'floorChange1h')
-      .addSelect('"floorPrice" - "floorPrevious6h"', 'floorChange6h')
-      .addSelect('"floorPrice" - "floorPrevious24h"', 'floorChange24h')
-      .addSelect('"floorPrice" - "floorPrevious7d"', 'floorChange7d')
-      .addSelect('"floorPrice" - "floorPrevious30d"', 'floorChange30d');
+      .select('"collection"."address"', 'address')
+      .addSelect('"collection"."volume"', 'volume')
+      .addSelect('"collection"."volume1h"', 'volume1h')
+      .addSelect('"collection"."volume6h"', 'volume6h')
+      .addSelect('"collection"."volume24h"', 'volume24h')
+      .addSelect('"collection"."volume7d"', 'volume7d')
+      .addSelect('"collection"."volume30d"', 'volume30d')
+      .addSelect(
+        '"collection"."volume1h" - "collection"."volumePrevious1h"',
+        'volumeChange1h',
+      )
+      .addSelect(
+        '"collection"."volume6h" - "collection"."volumePrevious6h"',
+        'volumeChange6h',
+      )
+      .addSelect(
+        '"collection"."volume24h" - "collection"."volumePrevious24h"',
+        'volumeChange24h',
+      )
+      .addSelect(
+        '"collection"."volume7d" - "collection"."volumePrevious7d"',
+        'volumeChange7d',
+      )
+      .addSelect(
+        '"collection"."volume30d" - "collection"."volumePrevious30d"',
+        'volumeChange30d',
+      )
+      .addSelect('"collection"."floorPrice"', 'floorPrice')
+      .addSelect(
+        '"collection"."floorPrice" - "collection"."floorPrevious1h"',
+        'floorChange1h',
+      )
+      .addSelect(
+        '"collection"."floorPrice" - "collection"."floorPrevious6h"',
+        'floorChange6h',
+      )
+      .addSelect(
+        '"collection"."floorPrice" - "collection"."floorPrevious24h"',
+        'floorChange24h',
+      )
+      .addSelect(
+        '"collection"."floorPrice" - "collection"."floorPrevious7d"',
+        'floorChange7d',
+      )
+      .addSelect(
+        '"collection"."floorPrice" - "collection"."floorPrevious30d"',
+        'floorChange30d',
+      )
+      .addSelect('"collection"."saleCount"', 'saleCount')
+      .addSelect('"collection"."saleCount1h"', 'saleCount1h')
+      .addSelect('"collection"."saleCount6h"', 'saleCount6h')
+      .addSelect('"collection"."saleCount24h"', 'saleCount24h')
+      .addSelect('"collection"."saleCount7d"', 'saleCount7d')
+      .addSelect('"collection"."saleCount30d"', 'saleCount30d')
+      .addSelect('"collection"."totalSupply"', 'totalSupply')
+      .addSelect('"collection"."ownerCount"', 'ownerCount')
+      .addSelect('"collection"."listedCount"', 'listedCount');
   },
-  name: 'collection_rankings',
+  name: 'collection_rankings_cache',
   materialized: true,
 })
 @Index(['address'], { unique: true })
@@ -258,111 +310,87 @@ function getSaleCountQuery(interval: string) {
 @Index(['floorChange24h'])
 @Index(['floorChange7d'])
 @Index(['floorChange30d'])
-export class CollectionRanking extends BaseEntity {
+export class CollectionRankingCached extends BaseEntity {
   @ViewColumn()
+  @ManyToOne(() => CollectionEntity)
+  @JoinColumn({ name: 'address', referencedColumnName: 'address' })
   address!: string;
 
-  @Field(() => String)
   @ViewColumn()
   volume!: string;
 
-  @Field(() => String)
   @ViewColumn()
   volume1h!: string;
 
-  @Field(() => String)
   @ViewColumn()
   volume6h!: string;
 
-  @Field(() => String)
   @ViewColumn()
   volume24h!: string;
 
-  @Field(() => String)
   @ViewColumn()
   volume7d!: string;
 
-  @Field(() => String)
   @ViewColumn()
   volume30d!: string;
 
-  @Field(() => String)
   @ViewColumn()
   volumeChange1h!: string;
 
-  @Field(() => String)
   @ViewColumn()
   volumeChange6h!: string;
 
-  @Field(() => String)
   @ViewColumn()
   volumeChange24h!: string;
 
-  @Field(() => String)
   @ViewColumn()
   volumeChange7d!: string;
 
-  @Field(() => String)
   @ViewColumn()
   volumeChange30d!: string;
 
-  @Field(() => String)
   @ViewColumn()
   floorPrice!: string;
 
-  @Field(() => String)
   @ViewColumn()
   floorChange1h!: string;
 
-  @Field(() => String)
   @ViewColumn()
   floorChange6h!: string;
 
-  @Field(() => String)
   @ViewColumn()
   floorChange24h!: string;
 
-  @Field(() => String)
   @ViewColumn()
   floorChange7d!: string;
 
-  @Field(() => String)
   @ViewColumn()
   floorChange30d!: string;
 
-  @Field(() => String)
   @ViewColumn()
   saleCount1h!: string;
 
-  @Field(() => String)
   @ViewColumn()
   saleCount6h!: string;
 
-  @Field(() => String)
   @ViewColumn()
   saleCount24h!: string;
 
-  @Field(() => String)
   @ViewColumn()
   saleCount7d!: string;
 
-  @Field(() => String)
   @ViewColumn()
   saleCount30d!: string;
 
-  @Field(() => String)
   @ViewColumn()
   saleCount!: string;
 
-  @Field(() => String)
   @ViewColumn()
   totalSupply!: string;
 
-  @Field(() => String)
   @ViewColumn()
   ownerCount!: string;
 
-  @Field(() => String)
   @ViewColumn()
   listedCount!: string;
 }

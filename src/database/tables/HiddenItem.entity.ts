@@ -3,6 +3,7 @@ import { Transform } from 'class-transformer';
 import {
   BaseEntity,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryColumn,
@@ -12,6 +13,7 @@ import { ItemEntity, User } from '.';
 
 @ObjectType()
 @Entity({ name: 'hidden_items' })
+@Index(['userAddress', 'collectionAddress', 'tokenId'], { unique: true })
 export class HiddenItem extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('char', { length: 40 })

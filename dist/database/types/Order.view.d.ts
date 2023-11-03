@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-import { Marketplace, OrderType } from '../tables';
+import { Marketplace, OrderType } from '..';
 export declare class Order extends BaseEntity {
     hash: string;
     userAddress: string;
@@ -17,7 +17,7 @@ export declare class Order extends BaseEntity {
     cancelTxHash: string | null;
     cancelLogIdx: string | null;
     cancelTimestamp: Date | null;
-    active: boolean;
     royalties: string;
     startingRoyalties: string | null;
+    active: boolean;
 }

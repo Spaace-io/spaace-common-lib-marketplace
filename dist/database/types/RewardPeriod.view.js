@@ -12,11 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RewardPeriod = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-const tables_1 = require("../tables");
+const __1 = require("..");
 let RewardPeriod = class RewardPeriod extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => tables_1.DistributorContract),
+    (0, graphql_1.Field)(() => __1.DistributorContract),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], RewardPeriod.prototype, "distributor", void 0);
@@ -46,7 +46,7 @@ RewardPeriod = __decorate([
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from(tables_1.RewardPeriodEntity, 'period')
+                .from(__1.RewardPeriodEntity, 'period')
                 .select('"period"."distributor"', 'distributor')
                 .addSelect('"period"."startTime"', 'startTime')
                 .addSelect('"period"."endTime"', 'endTime')

@@ -42,5 +42,4 @@ __exportStar(require("./UserSeasonRankClaim.entity"), exports);
 __exportStar(require("./CartItem.entity"), exports);
 __exportStar(require("./Like.entity"), exports);
 __exportStar(require("./Report.entity"), exports);
-__exportStar(require("./CollectionRanking.view"), exports);
 //# sourceMappingURL=index.js.map

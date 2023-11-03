@@ -11,10 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sale = void 0;
 const graphql_1 = require("@nestjs/graphql");
-const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
-const tables_1 = require("../tables");
+const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
+const __1 = require("..");
 let Sale = class Sale extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -86,7 +86,7 @@ __decorate([
     __metadata("design:type", String)
 ], Sale.prototype, "currency", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => tables_1.Marketplace),
+    (0, graphql_1.Field)(() => __1.Marketplace),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Sale.prototype, "marketplace", void 0);
@@ -101,7 +101,7 @@ Sale = __decorate([
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from(tables_1.SaleEntity, 'sale')
+                .from(__1.SaleEntity, 'sale')
                 .select('"sale"."txHash"', 'txHash')
                 .addSelect('"sale"."logIdx"', 'logIdx')
                 .addSelect('"sale"."orderHash"', 'orderHash')

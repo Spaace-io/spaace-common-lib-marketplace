@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-import { DistributorContract } from '../tables';
+import { DistributorContract } from '..';
 export declare class RewardPeriod extends BaseEntity {
     distributor: DistributorContract;
     startTime: Date;

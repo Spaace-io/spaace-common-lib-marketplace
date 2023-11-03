@@ -11,10 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PassiveStakingDeposit = exports.ActiveStakingDeposit = exports.StakingDeposit = void 0;
 const graphql_1 = require("@nestjs/graphql");
-const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
+const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
-const tables_1 = require("../tables");
+const __1 = require("..");
 let StakingDeposit = class StakingDeposit extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -31,7 +31,7 @@ __decorate([
     __metadata("design:type", String)
 ], StakingDeposit.prototype, "logIdx", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => tables_1.StakingType),
+    (0, graphql_1.Field)(() => __1.StakingType),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], StakingDeposit.prototype, "type", void 0);
@@ -87,7 +87,7 @@ StakingDeposit = __decorate([
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from(tables_1.StakingDepositEntity, 'deposit')
+                .from(__1.StakingDepositEntity, 'deposit')
                 .select('"deposit"."txHash"', 'txHash')
                 .addSelect('"deposit"."logIdx"', 'logIdx')
                 .addSelect('"deposit"."type"', 'type')
@@ -120,7 +120,7 @@ __decorate([
     __metadata("design:type", String)
 ], ActiveStakingDeposit.prototype, "logIdx", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => tables_1.StakingType),
+    (0, graphql_1.Field)(() => __1.StakingType),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], ActiveStakingDeposit.prototype, "type", void 0);
@@ -171,8 +171,8 @@ ActiveStakingDeposit = __decorate([
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from(tables_1.StakingDepositEntity, 'deposit')
-                .where(`"deposit"."type" = '${tables_1.StakingType.ACTIVE}'`)
+                .from(__1.StakingDepositEntity, 'deposit')
+                .where(`"deposit"."type" = '${__1.StakingType.ACTIVE}'`)
                 .select('"deposit"."txHash"', 'txHash')
                 .addSelect('"deposit"."logIdx"', 'logIdx')
                 .addSelect('"deposit"."type"', 'type')
@@ -204,7 +204,7 @@ __decorate([
     __metadata("design:type", String)
 ], PassiveStakingDeposit.prototype, "logIdx", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => tables_1.StakingType),
+    (0, graphql_1.Field)(() => __1.StakingType),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], PassiveStakingDeposit.prototype, "type", void 0);
@@ -250,8 +250,8 @@ PassiveStakingDeposit = __decorate([
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from(tables_1.StakingDepositEntity, 'deposit')
-                .where(`"deposit"."type" = '${tables_1.StakingType.PASSIVE}'`)
+                .from(__1.StakingDepositEntity, 'deposit')
+                .where(`"deposit"."type" = '${__1.StakingType.PASSIVE}'`)
                 .select('"deposit"."txHash"', 'txHash')
                 .addSelect('"deposit"."logIdx"', 'logIdx')
                 .addSelect('"deposit"."type"', 'type')

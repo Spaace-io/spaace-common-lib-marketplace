@@ -1,15 +1,15 @@
+import { Field, ObjectType } from '@nestjs/graphql';
+import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
+import { Transform, Type } from 'class-transformer';
+import { ValidateNested } from 'class-validator';
 import {
   CollectionEntity,
   CollectionLink,
   CollectionType,
-  CollectionRanking,
+  CollectionRankingCached,
   NotableCollection,
 } from '..';
-import { ethers } from 'ethers';
-import { Field, ObjectType } from '@nestjs/graphql';
-import { Transform, Type } from 'class-transformer';
-import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 @ViewEntity({
@@ -18,7 +18,7 @@ import { ValidateNested } from 'class-validator';
       .createQueryBuilder()
       .from(CollectionEntity, 'collection')
       .leftJoin(
-        CollectionRanking,
+        CollectionRankingCached,
         'ranking',
         '"ranking"."address" = "collection"."address"',
       )
@@ -147,7 +147,7 @@ export class Collection extends BaseEntity {
   @ViewColumn()
   lastImport!: Date | null;
 
-  // Computed columns
+  // Cached columns
 
   @Field(() => String)
   @ViewColumn()

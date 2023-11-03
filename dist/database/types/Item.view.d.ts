@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-import { ItemMedia } from '../tables';
+import { ItemMedia } from '..';
 export declare class Item extends BaseEntity {
     collectionAddress: string;
     tokenId: string;

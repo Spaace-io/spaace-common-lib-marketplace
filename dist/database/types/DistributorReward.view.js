@@ -11,10 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DistributorReward = void 0;
 const graphql_1 = require("@nestjs/graphql");
-const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
+const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
-const tables_1 = require("../tables");
+const __1 = require("..");
 let DistributorReward = class DistributorReward extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -26,7 +26,7 @@ __decorate([
     __metadata("design:type", String)
 ], DistributorReward.prototype, "userAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => tables_1.DistributorContract),
+    (0, graphql_1.Field)(() => __1.DistributorContract),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], DistributorReward.prototype, "distributor", void 0);
@@ -74,7 +74,7 @@ DistributorReward = __decorate([
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from(tables_1.DistributorRewardEntity, 'reward')
+                .from(__1.DistributorRewardEntity, 'reward')
                 .select('"reward"."userAddress"', 'userAddress')
                 .addSelect('"reward"."distributor"', 'distributor')
                 .addSelect('"reward"."amount"', 'amount')

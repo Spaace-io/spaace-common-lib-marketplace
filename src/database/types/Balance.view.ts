@@ -2,7 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
-import { BalanceEntity } from '../tables';
+import { BalanceEntity } from '..';
 
 @ObjectType()
 @ViewEntity({

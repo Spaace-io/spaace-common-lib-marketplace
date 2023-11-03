@@ -11,10 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Order = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
-const ethers_1 = require("ethers");
-const tables_1 = require("../tables");
+const __1 = require("..");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -47,12 +47,12 @@ __decorate([
     __metadata("design:type", Object)
 ], Order.prototype, "tokenId", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => tables_1.OrderType),
+    (0, graphql_1.Field)(() => __1.OrderType),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Order.prototype, "type", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => tables_1.Marketplace),
+    (0, graphql_1.Field)(() => __1.Marketplace),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Order.prototype, "marketplace", void 0);
@@ -118,11 +118,6 @@ __decorate([
     __metadata("design:type", Object)
 ], Order.prototype, "cancelTimestamp", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Boolean),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", Boolean)
-], Order.prototype, "active", void 0);
-__decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
@@ -132,13 +127,18 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Order.prototype, "startingRoyalties", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Boolean)
+], Order.prototype, "active", void 0);
 Order = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from(tables_1.OrderEntity, 'order')
+                .from(__1.OrderEntity, 'order')
                 .select('"order"."hash"', 'hash')
                 .addSelect('"order"."userAddress"', 'userAddress')
                 .addSelect('"order"."collectionAddress"', 'collectionAddress')
@@ -159,27 +159,12 @@ Order = __decorate([
                 .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
                 .addSelect((query) => query
                 .fromDummy()
-                .select(`"order"."startTime" <= NOW() AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) AND "order"."cancelTimestamp" IS NULL AND NOT EXISTS ${query
+                .select(`EXISTS ${query
                 .subQuery()
-                .from(tables_1.SaleEntity, 'sale')
+                .from(__1.ActiveOrderCached, 'active')
                 .select('1')
-                .where('"sale"."orderHash" = "order"."hash"')
-                .getQuery()} AND CASE "order"."type" WHEN '${tables_1.OrderType.BID}' THEN COALESCE(${query
-                .subQuery()
-                .select('"balance"."balance"')
-                .from(tables_1.TokenBalanceEntity, 'balance')
-                .where('"balance"."currency" = "order"."currency"')
-                .andWhere('"balance"."userAddress" = "order"."userAddress"')
-                .andWhere('"balance"."balance" > 0')
-                .getQuery()}, 0) >= "order"."price" ELSE COALESCE(${query
-                .subQuery()
-                .select('"balance"."balance"')
-                .from(tables_1.BalanceEntity, 'balance')
-                .where('"balance"."userAddress" = "order"."userAddress"')
-                .andWhere('"balance"."collectionAddress" = "order"."collectionAddress"')
-                .andWhere('"balance"."tokenId" = "order"."tokenId"')
-                .andWhere('"balance"."balance" > 0')
-                .getQuery()}, 0) > 0 END`), 'active');
+                .where('"active"."hash" = "order"."hash"')
+                .getQuery()}`), 'active');
         },
         name: 'orders_view',
     })

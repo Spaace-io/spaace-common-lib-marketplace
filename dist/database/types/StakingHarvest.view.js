@@ -11,10 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StakingHarvest = void 0;
 const graphql_1 = require("@nestjs/graphql");
-const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
-const tables_1 = require("../tables");
+const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
+const __1 = require("..");
 let StakingHarvest = class StakingHarvest extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -75,7 +75,7 @@ StakingHarvest = __decorate([
         expression: (dataSource) => {
             return dataSource
                 .createQueryBuilder()
-                .from(tables_1.StakingHarvestEntity, 'harvest')
+                .from(__1.StakingHarvestEntity, 'harvest')
                 .select('"harvest"."txHash"', 'txHash')
                 .addSelect('"harvest"."logIdx"', 'logIdx')
                 .addSelect('"harvest"."userAddress"', 'userAddress')
