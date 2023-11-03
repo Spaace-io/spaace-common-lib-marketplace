@@ -9,7 +9,6 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { ItemEntity, CollectionEntity } from '.';
-import * as utils from '../../utils';
 
 export enum Marketplace {
   SPAACE = 'SPAACE',
@@ -33,27 +32,6 @@ registerEnumType(OrderType, {
 });
 
 @Entity({ name: 'orders' })
-@Index(['collectionAddress', 'tokenId', 'endTime'], {
-  where: `"type" IN ('${OrderType.ASK}', '${
-    OrderType.DUTCH_AUCTION
-  }') AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils
-    .strip0x(utils.constants.ETH_TOKENS)
-    .join("','")}')`,
-})
-@Index(['collectionAddress', 'tokenId', 'endTime'], {
-  where: `"type" = '${
-    OrderType.BID
-  }' AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils
-    .strip0x(utils.constants.ETH_TOKENS)
-    .join("','")}')`,
-})
-@Index(['collectionAddress', 'tokenId', 'endTime'], {
-  where: `"type" = '${
-    OrderType.ENGLISH_AUCTION
-  }' AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils
-    .strip0x(utils.constants.ETH_TOKENS)
-    .join("','")}')`,
-})
 @Index(['collectionAddress', 'startTime']) // Collection analytics & activity
 @Index(['userAddress', 'collectionAddress', 'tokenId'])
 @Index(['userAddress', 'counter'])

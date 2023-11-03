@@ -42,7 +42,8 @@ __decorate([
     __metadata("design:type", Date)
 ], TokenTransferEntity.prototype, "timestamp", void 0);
 TokenTransferEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'token_transfers' })
+    (0, typeorm_1.Entity)({ name: 'token_transfers' }),
+    (0, typeorm_1.Index)(['timestamp'])
 ], TokenTransferEntity);
 exports.TokenTransferEntity = TokenTransferEntity;
 //# sourceMappingURL=TokenTransfer.entity.js.map

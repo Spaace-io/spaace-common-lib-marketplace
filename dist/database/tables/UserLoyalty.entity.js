@@ -42,7 +42,8 @@ __decorate([
 ], UserLoyalty.prototype, "points", void 0);
 UserLoyalty = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'user_loyalties' })
+    (0, typeorm_1.Entity)({ name: 'user_loyalties' }),
+    (0, typeorm_1.Index)(['seasonNumber', 'points'])
 ], UserLoyalty);
 exports.UserLoyalty = UserLoyalty;
 //# sourceMappingURL=UserLoyalty.entity.js.map

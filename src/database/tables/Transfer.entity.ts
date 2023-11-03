@@ -13,9 +13,10 @@ import { ItemEntity } from '.';
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. ERC1155's TransferBatch)
 
 @Entity({ name: 'transfers' })
-@Index(['collectionAddress', 'tokenId'])
-@Index(['from', 'collectionAddress', 'tokenId'])
-@Index(['to', 'collectionAddress', 'tokenId'])
+@Index(['timestamp'])
+@Index(['from', 'timestamp'])
+@Index(['to', 'timestamp'])
+@Index(['collectionAddress', 'tokenId', 'timestamp'])
 export class TransferEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   txHash!: string;

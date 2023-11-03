@@ -1,6 +1,7 @@
-import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, Index, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'token_transfers' })
+@Index(['timestamp'])
 export class TokenTransferEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   txHash!: string;

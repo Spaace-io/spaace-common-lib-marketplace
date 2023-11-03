@@ -47,7 +47,8 @@ __decorate([
     __metadata("design:type", Date)
 ], StakingHarvestEntity.prototype, "timestamp", void 0);
 StakingHarvestEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'staking_harvests' })
+    (0, typeorm_1.Entity)({ name: 'staking_harvests' }),
+    (0, typeorm_1.Index)(['pool', 'token', 'timestamp'])
 ], StakingHarvestEntity);
 exports.StakingHarvestEntity = StakingHarvestEntity;
 //# sourceMappingURL=StakingHarvest.entity.js.map

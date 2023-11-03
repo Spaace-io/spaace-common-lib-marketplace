@@ -1,5 +1,5 @@
 import { registerEnumType } from '@nestjs/graphql';
-import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, Index, PrimaryColumn } from 'typeorm';
 
 export enum DistributorContract {
   TRADING_REWARDS = 'TRADING_REWARDS',
@@ -12,6 +12,12 @@ registerEnumType(DistributorContract, {
 });
 
 @Entity({ name: 'distributor_rewards' })
+@Index(['userAddress', 'distributor', 'amount'], {
+  where: '"harvestTimestamp" IS NULL',
+})
+@Index(['userAddress', 'distributor', 'amount'], {
+  where: '"harvestTimestamp" IS NOT NULL',
+})
 export class DistributorRewardEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 40 })
   userAddress!: string;

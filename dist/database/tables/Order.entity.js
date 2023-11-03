@@ -13,7 +13,6 @@ exports.OrderEntity = exports.OrderType = exports.Marketplace = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const _1 = require(".");
-const utils = require("../../utils");
 var Marketplace;
 (function (Marketplace) {
     Marketplace["SPAACE"] = "SPAACE";
@@ -119,21 +118,6 @@ __decorate([
 ], OrderEntity.prototype, "startingRoyalties", void 0);
 OrderEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'orders' }),
-    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'endTime'], {
-        where: `"type" IN ('${OrderType.ASK}', '${OrderType.DUTCH_AUCTION}') AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils
-            .strip0x(utils.constants.ETH_TOKENS)
-            .join("','")}')`,
-    }),
-    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'endTime'], {
-        where: `"type" = '${OrderType.BID}' AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils
-            .strip0x(utils.constants.ETH_TOKENS)
-            .join("','")}')`,
-    }),
-    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'endTime'], {
-        where: `"type" = '${OrderType.ENGLISH_AUCTION}' AND "cancelTimestamp" IS NULL AND "currency" IN ('${utils
-            .strip0x(utils.constants.ETH_TOKENS)
-            .join("','")}')`,
-    }),
     (0, typeorm_1.Index)(['collectionAddress', 'startTime']) // Collection analytics & activity
     ,
     (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId']),

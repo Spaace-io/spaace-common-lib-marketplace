@@ -61,7 +61,7 @@ __decorate([
 Like = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'likes' }),
-    (0, typeorm_1.Unique)(['userAddress', 'collectionAddress', 'tokenId'])
+    (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId'], { unique: true })
 ], Like);
 exports.Like = Like;
 //# sourceMappingURL=Like.entity.js.map

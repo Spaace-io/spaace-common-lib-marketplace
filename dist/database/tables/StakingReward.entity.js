@@ -43,7 +43,8 @@ __decorate([
     __metadata("design:type", Date)
 ], StakingRewardEntity.prototype, "timestamp", void 0);
 StakingRewardEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'staking_rewards' })
+    (0, typeorm_1.Entity)({ name: 'staking_rewards' }),
+    (0, typeorm_1.Index)(['pool', 'token', 'timestamp'])
 ], StakingRewardEntity);
 exports.StakingRewardEntity = StakingRewardEntity;
 //# sourceMappingURL=StakingReward.entity.js.map

@@ -4,6 +4,7 @@ import {
   ChildEntity,
   Column,
   Entity,
+  Index,
   PrimaryColumn,
   TableInheritance,
 } from 'typeorm';
@@ -19,6 +20,8 @@ registerEnumType(StakingType, {
 
 @Entity({ name: 'staking_deposits' })
 @TableInheritance({ column: { name: 'type' } })
+@Index(['pool', 'userAddress', 'timestamp'])
+@Index(['userAddress', 'timestamp'])
 export class StakingDepositEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   txHash!: string;

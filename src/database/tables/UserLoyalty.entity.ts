@@ -7,12 +7,14 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { ethers } from 'ethers';
 import { Season, User } from '.';
 
 @ObjectType()
 @Entity({ name: 'user_loyalties' })
+@Index(['seasonNumber', 'points'])
 export class UserLoyalty extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('char', { length: 40 })

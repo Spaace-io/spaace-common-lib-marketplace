@@ -62,7 +62,13 @@ __decorate([
     __metadata("design:type", Object)
 ], DistributorRewardEntity.prototype, "harvestTimestamp", void 0);
 DistributorRewardEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'distributor_rewards' })
+    (0, typeorm_1.Entity)({ name: 'distributor_rewards' }),
+    (0, typeorm_1.Index)(['userAddress', 'distributor', 'amount'], {
+        where: '"harvestTimestamp" IS NULL',
+    }),
+    (0, typeorm_1.Index)(['userAddress', 'distributor', 'amount'], {
+        where: '"harvestTimestamp" IS NOT NULL',
+    })
 ], DistributorRewardEntity);
 exports.DistributorRewardEntity = DistributorRewardEntity;
 //# sourceMappingURL=DistributorReward.entity.js.map

@@ -192,7 +192,8 @@ __decorate([
 ], SeasonRank.prototype, "rewards", void 0);
 SeasonRank = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'season_ranks' })
+    (0, typeorm_1.Entity)({ name: 'season_ranks' }),
+    (0, typeorm_1.Index)(['seasonNumber', 'threshold'])
 ], SeasonRank);
 exports.SeasonRank = SeasonRank;
 //# sourceMappingURL=SeasonRank.entity.js.map

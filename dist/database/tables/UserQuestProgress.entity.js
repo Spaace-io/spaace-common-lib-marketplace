@@ -67,7 +67,8 @@ __decorate([
 ], UserQuestProgress.prototype, "timestamp", void 0);
 UserQuestProgress = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'user_quest_progress' })
+    (0, typeorm_1.Entity)({ name: 'user_quest_progress' }),
+    (0, typeorm_1.Index)(['userAddress', 'seasonNumber', 'questId'], { where: '"completed"' })
 ], UserQuestProgress);
 exports.UserQuestProgress = UserQuestProgress;
 //# sourceMappingURL=UserQuestProgress.entity.js.map

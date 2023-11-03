@@ -59,7 +59,9 @@ __decorate([
 ], StakingDepositEntity.prototype, "timestamp", void 0);
 StakingDepositEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'staking_deposits' }),
-    (0, typeorm_1.TableInheritance)({ column: { name: 'type' } })
+    (0, typeorm_1.TableInheritance)({ column: { name: 'type' } }),
+    (0, typeorm_1.Index)(['pool', 'userAddress', 'timestamp']),
+    (0, typeorm_1.Index)(['userAddress', 'timestamp'])
 ], StakingDepositEntity);
 exports.StakingDepositEntity = StakingDepositEntity;
 let ActiveStakingDepositEntity = class ActiveStakingDepositEntity extends StakingDepositEntity {

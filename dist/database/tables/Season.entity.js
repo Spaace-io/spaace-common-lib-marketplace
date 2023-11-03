@@ -32,7 +32,8 @@ __decorate([
 ], Season.prototype, "endTime", void 0);
 Season = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'seasons' })
+    (0, typeorm_1.Entity)({ name: 'seasons' }),
+    (0, typeorm_1.Index)(['startTime'])
 ], Season);
 exports.Season = Season;
 //# sourceMappingURL=Season.entity.js.map

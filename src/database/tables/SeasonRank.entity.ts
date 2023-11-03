@@ -2,6 +2,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryColumn,
@@ -132,6 +133,7 @@ export const LoyaltyReward = createUnionType({
 
 @ObjectType()
 @Entity({ name: 'season_ranks' })
+@Index(['seasonNumber', 'threshold'])
 export class SeasonRank extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value

@@ -5,9 +5,9 @@ import {
   BaseEntity,
   Column,
   PrimaryGeneratedColumn,
-  Unique,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 
 import { BigNumber, ethers } from 'ethers';
@@ -17,7 +17,7 @@ import { User } from './User.entity';
 
 @ObjectType()
 @Entity({ name: 'likes' })
-@Unique(['userAddress', 'collectionAddress', 'tokenId'])
+@Index(['userAddress', 'collectionAddress', 'tokenId'], { unique: true })
 export class Like extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')

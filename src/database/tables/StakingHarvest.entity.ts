@@ -1,6 +1,7 @@
-import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, Index, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'staking_harvests' })
+@Index(['pool', 'token', 'timestamp'])
 export class StakingHarvestEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   txHash!: string;

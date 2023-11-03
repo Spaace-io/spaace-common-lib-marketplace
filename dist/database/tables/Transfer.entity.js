@@ -60,9 +60,10 @@ __decorate([
 ], TransferEntity.prototype, "timestamp", void 0);
 TransferEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'transfers' }),
-    (0, typeorm_1.Index)(['collectionAddress', 'tokenId']),
-    (0, typeorm_1.Index)(['from', 'collectionAddress', 'tokenId']),
-    (0, typeorm_1.Index)(['to', 'collectionAddress', 'tokenId'])
+    (0, typeorm_1.Index)(['timestamp']),
+    (0, typeorm_1.Index)(['from', 'timestamp']),
+    (0, typeorm_1.Index)(['to', 'timestamp']),
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'timestamp'])
 ], TransferEntity);
 exports.TransferEntity = TransferEntity;
 //# sourceMappingURL=Transfer.entity.js.map

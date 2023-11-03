@@ -2,6 +2,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryColumn,
@@ -15,6 +16,7 @@ import { Transform } from 'class-transformer';
 
 @ObjectType()
 @Entity({ name: 'user_quest_progress' })
+@Index(['userAddress', 'seasonNumber', 'questId'], { where: '"completed"' })
 export class UserQuestProgress extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('char', { length: 40 })

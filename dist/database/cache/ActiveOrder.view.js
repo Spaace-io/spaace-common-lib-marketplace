@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActiveOrderCached = void 0;
 const typeorm_1 = require("typeorm");
 const __1 = require("..");
+const __2 = require("../..");
 let ActiveOrderCached = class ActiveOrderCached extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -143,7 +144,37 @@ ActiveOrderCached = __decorate([
         name: 'active_orders_cache',
         materialized: true,
     }),
-    (0, typeorm_1.Index)(['hash'], { unique: true })
+    (0, typeorm_1.Index)(['hash'], { unique: true }),
+    (0, typeorm_1.Index)(['collectionAddress', 'price'], {
+        where: `"type" IN ('${__1.OrderType.ASK}', '${__1.OrderType.DUTCH_AUCTION}') AND "currency" IN ('${__2.utils
+            .strip0x(__2.utils.constants.ETH_TOKENS)
+            .join("','")}')`,
+    }),
+    (0, typeorm_1.Index)(['collectionAddress', 'price'], {
+        where: `"type" = '${__1.OrderType.BID}' AND "currency" IN ('${__2.utils
+            .strip0x(__2.utils.constants.ETH_TOKENS)
+            .join("','")}')`,
+    }),
+    (0, typeorm_1.Index)(['collectionAddress', 'endTime'], {
+        where: `"type" = '${__1.OrderType.ENGLISH_AUCTION}' AND "currency" IN ('${__2.utils
+            .strip0x(__2.utils.constants.ETH_TOKENS)
+            .join("','")}')`,
+    }),
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'price'], {
+        where: `"type" IN ('${__1.OrderType.ASK}', '${__1.OrderType.DUTCH_AUCTION}') AND "currency" IN ('${__2.utils
+            .strip0x(__2.utils.constants.ETH_TOKENS)
+            .join("','")}')`,
+    }),
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'price'], {
+        where: `"type" = '${__1.OrderType.BID}' AND "currency" IN ('${__2.utils
+            .strip0x(__2.utils.constants.ETH_TOKENS)
+            .join("','")}')`,
+    }),
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'endTime'], {
+        where: `"type" = '${__1.OrderType.ENGLISH_AUCTION}' AND "currency" IN ('${__2.utils
+            .strip0x(__2.utils.constants.ETH_TOKENS)
+            .join("','")}')`,
+    })
 ], ActiveOrderCached);
 exports.ActiveOrderCached = ActiveOrderCached;
 //# sourceMappingURL=ActiveOrder.view.js.map
