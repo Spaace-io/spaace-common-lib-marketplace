@@ -135,6 +135,30 @@ import { utils } from '../..';
         .addSelect('"balance"."balance"', 'balance')
         .where('"balance"."balance" > 0')
 
+        // Used for searching
+        .addSelect(
+          (q) =>
+            q
+              .from(ItemEntity, 'item')
+              .select('"item"."description"')
+              .where(
+                '"item"."collectionAddress" = "balance"."collectionAddress"',
+              )
+              .andWhere('"item"."tokenId" = "balance"."tokenId"'),
+          'description',
+        )
+        .addSelect(
+          (q) =>
+            q
+              .from(ItemEntity, 'item')
+              .select('"item"."title"')
+              .where(
+                '"item"."collectionAddress" = "balance"."collectionAddress"',
+              )
+              .andWhere('"item"."tokenId" = "balance"."tokenId"'),
+          'title',
+        )
+
         // Used for sorting/filtering, but not included in the GraphQL output
         .addSelect(
           (q) =>
