@@ -45,6 +45,11 @@ __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
+], Collection.prototype, "decimals", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Object)
 ], Collection.prototype, "imageUrl", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Boolean),
@@ -243,6 +248,7 @@ Collection = __decorate([
                 .addSelect('"collection"."type"', 'type')
                 .addSelect('"collection"."name"', 'name')
                 .addSelect('"collection"."symbol"', 'symbol')
+                .addSelect('"collection"."decimals"', 'decimals')
                 .addSelect('"collection"."imageUrl"', 'imageUrl')
                 .addSelect('"collection"."active"', 'active')
                 .addSelect('"collection"."verified"', 'verified')

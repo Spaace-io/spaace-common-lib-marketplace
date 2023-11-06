@@ -81,6 +81,7 @@ import * as utils from '../../utils';
       .andWhere(
         `CASE "order"."type" WHEN '${OrderType.BID}' THEN COALESCE("tokenBalance"."balance", 0) >= "order"."price" ELSE COALESCE("balance"."balance", 0) > 0 END`,
       );
+    // TODO: Approvals
   },
   name: 'active_orders_cache',
   materialized: true,

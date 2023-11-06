@@ -65,6 +65,11 @@ __decorate([
     __metadata("design:type", Object)
 ], CollectionEntity.prototype, "symbol", void 0);
 __decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
+    ,
+    __metadata("design:type", Object)
+], CollectionEntity.prototype, "decimals", void 0);
+__decorate([
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], CollectionEntity.prototype, "imageUrl", void 0);

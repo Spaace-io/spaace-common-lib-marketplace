@@ -5,6 +5,7 @@ export declare class Collection extends BaseEntity {
     type: CollectionType;
     name: string | null;
     symbol: string | null;
+    decimals: string | null;
     imageUrl: string | null;
     active: boolean;
     verified: boolean;
