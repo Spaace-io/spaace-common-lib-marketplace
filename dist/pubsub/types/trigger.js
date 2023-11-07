@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchIndexType = exports.CollectionImportRequest = void 0;
 var CollectionImportRequest;
 (function (CollectionImportRequest) {
-    CollectionImportRequest["ITEM"] = "ITEM";
-    CollectionImportRequest["COLLECTION"] = "COLLECTION";
+    CollectionImportRequest["ITEMS"] = "ITEMS";
+    CollectionImportRequest["COLLECTIONS"] = "COLLECTIONS";
 })(CollectionImportRequest = exports.CollectionImportRequest || (exports.CollectionImportRequest = {}));
 var SearchIndexType;
 (function (SearchIndexType) {

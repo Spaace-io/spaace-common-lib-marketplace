@@ -1,8 +1,8 @@
 import { QuestTrigger } from '../../database';
 import { PubSubTopic } from './topic';
 export declare enum CollectionImportRequest {
-    ITEM = "ITEM",
-    COLLECTION = "COLLECTION"
+    ITEMS = "ITEMS",
+    COLLECTIONS = "COLLECTIONS"
 }
 export declare enum SearchIndexType {
     ITEM = "ITEM",
