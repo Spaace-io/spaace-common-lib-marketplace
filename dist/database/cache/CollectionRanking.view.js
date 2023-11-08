@@ -139,7 +139,7 @@ __decorate([
 ], CollectionRankingCached.prototype, "volumeChange30d", void 0);
 __decorate([
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], CollectionRankingCached.prototype, "floorPrice", void 0);
 __decorate([
     (0, typeorm_1.ViewColumn)(),

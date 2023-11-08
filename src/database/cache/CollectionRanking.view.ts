@@ -350,7 +350,7 @@ export class CollectionRankingCached extends BaseEntity {
   volumeChange30d!: string;
 
   @ViewColumn()
-  floorPrice!: string;
+  floorPrice!: string | null;
 
   @ViewColumn()
   floorChange1h!: string;

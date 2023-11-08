@@ -157,9 +157,9 @@ __decorate([
     __metadata("design:type", String)
 ], Collection.prototype, "volumeChange30d", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], Collection.prototype, "floorPrice", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -270,7 +270,7 @@ Collection = __decorate([
                 .addSelect('COALESCE("ranking"."volumeChange24h", 0)', 'volumeChange24h')
                 .addSelect('COALESCE("ranking"."volumeChange7d", 0)', 'volumeChange7d')
                 .addSelect('COALESCE("ranking"."volumeChange30d", 0)', 'volumeChange30d')
-                .addSelect('COALESCE("ranking"."floorPrice", 0)', 'floorPrice')
+                .addSelect('"ranking"."floorPrice"', 'floorPrice')
                 .addSelect('COALESCE("ranking"."floorChange1h", 0)', 'floorChange1h')
                 .addSelect('COALESCE("ranking"."floorChange6h", 0)', 'floorChange6h')
                 .addSelect('COALESCE("ranking"."floorChange24h", 0)', 'floorChange24h')

@@ -48,7 +48,7 @@ import {
       .addSelect('COALESCE("ranking"."volumeChange24h", 0)', 'volumeChange24h')
       .addSelect('COALESCE("ranking"."volumeChange7d", 0)', 'volumeChange7d')
       .addSelect('COALESCE("ranking"."volumeChange30d", 0)', 'volumeChange30d')
-      .addSelect('COALESCE("ranking"."floorPrice", 0)', 'floorPrice')
+      .addSelect('"ranking"."floorPrice"', 'floorPrice')
       .addSelect('COALESCE("ranking"."floorChange1h", 0)', 'floorChange1h')
       .addSelect('COALESCE("ranking"."floorChange6h", 0)', 'floorChange6h')
       .addSelect('COALESCE("ranking"."floorChange24h", 0)', 'floorChange24h')
@@ -198,9 +198,9 @@ export class Collection extends BaseEntity {
   @ViewColumn()
   volumeChange30d!: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @ViewColumn()
-  floorPrice!: string;
+  floorPrice!: string | null;
 
   @Field(() => String)
   @ViewColumn()

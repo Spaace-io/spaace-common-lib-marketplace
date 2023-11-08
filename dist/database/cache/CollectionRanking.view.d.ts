@@ -12,7 +12,7 @@ export declare class CollectionRankingCached extends BaseEntity {
     volumeChange24h: string;
     volumeChange7d: string;
     volumeChange30d: string;
-    floorPrice: string;
+    floorPrice: string | null;
     floorChange1h: string;
     floorChange6h: string;
     floorChange24h: string;
