@@ -1,2 +1,2 @@
-export * from './CollectionRanking.view';
-export * from './ActiveOrder.view';
+export * from './CollectionRanking.entity';
+export * from './ActiveOrder.entity';

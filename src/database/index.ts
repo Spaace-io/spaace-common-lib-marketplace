@@ -22,7 +22,7 @@ export const Database = new DataSource({
   logging: false,
   entities: [
     __dirname + '/tables/**.entity.{js,ts}',
-    __dirname + '/cache/**.view.{js,ts}',
+    __dirname + '/cache/**.entity.{js,ts}',
     __dirname + '/types/**.view.{js,ts}',
   ],
   migrations: [__dirname + '/migrations/*-*.{js,ts}'],
