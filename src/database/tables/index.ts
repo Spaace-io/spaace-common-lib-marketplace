@@ -1,4 +1,5 @@
 export * from './LatestBlock.entity';
+export * from './LastRefresh.entity';
 export * from './TokenTransfer.entity';
 export * from './Collection.entity';
 export * from './Item.entity';
