@@ -48,6 +48,11 @@ __decorate([
     __metadata("design:type", Object)
 ], Item.prototype, "tokenUri", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Object)
+], Item.prototype, "decimals", void 0);
+__decorate([
     (0, graphql_1.Field)(() => [__1.ItemMedia], { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     (0, class_transformer_1.Type)(() => __1.ItemMedia),
@@ -143,6 +148,7 @@ Item = __decorate([
                 .addSelect('"item"."title"', 'title')
                 .addSelect('"item"."description"', 'description')
                 .addSelect('"item"."tokenUri"', 'tokenUri')
+                .addSelect('"item"."decimals"', 'decimals')
                 .addSelect('"item"."medias"', 'medias')
                 .addSelect('"item"."rarityRanking"', 'rarityRanking')
                 .addSelect('"item"."rarityScore"', 'rarityScore')

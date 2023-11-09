@@ -46,9 +46,6 @@ export class CollectionEntity extends BaseEntity {
   @Column('text', { nullable: true })
   symbol!: string | null;
 
-  @Column('numeric', { precision: 78, unsigned: true, default: '0' }) // 78 digits = Maximum uint256 value
-  decimals!: string | null;
-
   @Column('text', { nullable: true })
   imageUrl!: string | null;
 

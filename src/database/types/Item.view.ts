@@ -135,6 +135,7 @@ import { utils } from '../..';
         .addSelect('"item"."title"', 'title')
         .addSelect('"item"."description"', 'description')
         .addSelect('"item"."tokenUri"', 'tokenUri')
+        .addSelect('"item"."decimals"', 'decimals')
         .addSelect('"item"."medias"', 'medias')
         .addSelect('"item"."rarityRanking"', 'rarityRanking')
         .addSelect('"item"."rarityScore"', 'rarityScore')
@@ -203,6 +204,10 @@ export class Item extends BaseEntity {
   @Field(() => String, { nullable: true })
   @ViewColumn()
   tokenUri!: string | null;
+
+  @Field(() => String, { nullable: true })
+  @ViewColumn()
+  decimals!: string | null;
 
   @Field(() => [ItemMedia], { nullable: true })
   @ViewColumn()

@@ -42,6 +42,9 @@ export class ItemEntity extends BaseEntity {
   @Column('text', { nullable: true })
   tokenUri!: string | null;
 
+  @Column('numeric', { precision: 2, unsigned: true, nullable: true }) // 2 digits = Maximum decimals value (77)
+  decimals!: string | null;
+
   @Column('jsonb', { nullable: true })
   medias!: ItemMedia[] | null;
 

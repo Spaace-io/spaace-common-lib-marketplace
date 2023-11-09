@@ -10,6 +10,7 @@ export declare class ItemEntity extends BaseEntity {
     title: string | null;
     description: string | null;
     tokenUri: string | null;
+    decimals: string | null;
     medias: ItemMedia[] | null;
     rarityRanking: string | null;
     rarityScore: string | null;

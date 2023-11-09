@@ -26,7 +26,6 @@ import {
       .addSelect('"collection"."type"', 'type')
       .addSelect('"collection"."name"', 'name')
       .addSelect('"collection"."symbol"', 'symbol')
-      .addSelect('"collection"."decimals"', 'decimals')
       .addSelect('"collection"."imageUrl"', 'imageUrl')
       .addSelect('"collection"."active"', 'active')
       .addSelect('"collection"."verified"', 'verified')
@@ -99,10 +98,6 @@ export class Collection extends BaseEntity {
   @Field(() => String, { nullable: true })
   @ViewColumn()
   symbol!: string | null;
-
-  @Field(() => String, { nullable: true })
-  @ViewColumn()
-  decimals!: string | null;
 
   @Field(() => String, { nullable: true })
   @ViewColumn()
