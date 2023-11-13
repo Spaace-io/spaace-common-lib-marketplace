@@ -10,33 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HiddenItem = void 0;
-const graphql_1 = require("@nestjs/graphql");
-const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
-const ethers_1 = require("ethers");
 const _1 = require(".");
 let HiddenItem = class HiddenItem extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => _1.User),
     (0, typeorm_1.JoinColumn)({ name: 'userAddress', referencedColumnName: 'address' }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
 ], HiddenItem.prototype, "userAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
     __metadata("design:type", String)
 ], HiddenItem.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     (0, typeorm_1.ManyToOne)(() => _1.ItemEntity),
@@ -47,7 +35,6 @@ __decorate([
     __metadata("design:type", String)
 ], HiddenItem.prototype, "tokenId", void 0);
 HiddenItem = __decorate([
-    (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'hidden_items' }),
     (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId'], { unique: true })
 ], HiddenItem);
