@@ -14,7 +14,7 @@ import { ItemEntity, User } from '.';
 @ObjectType()
 @Entity({ name: 'hidden_items' })
 @Index(['userAddress', 'collectionAddress', 'tokenId'], { unique: true })
-export class HiddenItemEntity extends BaseEntity {
+export class HiddenItem extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => User)

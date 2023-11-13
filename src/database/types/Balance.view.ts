@@ -6,7 +6,7 @@ import {
   ActiveOrderCached,
   BalanceEntity,
   CollectionRankingCached,
-  HiddenItemEntity,
+  HiddenItem,
   ItemEntity,
   Like,
   OrderType,
@@ -164,13 +164,19 @@ import { utils } from '../..';
         .addSelect(
           (q) =>
             q
-              .from(HiddenItemEntity, 'hidden')
-              .select('1')
-              .where('"hidden"."userAddress" = "balance"."userAddress"')
-              .andWhere(
-                '"hidden"."collectionAddress" = "balance"."collectionAddress"',
-              )
-              .andWhere('"hidden"."tokenId" = "balance"."tokenId"'),
+              .fromDummy()
+              .select(
+                `EXISTS ${q
+                  .subQuery()
+                  .from(HiddenItem, 'hidden')
+                  .select('1')
+                  .where('"hidden"."userAddress" = "balance"."userAddress"')
+                  .andWhere(
+                    '"hidden"."collectionAddress" = "balance"."collectionAddress"',
+                  )
+                  .andWhere('"hidden"."tokenId" = "balance"."tokenId"')
+                  .getQuery()}`,
+              ),
           'hidden',
         )
         .addSelect(
