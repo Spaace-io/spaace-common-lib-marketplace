@@ -30,4 +30,5 @@ __exportStar(require("./StakingRewards.view"), exports);
 __exportStar(require("./TokenBalance.view"), exports);
 __exportStar(require("./TokenTransfer.view"), exports);
 __exportStar(require("./Transfer.view"), exports);
+__exportStar(require("./HiddenItem.view"), exports);
 //# sourceMappingURL=index.js.map

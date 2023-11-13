@@ -1,6 +1,6 @@
 import { BaseEntity } from 'typeorm';
-export declare class HiddenItemEntity extends BaseEntity {
-    userAddress: string;
+export declare class HiddenItem extends BaseEntity {
     collectionAddress: string;
     tokenId: string;
+    userAddress: string;
 }

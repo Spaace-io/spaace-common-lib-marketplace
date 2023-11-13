@@ -9,13 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HiddenItem = void 0;
+exports.HiddenItemEntity = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
 const _1 = require(".");
-let HiddenItem = class HiddenItem extends typeorm_1.BaseEntity {
+let HiddenItemEntity = class HiddenItemEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -26,7 +26,7 @@ __decorate([
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
-], HiddenItem.prototype, "userAddress", void 0);
+], HiddenItemEntity.prototype, "userAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
@@ -34,7 +34,7 @@ __decorate([
         toPlainOnly: true,
     }),
     __metadata("design:type", String)
-], HiddenItem.prototype, "collectionAddress", void 0);
+], HiddenItemEntity.prototype, "collectionAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -45,11 +45,11 @@ __decorate([
         { name: 'tokenId', referencedColumnName: 'tokenId' },
     ]),
     __metadata("design:type", String)
-], HiddenItem.prototype, "tokenId", void 0);
-HiddenItem = __decorate([
+], HiddenItemEntity.prototype, "tokenId", void 0);
+HiddenItemEntity = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'hidden_items' }),
     (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId'], { unique: true })
-], HiddenItem);
-exports.HiddenItem = HiddenItem;
+], HiddenItemEntity);
+exports.HiddenItemEntity = HiddenItemEntity;
 //# sourceMappingURL=HiddenItem.entity.js.map
