@@ -131,6 +131,12 @@ Balance = __decorate([
                 .andWhere('"item"."tokenId" = "balance"."tokenId"'), 'title')
                 // Used for sorting/filtering, but not included in the GraphQL output
                 .addSelect((q) => q
+                .from(__1.HiddenItemEntity, 'hidden')
+                .select('1')
+                .where('"hidden"."userAddress" = "balance"."userAddress"')
+                .andWhere('"hidden"."collectionAddress" = "balance"."collectionAddress"')
+                .andWhere('"hidden"."tokenId" = "balance"."tokenId"'), 'hidden')
+                .addSelect((q) => q
                 .from(__1.ItemEntity, 'item')
                 .select('CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END')
                 .where('"item"."collectionAddress" = "balance"."collectionAddress"')

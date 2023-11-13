@@ -6,6 +6,7 @@ import {
   ActiveOrderCached,
   BalanceEntity,
   CollectionRankingCached,
+  HiddenItemEntity,
   ItemEntity,
   Like,
   OrderType,
@@ -160,6 +161,18 @@ import { utils } from '../..';
         )
 
         // Used for sorting/filtering, but not included in the GraphQL output
+        .addSelect(
+          (q) =>
+            q
+              .from(HiddenItemEntity, 'hidden')
+              .select('1')
+              .where('"hidden"."userAddress" = "balance"."userAddress"')
+              .andWhere(
+                '"hidden"."collectionAddress" = "balance"."collectionAddress"',
+              )
+              .andWhere('"hidden"."tokenId" = "balance"."tokenId"'),
+          'hidden',
+        )
         .addSelect(
           (q) =>
             q
