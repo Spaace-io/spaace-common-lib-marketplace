@@ -9,6 +9,7 @@ export enum CollectionImportRequest {
 export enum SearchIndexType {
   ITEM = 'ITEM',
   COLLECTION = 'COLLECTION',
+  USER = 'USER',
 }
 
 export type PubSubTrigger<T extends PubSubTopic> =

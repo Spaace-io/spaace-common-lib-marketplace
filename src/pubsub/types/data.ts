@@ -55,4 +55,6 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
     ? ItemEntity
     : T extends SearchIndexType.COLLECTION
     ? CollectionEntity
+    : T extends SearchIndexType.USER
+    ? User
     : never;

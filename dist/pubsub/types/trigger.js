@@ -10,5 +10,6 @@ var SearchIndexType;
 (function (SearchIndexType) {
     SearchIndexType["ITEM"] = "ITEM";
     SearchIndexType["COLLECTION"] = "COLLECTION";
+    SearchIndexType["USER"] = "USER";
 })(SearchIndexType = exports.SearchIndexType || (exports.SearchIndexType = {}));
 //# sourceMappingURL=trigger.js.map
