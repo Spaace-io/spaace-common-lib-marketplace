@@ -1,4 +1,3 @@
-import { Field, ObjectType } from '@nestjs/graphql';
 import {
   BaseEntity,
   Column,
@@ -9,18 +8,6 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { CollectionEntity } from '.';
-
-@ObjectType()
-export class ItemMedia {
-  @Field(() => String)
-  raw!: string;
-
-  @Field(() => String)
-  thumbnail!: string;
-
-  @Field(() => String)
-  gateway!: string;
-}
 
 @Entity({ name: 'items' })
 @Index(['collectionAddress', 'tokenId'], { unique: true })
@@ -44,9 +31,6 @@ export class ItemEntity extends BaseEntity {
 
   @Column('numeric', { precision: 2, unsigned: true, nullable: true }) // 2 digits = Maximum decimals value (77)
   decimals!: string | null;
-
-  @Column('jsonb', { nullable: true })
-  medias!: ItemMedia[] | null;
 
   @Column('numeric', { precision: 78, unsigned: true, nullable: true })
   rarityRanking!: string | null;

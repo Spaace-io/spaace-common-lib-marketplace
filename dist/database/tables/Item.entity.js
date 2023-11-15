@@ -9,28 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ItemEntity = exports.ItemMedia = void 0;
-const graphql_1 = require("@nestjs/graphql");
+exports.ItemEntity = void 0;
 const typeorm_1 = require("typeorm");
 const _1 = require(".");
-let ItemMedia = class ItemMedia {
-};
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], ItemMedia.prototype, "raw", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], ItemMedia.prototype, "thumbnail", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], ItemMedia.prototype, "gateway", void 0);
-ItemMedia = __decorate([
-    (0, graphql_1.ObjectType)()
-], ItemMedia);
-exports.ItemMedia = ItemMedia;
 let ItemEntity = class ItemEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -61,10 +42,6 @@ __decorate([
     ,
     __metadata("design:type", Object)
 ], ItemEntity.prototype, "decimals", void 0);
-__decorate([
-    (0, typeorm_1.Column)('jsonb', { nullable: true }),
-    __metadata("design:type", Object)
-], ItemEntity.prototype, "medias", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
     __metadata("design:type", Object)

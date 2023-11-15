@@ -14,7 +14,6 @@ const graphql_1 = require("@nestjs/graphql");
 const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
-const class_validator_1 = require("class-validator");
 const __1 = require("..");
 const __2 = require("../..");
 let Item = class Item extends typeorm_1.BaseEntity {
@@ -52,13 +51,6 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Item.prototype, "decimals", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [__1.ItemMedia], { nullable: true }),
-    (0, typeorm_1.ViewColumn)(),
-    (0, class_transformer_1.Type)(() => __1.ItemMedia),
-    (0, class_validator_1.ValidateNested)({ each: true }),
-    __metadata("design:type", Object)
-], Item.prototype, "medias", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
@@ -149,7 +141,6 @@ Item = __decorate([
                 .addSelect('"item"."description"', 'description')
                 .addSelect('"item"."tokenUri"', 'tokenUri')
                 .addSelect('"item"."decimals"', 'decimals')
-                .addSelect('"item"."medias"', 'medias')
                 .addSelect('"item"."rarityRanking"', 'rarityRanking')
                 .addSelect('"item"."rarityScore"', 'rarityScore')
                 .addSelect('"item"."lastImport"', 'lastImport')

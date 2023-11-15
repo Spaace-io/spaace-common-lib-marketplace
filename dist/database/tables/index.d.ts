@@ -3,6 +3,7 @@ export * from './LastRefresh.entity';
 export * from './TokenTransfer.entity';
 export * from './Collection.entity';
 export * from './Item.entity';
+export * from './ItemMedia.entity';
 export * from './ItemAttribute.entity';
 export * from './Transfer.entity';
 export * from './Sale.entity';

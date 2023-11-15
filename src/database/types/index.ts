@@ -4,6 +4,7 @@ export * from './CollectionAttribute.view';
 export * from './CollectionAttributeTrait.view';
 export * from './DistributorReward.view';
 export * from './Item.view';
+export * from './ItemMedia.view';
 export * from './ItemAttribute.view';
 export * from './Order.view';
 export * from './RewardPeriod.view';
