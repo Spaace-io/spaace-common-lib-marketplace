@@ -31,6 +31,13 @@ import { CollectionEntity } from '..';
 @Index(['floorChange7d'])
 @Index(['floorChange30d'])
 @Index(['floorChange90d'])
+@Index(['saleCount'])
+@Index(['saleCount1h'])
+@Index(['saleCount6h'])
+@Index(['saleCount24h'])
+@Index(['saleCount7d'])
+@Index(['saleCount30d'])
+@Index(['saleCount90d'])
 export class CollectionRankingCached extends BaseEntity {
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => CollectionEntity)

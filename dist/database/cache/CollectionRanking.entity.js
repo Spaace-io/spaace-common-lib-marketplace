@@ -163,7 +163,14 @@ CollectionRankingCached = __decorate([
     (0, typeorm_1.Index)(['floorChange24h']),
     (0, typeorm_1.Index)(['floorChange7d']),
     (0, typeorm_1.Index)(['floorChange30d']),
-    (0, typeorm_1.Index)(['floorChange90d'])
+    (0, typeorm_1.Index)(['floorChange90d']),
+    (0, typeorm_1.Index)(['saleCount']),
+    (0, typeorm_1.Index)(['saleCount1h']),
+    (0, typeorm_1.Index)(['saleCount6h']),
+    (0, typeorm_1.Index)(['saleCount24h']),
+    (0, typeorm_1.Index)(['saleCount7d']),
+    (0, typeorm_1.Index)(['saleCount30d']),
+    (0, typeorm_1.Index)(['saleCount90d'])
 ], CollectionRankingCached);
 exports.CollectionRankingCached = CollectionRankingCached;
 //# sourceMappingURL=CollectionRanking.entity.js.map

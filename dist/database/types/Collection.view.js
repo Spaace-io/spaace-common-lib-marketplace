@@ -279,6 +279,7 @@ Collection = __decorate([
                 .addSelect('COALESCE("ranking"."volume24h", 0)', 'volume24h')
                 .addSelect('COALESCE("ranking"."volume7d", 0)', 'volume7d')
                 .addSelect('COALESCE("ranking"."volume30d", 0)', 'volume30d')
+                .addSelect('COALESCE("ranking"."volume90d", 0)', 'volume90d')
                 .addSelect('COALESCE("ranking"."volumeChange1h", 0)', 'volumeChange1h')
                 .addSelect('COALESCE("ranking"."volumeChange6h", 0)', 'volumeChange6h')
                 .addSelect('COALESCE("ranking"."volumeChange24h", 0)', 'volumeChange24h')
