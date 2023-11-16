@@ -47,18 +47,21 @@ import {
       .addSelect('COALESCE("ranking"."volumeChange24h", 0)', 'volumeChange24h')
       .addSelect('COALESCE("ranking"."volumeChange7d", 0)', 'volumeChange7d')
       .addSelect('COALESCE("ranking"."volumeChange30d", 0)', 'volumeChange30d')
+      .addSelect('COALESCE("ranking"."volumeChange90d", 0)', 'volumeChange90d')
       .addSelect('"ranking"."floorPrice"', 'floorPrice')
       .addSelect('COALESCE("ranking"."floorChange1h", 0)', 'floorChange1h')
       .addSelect('COALESCE("ranking"."floorChange6h", 0)', 'floorChange6h')
       .addSelect('COALESCE("ranking"."floorChange24h", 0)', 'floorChange24h')
       .addSelect('COALESCE("ranking"."floorChange7d", 0)', 'floorChange7d')
       .addSelect('COALESCE("ranking"."floorChange30d", 0)', 'floorChange30d')
+      .addSelect('COALESCE("ranking"."floorChange90d", 0)', 'floorChange90d')
       .addSelect('COALESCE("ranking"."saleCount", 0)', 'saleCount')
       .addSelect('COALESCE("ranking"."saleCount1h", 0)', 'saleCount1h')
       .addSelect('COALESCE("ranking"."saleCount6h", 0)', 'saleCount6h')
       .addSelect('COALESCE("ranking"."saleCount24h", 0)', 'saleCount24h')
       .addSelect('COALESCE("ranking"."saleCount7d", 0)', 'saleCount7d')
       .addSelect('COALESCE("ranking"."saleCount30d", 0)', 'saleCount30d')
+      .addSelect('COALESCE("ranking"."saleCount90d", 0)', 'saleCount90d')
       .addSelect('COALESCE("ranking"."totalSupply", 0)', 'totalSupply')
       .addSelect('COALESCE("ranking"."ownerCount", 0)', 'ownerCount')
       .addSelect('COALESCE("ranking"."listedCount", 0)', 'listedCount')
@@ -175,6 +178,10 @@ export class Collection extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
+  volume90d!: string;
+
+  @Field(() => String)
+  @ViewColumn()
   volumeChange1h!: string;
 
   @Field(() => String)
@@ -192,6 +199,10 @@ export class Collection extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   volumeChange30d!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  volumeChange90d!: string;
 
   @Field(() => String, { nullable: true })
   @ViewColumn()
@@ -219,6 +230,10 @@ export class Collection extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
+  floorChange90d!: string;
+
+  @Field(() => String)
+  @ViewColumn()
   saleCount!: string;
 
   @Field(() => String)
@@ -240,6 +255,10 @@ export class Collection extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   saleCount30d!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  saleCount90d!: string;
 
   @Field(() => String)
   @ViewColumn()

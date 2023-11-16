@@ -17,17 +17,20 @@ import { CollectionEntity } from '..';
 @Index(['volume24h'])
 @Index(['volume7d'])
 @Index(['volume30d'])
+@Index(['volume90d'])
 @Index(['volumeChange1h'])
 @Index(['volumeChange6h'])
 @Index(['volumeChange24h'])
 @Index(['volumeChange7d'])
 @Index(['volumeChange30d'])
+@Index(['volumeChange90d'])
 @Index(['floorPrice'])
 @Index(['floorChange1h'])
 @Index(['floorChange6h'])
 @Index(['floorChange24h'])
 @Index(['floorChange7d'])
 @Index(['floorChange30d'])
+@Index(['floorChange90d'])
 export class CollectionRankingCached extends BaseEntity {
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => CollectionEntity)
@@ -52,6 +55,9 @@ export class CollectionRankingCached extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   volume30d!: string;
 
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  volume90d!: string;
+
   @Column('numeric', { precision: 78, default: '0' })
   volumeChange1h!: string;
 
@@ -66,6 +72,9 @@ export class CollectionRankingCached extends BaseEntity {
 
   @Column('numeric', { precision: 78, default: '0' })
   volumeChange30d!: string;
+
+  @Column('numeric', { precision: 78, default: '0' })
+  volumeChange90d!: string;
 
   @Column('numeric', { precision: 78, nullable: true })
   floorPrice!: string | null;
@@ -85,6 +94,9 @@ export class CollectionRankingCached extends BaseEntity {
   @Column('numeric', { precision: 78, default: '0' })
   floorChange30d!: string;
 
+  @Column('numeric', { precision: 78, default: '0' })
+  floorChange90d!: string;
+
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount!: string;
 
@@ -102,6 +114,9 @@ export class CollectionRankingCached extends BaseEntity {
 
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount30d!: string;
+
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  saleCount90d!: string;
 
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   totalSupply!: string;
