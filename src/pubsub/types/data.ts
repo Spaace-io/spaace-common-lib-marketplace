@@ -11,6 +11,7 @@ import {
   CartItem,
   CollectionEntity,
   ItemEntity,
+  ItemMediaEntity,
 } from '../../database';
 import { UserInteraction } from '../../graphql';
 import {
@@ -52,7 +53,7 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
     : T extends CollectionImportRequest.COLLECTIONS
     ? Pick<CollectionEntity, 'address'>[]
     : T extends SearchIndexType.ITEM
-    ? ItemEntity
+    ? ItemEntity & { primaryMedia: ItemMediaEntity | null }
     : T extends SearchIndexType.COLLECTION
     ? CollectionEntity
     : T extends SearchIndexType.USER
