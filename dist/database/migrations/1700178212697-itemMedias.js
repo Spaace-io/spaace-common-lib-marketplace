@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ItemMedias1700059492697 = void 0;
-class ItemMedias1700059492697 {
+exports.ItemMedias1700178212697 = void 0;
+class ItemMedias1700178212697 {
     constructor() {
-        this.name = 'ItemMedias1700059492697';
+        this.name = 'ItemMedias1700178212697';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -62,5 +62,5 @@ class ItemMedias1700059492697 {
         });
     }
 }
-exports.ItemMedias1700059492697 = ItemMedias1700059492697;
-//# sourceMappingURL=1700059492697-itemMedias.js.map
+exports.ItemMedias1700178212697 = ItemMedias1700178212697;
+//# sourceMappingURL=1700178212697-itemMedias.js.map
