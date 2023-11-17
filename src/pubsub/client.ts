@@ -67,7 +67,12 @@ class PubSubClient {
   ) {
     const topic = this.pubsub.topic(this._getTopicFromName(topicName));
     return await Promise.all(
-      messages.map((json) => topic.publishMessage({ json })),
+      messages.map((json) =>
+        topic.publishMessage({
+          json,
+          attributes: { 'Content-Type': 'application/json' },
+        }),
+      ),
     );
   }
 

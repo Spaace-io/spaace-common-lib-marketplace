@@ -69,7 +69,10 @@ class PubSubClient {
     publish(topicName, ...messages) {
         return __awaiter(this, void 0, void 0, function* () {
             const topic = this.pubsub.topic(this._getTopicFromName(topicName));
-            return yield Promise.all(messages.map((json) => topic.publishMessage({ json })));
+            return yield Promise.all(messages.map((json) => topic.publishMessage({
+                json,
+                attributes: { 'Content-Type': 'application/json' },
+            })));
         });
     }
     onMessage(name, topicName, listener) {
