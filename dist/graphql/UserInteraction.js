@@ -19,6 +19,7 @@ var UserInteractionType;
     UserInteractionType["BUY_NOW"] = "BUY_NOW";
     UserInteractionType["SELL_INSTANTLY"] = "SELL_INSTANTLY";
     UserInteractionType["SWEEP_FLOOR"] = "SWEEP_FLOOR";
+    UserInteractionType["ADD_USERNAME"] = "ADD_USERNAME";
 })(UserInteractionType = exports.UserInteractionType || (exports.UserInteractionType = {}));
 (0, graphql_1.registerEnumType)(UserInteractionType, {
     name: 'UserInteractionType',
