@@ -1,4 +1,3 @@
-import { ObjectType } from '@nestjs/graphql';
 import {
   BaseEntity,
   Column,
@@ -10,7 +9,6 @@ import {
 } from 'typeorm';
 import { ItemEntity } from './Item.entity';
 
-@ObjectType()
 @Entity({ name: 'balances' })
 @Index(['collectionAddress', 'tokenId', 'balance'], { where: '"balance" > 0' })
 @Index(['userAddress', 'collectionAddress', 'tokenId'], {

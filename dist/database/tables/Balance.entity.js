@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BalanceEntity = void 0;
-const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const Item_entity_1 = require("./Item.entity");
 let BalanceEntity = class BalanceEntity extends typeorm_1.BaseEntity {
@@ -38,7 +37,6 @@ __decorate([
     __metadata("design:type", String)
 ], BalanceEntity.prototype, "balance", void 0);
 BalanceEntity = __decorate([
-    (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'balances' }),
     (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'balance'], { where: '"balance" > 0' }),
     (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId'], {

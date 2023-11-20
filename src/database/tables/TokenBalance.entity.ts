@@ -1,7 +1,5 @@
-import { ObjectType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, Index, PrimaryColumn } from 'typeorm';
 
-@ObjectType()
 @Entity({ name: 'token_balances' })
 @Index(['currency', 'balance'])
 @Index(['userAddress', 'currency', 'balance'])
