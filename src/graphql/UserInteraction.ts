@@ -7,7 +7,6 @@ export enum UserInteractionType {
   BUY_NOW = 'BUY_NOW',
   SELL_INSTANTLY = 'SELL_INSTANTLY',
   SWEEP_FLOOR = 'SWEEP_FLOOR',
-  ADD_USERNAME = 'ADD_USERNAME',
 }
 
 registerEnumType(UserInteractionType, {

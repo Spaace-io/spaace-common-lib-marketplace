@@ -40,6 +40,8 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
     ? UserQuestProgress
     : T extends QuestTrigger.REFERRAL
     ? User
+    : T extends QuestTrigger.USER
+    ? User
     : T extends QuestTrigger.CART_ITEM
     ? CartItem
     : T extends QuestTrigger.CRON

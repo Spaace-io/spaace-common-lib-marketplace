@@ -23,6 +23,7 @@ var QuestTrigger;
     QuestTrigger["TRANSFER"] = "TRANSFER";
     QuestTrigger["SALE"] = "SALE";
     QuestTrigger["ORDER"] = "ORDER";
+    QuestTrigger["USER"] = "USER";
     QuestTrigger["STAKING_DEPOSIT"] = "STAKING_DEPOSIT";
     QuestTrigger["DISTRIBUTOR_REWARD"] = "DISTRIBUTOR_REWARD";
     QuestTrigger["USER_QUEST_PROGRESS"] = "USER_QUEST_PROGRESS";
