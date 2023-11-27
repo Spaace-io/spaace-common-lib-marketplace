@@ -157,13 +157,14 @@ Order = __decorate([
                 .addSelect('"order"."cancelTimestamp"', 'cancelTimestamp')
                 .addSelect('"order"."royalties"', 'royalties')
                 .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
-                .addSelect((query) => query
-                .fromDummy()
-                .select(`EXISTS ${query
+                .addSelect((query) => query.fromDummy().select(`EXISTS ${query
                 .subQuery()
                 .from(__1.ActiveOrderCached, 'active')
                 .select('1')
                 .where('"active"."hash" = "order"."hash"')
+                .andWhere(new typeorm_1.Brackets((query) => query
+                .where('"order"."endTime" > NOW()')
+                .orWhere('"order"."endTime" IS NULL')))
                 .getQuery()}`), 'active');
         },
         name: 'orders_view',

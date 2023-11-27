@@ -59,6 +59,9 @@ Balance = __decorate([
                 .andWhere(`"order"."currency" IN ('${__2.utils
                 .strip0x(__2.utils.constants.ETH_TOKENS)
                 .join("','")}')`)
+                .andWhere(new typeorm_1.Brackets((query) => query
+                .where('"order"."endTime" > NOW()')
+                .orWhere('"order"."endTime" IS NULL')))
                 .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
                 .orderBy('"order"."collectionAddress"')
                 .addOrderBy('"order"."tokenId"')
@@ -70,6 +73,9 @@ Balance = __decorate([
                 .andWhere(`"order"."currency" IN ('${__2.utils
                 .strip0x(__2.utils.constants.ETH_TOKENS)
                 .join("','")}')`)
+                .andWhere(new typeorm_1.Brackets((query) => query
+                .where('"order"."endTime" > NOW()')
+                .orWhere('"order"."endTime" IS NULL')))
                 .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
                 .orderBy('"order"."collectionAddress"')
                 .addOrderBy('"order"."tokenId"')
@@ -81,6 +87,9 @@ Balance = __decorate([
                 .andWhere(`"order"."currency" IN ('${__2.utils
                 .strip0x(__2.utils.constants.ETH_TOKENS)
                 .join("','")}')`)
+                .andWhere(new typeorm_1.Brackets((query) => query
+                .where('"order"."endTime" > NOW()')
+                .orWhere('"order"."endTime" IS NULL')))
                 .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
                 .orderBy('"order"."collectionAddress"')
                 .addOrderBy('"order"."tokenId"')

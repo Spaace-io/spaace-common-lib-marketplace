@@ -1,6 +1,12 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
-import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
+import {
+  BaseEntity,
+  Brackets,
+  DataSource,
+  ViewColumn,
+  ViewEntity,
+} from 'typeorm';
 import { Transform } from 'class-transformer';
 import {
   ActiveOrderCached,
@@ -39,6 +45,13 @@ import { utils } from '../..';
                   .strip0x(utils.constants.ETH_TOKENS)
                   .join("','")}')`,
               )
+              .andWhere(
+                new Brackets((query) =>
+                  query
+                    .where('"order"."endTime" > NOW()')
+                    .orWhere('"order"."endTime" IS NULL'),
+                ),
+              )
               .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
               .orderBy('"order"."collectionAddress"')
               .addOrderBy('"order"."tokenId"')
@@ -60,6 +73,13 @@ import { utils } from '../..';
                   .strip0x(utils.constants.ETH_TOKENS)
                   .join("','")}')`,
               )
+              .andWhere(
+                new Brackets((query) =>
+                  query
+                    .where('"order"."endTime" > NOW()')
+                    .orWhere('"order"."endTime" IS NULL'),
+                ),
+              )
               .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
               .orderBy('"order"."collectionAddress"')
               .addOrderBy('"order"."tokenId"')
@@ -77,6 +97,13 @@ import { utils } from '../..';
                 `"order"."currency" IN ('${utils
                   .strip0x(utils.constants.ETH_TOKENS)
                   .join("','")}')`,
+              )
+              .andWhere(
+                new Brackets((query) =>
+                  query
+                    .where('"order"."endTime" > NOW()')
+                    .orWhere('"order"."endTime" IS NULL'),
+                ),
               )
               .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
               .orderBy('"order"."collectionAddress"')

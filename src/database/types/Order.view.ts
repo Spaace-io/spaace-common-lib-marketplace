@@ -1,6 +1,12 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
-import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
+import {
+  BaseEntity,
+  Brackets,
+  DataSource,
+  ViewColumn,
+  ViewEntity,
+} from 'typeorm';
 import { Transform } from 'class-transformer';
 import { ActiveOrderCached, Marketplace, OrderEntity, OrderType } from '..';
 
@@ -30,16 +36,21 @@ import { ActiveOrderCached, Marketplace, OrderEntity, OrderType } from '..';
       .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
       .addSelect(
         (query) =>
-          query
-            .fromDummy()
-            .select(
-              `EXISTS ${query
-                .subQuery()
-                .from(ActiveOrderCached, 'active')
-                .select('1')
-                .where('"active"."hash" = "order"."hash"')
-                .getQuery()}`,
-            ),
+          query.fromDummy().select(
+            `EXISTS ${query
+              .subQuery()
+              .from(ActiveOrderCached, 'active')
+              .select('1')
+              .where('"active"."hash" = "order"."hash"')
+              .andWhere(
+                new Brackets((query) =>
+                  query
+                    .where('"order"."endTime" > NOW()')
+                    .orWhere('"order"."endTime" IS NULL'),
+                ),
+              )
+              .getQuery()}`,
+          ),
         'active',
       );
   },
