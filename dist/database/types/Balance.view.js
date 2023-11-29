@@ -177,8 +177,7 @@ Balance = __decorate([
             ])
                 .orderBy('"balance"."collectionAddress"')
                 .addOrderBy('"balance"."tokenId"')
-                .addOrderBy('"balance"."userAddress"')
-                .addOrderBy('"sellNow"."price"', 'DESC'));
+                .addOrderBy('"balance"."userAddress"'));
         },
         name: 'balances_view',
     })

@@ -256,7 +256,6 @@ import { utils } from '../..';
         .orderBy('"balance"."collectionAddress"')
         .addOrderBy('"balance"."tokenId"')
         .addOrderBy('"balance"."userAddress"')
-        .addOrderBy('"sellNow"."price"', 'DESC')
     );
   },
   name: 'balances_view',
