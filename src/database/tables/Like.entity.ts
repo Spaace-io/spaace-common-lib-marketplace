@@ -11,7 +11,6 @@ import {
 } from 'typeorm';
 
 import { BigNumber, ethers } from 'ethers';
-import { ItemEntity } from './Item.entity';
 import { CollectionEntity } from './Collection.entity';
 import { User } from './User.entity';
 
@@ -43,11 +42,6 @@ export class Like extends BaseEntity {
 
   @Field(() => String, { nullable: true })
   @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-  @ManyToOne(() => ItemEntity, { nullable: true })
-  @JoinColumn([
-    { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
-    { name: 'tokenId', referencedColumnName: 'tokenId' },
-  ])
   @Transform(
     ({ value }) =>
       value === BigNumber.from(2).pow(256).toString() ? null : value,
