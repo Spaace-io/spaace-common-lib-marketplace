@@ -44,8 +44,6 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
     ? User
     : T extends QuestTrigger.CART_ITEM
     ? CartItem
-    : T extends QuestTrigger.CRON
-    ? undefined
     : T extends QuestTrigger.USER_INTERACTION
     ? UserInteraction
     : T extends QuestTrigger.DATA_COMPILED

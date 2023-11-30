@@ -52,7 +52,7 @@ __decorate([
 ], UserQuestProgress.prototype, "nonce", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [[String]]),
-    (0, typeorm_1.Column)('jsonb', { default: [] }),
+    (0, typeorm_1.Column)('jsonb'),
     __metadata("design:type", Array)
 ], UserQuestProgress.prototype, "data", void 0);
 __decorate([

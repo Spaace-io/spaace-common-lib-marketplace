@@ -47,7 +47,7 @@ export class UserQuestProgress extends BaseEntity {
   nonce!: string;
 
   @Field(() => [[String]])
-  @Column('jsonb', { default: [] })
+  @Column('jsonb')
   data!: string[][];
 
   @Field(() => Boolean)
