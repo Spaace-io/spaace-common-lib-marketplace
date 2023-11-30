@@ -46,9 +46,9 @@ export class UserQuestProgress extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   nonce!: string;
 
-  @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
-  currentStep!: string;
+  @Field(() => [[String]])
+  @Column('jsonb', { default: [] })
+  data!: string[][];
 
   @Field(() => Boolean)
   @Column('boolean', { default: false })

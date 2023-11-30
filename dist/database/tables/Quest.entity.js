@@ -83,9 +83,9 @@ __decorate([
     __metadata("design:type", Array)
 ], QuestStep.prototype, "rules", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String, { defaultValue: '1' }),
-    __metadata("design:type", String)
-], QuestStep.prototype, "count", void 0);
+    (0, graphql_1.Field)(() => Boolean, { defaultValue: false }),
+    __metadata("design:type", Boolean)
+], QuestStep.prototype, "cron", void 0);
 QuestStep = __decorate([
     (0, graphql_1.ObjectType)()
 ], QuestStep);
@@ -128,6 +128,11 @@ __decorate([
     ]),
     __metadata("design:type", Object)
 ], Quest.prototype, "previousQuestId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
+    __metadata("design:type", Object)
+], Quest.prototype, "count", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.Column)('boolean', { default: false }),

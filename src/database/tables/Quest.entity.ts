@@ -74,8 +74,8 @@ export class QuestStep {
   @ValidateNested({ each: true })
   rules!: QuestRule[];
 
-  @Field(() => String, { defaultValue: '1' })
-  count?: string;
+  @Field(() => Boolean, { defaultValue: false })
+  cron?: boolean;
 }
 
 export enum QuestPeriod {
@@ -113,6 +113,10 @@ export class Quest extends BaseEntity {
     { name: 'previousQuestId', referencedColumnName: 'id' },
   ])
   previousQuestId!: string | null;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, nullable: true })
+  count!: string | null;
 
   @Field(() => Boolean)
   @Column('boolean', { default: false })

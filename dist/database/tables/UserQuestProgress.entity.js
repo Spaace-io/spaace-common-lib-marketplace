@@ -51,10 +51,10 @@ __decorate([
     __metadata("design:type", String)
 ], UserQuestProgress.prototype, "nonce", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], UserQuestProgress.prototype, "currentStep", void 0);
+    (0, graphql_1.Field)(() => [[String]]),
+    (0, typeorm_1.Column)('jsonb', { default: [] }),
+    __metadata("design:type", Array)
+], UserQuestProgress.prototype, "data", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.Column)('boolean', { default: false }),

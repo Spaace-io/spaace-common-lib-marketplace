@@ -4,7 +4,7 @@ export declare class UserQuestProgress extends BaseEntity {
     seasonNumber: string;
     questId: string;
     nonce: string;
-    currentStep: string;
+    data: string[][];
     completed: boolean;
     timestamp: Date;
 }

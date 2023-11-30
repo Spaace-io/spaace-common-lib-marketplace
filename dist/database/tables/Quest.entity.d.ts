@@ -32,7 +32,7 @@ export declare class QuestRule {
 export declare class QuestStep {
     trigger: QuestTrigger;
     rules: QuestRule[];
-    count?: string;
+    cron?: boolean;
 }
 export declare enum QuestPeriod {
     DAILY = "DAILY",
@@ -43,6 +43,7 @@ export declare class Quest extends BaseEntity {
     id: string;
     name: string;
     previousQuestId: string | null;
+    count: string | null;
     prime: boolean;
     steps: QuestStep[];
     loyaltyPoints: string;

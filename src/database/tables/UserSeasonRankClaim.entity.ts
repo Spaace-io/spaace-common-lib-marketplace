@@ -63,12 +63,13 @@ export class CosmeticLoyaltyRewardClaim {
 
 export const LoyaltyRewardClaim = createUnionType({
   name: 'LoyaltyRewardClaim',
-  types: () => [
-    LoyaltyPointsLoyaltyRewardClaim,
-    StakingBonusLoyaltyRewardClaim,
-    SpaaceTokensLoyaltyRewardClaim,
-    CosmeticLoyaltyRewardClaim,
-  ],
+  types: () =>
+    [
+      LoyaltyPointsLoyaltyRewardClaim,
+      StakingBonusLoyaltyRewardClaim,
+      SpaaceTokensLoyaltyRewardClaim,
+      CosmeticLoyaltyRewardClaim,
+    ] as const,
 });
 
 @ObjectType()
