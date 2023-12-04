@@ -10,16 +10,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.marketMakingSigner = exports.rewardsDistributorSigner = exports.GoogleCloudKMSSigner = void 0;
+exports.initialize = exports.marketMakingSigner = exports.rewardsDistributorSigner = exports.GoogleCloudKMSSigner = void 0;
 const crypto = require("crypto");
 const asn1_1 = require("asn1");
 const hash_1 = require("@ethersproject/hash");
 const kms_1 = require("@google-cloud/kms");
 const ethers_1 = require("ethers");
+const client = new kms_1.KeyManagementServiceClient();
 class GoogleCloudKMSSigner extends ethers_1.Signer {
     constructor(cryptoKeyName, cryptoKeyVersion, address, provider) {
         super();
-        this._kms = new kms_1.KeyManagementServiceClient();
         // Allow passing cryptoKeyVersion as first argument and leaving out the 2nd
         if (/\/cryptoKeyVersions\/[a-zA-Z0-9_-]{1,63}$/.test(cryptoKeyName)) {
             cryptoKeyVersion !== null && cryptoKeyVersion !== void 0 ? cryptoKeyVersion : (cryptoKeyVersion = cryptoKeyName);
@@ -38,7 +38,7 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
         return __awaiter(this, void 0, void 0, function* () {
             if (this._cryptoKeyVersion !== undefined)
                 return this._cryptoKeyVersion;
-            const [versions] = yield this._kms.listCryptoKeyVersions({
+            const [versions] = yield client.listCryptoKeyVersions({
                 parent: this._cryptoKeyName,
                 filter: 'state = "ENABLED" AND algorithm = "EC_SIGN_SECP256K1_SHA256"',
                 pageSize: 1,
@@ -56,7 +56,7 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
             const cryptoKeyVersion = yield this._getCryptoKeyVersion();
             // Google Cloud KMS does not support keccak256, only regular SHA256.
             // So, we need to compute the hash and send that instead of the data.
-            const [{ signature: derSignature }] = yield this._kms.asymmetricSign({
+            const [{ signature: derSignature }] = yield client.asymmetricSign({
                 name: cryptoKeyVersion,
                 digest: {
                     sha256: digest,
@@ -104,7 +104,7 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
             if (this._address !== undefined)
                 return this._address;
             const cryptoKeyVersion = yield this._getCryptoKeyVersion();
-            const [{ pem }] = yield this._kms.getPublicKey({
+            const [{ pem }] = yield client.getPublicKey({
                 name: cryptoKeyVersion,
             });
             if (pem === undefined || pem === null) {
@@ -165,4 +165,6 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
 exports.GoogleCloudKMSSigner = GoogleCloudKMSSigner;
 exports.rewardsDistributorSigner = new GoogleCloudKMSSigner((_a = process.env.REWARDS_DISTRIBUTOR_KMS_KEY_NAME) !== null && _a !== void 0 ? _a : 'REWARDS_DISTRIBUTOR_KMS_KEY_NAME');
 exports.marketMakingSigner = new GoogleCloudKMSSigner((_b = process.env.MARKET_MAKING_KMS_KEY_NAME) !== null && _b !== void 0 ? _b : 'MARKET_MAKING_KMS_KEY_NAME');
+const initialize = () => __awaiter(void 0, void 0, void 0, function* () { return yield client.initialize(); });
+exports.initialize = initialize;
 //# sourceMappingURL=kms.js.map

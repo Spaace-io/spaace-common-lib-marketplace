@@ -1,7 +1,6 @@
 import { Provider, TransactionRequest } from '@ethersproject/abstract-provider';
 import { Bytes, Signer, TypedDataDomain, TypedDataField, ethers } from 'ethers';
 export declare class GoogleCloudKMSSigner extends Signer {
-    private readonly _kms;
     private readonly _cryptoKeyName;
     private _cryptoKeyVersion?;
     private _address?;
@@ -16,3 +15,6 @@ export declare class GoogleCloudKMSSigner extends Signer {
 }
 export declare const rewardsDistributorSigner: GoogleCloudKMSSigner;
 export declare const marketMakingSigner: GoogleCloudKMSSigner;
+export declare const initialize: () => Promise<{
+    [name: string]: Function;
+}>;

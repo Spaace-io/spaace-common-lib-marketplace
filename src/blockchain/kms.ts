@@ -5,8 +5,9 @@ import { _TypedDataEncoder } from '@ethersproject/hash';
 import { KeyManagementServiceClient } from '@google-cloud/kms';
 import { Bytes, Signer, TypedDataDomain, TypedDataField, ethers } from 'ethers';
 
+const client = new KeyManagementServiceClient();
+
 export class GoogleCloudKMSSigner extends Signer {
-  private readonly _kms = new KeyManagementServiceClient();
   private readonly _cryptoKeyName: string;
   private _cryptoKeyVersion?: string;
   private _address?: string;
@@ -46,7 +47,7 @@ export class GoogleCloudKMSSigner extends Signer {
   private async _getCryptoKeyVersion() {
     if (this._cryptoKeyVersion !== undefined) return this._cryptoKeyVersion;
 
-    const [versions] = await this._kms.listCryptoKeyVersions({
+    const [versions] = await client.listCryptoKeyVersions({
       parent: this._cryptoKeyName,
       filter: 'state = "ENABLED" AND algorithm = "EC_SIGN_SECP256K1_SHA256"',
       pageSize: 1,
@@ -67,7 +68,7 @@ export class GoogleCloudKMSSigner extends Signer {
 
     // Google Cloud KMS does not support keccak256, only regular SHA256.
     // So, we need to compute the hash and send that instead of the data.
-    const [{ signature: derSignature }] = await this._kms.asymmetricSign({
+    const [{ signature: derSignature }] = await client.asymmetricSign({
       name: cryptoKeyVersion,
       digest: {
         sha256: digest,
@@ -128,7 +129,7 @@ export class GoogleCloudKMSSigner extends Signer {
 
     const cryptoKeyVersion = await this._getCryptoKeyVersion();
 
-    const [{ pem }] = await this._kms.getPublicKey({
+    const [{ pem }] = await client.getPublicKey({
       name: cryptoKeyVersion,
     });
 
@@ -230,3 +231,5 @@ export const rewardsDistributorSigner = new GoogleCloudKMSSigner(
 export const marketMakingSigner = new GoogleCloudKMSSigner(
   process.env.MARKET_MAKING_KMS_KEY_NAME ?? 'MARKET_MAKING_KMS_KEY_NAME',
 );
+
+export const initialize = async () => await client.initialize();
