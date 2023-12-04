@@ -9,4 +9,4 @@ export declare enum SearchIndexType {
     COLLECTION = "COLLECTION",
     USER = "USER"
 }
-export type PubSubTrigger<T extends PubSubTopic> = T extends PubSubTopic.TRIGGERS ? QuestTrigger : T extends PubSubTopic.COLLECTION_IMPORT ? CollectionImportRequest : T extends PubSubTopic.SEARCH_INDEX ? SearchIndexType : never;
+export type PubSubTrigger<T extends PubSubTopic> = T extends PubSubTopic.TRIGGERS ? QuestTrigger : T extends PubSubTopic.SEARCH_INDEX ? SearchIndexType : never;
