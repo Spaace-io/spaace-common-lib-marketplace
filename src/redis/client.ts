@@ -1,9 +1,12 @@
 import { RedisClientType, createClient } from 'redis';
 import { CollectionEntity, ItemEntity } from '../database';
-import { utils } from '..';
+import { CollectionImportRequest, PubSubTopic, pubsub, utils } from '..';
 
 class RedisClient {
-  private readonly redis: RedisClientType;
+  public readonly COLLECTIONS_LIMIT = 100;
+  public readonly ITEMS_LIMIT = 100;
+
+  public readonly redis: RedisClientType;
 
   constructor() {
     this.redis = createClient({
@@ -11,23 +14,6 @@ class RedisClient {
         process.env.REDIS_PORT ?? 6379
       }`,
     });
-  }
-
-  async importItems(
-    items: readonly Pick<ItemEntity, 'collectionAddress' | 'tokenId'>[],
-    priority = 1,
-  ) {
-    await items
-      .reduce(
-        (transaction, item) =>
-          transaction.zIncrBy(
-            'collection-import:items',
-            priority,
-            `${utils.strip0x(item.collectionAddress)}-${item.tokenId}`,
-          ),
-        this.redis.multi(),
-      )
-      .exec();
   }
 
   async importCollections(
@@ -45,23 +31,42 @@ class RedisClient {
         this.redis.multi(),
       )
       .exec();
+
+    if (
+      (await this.redis.zCard('collection-import:collections')) >=
+      this.COLLECTIONS_LIMIT
+    ) {
+      pubsub.publish(PubSubTopic.COLLECTION_IMPORT, {
+        trigger: CollectionImportRequest.COLLECTIONS,
+        data: false,
+      });
+    }
   }
 
-  async computeRarity(
-    collections: readonly Pick<CollectionEntity, 'address'>[],
+  async importItems(
+    items: readonly Pick<ItemEntity, 'collectionAddress' | 'tokenId'>[],
     priority = 1,
   ) {
-    await collections
+    await items
       .reduce(
-        (transaction, collection) =>
+        (transaction, item) =>
           transaction.zIncrBy(
-            'collection-import:rarity',
+            'collection-import:items',
             priority,
-            utils.strip0x(collection.address),
+            `${utils.strip0x(item.collectionAddress)}-${item.tokenId}`,
           ),
         this.redis.multi(),
       )
       .exec();
+
+    if (
+      (await this.redis.zCard('collection-import:items')) >= this.ITEMS_LIMIT
+    ) {
+      pubsub.publish(PubSubTopic.COLLECTION_IMPORT, {
+        trigger: CollectionImportRequest.ITEMS,
+        data: false,
+      });
+    }
   }
 }
 

@@ -4,6 +4,7 @@ exports.PubSubTopic = void 0;
 var PubSubTopic;
 (function (PubSubTopic) {
     PubSubTopic["TRIGGERS"] = "triggers";
+    PubSubTopic["COLLECTION_IMPORT"] = "collection-import";
     PubSubTopic["SEARCH_INDEX"] = "search-index";
 })(PubSubTopic = exports.PubSubTopic || (exports.PubSubTopic = {}));
 //# sourceMappingURL=topic.js.map

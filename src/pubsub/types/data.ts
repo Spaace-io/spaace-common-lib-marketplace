@@ -48,10 +48,10 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
     ? UserInteraction
     : T extends QuestTrigger.DATA_COMPILED
     ? object
-    : T extends CollectionImportRequest.ITEMS
-    ? Pick<ItemEntity, 'collectionAddress' | 'tokenId'>[]
     : T extends CollectionImportRequest.COLLECTIONS
-    ? Pick<CollectionEntity, 'address'>[]
+    ? boolean
+    : T extends CollectionImportRequest.ITEMS
+    ? boolean
     : T extends SearchIndexType.ITEM
     ? ItemEntity & { primaryMedia: ItemMediaEntity | null }
     : T extends SearchIndexType.COLLECTION
