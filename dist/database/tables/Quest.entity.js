@@ -129,8 +129,8 @@ __decorate([
 ], Quest.prototype, "previousQuestId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
-    __metadata("design:type", Object)
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
+    __metadata("design:type", String)
 ], Quest.prototype, "count", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Boolean),

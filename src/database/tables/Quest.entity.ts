@@ -114,8 +114,8 @@ export class Quest extends BaseEntity {
   previousQuestId!: string | null;
 
   @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true, nullable: true })
-  count!: string | null;
+  @Column('numeric', { precision: 78, unsigned: true })
+  count!: string;
 
   @Field(() => Boolean)
   @Column('boolean', { default: false })
