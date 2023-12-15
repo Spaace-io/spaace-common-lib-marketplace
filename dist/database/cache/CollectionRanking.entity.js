@@ -52,55 +52,55 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
-], CollectionRankingCached.prototype, "volumeChange1h", void 0);
+], CollectionRankingCached.prototype, "previousVolume1h", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
-], CollectionRankingCached.prototype, "volumeChange6h", void 0);
+], CollectionRankingCached.prototype, "previousVolume6h", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
-], CollectionRankingCached.prototype, "volumeChange24h", void 0);
+], CollectionRankingCached.prototype, "previousVolume24h", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
-], CollectionRankingCached.prototype, "volumeChange7d", void 0);
+], CollectionRankingCached.prototype, "previousVolume7d", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
-], CollectionRankingCached.prototype, "volumeChange30d", void 0);
+], CollectionRankingCached.prototype, "previousVolume30d", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
-], CollectionRankingCached.prototype, "volumeChange90d", void 0);
+], CollectionRankingCached.prototype, "previousVolume90d", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, nullable: true }),
     __metadata("design:type", Object)
 ], CollectionRankingCached.prototype, "floorPrice", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], CollectionRankingCached.prototype, "floorChange1h", void 0);
+    (0, typeorm_1.Column)('numeric', { precision: 78, nullable: true }),
+    __metadata("design:type", Object)
+], CollectionRankingCached.prototype, "previousFloorPrice1h", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], CollectionRankingCached.prototype, "floorChange6h", void 0);
+    (0, typeorm_1.Column)('numeric', { precision: 78, nullable: true }),
+    __metadata("design:type", Object)
+], CollectionRankingCached.prototype, "previousFloorPrice6h", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], CollectionRankingCached.prototype, "floorChange24h", void 0);
+    (0, typeorm_1.Column)('numeric', { precision: 78, nullable: true }),
+    __metadata("design:type", Object)
+], CollectionRankingCached.prototype, "previousFloorPrice24h", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], CollectionRankingCached.prototype, "floorChange7d", void 0);
+    (0, typeorm_1.Column)('numeric', { precision: 78, nullable: true }),
+    __metadata("design:type", Object)
+], CollectionRankingCached.prototype, "previousFloorPrice7d", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], CollectionRankingCached.prototype, "floorChange30d", void 0);
+    (0, typeorm_1.Column)('numeric', { precision: 78, nullable: true }),
+    __metadata("design:type", Object)
+], CollectionRankingCached.prototype, "previousFloorPrice30d", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
-    __metadata("design:type", String)
-], CollectionRankingCached.prototype, "floorChange90d", void 0);
+    (0, typeorm_1.Column)('numeric', { precision: 78, nullable: true }),
+    __metadata("design:type", Object)
+], CollectionRankingCached.prototype, "previousFloorPrice90d", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
@@ -132,6 +132,30 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
+], CollectionRankingCached.prototype, "previousSaleCount1h", void 0);
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], CollectionRankingCached.prototype, "previousSaleCount6h", void 0);
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], CollectionRankingCached.prototype, "previousSaleCount24h", void 0);
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], CollectionRankingCached.prototype, "previousSaleCount7d", void 0);
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], CollectionRankingCached.prototype, "previousSaleCount30d", void 0);
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], CollectionRankingCached.prototype, "previousSaleCount90d", void 0);
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
 ], CollectionRankingCached.prototype, "totalSupply", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
@@ -151,26 +175,46 @@ CollectionRankingCached = __decorate([
     (0, typeorm_1.Index)(['volume7d']),
     (0, typeorm_1.Index)(['volume30d']),
     (0, typeorm_1.Index)(['volume90d']),
-    (0, typeorm_1.Index)(['volumeChange1h']),
-    (0, typeorm_1.Index)(['volumeChange6h']),
-    (0, typeorm_1.Index)(['volumeChange24h']),
-    (0, typeorm_1.Index)(['volumeChange7d']),
-    (0, typeorm_1.Index)(['volumeChange30d']),
-    (0, typeorm_1.Index)(['volumeChange90d']),
+    (0, typeorm_1.Index)(['previousVolume1h']),
+    (0, typeorm_1.Index)(['previousVolume6h']),
+    (0, typeorm_1.Index)(['previousVolume24h']),
+    (0, typeorm_1.Index)(['previousVolume7d']),
+    (0, typeorm_1.Index)(['previousVolume30d']),
+    (0, typeorm_1.Index)(['previousVolume90d'])
+    // @Index(() => ['"volume1h" - "previousVolume1h"'])
+    // @Index(() => ['"volume6h" - "previousVolume6h"'])
+    // @Index(() => ['"volume24h" - "previousVolume24h"'])
+    // @Index(() => ['"volume7d" - "previousVolume7d"'])
+    // @Index(() => ['"volume30d" - "previousVolume30d"'])
+    // @Index(() => ['"volume90d" - "previousVolume90d"'])
+    ,
     (0, typeorm_1.Index)(['floorPrice']),
-    (0, typeorm_1.Index)(['floorChange1h']),
-    (0, typeorm_1.Index)(['floorChange6h']),
-    (0, typeorm_1.Index)(['floorChange24h']),
-    (0, typeorm_1.Index)(['floorChange7d']),
-    (0, typeorm_1.Index)(['floorChange30d']),
-    (0, typeorm_1.Index)(['floorChange90d']),
+    (0, typeorm_1.Index)(['previousFloorPrice1h']),
+    (0, typeorm_1.Index)(['previousFloorPrice6h']),
+    (0, typeorm_1.Index)(['previousFloorPrice24h']),
+    (0, typeorm_1.Index)(['previousFloorPrice7d']),
+    (0, typeorm_1.Index)(['previousFloorPrice30d']),
+    (0, typeorm_1.Index)(['previousFloorPrice90d'])
+    // @Index(() => ['"floorPrice" - "previousFloorPrice1h"'])
+    // @Index(() => ['"floorPrice" - "previousFloorPrice6h"'])
+    // @Index(() => ['"floorPrice" - "previousFloorPrice24h"'])
+    // @Index(() => ['"floorPrice" - "previousFloorPrice7d"'])
+    // @Index(() => ['"floorPrice" - "previousFloorPrice30d"'])
+    // @Index(() => ['"floorPrice" - "previousFloorPrice90d"'])
+    ,
     (0, typeorm_1.Index)(['saleCount']),
     (0, typeorm_1.Index)(['saleCount1h']),
     (0, typeorm_1.Index)(['saleCount6h']),
     (0, typeorm_1.Index)(['saleCount24h']),
     (0, typeorm_1.Index)(['saleCount7d']),
     (0, typeorm_1.Index)(['saleCount30d']),
-    (0, typeorm_1.Index)(['saleCount90d'])
+    (0, typeorm_1.Index)(['saleCount90d']),
+    (0, typeorm_1.Index)(['previousSaleCount1h']),
+    (0, typeorm_1.Index)(['previousSaleCount6h']),
+    (0, typeorm_1.Index)(['previousSaleCount24h']),
+    (0, typeorm_1.Index)(['previousSaleCount7d']),
+    (0, typeorm_1.Index)(['previousSaleCount30d']),
+    (0, typeorm_1.Index)(['previousSaleCount90d'])
 ], CollectionRankingCached);
 exports.CollectionRankingCached = CollectionRankingCached;
 //# sourceMappingURL=CollectionRanking.entity.js.map

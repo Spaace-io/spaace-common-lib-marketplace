@@ -135,67 +135,67 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "volumeChange1h", void 0);
+], Collection.prototype, "previousVolume1h", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "volumeChange6h", void 0);
+], Collection.prototype, "previousVolume6h", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "volumeChange24h", void 0);
+], Collection.prototype, "previousVolume24h", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "volumeChange7d", void 0);
+], Collection.prototype, "previousVolume7d", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "volumeChange30d", void 0);
+], Collection.prototype, "previousVolume30d", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
-], Collection.prototype, "volumeChange90d", void 0);
+], Collection.prototype, "previousVolume90d", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "floorPrice", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], Collection.prototype, "floorChange1h", void 0);
+    __metadata("design:type", Object)
+], Collection.prototype, "previousFloorPrice1h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], Collection.prototype, "floorChange6h", void 0);
+    __metadata("design:type", Object)
+], Collection.prototype, "previousFloorPrice6h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], Collection.prototype, "floorChange24h", void 0);
+    __metadata("design:type", Object)
+], Collection.prototype, "previousFloorPrice24h", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], Collection.prototype, "floorChange7d", void 0);
+    __metadata("design:type", Object)
+], Collection.prototype, "previousFloorPrice7d", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], Collection.prototype, "floorChange30d", void 0);
+    __metadata("design:type", Object)
+], Collection.prototype, "previousFloorPrice30d", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], Collection.prototype, "floorChange90d", void 0);
+    __metadata("design:type", Object)
+], Collection.prototype, "previousFloorPrice90d", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -231,6 +231,36 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Collection.prototype, "saleCount90d", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Collection.prototype, "previousSaleCount1h", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Collection.prototype, "previousSaleCount6h", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Collection.prototype, "previousSaleCount24h", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Collection.prototype, "previousSaleCount7d", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Collection.prototype, "previousSaleCount30d", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Collection.prototype, "previousSaleCount90d", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -280,19 +310,19 @@ Collection = __decorate([
                 .addSelect('COALESCE("ranking"."volume7d", 0)', 'volume7d')
                 .addSelect('COALESCE("ranking"."volume30d", 0)', 'volume30d')
                 .addSelect('COALESCE("ranking"."volume90d", 0)', 'volume90d')
-                .addSelect('COALESCE("ranking"."volumeChange1h", 0)', 'volumeChange1h')
-                .addSelect('COALESCE("ranking"."volumeChange6h", 0)', 'volumeChange6h')
-                .addSelect('COALESCE("ranking"."volumeChange24h", 0)', 'volumeChange24h')
-                .addSelect('COALESCE("ranking"."volumeChange7d", 0)', 'volumeChange7d')
-                .addSelect('COALESCE("ranking"."volumeChange30d", 0)', 'volumeChange30d')
-                .addSelect('COALESCE("ranking"."volumeChange90d", 0)', 'volumeChange90d')
+                .addSelect('COALESCE("ranking"."previousVolume1h", 0)', 'previousVolume1h')
+                .addSelect('COALESCE("ranking"."previousVolume6h", 0)', 'previousVolume6h')
+                .addSelect('COALESCE("ranking"."previousVolume24h", 0)', 'previousVolume24h')
+                .addSelect('COALESCE("ranking"."previousVolume7d", 0)', 'previousVolume7d')
+                .addSelect('COALESCE("ranking"."previousVolume30d", 0)', 'previousVolume30d')
+                .addSelect('COALESCE("ranking"."previousVolume90d", 0)', 'previousVolume90d')
                 .addSelect('"ranking"."floorPrice"', 'floorPrice')
-                .addSelect('COALESCE("ranking"."floorChange1h", 0)', 'floorChange1h')
-                .addSelect('COALESCE("ranking"."floorChange6h", 0)', 'floorChange6h')
-                .addSelect('COALESCE("ranking"."floorChange24h", 0)', 'floorChange24h')
-                .addSelect('COALESCE("ranking"."floorChange7d", 0)', 'floorChange7d')
-                .addSelect('COALESCE("ranking"."floorChange30d", 0)', 'floorChange30d')
-                .addSelect('COALESCE("ranking"."floorChange90d", 0)', 'floorChange90d')
+                .addSelect('"ranking"."previousFloorPrice1h"', 'previousFloorPrice1h')
+                .addSelect('"ranking"."previousFloorPrice6h"', 'previousFloorPrice6h')
+                .addSelect('"ranking"."previousFloorPrice24h"', 'previousFloorPrice24h')
+                .addSelect('"ranking"."previousFloorPrice7d"', 'previousFloorPrice7d')
+                .addSelect('"ranking"."previousFloorPrice30d"', 'previousFloorPrice30d')
+                .addSelect('"ranking"."previousFloorPrice90d"', 'previousFloorPrice90d')
                 .addSelect('COALESCE("ranking"."saleCount", 0)', 'saleCount')
                 .addSelect('COALESCE("ranking"."saleCount1h", 0)', 'saleCount1h')
                 .addSelect('COALESCE("ranking"."saleCount6h", 0)', 'saleCount6h')

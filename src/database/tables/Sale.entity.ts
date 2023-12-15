@@ -11,6 +11,9 @@ import { ItemEntity } from './Item.entity';
 import { Marketplace } from './Order.entity';
 
 @Entity({ name: 'sales' })
+@Index(['timestamp'])
+@Index(['from', 'timestamp'])
+@Index(['to', 'timestamp'])
 @Index(['collectionAddress', 'timestamp'])
 @Index(['collectionAddress', 'tokenId', 'timestamp'])
 @Index(['orderHash'])

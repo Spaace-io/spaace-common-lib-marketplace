@@ -43,19 +43,37 @@ import {
       .addSelect('COALESCE("ranking"."volume7d", 0)', 'volume7d')
       .addSelect('COALESCE("ranking"."volume30d", 0)', 'volume30d')
       .addSelect('COALESCE("ranking"."volume90d", 0)', 'volume90d')
-      .addSelect('COALESCE("ranking"."volumeChange1h", 0)', 'volumeChange1h')
-      .addSelect('COALESCE("ranking"."volumeChange6h", 0)', 'volumeChange6h')
-      .addSelect('COALESCE("ranking"."volumeChange24h", 0)', 'volumeChange24h')
-      .addSelect('COALESCE("ranking"."volumeChange7d", 0)', 'volumeChange7d')
-      .addSelect('COALESCE("ranking"."volumeChange30d", 0)', 'volumeChange30d')
-      .addSelect('COALESCE("ranking"."volumeChange90d", 0)', 'volumeChange90d')
+      .addSelect(
+        'COALESCE("ranking"."previousVolume1h", 0)',
+        'previousVolume1h',
+      )
+      .addSelect(
+        'COALESCE("ranking"."previousVolume6h", 0)',
+        'previousVolume6h',
+      )
+      .addSelect(
+        'COALESCE("ranking"."previousVolume24h", 0)',
+        'previousVolume24h',
+      )
+      .addSelect(
+        'COALESCE("ranking"."previousVolume7d", 0)',
+        'previousVolume7d',
+      )
+      .addSelect(
+        'COALESCE("ranking"."previousVolume30d", 0)',
+        'previousVolume30d',
+      )
+      .addSelect(
+        'COALESCE("ranking"."previousVolume90d", 0)',
+        'previousVolume90d',
+      )
       .addSelect('"ranking"."floorPrice"', 'floorPrice')
-      .addSelect('COALESCE("ranking"."floorChange1h", 0)', 'floorChange1h')
-      .addSelect('COALESCE("ranking"."floorChange6h", 0)', 'floorChange6h')
-      .addSelect('COALESCE("ranking"."floorChange24h", 0)', 'floorChange24h')
-      .addSelect('COALESCE("ranking"."floorChange7d", 0)', 'floorChange7d')
-      .addSelect('COALESCE("ranking"."floorChange30d", 0)', 'floorChange30d')
-      .addSelect('COALESCE("ranking"."floorChange90d", 0)', 'floorChange90d')
+      .addSelect('"ranking"."previousFloorPrice1h"', 'previousFloorPrice1h')
+      .addSelect('"ranking"."previousFloorPrice6h"', 'previousFloorPrice6h')
+      .addSelect('"ranking"."previousFloorPrice24h"', 'previousFloorPrice24h')
+      .addSelect('"ranking"."previousFloorPrice7d"', 'previousFloorPrice7d')
+      .addSelect('"ranking"."previousFloorPrice30d"', 'previousFloorPrice30d')
+      .addSelect('"ranking"."previousFloorPrice90d"', 'previousFloorPrice90d')
       .addSelect('COALESCE("ranking"."saleCount", 0)', 'saleCount')
       .addSelect('COALESCE("ranking"."saleCount1h", 0)', 'saleCount1h')
       .addSelect('COALESCE("ranking"."saleCount6h", 0)', 'saleCount6h')
@@ -183,55 +201,55 @@ export class Collection extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
-  volumeChange1h!: string;
+  previousVolume1h!: string;
 
   @Field(() => String)
   @ViewColumn()
-  volumeChange6h!: string;
+  previousVolume6h!: string;
 
   @Field(() => String)
   @ViewColumn()
-  volumeChange24h!: string;
+  previousVolume24h!: string;
 
   @Field(() => String)
   @ViewColumn()
-  volumeChange7d!: string;
+  previousVolume7d!: string;
 
   @Field(() => String)
   @ViewColumn()
-  volumeChange30d!: string;
+  previousVolume30d!: string;
 
   @Field(() => String)
   @ViewColumn()
-  volumeChange90d!: string;
+  previousVolume90d!: string;
 
   @Field(() => String, { nullable: true })
   @ViewColumn()
   floorPrice!: string | null;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @ViewColumn()
-  floorChange1h!: string;
+  previousFloorPrice1h!: string | null;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @ViewColumn()
-  floorChange6h!: string;
+  previousFloorPrice6h!: string | null;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @ViewColumn()
-  floorChange24h!: string;
+  previousFloorPrice24h!: string | null;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @ViewColumn()
-  floorChange7d!: string;
+  previousFloorPrice7d!: string | null;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @ViewColumn()
-  floorChange30d!: string;
+  previousFloorPrice30d!: string | null;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @ViewColumn()
-  floorChange90d!: string;
+  previousFloorPrice90d!: string | null;
 
   @Field(() => String)
   @ViewColumn()
@@ -260,6 +278,30 @@ export class Collection extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   saleCount90d!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  previousSaleCount1h!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  previousSaleCount6h!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  previousSaleCount24h!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  previousSaleCount7d!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  previousSaleCount30d!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  previousSaleCount90d!: string;
 
   @Field(() => String)
   @ViewColumn()

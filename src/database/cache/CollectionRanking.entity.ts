@@ -18,19 +18,31 @@ import { CollectionEntity } from '..';
 @Index(['volume7d'])
 @Index(['volume30d'])
 @Index(['volume90d'])
-@Index(['volumeChange1h'])
-@Index(['volumeChange6h'])
-@Index(['volumeChange24h'])
-@Index(['volumeChange7d'])
-@Index(['volumeChange30d'])
-@Index(['volumeChange90d'])
+@Index(['previousVolume1h'])
+@Index(['previousVolume6h'])
+@Index(['previousVolume24h'])
+@Index(['previousVolume7d'])
+@Index(['previousVolume30d'])
+@Index(['previousVolume90d'])
+// @Index(() => ['"volume1h" - "previousVolume1h"'])
+// @Index(() => ['"volume6h" - "previousVolume6h"'])
+// @Index(() => ['"volume24h" - "previousVolume24h"'])
+// @Index(() => ['"volume7d" - "previousVolume7d"'])
+// @Index(() => ['"volume30d" - "previousVolume30d"'])
+// @Index(() => ['"volume90d" - "previousVolume90d"'])
 @Index(['floorPrice'])
-@Index(['floorChange1h'])
-@Index(['floorChange6h'])
-@Index(['floorChange24h'])
-@Index(['floorChange7d'])
-@Index(['floorChange30d'])
-@Index(['floorChange90d'])
+@Index(['previousFloorPrice1h'])
+@Index(['previousFloorPrice6h'])
+@Index(['previousFloorPrice24h'])
+@Index(['previousFloorPrice7d'])
+@Index(['previousFloorPrice30d'])
+@Index(['previousFloorPrice90d'])
+// @Index(() => ['"floorPrice" - "previousFloorPrice1h"'])
+// @Index(() => ['"floorPrice" - "previousFloorPrice6h"'])
+// @Index(() => ['"floorPrice" - "previousFloorPrice24h"'])
+// @Index(() => ['"floorPrice" - "previousFloorPrice7d"'])
+// @Index(() => ['"floorPrice" - "previousFloorPrice30d"'])
+// @Index(() => ['"floorPrice" - "previousFloorPrice90d"'])
 @Index(['saleCount'])
 @Index(['saleCount1h'])
 @Index(['saleCount6h'])
@@ -38,6 +50,12 @@ import { CollectionEntity } from '..';
 @Index(['saleCount7d'])
 @Index(['saleCount30d'])
 @Index(['saleCount90d'])
+@Index(['previousSaleCount1h'])
+@Index(['previousSaleCount6h'])
+@Index(['previousSaleCount24h'])
+@Index(['previousSaleCount7d'])
+@Index(['previousSaleCount30d'])
+@Index(['previousSaleCount90d'])
 export class CollectionRankingCached extends BaseEntity {
   @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => CollectionEntity)
@@ -66,43 +84,43 @@ export class CollectionRankingCached extends BaseEntity {
   volume90d!: string;
 
   @Column('numeric', { precision: 78, default: '0' })
-  volumeChange1h!: string;
+  previousVolume1h!: string;
 
   @Column('numeric', { precision: 78, default: '0' })
-  volumeChange6h!: string;
+  previousVolume6h!: string;
 
   @Column('numeric', { precision: 78, default: '0' })
-  volumeChange24h!: string;
+  previousVolume24h!: string;
 
   @Column('numeric', { precision: 78, default: '0' })
-  volumeChange7d!: string;
+  previousVolume7d!: string;
 
   @Column('numeric', { precision: 78, default: '0' })
-  volumeChange30d!: string;
+  previousVolume30d!: string;
 
   @Column('numeric', { precision: 78, default: '0' })
-  volumeChange90d!: string;
+  previousVolume90d!: string;
 
   @Column('numeric', { precision: 78, nullable: true })
   floorPrice!: string | null;
 
-  @Column('numeric', { precision: 78, default: '0' })
-  floorChange1h!: string;
+  @Column('numeric', { precision: 78, nullable: true })
+  previousFloorPrice1h!: string | null;
 
-  @Column('numeric', { precision: 78, default: '0' })
-  floorChange6h!: string;
+  @Column('numeric', { precision: 78, nullable: true })
+  previousFloorPrice6h!: string | null;
 
-  @Column('numeric', { precision: 78, default: '0' })
-  floorChange24h!: string;
+  @Column('numeric', { precision: 78, nullable: true })
+  previousFloorPrice24h!: string | null;
 
-  @Column('numeric', { precision: 78, default: '0' })
-  floorChange7d!: string;
+  @Column('numeric', { precision: 78, nullable: true })
+  previousFloorPrice7d!: string | null;
 
-  @Column('numeric', { precision: 78, default: '0' })
-  floorChange30d!: string;
+  @Column('numeric', { precision: 78, nullable: true })
+  previousFloorPrice30d!: string | null;
 
-  @Column('numeric', { precision: 78, default: '0' })
-  floorChange90d!: string;
+  @Column('numeric', { precision: 78, nullable: true })
+  previousFloorPrice90d!: string | null;
 
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount!: string;
@@ -124,6 +142,24 @@ export class CollectionRankingCached extends BaseEntity {
 
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   saleCount90d!: string;
+
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  previousSaleCount1h!: string;
+
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  previousSaleCount6h!: string;
+
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  previousSaleCount24h!: string;
+
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  previousSaleCount7d!: string;
+
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  previousSaleCount30d!: string;
+
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  previousSaleCount90d!: string;
 
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   totalSupply!: string;
