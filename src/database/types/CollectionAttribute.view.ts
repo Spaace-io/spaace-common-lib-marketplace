@@ -2,20 +2,35 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
-import { ItemAttributeEntity } from '..';
+import { ActiveOrderCached, ItemAttributeEntity, OrderType } from '..';
 
 @ObjectType()
 @ViewEntity({
   expression: (dataSource: DataSource) => {
-    return dataSource
-      .createQueryBuilder()
+    const query = dataSource.createQueryBuilder();
+    return query
       .from(ItemAttributeEntity, 'attribute')
       .select('"attribute"."collectionAddress"')
       .addSelect('"attribute"."traitHash"', 'traitHash')
       .addSelect('MIN("attribute"."trait")', 'trait')
       .addSelect('"attribute"."valueHash"', 'valueHash')
       .addSelect('MIN("attribute"."value")', 'value')
-      .addSelect('COUNT(DISTINCT "attribute"."tokenId")', 'itemCount')
+      .addSelect('COUNT(*)', 'itemCount')
+      .addSelect(
+        `SUM(CASE WHEN EXISTS ${query
+          .subQuery()
+          .from(ActiveOrderCached, 'order')
+          .select('1')
+          .where(
+            `"order"."type" IN ('${OrderType.ASK}', '${OrderType.DUTCH_AUCTION}')`,
+          )
+          .andWhere(
+            '"order"."collectionAddress" = "attribute"."collectionAddress"',
+          )
+          .andWhere('"order"."tokenId" = "attribute"."tokenId"')
+          .getQuery()} THEN 1 ELSE 0 END)`,
+        'listedCount',
+      )
       .groupBy('"attribute"."collectionAddress"')
       .addGroupBy('"attribute"."traitHash"')
       .addGroupBy('"attribute"."valueHash"');
@@ -47,4 +62,8 @@ export class CollectionAttribute extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   itemCount!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  listedCount!: string;
 }

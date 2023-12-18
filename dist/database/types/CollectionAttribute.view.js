@@ -48,19 +48,32 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], CollectionAttribute.prototype, "itemCount", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], CollectionAttribute.prototype, "listedCount", void 0);
 CollectionAttribute = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
-            return dataSource
-                .createQueryBuilder()
+            const query = dataSource.createQueryBuilder();
+            return query
                 .from(__1.ItemAttributeEntity, 'attribute')
                 .select('"attribute"."collectionAddress"')
                 .addSelect('"attribute"."traitHash"', 'traitHash')
                 .addSelect('MIN("attribute"."trait")', 'trait')
                 .addSelect('"attribute"."valueHash"', 'valueHash')
                 .addSelect('MIN("attribute"."value")', 'value')
-                .addSelect('COUNT(DISTINCT "attribute"."tokenId")', 'itemCount')
+                .addSelect('COUNT(*)', 'itemCount')
+                .addSelect(`SUM(CASE WHEN EXISTS ${query
+                .subQuery()
+                .from(__1.ActiveOrderCached, 'order')
+                .select('1')
+                .where(`"order"."type" IN ('${__1.OrderType.ASK}', '${__1.OrderType.DUTCH_AUCTION}')`)
+                .andWhere('"order"."collectionAddress" = "attribute"."collectionAddress"')
+                .andWhere('"order"."tokenId" = "attribute"."tokenId"')
+                .getQuery()} THEN 1 ELSE 0 END)`, 'listedCount')
                 .groupBy('"attribute"."collectionAddress"')
                 .addGroupBy('"attribute"."traitHash"')
                 .addGroupBy('"attribute"."valueHash"');

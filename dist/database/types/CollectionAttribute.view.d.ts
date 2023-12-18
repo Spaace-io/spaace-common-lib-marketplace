@@ -6,4 +6,5 @@ export declare class CollectionAttribute extends BaseEntity {
     valueHash: string;
     value: string;
     itemCount: string;
+    listedCount: string;
 }
