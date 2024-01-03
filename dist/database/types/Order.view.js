@@ -75,6 +75,24 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "currency", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Order.prototype, "royalties", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Object)
+], Order.prototype, "startingRoyalties", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.ViewColumn)(),
+    (0, class_transformer_1.Transform)(({ value }) => (value !== null ? ethers_1.ethers.utils.getAddress(value) : null), {
+        toPlainOnly: true,
+    }),
+    __metadata("design:type", Object)
+], Order.prototype, "royaltiesReceiver", void 0);
+__decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
@@ -118,16 +136,6 @@ __decorate([
     __metadata("design:type", Object)
 ], Order.prototype, "cancelTimestamp", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], Order.prototype, "royalties", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", Object)
-], Order.prototype, "startingRoyalties", void 0);
-__decorate([
     (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Boolean)
@@ -148,6 +156,9 @@ Order = __decorate([
                 .addSelect('"order"."price"', 'price')
                 .addSelect('"order"."startingPrice"', 'startingPrice')
                 .addSelect('"order"."currency"', 'currency')
+                .addSelect('"order"."royalties"', 'royalties')
+                .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
+                .addSelect('"order"."royaltiesReceiver"', 'royaltiesReceiver')
                 .addSelect('"order"."startTime"', 'startTime')
                 .addSelect('"order"."endTime"', 'endTime')
                 .addSelect('"order"."counter"', 'counter')
@@ -155,8 +166,6 @@ Order = __decorate([
                 .addSelect('"order"."cancelTxHash"', 'cancelTxHash')
                 .addSelect('"order"."cancelLogIdx"', 'cancelLogIdx')
                 .addSelect('"order"."cancelTimestamp"', 'cancelTimestamp')
-                .addSelect('"order"."royalties"', 'royalties')
-                .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
                 .addSelect((query) => query.fromDummy().select(`EXISTS ${query
                 .subQuery()
                 .from(__1.ActiveOrderCached, 'active')

@@ -81,6 +81,18 @@ __decorate([
     __metadata("design:type", String)
 ], OrderEntity.prototype, "currency", void 0);
 __decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
+    __metadata("design:type", String)
+], OrderEntity.prototype, "royalties", void 0);
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
+    __metadata("design:type", Object)
+], OrderEntity.prototype, "startingRoyalties", void 0);
+__decorate([
+    (0, typeorm_1.Column)('char', { length: 40, nullable: true }),
+    __metadata("design:type", Object)
+], OrderEntity.prototype, "royaltiesReceiver", void 0);
+__decorate([
     (0, typeorm_1.Column)('timestamp without time zone'),
     __metadata("design:type", Date)
 ], OrderEntity.prototype, "startTime", void 0);
@@ -108,14 +120,6 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], OrderEntity.prototype, "cancelTimestamp", void 0);
-__decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
-    __metadata("design:type", String)
-], OrderEntity.prototype, "royalties", void 0);
-__decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
-    __metadata("design:type", Object)
-], OrderEntity.prototype, "startingRoyalties", void 0);
 OrderEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'orders' }),
     (0, typeorm_1.Index)(['collectionAddress', 'startTime']) // Collection analytics & activity

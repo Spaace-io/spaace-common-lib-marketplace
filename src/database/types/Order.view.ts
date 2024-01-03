@@ -25,6 +25,9 @@ import { ActiveOrderCached, Marketplace, OrderEntity, OrderType } from '..';
       .addSelect('"order"."price"', 'price')
       .addSelect('"order"."startingPrice"', 'startingPrice')
       .addSelect('"order"."currency"', 'currency')
+      .addSelect('"order"."royalties"', 'royalties')
+      .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
+      .addSelect('"order"."royaltiesReceiver"', 'royaltiesReceiver')
       .addSelect('"order"."startTime"', 'startTime')
       .addSelect('"order"."endTime"', 'endTime')
       .addSelect('"order"."counter"', 'counter')
@@ -32,8 +35,6 @@ import { ActiveOrderCached, Marketplace, OrderEntity, OrderType } from '..';
       .addSelect('"order"."cancelTxHash"', 'cancelTxHash')
       .addSelect('"order"."cancelLogIdx"', 'cancelLogIdx')
       .addSelect('"order"."cancelTimestamp"', 'cancelTimestamp')
-      .addSelect('"order"."royalties"', 'royalties')
-      .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
       .addSelect(
         (query) =>
           query.fromDummy().select(
@@ -108,6 +109,24 @@ export class Order extends BaseEntity {
   })
   currency!: string;
 
+  @Field(() => String)
+  @ViewColumn()
+  royalties!: string;
+
+  @Field(() => String, { nullable: true })
+  @ViewColumn()
+  startingRoyalties!: string | null;
+
+  @Field(() => String, { nullable: true })
+  @ViewColumn()
+  @Transform(
+    ({ value }) => (value !== null ? ethers.utils.getAddress(value) : null),
+    {
+      toPlainOnly: true,
+    },
+  )
+  royaltiesReceiver!: string | null;
+
   @Field(() => Date)
   @ViewColumn()
   startTime!: Date;
@@ -150,14 +169,6 @@ export class Order extends BaseEntity {
   @Field(() => Date, { nullable: true })
   @ViewColumn()
   cancelTimestamp!: Date | null;
-
-  @Field(() => String)
-  @ViewColumn()
-  royalties!: string;
-
-  @Field(() => String, { nullable: true })
-  @ViewColumn()
-  startingRoyalties!: string | null;
 
   // Cached columns
 

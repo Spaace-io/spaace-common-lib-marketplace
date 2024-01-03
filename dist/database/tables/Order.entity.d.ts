@@ -20,6 +20,9 @@ export declare class OrderEntity extends BaseEntity {
     price: string;
     startingPrice: string | null;
     currency: string;
+    royalties: string;
+    startingRoyalties: string | null;
+    royaltiesReceiver: string | null;
     startTime: Date;
     endTime: Date | null;
     counter: string;
@@ -27,6 +30,4 @@ export declare class OrderEntity extends BaseEntity {
     cancelTxHash: string | null;
     cancelLogIdx: string | null;
     cancelTimestamp: Date | null;
-    royalties: string;
-    startingRoyalties: string | null;
 }
