@@ -180,28 +180,14 @@ CollectionRankingCached = __decorate([
     (0, typeorm_1.Index)(['previousVolume24h']),
     (0, typeorm_1.Index)(['previousVolume7d']),
     (0, typeorm_1.Index)(['previousVolume30d']),
-    (0, typeorm_1.Index)(['previousVolume90d'])
-    // @Index(() => ['"volume1h" - "previousVolume1h"'])
-    // @Index(() => ['"volume6h" - "previousVolume6h"'])
-    // @Index(() => ['"volume24h" - "previousVolume24h"'])
-    // @Index(() => ['"volume7d" - "previousVolume7d"'])
-    // @Index(() => ['"volume30d" - "previousVolume30d"'])
-    // @Index(() => ['"volume90d" - "previousVolume90d"'])
-    ,
+    (0, typeorm_1.Index)(['previousVolume90d']),
     (0, typeorm_1.Index)(['floorPrice']),
     (0, typeorm_1.Index)(['previousFloorPrice1h']),
     (0, typeorm_1.Index)(['previousFloorPrice6h']),
     (0, typeorm_1.Index)(['previousFloorPrice24h']),
     (0, typeorm_1.Index)(['previousFloorPrice7d']),
     (0, typeorm_1.Index)(['previousFloorPrice30d']),
-    (0, typeorm_1.Index)(['previousFloorPrice90d'])
-    // @Index(() => ['"floorPrice" - "previousFloorPrice1h"'])
-    // @Index(() => ['"floorPrice" - "previousFloorPrice6h"'])
-    // @Index(() => ['"floorPrice" - "previousFloorPrice24h"'])
-    // @Index(() => ['"floorPrice" - "previousFloorPrice7d"'])
-    // @Index(() => ['"floorPrice" - "previousFloorPrice30d"'])
-    // @Index(() => ['"floorPrice" - "previousFloorPrice90d"'])
-    ,
+    (0, typeorm_1.Index)(['previousFloorPrice90d']),
     (0, typeorm_1.Index)(['saleCount']),
     (0, typeorm_1.Index)(['saleCount1h']),
     (0, typeorm_1.Index)(['saleCount6h']),
