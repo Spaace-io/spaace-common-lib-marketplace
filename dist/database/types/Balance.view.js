@@ -151,6 +151,11 @@ Balance = __decorate([
                 .getQuery()}`), 'hidden')
                 .addSelect((q) => q
                 .from(__1.ItemEntity, 'item')
+                .select('"item"."rarityScore"')
+                .where('"item"."collectionAddress" = "balance"."collectionAddress"')
+                .andWhere('"item"."tokenId" = "balance"."tokenId"'), 'rarityScore')
+                .addSelect((q) => q
+                .from(__1.ItemEntity, 'item')
                 .select('CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END')
                 .where('"item"."collectionAddress" = "balance"."collectionAddress"')
                 .andWhere('"item"."tokenId" = "balance"."tokenId"'), 'rarityBasisPoints')
