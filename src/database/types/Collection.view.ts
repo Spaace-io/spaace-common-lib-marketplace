@@ -81,6 +81,30 @@ import {
       .addSelect('COALESCE("ranking"."saleCount7d", 0)', 'saleCount7d')
       .addSelect('COALESCE("ranking"."saleCount30d", 0)', 'saleCount30d')
       .addSelect('COALESCE("ranking"."saleCount90d", 0)', 'saleCount90d')
+      .addSelect(
+        'COALESCE("ranking"."previousSaleCount1h", 0)',
+        'previousSaleCount1h',
+      )
+      .addSelect(
+        'COALESCE("ranking"."previousSaleCount6h", 0)',
+        'previousSaleCount6h',
+      )
+      .addSelect(
+        'COALESCE("ranking"."previousSaleCount24h", 0)',
+        'previousSaleCount24h',
+      )
+      .addSelect(
+        'COALESCE("ranking"."previousSaleCount7d", 0)',
+        'previousSaleCount7d',
+      )
+      .addSelect(
+        'COALESCE("ranking"."previousSaleCount30d", 0)',
+        'previousSaleCount30d',
+      )
+      .addSelect(
+        'COALESCE("ranking"."previousSaleCount90d", 0)',
+        'previousSaleCount90d',
+      )
       .addSelect('COALESCE("ranking"."totalSupply", 0)', 'totalSupply')
       .addSelect('COALESCE("ranking"."ownerCount", 0)', 'ownerCount')
       .addSelect('COALESCE("ranking"."listedCount", 0)', 'listedCount')
