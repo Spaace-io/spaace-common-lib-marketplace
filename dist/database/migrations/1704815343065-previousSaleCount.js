@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PreviousSaleCount1704214315065 = void 0;
-class PreviousSaleCount1704214315065 {
+exports.PreviousSaleCount1704815343065 = void 0;
+class PreviousSaleCount1704815343065 {
     constructor() {
-        this.name = 'PreviousSaleCount1704214315065';
+        this.name = 'PreviousSaleCount1704815343065';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -161,5 +161,5 @@ class PreviousSaleCount1704214315065 {
         });
     }
 }
-exports.PreviousSaleCount1704214315065 = PreviousSaleCount1704214315065;
-//# sourceMappingURL=1704214315065-previousSaleCount.js.map
+exports.PreviousSaleCount1704815343065 = PreviousSaleCount1704815343065;
+//# sourceMappingURL=1704815343065-previousSaleCount.js.map
