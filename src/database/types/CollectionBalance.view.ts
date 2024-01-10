@@ -2,7 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
-import { BalanceEntity, CollectionRankingCached } from '..';
+import { BalanceEntity, CollectionEntity, CollectionRankingCached } from '..';
 
 @ObjectType()
 @ViewEntity({
@@ -35,6 +35,24 @@ import { BalanceEntity, CollectionRankingCached } from '..';
         .addSelect('"balance"."userAddress"', 'userAddress')
         .addSelect('"balance"."balance"', 'balance')
         .addSelect('"balance"."itemCount"', 'itemCount')
+
+        // Used for searching
+        .addSelect(
+          (q) =>
+            q
+              .from(CollectionEntity, 'collection')
+              .select('"collection"."description"')
+              .where('"collection"."address" = "balance"."collectionAddress"'),
+          'description',
+        )
+        .addSelect(
+          (q) =>
+            q
+              .from(CollectionEntity, 'collection')
+              .select('"collection"."name"')
+              .where('"collection"."address" = "balance"."collectionAddress"'),
+          'name',
+        )
 
         // Used for sorting/filtering, but not included in the GraphQL output
         .addSelect('COALESCE("collection"."volume", 0)', 'volume')

@@ -64,6 +64,15 @@ CollectionBalance = __decorate([
                 .addSelect('"balance"."userAddress"', 'userAddress')
                 .addSelect('"balance"."balance"', 'balance')
                 .addSelect('"balance"."itemCount"', 'itemCount')
+                // Used for searching
+                .addSelect((q) => q
+                .from(__1.CollectionEntity, 'collection')
+                .select('"collection"."description"')
+                .where('"collection"."address" = "balance"."collectionAddress"'), 'description')
+                .addSelect((q) => q
+                .from(__1.CollectionEntity, 'collection')
+                .select('"collection"."name"')
+                .where('"collection"."address" = "balance"."collectionAddress"'), 'name')
                 // Used for sorting/filtering, but not included in the GraphQL output
                 .addSelect('COALESCE("collection"."volume", 0)', 'volume')
                 .addSelect('COALESCE("collection"."volume1h", 0)', 'volume1h')
