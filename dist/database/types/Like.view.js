@@ -71,7 +71,12 @@ Like = __decorate([
                 .from(__1.ItemEntity, 'item')
                 .select('"item"."title"')
                 .where('"item"."collectionAddress" = "like"."collectionAddress"')
-                .andWhere('"item"."tokenId" = "like"."tokenId"'), 'title'));
+                .andWhere('"item"."tokenId" = "like"."tokenId"'), 'title')
+                .addSelect((q) => q
+                .from(__1.ItemEntity, 'item')
+                .select('"item"."description"')
+                .where('"item"."collectionAddress" = "like"."collectionAddress"')
+                .andWhere('"item"."tokenId" = "like"."tokenId"'), 'itemDescription'));
         },
         name: 'likes_view',
     })

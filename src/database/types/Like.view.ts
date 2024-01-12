@@ -45,6 +45,16 @@ import { CollectionEntity, ItemEntity, LikeEntity } from '..';
               .andWhere('"item"."tokenId" = "like"."tokenId"'),
           'title',
         )
+
+        .addSelect(
+          (q) =>
+            q
+              .from(ItemEntity, 'item')
+              .select('"item"."description"')
+              .where('"item"."collectionAddress" = "like"."collectionAddress"')
+              .andWhere('"item"."tokenId" = "like"."tokenId"'),
+          'itemDescription',
+        )
     );
   },
   name: 'likes_view',
