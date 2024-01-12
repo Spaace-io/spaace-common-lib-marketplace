@@ -12,7 +12,7 @@ import {
   ActiveOrderCached,
   CollectionRankingCached,
   ItemEntity,
-  Like,
+  LikeEntity,
   OrderType,
   SaleEntity,
   TransferEntity,
@@ -189,7 +189,7 @@ import { utils } from '../..';
         .addSelect(
           (q) =>
             q
-              .from(Like, 'like')
+              .from(LikeEntity, 'like')
               .select('COUNT(*)')
               .where('"like"."collectionAddress" = "item"."collectionAddress"')
               .andWhere('"like"."tokenId" = "item"."tokenId"'),

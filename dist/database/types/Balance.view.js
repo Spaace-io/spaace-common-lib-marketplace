@@ -170,7 +170,7 @@ Balance = __decorate([
                 .addSelect('"mint"."timestamp"', 'mintTimestamp')
                 .addSelect('"lastTransfer"."timestamp"', 'lastTransferTimestamp')
                 .addSelect((q) => q
-                .from(__1.Like, 'like')
+                .from(__1.LikeEntity, 'like')
                 .select('COUNT(*)')
                 .where('"like"."collectionAddress" = "balance"."collectionAddress"')
                 .andWhere('"like"."tokenId" = "balance"."tokenId"'), 'likeCount')

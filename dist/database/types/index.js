@@ -23,6 +23,7 @@ __exportStar(require("./DistributorReward.view"), exports);
 __exportStar(require("./Item.view"), exports);
 __exportStar(require("./ItemMedia.view"), exports);
 __exportStar(require("./ItemAttribute.view"), exports);
+__exportStar(require("./Like.view"), exports);
 __exportStar(require("./Order.view"), exports);
 __exportStar(require("./RewardPeriod.view"), exports);
 __exportStar(require("./Sale.view"), exports);

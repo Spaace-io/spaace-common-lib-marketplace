@@ -7,6 +7,7 @@ export * from './DistributorReward.view';
 export * from './Item.view';
 export * from './ItemMedia.view';
 export * from './ItemAttribute.view';
+export * from './Like.view';
 export * from './Order.view';
 export * from './RewardPeriod.view';
 export * from './Sale.view';

@@ -14,7 +14,7 @@ import {
   CollectionRankingCached,
   HiddenItem,
   ItemEntity,
-  Like,
+  LikeEntity,
   OrderType,
   SaleEntity,
   TransferEntity,
@@ -249,7 +249,7 @@ import { utils } from '../..';
         .addSelect(
           (q) =>
             q
-              .from(Like, 'like')
+              .from(LikeEntity, 'like')
               .select('COUNT(*)')
               .where(
                 '"like"."collectionAddress" = "balance"."collectionAddress"',
