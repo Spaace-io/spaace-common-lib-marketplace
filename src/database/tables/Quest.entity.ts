@@ -12,7 +12,7 @@ import {
 
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
-import { Season } from '.';
+import { LoyaltyRank, Season } from '.';
 import { ValidateNested } from 'class-validator';
 
 export enum QuestTrigger {
@@ -146,4 +146,12 @@ export class Quest extends BaseEntity {
   @Field(() => QuestPeriod)
   @Column('enum', { enum: QuestPeriod, enumName: 'quest_period' })
   period!: QuestPeriod;
+
+  @Field(() => LoyaltyRank)
+  @Column('enum', {
+    enum: LoyaltyRank,
+    enumName: 'loyalty_rank',
+    default: LoyaltyRank.BRONZE_5,
+  })
+  rank!: LoyaltyRank;
 }
