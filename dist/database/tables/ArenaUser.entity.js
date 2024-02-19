@@ -31,6 +31,11 @@ __decorate([
     __metadata("design:type", Object)
 ], ArenaUser.prototype, "imageUrl", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text', { unique: true }),
+    __metadata("design:type", String)
+], ArenaUser.prototype, "referralCode", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     (0, typeorm_1.ManyToOne)(() => ArenaUser_1, { nullable: true }),
