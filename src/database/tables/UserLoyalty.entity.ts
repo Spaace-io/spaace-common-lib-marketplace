@@ -34,4 +34,8 @@ export class UserLoyalty extends BaseEntity {
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   points!: string;
+
+  @Field(() => String)
+  @Column('bigint', { default: '0' })
+  questCompleted!: string;
 }

@@ -1,4 +1,5 @@
 import { BaseEntity } from 'typeorm';
+import { LoyaltyRank } from '.';
 export declare enum QuestTrigger {
     TOKEN_TRANSFER = "TOKEN_TRANSFER",
     UNISWAP = "UNISWAP",
@@ -50,4 +51,5 @@ export declare class Quest extends BaseEntity {
     boostLimit: string | null;
     limit: string;
     period: QuestPeriod;
+    rank: LoyaltyRank;
 }

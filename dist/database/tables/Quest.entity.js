@@ -169,6 +169,15 @@ __decorate([
     (0, typeorm_1.Column)('enum', { enum: QuestPeriod, enumName: 'quest_period' }),
     __metadata("design:type", String)
 ], Quest.prototype, "period", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => _1.LoyaltyRank),
+    (0, typeorm_1.Column)('enum', {
+        enum: _1.LoyaltyRank,
+        enumName: 'loyalty_rank',
+        default: _1.LoyaltyRank.BRONZE_5,
+    }),
+    __metadata("design:type", String)
+], Quest.prototype, "rank", void 0);
 Quest = Quest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'quests' }),
