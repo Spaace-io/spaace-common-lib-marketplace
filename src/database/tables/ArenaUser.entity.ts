@@ -23,9 +23,9 @@ export class ArenaUser extends BaseEntity {
   @Column('text', { nullable: true })
   imageUrl!: string | null;
 
-  @Field(() => String)
-  @Column('text', { unique: true })
-  referralCode!: string;
+  // @Field(() => String)
+  // @Column('text', { unique: true })
+  // referralCode!: string;
 
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
