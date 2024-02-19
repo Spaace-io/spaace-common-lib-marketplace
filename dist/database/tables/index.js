@@ -28,6 +28,7 @@ __exportStar(require("./StakingHarvest.entity"), exports);
 __exportStar(require("./StakingReward.entity"), exports);
 __exportStar(require("./Balance.entity"), exports);
 __exportStar(require("./TokenBalance.entity"), exports);
+__exportStar(require("./ArenaUser.entity"), exports);
 __exportStar(require("./DistributorReward.entity"), exports);
 __exportStar(require("./RewardPeriod.entity"), exports);
 __exportStar(require("./Order.entity"), exports);

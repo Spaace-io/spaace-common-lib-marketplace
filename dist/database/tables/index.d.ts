@@ -12,6 +12,7 @@ export * from './StakingHarvest.entity';
 export * from './StakingReward.entity';
 export * from './Balance.entity';
 export * from './TokenBalance.entity';
+export * from './ArenaUser.entity';
 export * from './DistributorReward.entity';
 export * from './RewardPeriod.entity';
 export * from './Order.entity';
