@@ -22,7 +22,7 @@ export enum ArenaQuestTrigger {
 }
 
 registerEnumType(ArenaQuestTrigger, {
-  name: 'QuestTrigger',
+  name: 'ArenaQuestTrigger',
 });
 
 export enum ArenaQuestRuleOperator {
@@ -35,7 +35,7 @@ export enum ArenaQuestRuleOperator {
 }
 
 registerEnumType(ArenaQuestRuleOperator, {
-  name: 'QuestRuleOperator',
+  name: 'ArenaQuestRuleOperator',
 });
 
 @ObjectType()
@@ -77,7 +77,7 @@ registerEnumType(ArenaQuestPeriod, {
 });
 
 @ObjectType()
-@Entity({ name: 'arena-quests' })
+@Entity({ name: 'arena_quests' })
 @Unique(['seasonNumber', 'name'])
 export class AreanaQuest extends BaseEntity {
   @Field(() => String)

@@ -23,7 +23,7 @@ var ArenaQuestTrigger;
     ArenaQuestTrigger["REFERRAL"] = "REFERRAL";
 })(ArenaQuestTrigger = exports.ArenaQuestTrigger || (exports.ArenaQuestTrigger = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestTrigger, {
-    name: 'QuestTrigger',
+    name: 'ArenaQuestTrigger',
 });
 var ArenaQuestRuleOperator;
 (function (ArenaQuestRuleOperator) {
@@ -35,7 +35,7 @@ var ArenaQuestRuleOperator;
     ArenaQuestRuleOperator["NEQ"] = "NEQ";
 })(ArenaQuestRuleOperator = exports.ArenaQuestRuleOperator || (exports.ArenaQuestRuleOperator = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestRuleOperator, {
-    name: 'QuestRuleOperator',
+    name: 'ArenaQuestRuleOperator',
 });
 let ArenaQuestRule = class ArenaQuestRule {
 };
@@ -170,7 +170,7 @@ __decorate([
 ], AreanaQuest.prototype, "rank", void 0);
 AreanaQuest = AreanaQuest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'arena-quests' }),
+    (0, typeorm_1.Entity)({ name: 'arena_quests' }),
     (0, typeorm_1.Unique)(['seasonNumber', 'name'])
 ], AreanaQuest);
 exports.AreanaQuest = AreanaQuest;
