@@ -31,6 +31,12 @@ export enum QuestTrigger {
   DATA_COMPILED = 'DATA_COMPILED',
 }
 
+export enum ArenaQuestTrigger {
+  USER = 'USER',
+  USER_QUEST_PROGRESS = 'USER_QUEST_PROGRESS',
+  REFERRAL = 'REFERRAL',
+}
+
 registerEnumType(QuestTrigger, {
   name: 'QuestTrigger',
 });

@@ -12,6 +12,8 @@ import {
   CollectionEntity,
   ItemEntity,
   ItemMediaEntity,
+  ArenaUser,
+  ArenaQuestTrigger,
 } from '../../database';
 import { UserInteraction } from '../../graphql';
 import {
@@ -58,4 +60,11 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
     ? CollectionEntity
     : T extends SearchIndexType.USER
     ? User
+    : never;
+
+export type ArenaPubSubData<T extends PubSubTrigger<PubSubTopic>> =
+  T extends ArenaQuestTrigger.USER
+    ? ArenaUser
+    : T extends ArenaQuestTrigger.REFERRAL
+    ? ArenaUser
     : never;

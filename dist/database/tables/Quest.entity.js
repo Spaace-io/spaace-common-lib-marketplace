@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var Quest_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Quest = exports.QuestPeriod = exports.QuestStep = exports.QuestRule = exports.QuestRuleOperator = exports.QuestTrigger = void 0;
+exports.Quest = exports.QuestPeriod = exports.QuestStep = exports.QuestRule = exports.QuestRuleOperator = exports.ArenaQuestTrigger = exports.QuestTrigger = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
@@ -32,6 +32,12 @@ var QuestTrigger;
     QuestTrigger["USER_INTERACTION"] = "USER_INTERACTION";
     QuestTrigger["DATA_COMPILED"] = "DATA_COMPILED";
 })(QuestTrigger = exports.QuestTrigger || (exports.QuestTrigger = {}));
+var ArenaQuestTrigger;
+(function (ArenaQuestTrigger) {
+    ArenaQuestTrigger["USER"] = "USER";
+    ArenaQuestTrigger["USER_QUEST_PROGRESS"] = "USER_QUEST_PROGRESS";
+    ArenaQuestTrigger["REFERRAL"] = "REFERRAL";
+})(ArenaQuestTrigger = exports.ArenaQuestTrigger || (exports.ArenaQuestTrigger = {}));
 (0, graphql_1.registerEnumType)(QuestTrigger, {
     name: 'QuestTrigger',
 });
