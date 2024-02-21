@@ -62,7 +62,7 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
     ? User
     : never;
 
-export type ArenaPubSubData<T extends PubSubTrigger<PubSubTopic>> =
+export type ArenaPubSubData<T extends ArenaQuestTrigger> =
   T extends ArenaQuestTrigger.USER
     ? ArenaUser
     : T extends ArenaQuestTrigger.REFERRAL
