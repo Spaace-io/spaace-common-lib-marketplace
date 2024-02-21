@@ -23,9 +23,9 @@ export class ArenaUser extends BaseEntity {
   @Column('text', { nullable: true })
   imageUrl!: string | null;
 
-  // @Field(() => String)
-  // @Column('text', { unique: true })
-  // referralCode!: string;
+  @Field(() => String)
+  @Column('text', { unique: true })
+  referralCode!: string;
 
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
@@ -35,6 +35,26 @@ export class ArenaUser extends BaseEntity {
     referencedColumnName: 'twitterUsername',
   })
   referrerUsername!: string | null;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  loyatyPointsEarned!: string;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  totalStarsEarned!: string;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  level!: string;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  dailyStreak!: string;
+
+  @Field(() => Date)
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
+  lastActive!: Date;
 
   @Field(() => Date)
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })

@@ -15,11 +15,6 @@ export declare enum QuestTrigger {
     USER_INTERACTION = "USER_INTERACTION",
     DATA_COMPILED = "DATA_COMPILED"
 }
-export declare enum ArenaQuestTrigger {
-    USER = "USER",
-    USER_QUEST_PROGRESS = "USER_QUEST_PROGRESS",
-    REFERRAL = "REFERRAL"
-}
 export declare enum QuestRuleOperator {
     EQ = "EQ",
     GT = "GT",

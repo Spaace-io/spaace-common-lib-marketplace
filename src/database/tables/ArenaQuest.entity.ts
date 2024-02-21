@@ -15,27 +15,17 @@ import { Type } from 'class-transformer';
 import { LoyaltyRank, Season } from '.';
 import { ValidateNested } from 'class-validator';
 
-export enum QuestTrigger {
-  TOKEN_TRANSFER = 'TOKEN_TRANSFER',
-  UNISWAP = 'UNISWAP',
-  TRANSFER = 'TRANSFER',
-  SALE = 'SALE',
-  ORDER = 'ORDER',
+export enum ArenaQuestTrigger {
   USER = 'USER',
-  STAKING_DEPOSIT = 'STAKING_DEPOSIT',
-  DISTRIBUTOR_REWARD = 'DISTRIBUTOR_REWARD',
   USER_QUEST_PROGRESS = 'USER_QUEST_PROGRESS',
   REFERRAL = 'REFERRAL',
-  CART_ITEM = 'CART_ITEM',
-  USER_INTERACTION = 'USER_INTERACTION',
-  DATA_COMPILED = 'DATA_COMPILED',
 }
 
-registerEnumType(QuestTrigger, {
+registerEnumType(ArenaQuestTrigger, {
   name: 'QuestTrigger',
 });
 
-export enum QuestRuleOperator {
+export enum ArenaQuestRuleOperator {
   EQ = 'EQ',
   GT = 'GT',
   GTE = 'GTE',
@@ -44,17 +34,17 @@ export enum QuestRuleOperator {
   NEQ = 'NEQ',
 }
 
-registerEnumType(QuestRuleOperator, {
+registerEnumType(ArenaQuestRuleOperator, {
   name: 'QuestRuleOperator',
 });
 
 @ObjectType()
-export class QuestRule {
+export class ArenaQuestRule {
   @Field(() => String)
   property!: string;
 
-  @Field(() => QuestRuleOperator)
-  operator!: QuestRuleOperator;
+  @Field(() => ArenaQuestRuleOperator)
+  operator!: ArenaQuestRuleOperator;
 
   @Field(() => String)
   value!: string;
@@ -64,32 +54,32 @@ export class QuestRule {
 }
 
 @ObjectType()
-export class QuestStep {
-  @Field(() => QuestTrigger)
-  trigger!: QuestTrigger;
+export class ArenaQuestStep {
+  @Field(() => ArenaQuestTrigger)
+  trigger!: ArenaQuestTrigger;
 
-  @Field(() => [QuestRule])
-  @Type(() => QuestRule)
+  @Field(() => [ArenaQuestRule])
+  @Type(() => ArenaQuestRule)
   @ValidateNested({ each: true })
-  rules!: QuestRule[];
+  rules!: ArenaQuestRule[];
 
   @Field(() => Boolean, { defaultValue: false })
   cron?: boolean;
 }
 
-export enum QuestPeriod {
+export enum ArenaQuestPeriod {
   DAILY = 'DAILY',
   SEASONAL = 'SEASONAL',
 }
 
-registerEnumType(QuestPeriod, {
-  name: 'QuestPeriod',
+registerEnumType(ArenaQuestPeriod, {
+  name: 'ArenaQuestPeriod',
 });
 
 @ObjectType()
-@Entity({ name: 'quests' })
+@Entity({ name: 'arena-quests' })
 @Unique(['seasonNumber', 'name'])
-export class Quest extends BaseEntity {
+export class AreanaQuest extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   @ManyToOne(() => Season)
@@ -106,7 +96,7 @@ export class Quest extends BaseEntity {
 
   @Field(() => String, { nullable: true })
   @Column('uuid', { nullable: true })
-  @OneToOne(() => Quest)
+  @OneToOne(() => AreanaQuest)
   @JoinColumn([
     { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
     { name: 'previousQuestId', referencedColumnName: 'id' },
@@ -121,11 +111,11 @@ export class Quest extends BaseEntity {
   @Column('boolean', { default: false })
   prime!: boolean;
 
-  @Field(() => [QuestStep])
+  @Field(() => [ArenaQuestStep])
   @Column('jsonb', { default: [] })
-  @Type(() => QuestStep)
+  @Type(() => ArenaQuestStep)
   @ValidateNested({ each: true })
-  steps!: QuestStep[];
+  steps!: ArenaQuestStep[];
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
@@ -143,9 +133,9 @@ export class Quest extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true, default: '1' })
   limit!: string;
 
-  @Field(() => QuestPeriod)
-  @Column('enum', { enum: QuestPeriod, enumName: 'quest_period' })
-  period!: QuestPeriod;
+  @Field(() => ArenaQuestPeriod)
+  @Column('enum', { enum: ArenaQuestPeriod, enumName: 'quest_period' })
+  period!: ArenaQuestPeriod;
 
   @Field(() => LoyaltyRank)
   @Column('enum', {

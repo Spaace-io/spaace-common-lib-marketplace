@@ -31,6 +31,11 @@ __decorate([
     __metadata("design:type", Object)
 ], ArenaUser.prototype, "imageUrl", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text', { unique: true }),
+    __metadata("design:type", String)
+], ArenaUser.prototype, "referralCode", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     (0, typeorm_1.ManyToOne)(() => ArenaUser_1, { nullable: true }),
@@ -40,6 +45,31 @@ __decorate([
     }),
     __metadata("design:type", Object)
 ], ArenaUser.prototype, "referrerUsername", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], ArenaUser.prototype, "loyatyPointsEarned", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], ArenaUser.prototype, "totalStarsEarned", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], ArenaUser.prototype, "level", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], ArenaUser.prototype, "dailyStreak", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Date),
+    (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
+    __metadata("design:type", Date)
+], ArenaUser.prototype, "lastActive", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),

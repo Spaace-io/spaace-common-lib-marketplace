@@ -8,96 +8,86 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var Quest_1;
+var AreanaQuest_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Quest = exports.QuestPeriod = exports.QuestStep = exports.QuestRule = exports.QuestRuleOperator = exports.QuestTrigger = void 0;
+exports.AreanaQuest = exports.ArenaQuestPeriod = exports.ArenaQuestStep = exports.ArenaQuestRule = exports.ArenaQuestRuleOperator = exports.ArenaQuestTrigger = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const _1 = require(".");
 const class_validator_1 = require("class-validator");
-var QuestTrigger;
-(function (QuestTrigger) {
-    QuestTrigger["TOKEN_TRANSFER"] = "TOKEN_TRANSFER";
-    QuestTrigger["UNISWAP"] = "UNISWAP";
-    QuestTrigger["TRANSFER"] = "TRANSFER";
-    QuestTrigger["SALE"] = "SALE";
-    QuestTrigger["ORDER"] = "ORDER";
-    QuestTrigger["USER"] = "USER";
-    QuestTrigger["STAKING_DEPOSIT"] = "STAKING_DEPOSIT";
-    QuestTrigger["DISTRIBUTOR_REWARD"] = "DISTRIBUTOR_REWARD";
-    QuestTrigger["USER_QUEST_PROGRESS"] = "USER_QUEST_PROGRESS";
-    QuestTrigger["REFERRAL"] = "REFERRAL";
-    QuestTrigger["CART_ITEM"] = "CART_ITEM";
-    QuestTrigger["USER_INTERACTION"] = "USER_INTERACTION";
-    QuestTrigger["DATA_COMPILED"] = "DATA_COMPILED";
-})(QuestTrigger = exports.QuestTrigger || (exports.QuestTrigger = {}));
-(0, graphql_1.registerEnumType)(QuestTrigger, {
+var ArenaQuestTrigger;
+(function (ArenaQuestTrigger) {
+    ArenaQuestTrigger["USER"] = "USER";
+    ArenaQuestTrigger["USER_QUEST_PROGRESS"] = "USER_QUEST_PROGRESS";
+    ArenaQuestTrigger["REFERRAL"] = "REFERRAL";
+})(ArenaQuestTrigger = exports.ArenaQuestTrigger || (exports.ArenaQuestTrigger = {}));
+(0, graphql_1.registerEnumType)(ArenaQuestTrigger, {
     name: 'QuestTrigger',
 });
-var QuestRuleOperator;
-(function (QuestRuleOperator) {
-    QuestRuleOperator["EQ"] = "EQ";
-    QuestRuleOperator["GT"] = "GT";
-    QuestRuleOperator["GTE"] = "GTE";
-    QuestRuleOperator["LT"] = "LT";
-    QuestRuleOperator["LTE"] = "LTE";
-    QuestRuleOperator["NEQ"] = "NEQ";
-})(QuestRuleOperator = exports.QuestRuleOperator || (exports.QuestRuleOperator = {}));
-(0, graphql_1.registerEnumType)(QuestRuleOperator, {
+var ArenaQuestRuleOperator;
+(function (ArenaQuestRuleOperator) {
+    ArenaQuestRuleOperator["EQ"] = "EQ";
+    ArenaQuestRuleOperator["GT"] = "GT";
+    ArenaQuestRuleOperator["GTE"] = "GTE";
+    ArenaQuestRuleOperator["LT"] = "LT";
+    ArenaQuestRuleOperator["LTE"] = "LTE";
+    ArenaQuestRuleOperator["NEQ"] = "NEQ";
+})(ArenaQuestRuleOperator = exports.ArenaQuestRuleOperator || (exports.ArenaQuestRuleOperator = {}));
+(0, graphql_1.registerEnumType)(ArenaQuestRuleOperator, {
     name: 'QuestRuleOperator',
 });
-let QuestRule = class QuestRule {
+let ArenaQuestRule = class ArenaQuestRule {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
-], QuestRule.prototype, "property", void 0);
+], ArenaQuestRule.prototype, "property", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => QuestRuleOperator),
+    (0, graphql_1.Field)(() => ArenaQuestRuleOperator),
     __metadata("design:type", String)
-], QuestRule.prototype, "operator", void 0);
+], ArenaQuestRule.prototype, "operator", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
-], QuestRule.prototype, "value", void 0);
+], ArenaQuestRule.prototype, "value", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     __metadata("design:type", Object)
-], QuestRule.prototype, "delta", void 0);
-QuestRule = __decorate([
+], ArenaQuestRule.prototype, "delta", void 0);
+ArenaQuestRule = __decorate([
     (0, graphql_1.ObjectType)()
-], QuestRule);
-exports.QuestRule = QuestRule;
-let QuestStep = class QuestStep {
+], ArenaQuestRule);
+exports.ArenaQuestRule = ArenaQuestRule;
+let ArenaQuestStep = class ArenaQuestStep {
 };
 __decorate([
-    (0, graphql_1.Field)(() => QuestTrigger),
+    (0, graphql_1.Field)(() => ArenaQuestTrigger),
     __metadata("design:type", String)
-], QuestStep.prototype, "trigger", void 0);
+], ArenaQuestStep.prototype, "trigger", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [QuestRule]),
-    (0, class_transformer_1.Type)(() => QuestRule),
+    (0, graphql_1.Field)(() => [ArenaQuestRule]),
+    (0, class_transformer_1.Type)(() => ArenaQuestRule),
     (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
-], QuestStep.prototype, "rules", void 0);
+], ArenaQuestStep.prototype, "rules", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Boolean, { defaultValue: false }),
     __metadata("design:type", Boolean)
-], QuestStep.prototype, "cron", void 0);
-QuestStep = __decorate([
+], ArenaQuestStep.prototype, "cron", void 0);
+ArenaQuestStep = __decorate([
     (0, graphql_1.ObjectType)()
-], QuestStep);
-exports.QuestStep = QuestStep;
-var QuestPeriod;
-(function (QuestPeriod) {
-    QuestPeriod["DAILY"] = "DAILY";
-    QuestPeriod["SEASONAL"] = "SEASONAL";
-})(QuestPeriod = exports.QuestPeriod || (exports.QuestPeriod = {}));
-(0, graphql_1.registerEnumType)(QuestPeriod, {
-    name: 'QuestPeriod',
+], ArenaQuestStep);
+exports.ArenaQuestStep = ArenaQuestStep;
+var ArenaQuestPeriod;
+(function (ArenaQuestPeriod) {
+    ArenaQuestPeriod["DAILY"] = "DAILY";
+    ArenaQuestPeriod["SEASONAL"] = "SEASONAL";
+})(ArenaQuestPeriod = exports.ArenaQuestPeriod || (exports.ArenaQuestPeriod = {}));
+(0, graphql_1.registerEnumType)(ArenaQuestPeriod, {
+    name: 'ArenaQuestPeriod',
 });
-let Quest = Quest_1 = class Quest extends typeorm_1.BaseEntity {
+let AreanaQuest = AreanaQuest_1 = class AreanaQuest extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -106,69 +96,69 @@ __decorate([
     (0, typeorm_1.ManyToOne)(() => _1.Season),
     (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
     __metadata("design:type", String)
-], Quest.prototype, "seasonNumber", void 0);
+], AreanaQuest.prototype, "seasonNumber", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
-], Quest.prototype, "id", void 0);
+], AreanaQuest.prototype, "id", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
-], Quest.prototype, "name", void 0);
+], AreanaQuest.prototype, "name", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('uuid', { nullable: true }),
-    (0, typeorm_1.OneToOne)(() => Quest_1),
+    (0, typeorm_1.OneToOne)(() => AreanaQuest_1),
     (0, typeorm_1.JoinColumn)([
         { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
         { name: 'previousQuestId', referencedColumnName: 'id' },
     ]),
     __metadata("design:type", Object)
-], Quest.prototype, "previousQuestId", void 0);
+], AreanaQuest.prototype, "previousQuestId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
-], Quest.prototype, "count", void 0);
+], AreanaQuest.prototype, "count", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)
-], Quest.prototype, "prime", void 0);
+], AreanaQuest.prototype, "prime", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [QuestStep]),
+    (0, graphql_1.Field)(() => [ArenaQuestStep]),
     (0, typeorm_1.Column)('jsonb', { default: [] }),
-    (0, class_transformer_1.Type)(() => QuestStep),
+    (0, class_transformer_1.Type)(() => ArenaQuestStep),
     (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
-], Quest.prototype, "steps", void 0);
+], AreanaQuest.prototype, "steps", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
-], Quest.prototype, "loyaltyPoints", void 0);
+], AreanaQuest.prototype, "loyaltyPoints", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
-], Quest.prototype, "boost", void 0);
+], AreanaQuest.prototype, "boost", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
     __metadata("design:type", Object)
-], Quest.prototype, "boostLimit", void 0);
+], AreanaQuest.prototype, "boostLimit", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),
     __metadata("design:type", String)
-], Quest.prototype, "limit", void 0);
+], AreanaQuest.prototype, "limit", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => QuestPeriod),
-    (0, typeorm_1.Column)('enum', { enum: QuestPeriod, enumName: 'quest_period' }),
+    (0, graphql_1.Field)(() => ArenaQuestPeriod),
+    (0, typeorm_1.Column)('enum', { enum: ArenaQuestPeriod, enumName: 'quest_period' }),
     __metadata("design:type", String)
-], Quest.prototype, "period", void 0);
+], AreanaQuest.prototype, "period", void 0);
 __decorate([
     (0, graphql_1.Field)(() => _1.LoyaltyRank),
     (0, typeorm_1.Column)('enum', {
@@ -177,11 +167,11 @@ __decorate([
         default: _1.LoyaltyRank.BRONZE_5,
     }),
     __metadata("design:type", String)
-], Quest.prototype, "rank", void 0);
-Quest = Quest_1 = __decorate([
+], AreanaQuest.prototype, "rank", void 0);
+AreanaQuest = AreanaQuest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'quests' }),
+    (0, typeorm_1.Entity)({ name: 'arena-quests' }),
     (0, typeorm_1.Unique)(['seasonNumber', 'name'])
-], Quest);
-exports.Quest = Quest;
-//# sourceMappingURL=Quest.entity.js.map
+], AreanaQuest);
+exports.AreanaQuest = AreanaQuest;
+//# sourceMappingURL=ArenaQuest.entity.js.map

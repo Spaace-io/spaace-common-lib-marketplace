@@ -12,7 +12,6 @@ export * from './StakingHarvest.entity';
 export * from './StakingReward.entity';
 export * from './Balance.entity';
 export * from './TokenBalance.entity';
-export * from './ArenaUser.entity';
 
 export * from './DistributorReward.entity';
 export * from './RewardPeriod.entity';
@@ -30,3 +29,12 @@ export * from './UserSeasonRankClaim.entity';
 export * from './CartItem.entity';
 export * from './Like.entity';
 export * from './Report.entity';
+
+export * from './ArenaUser.entity';
+export * from './ArenaUserProgress.entity';
+export * from './ArenaSeason.entity';
+export * from './ArenaDivision.entity';
+export * from './ArenaLeague.entity';
+export * from './ArenaQuest.entity';
+export * from './ArenaDivision.entity';
+export * from './ArenaCrew.entitiy';
