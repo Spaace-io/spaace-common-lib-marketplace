@@ -12,7 +12,7 @@ import {
 
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
-import { LoyaltyRank, Season } from '.';
+import { LoyaltyRank, ArenaSeason } from '.';
 import { ValidateNested } from 'class-validator';
 
 export enum ArenaQuestTrigger {
@@ -82,7 +82,7 @@ registerEnumType(ArenaQuestPeriod, {
 export class AreanaQuest extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-  @ManyToOne(() => Season)
+  @ManyToOne(() => ArenaSeason)
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
   seasonNumber!: string;
 

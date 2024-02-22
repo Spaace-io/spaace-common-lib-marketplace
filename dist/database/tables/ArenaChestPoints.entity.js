@@ -9,36 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArenaSeason = void 0;
-const typeorm_1 = require("typeorm");
+exports.ArenaChestPoints = void 0;
 const graphql_1 = require("@nestjs/graphql");
-let ArenaSeason = class ArenaSeason extends typeorm_1.BaseEntity {
+const typeorm_1 = require("typeorm");
+let ArenaChestPoints = class ArenaChestPoints extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-    ,
+    (0, typeorm_1.PrimaryColumn)('text'),
     __metadata("design:type", String)
-], ArenaSeason.prototype, "number", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
-    __metadata("design:type", Date)
-], ArenaSeason.prototype, "startTime", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Date, { nullable: true }),
-    (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
-    __metadata("design:type", Object)
-], ArenaSeason.prototype, "endTime", void 0);
+], ArenaChestPoints.prototype, "name", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
-], ArenaSeason.prototype, "rewardCoefiecient", void 0);
-ArenaSeason = __decorate([
+], ArenaChestPoints.prototype, "xp", void 0);
+ArenaChestPoints = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'arena_seasons' }),
-    (0, typeorm_1.Index)(['startTime'])
-], ArenaSeason);
-exports.ArenaSeason = ArenaSeason;
-//# sourceMappingURL=ArenaSeason.entity.js.map
+    (0, typeorm_1.Entity)({ name: 'arena_chest_points' })
+], ArenaChestPoints);
+exports.ArenaChestPoints = ArenaChestPoints;
+//# sourceMappingURL=ArenaChestPoints.entity.js.map

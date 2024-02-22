@@ -17,4 +17,8 @@ export class ArenaSeason extends BaseEntity {
   @Field(() => Date, { nullable: true })
   @Column('timestamp without time zone', { nullable: true })
   endTime!: Date | null;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  rewardCoefiecient!: string;
 }
