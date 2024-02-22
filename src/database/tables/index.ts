@@ -36,5 +36,6 @@ export * from './ArenaSeason.entity';
 export * from './ArenaDivision.entity';
 export * from './ArenaLeague.entity';
 export * from './ArenaQuest.entity';
+export * from './ArenaQuestProgress.entity';
 export * from './ArenaDivision.entity';
 export * from './ArenaCrew.entitiy';
