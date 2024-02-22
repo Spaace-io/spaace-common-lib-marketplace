@@ -15,10 +15,6 @@ export class ArenaUser extends BaseEntity {
   @PrimaryColumn('text')
   twitterUsername!: string;
 
-  @Field(() => String)
-  @PrimaryColumn('text')
-  twitterId!: string;
-
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
   name!: string | null;

@@ -36,7 +36,7 @@ export declare class AreanaQuest extends BaseEntity {
     count: string;
     prime: boolean;
     steps: ArenaQuestStep[];
-    loyaltyPoints: string;
+    stars: string;
     boost: string;
     boostLimit: string | null;
     limit: string;

@@ -119,7 +119,7 @@ export class AreanaQuest extends BaseEntity {
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
-  loyaltyPoints!: string;
+  stars!: string;
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })

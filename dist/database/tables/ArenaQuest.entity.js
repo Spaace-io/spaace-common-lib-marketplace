@@ -138,7 +138,7 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
-], AreanaQuest.prototype, "loyaltyPoints", void 0);
+], AreanaQuest.prototype, "stars", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
