@@ -9,35 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArenaDivision = void 0;
-const typeorm_1 = require("typeorm");
+exports.ArenaCrewLeaderBoard = void 0;
 const graphql_1 = require("@nestjs/graphql");
-const _1 = require(".");
-let ArenaDivision = class ArenaDivision extends typeorm_1.BaseEntity {
+const typeorm_1 = require("typeorm");
+let ArenaCrewLeaderBoard = class ArenaCrewLeaderBoard extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
     __metadata("design:type", String)
-], ArenaDivision.prototype, "divisionName", void 0);
+], ArenaCrewLeaderBoard.prototype, "crewName", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Number),
-    (0, typeorm_1.PrimaryColumn)('integer'),
-    __metadata("design:type", Number)
-], ArenaDivision.prototype, "seasonNumber", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => _1.ArenaSeason),
-    (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
-    __metadata("design:type", _1.ArenaSeason)
-], ArenaDivision.prototype, "season", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Number),
-    (0, typeorm_1.Column)('integer'),
-    __metadata("design:type", Number)
-], ArenaDivision.prototype, "leagueUsersMaxCap", void 0);
-ArenaDivision = __decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], ArenaCrewLeaderBoard.prototype, "position", void 0);
+ArenaCrewLeaderBoard = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'arena_divisions' })
-], ArenaDivision);
-exports.ArenaDivision = ArenaDivision;
-//# sourceMappingURL=ArenaDivision.entity.js.map
+    (0, typeorm_1.Entity)({ name: 'arena_crew_leaderboard' })
+], ArenaCrewLeaderBoard);
+exports.ArenaCrewLeaderBoard = ArenaCrewLeaderBoard;
+//# sourceMappingURL=ArenaCrewLeaderBoard.entity.js.map

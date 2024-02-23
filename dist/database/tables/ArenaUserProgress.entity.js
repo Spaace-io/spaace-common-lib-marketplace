@@ -38,9 +38,24 @@ __decorate([
 ], ArenaUserProgress.prototype, "stars", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], ArenaUserProgress.prototype, "xp", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('bigint', { default: '0' }),
     __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "questCompleted", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text'),
+    __metadata("design:type", String)
+], ArenaUserProgress.prototype, "division", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text'),
+    __metadata("design:type", String)
+], ArenaUserProgress.prototype, "league", void 0);
 ArenaUserProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users_progress' })

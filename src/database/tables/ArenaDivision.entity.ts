@@ -17,9 +17,9 @@ export class ArenaDivision extends BaseEntity {
   @PrimaryColumn('text')
   divisionName!: string;
 
-  @Field(() => String)
-  @Column('text')
-  seasonNumber!: string;
+  @Field(() => Number)
+  @PrimaryColumn('integer')
+  seasonNumber!: number;
 
   @ManyToOne(() => ArenaSeason)
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })

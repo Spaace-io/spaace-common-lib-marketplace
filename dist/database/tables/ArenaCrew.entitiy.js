@@ -34,6 +34,11 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
+], ArenaCrew.prototype, "totalMembers", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
 ], ArenaCrew.prototype, "totalStarsEarned", void 0);
 ArenaCrew = __decorate([
     (0, graphql_1.ObjectType)(),

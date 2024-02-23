@@ -30,6 +30,18 @@ export class ArenaUserProgress extends BaseEntity {
   stars!: string;
 
   @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  xp!: string;
+
+  @Field(() => String)
   @Column('bigint', { default: '0' })
   questCompleted!: string;
+
+  @Field(() => String)
+  @Column('text')
+  division!: string;
+
+  @Field(() => String)
+  @Column('text')
+  league!: string;
 }

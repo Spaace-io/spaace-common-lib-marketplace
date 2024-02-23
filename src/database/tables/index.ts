@@ -42,3 +42,5 @@ export * from './ArenaGenesisSeasonChest.entity';
 export * from './ArenaSeasonChest.entity';
 export * from './ArenaChestPoints.entity';
 export * from './ArenaUserStatistics.entity';
+export * from './ArenaGlobalLeaderBoard.entity';
+export * from './ArenaCrewLeaderBoard.entity';
