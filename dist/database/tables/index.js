@@ -59,4 +59,5 @@ __exportStar(require("./ArenaChestPoints.entity"), exports);
 __exportStar(require("./ArenaUserStatistics.entity"), exports);
 __exportStar(require("./ArenaGlobalLeaderBoard.entity"), exports);
 __exportStar(require("./ArenaCrewLeaderBoard.entity"), exports);
+__exportStar(require("./ArenaUserEarnedChest.entity"), exports);
 //# sourceMappingURL=index.js.map
