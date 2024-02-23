@@ -21,11 +21,6 @@ __decorate([
     __metadata("design:type", String)
 ], ArenaDivision.prototype, "divisionName", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Number),
-    (0, typeorm_1.PrimaryColumn)('integer'),
-    __metadata("design:type", Number)
-], ArenaDivision.prototype, "seasonNumber", void 0);
-__decorate([
     (0, typeorm_1.ManyToOne)(() => _1.ArenaSeason),
     (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
     __metadata("design:type", _1.ArenaSeason)

@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class ArenaLeaderboard1708690226066 implements MigrationInterface {
-  name = 'ArenaLeaderboard1708690226066';
+export class ArenaLeaderboard1708692739545 implements MigrationInterface {
+  name = 'ArenaLeaderboard1708692739545';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
@@ -20,10 +20,16 @@ export class ArenaLeaderboard1708690226066 implements MigrationInterface {
       `ALTER TABLE "arena_users_progress" ADD "league" text NOT NULL`,
     );
     await queryRunner.query(
-      `ALTER TABLE "arena_divisions" DROP CONSTRAINT "PK_ed874545e9614cca8017aa84789"`,
+      `ALTER TABLE "arena_divisions" DROP CONSTRAINT "FK_14d78d3a09b381e9ca08a2a30fa"`,
     );
     await queryRunner.query(
-      `ALTER TABLE "arena_divisions" ADD CONSTRAINT "PK_4297509692a34927505cf4a86a9" PRIMARY KEY ("divisionName", "seasonNumber")`,
+      `ALTER TABLE "arena_divisions" ALTER COLUMN "seasonNumber" TYPE numeric(78)`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "arena_divisions" ALTER COLUMN "seasonNumber" DROP NOT NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "arena_divisions" ADD CONSTRAINT "FK_14d78d3a09b381e9ca08a2a30fa" FOREIGN KEY ("seasonNumber") REFERENCES "arena_seasons"("number") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
       `ALTER TABLE "arena_global_leaderboard" ADD CONSTRAINT "FK_f4169a5bd90ab63ba0a9f3f6d48" FOREIGN KEY ("userTwitter") REFERENCES "arena_users"("twitterUsername") ON DELETE NO ACTION ON UPDATE NO ACTION`,
@@ -35,10 +41,16 @@ export class ArenaLeaderboard1708690226066 implements MigrationInterface {
       `ALTER TABLE "arena_global_leaderboard" DROP CONSTRAINT "FK_f4169a5bd90ab63ba0a9f3f6d48"`,
     );
     await queryRunner.query(
-      `ALTER TABLE "arena_divisions" DROP CONSTRAINT "PK_4297509692a34927505cf4a86a9"`,
+      `ALTER TABLE "arena_divisions" DROP CONSTRAINT "FK_14d78d3a09b381e9ca08a2a30fa"`,
     );
     await queryRunner.query(
-      `ALTER TABLE "arena_divisions" ADD CONSTRAINT "PK_ed874545e9614cca8017aa84789" PRIMARY KEY ("divisionName")`,
+      `ALTER TABLE "arena_divisions" ALTER COLUMN "seasonNumber" SET NOT NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "arena_divisions" ALTER COLUMN "seasonNumber" TYPE numeric`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "arena_divisions" ADD CONSTRAINT "FK_14d78d3a09b381e9ca08a2a30fa" FOREIGN KEY ("seasonNumber") REFERENCES "arena_seasons"("number") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
       `ALTER TABLE "arena_users_progress" DROP COLUMN "league"`,
