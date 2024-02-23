@@ -39,3 +39,7 @@ export * from './ArenaQuest.entity';
 export * from './ArenaQuestProgress.entity';
 export * from './ArenaDivision.entity';
 export * from './ArenaCrew.entitiy';
+export * from './ArenaGenesisSeasonChest.entity';
+export * from './ArenaChestPoints.entity';
+export * from './ArenaLeague.entity';
+export * from './ArenaUserStatistics.entity';
