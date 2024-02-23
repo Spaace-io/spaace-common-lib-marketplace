@@ -30,6 +30,7 @@ export * from './Like.entity';
 export * from './Report.entity';
 export * from './ArenaUser.entity';
 export * from './ArenaUserProgress.entity';
+export * from './ArenaUserEarnedChest.entity';
 export * from './ArenaSeason.entity';
 export * from './ArenaDivision.entity';
 export * from './ArenaLeague.entity';

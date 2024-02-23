@@ -46,6 +46,7 @@ __exportStar(require("./Like.entity"), exports);
 __exportStar(require("./Report.entity"), exports);
 __exportStar(require("./ArenaUser.entity"), exports);
 __exportStar(require("./ArenaUserProgress.entity"), exports);
+__exportStar(require("./ArenaUserEarnedChest.entity"), exports);
 __exportStar(require("./ArenaSeason.entity"), exports);
 __exportStar(require("./ArenaDivision.entity"), exports);
 __exportStar(require("./ArenaLeague.entity"), exports);
