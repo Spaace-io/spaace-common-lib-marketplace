@@ -7,8 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { ArenaUser } from './ArenaUser.entity';
-import { ArenaSeason } from './ArenaSeason.entity';
+import { ArenaUser, ArenaSeason } from '.';
 
 @ObjectType()
 @Entity({ name: 'arena_users_earned_chest' })

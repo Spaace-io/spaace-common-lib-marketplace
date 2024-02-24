@@ -38,9 +38,14 @@ __decorate([
 ], ArenaSeasonChest.prototype, "seasonNumber", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('text', { nullable: true }),
+    (0, typeorm_1.PrimaryColumn)('text'),
+    (0, typeorm_1.ManyToOne)(() => _1.ArenaDivision),
+    (0, typeorm_1.JoinColumn)([
+        { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
+        { name: 'divisionName', referencedColumnName: 'name' },
+    ]),
     __metadata("design:type", String)
-], ArenaSeasonChest.prototype, "division", void 0);
+], ArenaSeasonChest.prototype, "divisionName", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text', { nullable: true }),
@@ -53,7 +58,8 @@ __decorate([
 ], ArenaSeasonChest.prototype, "chestCount", void 0);
 ArenaSeasonChest = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'arena_seasons_chest' })
+    (0, typeorm_1.Entity)({ name: 'arena_seasons_chest' }),
+    (0, typeorm_1.Unique)(['seasonNumber', 'divisionName', 'rank'])
 ], ArenaSeasonChest);
 exports.ArenaSeasonChest = ArenaSeasonChest;
 //# sourceMappingURL=ArenaSeasonChest.entity.js.map

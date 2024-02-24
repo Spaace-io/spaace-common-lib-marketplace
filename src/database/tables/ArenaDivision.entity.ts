@@ -1,27 +1,28 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Entity,
   PrimaryColumn,
-  Column,
   BaseEntity,
+  Column,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { ObjectType, Field } from '@nestjs/graphql';
-
 import { ArenaSeason } from '.';
 
 @ObjectType()
 @Entity({ name: 'arena_divisions' })
 export class ArenaDivision extends BaseEntity {
   @Field(() => String)
-  @PrimaryColumn('text')
-  divisionName!: string;
-
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true })
   @ManyToOne(() => ArenaSeason)
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
-  season!: ArenaSeason;
+  seasonNumber!: string;
 
-  @Field(() => Number)
-  @Column('integer')
-  leagueUsersMaxCap!: number;
+  @Field(() => String)
+  @PrimaryColumn('text')
+  name!: string;
+
+  @Field(() => String)
+  @Column('numeric')
+  leagueUserMaxCap!: string;
 }

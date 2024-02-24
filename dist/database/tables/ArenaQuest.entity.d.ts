@@ -3,7 +3,8 @@ import { LoyaltyRank } from '.';
 export declare enum ArenaQuestTrigger {
     USER = "USER",
     USER_QUEST_PROGRESS = "USER_QUEST_PROGRESS",
-    REFERRAL = "REFERRAL"
+    REFERRAL = "REFERRAL",
+    SOCIAL = "SOCIAL"
 }
 export declare enum ArenaQuestRuleOperator {
     EQ = "EQ",
@@ -34,11 +35,8 @@ export declare class AreanaQuest extends BaseEntity {
     name: string;
     previousQuestId: string | null;
     count: string;
-    prime: boolean;
     steps: ArenaQuestStep[];
     stars: string;
-    boost: string;
-    boostLimit: string | null;
     limit: string;
     period: ArenaQuestPeriod;
     rank: LoyaltyRank;

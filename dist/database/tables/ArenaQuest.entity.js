@@ -21,6 +21,7 @@ var ArenaQuestTrigger;
     ArenaQuestTrigger["USER"] = "USER";
     ArenaQuestTrigger["USER_QUEST_PROGRESS"] = "USER_QUEST_PROGRESS";
     ArenaQuestTrigger["REFERRAL"] = "REFERRAL";
+    ArenaQuestTrigger["SOCIAL"] = "SOCIAL";
 })(ArenaQuestTrigger = exports.ArenaQuestTrigger || (exports.ArenaQuestTrigger = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestTrigger, {
     name: 'ArenaQuestTrigger',
@@ -123,11 +124,6 @@ __decorate([
     __metadata("design:type", String)
 ], AreanaQuest.prototype, "count", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Boolean),
-    (0, typeorm_1.Column)('boolean', { default: false }),
-    __metadata("design:type", Boolean)
-], AreanaQuest.prototype, "prime", void 0);
-__decorate([
     (0, graphql_1.Field)(() => [ArenaQuestStep]),
     (0, typeorm_1.Column)('jsonb', { default: [] }),
     (0, class_transformer_1.Type)(() => ArenaQuestStep),
@@ -139,16 +135,6 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], AreanaQuest.prototype, "stars", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], AreanaQuest.prototype, "boost", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
-    __metadata("design:type", Object)
-], AreanaQuest.prototype, "boostLimit", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '1' }),

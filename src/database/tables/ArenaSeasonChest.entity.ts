@@ -6,8 +6,9 @@ import {
   Column,
   JoinColumn,
   ManyToOne,
+  Unique,
 } from 'typeorm';
-import { ArenaSeason } from '.';
+import { ArenaSeason, ArenaDivision } from '.';
 
 @ObjectType()
 class ChestCount {
@@ -20,6 +21,7 @@ class ChestCount {
 
 @ObjectType()
 @Entity({ name: 'arena_seasons_chest' })
+@Unique(['seasonNumber', 'divisionName', 'rank'])
 export class ArenaSeasonChest extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -28,8 +30,13 @@ export class ArenaSeasonChest extends BaseEntity {
   seasonNumber!: string;
 
   @Field(() => String)
-  @Column('text', { nullable: true })
-  division!: string;
+  @PrimaryColumn('text')
+  @ManyToOne(() => ArenaDivision)
+  @JoinColumn([
+    { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
+    { name: 'divisionName', referencedColumnName: 'name' },
+  ])
+  divisionName!: string;
 
   @Field(() => String)
   @Column('text', { nullable: true })

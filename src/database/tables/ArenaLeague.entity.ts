@@ -1,39 +1,38 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Entity,
   PrimaryColumn,
-  Column,
   BaseEntity,
+  Column,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { ObjectType, Field } from '@nestjs/graphql';
-
-import { ArenaDivision, ArenaSeason } from '.';
+import { ArenaSeason } from './ArenaSeason.entity';
+import { ArenaDivision } from './ArenaDivision.entity';
 
 @ObjectType()
 @Entity({ name: 'arena_leagues' })
 export class ArenaLeague extends BaseEntity {
-  @Field(() => Number)
-  @PrimaryColumn('integer')
-  leagueNumber!: number;
-
-  @Field(() => Number)
-  @Column('integer')
-  numberOfUsers!: number;
-
   @Field(() => String)
-  @Column('text')
-  divisionNumber!: string;
-
-  @ManyToOne(() => ArenaDivision)
-  @JoinColumn({ name: 'divisionNumber', referencedColumnName: 'divisionName' })
-  division!: ArenaDivision;
-
-  @Field(() => String)
-  @Column('text')
-  seasonNumber!: string;
-
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true })
   @ManyToOne(() => ArenaSeason)
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
-  season!: ArenaSeason;
+  seasonNumber!: string;
+
+  @Field(() => String)
+  @PrimaryColumn('text')
+  @ManyToOne(() => ArenaDivision)
+  @JoinColumn([
+    { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
+    { name: 'divisionName', referencedColumnName: 'name' },
+  ])
+  divisionName!: string;
+
+  @Field(() => String)
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true })
+  leagueNumber!: string;
+
+  @Field(() => String)
+  @Column('numeric')
+  numberOfUsers!: string;
 }

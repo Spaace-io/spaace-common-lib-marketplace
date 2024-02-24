@@ -19,6 +19,7 @@ export enum ArenaQuestTrigger {
   USER = 'USER',
   USER_QUEST_PROGRESS = 'USER_QUEST_PROGRESS',
   REFERRAL = 'REFERRAL',
+  SOCIAL = 'SOCIAL',
 }
 
 registerEnumType(ArenaQuestTrigger, {
@@ -107,10 +108,6 @@ export class AreanaQuest extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true })
   count!: string;
 
-  @Field(() => Boolean)
-  @Column('boolean', { default: false })
-  prime!: boolean;
-
   @Field(() => [ArenaQuestStep])
   @Column('jsonb', { default: [] })
   @Type(() => ArenaQuestStep)
@@ -120,14 +117,6 @@ export class AreanaQuest extends BaseEntity {
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   stars!: string;
-
-  @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
-  boost!: string;
-
-  @Field(() => String, { nullable: true })
-  @Column('numeric', { precision: 78, unsigned: true, nullable: true })
-  boostLimit!: string | null;
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '1' })
