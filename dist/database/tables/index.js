@@ -60,4 +60,5 @@ __exportStar(require("./ArenaCrew.entitiy"), exports);
 __exportStar(require("./ArenaUserStatistics.entity"), exports);
 __exportStar(require("./ArenaGlobalLeaderBoard.entity"), exports);
 __exportStar(require("./ArenaCrewLeaderBoard.entity"), exports);
+__exportStar(require("./ArenaCron.entity"), exports);
 //# sourceMappingURL=index.js.map
