@@ -62,9 +62,24 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
     ? User
     : never;
 
+interface Tweet {
+  authorUsername: string;
+  text: string;
+  metrics?: {
+    retweet_count: number;
+    reply_count: number;
+    like_count: number;
+    quote_count: number;
+    bookmark_count: number;
+    impression_count: number;
+  };
+}
+
 export type ArenaPubSubData<T extends ArenaQuestTrigger> =
   T extends ArenaQuestTrigger.USER
     ? ArenaUser
     : T extends ArenaQuestTrigger.REFERRAL
     ? ArenaUser
+    : T extends ArenaQuestTrigger.SOCIAL
+    ? Tweet
     : never;
