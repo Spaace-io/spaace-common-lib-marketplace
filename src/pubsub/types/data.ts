@@ -62,7 +62,7 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
     ? User
     : never;
 
-interface Tweet {
+export interface Tweet {
   authorUsername: string;
   text: string;
   metrics?: {
