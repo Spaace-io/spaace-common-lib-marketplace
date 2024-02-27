@@ -8,7 +8,11 @@ export class ArenaCron extends BaseEntity {
   @PrimaryColumn('text')
   name!: string;
 
-  @Field(() => Date)
-  @Column({ type: 'timestamp' })
-  lastProcessedTime!: Date;
+  @Field(() => [String])
+  @Column('text', { array: true })
+  parameter!: string[];
+
+  @Field(() => String)
+  @Column('text')
+  pointer!: string;
 }

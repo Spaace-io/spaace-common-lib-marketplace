@@ -20,10 +20,15 @@ __decorate([
     __metadata("design:type", String)
 ], ArenaCron.prototype, "name", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.Column)({ type: 'timestamp' }),
-    __metadata("design:type", Date)
-], ArenaCron.prototype, "lastProcessedTime", void 0);
+    (0, graphql_1.Field)(() => [String]),
+    (0, typeorm_1.Column)('text', { array: true }),
+    __metadata("design:type", Array)
+], ArenaCron.prototype, "parameter", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text'),
+    __metadata("design:type", String)
+], ArenaCron.prototype, "pointer", void 0);
 ArenaCron = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_crons' })
