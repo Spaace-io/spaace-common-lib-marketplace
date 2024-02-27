@@ -12,7 +12,8 @@ export declare enum ArenaQuestRuleOperator {
     GTE = "GTE",
     LT = "LT",
     LTE = "LTE",
-    NEQ = "NEQ"
+    NEQ = "NEQ",
+    IN = "IN"
 }
 export declare class ArenaQuestRule {
     property: string;

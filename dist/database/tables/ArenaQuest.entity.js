@@ -34,6 +34,7 @@ var ArenaQuestRuleOperator;
     ArenaQuestRuleOperator["LT"] = "LT";
     ArenaQuestRuleOperator["LTE"] = "LTE";
     ArenaQuestRuleOperator["NEQ"] = "NEQ";
+    ArenaQuestRuleOperator["IN"] = "IN";
 })(ArenaQuestRuleOperator = exports.ArenaQuestRuleOperator || (exports.ArenaQuestRuleOperator = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestRuleOperator, {
     name: 'ArenaQuestRuleOperator',

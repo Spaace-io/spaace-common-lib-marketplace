@@ -33,6 +33,7 @@ export enum ArenaQuestRuleOperator {
   LT = 'LT',
   LTE = 'LTE',
   NEQ = 'NEQ',
+  IN = 'IN',
 }
 
 registerEnumType(ArenaQuestRuleOperator, {
