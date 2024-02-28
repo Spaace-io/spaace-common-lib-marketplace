@@ -22,6 +22,7 @@ var ArenaQuestTrigger;
     ArenaQuestTrigger["USER_QUEST_PROGRESS"] = "USER_QUEST_PROGRESS";
     ArenaQuestTrigger["REFERRAL"] = "REFERRAL";
     ArenaQuestTrigger["SOCIAL"] = "SOCIAL";
+    ArenaQuestTrigger["SOCIAL_PRIME"] = "SOCIAL_PRIME";
 })(ArenaQuestTrigger = exports.ArenaQuestTrigger || (exports.ArenaQuestTrigger = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestTrigger, {
     name: 'ArenaQuestTrigger',

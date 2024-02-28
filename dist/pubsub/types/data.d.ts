@@ -16,4 +16,4 @@ export interface Tweet {
         impression_count: number;
     };
 }
-export type ArenaPubSubData<T extends ArenaQuestTrigger> = T extends ArenaQuestTrigger.USER ? ArenaUser : T extends ArenaQuestTrigger.REFERRAL ? ArenaUser : T extends ArenaQuestTrigger.SOCIAL ? Tweet : never;
+export type ArenaPubSubData<T extends ArenaQuestTrigger> = T extends ArenaQuestTrigger.USER ? ArenaUser : T extends ArenaQuestTrigger.REFERRAL ? ArenaUser : T extends ArenaQuestTrigger.SOCIAL ? Tweet : T extends ArenaQuestTrigger.SOCIAL_PRIME ? Tweet : never;
