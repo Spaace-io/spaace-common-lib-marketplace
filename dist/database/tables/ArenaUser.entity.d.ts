@@ -10,5 +10,6 @@ export declare class ArenaUser extends BaseEntity {
     level: string;
     dailyStreak: string;
     lastActive: Date;
-    timestamp: Date;
+    accountCreationDate: Date;
+    twitterAccountCreationDate: Date;
 }

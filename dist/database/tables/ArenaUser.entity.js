@@ -74,7 +74,12 @@ __decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
-], ArenaUser.prototype, "timestamp", void 0);
+], ArenaUser.prototype, "accountCreationDate", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Date),
+    (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
+    __metadata("design:type", Date)
+], ArenaUser.prototype, "twitterAccountCreationDate", void 0);
 ArenaUser = ArenaUser_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users' })
