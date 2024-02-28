@@ -105,6 +105,15 @@ export class AreanaQuest extends BaseEntity {
   ])
   previousQuestId!: string | null;
 
+  @Field(() => String, { nullable: true })
+  @Column('uuid', { nullable: true })
+  @ManyToOne(() => AreanaQuest)
+  @JoinColumn([
+    { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
+    { name: 'previousQuestId', referencedColumnName: 'id' },
+  ])
+  referenceQuestId!: string | null;
+
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true })
   count!: string;

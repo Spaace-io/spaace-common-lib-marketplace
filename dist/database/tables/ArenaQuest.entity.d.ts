@@ -35,6 +35,7 @@ export declare class AreanaQuest extends BaseEntity {
     id: string;
     name: string;
     previousQuestId: string | null;
+    referenceQuestId: string | null;
     count: string;
     steps: ArenaQuestStep[];
     stars: string;
