@@ -41,4 +41,5 @@ export declare class AreanaQuest extends BaseEntity {
     limit: string;
     period: ArenaQuestPeriod;
     rank: LoyaltyRank;
+    prime: boolean;
 }

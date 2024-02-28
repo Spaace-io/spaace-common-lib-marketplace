@@ -134,4 +134,8 @@ export class AreanaQuest extends BaseEntity {
     default: LoyaltyRank.BRONZE_5,
   })
   rank!: LoyaltyRank;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  prime!: boolean;
 }

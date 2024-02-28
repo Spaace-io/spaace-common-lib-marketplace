@@ -155,6 +155,11 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], AreanaQuest.prototype, "rank", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    __metadata("design:type", Boolean)
+], AreanaQuest.prototype, "prime", void 0);
 AreanaQuest = AreanaQuest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_quests' }),
