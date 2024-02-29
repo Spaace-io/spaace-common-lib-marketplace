@@ -121,17 +121,6 @@ __decorate([
     __metadata("design:type", Object)
 ], AreanaQuest.prototype, "previousQuestId", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)('uuid', { nullable: true })
-    // @OneToOne(() => AreanaQuest)
-    // @JoinColumn([
-    //   { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
-    //   { name: 'previousQuestId', referencedColumnName: 'id' },
-    // ])
-    ,
-    __metadata("design:type", Object)
-], AreanaQuest.prototype, "referenceQuestId", void 0);
-__decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
     __metadata("design:type", String)
