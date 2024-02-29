@@ -174,4 +174,8 @@ export class AreanaQuest extends BaseEntity {
   @Field(() => Boolean)
   @Column('boolean', { default: false })
   prime!: boolean;
+
+  @Field(() => String)
+  @Column('text', { default: null })
+  cronName!: string;
 }

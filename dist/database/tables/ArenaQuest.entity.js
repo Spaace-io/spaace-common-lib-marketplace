@@ -192,6 +192,11 @@ __decorate([
     (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)
 ], AreanaQuest.prototype, "prime", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text', { default: null }),
+    __metadata("design:type", String)
+], AreanaQuest.prototype, "cronName", void 0);
 AreanaQuest = AreanaQuest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_quests' }),
