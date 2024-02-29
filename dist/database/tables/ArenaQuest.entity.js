@@ -44,6 +44,9 @@ var ArenaQuestOperator;
     ArenaQuestOperator["MUL"] = "MUL";
     ArenaQuestOperator["DIV"] = "DIV";
 })(ArenaQuestOperator = exports.ArenaQuestOperator || (exports.ArenaQuestOperator = {}));
+(0, graphql_1.registerEnumType)(ArenaQuestOperator, {
+    name: 'ArenaQuestOperator',
+});
 (0, graphql_1.registerEnumType)(ArenaQuestRuleOperator, {
     name: 'ArenaQuestRuleOperator',
 });

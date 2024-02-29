@@ -44,6 +44,10 @@ export enum ArenaQuestOperator {
   DIV = 'DIV',
 }
 
+registerEnumType(ArenaQuestOperator, {
+  name: 'ArenaQuestOperator',
+});
+
 registerEnumType(ArenaQuestRuleOperator, {
   name: 'ArenaQuestRuleOperator',
 });
