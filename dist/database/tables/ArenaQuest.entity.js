@@ -203,10 +203,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], AreanaQuest.prototype, "prime", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('text', { default: null }),
-    __metadata("design:type", String)
-], AreanaQuest.prototype, "cronName", void 0);
+    (0, graphql_1.Field)(() => Object, { nullable: true }),
+    (0, typeorm_1.Column)('jsonb', { nullable: true }),
+    __metadata("design:type", Object)
+], AreanaQuest.prototype, "cron", void 0);
 AreanaQuest = AreanaQuest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_quests' }),

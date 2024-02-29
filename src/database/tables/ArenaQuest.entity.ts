@@ -175,7 +175,10 @@ export class AreanaQuest extends BaseEntity {
   @Column('boolean', { default: false })
   prime!: boolean;
 
-  @Field(() => String)
-  @Column('text', { default: null })
-  cronName!: string;
+  @Field(() => Object, { nullable: true })
+  @Column('jsonb', { nullable: true })
+  cron?: {
+    name: string;
+    parameter: string;
+  };
 }
