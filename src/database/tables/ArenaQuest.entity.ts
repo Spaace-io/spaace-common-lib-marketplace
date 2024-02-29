@@ -143,7 +143,7 @@ export class AreanaQuest extends BaseEntity {
 
   @Field(() => [ArenaQuestOperation])
   @Column('jsonb', { default: [] })
-  @Type(() => ArenaQuestStep)
+  @Type(() => ArenaQuestOperation)
   @ValidateNested({ each: true })
   operations!: ArenaQuestOperation[];
 

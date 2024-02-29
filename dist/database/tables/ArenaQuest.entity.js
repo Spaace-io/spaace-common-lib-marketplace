@@ -156,7 +156,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => [ArenaQuestOperation]),
     (0, typeorm_1.Column)('jsonb', { default: [] }),
-    (0, class_transformer_1.Type)(() => ArenaQuestStep),
+    (0, class_transformer_1.Type)(() => ArenaQuestOperation),
     (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], AreanaQuest.prototype, "operations", void 0);
