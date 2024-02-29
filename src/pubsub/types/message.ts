@@ -1,6 +1,5 @@
 import {
   PubSubTopic,
-  ArenaPubSubTopic,
   PubSubTrigger,
   ArenaPubSubTrigger,
   PubSubData,
@@ -12,9 +11,7 @@ export interface PubSubMessage<T extends PubSubTrigger<PubSubTopic>> {
   data: PubSubData<T>;
 }
 
-export interface ArenaPubSubMessage<
-  T extends ArenaPubSubTrigger<ArenaPubSubTopic>,
-> {
+export interface ArenaPubSubMessage<T extends ArenaPubSubTrigger<PubSubTopic>> {
   trigger: T;
   data: ArenaPubSubData<T>;
 }

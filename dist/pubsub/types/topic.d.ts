@@ -3,6 +3,3 @@ export declare enum PubSubTopic {
     COLLECTION_IMPORT = "collection-import",
     SEARCH_INDEX = "search-index"
 }
-export declare enum ArenaPubSubTopic {
-    TRIGGERS = "triggers"
-}

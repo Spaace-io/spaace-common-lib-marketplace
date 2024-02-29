@@ -1,5 +1,5 @@
 import { QuestTrigger, ArenaQuestTrigger } from '../../database';
-import { PubSubTopic, ArenaPubSubTopic } from './topic';
+import { PubSubTopic } from './topic';
 
 export enum CollectionImportRequest {
   COLLECTIONS = 'COLLECTIONS',
@@ -21,5 +21,5 @@ export type PubSubTrigger<T extends PubSubTopic> =
     ? SearchIndexType
     : never;
 
-export type ArenaPubSubTrigger<T extends ArenaPubSubTopic> =
-  T extends ArenaPubSubTopic.TRIGGERS ? ArenaQuestTrigger : never;
+export type ArenaPubSubTrigger<T extends PubSubTopic> =
+  T extends PubSubTopic.TRIGGERS ? ArenaQuestTrigger : never;
