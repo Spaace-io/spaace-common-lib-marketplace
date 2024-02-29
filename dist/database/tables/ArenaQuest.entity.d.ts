@@ -16,6 +16,12 @@ export declare enum ArenaQuestRuleOperator {
     NEQ = "NEQ",
     IN = "IN"
 }
+export declare enum ArenaQuestOperator {
+    SUM = "SUM",
+    SUB = "SUB",
+    MUL = "MUL",
+    DIV = "DIV"
+}
 export declare class ArenaQuestRule {
     property: string;
     operator: ArenaQuestRuleOperator;
@@ -26,6 +32,10 @@ export declare class ArenaQuestStep {
     trigger: ArenaQuestTrigger;
     rules: ArenaQuestRule[];
     cron?: boolean;
+}
+export declare class ArenaQuestOperation {
+    property: string;
+    operation: ArenaQuestOperator;
 }
 export declare enum ArenaQuestPeriod {
     DAILY = "DAILY",
@@ -38,6 +48,7 @@ export declare class AreanaQuest extends BaseEntity {
     previousQuestId: string | null;
     count: string;
     steps: ArenaQuestStep[];
+    operations: ArenaQuestOperation[];
     stars: string;
     limit: string;
     period: ArenaQuestPeriod;

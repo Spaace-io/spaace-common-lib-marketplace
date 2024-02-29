@@ -37,6 +37,13 @@ export enum ArenaQuestRuleOperator {
   IN = 'IN',
 }
 
+export enum ArenaQuestOperator {
+  SUM = 'SUM',
+  SUB = 'SUB',
+  MUL = 'MUL',
+  DIV = 'DIV',
+}
+
 registerEnumType(ArenaQuestRuleOperator, {
   name: 'ArenaQuestRuleOperator',
 });
@@ -68,6 +75,15 @@ export class ArenaQuestStep {
 
   @Field(() => Boolean, { defaultValue: false })
   cron?: boolean;
+}
+
+@ObjectType()
+export class ArenaQuestOperation {
+  @Field(() => String)
+  property!: string;
+
+  @Field(() => ArenaQuestOperator)
+  operation!: ArenaQuestOperator;
 }
 
 export enum ArenaQuestPeriod {
@@ -124,6 +140,12 @@ export class AreanaQuest extends BaseEntity {
   @Type(() => ArenaQuestStep)
   @ValidateNested({ each: true })
   steps!: ArenaQuestStep[];
+
+  @Field(() => [ArenaQuestOperation])
+  @Column('jsonb', { default: [] })
+  @Type(() => ArenaQuestStep)
+  @ValidateNested({ each: true })
+  operations!: ArenaQuestOperation[];
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })

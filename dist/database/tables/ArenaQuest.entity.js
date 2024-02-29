@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var AreanaQuest_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AreanaQuest = exports.ArenaQuestPeriod = exports.ArenaQuestStep = exports.ArenaQuestRule = exports.ArenaQuestRuleOperator = exports.ArenaQuestTrigger = void 0;
+exports.AreanaQuest = exports.ArenaQuestPeriod = exports.ArenaQuestOperation = exports.ArenaQuestStep = exports.ArenaQuestRule = exports.ArenaQuestOperator = exports.ArenaQuestRuleOperator = exports.ArenaQuestTrigger = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
@@ -37,6 +37,13 @@ var ArenaQuestRuleOperator;
     ArenaQuestRuleOperator["NEQ"] = "NEQ";
     ArenaQuestRuleOperator["IN"] = "IN";
 })(ArenaQuestRuleOperator = exports.ArenaQuestRuleOperator || (exports.ArenaQuestRuleOperator = {}));
+var ArenaQuestOperator;
+(function (ArenaQuestOperator) {
+    ArenaQuestOperator["SUM"] = "SUM";
+    ArenaQuestOperator["SUB"] = "SUB";
+    ArenaQuestOperator["MUL"] = "MUL";
+    ArenaQuestOperator["DIV"] = "DIV";
+})(ArenaQuestOperator = exports.ArenaQuestOperator || (exports.ArenaQuestOperator = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestRuleOperator, {
     name: 'ArenaQuestRuleOperator',
 });
@@ -82,6 +89,20 @@ ArenaQuestStep = __decorate([
     (0, graphql_1.ObjectType)()
 ], ArenaQuestStep);
 exports.ArenaQuestStep = ArenaQuestStep;
+let ArenaQuestOperation = class ArenaQuestOperation {
+};
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], ArenaQuestOperation.prototype, "property", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => ArenaQuestOperator),
+    __metadata("design:type", String)
+], ArenaQuestOperation.prototype, "operation", void 0);
+ArenaQuestOperation = __decorate([
+    (0, graphql_1.ObjectType)()
+], ArenaQuestOperation);
+exports.ArenaQuestOperation = ArenaQuestOperation;
 var ArenaQuestPeriod;
 (function (ArenaQuestPeriod) {
     ArenaQuestPeriod["DAILY"] = "DAILY";
@@ -132,6 +153,13 @@ __decorate([
     (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], AreanaQuest.prototype, "steps", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [ArenaQuestOperation]),
+    (0, typeorm_1.Column)('jsonb', { default: [] }),
+    (0, class_transformer_1.Type)(() => ArenaQuestStep),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    __metadata("design:type", Array)
+], AreanaQuest.prototype, "operations", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
