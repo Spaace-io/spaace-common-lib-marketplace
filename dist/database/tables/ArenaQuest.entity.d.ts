@@ -55,8 +55,6 @@ export declare class AreanaQuest extends BaseEntity {
     period: ArenaQuestPeriod;
     rank: LoyaltyRank;
     prime: boolean;
-    cron?: {
-        name: string;
-        parameter: string;
-    };
+    cronName: string;
+    cronParameter: string;
 }
