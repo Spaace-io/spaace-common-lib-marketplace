@@ -1,4 +1,4 @@
-import { PubSubTopic, PubSubTrigger, PubSubMessage } from '.';
+import { PubSubTopic, PubSubTrigger, ArenaPubSubTrigger, PubSubMessage, ArenaPubSubMessage } from '.';
 declare class PubSubClient {
     private readonly pubsub;
     constructor();
@@ -6,8 +6,8 @@ declare class PubSubClient {
     private _createTopics;
     private subscribe;
     initialize(): Promise<void>;
-    publish<T extends PubSubTopic>(topicName: T, ...messages: PubSubMessage<PubSubTrigger<T>>[]): Promise<string[]>;
-    onMessage<T extends PubSubTopic>(name: string, topicName: T, listener: (trigger: PubSubMessage<PubSubTrigger<T>>) => Promise<void>): Promise<void>;
+    publish<T extends PubSubTopic>(topicName: T, ...messages: PubSubMessage<PubSubTrigger<T>>[] | ArenaPubSubMessage<ArenaPubSubTrigger<T>>[]): Promise<string[]>;
+    onMessage<T extends PubSubTopic>(name: string, topicName: T, listener: (trigger: PubSubMessage<PubSubTrigger<T>> | ArenaPubSubMessage<ArenaPubSubTrigger<T>>) => Promise<void>): Promise<void>;
 }
 export declare const pubsub: PubSubClient;
 export {};
