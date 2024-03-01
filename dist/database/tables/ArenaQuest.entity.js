@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var AreanaQuest_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AreanaQuest = exports.ArenaQuestPeriod = exports.ArenaQuestOperation = exports.ArenaQuestStep = exports.ArenaQuestRule = exports.ArenaQuestOperator = exports.ArenaQuestRuleOperator = exports.ArenaQuestTrigger = void 0;
+exports.AreanaQuest = exports.ArenaQuestPeriod = exports.ArenaQuestOperation = exports.ArenaQuestStep = exports.ArenaQuestRule = exports.ArenaQuestType = exports.ArenaQuestOperator = exports.ArenaQuestRuleOperator = exports.ArenaQuestTrigger = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
@@ -49,6 +49,15 @@ var ArenaQuestOperator;
 });
 (0, graphql_1.registerEnumType)(ArenaQuestRuleOperator, {
     name: 'ArenaQuestRuleOperator',
+});
+var ArenaQuestType;
+(function (ArenaQuestType) {
+    ArenaQuestType["PRIME"] = "PRIME";
+    ArenaQuestType["SPECIAL"] = "SPECIAL";
+    ArenaQuestType["ONE_SHOT"] = "ONE_SHOT";
+})(ArenaQuestType = exports.ArenaQuestType || (exports.ArenaQuestType = {}));
+(0, graphql_1.registerEnumType)(ArenaQuestType, {
+    name: 'ArenaQuestType',
 });
 let ArenaQuestRule = class ArenaQuestRule {
 };
@@ -198,10 +207,10 @@ __decorate([
     __metadata("design:type", String)
 ], AreanaQuest.prototype, "rank", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Boolean),
-    (0, typeorm_1.Column)('boolean', { default: false }),
-    __metadata("design:type", Boolean)
-], AreanaQuest.prototype, "prime", void 0);
+    (0, graphql_1.Field)(() => ArenaQuestType),
+    (0, typeorm_1.Column)('enum', { enum: ArenaQuestType, enumName: 'arena_quest_type' }),
+    __metadata("design:type", String)
+], AreanaQuest.prototype, "type", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text', { default: null }),

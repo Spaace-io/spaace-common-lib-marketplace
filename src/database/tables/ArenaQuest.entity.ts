@@ -52,6 +52,16 @@ registerEnumType(ArenaQuestRuleOperator, {
   name: 'ArenaQuestRuleOperator',
 });
 
+export enum ArenaQuestType {
+  PRIME = 'PRIME',
+  SPECIAL = 'SPECIAL',
+  ONE_SHOT = 'ONE_SHOT',
+}
+
+registerEnumType(ArenaQuestType, {
+  name: 'ArenaQuestType',
+});
+
 @ObjectType()
 export class ArenaQuestRule {
   @Field(() => String)
@@ -171,9 +181,9 @@ export class AreanaQuest extends BaseEntity {
   })
   rank!: LoyaltyRank;
 
-  @Field(() => Boolean)
-  @Column('boolean', { default: false })
-  prime!: boolean;
+  @Field(() => ArenaQuestType)
+  @Column('enum', { enum: ArenaQuestType, enumName: 'arena_quest_type' })
+  type!: ArenaQuestType;
 
   @Field(() => String)
   @Column('text', { default: null })
