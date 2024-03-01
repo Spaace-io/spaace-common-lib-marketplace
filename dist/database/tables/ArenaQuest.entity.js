@@ -147,10 +147,10 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('uuid', { nullable: true }),
-    (0, typeorm_1.OneToOne)(() => AreanaQuest_1),
+    (0, typeorm_1.ManyToOne)(() => AreanaQuest_1),
     (0, typeorm_1.JoinColumn)([
         { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
-        { name: 'previousQuestId', referencedColumnName: 'id' },
+        { name: 'referenceQuestId', referencedColumnName: 'id' },
     ]),
     __metadata("design:type", Object)
 ], AreanaQuest.prototype, "referenceQuestId", void 0);

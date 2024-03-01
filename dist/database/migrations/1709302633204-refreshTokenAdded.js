@@ -9,21 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RemoveReferenceQuestId1709189820020 = void 0;
-class RemoveReferenceQuestId1709189820020 {
+exports.RefreshTokenAdded1709302633204 = void 0;
+class RefreshTokenAdded1709302633204 {
     constructor() {
-        this.name = 'RemoveReferenceQuestId1709189820020';
+        this.name = 'RefreshTokenAdded1709302633204';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "arena_quests" DROP COLUMN "referenceQuestId"`);
+            yield queryRunner.query(`ALTER TABLE "arena_users" ADD "twitterRefreshToken" text NOT NULL`);
+            yield queryRunner.query(`ALTER TABLE "arena_users" ADD CONSTRAINT "UQ_b59fa299832f49b1743df66b57c" UNIQUE ("twitterRefreshToken")`);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "arena_quests" ADD "referenceQuestId" uuid`);
+            yield queryRunner.query(`ALTER TABLE "arena_users" DROP CONSTRAINT "UQ_b59fa299832f49b1743df66b57c"`);
+            yield queryRunner.query(`ALTER TABLE "arena_users" DROP COLUMN "twitterRefreshToken"`);
         });
     }
 }
-exports.RemoveReferenceQuestId1709189820020 = RemoveReferenceQuestId1709189820020;
-//# sourceMappingURL=1709189820020-removeReferenceQuestId.js.map
+exports.RefreshTokenAdded1709302633204 = RefreshTokenAdded1709302633204;
+//# sourceMappingURL=1709302633204-refreshTokenAdded.js.map

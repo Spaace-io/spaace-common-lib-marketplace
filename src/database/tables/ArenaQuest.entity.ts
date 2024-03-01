@@ -128,10 +128,10 @@ export class AreanaQuest extends BaseEntity {
 
   @Field(() => String, { nullable: true })
   @Column('uuid', { nullable: true })
-  @OneToOne(() => AreanaQuest)
+  @ManyToOne(() => AreanaQuest)
   @JoinColumn([
     { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
-    { name: 'previousQuestId', referencedColumnName: 'id' },
+    { name: 'referenceQuestId', referencedColumnName: 'id' },
   ])
   referenceQuestId!: string | null;
 
