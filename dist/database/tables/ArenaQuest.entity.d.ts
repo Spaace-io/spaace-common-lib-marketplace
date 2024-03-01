@@ -22,6 +22,11 @@ export declare enum ArenaQuestOperator {
     MUL = "MUL",
     DIV = "DIV"
 }
+export declare enum ArenaQuestType {
+    PRIME = "PRIME",
+    SPECIAL = "SPECIAL",
+    ONE_SHOT = "ONE_SHOT"
+}
 export declare class ArenaQuestRule {
     property: string;
     operator: ArenaQuestRuleOperator;
@@ -54,7 +59,7 @@ export declare class AreanaQuest extends BaseEntity {
     limit: string;
     period: ArenaQuestPeriod;
     rank: LoyaltyRank;
-    prime: boolean;
+    type: ArenaQuestType;
     cronName: string;
     cronParameter: string;
 }
