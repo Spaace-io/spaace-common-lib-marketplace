@@ -55,6 +55,7 @@ var ArenaQuestType;
     ArenaQuestType["PRIME"] = "PRIME";
     ArenaQuestType["SPECIAL"] = "SPECIAL";
     ArenaQuestType["ONE_SHOT"] = "ONE_SHOT";
+    ArenaQuestType["PROGRESSIVE_STREAK"] = "PROGRESSIVE_STREAK";
 })(ArenaQuestType = exports.ArenaQuestType || (exports.ArenaQuestType = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestType, {
     name: 'ArenaQuestType',
