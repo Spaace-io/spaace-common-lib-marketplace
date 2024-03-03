@@ -14,4 +14,5 @@ export declare class ArenaUser extends BaseEntity {
     twitterAccountCreationDate: Date;
     twitterSecretToken: string;
     twitterAccessToken: string;
+    userTwitterId: string;
 }
