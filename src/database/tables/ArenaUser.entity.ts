@@ -63,4 +63,8 @@ export class ArenaUser extends BaseEntity {
   @Field(() => Date)
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   twitterAccountCreationDate!: Date;
+
+  @Field(() => String)
+  @Column('text', { unique: true })
+  twitterSecretToken!: string;
 }
