@@ -85,6 +85,11 @@ __decorate([
     (0, typeorm_1.Column)('text', { unique: true }),
     __metadata("design:type", String)
 ], ArenaUser.prototype, "twitterSecretToken", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text', { unique: true }),
+    __metadata("design:type", String)
+], ArenaUser.prototype, "twitterAccessToken", void 0);
 ArenaUser = ArenaUser_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users' })

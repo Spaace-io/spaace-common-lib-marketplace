@@ -67,4 +67,8 @@ export class ArenaUser extends BaseEntity {
   @Field(() => String)
   @Column('text', { unique: true })
   twitterSecretToken!: string;
+
+  @Field(() => String)
+  @Column('text', { unique: true })
+  twitterAccessToken!: string;
 }
