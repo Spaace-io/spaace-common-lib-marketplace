@@ -5,6 +5,7 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> = T extends QuestTr
     primaryMedia: ItemMediaEntity | null;
 } : T extends SearchIndexType.COLLECTION ? CollectionEntity : T extends SearchIndexType.USER ? User : never;
 export interface Tweet {
+    id: string;
     authorUsername: string;
     text: string;
     metrics?: {
