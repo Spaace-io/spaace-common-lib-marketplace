@@ -21,7 +21,7 @@ __decorate([
     (0, typeorm_1.OneToOne)(() => ArenaUser_entity_1.ArenaUser),
     (0, typeorm_1.JoinColumn)({
         name: 'twitterUsername',
-        referencedColumnName: 'twitterUsername',
+        referencedColumnName: 'userTwitterId',
     }),
     __metadata("design:type", String)
 ], ArenaUserStatistics.prototype, "twitterUsername", void 0);

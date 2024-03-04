@@ -19,7 +19,7 @@ export class ArenaQuestProgress extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('text')
   @ManyToOne(() => ArenaUser)
-  @JoinColumn({ name: 'twitterName', referencedColumnName: 'twitterUsername' })
+  @JoinColumn({ name: 'twitterName', referencedColumnName: 'userTwitterId' })
   twitterName!: string;
 
   @Field(() => String)

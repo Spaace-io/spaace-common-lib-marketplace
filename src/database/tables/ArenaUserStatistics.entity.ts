@@ -17,7 +17,7 @@ export class ArenaUserStatistics extends BaseEntity {
   @OneToOne(() => ArenaUser)
   @JoinColumn({
     name: 'twitterUsername',
-    referencedColumnName: 'twitterUsername',
+    referencedColumnName: 'userTwitterId',
   })
   twitterUsername!: string;
 

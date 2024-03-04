@@ -21,7 +21,7 @@ export class ArenaCrew extends BaseEntity {
   @OneToOne(() => ArenaUser, { nullable: true })
   @JoinColumn({
     name: 'owner',
-    referencedColumnName: 'twitterUsername',
+    referencedColumnName: 'userTwitterId',
   })
   owner!: string | null;
 

@@ -12,8 +12,12 @@ import {
 @Entity({ name: 'arena_users' })
 export class ArenaUser extends BaseEntity {
   @Field(() => String)
-  @PrimaryColumn('text')
+  @Column('text')
   twitterUsername!: string;
+
+  @Field(() => String)
+  @PrimaryColumn('text')
+  userTwitterId!: string;
 
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
@@ -32,7 +36,7 @@ export class ArenaUser extends BaseEntity {
   @ManyToOne(() => ArenaUser, { nullable: true })
   @JoinColumn({
     name: 'referrerUsername',
-    referencedColumnName: 'twitterUsername',
+    referencedColumnName: 'userTwitterId',
   })
   referrerUsername!: string | null;
 
@@ -71,8 +75,4 @@ export class ArenaUser extends BaseEntity {
   @Field(() => String)
   @Column('text', { unique: true })
   twitterAccessToken!: string;
-
-  @Field(() => String)
-  @Column('text', { unique: true })
-  userTwitterId!: string;
 }

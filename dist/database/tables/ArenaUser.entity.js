@@ -17,9 +17,14 @@ let ArenaUser = ArenaUser_1 = class ArenaUser extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('text'),
+    (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], ArenaUser.prototype, "twitterUsername", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.PrimaryColumn)('text'),
+    __metadata("design:type", String)
+], ArenaUser.prototype, "userTwitterId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
@@ -41,7 +46,7 @@ __decorate([
     (0, typeorm_1.ManyToOne)(() => ArenaUser_1, { nullable: true }),
     (0, typeorm_1.JoinColumn)({
         name: 'referrerUsername',
-        referencedColumnName: 'twitterUsername',
+        referencedColumnName: 'userTwitterId',
     }),
     __metadata("design:type", Object)
 ], ArenaUser.prototype, "referrerUsername", void 0);
@@ -90,11 +95,6 @@ __decorate([
     (0, typeorm_1.Column)('text', { unique: true }),
     __metadata("design:type", String)
 ], ArenaUser.prototype, "twitterAccessToken", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('text', { unique: true }),
-    __metadata("design:type", String)
-], ArenaUser.prototype, "userTwitterId", void 0);
 ArenaUser = ArenaUser_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users' })

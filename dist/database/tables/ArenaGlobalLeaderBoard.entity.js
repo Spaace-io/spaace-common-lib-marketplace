@@ -19,7 +19,7 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
     (0, typeorm_1.ManyToOne)(() => ArenaUser_entity_1.ArenaUser),
-    (0, typeorm_1.JoinColumn)({ name: 'userTwitter', referencedColumnName: 'twitterUsername' }),
+    (0, typeorm_1.JoinColumn)({ name: 'userTwitter', referencedColumnName: 'userTwitterId' }),
     __metadata("design:type", String)
 ], ArenaGlobalLeaderBoard.prototype, "userTwitter", void 0);
 __decorate([

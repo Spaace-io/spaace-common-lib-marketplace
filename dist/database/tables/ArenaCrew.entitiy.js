@@ -26,7 +26,7 @@ __decorate([
     (0, typeorm_1.OneToOne)(() => ArenaUser_entity_1.ArenaUser, { nullable: true }),
     (0, typeorm_1.JoinColumn)({
         name: 'owner',
-        referencedColumnName: 'twitterUsername',
+        referencedColumnName: 'userTwitterId',
     }),
     __metadata("design:type", Object)
 ], ArenaCrew.prototype, "owner", void 0);

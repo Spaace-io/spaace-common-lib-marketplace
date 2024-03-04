@@ -16,7 +16,7 @@ export class ArenaUserProgress extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('text')
   @ManyToOne(() => ArenaUser)
-  @JoinColumn({ name: 'userTwitter', referencedColumnName: 'twitterUsername' })
+  @JoinColumn({ name: 'userTwitter', referencedColumnName: 'userTwitterId' })
   userTwitter!: string;
 
   @Field(() => String)
