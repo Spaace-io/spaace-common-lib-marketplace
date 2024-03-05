@@ -64,7 +64,7 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
 
 export interface Tweet {
   id: string;
-  authorUsername: string;
+  authorId: string;
   text: string;
   metrics?: {
     retweet_count: number;

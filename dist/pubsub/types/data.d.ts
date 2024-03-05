@@ -6,7 +6,7 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> = T extends QuestTr
 } : T extends SearchIndexType.COLLECTION ? CollectionEntity : T extends SearchIndexType.USER ? User : never;
 export interface Tweet {
     id: string;
-    authorUsername: string;
+    authorId: string;
     text: string;
     metrics?: {
         retweet_count: number;
