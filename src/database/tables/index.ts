@@ -51,3 +51,4 @@ export * from './ArenaCrewLeaderBoard.entity';
 
 export * from './ArenaCron.entity';
 export * from './ArenaTwitterMetrics.entity';
+export * from './ArenaTweet.entity';
