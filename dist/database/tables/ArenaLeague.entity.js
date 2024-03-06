@@ -12,25 +12,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArenaLeague = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-const ArenaSeason_entity_1 = require("./ArenaSeason.entity");
-const ArenaDivision_entity_1 = require("./ArenaDivision.entity");
+const _1 = require(".");
+const class_validator_1 = require("class-validator");
 let ArenaLeague = class ArenaLeague extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
-    (0, typeorm_1.ManyToOne)(() => ArenaSeason_entity_1.ArenaSeason),
+    (0, typeorm_1.ManyToOne)(() => _1.ArenaSeason),
     (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
     __metadata("design:type", String)
 ], ArenaLeague.prototype, "seasonNumber", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('text'),
-    (0, typeorm_1.ManyToOne)(() => ArenaDivision_entity_1.ArenaDivision),
+    (0, graphql_1.Field)(() => _1.ArenaDivisionName),
+    (0, typeorm_1.PrimaryColumn)('enum', {
+        enum: _1.ArenaDivisionName,
+        enumName: 'arena_divison_name',
+    }),
+    (0, typeorm_1.ManyToOne)(() => _1.ArenaDivision),
     (0, typeorm_1.JoinColumn)([
         { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
         { name: 'divisionName', referencedColumnName: 'name' },
     ]),
+    (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", String)
 ], ArenaLeague.prototype, "divisionName", void 0);
 __decorate([

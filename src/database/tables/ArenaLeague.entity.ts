@@ -7,8 +7,8 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { ArenaSeason } from './ArenaSeason.entity';
-import { ArenaDivision } from './ArenaDivision.entity';
+import { ArenaSeason, ArenaDivision, ArenaDivisionName } from '.';
+import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 @Entity({ name: 'arena_leagues' })
@@ -19,14 +19,18 @@ export class ArenaLeague extends BaseEntity {
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
   seasonNumber!: string;
 
-  @Field(() => String)
-  @PrimaryColumn('text')
+  @Field(() => ArenaDivisionName)
+  @PrimaryColumn('enum', {
+    enum: ArenaDivisionName,
+    enumName: 'arena_divison_name',
+  })
   @ManyToOne(() => ArenaDivision)
   @JoinColumn([
     { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
     { name: 'divisionName', referencedColumnName: 'name' },
   ])
-  divisionName!: string;
+  @ValidateNested()
+  divisionName!: ArenaDivisionName;
 
   @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true })

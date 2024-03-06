@@ -8,7 +8,8 @@ import {
   ManyToOne,
   Unique,
 } from 'typeorm';
-import { ArenaSeason, ArenaDivision } from '.';
+import { ArenaSeason, ArenaDivision, ArenaDivisionName } from '.';
+import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 class ChestCount {
@@ -29,14 +30,18 @@ export class ArenaSeasonChest extends BaseEntity {
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
   seasonNumber!: string;
 
-  @Field(() => String)
-  @PrimaryColumn('text')
+  @Field(() => ArenaDivisionName)
+  @PrimaryColumn('enum', {
+    enum: ArenaDivisionName,
+    enumName: 'arena_divison_name',
+  })
   @ManyToOne(() => ArenaDivision)
   @JoinColumn([
     { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
     { name: 'divisionName', referencedColumnName: 'name' },
   ])
-  divisionName!: string;
+  @ValidateNested()
+  divisionName!: ArenaDivisionName;
 
   @Field(() => String)
   @Column('text', { nullable: true })

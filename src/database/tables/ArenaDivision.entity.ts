@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   Entity,
   PrimaryColumn,
@@ -7,7 +7,18 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import { ValidateNested } from 'class-validator';
 import { ArenaSeason } from '.';
+
+export enum ArenaDivisionName {
+  DIAMOND = 'DIAMOND',
+  PLATINUM = 'PLATINUM',
+  GOLD = 'GOLD',
+  SILVER = 'SILVER',
+  BRONZE = 'BRONZE',
+}
+
+registerEnumType(ArenaDivisionName, { name: 'ArenaDivisionName' });
 
 @ObjectType()
 @Entity({ name: 'arena_divisions' })
@@ -18,9 +29,13 @@ export class ArenaDivision extends BaseEntity {
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
   seasonNumber!: string;
 
-  @Field(() => String)
-  @PrimaryColumn('text')
-  name!: string;
+  @Field(() => ArenaDivisionName)
+  @PrimaryColumn('enum', {
+    enum: ArenaDivisionName,
+    enumName: 'arena_divison_name',
+  })
+  @ValidateNested()
+  name!: ArenaDivisionName;
 
   @Field(() => String)
   @Column('numeric')
