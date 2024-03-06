@@ -42,6 +42,7 @@ export declare class ArenaQuestStep {
 export declare class ArenaQuestOperation {
     property: string;
     operation: ArenaQuestOperator;
+    target: string;
 }
 export declare enum ArenaQuestPeriod {
     DAILY = "DAILY",

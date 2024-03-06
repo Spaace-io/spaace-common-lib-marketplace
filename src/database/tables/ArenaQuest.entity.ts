@@ -99,6 +99,9 @@ export class ArenaQuestOperation {
 
   @Field(() => ArenaQuestOperator)
   operation!: ArenaQuestOperator;
+
+  @Field(() => String)
+  target!: string;
 }
 
 export enum ArenaQuestPeriod {
