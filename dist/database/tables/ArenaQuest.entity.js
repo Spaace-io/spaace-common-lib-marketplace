@@ -116,6 +116,10 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], ArenaQuestOperation.prototype, "target", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], ArenaQuestOperation.prototype, "updates", void 0);
 ArenaQuestOperation = __decorate([
     (0, graphql_1.ObjectType)()
 ], ArenaQuestOperation);

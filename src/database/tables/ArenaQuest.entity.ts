@@ -102,6 +102,9 @@ export class ArenaQuestOperation {
 
   @Field(() => String)
   target!: string;
+
+  @Field(() => String)
+  updates!: string;
 }
 
 export enum ArenaQuestPeriod {
