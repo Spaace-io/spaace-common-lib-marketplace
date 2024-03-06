@@ -14,6 +14,7 @@ import {
   ItemMediaEntity,
   ArenaUser,
   ArenaQuestTrigger,
+  ArenaTweet,
 } from '../../database';
 import { UserInteraction } from '../../graphql';
 import {
@@ -62,27 +63,13 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
     ? User
     : never;
 
-export interface Tweet {
-  id: string;
-  authorId: string;
-  text: string;
-  metrics?: {
-    retweet_count: number;
-    reply_count: number;
-    like_count: number;
-    quote_count: number;
-    bookmark_count: number;
-    impression_count: number;
-  };
-}
-
 export type ArenaPubSubData<T extends ArenaQuestTrigger> =
   T extends ArenaQuestTrigger.USER
     ? ArenaUser
     : T extends ArenaQuestTrigger.REFERRAL
     ? ArenaUser
     : T extends ArenaQuestTrigger.SOCIAL
-    ? Tweet
+    ? ArenaTweet
     : T extends ArenaQuestTrigger.SOCIAL_PRIME
-    ? Tweet
+    ? ArenaTweet
     : never;
