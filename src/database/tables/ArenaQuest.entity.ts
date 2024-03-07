@@ -58,6 +58,7 @@ export enum ArenaQuestType {
   SPECIAL = 'SPECIAL',
   ONE_SHOT = 'ONE_SHOT',
   PROGRESSIVE_STREAK = 'PROGRESSIVE_STREAK',
+  PROGRESSIVE = 'PROGRESSIVE',
 }
 
 registerEnumType(ArenaQuestType, {
