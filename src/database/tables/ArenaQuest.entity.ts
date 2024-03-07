@@ -21,6 +21,7 @@ export enum ArenaQuestTrigger {
   REFERRAL = 'REFERRAL',
   SOCIAL = 'SOCIAL',
   SOCIAL_PRIME = 'SOCIAL_PRIME',
+  USER_LEVEL_PROGRESS = 'USER_LEVEL_PROGRESS',
 }
 
 registerEnumType(ArenaQuestTrigger, {
