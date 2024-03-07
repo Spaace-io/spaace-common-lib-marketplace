@@ -9,39 +9,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArenaTwitterMetrics = void 0;
+exports.ArenaSpaaceTweet = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-let ArenaTwitterMetrics = class ArenaTwitterMetrics extends typeorm_1.BaseEntity {
+let ArenaSpaaceTweet = class ArenaSpaaceTweet extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
     __metadata("design:type", String)
-], ArenaTwitterMetrics.prototype, "tweetId", void 0);
+], ArenaSpaaceTweet.prototype, "tweetId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
-], ArenaTwitterMetrics.prototype, "likePaginationToken", void 0);
+], ArenaSpaaceTweet.prototype, "likePaginationToken", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
-], ArenaTwitterMetrics.prototype, "replyPaginationToken", void 0);
+], ArenaSpaaceTweet.prototype, "replyPaginationToken", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
-], ArenaTwitterMetrics.prototype, "quotePaginationToken", void 0);
+], ArenaSpaaceTweet.prototype, "quotePaginationToken", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
-], ArenaTwitterMetrics.prototype, "retweetPaginationToken", void 0);
-ArenaTwitterMetrics = __decorate([
+], ArenaSpaaceTweet.prototype, "retweetPaginationToken", void 0);
+__decorate([
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    __metadata("design:type", Boolean)
+], ArenaSpaaceTweet.prototype, "postOfTheDay", void 0);
+__decorate([
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    __metadata("design:type", Boolean)
+], ArenaSpaaceTweet.prototype, "primePost", void 0);
+ArenaSpaaceTweet = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'arena_twitter_metrics' })
-], ArenaTwitterMetrics);
-exports.ArenaTwitterMetrics = ArenaTwitterMetrics;
-//# sourceMappingURL=ArenaTwitterMetrics.entity.js.map
+    (0, typeorm_1.Entity)({ name: 'arena_spaace_tweet' })
+], ArenaSpaaceTweet);
+exports.ArenaSpaaceTweet = ArenaSpaaceTweet;
+//# sourceMappingURL=ArenaSpaaceTweet.entity.js.map
