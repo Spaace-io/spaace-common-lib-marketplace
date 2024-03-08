@@ -20,6 +20,10 @@ export class ArenaUser extends BaseEntity {
   userTwitterId!: string;
 
   @Field(() => String, { nullable: true })
+  @Column('text')
+  twitterPicture!: string;
+
+  @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
   name!: string | null;
 

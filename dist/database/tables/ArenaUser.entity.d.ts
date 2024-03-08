@@ -2,6 +2,7 @@ import { BaseEntity } from 'typeorm';
 export declare class ArenaUser extends BaseEntity {
     twitterUsername: string;
     userTwitterId: string;
+    twitterPicture: string;
     name: string | null;
     imageUrl: string | null;
     referralCode: string;
