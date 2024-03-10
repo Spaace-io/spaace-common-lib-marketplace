@@ -39,5 +39,5 @@ export class ArenaDivision extends BaseEntity {
 
   @Field(() => String)
   @Column('numeric')
-  leagueUserMaxCap!: string;
+  numberOfLeagues!: string;
 }

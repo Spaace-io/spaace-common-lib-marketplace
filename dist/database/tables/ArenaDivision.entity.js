@@ -45,7 +45,7 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric'),
     __metadata("design:type", String)
-], ArenaDivision.prototype, "leagueUserMaxCap", void 0);
+], ArenaDivision.prototype, "numberOfLeagues", void 0);
 ArenaDivision = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_divisions' })

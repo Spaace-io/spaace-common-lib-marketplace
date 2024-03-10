@@ -9,5 +9,5 @@ export declare enum ArenaDivisionName {
 export declare class ArenaDivision extends BaseEntity {
     seasonNumber: string;
     name: ArenaDivisionName;
-    leagueUserMaxCap: string;
+    numberOfLeagues: string;
 }
