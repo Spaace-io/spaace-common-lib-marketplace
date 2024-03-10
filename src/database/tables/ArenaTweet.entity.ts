@@ -1,5 +1,13 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryColumn, BaseEntity, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryColumn,
+  BaseEntity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { ArenaUser } from './ArenaUser.entity';
 
 @ObjectType()
 @Entity({ name: 'arena_tweet' })
@@ -10,6 +18,11 @@ export class ArenaTweet extends BaseEntity {
 
   @Field(() => String)
   @Column('text')
+  @ManyToOne(() => ArenaUser, { nullable: true })
+  @JoinColumn({
+    name: 'authorId',
+    referencedColumnName: 'userTwitterId',
+  })
   authorId!: string;
 
   @Field(() => String)

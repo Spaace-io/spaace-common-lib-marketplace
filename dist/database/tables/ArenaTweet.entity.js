@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArenaTweet = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
+const ArenaUser_entity_1 = require("./ArenaUser.entity");
 let ArenaTweet = class ArenaTweet extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -22,6 +23,11 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
+    (0, typeorm_1.ManyToOne)(() => ArenaUser_entity_1.ArenaUser, { nullable: true }),
+    (0, typeorm_1.JoinColumn)({
+        name: 'authorId',
+        referencedColumnName: 'userTwitterId',
+    }),
     __metadata("design:type", String)
 ], ArenaTweet.prototype, "authorId", void 0);
 __decorate([
