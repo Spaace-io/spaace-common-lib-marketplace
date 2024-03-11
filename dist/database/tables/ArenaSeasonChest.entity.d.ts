@@ -1,7 +1,7 @@
 import { BaseEntity } from 'typeorm';
-import { ArenaDivisionName } from '.';
+import { ArenaDivisionName, ArenaChestName } from '.';
 declare class ChestCount {
-    name: string;
+    name: ArenaChestName;
     count: number;
 }
 export declare class ArenaSeasonChest extends BaseEntity {

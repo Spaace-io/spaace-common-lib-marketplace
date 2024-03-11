@@ -40,7 +40,7 @@ __decorate([
     __metadata("design:type", String)
 ], ArenaUserEarnedChest.prototype, "xp", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => _1.ArenaChestName),
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], ArenaUserEarnedChest.prototype, "chestName", void 0);

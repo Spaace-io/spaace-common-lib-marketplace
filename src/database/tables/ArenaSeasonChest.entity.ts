@@ -8,13 +8,18 @@ import {
   ManyToOne,
   Unique,
 } from 'typeorm';
-import { ArenaSeason, ArenaDivision, ArenaDivisionName } from '.';
+import {
+  ArenaSeason,
+  ArenaDivision,
+  ArenaDivisionName,
+  ArenaChestName,
+} from '.';
 import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 class ChestCount {
-  @Field(() => String)
-  name!: string;
+  @Field(() => ArenaChestName)
+  name!: ArenaChestName;
 
   @Field(() => Number)
   count!: number;

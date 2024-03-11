@@ -9,14 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArenaChestPoints = void 0;
+exports.ArenaChestPoints = exports.ArenaChestName = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
+var ArenaChestName;
+(function (ArenaChestName) {
+    ArenaChestName["MYTIC"] = "MYTIC";
+    ArenaChestName["LEGENDARY"] = "LEGENDARY";
+    ArenaChestName["RARE"] = "RARE";
+    ArenaChestName["UNCOMMON"] = "UNCOMMON";
+    ArenaChestName["COMMON"] = "COMMON";
+    ArenaChestName["GENESIS"] = "GENESIS";
+})(ArenaChestName = exports.ArenaChestName || (exports.ArenaChestName = {}));
+(0, graphql_1.registerEnumType)(ArenaChestName, { name: 'ArenaChestName' });
 let ArenaChestPoints = class ArenaChestPoints extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('text'),
+    (0, graphql_1.Field)(() => ArenaChestName),
+    (0, typeorm_1.PrimaryColumn)('enum', {
+        enum: ArenaChestName,
+        enumName: 'arena_chest_name',
+    }),
     __metadata("design:type", String)
 ], ArenaChestPoints.prototype, "name", void 0);
 __decorate([

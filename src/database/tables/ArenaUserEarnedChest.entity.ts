@@ -7,7 +7,7 @@ import {
   JoinColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ArenaUser, ArenaSeason } from '.';
+import { ArenaUser, ArenaSeason, ArenaChestName } from '.';
 
 @ObjectType()
 @Entity({ name: 'arena_users_earned_chest' })
@@ -32,9 +32,9 @@ export class ArenaUserEarnedChest extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   xp!: string;
 
-  @Field(() => String)
+  @Field(() => ArenaChestName)
   @Column('text')
-  chestName!: string;
+  chestName!: ArenaChestName;
 
   @Field(() => Boolean)
   @Column('boolean', { default: false })

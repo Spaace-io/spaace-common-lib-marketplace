@@ -17,7 +17,7 @@ const class_validator_1 = require("class-validator");
 let ChestCount = class ChestCount {
 };
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => _1.ArenaChestName),
     __metadata("design:type", String)
 ], ChestCount.prototype, "name", void 0);
 __decorate([
