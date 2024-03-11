@@ -38,10 +38,10 @@ export class ArenaUserProgress extends BaseEntity {
   questCompleted!: string;
 
   @Field(() => String)
-  @Column('text')
+  @Column('text', { nullable: true })
   division!: string;
 
   @Field(() => String)
-  @Column('text')
+  @Column('text', { nullable: true })
   league!: string;
 }
