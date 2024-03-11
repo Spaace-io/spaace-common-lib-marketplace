@@ -49,7 +49,7 @@ export class ArenaSeasonChest extends BaseEntity {
   divisionName!: ArenaDivisionName;
 
   @Field(() => String)
-  @Column('text', { nullable: true })
+  @PrimaryColumn('text')
   rank!: string;
 
   @Field(() => [ChestCount])

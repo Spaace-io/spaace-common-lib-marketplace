@@ -53,7 +53,7 @@ __decorate([
 ], ArenaSeasonChest.prototype, "divisionName", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('text', { nullable: true }),
+    (0, typeorm_1.PrimaryColumn)('text'),
     __metadata("design:type", String)
 ], ArenaSeasonChest.prototype, "rank", void 0);
 __decorate([
