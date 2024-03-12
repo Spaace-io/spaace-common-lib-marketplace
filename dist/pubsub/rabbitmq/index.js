@@ -16,5 +16,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./rabbitmq.client"), exports);
 __exportStar(require("./rabbitmq.module"), exports);
+__exportStar(require("./rabbitmq"), exports);
 __exportStar(require("./types/exchangeMap"), exports);
 //# sourceMappingURL=index.js.map
