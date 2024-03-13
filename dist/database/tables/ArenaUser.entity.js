@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArenaUser = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
+const _1 = require(".");
 let ArenaUser = ArenaUser_1 = class ArenaUser extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -55,6 +56,16 @@ __decorate([
     }),
     __metadata("design:type", Object)
 ], ArenaUser.prototype, "referrerUsername", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true }),
+    (0, typeorm_1.ManyToOne)(() => _1.ArenaCrew, { nullable: true }),
+    (0, typeorm_1.JoinColumn)({
+        name: 'crewName',
+        referencedColumnName: 'name',
+    }),
+    __metadata("design:type", Object)
+], ArenaUser.prototype, "crewName", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),

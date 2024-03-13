@@ -7,6 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import { ArenaCrew } from '.';
 
 @ObjectType()
 @Entity({ name: 'arena_users' })
@@ -43,6 +44,15 @@ export class ArenaUser extends BaseEntity {
     referencedColumnName: 'userTwitterId',
   })
   referrerUsername!: string | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  @ManyToOne(() => ArenaCrew, { nullable: true })
+  @JoinColumn({
+    name: 'crewName',
+    referencedColumnName: 'name',
+  })
+  crewName!: string | null;
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })

@@ -42,6 +42,7 @@ export * from './ArenaUserEarnedChest.entity';
 export * from './ArenaUserStatistics.entity';
 export * from './ArenaGlobalLeaderBoard.entity';
 export * from './ArenaCrewLeaderBoard.entity';
+export * from './ArenaCrew.entity';
 export * from './ArenaCron.entity';
 export * from './ArenaSpaaceTweet.entity';
 export * from './ArenaTweet.entity';
