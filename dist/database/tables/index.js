@@ -56,7 +56,6 @@ __exportStar(require("./ArenaChestPoints.entity"), exports);
 __exportStar(require("./ArenaGenesisSeasonChest.entity"), exports);
 __exportStar(require("./ArenaSeasonChest.entity"), exports);
 __exportStar(require("./ArenaUserEarnedChest.entity"), exports);
-__exportStar(require("./ArenaCrew.entitiy"), exports);
 __exportStar(require("./ArenaUserStatistics.entity"), exports);
 __exportStar(require("./ArenaGlobalLeaderBoard.entity"), exports);
 __exportStar(require("./ArenaCrewLeaderBoard.entity"), exports);
