@@ -28,4 +28,12 @@ export class ArenaUserStatistics extends BaseEntity {
   @Field(() => Number)
   @Column('integer')
   totalReposts!: number;
+
+  @Field(() => Number)
+  @Column('integer')
+  totalReplies!: number;
+
+  @Field(() => Number)
+  @Column('integer')
+  totalQuotes!: number;
 }

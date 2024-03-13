@@ -35,6 +35,16 @@ __decorate([
     (0, typeorm_1.Column)('integer'),
     __metadata("design:type", Number)
 ], ArenaUserStatistics.prototype, "totalReposts", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Number),
+    (0, typeorm_1.Column)('integer'),
+    __metadata("design:type", Number)
+], ArenaUserStatistics.prototype, "totalReplies", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Number),
+    (0, typeorm_1.Column)('integer'),
+    __metadata("design:type", Number)
+], ArenaUserStatistics.prototype, "totalQuotes", void 0);
 ArenaUserStatistics = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_user_statistics' })
