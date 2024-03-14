@@ -28,7 +28,8 @@ export declare enum ArenaQuestType {
     SPECIAL = "SPECIAL",
     ONE_SHOT = "ONE_SHOT",
     PROGRESSIVE_STREAK = "PROGRESSIVE_STREAK",
-    PROGRESSIVE = "PROGRESSIVE"
+    PROGRESSIVE = "PROGRESSIVE",
+    CREW = "CREW"
 }
 export declare class ArenaQuestRule {
     property: string;
