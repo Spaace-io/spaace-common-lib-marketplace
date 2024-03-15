@@ -33,6 +33,14 @@ export class ArenaCrew extends BaseEntity {
   @Column('text', { nullable: true })
   discord!: string;
 
+  @Field(() => String)
+  @Column('text')
+  link!: string;
+
+  @Field(() => String)
+  @Column('text')
+  password!: string;
+
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
   banner!: string;

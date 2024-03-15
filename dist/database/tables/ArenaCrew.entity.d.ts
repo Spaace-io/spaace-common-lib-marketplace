@@ -4,6 +4,8 @@ export declare class ArenaCrew extends BaseEntity {
     owner: string | null;
     description: string;
     discord: string;
+    link: string;
+    password: string;
     banner: string;
     profile: string;
     totalMembers: string;
