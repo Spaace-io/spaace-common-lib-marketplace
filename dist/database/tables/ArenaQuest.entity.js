@@ -24,6 +24,7 @@ var ArenaQuestTrigger;
     ArenaQuestTrigger["SOCIAL"] = "SOCIAL";
     ArenaQuestTrigger["SOCIAL_PRIME"] = "SOCIAL_PRIME";
     ArenaQuestTrigger["USER_LEVEL_PROGRESS"] = "USER_LEVEL_PROGRESS";
+    ArenaQuestTrigger["CREW_PROGRESS"] = "CREW_PROGRESS";
 })(ArenaQuestTrigger = exports.ArenaQuestTrigger || (exports.ArenaQuestTrigger = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestTrigger, {
     name: 'ArenaQuestTrigger',
