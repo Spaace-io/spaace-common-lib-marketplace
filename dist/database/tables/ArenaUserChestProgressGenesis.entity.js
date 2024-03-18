@@ -9,34 +9,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArenaGenesisSeasonChest = void 0;
+exports.ArenaUserChestProgressGenesis = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-let ArenaGenesisSeasonChest = class ArenaGenesisSeasonChest extends typeorm_1.BaseEntity {
+const ArenaUser_entity_1 = require("./ArenaUser.entity");
+const ArenaChestProbabilityGenesis_entity_1 = require("./ArenaChestProbabilityGenesis.entity");
+let ArenaUserChestProgressGenesis = class ArenaUserChestProgressGenesis extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    (0, typeorm_1.PrimaryColumn)('text'),
+    (0, typeorm_1.ManyToOne)(() => ArenaUser_entity_1.ArenaUser),
+    (0, typeorm_1.JoinColumn)({ name: 'userTwitter', referencedColumnName: 'userTwitterId' }),
     __metadata("design:type", String)
-], ArenaGenesisSeasonChest.prototype, "level", void 0);
+], ArenaUserChestProgressGenesis.prototype, "userTwitter", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text'),
+    (0, typeorm_1.ManyToOne)(() => ArenaChestProbabilityGenesis_entity_1.ArenaChestProbabilityGenesis),
+    (0, typeorm_1.JoinColumn)({ name: 'chestProbability', referencedColumnName: 'id' }),
+    __metadata("design:type", String)
+], ArenaUserChestProgressGenesis.prototype, "chestProbability", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
-], ArenaGenesisSeasonChest.prototype, "stars", void 0);
+], ArenaUserChestProgressGenesis.prototype, "totalChestReceived", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
-], ArenaGenesisSeasonChest.prototype, "min", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
-], ArenaGenesisSeasonChest.prototype, "max", void 0);
-ArenaGenesisSeasonChest = __decorate([
+], ArenaUserChestProgressGenesis.prototype, "lastChestReceivedOnLevel", void 0);
+ArenaUserChestProgressGenesis = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'arena_genesis_seasons_chest' })
-], ArenaGenesisSeasonChest);
-exports.ArenaGenesisSeasonChest = ArenaGenesisSeasonChest;
-//# sourceMappingURL=ArenaGenesisSeasonChest.entity.js.map
+    (0, typeorm_1.Entity)({ name: 'arena_users_chest_progress_genesis' })
+], ArenaUserChestProgressGenesis);
+exports.ArenaUserChestProgressGenesis = ArenaUserChestProgressGenesis;
+//# sourceMappingURL=ArenaUserChestProgressGenesis.entity.js.map

@@ -53,7 +53,7 @@ __exportStar(require("./ArenaLeague.entity"), exports);
 __exportStar(require("./ArenaQuest.entity"), exports);
 __exportStar(require("./ArenaQuestProgress.entity"), exports);
 __exportStar(require("./ArenaChestPoints.entity"), exports);
-__exportStar(require("./ArenaGenesisSeasonChest.entity"), exports);
+__exportStar(require("./ArenaLevel.entity"), exports);
 __exportStar(require("./ArenaSeasonChest.entity"), exports);
 __exportStar(require("./ArenaUserEarnedChest.entity"), exports);
 __exportStar(require("./ArenaUserStatistics.entity"), exports);
@@ -63,4 +63,8 @@ __exportStar(require("./ArenaCrew.entity"), exports);
 __exportStar(require("./ArenaCron.entity"), exports);
 __exportStar(require("./ArenaSpaaceTweet.entity"), exports);
 __exportStar(require("./ArenaTweet.entity"), exports);
+__exportStar(require("./ArenaChestPointsGenesis.entitiy"), exports);
+__exportStar(require("./ArenaChestProbabilityGenesis.entity"), exports);
+__exportStar(require("./ArenaSeasonChestGenesis.entity"), exports);
+__exportStar(require("./ArenaUserChestProgressGenesis.entity"), exports);
 //# sourceMappingURL=index.js.map
