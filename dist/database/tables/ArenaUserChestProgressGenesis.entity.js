@@ -32,13 +32,6 @@ __decorate([
 ], ArenaUserChestProgressGenesis.prototype, "userTwitter", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('text'),
-    (0, typeorm_1.ManyToOne)(() => ArenaChestProbabilityGenesis_entity_1.ArenaChestProbabilityGenesis),
-    (0, typeorm_1.JoinColumn)({ name: 'chestProbability', referencedColumnName: 'id' }),
-    __metadata("design:type", String)
-], ArenaUserChestProgressGenesis.prototype, "chestProbability", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], ArenaUserChestProgressGenesis.prototype, "totalChestReceived", void 0);

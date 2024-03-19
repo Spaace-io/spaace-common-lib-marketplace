@@ -26,12 +26,6 @@ export class ArenaUserChestProgressGenesis extends BaseEntity {
   userTwitter!: string;
 
   @Field(() => String)
-  @Column('text')
-  @ManyToOne(() => ArenaChestProbabilityGenesis)
-  @JoinColumn({ name: 'chestProbability', referencedColumnName: 'id' })
-  chestProbability!: string;
-
-  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   totalChestReceived!: string;
 
