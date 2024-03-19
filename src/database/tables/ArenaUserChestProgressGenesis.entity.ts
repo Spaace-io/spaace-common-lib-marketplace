@@ -15,6 +15,12 @@ import { ArenaChestProbabilityGenesis } from './ArenaChestProbabilityGenesis.ent
 export class ArenaUserChestProgressGenesis extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('text')
+  @ManyToOne(() => ArenaChestProbabilityGenesis)
+  @JoinColumn({ name: 'levelId', referencedColumnName: 'id' })
+  levelId!: string;
+
+  @Field(() => String)
+  @PrimaryColumn('text')
   @ManyToOne(() => ArenaUser)
   @JoinColumn({ name: 'userTwitter', referencedColumnName: 'userTwitterId' })
   userTwitter!: string;

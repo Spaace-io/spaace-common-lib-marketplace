@@ -19,6 +19,13 @@ let ArenaUserChestProgressGenesis = class ArenaUserChestProgressGenesis extends 
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
+    (0, typeorm_1.ManyToOne)(() => ArenaChestProbabilityGenesis_entity_1.ArenaChestProbabilityGenesis),
+    (0, typeorm_1.JoinColumn)({ name: 'levelId', referencedColumnName: 'id' }),
+    __metadata("design:type", String)
+], ArenaUserChestProgressGenesis.prototype, "levelId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.PrimaryColumn)('text'),
     (0, typeorm_1.ManyToOne)(() => ArenaUser_entity_1.ArenaUser),
     (0, typeorm_1.JoinColumn)({ name: 'userTwitter', referencedColumnName: 'userTwitterId' }),
     __metadata("design:type", String)
