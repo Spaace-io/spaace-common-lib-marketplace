@@ -49,6 +49,7 @@ export * from './ArenaGlobalLeaderBoard.entity';
 export * from './ArenaCrewLeaderBoard.entity';
 
 export * from './ArenaCrew.entity';
+export * from './ArenaCrewProgress.entity';
 export * from './ArenaCron.entity';
 export * from './ArenaSpaaceTweet.entity';
 export * from './ArenaTweet.entity';
