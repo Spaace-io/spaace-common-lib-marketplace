@@ -63,7 +63,7 @@ __exportStar(require("./ArenaCrew.entity"), exports);
 __exportStar(require("./ArenaCron.entity"), exports);
 __exportStar(require("./ArenaSpaaceTweet.entity"), exports);
 __exportStar(require("./ArenaTweet.entity"), exports);
-__exportStar(require("./ArenaChestPointsGenesis.entitiy"), exports);
+__exportStar(require("./ArenaChestPointsGenesis.entity"), exports);
 __exportStar(require("./ArenaChestProbabilityGenesis.entity"), exports);
 __exportStar(require("./ArenaSeasonChestGenesis.entity"), exports);
 __exportStar(require("./ArenaUserChestProgressGenesis.entity"), exports);

@@ -46,7 +46,7 @@ export * from './ArenaCrew.entity';
 export * from './ArenaCron.entity';
 export * from './ArenaSpaaceTweet.entity';
 export * from './ArenaTweet.entity';
-export * from './ArenaChestPointsGenesis.entitiy';
+export * from './ArenaChestPointsGenesis.entity';
 export * from './ArenaChestProbabilityGenesis.entity';
 export * from './ArenaSeasonChestGenesis.entity';
 export * from './ArenaUserChestProgressGenesis.entity';

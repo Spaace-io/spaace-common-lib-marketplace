@@ -29,4 +29,4 @@ ArenaChestPointsGenesis = __decorate([
     (0, typeorm_1.Entity)({ name: 'arena_chest_points_genesis' })
 ], ArenaChestPointsGenesis);
 exports.ArenaChestPointsGenesis = ArenaChestPointsGenesis;
-//# sourceMappingURL=ArenaChestPointsGenesis.entitiy.js.map
+//# sourceMappingURL=ArenaChestPointsGenesis.entity.js.map
