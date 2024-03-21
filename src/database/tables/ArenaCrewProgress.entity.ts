@@ -32,4 +32,8 @@ export class ArenaCrewProgress extends BaseEntity {
   @Field(() => String)
   @Column('bigint', { default: '0' })
   questCompleted!: string;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  rank!: string;
 }

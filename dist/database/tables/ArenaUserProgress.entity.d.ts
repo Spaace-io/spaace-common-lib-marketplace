@@ -7,4 +7,6 @@ export declare class ArenaUserProgress extends BaseEntity {
     questCompleted: string;
     division: string;
     league: string;
+    rank: string;
+    leagueRank: string;
 }

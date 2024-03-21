@@ -4,4 +4,5 @@ export declare class ArenaCrewProgress extends BaseEntity {
     seasonNumber: string;
     stars: string;
     questCompleted: string;
+    rank: string;
 }

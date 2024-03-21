@@ -44,4 +44,12 @@ export class ArenaUserProgress extends BaseEntity {
   @Field(() => String)
   @Column('text', { nullable: true })
   league!: string;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  rank!: string;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  leagueRank!: string;
 }

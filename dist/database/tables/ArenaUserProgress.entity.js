@@ -56,6 +56,16 @@ __decorate([
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "league", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], ArenaUserProgress.prototype, "rank", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], ArenaUserProgress.prototype, "leagueRank", void 0);
 ArenaUserProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users_progress' })
