@@ -51,7 +51,8 @@ __decorate([
 ], ArenaChestProbabilityGenesis.prototype, "minLevelBetweenChest", void 0);
 ArenaChestProbabilityGenesis = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'arena_chest_probability_genesis' })
+    (0, typeorm_1.Entity)({ name: 'arena_chest_probability_genesis' }),
+    (0, typeorm_1.Unique)(['minLevel', 'maxLevel'])
 ], ArenaChestProbabilityGenesis);
 exports.ArenaChestProbabilityGenesis = ArenaChestProbabilityGenesis;
 //# sourceMappingURL=ArenaChestProbabilityGenesis.entity.js.map

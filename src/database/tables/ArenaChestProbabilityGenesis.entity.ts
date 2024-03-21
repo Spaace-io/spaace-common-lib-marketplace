@@ -1,8 +1,15 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  BaseEntity,
+  Column,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 
 @ObjectType()
 @Entity({ name: 'arena_chest_probability_genesis' })
+@Unique(['minLevel', 'maxLevel'])
 export class ArenaChestProbabilityGenesis extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')

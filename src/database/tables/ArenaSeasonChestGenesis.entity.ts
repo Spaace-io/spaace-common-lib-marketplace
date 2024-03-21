@@ -1,5 +1,11 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  BaseEntity,
+  Column,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 
 export enum ArenaTiers {
   TIER_1 = '1',
@@ -25,6 +31,7 @@ class Tier {
 
 @ObjectType()
 @Entity({ name: 'arena_seasons_chest_genesis' })
+@Unique(['minChestCount', 'maxChestCount'])
 export class ArenaSeasonChestGenesis extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')

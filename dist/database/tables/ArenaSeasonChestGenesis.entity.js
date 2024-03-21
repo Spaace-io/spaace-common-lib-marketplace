@@ -62,7 +62,8 @@ __decorate([
 ], ArenaSeasonChestGenesis.prototype, "tiers", void 0);
 ArenaSeasonChestGenesis = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'arena_seasons_chest_genesis' })
+    (0, typeorm_1.Entity)({ name: 'arena_seasons_chest_genesis' }),
+    (0, typeorm_1.Unique)(['minChestCount', 'maxChestCount'])
 ], ArenaSeasonChestGenesis);
 exports.ArenaSeasonChestGenesis = ArenaSeasonChestGenesis;
 //# sourceMappingURL=ArenaSeasonChestGenesis.entity.js.map
