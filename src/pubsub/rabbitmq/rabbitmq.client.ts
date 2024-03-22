@@ -14,6 +14,25 @@ import { exchangeMap } from './types/exchangeMap';
 export class RabbitMQClient {
   constructor(private readonly amqpConnection: AmqpConnection) {}
 
+  async batchPublish<T extends PubSubTopic>(
+    topic: T,
+    routingKey: string,
+    messages:
+      | PubSubMessage<PubSubTrigger<T>>[]
+      | ArenaPubSubMessage<ArenaPubSubTrigger<T>>[],
+  ) {
+    const exchange = exchangeMap[topic];
+    await this.amqpConnection.channel.assertExchange(exchange, 'topic', {
+      durable: true,
+    });
+    this.amqpConnection.channel.publish(
+      exchange,
+      routingKey,
+      Buffer.from(JSON.stringify(messages)),
+    );
+    console.log(`Published message to ${exchange}:${routingKey}`);
+  }
+
   async publish<T extends PubSubTopic>(
     topic: T,
     routingKey: string,
@@ -40,7 +59,9 @@ export class RabbitMQClient {
     onMessage: (
       msg:
         | PubSubMessage<PubSubTrigger<T>>
-        | ArenaPubSubMessage<ArenaPubSubTrigger<T>>,
+        | ArenaPubSubMessage<ArenaPubSubTrigger<T>>
+        | PubSubMessage<PubSubTrigger<T>>[]
+        | ArenaPubSubMessage<ArenaPubSubTrigger<T>>[],
     ) => void,
   ) {
     const exchange = exchangeMap[topic];

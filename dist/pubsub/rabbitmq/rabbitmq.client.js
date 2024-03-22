@@ -27,6 +27,16 @@ let RabbitMQClient = class RabbitMQClient {
     constructor(amqpConnection) {
         this.amqpConnection = amqpConnection;
     }
+    batchPublish(topic, routingKey, messages) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const exchange = exchangeMap_1.exchangeMap[topic];
+            yield this.amqpConnection.channel.assertExchange(exchange, 'topic', {
+                durable: true,
+            });
+            this.amqpConnection.channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(messages)));
+            console.log(`Published message to ${exchange}:${routingKey}`);
+        });
+    }
     publish(topic, routingKey, message) {
         return __awaiter(this, void 0, void 0, function* () {
             const exchange = exchangeMap_1.exchangeMap[topic];
