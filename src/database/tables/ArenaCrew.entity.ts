@@ -56,4 +56,8 @@ export class ArenaCrew extends BaseEntity {
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   totalStarsEarned!: string;
+
+  @Field(() => Date)
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
+  creationDate!: Date;
 }
