@@ -10,4 +10,5 @@ export declare class ArenaCrew extends BaseEntity {
     profile: string;
     totalMembers: string;
     totalStarsEarned: string;
+    creationDate: Date;
 }
