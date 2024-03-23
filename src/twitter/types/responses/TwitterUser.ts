@@ -9,7 +9,7 @@ export interface TwitterUserv2 {
 }
 
 export interface TwitterUserv1 {
-  id: number;
+  id_str: string;
   name: string;
   screen_name: string;
   description: string;
