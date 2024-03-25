@@ -36,4 +36,8 @@ export class ArenaCrewProgress extends BaseEntity {
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   rank!: string;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  twentyFourHourRank!: string;
 }

@@ -68,4 +68,5 @@ __exportStar(require("./ArenaChestPointsGenesis.entity"), exports);
 __exportStar(require("./ArenaChestProbabilityGenesis.entity"), exports);
 __exportStar(require("./ArenaSeasonChestGenesis.entity"), exports);
 __exportStar(require("./ArenaUserChestProgressGenesis.entity"), exports);
+__exportStar(require("./ArenaCrewStarTracking.entity"), exports);
 //# sourceMappingURL=index.js.map
