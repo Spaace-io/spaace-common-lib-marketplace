@@ -8,19 +8,19 @@ export class ArenaSpaaceTweet extends BaseEntity {
   @PrimaryColumn('text')
   tweetId!: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column('text')
   likePaginationToken!: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column('text')
   replyPaginationToken!: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column('text')
   quotePaginationToken!: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column('text')
   retweetPaginationToken!: string;
 

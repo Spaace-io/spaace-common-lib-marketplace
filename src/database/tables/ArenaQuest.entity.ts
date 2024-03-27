@@ -61,6 +61,7 @@ export enum ArenaQuestType {
   PROGRESSIVE_STREAK = 'PROGRESSIVE_STREAK',
   PROGRESSIVE = 'PROGRESSIVE',
   CREW = 'CREW',
+  ONBOARDING = 'ONBOARDING',
 }
 
 registerEnumType(ArenaQuestType, {
