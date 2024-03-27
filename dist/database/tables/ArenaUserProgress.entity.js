@@ -12,14 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArenaUserProgress = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
-const ArenaUser_entity_1 = require("./ArenaUser.entity");
-const ArenaSeason_entity_1 = require("./ArenaSeason.entity");
+const _1 = require(".");
 let ArenaUserProgress = class ArenaUserProgress extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
-    (0, typeorm_1.ManyToOne)(() => ArenaUser_entity_1.ArenaUser),
+    (0, typeorm_1.ManyToOne)(() => _1.ArenaUser),
     (0, typeorm_1.JoinColumn)({ name: 'userTwitter', referencedColumnName: 'userTwitterId' }),
     __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "userTwitter", void 0);
@@ -27,7 +26,7 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
-    (0, typeorm_1.ManyToOne)(() => ArenaSeason_entity_1.ArenaSeason),
+    (0, typeorm_1.ManyToOne)(() => _1.ArenaSeason),
     (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
     __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "seasonNumber", void 0);
@@ -52,8 +51,17 @@ __decorate([
     __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "questCompleted", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('text', { nullable: true }),
+    (0, graphql_1.Field)(() => _1.ArenaDivisionName, { nullable: true }),
+    (0, typeorm_1.Column)('enum', {
+        enum: _1.ArenaDivisionName,
+        enumName: 'arena_divison_name',
+        nullable: true,
+    }),
+    (0, typeorm_1.ManyToOne)(() => _1.ArenaDivision, { nullable: true }),
+    (0, typeorm_1.JoinColumn)([
+        { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
+        { name: 'division', referencedColumnName: 'name' },
+    ]),
     __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "division", void 0);
 __decorate([

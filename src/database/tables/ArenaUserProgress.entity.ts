@@ -7,8 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { ArenaUser } from './ArenaUser.entity';
-import { ArenaSeason } from './ArenaSeason.entity';
+import { ArenaUser, ArenaSeason, ArenaDivision, ArenaDivisionName } from '.';
 
 @ObjectType()
 @Entity({ name: 'arena_users_progress' })
@@ -41,8 +40,17 @@ export class ArenaUserProgress extends BaseEntity {
   @Column('bigint', { default: '0' })
   questCompleted!: string;
 
-  @Field(() => String)
-  @Column('text', { nullable: true })
+  @Field(() => ArenaDivisionName, { nullable: true })
+  @Column('enum', {
+    enum: ArenaDivisionName,
+    enumName: 'arena_divison_name',
+    nullable: true,
+  })
+  @ManyToOne(() => ArenaDivision, { nullable: true })
+  @JoinColumn([
+    { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
+    { name: 'division', referencedColumnName: 'name' },
+  ])
   division!: string;
 
   @Field(() => String)
