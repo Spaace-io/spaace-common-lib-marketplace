@@ -9,8 +9,8 @@ import {
 import { ArenaUser } from './ArenaUser.entity';
 
 @ObjectType()
-@Entity({ name: 'arena_spaace_tweet' })
-export class ArenaSpaaceTweet extends BaseEntity {
+@Entity({ name: 'arena_spaace_onboarding_tweet_likes' })
+export class ArenaSpaaceOnboardingTweetLikes extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('text')
   tweetId!: string;
