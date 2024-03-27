@@ -29,4 +29,7 @@ export class ArenaSpaaceTweet extends BaseEntity {
 
   @Column('boolean', { default: false })
   primePost!: boolean;
+
+  @Column('boolean', { default: false })
+  onboardingPost!: boolean;
 }
