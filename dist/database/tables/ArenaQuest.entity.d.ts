@@ -69,4 +69,6 @@ export declare class AreanaQuest extends BaseEntity {
     type: ArenaQuestType;
     cronName: string;
     cronParameter: string;
+    link: string;
+    image: string;
 }

@@ -203,4 +203,12 @@ export class AreanaQuest extends BaseEntity {
   @Field(() => String)
   @Column('text', { default: null })
   cronParameter!: string;
+
+  @Field(() => String)
+  @Column('text', { default: null, nullable: true })
+  link!: string;
+
+  @Field(() => String)
+  @Column('text', { default: null, nullable: true })
+  image!: string;
 }

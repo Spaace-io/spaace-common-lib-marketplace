@@ -234,6 +234,16 @@ __decorate([
     (0, typeorm_1.Column)('text', { default: null }),
     __metadata("design:type", String)
 ], AreanaQuest.prototype, "cronParameter", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text', { default: null, nullable: true }),
+    __metadata("design:type", String)
+], AreanaQuest.prototype, "link", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text', { default: null, nullable: true }),
+    __metadata("design:type", String)
+], AreanaQuest.prototype, "image", void 0);
 AreanaQuest = AreanaQuest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_quests' }),
