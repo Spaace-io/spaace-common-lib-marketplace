@@ -59,4 +59,5 @@ export * from './ArenaChestProbabilityGenesis.entity';
 export * from './ArenaSeasonChestGenesis.entity';
 export * from './ArenaUserChestProgressGenesis.entity';
 export * from './ArenaCrewStarTracking.entity';
+export * from './ArenaCrewQuestProgress.entity';
 export * from './ArenaSpaaceOnboardingTweetLikes.entity';
