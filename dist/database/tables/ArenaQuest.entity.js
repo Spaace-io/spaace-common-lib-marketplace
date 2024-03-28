@@ -238,12 +238,12 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text', { default: null, nullable: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], AreanaQuest.prototype, "link", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text', { default: null, nullable: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], AreanaQuest.prototype, "image", void 0);
 AreanaQuest = AreanaQuest_1 = __decorate([
     (0, graphql_1.ObjectType)(),

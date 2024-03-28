@@ -207,9 +207,9 @@ export class AreanaQuest extends BaseEntity {
 
   @Field(() => String)
   @Column('text', { default: null, nullable: true })
-  link!: string;
+  link!: string | null;
 
   @Field(() => String)
   @Column('text', { default: null, nullable: true })
-  image!: string;
+  image!: string | null;
 }
