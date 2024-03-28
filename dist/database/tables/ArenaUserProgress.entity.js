@@ -39,11 +39,6 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
-], ArenaUserProgress.prototype, "crewStars", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
-    __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "xp", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
@@ -78,7 +73,7 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
-], ArenaUserProgress.prototype, "crewRank", void 0);
+], ArenaUserProgress.prototype, "twentyFourHourRank", void 0);
 ArenaUserProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users_progress' })

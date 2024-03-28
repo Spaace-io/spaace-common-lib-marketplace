@@ -30,10 +30,6 @@ export class ArenaUserProgress extends BaseEntity {
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
-  crewStars!: string;
-
-  @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   xp!: string;
 
   @Field(() => String)
@@ -62,5 +58,5 @@ export class ArenaUserProgress extends BaseEntity {
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
-  crewRank!: string;
+  twentyFourHourRank!: string;
 }
