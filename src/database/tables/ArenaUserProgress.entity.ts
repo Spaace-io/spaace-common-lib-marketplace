@@ -7,7 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { ArenaUser, ArenaSeason, ArenaDivision, ArenaDivisionName } from '.';
+import { ArenaUser, ArenaSeason, ArenaDivisionName } from '.';
 
 @ObjectType()
 @Entity({ name: 'arena_users_progress' })
@@ -46,12 +46,7 @@ export class ArenaUserProgress extends BaseEntity {
     enumName: 'arena_divison_name',
     nullable: true,
   })
-  @ManyToOne(() => ArenaDivision, { nullable: true })
-  @JoinColumn([
-    { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
-    { name: 'division', referencedColumnName: 'name' },
-  ])
-  division!: string;
+  division!: ArenaDivisionName;
 
   @Field(() => String)
   @Column('text', { nullable: true })

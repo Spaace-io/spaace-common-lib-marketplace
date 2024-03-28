@@ -57,11 +57,6 @@ __decorate([
         enumName: 'arena_divison_name',
         nullable: true,
     }),
-    (0, typeorm_1.ManyToOne)(() => _1.ArenaDivision, { nullable: true }),
-    (0, typeorm_1.JoinColumn)([
-        { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
-        { name: 'division', referencedColumnName: 'name' },
-    ]),
     __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "division", void 0);
 __decorate([
