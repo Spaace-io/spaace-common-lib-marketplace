@@ -197,19 +197,19 @@ export class AreanaQuest extends BaseEntity {
   @Column('enum', { enum: ArenaQuestType, enumName: 'arena_quest_type' })
   type!: ArenaQuestType;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column('text', { default: null })
-  cronName!: string;
+  cronName!: string | null;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column('text', { default: null })
-  cronParameter!: string;
+  cronParameter!: string | null;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column('text', { default: null, nullable: true })
   link!: string | null;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column('text', { default: null, nullable: true })
   image!: string | null;
 }

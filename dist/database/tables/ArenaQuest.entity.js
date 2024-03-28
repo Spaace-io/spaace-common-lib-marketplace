@@ -226,22 +226,22 @@ __decorate([
     __metadata("design:type", String)
 ], AreanaQuest.prototype, "type", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { default: null }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], AreanaQuest.prototype, "cronName", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { default: null }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], AreanaQuest.prototype, "cronParameter", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { default: null, nullable: true }),
     __metadata("design:type", Object)
 ], AreanaQuest.prototype, "link", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { default: null, nullable: true }),
     __metadata("design:type", Object)
 ], AreanaQuest.prototype, "image", void 0);
