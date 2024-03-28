@@ -70,4 +70,5 @@ __exportStar(require("./ArenaSeasonChestGenesis.entity"), exports);
 __exportStar(require("./ArenaUserChestProgressGenesis.entity"), exports);
 __exportStar(require("./ArenaCrewStarTracking.entity"), exports);
 __exportStar(require("./ArenaSpaaceOnboardingTweetLikes.entity"), exports);
+__exportStar(require("./ArenaUserStarTracking.entity"), exports);
 //# sourceMappingURL=index.js.map
