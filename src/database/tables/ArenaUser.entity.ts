@@ -56,7 +56,7 @@ export class ArenaUser extends BaseEntity {
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
-  loyatyPointsEarned!: string;
+  totalXpEarned!: string;
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })

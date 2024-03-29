@@ -70,7 +70,7 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
-], ArenaUser.prototype, "loyatyPointsEarned", void 0);
+], ArenaUser.prototype, "totalXpEarned", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
