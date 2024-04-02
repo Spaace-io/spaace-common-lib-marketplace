@@ -7,4 +7,6 @@ export declare class ArenaTweet extends BaseEntity {
     replyCount: number;
     retweetCount: number;
     viewCount: number;
+    quoteTweetId: string | null;
+    replyTweetId: string | null;
 }
