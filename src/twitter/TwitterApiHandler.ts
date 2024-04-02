@@ -1,6 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
 import { MultipleTweetsLookupResponse } from './types/responses/MultipleTweetsLookupResponse';
-import { TweetsStatsResponse } from './types/responses/TweetsStatsResponse';
+import {
+  TweetsStatsResponse,
+  UserStatsResponse,
+} from './types/responses/TweetsStatsResponse';
 import { ArenaUser } from '../database';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { default: addOAuthInterceptor } = require('axios-oauth-1.0a');
@@ -88,7 +91,7 @@ export class TwitterApiHandler {
   }
 
   async getLikingUsers(tweetId: string, pagination_token?: string) {
-    const { data }: { data: TweetsStatsResponse } =
+    const { data }: { data: UserStatsResponse } =
       await this.twitterApiInstance.get(
         `2/tweets/${tweetId}/liking_users?max_results=100${
           pagination_token ? `&pagination_token=${pagination_token}` : ''
@@ -99,7 +102,7 @@ export class TwitterApiHandler {
   }
 
   async getRetweetedByUsers(tweetId: string, pagination_token?: string) {
-    const { data }: { data: TweetsStatsResponse } =
+    const { data }: { data: UserStatsResponse } =
       await this.twitterApiInstance.get(
         `2/tweets/${tweetId}/retweeted_by?max_results=100${
           pagination_token ? `&pagination_token=${pagination_token}` : ''
@@ -109,10 +112,21 @@ export class TwitterApiHandler {
     return data;
   }
 
-  async getReplies(tweetId: string, pagination_token?: string) {
+  async getReplies(tweetId: string, startTime?: string, endTime?: string) {
     const { data }: { data: TweetsStatsResponse } =
       await this.twitterApiInstance.get(
         `2/tweets/search/recent?max_results=100&tweet.fields=author_id,id&query=conversation_id: ${tweetId}${
+          startTime ? `&start_time=${startTime}` : ''
+        }${endTime ? `&end_time=${endTime}` : ''}`,
+      );
+
+    return data;
+  }
+
+  async getQuoteTweets(tweetId: string, pagination_token?: string) {
+    const { data }: { data: TweetsStatsResponse } =
+      await this.twitterApiInstance.get(
+        `2/tweets/${tweetId}/quote_tweets?max_results=100&tweet.fields=author_id&user.fields=id${
           pagination_token ? `&pagination_token=${pagination_token}` : ''
         }`,
       );
