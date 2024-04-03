@@ -45,6 +45,10 @@ export class ArenaTweet extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true, default: 0 })
   viewCount!: number;
 
+  @Field(() => Number)
+  @Column('numeric', { precision: 78, unsigned: true, default: 0 })
+  quoteCount!: number;
+
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
   quoteTweetId!: string | null;

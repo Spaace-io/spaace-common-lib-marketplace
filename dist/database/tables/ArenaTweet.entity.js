@@ -56,6 +56,11 @@ __decorate([
     __metadata("design:type", Number)
 ], ArenaTweet.prototype, "viewCount", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => Number),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
+    __metadata("design:type", Number)
+], ArenaTweet.prototype, "quoteCount", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
