@@ -86,7 +86,7 @@ class TwitterApiHandler {
     }
     getReplies(tweetId, startTime, endTime) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { data } = yield this.twitterApiInstance.get(`2/tweets/search/recent?max_results=100&tweet.fields=author_id,id&query=conversation_id: ${tweetId}${startTime ? `&start_time=${startTime}` : ''}${endTime ? `&end_time=${endTime}` : ''}`);
+            const { data } = yield this.twitterApiInstance.get(`2/tweets/search/recent?max_results=100&tweet.fields=author_id,id&query=in_reply_to_tweet_id: ${tweetId}${startTime ? `&start_time=${startTime}` : ''}${endTime ? `&end_time=${endTime}` : ''}`);
             return data;
         });
     }

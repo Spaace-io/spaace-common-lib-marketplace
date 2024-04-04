@@ -115,7 +115,7 @@ export class TwitterApiHandler {
   async getReplies(tweetId: string, startTime?: string, endTime?: string) {
     const { data }: { data: TweetsStatsResponse } =
       await this.twitterApiInstance.get(
-        `2/tweets/search/recent?max_results=100&tweet.fields=author_id,id&query=conversation_id: ${tweetId}${
+        `2/tweets/search/recent?max_results=100&tweet.fields=author_id,id&query=in_reply_to_tweet_id: ${tweetId}${
           startTime ? `&start_time=${startTime}` : ''
         }${endTime ? `&end_time=${endTime}` : ''}`,
       );
