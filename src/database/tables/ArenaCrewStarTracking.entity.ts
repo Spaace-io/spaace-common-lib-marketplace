@@ -23,7 +23,7 @@ export class ArenaCrewStarTracking extends BaseEntity {
   crewName!: string;
 
   @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  @Column('numeric', { precision: 78, unsigned: false, default: '0' })
   stars!: string;
 
   @Field(() => Date)
