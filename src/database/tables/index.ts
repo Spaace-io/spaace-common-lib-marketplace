@@ -62,3 +62,7 @@ export * from './ArenaCrewStarTracking.entity';
 export * from './ArenaCrewQuestProgress.entity';
 export * from './ArenaSpaaceOnboardingTweetLikes.entity';
 export * from './ArenaUserStarTracking.entity';
+
+export * from './ArenaWowChestProbability.entity';
+export * from './ArenaWowChestPeriod.entity';
+export * from './ArenaUserClaimedWowChest.entity';

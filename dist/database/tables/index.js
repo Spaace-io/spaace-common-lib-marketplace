@@ -72,4 +72,7 @@ __exportStar(require("./ArenaCrewStarTracking.entity"), exports);
 __exportStar(require("./ArenaCrewQuestProgress.entity"), exports);
 __exportStar(require("./ArenaSpaaceOnboardingTweetLikes.entity"), exports);
 __exportStar(require("./ArenaUserStarTracking.entity"), exports);
+__exportStar(require("./ArenaWowChestProbability.entity"), exports);
+__exportStar(require("./ArenaWowChestPeriod.entity"), exports);
+__exportStar(require("./ArenaUserClaimedWowChest.entity"), exports);
 //# sourceMappingURL=index.js.map
