@@ -1,5 +1,11 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  BaseEntity,
+  Column,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 
 export enum ArenaWowChestType {
   XP = 'XP',
@@ -11,6 +17,7 @@ registerEnumType(ArenaWowChestType, { name: 'ArenaWowChestType' });
 
 @ObjectType()
 @Entity({ name: 'arena_wow_chest_probability' })
+@Unique(['type', 'value'])
 export class ArenaWowChestProbability extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')

@@ -46,7 +46,8 @@ __decorate([
 ], ArenaWowChestProbability.prototype, "probability", void 0);
 ArenaWowChestProbability = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'arena_wow_chest_probability' })
+    (0, typeorm_1.Entity)({ name: 'arena_wow_chest_probability' }),
+    (0, typeorm_1.Unique)(['type', 'value'])
 ], ArenaWowChestProbability);
 exports.ArenaWowChestProbability = ArenaWowChestProbability;
 //# sourceMappingURL=ArenaWowChestProbability.entity.js.map
