@@ -35,6 +35,6 @@ export class ArenaWowChestProbability extends BaseEntity {
   value!: string;
 
   @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  @Column('decimal', { precision: 10, scale: 2, default: '0.00' })
   probability!: string;
 }
