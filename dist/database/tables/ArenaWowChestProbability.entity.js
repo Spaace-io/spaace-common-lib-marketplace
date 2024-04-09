@@ -17,6 +17,7 @@ var ArenaWowChestType;
     ArenaWowChestType["XP"] = "XP";
     ArenaWowChestType["TOKEN"] = "TOKEN";
     ArenaWowChestType["BOOSTER"] = "BOOSTER";
+    ArenaWowChestType["EMPTY"] = "EMPTY";
 })(ArenaWowChestType = exports.ArenaWowChestType || (exports.ArenaWowChestType = {}));
 (0, graphql_1.registerEnumType)(ArenaWowChestType, { name: 'ArenaWowChestType' });
 let ArenaWowChestProbability = class ArenaWowChestProbability extends typeorm_1.BaseEntity {

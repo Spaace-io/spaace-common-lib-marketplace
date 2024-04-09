@@ -11,6 +11,7 @@ export enum ArenaWowChestType {
   XP = 'XP',
   TOKEN = 'TOKEN',
   BOOSTER = 'BOOSTER',
+  EMPTY = 'EMPTY',
 }
 
 registerEnumType(ArenaWowChestType, { name: 'ArenaWowChestType' });

@@ -118,7 +118,7 @@ __decorate([
 ], ArenaUser.prototype, "twitterAccessToken", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)('text'),
+    (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], ArenaUser.prototype, "userWalletAddress", void 0);
 ArenaUser = ArenaUser_1 = __decorate([

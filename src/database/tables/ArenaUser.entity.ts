@@ -95,6 +95,6 @@ export class ArenaUser extends BaseEntity {
   twitterAccessToken!: string;
 
   @Field(() => String, { nullable: true })
-  @Column('text')
+  @Column('text', { nullable: true })
   userWalletAddress: string | undefined;
 }
