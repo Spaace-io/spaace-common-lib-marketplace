@@ -1,11 +1,11 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Entity,
-  PrimaryColumn,
   BaseEntity,
   Column,
   ManyToOne,
   JoinColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ArenaUser, ArenaSeason } from '.';
 
@@ -13,13 +13,17 @@ import { ArenaUser, ArenaSeason } from '.';
 @Entity({ name: 'arena_users_booster' })
 export class ArenaUserBooster extends BaseEntity {
   @Field(() => String)
-  @PrimaryColumn('text')
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
+
+  @Field(() => String)
+  @Column('text')
   @ManyToOne(() => ArenaUser)
   @JoinColumn({ name: 'userTwitter', referencedColumnName: 'userTwitterId' })
   userTwitter!: string;
 
   @Field(() => String)
-  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   @ManyToOne(() => ArenaSeason)
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
   seasonNumber!: string;
