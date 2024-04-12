@@ -59,4 +59,8 @@ export class ArenaUserProgress extends BaseEntity {
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   twentyFourHourRank!: string;
+
+  @Field(() => Number)
+  @Column('numeric', { precision: 78, unsigned: true, default: 0 })
+  booster!: number;
 }

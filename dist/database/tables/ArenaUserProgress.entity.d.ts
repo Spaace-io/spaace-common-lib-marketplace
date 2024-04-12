@@ -11,4 +11,5 @@ export declare class ArenaUserProgress extends BaseEntity {
     rank: string;
     leagueRank: string;
     twentyFourHourRank: string;
+    booster: number;
 }
