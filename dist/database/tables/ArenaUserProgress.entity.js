@@ -74,11 +74,6 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "twentyFourHourRank", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Number),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
-    __metadata("design:type", Number)
-], ArenaUserProgress.prototype, "booster", void 0);
 ArenaUserProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users_progress' })

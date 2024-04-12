@@ -58,3 +58,4 @@ export * from './ArenaUserStarTracking.entity';
 export * from './ArenaWowChestProbability.entity';
 export * from './ArenaWowChestPeriod.entity';
 export * from './ArenaUserClaimedWowChest.entity';
+export * from './ArenaUserBooster.entity';
