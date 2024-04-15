@@ -16,7 +16,7 @@ export enum ArenaCrewChestTiers {
 registerEnumType(ArenaCrewChestTiers, { name: 'ArenaCrewChestTiers' });
 
 @ObjectType()
-class Tier {
+class XpTier {
   @Field(() => ArenaCrewChestTiers)
   tierNumber!: ArenaCrewChestTiers;
 
@@ -40,7 +40,7 @@ export class ArenaCrewChestPoint extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   maxRank!: string;
 
-  @Field(() => [Tier])
+  @Field(() => [XpTier])
   @Column('jsonb', { default: [] })
-  tiers!: Tier[];
+  tiers!: XpTier[];
 }

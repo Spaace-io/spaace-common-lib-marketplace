@@ -19,19 +19,19 @@ var ArenaCrewChestTiers;
     ArenaCrewChestTiers["TIER_3"] = "3";
 })(ArenaCrewChestTiers = exports.ArenaCrewChestTiers || (exports.ArenaCrewChestTiers = {}));
 (0, graphql_1.registerEnumType)(ArenaCrewChestTiers, { name: 'ArenaCrewChestTiers' });
-let Tier = class Tier {
+let XpTier = class XpTier {
 };
 __decorate([
     (0, graphql_1.Field)(() => ArenaCrewChestTiers),
     __metadata("design:type", String)
-], Tier.prototype, "tierNumber", void 0);
+], XpTier.prototype, "tierNumber", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
     __metadata("design:type", Number)
-], Tier.prototype, "xp", void 0);
-Tier = __decorate([
+], XpTier.prototype, "xp", void 0);
+XpTier = __decorate([
     (0, graphql_1.ObjectType)()
-], Tier);
+], XpTier);
 let ArenaCrewChestPoint = class ArenaCrewChestPoint extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -50,7 +50,7 @@ __decorate([
     __metadata("design:type", String)
 ], ArenaCrewChestPoint.prototype, "maxRank", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [Tier]),
+    (0, graphql_1.Field)(() => [XpTier]),
     (0, typeorm_1.Column)('jsonb', { default: [] }),
     __metadata("design:type", Array)
 ], ArenaCrewChestPoint.prototype, "tiers", void 0);

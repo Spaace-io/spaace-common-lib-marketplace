@@ -4,7 +4,7 @@ export declare enum ArenaCrewChestTiers {
     TIER_2 = "2",
     TIER_3 = "3"
 }
-declare class Tier {
+declare class XpTier {
     tierNumber: ArenaCrewChestTiers;
     xp: number;
 }
@@ -12,6 +12,6 @@ export declare class ArenaCrewChestPoint extends BaseEntity {
     id: string;
     minRank: string;
     maxRank: string;
-    tiers: Tier[];
+    tiers: XpTier[];
 }
 export {};
