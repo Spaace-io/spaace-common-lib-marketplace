@@ -15,4 +15,8 @@ export class ArenaWowChestPeriod extends BaseEntity {
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   numberOfChest!: string;
+
+  @Field(() => Number)
+  @Column('numeric', { precision: 78, unsigned: true, default: 0 })
+  starsThreshold!: number;
 }
