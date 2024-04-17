@@ -5,7 +5,8 @@ export declare enum ArenaChestName {
     RARE = "RARE",
     UNCOMMON = "UNCOMMON",
     COMMON = "COMMON",
-    GENESIS = "GENESIS"
+    GENESIS = "GENESIS",
+    CREW = "CREW"
 }
 export declare class ArenaChestPoints extends BaseEntity {
     name: ArenaChestName;
