@@ -72,7 +72,7 @@ export class TwitterApiHandler {
   async getUserByUsername(username: string) {
     const { data }: { data: { data: TwitterUserv2 } } =
       await this.twitterApiInstance.get(
-        `2/users/by/username/${username}?user.fields=public_metrics`,
+        `2/users/by/username/${username}?user.fields=public_metrics,description`,
       );
 
     return data.data;
