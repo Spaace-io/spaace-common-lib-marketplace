@@ -1,6 +1,7 @@
 import { MultipleTweetsLookupResponse } from './types/responses/MultipleTweetsLookupResponse';
 import { TweetsStatsResponse, UserStatsResponse } from './types/responses/TweetsStatsResponse';
 import { ArenaUser } from '../database';
+import { TwitterUserv2 } from './types';
 export declare enum TwitterApiVersions {
     V1 = "1.1",
     V2 = "2"
@@ -10,7 +11,7 @@ export declare class TwitterApiHandler {
     private readonly twitterApiBaseUrl;
     constructor(userCreds?: Pick<ArenaUser, 'twitterAccessToken' | 'twitterSecretToken'>, twitterApiVersion?: TwitterApiVersions);
     static build(twitterId?: string, twitterApiVersion?: TwitterApiVersions): Promise<TwitterApiHandler>;
-    getUserByUsername(username: string): Promise<any>;
+    getUserByUsername(username: string): Promise<TwitterUserv2>;
     getMultipleTweets(tweetIds: string[]): Promise<MultipleTweetsLookupResponse[]>;
     getLikingUsers(tweetId: string, pagination_token?: string): Promise<UserStatsResponse>;
     getRetweetedByUsers(tweetId: string, pagination_token?: string): Promise<UserStatsResponse>;

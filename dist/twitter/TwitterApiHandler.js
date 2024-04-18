@@ -60,7 +60,7 @@ class TwitterApiHandler {
     getUserByUsername(username) {
         return __awaiter(this, void 0, void 0, function* () {
             const { data } = yield this.twitterApiInstance.get(`2/users/by/username/${username}?user.fields=public_metrics`);
-            return data;
+            return data.data;
         });
     }
     getMultipleTweets(tweetIds) {

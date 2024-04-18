@@ -5,6 +5,7 @@ import {
   UserStatsResponse,
 } from './types/responses/TweetsStatsResponse';
 import { ArenaUser } from '../database';
+import { TwitterUserv2 } from './types';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { default: addOAuthInterceptor } = require('axios-oauth-1.0a');
 
@@ -69,11 +70,12 @@ export class TwitterApiHandler {
   }
 
   async getUserByUsername(username: string) {
-    const { data } = await this.twitterApiInstance.get(
-      `2/users/by/username/${username}?user.fields=public_metrics`,
-    );
+    const { data }: { data: { data: TwitterUserv2 } } =
+      await this.twitterApiInstance.get(
+        `2/users/by/username/${username}?user.fields=public_metrics`,
+      );
 
-    return data;
+    return data.data;
   }
 
   async getMultipleTweets(tweetIds: string[]) {
