@@ -22,6 +22,11 @@ __decorate([
     __metadata("design:type", String)
 ], ArenaUser.prototype, "twitterUsername", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String, { defaultValue: '' }),
+    (0, typeorm_1.Column)('text', { default: '' }),
+    __metadata("design:type", String)
+], ArenaUser.prototype, "twitterBio", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
     __metadata("design:type", String)
