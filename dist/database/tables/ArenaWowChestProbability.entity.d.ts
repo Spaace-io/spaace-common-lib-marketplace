@@ -1,7 +1,6 @@
 import { BaseEntity } from 'typeorm';
 export declare enum ArenaWowChestType {
     XP = "XP",
-    TOKEN = "TOKEN",
     BOOSTER = "BOOSTER",
     EMPTY = "EMPTY",
     BITCOIN = "BITCOIN"

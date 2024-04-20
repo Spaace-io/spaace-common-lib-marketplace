@@ -15,7 +15,6 @@ const typeorm_1 = require("typeorm");
 var ArenaWowChestType;
 (function (ArenaWowChestType) {
     ArenaWowChestType["XP"] = "XP";
-    ArenaWowChestType["TOKEN"] = "TOKEN";
     ArenaWowChestType["BOOSTER"] = "BOOSTER";
     ArenaWowChestType["EMPTY"] = "EMPTY";
     ArenaWowChestType["BITCOIN"] = "BITCOIN";
