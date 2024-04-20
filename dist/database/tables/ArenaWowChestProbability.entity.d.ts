@@ -3,7 +3,8 @@ export declare enum ArenaWowChestType {
     XP = "XP",
     TOKEN = "TOKEN",
     BOOSTER = "BOOSTER",
-    EMPTY = "EMPTY"
+    EMPTY = "EMPTY",
+    BITCOIN = "BITCOIN"
 }
 export declare class ArenaWowChestProbability extends BaseEntity {
     id: string;
