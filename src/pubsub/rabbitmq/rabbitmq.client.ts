@@ -17,7 +17,7 @@ export class RabbitMQClient {
   async batchPublish<T extends PubSubTopic>(
     topic: T,
     routingKey: string,
-    messages:
+    messages?:
       | PubSubMessage<PubSubTrigger<T>>[]
       | ArenaPubSubMessage<ArenaPubSubTrigger<T>>[],
   ) {
@@ -28,7 +28,7 @@ export class RabbitMQClient {
     this.amqpConnection.channel.publish(
       exchange,
       routingKey,
-      Buffer.from(JSON.stringify(messages)),
+      messages ? Buffer.from(JSON.stringify(messages)) : Buffer.from(''),
     );
     console.log(`Published message to ${exchange}:${routingKey}`);
   }
@@ -36,7 +36,7 @@ export class RabbitMQClient {
   async publish<T extends PubSubTopic>(
     topic: T,
     routingKey: string,
-    message:
+    message?:
       | PubSubMessage<PubSubTrigger<T>>
       | ArenaPubSubMessage<ArenaPubSubTrigger<T>>,
   ) {
@@ -47,7 +47,7 @@ export class RabbitMQClient {
     this.amqpConnection.channel.publish(
       exchange,
       routingKey,
-      Buffer.from(JSON.stringify(message)),
+      message ? Buffer.from(JSON.stringify(message)) : Buffer.from(''),
     );
     console.log(`Published message to ${exchange}:${routingKey}`);
   }

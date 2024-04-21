@@ -33,7 +33,7 @@ let RabbitMQClient = class RabbitMQClient {
             yield this.amqpConnection.channel.assertExchange(exchange, 'topic', {
                 durable: true,
             });
-            this.amqpConnection.channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(messages)));
+            this.amqpConnection.channel.publish(exchange, routingKey, messages ? Buffer.from(JSON.stringify(messages)) : Buffer.from(''));
             console.log(`Published message to ${exchange}:${routingKey}`);
         });
     }
@@ -43,7 +43,7 @@ let RabbitMQClient = class RabbitMQClient {
             yield this.amqpConnection.channel.assertExchange(exchange, 'topic', {
                 durable: true,
             });
-            this.amqpConnection.channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(message)));
+            this.amqpConnection.channel.publish(exchange, routingKey, message ? Buffer.from(JSON.stringify(message)) : Buffer.from(''));
             console.log(`Published message to ${exchange}:${routingKey}`);
         });
     }
