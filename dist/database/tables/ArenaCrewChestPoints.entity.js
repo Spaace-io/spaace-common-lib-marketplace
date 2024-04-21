@@ -60,4 +60,4 @@ ArenaCrewChestPoint = __decorate([
     (0, typeorm_1.Unique)(['minRank', 'maxRank'])
 ], ArenaCrewChestPoint);
 exports.ArenaCrewChestPoint = ArenaCrewChestPoint;
-//# sourceMappingURL=ArenaCrewChestPoints.entitiy.js.map
+//# sourceMappingURL=ArenaCrewChestPoints.entity.js.map
