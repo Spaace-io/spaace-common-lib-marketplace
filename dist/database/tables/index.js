@@ -76,5 +76,5 @@ __exportStar(require("./ArenaWowChestProbability.entity"), exports);
 __exportStar(require("./ArenaWowChestPeriod.entity"), exports);
 __exportStar(require("./ArenaUserClaimedWowChest.entity"), exports);
 __exportStar(require("./ArenaUserBooster.entity"), exports);
-__exportStar(require("./ArenaCrewChestPoints.entitiy"), exports);
+__exportStar(require("./ArenaCrewChestPoints.entity"), exports);
 //# sourceMappingURL=index.js.map

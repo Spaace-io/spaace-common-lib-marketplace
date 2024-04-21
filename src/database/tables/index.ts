@@ -67,4 +67,4 @@ export * from './ArenaWowChestProbability.entity';
 export * from './ArenaWowChestPeriod.entity';
 export * from './ArenaUserClaimedWowChest.entity';
 export * from './ArenaUserBooster.entity';
-export * from './ArenaCrewChestPoints.entitiy';
+export * from './ArenaCrewChestPoints.entity';
