@@ -2,13 +2,7 @@
 // rabbitmq-client.ts
 import { Injectable } from '@nestjs/common';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
-import {
-  ArenaPubSubMessage,
-  ArenaPubSubTrigger,
-  PubSubMessage,
-  PubSubTopic,
-  PubSubTrigger,
-} from '../types';
+import { PubSubTopic } from '../types';
 import { exchangeMap } from './types/exchangeMap';
 
 @Injectable()
@@ -53,13 +47,7 @@ export class RabbitMQClient {
     topic: T,
     routingKey: string,
     queueName: string,
-    onMessage: (
-      msg:
-        | PubSubMessage<PubSubTrigger<T>>
-        | ArenaPubSubMessage<ArenaPubSubTrigger<T>>
-        | PubSubMessage<PubSubTrigger<T>>[]
-        | ArenaPubSubMessage<ArenaPubSubTrigger<T>>[],
-    ) => void,
+    onMessage: (msg: any) => void,
   ) {
     const exchange = exchangeMap[topic];
     await this.amqpConnection.channel.assertExchange(exchange, 'topic', {
