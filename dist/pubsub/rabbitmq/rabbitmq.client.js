@@ -19,6 +19,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RabbitMQClient = void 0;
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // rabbitmq-client.ts
 const common_1 = require("@nestjs/common");
 const nestjs_rabbitmq_1 = require("@golevelup/nestjs-rabbitmq");

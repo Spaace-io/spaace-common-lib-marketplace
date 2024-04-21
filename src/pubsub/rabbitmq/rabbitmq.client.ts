@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // rabbitmq-client.ts
 import { Injectable } from '@nestjs/common';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
@@ -17,9 +18,7 @@ export class RabbitMQClient {
   async batchPublish<T extends PubSubTopic>(
     topic: T,
     routingKey: string,
-    messages?:
-      | PubSubMessage<PubSubTrigger<T>>[]
-      | ArenaPubSubMessage<ArenaPubSubTrigger<T>>[],
+    messages: any,
   ) {
     const exchange = exchangeMap[topic];
     await this.amqpConnection.channel.assertExchange(exchange, 'topic', {
@@ -36,9 +35,7 @@ export class RabbitMQClient {
   async publish<T extends PubSubTopic>(
     topic: T,
     routingKey: string,
-    message?:
-      | PubSubMessage<PubSubTrigger<T>>
-      | ArenaPubSubMessage<ArenaPubSubTrigger<T>>,
+    message: any,
   ) {
     const exchange = exchangeMap[topic];
     await this.amqpConnection.channel.assertExchange(exchange, 'topic', {
