@@ -11,7 +11,6 @@ export declare class ArenaUser extends BaseEntity {
     crewName: string | null;
     totalXpEarned: string;
     totalStarsEarned: string;
-    totalReferrals: string;
     level: string;
     dailyStreak: string;
     lastActive: Date;

@@ -68,10 +68,6 @@ export class ArenaUser extends BaseEntity {
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
-  totalReferrals!: string;
-
-  @Field(() => String)
-  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   level!: string;
 
   @Field(() => String)
