@@ -47,6 +47,11 @@ __decorate([
 ], ArenaUserProgress.prototype, "totalReferrals", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], ArenaUserProgress.prototype, "totalReferralStars", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('bigint', { default: '0' }),
     __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "questCompleted", void 0);

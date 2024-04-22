@@ -6,6 +6,7 @@ export declare class ArenaUserProgress extends BaseEntity {
     stars: string;
     xp: string;
     totalReferrals: string;
+    totalReferralStars: string;
     questCompleted: string;
     division: ArenaDivisionName;
     league: string;

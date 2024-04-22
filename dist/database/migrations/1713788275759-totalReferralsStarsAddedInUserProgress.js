@@ -9,21 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TotalReferralsStarsAddedInUserProgress1713787912278 = void 0;
-class TotalReferralsStarsAddedInUserProgress1713787912278 {
+exports.TotalReferralsStarsAddedInUserProgress1713788275759 = void 0;
+class TotalReferralsStarsAddedInUserProgress1713788275759 {
     constructor() {
-        this.name = 'TotalReferralsStarsAddedInUserProgress1713787912278';
+        this.name = 'TotalReferralsStarsAddedInUserProgress1713788275759';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
+            yield queryRunner.query(`ALTER TABLE "arena_users_progress" ADD "totalReferralStars" numeric(78) NOT NULL DEFAULT '0'`);
             yield queryRunner.query(`ALTER TABLE "arena_wow_chest_probability" ALTER COLUMN "probability" SET DEFAULT '0.00'`);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
             yield queryRunner.query(`ALTER TABLE "arena_wow_chest_probability" ALTER COLUMN "probability" SET DEFAULT 0.00`);
+            yield queryRunner.query(`ALTER TABLE "arena_users_progress" DROP COLUMN "totalReferralStars"`);
         });
     }
 }
-exports.TotalReferralsStarsAddedInUserProgress1713787912278 = TotalReferralsStarsAddedInUserProgress1713787912278;
-//# sourceMappingURL=1713787912278-totalReferralsStarsAddedInUserProgress.js.map
+exports.TotalReferralsStarsAddedInUserProgress1713788275759 = TotalReferralsStarsAddedInUserProgress1713788275759;
+//# sourceMappingURL=1713788275759-totalReferralsStarsAddedInUserProgress.js.map

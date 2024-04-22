@@ -37,6 +37,10 @@ export class ArenaUserProgress extends BaseEntity {
   totalReferrals!: string;
 
   @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  totalReferralStars!: string;
+
+  @Field(() => String)
   @Column('bigint', { default: '0' })
   questCompleted!: string;
 
