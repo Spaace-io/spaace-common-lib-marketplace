@@ -37,6 +37,7 @@ export enum ArenaQuestRuleOperator {
   LTE = 'LTE',
   NEQ = 'NEQ',
   IN = 'IN',
+  NIN = 'NIN',
 }
 
 export enum ArenaQuestOperator {

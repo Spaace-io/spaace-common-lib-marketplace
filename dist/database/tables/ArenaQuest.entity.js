@@ -38,6 +38,7 @@ var ArenaQuestRuleOperator;
     ArenaQuestRuleOperator["LTE"] = "LTE";
     ArenaQuestRuleOperator["NEQ"] = "NEQ";
     ArenaQuestRuleOperator["IN"] = "IN";
+    ArenaQuestRuleOperator["NIN"] = "NIN";
 })(ArenaQuestRuleOperator = exports.ArenaQuestRuleOperator || (exports.ArenaQuestRuleOperator = {}));
 var ArenaQuestOperator;
 (function (ArenaQuestOperator) {

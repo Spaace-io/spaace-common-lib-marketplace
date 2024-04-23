@@ -16,7 +16,8 @@ export declare enum ArenaQuestRuleOperator {
     LT = "LT",
     LTE = "LTE",
     NEQ = "NEQ",
-    IN = "IN"
+    IN = "IN",
+    NIN = "NIN"
 }
 export declare enum ArenaQuestOperator {
     SUM = "SUM",
