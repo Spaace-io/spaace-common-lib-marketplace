@@ -11,10 +11,12 @@ export declare class TwitterApiHandler {
     private readonly twitterApiBaseUrl;
     constructor(userCreds?: Pick<ArenaUser, 'twitterAccessToken' | 'twitterSecretToken'>, twitterApiVersion?: TwitterApiVersions);
     static build(twitterId?: string, twitterApiVersion?: TwitterApiVersions): Promise<TwitterApiHandler>;
+    static buildWithCreds(twitterAccessToken: string, twitterSecretToken: string, twitterApiVersion?: TwitterApiVersions): Promise<TwitterApiHandler>;
     getUserByUsername(username: string): Promise<TwitterUserv2>;
     getMultipleTweets(tweetIds: string[]): Promise<MultipleTweetsLookupResponse[]>;
     getLikingUsers(tweetId: string, pagination_token?: string): Promise<UserStatsResponse>;
     getRetweetedByUsers(tweetId: string, pagination_token?: string): Promise<UserStatsResponse>;
     getReplies(tweetId: string, startTime?: string, endTime?: string): Promise<TweetsStatsResponse>;
     getQuoteTweets(tweetId: string, pagination_token?: string): Promise<TweetsStatsResponse>;
+    getLikedTweets(userId: string, pagination_token?: string): Promise<TweetsStatsResponse>;
 }

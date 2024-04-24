@@ -69,6 +69,24 @@ export class TwitterApiHandler {
     );
   }
 
+  static async buildWithCreds(
+    twitterAccessToken: string,
+    twitterSecretToken: string,
+    twitterApiVersion?: TwitterApiVersions,
+  ) {
+    if (twitterApiVersion === TwitterApiVersions.V2) {
+      return new TwitterApiHandler(undefined, TwitterApiVersions.V2);
+    }
+
+    return new TwitterApiHandler(
+      {
+        twitterAccessToken,
+        twitterSecretToken,
+      },
+      twitterApiVersion,
+    );
+  }
+
   async getUserByUsername(username: string) {
     const { data }: { data: { data: TwitterUserv2 } } =
       await this.twitterApiInstance.get(
@@ -129,6 +147,17 @@ export class TwitterApiHandler {
     const { data }: { data: TweetsStatsResponse } =
       await this.twitterApiInstance.get(
         `2/tweets/${tweetId}/quote_tweets?max_results=100&tweet.fields=author_id&user.fields=id${
+          pagination_token ? `&pagination_token=${pagination_token}` : ''
+        }`,
+      );
+
+    return data;
+  }
+
+  async getLikedTweets(userId: string, pagination_token?: string) {
+    const { data }: { data: TweetsStatsResponse } =
+      await this.twitterApiInstance.get(
+        `2/users/${userId}/liked_tweets?tweet.fields=author_id${
           pagination_token ? `&pagination_token=${pagination_token}` : ''
         }`,
       );

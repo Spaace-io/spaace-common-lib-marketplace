@@ -57,6 +57,17 @@ class TwitterApiHandler {
             }, twitterApiVersion);
         });
     }
+    static buildWithCreds(twitterAccessToken, twitterSecretToken, twitterApiVersion) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (twitterApiVersion === TwitterApiVersions.V2) {
+                return new TwitterApiHandler(undefined, TwitterApiVersions.V2);
+            }
+            return new TwitterApiHandler({
+                twitterAccessToken,
+                twitterSecretToken,
+            }, twitterApiVersion);
+        });
+    }
     getUserByUsername(username) {
         return __awaiter(this, void 0, void 0, function* () {
             const { data } = yield this.twitterApiInstance.get(`2/users/by/username/${username}?user.fields=public_metrics,description`);
@@ -93,6 +104,12 @@ class TwitterApiHandler {
     getQuoteTweets(tweetId, pagination_token) {
         return __awaiter(this, void 0, void 0, function* () {
             const { data } = yield this.twitterApiInstance.get(`2/tweets/${tweetId}/quote_tweets?max_results=100&tweet.fields=author_id&user.fields=id${pagination_token ? `&pagination_token=${pagination_token}` : ''}`);
+            return data;
+        });
+    }
+    getLikedTweets(userId, pagination_token) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { data } = yield this.twitterApiInstance.get(`2/users/${userId}/liked_tweets?tweet.fields=author_id${pagination_token ? `&pagination_token=${pagination_token}` : ''}`);
             return data;
         });
     }
