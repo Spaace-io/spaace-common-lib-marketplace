@@ -7,4 +7,5 @@ export declare class ArenaAdmin extends BaseEntity {
     twitterSecretToken: string;
     twitterAccessToken: string;
     walletAddress: string | undefined;
+    tweetLikePaginationToken: string | null;
 }

@@ -31,4 +31,8 @@ export class ArenaAdmin extends BaseEntity {
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
   walletAddress: string | undefined;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  tweetLikePaginationToken!: string | null;
 }
