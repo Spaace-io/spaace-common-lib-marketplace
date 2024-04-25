@@ -3,4 +3,5 @@ export declare const exchangeMap: {
     "delayed-triggers": string;
     "collection-import": string;
     "search-index": string;
+    data: string;
 };

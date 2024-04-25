@@ -7,5 +7,6 @@ var PubSubTopic;
     PubSubTopic["DELAYED_TRIGGERS"] = "delayed-triggers";
     PubSubTopic["COLLECTION_IMPORT"] = "collection-import";
     PubSubTopic["SEARCH_INDEX"] = "search-index";
+    PubSubTopic["DATA"] = "data";
 })(PubSubTopic = exports.PubSubTopic || (exports.PubSubTopic = {}));
 //# sourceMappingURL=topic.js.map

@@ -5,4 +5,5 @@ export const exchangeMap = {
   [PubSubTopic.DELAYED_TRIGGERS]: 'delayed-triggers-exchange',
   [PubSubTopic.COLLECTION_IMPORT]: 'collection-import-exchange',
   [PubSubTopic.SEARCH_INDEX]: 'search-index-exchange',
+  [PubSubTopic.DATA]: 'data-exchange',
 };

@@ -6,7 +6,11 @@ export class RabbitMQ {
     return RabbitMQModule.AmqpConnectionFactory({
       name: 'default',
       exchanges: [
-        { name: 'exchange1', type: 'topic' },
+        { name: 'triggers-exchange', type: 'topic' },
+        { name: 'collection-import-exchange', type: 'topic' },
+        { name: 'search-index-exchange', type: 'topic' },
+        { name: 'data-exchange', type: 'topic' },
+
         {
           name: 'delayed-triggers-exchange',
           type: 'x-delayed-message',
