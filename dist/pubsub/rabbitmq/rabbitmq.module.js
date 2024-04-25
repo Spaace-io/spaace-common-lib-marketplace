@@ -18,9 +18,14 @@ RabbitMQCustomModule = __decorate([
             nestjs_rabbitmq_1.RabbitMQModule.forRoot(nestjs_rabbitmq_1.RabbitMQModule, {
                 name: 'default',
                 exchanges: [
+                    { name: 'exchange1', type: 'topic' },
                     {
-                        name: 'exchang1',
-                        type: 'topic',
+                        name: 'delayed-triggers-exchange',
+                        type: 'x-delayed-message',
+                        options: {
+                            durable: true,
+                            arguments: { 'x-delayed-type': 'topic' },
+                        },
                     },
                 ],
                 uri: 'amqp://guest:guest@rabbitmq:5672/',

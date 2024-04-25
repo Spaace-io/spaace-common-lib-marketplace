@@ -30,17 +30,39 @@ export class RabbitMQClient {
     topic: T,
     routingKey: string,
     message: any,
+    delay?: number, // Optional delay parameter
   ) {
-    const exchange = exchangeMap[topic];
-    await this.amqpConnection.channel.assertExchange(exchange, 'topic', {
+    const exchange = delay
+      ? exchangeMap[PubSubTopic.DELAYED_TRIGGERS]
+      : exchangeMap[topic];
+    const exchangeType = delay ? 'x-delayed-message' : 'topic';
+    const options: any = {
       durable: true,
-    });
+    };
+
+    // If a delay is specified, set delay arguments
+    if (delay) {
+      options.arguments = { 'x-delayed-type': 'topic', 'x-delay': delay };
+      options.headers = { 'x-delay': delay };
+    }
+
+    // Assert the exchange based on whether there's a delay or not
+    await this.amqpConnection.channel.assertExchange(
+      exchange,
+      exchangeType,
+      options,
+    );
     this.amqpConnection.channel.publish(
       exchange,
       routingKey,
-      message ? Buffer.from(JSON.stringify(message)) : Buffer.from(''),
+      Buffer.from(JSON.stringify(message)),
+      options,
     );
-    console.log(`Published message to ${exchange}:${routingKey}`);
+    console.log(
+      `Published message to ${exchange}:${routingKey} with ${
+        delay ? delay + 'ms delay' : 'no delay'
+      }`,
+    );
   }
 
   async subscribe<T extends PubSubTopic>(

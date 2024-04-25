@@ -23,6 +23,7 @@ exports.RabbitMQClient = void 0;
 // rabbitmq-client.ts
 const common_1 = require("@nestjs/common");
 const nestjs_rabbitmq_1 = require("@golevelup/nestjs-rabbitmq");
+const types_1 = require("../types");
 const exchangeMap_1 = require("./types/exchangeMap");
 let RabbitMQClient = class RabbitMQClient {
     constructor(amqpConnection) {
@@ -38,14 +39,24 @@ let RabbitMQClient = class RabbitMQClient {
             console.log(`Published message to ${exchange}:${routingKey}`);
         });
     }
-    publish(topic, routingKey, message) {
+    publish(topic, routingKey, message, delay) {
         return __awaiter(this, void 0, void 0, function* () {
-            const exchange = exchangeMap_1.exchangeMap[topic];
-            yield this.amqpConnection.channel.assertExchange(exchange, 'topic', {
+            const exchange = delay
+                ? exchangeMap_1.exchangeMap[types_1.PubSubTopic.DELAYED_TRIGGERS]
+                : exchangeMap_1.exchangeMap[topic];
+            const exchangeType = delay ? 'x-delayed-message' : 'topic';
+            const options = {
                 durable: true,
-            });
-            this.amqpConnection.channel.publish(exchange, routingKey, message ? Buffer.from(JSON.stringify(message)) : Buffer.from(''));
-            console.log(`Published message to ${exchange}:${routingKey}`);
+            };
+            // If a delay is specified, set delay arguments
+            if (delay) {
+                options.arguments = { 'x-delayed-type': 'topic', 'x-delay': delay };
+                options.headers = { 'x-delay': delay };
+            }
+            // Assert the exchange based on whether there's a delay or not
+            yield this.amqpConnection.channel.assertExchange(exchange, exchangeType, options);
+            this.amqpConnection.channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(message)), options);
+            console.log(`Published message to ${exchange}:${routingKey} with ${delay ? delay + 'ms delay' : 'no delay'}`);
         });
     }
     subscribe(topic, routingKey, queueName, onMessage) {

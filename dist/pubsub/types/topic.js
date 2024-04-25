@@ -4,6 +4,7 @@ exports.PubSubTopic = void 0;
 var PubSubTopic;
 (function (PubSubTopic) {
     PubSubTopic["TRIGGERS"] = "triggers";
+    PubSubTopic["DELAYED_TRIGGERS"] = "delayed-triggers";
     PubSubTopic["COLLECTION_IMPORT"] = "collection-import";
     PubSubTopic["SEARCH_INDEX"] = "search-index";
 })(PubSubTopic = exports.PubSubTopic || (exports.PubSubTopic = {}));

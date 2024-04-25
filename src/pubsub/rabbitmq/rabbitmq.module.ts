@@ -7,9 +7,14 @@ import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
     RabbitMQModule.forRoot(RabbitMQModule, {
       name: 'default',
       exchanges: [
+        { name: 'exchange1', type: 'topic' },
         {
-          name: 'exchang1',
-          type: 'topic',
+          name: 'delayed-triggers-exchange',
+          type: 'x-delayed-message',
+          options: {
+            durable: true,
+            arguments: { 'x-delayed-type': 'topic' },
+          },
         },
       ],
       uri: 'amqp://guest:guest@rabbitmq:5672/',
