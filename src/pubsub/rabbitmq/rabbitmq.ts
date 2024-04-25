@@ -6,6 +6,11 @@ export class RabbitMQ {
     return RabbitMQModule.AmqpConnectionFactory({
       name: 'default',
       exchanges: [
+        { name: 'triggers-exchange', type: 'topic' },
+        { name: 'collection-import-exchange', type: 'topic' },
+        { name: 'search-index-exchange', type: 'topic' },
+        { name: 'data-exchange', type: 'topic' },
+
         {
           name: 'exchang1',
           type: 'topic',

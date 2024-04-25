@@ -6,5 +6,6 @@ exports.exchangeMap = {
     [types_1.PubSubTopic.TRIGGERS]: 'triggers-exchange',
     [types_1.PubSubTopic.COLLECTION_IMPORT]: 'collection-import-exchange',
     [types_1.PubSubTopic.SEARCH_INDEX]: 'search-index-exchange',
+    [types_1.PubSubTopic.DATA]: 'data-exchange',
 };
 //# sourceMappingURL=exchangeMap.js.map
