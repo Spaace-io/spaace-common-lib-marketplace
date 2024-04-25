@@ -5,6 +5,11 @@ import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { PubSubTopic } from '../types';
 import { exchangeMap } from './types/exchangeMap';
 
+interface ExchangeOptions {
+  durable: boolean;
+  arguments?: Record<string, any>;
+}
+
 @Injectable()
 export class RabbitMQClient {
   constructor(private readonly amqpConnection: AmqpConnection) {}
@@ -72,9 +77,19 @@ export class RabbitMQClient {
     onMessage: (msg: any) => void,
   ) {
     const exchange = exchangeMap[topic];
-    await this.amqpConnection.channel.assertExchange(exchange, 'topic', {
-      durable: true,
-    });
+    const exchangeType =
+      topic === PubSubTopic.DELAYED_TRIGGERS ? 'x-delayed-message' : 'topic';
+    const options: ExchangeOptions = { durable: true };
+
+    if (exchangeType === 'x-delayed-message') {
+      options.arguments = { 'x-delayed-type': 'topic' };
+    }
+
+    await this.amqpConnection.channel.assertExchange(
+      exchange,
+      exchangeType,
+      options,
+    );
     await this.amqpConnection.channel.assertQueue(queueName, { durable: true });
     await this.amqpConnection.channel.bindQueue(
       queueName,

@@ -62,9 +62,12 @@ let RabbitMQClient = class RabbitMQClient {
     subscribe(topic, routingKey, queueName, onMessage) {
         return __awaiter(this, void 0, void 0, function* () {
             const exchange = exchangeMap_1.exchangeMap[topic];
-            yield this.amqpConnection.channel.assertExchange(exchange, 'topic', {
-                durable: true,
-            });
+            const exchangeType = topic === types_1.PubSubTopic.DELAYED_TRIGGERS ? 'x-delayed-message' : 'topic';
+            const options = { durable: true };
+            if (exchangeType === 'x-delayed-message') {
+                options.arguments = { 'x-delayed-type': 'topic' };
+            }
+            yield this.amqpConnection.channel.assertExchange(exchange, exchangeType, options);
             yield this.amqpConnection.channel.assertQueue(queueName, { durable: true });
             yield this.amqpConnection.channel.bindQueue(queueName, exchange, routingKey);
             this.amqpConnection.channel.consume(queueName, (msg) => {
