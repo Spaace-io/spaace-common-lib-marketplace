@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var AreanaQuest_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AreanaQuest = exports.ArenaQuestPeriod = exports.ArenaQuestOperation = exports.ArenaQuestStep = exports.ArenaQuestRule = exports.ArenaQuestType = exports.ArenaQuestOperator = exports.ArenaQuestRuleOperator = exports.ArenaQuestTrigger = void 0;
+exports.AreanaQuest = exports.ArenaQuestPeriod = exports.ArenaQuestOperation = exports.ArenaQuestStep = exports.ArenaQuestRule = exports.ArenaQuestSubType = exports.ArenaQuestType = exports.ArenaQuestOperator = exports.ArenaQuestRuleOperator = exports.ArenaQuestTrigger = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
@@ -65,6 +65,21 @@ var ArenaQuestType;
 })(ArenaQuestType = exports.ArenaQuestType || (exports.ArenaQuestType = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestType, {
     name: 'ArenaQuestType',
+});
+var ArenaQuestSubType;
+(function (ArenaQuestSubType) {
+    ArenaQuestSubType["CREW_ACTION"] = "CREW_ACTION";
+    ArenaQuestSubType["CREW_MEMBERS"] = "CREW_MEMBERS";
+    ArenaQuestSubType["LEVEL"] = "LEVEL";
+    ArenaQuestSubType["POST_OF_THE_DAY"] = "POST_OF_THE_DAY";
+    ArenaQuestSubType["PRIME_POST"] = "PRIME_POST";
+    ArenaQuestSubType["MENTION_METRICS"] = "MENTION_METRICS";
+    ArenaQuestSubType["MENTION"] = "MENTION";
+    ArenaQuestSubType["ONBOARDING"] = "ONBOARDING";
+    ArenaQuestSubType["OTHERS"] = "OTHERS";
+})(ArenaQuestSubType = exports.ArenaQuestSubType || (exports.ArenaQuestSubType = {}));
+(0, graphql_1.registerEnumType)(ArenaQuestSubType, {
+    name: 'ArenaQuestSubType',
 });
 let ArenaQuestRule = class ArenaQuestRule {
 };
@@ -226,6 +241,11 @@ __decorate([
     (0, typeorm_1.Column)('enum', { enum: ArenaQuestType, enumName: 'arena_quest_type' }),
     __metadata("design:type", String)
 ], AreanaQuest.prototype, "type", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => ArenaQuestSubType),
+    (0, typeorm_1.Column)('enum', { enum: ArenaQuestSubType, enumName: 'arena_quest_sub_type' }),
+    __metadata("design:type", String)
+], AreanaQuest.prototype, "subType", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { default: null }),

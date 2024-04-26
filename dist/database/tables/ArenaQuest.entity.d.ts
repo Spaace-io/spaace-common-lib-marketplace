@@ -34,6 +34,17 @@ export declare enum ArenaQuestType {
     CREW = "CREW",
     ONBOARDING = "ONBOARDING"
 }
+export declare enum ArenaQuestSubType {
+    CREW_ACTION = "CREW_ACTION",
+    CREW_MEMBERS = "CREW_MEMBERS",
+    LEVEL = "LEVEL",
+    POST_OF_THE_DAY = "POST_OF_THE_DAY",
+    PRIME_POST = "PRIME_POST",
+    MENTION_METRICS = "MENTION_METRICS",
+    MENTION = "MENTION",
+    ONBOARDING = "ONBOARDING",
+    OTHERS = "OTHERS"
+}
 export declare class ArenaQuestRule {
     property: string;
     operator: ArenaQuestRuleOperator;
@@ -69,6 +80,7 @@ export declare class AreanaQuest extends BaseEntity {
     period: ArenaQuestPeriod;
     rank: LoyaltyRank;
     type: ArenaQuestType;
+    subType: ArenaQuestSubType;
     cronName: string | null;
     cronParameter: string | null;
     link: string | null;

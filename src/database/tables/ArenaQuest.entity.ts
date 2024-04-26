@@ -69,6 +69,22 @@ registerEnumType(ArenaQuestType, {
   name: 'ArenaQuestType',
 });
 
+export enum ArenaQuestSubType {
+  CREW_ACTION = 'CREW_ACTION',
+  CREW_MEMBERS = 'CREW_MEMBERS',
+  LEVEL = 'LEVEL',
+  POST_OF_THE_DAY = 'POST_OF_THE_DAY',
+  PRIME_POST = 'PRIME_POST',
+  MENTION_METRICS = 'MENTION_METRICS',
+  MENTION = 'MENTION',
+  ONBOARDING = 'ONBOARDING',
+  OTHERS = 'OTHERS',
+}
+
+registerEnumType(ArenaQuestSubType, {
+  name: 'ArenaQuestSubType',
+});
+
 @ObjectType()
 export class ArenaQuestRule {
   @Field(() => String)
@@ -197,6 +213,10 @@ export class AreanaQuest extends BaseEntity {
   @Field(() => ArenaQuestType)
   @Column('enum', { enum: ArenaQuestType, enumName: 'arena_quest_type' })
   type!: ArenaQuestType;
+
+  @Field(() => ArenaQuestSubType)
+  @Column('enum', { enum: ArenaQuestSubType, enumName: 'arena_quest_sub_type' })
+  subType!: ArenaQuestSubType;
 
   @Field(() => String, { nullable: true })
   @Column('text', { default: null })
