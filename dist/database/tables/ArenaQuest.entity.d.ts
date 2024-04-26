@@ -85,4 +85,5 @@ export declare class AreanaQuest extends BaseEntity {
     cronParameter: string | null;
     link: string | null;
     image: string | null;
+    isVisible: boolean;
 }

@@ -233,4 +233,8 @@ export class AreanaQuest extends BaseEntity {
   @Field(() => String, { nullable: true })
   @Column('text', { default: null, nullable: true })
   image!: string | null;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: true })
+  isVisible!: boolean;
 }
