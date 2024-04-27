@@ -86,4 +86,5 @@ export declare class AreanaQuest extends BaseEntity {
     link: string | null;
     image: string | null;
     isVisible: boolean;
+    allSeasonId: string | null;
 }

@@ -271,6 +271,11 @@ __decorate([
     (0, typeorm_1.Column)('boolean', { default: true }),
     __metadata("design:type", Boolean)
 ], AreanaQuest.prototype, "isVisible", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('text', { default: null, nullable: true }),
+    __metadata("design:type", Object)
+], AreanaQuest.prototype, "allSeasonId", void 0);
 AreanaQuest = AreanaQuest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_quests' }),

@@ -237,4 +237,8 @@ export class AreanaQuest extends BaseEntity {
   @Field(() => Boolean)
   @Column('boolean', { default: true })
   isVisible!: boolean;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { default: null, nullable: true })
+  allSeasonId!: string | null;
 }
