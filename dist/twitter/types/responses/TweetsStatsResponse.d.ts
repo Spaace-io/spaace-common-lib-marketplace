@@ -1,8 +1,10 @@
+import { TweetMetrics } from './MultipleTweetsLookupResponse';
 import { TwitterUserv2 } from './TwitterUser';
 export interface TweetResponse {
     id: string;
     text: string;
     author_id: string;
+    public_metrics?: TweetMetrics;
 }
 export interface TweetsStatsResponse {
     data?: TweetResponse[];

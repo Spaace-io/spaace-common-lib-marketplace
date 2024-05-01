@@ -4,7 +4,7 @@ export interface MultipleTweetsLookupResponse {
     text: string;
     id: string;
 }
-interface TweetMetrics {
+export interface TweetMetrics {
     retweet_count: number;
     reply_count: number;
     like_count: number;
@@ -12,4 +12,3 @@ interface TweetMetrics {
     bookmark_count?: number;
     impression_count: number;
 }
-export {};

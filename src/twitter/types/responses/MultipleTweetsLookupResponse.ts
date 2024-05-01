@@ -5,7 +5,7 @@ export interface MultipleTweetsLookupResponse {
   id: string; // ? tweet id
 }
 
-interface TweetMetrics {
+export interface TweetMetrics {
   retweet_count: number;
   reply_count: number;
   like_count: number;
