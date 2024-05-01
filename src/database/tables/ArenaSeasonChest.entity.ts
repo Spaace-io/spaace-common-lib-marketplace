@@ -1,20 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import {
-  Entity,
-  PrimaryColumn,
-  BaseEntity,
-  Column,
-  JoinColumn,
-  ManyToOne,
-  Unique,
-} from 'typeorm';
-import {
-  ArenaSeason,
-  ArenaDivision,
-  ArenaDivisionName,
-  ArenaChestName,
-} from '.';
-import { ValidateNested } from 'class-validator';
+import { Entity, PrimaryColumn, BaseEntity, Column } from 'typeorm';
+import { ArenaDivisionName, ArenaChestName } from '.';
 
 @ObjectType()
 class ChestCount {
@@ -27,25 +13,12 @@ class ChestCount {
 
 @ObjectType()
 @Entity({ name: 'arena_seasons_chest' })
-@Unique(['seasonNumber', 'divisionName', 'rank'])
 export class ArenaSeasonChest extends BaseEntity {
-  @Field(() => String)
-  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-  @ManyToOne(() => ArenaSeason)
-  @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
-  seasonNumber!: string;
-
   @Field(() => ArenaDivisionName)
   @PrimaryColumn('enum', {
     enum: ArenaDivisionName,
     enumName: 'arena_divison_name',
   })
-  @ManyToOne(() => ArenaDivision)
-  @JoinColumn([
-    { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
-    { name: 'divisionName', referencedColumnName: 'name' },
-  ])
-  @ValidateNested()
   divisionName!: ArenaDivisionName;
 
   @Field(() => String)

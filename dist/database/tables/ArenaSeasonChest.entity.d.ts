@@ -5,7 +5,6 @@ declare class ChestCount {
     count: number;
 }
 export declare class ArenaSeasonChest extends BaseEntity {
-    seasonNumber: string;
     divisionName: ArenaDivisionName;
     rank: string;
     chestCount: ChestCount[];
