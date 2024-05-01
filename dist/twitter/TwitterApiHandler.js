@@ -109,7 +109,7 @@ class TwitterApiHandler {
     }
     getLikedTweets(userId, pagination_token) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { data } = yield this.twitterApiInstance.get(`2/users/${userId}/liked_tweets?tweet.fields=author_id${pagination_token ? `&pagination_token=${pagination_token}` : ''}`);
+            const { data } = yield this.twitterApiInstance.get(`2/users/${userId}/liked_tweets?tweet.fields=author_id,public_metrics${pagination_token ? `&pagination_token=${pagination_token}` : ''}`);
             return data;
         });
     }

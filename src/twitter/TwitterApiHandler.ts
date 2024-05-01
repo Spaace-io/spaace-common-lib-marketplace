@@ -157,7 +157,7 @@ export class TwitterApiHandler {
   async getLikedTweets(userId: string, pagination_token?: string) {
     const { data }: { data: TweetsStatsResponse } =
       await this.twitterApiInstance.get(
-        `2/users/${userId}/liked_tweets?tweet.fields=author_id${
+        `2/users/${userId}/liked_tweets?tweet.fields=author_id,public_metrics${
           pagination_token ? `&pagination_token=${pagination_token}` : ''
         }`,
       );
