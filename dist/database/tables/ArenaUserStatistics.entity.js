@@ -27,23 +27,23 @@ __decorate([
 ], ArenaUserStatistics.prototype, "twitterUsername", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
-    (0, typeorm_1.Column)('integer'),
-    __metadata("design:type", Number)
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
+    __metadata("design:type", String)
 ], ArenaUserStatistics.prototype, "totalLikes", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
-    (0, typeorm_1.Column)('integer'),
-    __metadata("design:type", Number)
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
+    __metadata("design:type", String)
 ], ArenaUserStatistics.prototype, "totalReposts", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
-    (0, typeorm_1.Column)('integer'),
-    __metadata("design:type", Number)
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
+    __metadata("design:type", String)
 ], ArenaUserStatistics.prototype, "totalReplies", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
-    (0, typeorm_1.Column)('integer'),
-    __metadata("design:type", Number)
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
+    __metadata("design:type", String)
 ], ArenaUserStatistics.prototype, "totalQuotes", void 0);
 ArenaUserStatistics = __decorate([
     (0, graphql_1.ObjectType)(),

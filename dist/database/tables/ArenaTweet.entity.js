@@ -38,27 +38,27 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => Number),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], ArenaTweet.prototype, "likeCount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], ArenaTweet.prototype, "replyCount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], ArenaTweet.prototype, "retweetCount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], ArenaTweet.prototype, "viewCount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], ArenaTweet.prototype, "quoteCount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),

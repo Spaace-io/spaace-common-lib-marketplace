@@ -3,11 +3,11 @@ export declare class ArenaTweet extends BaseEntity {
     id: string;
     authorId: string;
     text: string;
-    likeCount: number;
-    replyCount: number;
-    retweetCount: number;
-    viewCount: number;
-    quoteCount: number;
+    likeCount: string;
+    replyCount: string;
+    retweetCount: string;
+    viewCount: string;
+    quoteCount: string;
     quoteTweetId: string | null;
     replyTweetId: string | null;
 }

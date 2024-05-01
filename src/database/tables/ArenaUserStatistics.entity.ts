@@ -22,18 +22,18 @@ export class ArenaUserStatistics extends BaseEntity {
   twitterUsername!: string;
 
   @Field(() => Number)
-  @Column('integer')
-  totalLikes!: number;
+  @Column('numeric', { precision: 78, unsigned: true, default: 0 })
+  totalLikes!: string;
 
   @Field(() => Number)
-  @Column('integer')
-  totalReposts!: number;
+  @Column('numeric', { precision: 78, unsigned: true, default: 0 })
+  totalReposts!: string;
 
   @Field(() => Number)
-  @Column('integer')
-  totalReplies!: number;
+  @Column('numeric', { precision: 78, unsigned: true, default: 0 })
+  totalReplies!: string;
 
   @Field(() => Number)
-  @Column('integer')
-  totalQuotes!: number;
+  @Column('numeric', { precision: 78, unsigned: true, default: 0 })
+  totalQuotes!: string;
 }

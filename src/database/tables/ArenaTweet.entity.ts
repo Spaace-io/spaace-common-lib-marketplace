@@ -31,23 +31,23 @@ export class ArenaTweet extends BaseEntity {
 
   @Field(() => Number)
   @Column('numeric', { precision: 78, unsigned: true, default: 0 })
-  likeCount!: number;
+  likeCount!: string;
 
   @Field(() => Number)
   @Column('numeric', { precision: 78, unsigned: true, default: 0 })
-  replyCount!: number;
+  replyCount!: string;
 
   @Field(() => Number)
   @Column('numeric', { precision: 78, unsigned: true, default: 0 })
-  retweetCount!: number;
+  retweetCount!: string;
 
   @Field(() => Number)
   @Column('numeric', { precision: 78, unsigned: true, default: 0 })
-  viewCount!: number;
+  viewCount!: string;
 
   @Field(() => Number)
   @Column('numeric', { precision: 78, unsigned: true, default: 0 })
-  quoteCount!: number;
+  quoteCount!: string;
 
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
