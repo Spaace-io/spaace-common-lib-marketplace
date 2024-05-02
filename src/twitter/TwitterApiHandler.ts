@@ -164,4 +164,20 @@ export class TwitterApiHandler {
 
     return data;
   }
+
+  async getMentions(startTime: string, endTime: string, query: string) {
+    const {
+      data,
+    }: {
+      data: MultipleTweetsLookupResponse[];
+    } = await this.twitterApiInstance.get(
+      `2/tweets/search/recent?start_time=${encodeURIComponent(
+        startTime,
+      )}&end_time=${encodeURIComponent(endTime)}&query=${encodeURIComponent(
+        query,
+      )} -is:retweet&tweet.fields=author_id,id,text,public_metrics`,
+    );
+
+    return data;
+  }
 }

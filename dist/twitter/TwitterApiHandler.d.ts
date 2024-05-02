@@ -19,4 +19,5 @@ export declare class TwitterApiHandler {
     getReplies(tweetId: string, startTime?: string, endTime?: string): Promise<TweetsStatsResponse>;
     getQuoteTweets(tweetId: string, pagination_token?: string): Promise<TweetsStatsResponse>;
     getLikedTweets(userId: string, pagination_token?: string): Promise<TweetsStatsResponse>;
+    getMentions(startTime: string, endTime: string, query: string): Promise<MultipleTweetsLookupResponse[]>;
 }
