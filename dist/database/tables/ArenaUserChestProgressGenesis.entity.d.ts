@@ -1,7 +1,7 @@
 import { BaseEntity } from 'typeorm';
 export declare class ArenaUserChestProgressGenesis extends BaseEntity {
     levelId: string;
-    userTwitter: string;
+    userTwitterId: string;
     totalChestReceived: string;
     lastChestReceivedOnLevel: string;
 }

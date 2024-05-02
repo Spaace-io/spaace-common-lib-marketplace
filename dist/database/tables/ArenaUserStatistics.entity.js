@@ -20,11 +20,11 @@ __decorate([
     (0, typeorm_1.PrimaryColumn)('text'),
     (0, typeorm_1.OneToOne)(() => ArenaUser_entity_1.ArenaUser),
     (0, typeorm_1.JoinColumn)({
-        name: 'twitterUsername',
+        name: 'userTwitterId',
         referencedColumnName: 'userTwitterId',
     }),
     __metadata("design:type", String)
-], ArenaUserStatistics.prototype, "twitterUsername", void 0);
+], ArenaUserStatistics.prototype, "userTwitterId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),

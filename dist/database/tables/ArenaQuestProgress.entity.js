@@ -19,9 +19,9 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
     (0, typeorm_1.ManyToOne)(() => _1.ArenaUser),
-    (0, typeorm_1.JoinColumn)({ name: 'twitterName', referencedColumnName: 'userTwitterId' }),
+    (0, typeorm_1.JoinColumn)({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' }),
     __metadata("design:type", String)
-], ArenaQuestProgress.prototype, "twitterName", void 0);
+], ArenaQuestProgress.prototype, "userTwitterId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -63,7 +63,7 @@ __decorate([
 ArenaQuestProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_quest_progress' }),
-    (0, typeorm_1.Index)(['twitterName', 'seasonNumber', 'questId'], { where: '"completed"' })
+    (0, typeorm_1.Index)(['userTwitterId', 'seasonNumber', 'questId'], { where: '"completed"' })
 ], ArenaQuestProgress);
 exports.ArenaQuestProgress = ArenaQuestProgress;
 //# sourceMappingURL=ArenaQuestProgress.entity.js.map

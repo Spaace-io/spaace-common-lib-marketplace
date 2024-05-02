@@ -1,6 +1,6 @@
 import { BaseEntity } from 'typeorm';
 export declare class ArenaQuestProgress extends BaseEntity {
-    twitterName: string;
+    userTwitterId: string;
     seasonNumber: string;
     questId: string;
     nonce: string;

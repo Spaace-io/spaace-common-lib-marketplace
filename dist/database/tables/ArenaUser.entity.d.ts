@@ -7,7 +7,7 @@ export declare class ArenaUser extends BaseEntity {
     name: string | null;
     imageUrl: string | null;
     referralCode: string;
-    referrerUsername: string | null;
+    referrerTwitterId: string | null;
     crewName: string | null;
     totalXpEarned: string;
     totalStarsEarned: string;

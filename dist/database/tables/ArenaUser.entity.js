@@ -56,11 +56,11 @@ __decorate([
     (0, typeorm_1.Column)('text', { nullable: true }),
     (0, typeorm_1.ManyToOne)(() => ArenaUser_1, { nullable: true }),
     (0, typeorm_1.JoinColumn)({
-        name: 'referrerUsername',
+        name: 'referrerTwitterId',
         referencedColumnName: 'userTwitterId',
     }),
     __metadata("design:type", Object)
-], ArenaUser.prototype, "referrerUsername", void 0);
+], ArenaUser.prototype, "referrerTwitterId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),

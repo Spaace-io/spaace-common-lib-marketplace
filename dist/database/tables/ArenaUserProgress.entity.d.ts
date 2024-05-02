@@ -1,7 +1,7 @@
 import { BaseEntity } from 'typeorm';
 import { ArenaDivisionName } from '.';
 export declare class ArenaUserProgress extends BaseEntity {
-    userTwitter: string;
+    userTwitterId: string;
     seasonNumber: string;
     stars: string;
     xp: string;

@@ -24,9 +24,9 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
     (0, typeorm_1.ManyToOne)(() => _1.ArenaUser),
-    (0, typeorm_1.JoinColumn)({ name: 'userTwitter', referencedColumnName: 'userTwitterId' }),
+    (0, typeorm_1.JoinColumn)({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' }),
     __metadata("design:type", String)
-], ArenaUserBooster.prototype, "userTwitter", void 0);
+], ArenaUserBooster.prototype, "userTwitterId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value

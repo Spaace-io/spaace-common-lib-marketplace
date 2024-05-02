@@ -15,8 +15,8 @@ export class ArenaUserProgress extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('text')
   @ManyToOne(() => ArenaUser)
-  @JoinColumn({ name: 'userTwitter', referencedColumnName: 'userTwitterId' })
-  userTwitter!: string;
+  @JoinColumn({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' })
+  userTwitterId!: string;
 
   @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value

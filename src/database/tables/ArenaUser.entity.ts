@@ -44,10 +44,10 @@ export class ArenaUser extends BaseEntity {
   @Column('text', { nullable: true })
   @ManyToOne(() => ArenaUser, { nullable: true })
   @JoinColumn({
-    name: 'referrerUsername',
+    name: 'referrerTwitterId',
     referencedColumnName: 'userTwitterId',
   })
-  referrerUsername!: string | null;
+  referrerTwitterId!: string | null;
 
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })

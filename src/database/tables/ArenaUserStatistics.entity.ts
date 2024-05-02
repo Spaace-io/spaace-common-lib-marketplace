@@ -16,10 +16,10 @@ export class ArenaUserStatistics extends BaseEntity {
   @PrimaryColumn('text')
   @OneToOne(() => ArenaUser)
   @JoinColumn({
-    name: 'twitterUsername',
+    name: 'userTwitterId',
     referencedColumnName: 'userTwitterId',
   })
-  twitterUsername!: string;
+  userTwitterId!: string;
 
   @Field(() => Number)
   @Column('numeric', { precision: 78, unsigned: true, default: 0 })

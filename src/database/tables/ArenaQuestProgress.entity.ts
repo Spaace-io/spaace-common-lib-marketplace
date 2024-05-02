@@ -14,13 +14,13 @@ import { AreanaQuest, ArenaSeason, ArenaUser } from '.';
 
 @ObjectType()
 @Entity({ name: 'arena_quest_progress' })
-@Index(['twitterName', 'seasonNumber', 'questId'], { where: '"completed"' })
+@Index(['userTwitterId', 'seasonNumber', 'questId'], { where: '"completed"' })
 export class ArenaQuestProgress extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('text')
   @ManyToOne(() => ArenaUser)
-  @JoinColumn({ name: 'twitterName', referencedColumnName: 'userTwitterId' })
-  twitterName!: string;
+  @JoinColumn({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' })
+  userTwitterId!: string;
 
   @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value

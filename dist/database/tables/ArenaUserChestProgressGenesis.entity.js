@@ -27,9 +27,9 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
     (0, typeorm_1.ManyToOne)(() => ArenaUser_entity_1.ArenaUser),
-    (0, typeorm_1.JoinColumn)({ name: 'userTwitter', referencedColumnName: 'userTwitterId' }),
+    (0, typeorm_1.JoinColumn)({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' }),
     __metadata("design:type", String)
-], ArenaUserChestProgressGenesis.prototype, "userTwitter", void 0);
+], ArenaUserChestProgressGenesis.prototype, "userTwitterId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
