@@ -169,7 +169,7 @@ export class TwitterApiHandler {
     const {
       data,
     }: {
-      data: MultipleTweetsLookupResponse[];
+      data: { data: MultipleTweetsLookupResponse[] };
     } = await this.twitterApiInstance.get(
       `2/tweets/search/recent?start_time=${encodeURIComponent(
         startTime,
@@ -178,6 +178,6 @@ export class TwitterApiHandler {
       )} -is:retweet&tweet.fields=author_id,id,text,public_metrics`,
     );
 
-    return data;
+    return data.data;
   }
 }
