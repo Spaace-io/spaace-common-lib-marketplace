@@ -6,6 +6,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { ArenaUser } from './ArenaUser.entity';
 
@@ -18,6 +19,7 @@ export class ArenaTweet extends BaseEntity {
 
   @Field(() => String)
   @Column('text')
+  @Index()
   @ManyToOne(() => ArenaUser, { nullable: true })
   @JoinColumn({
     name: 'authorId',
@@ -27,6 +29,7 @@ export class ArenaTweet extends BaseEntity {
 
   @Field(() => String)
   @Column('text')
+  @Index({ fulltext: true })
   text!: string;
 
   @Field(() => Number)

@@ -6,11 +6,13 @@ import {
   ManyToOne,
   JoinColumn,
   PrimaryGeneratedColumn,
+  Index,
 } from 'typeorm';
 import { ArenaUser, ArenaSeason, ArenaChestName } from '.';
 
 @ObjectType()
 @Entity({ name: 'arena_users_earned_chest' })
+@Index(['userTwitterId', 'id'])
 export class ArenaUserEarnedChest extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')

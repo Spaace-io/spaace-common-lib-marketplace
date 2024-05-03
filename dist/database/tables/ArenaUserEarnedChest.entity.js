@@ -51,7 +51,8 @@ __decorate([
 ], ArenaUserEarnedChest.prototype, "isClaimed", void 0);
 ArenaUserEarnedChest = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'arena_users_earned_chest' })
+    (0, typeorm_1.Entity)({ name: 'arena_users_earned_chest' }),
+    (0, typeorm_1.Index)(['userTwitterId', 'id'])
 ], ArenaUserEarnedChest);
 exports.ArenaUserEarnedChest = ArenaUserEarnedChest;
 //# sourceMappingURL=ArenaUserEarnedChest.entity.js.map

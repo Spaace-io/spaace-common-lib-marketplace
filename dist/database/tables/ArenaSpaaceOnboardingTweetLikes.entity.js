@@ -18,15 +18,15 @@ let ArenaSpaaceOnboardingTweetLikes = class ArenaSpaaceOnboardingTweetLikes exte
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
-    __metadata("design:type", String)
-], ArenaSpaaceOnboardingTweetLikes.prototype, "tweetId", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('text'),
     (0, typeorm_1.OneToOne)(() => ArenaUser_entity_1.ArenaUser),
     (0, typeorm_1.JoinColumn)({ name: 'userTwitter', referencedColumnName: 'userTwitterId' }),
     __metadata("design:type", String)
 ], ArenaSpaaceOnboardingTweetLikes.prototype, "userTwitter", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.PrimaryColumn)('text'),
+    __metadata("design:type", String)
+], ArenaSpaaceOnboardingTweetLikes.prototype, "tweetId", void 0);
 ArenaSpaaceOnboardingTweetLikes = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_spaace_onboarding_tweet_likes' })

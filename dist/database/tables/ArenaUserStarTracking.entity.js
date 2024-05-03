@@ -23,6 +23,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
+    (0, typeorm_1.Index)(),
     (0, typeorm_1.ManyToOne)(() => _1.ArenaUser),
     (0, typeorm_1.JoinColumn)({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' }),
     __metadata("design:type", String)

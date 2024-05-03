@@ -19,6 +19,7 @@ let ArenaUser = ArenaUser_1 = class ArenaUser extends typeorm_1.BaseEntity {
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
+    (0, typeorm_1.Index)({ fulltext: true }),
     __metadata("design:type", String)
 ], ArenaUser.prototype, "twitterUsername", void 0);
 __decorate([
@@ -49,6 +50,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text', { unique: true }),
+    (0, typeorm_1.Index)(),
     __metadata("design:type", String)
 ], ArenaUser.prototype, "referralCode", void 0);
 __decorate([
@@ -64,6 +66,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
+    (0, typeorm_1.Index)(),
     (0, typeorm_1.ManyToOne)(() => _1.ArenaCrew, { nullable: true }),
     (0, typeorm_1.JoinColumn)({
         name: 'crewName',

@@ -6,6 +6,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { ArenaCrew } from '.';
 
@@ -14,6 +15,7 @@ import { ArenaCrew } from '.';
 export class ArenaUser extends BaseEntity {
   @Field(() => String)
   @Column('text')
+  @Index({ fulltext: true })
   twitterUsername!: string;
 
   @Field(() => String, { defaultValue: '' })
@@ -38,6 +40,7 @@ export class ArenaUser extends BaseEntity {
 
   @Field(() => String)
   @Column('text', { unique: true })
+  @Index()
   referralCode!: string;
 
   @Field(() => String, { nullable: true })
@@ -51,6 +54,7 @@ export class ArenaUser extends BaseEntity {
 
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
+  @Index()
   @ManyToOne(() => ArenaCrew, { nullable: true })
   @JoinColumn({
     name: 'crewName',

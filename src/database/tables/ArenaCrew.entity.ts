@@ -6,6 +6,7 @@ import {
   Column,
   JoinColumn,
   OneToOne,
+  Index,
 } from 'typeorm';
 import { ArenaUser } from './ArenaUser.entity';
 
@@ -14,6 +15,7 @@ import { ArenaUser } from './ArenaUser.entity';
 export class ArenaCrew extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('text')
+  @Index({ fulltext: true })
   name!: string;
 
   @Field(() => String, { nullable: true })

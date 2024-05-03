@@ -6,6 +6,7 @@ import {
   ManyToOne,
   JoinColumn,
   PrimaryGeneratedColumn,
+  Index,
 } from 'typeorm';
 import { ArenaUser } from '.';
 
@@ -18,6 +19,7 @@ export class ArenaUserStarTracking extends BaseEntity {
 
   @Field(() => String)
   @Column('text')
+  @Index()
   @ManyToOne(() => ArenaUser)
   @JoinColumn({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' })
   userTwitterId!: string;

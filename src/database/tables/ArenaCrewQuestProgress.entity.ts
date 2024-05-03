@@ -23,12 +23,6 @@ export class ArenaCrewQuestProgress extends BaseEntity {
   crewName!: string;
 
   @Field(() => String)
-  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-  @ManyToOne(() => ArenaSeason)
-  @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
-  seasonNumber!: string;
-
-  @Field(() => String)
   @PrimaryColumn('uuid')
   @ManyToOne(() => AreanaQuest)
   @JoinColumn([
@@ -36,6 +30,12 @@ export class ArenaCrewQuestProgress extends BaseEntity {
     { name: 'questId', referencedColumnName: 'id' },
   ])
   questId!: string;
+
+  @Field(() => String)
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  @ManyToOne(() => ArenaSeason)
+  @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
+  seasonNumber!: string;
 
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')

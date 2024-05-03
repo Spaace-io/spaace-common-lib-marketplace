@@ -23,6 +23,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
+    (0, typeorm_1.Index)(),
     (0, typeorm_1.ManyToOne)(() => ArenaUser_entity_1.ArenaUser, { nullable: true }),
     (0, typeorm_1.JoinColumn)({
         name: 'authorId',
@@ -33,6 +34,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
+    (0, typeorm_1.Index)({ fulltext: true }),
     __metadata("design:type", String)
 ], ArenaTweet.prototype, "text", void 0);
 __decorate([

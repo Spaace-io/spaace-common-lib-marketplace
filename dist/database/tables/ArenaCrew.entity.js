@@ -18,6 +18,7 @@ let ArenaCrew = class ArenaCrew extends typeorm_1.BaseEntity {
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
+    (0, typeorm_1.Index)({ fulltext: true }),
     __metadata("design:type", String)
 ], ArenaCrew.prototype, "name", void 0);
 __decorate([

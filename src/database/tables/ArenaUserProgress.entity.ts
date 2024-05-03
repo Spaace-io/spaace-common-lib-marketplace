@@ -6,23 +6,25 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { ArenaUser, ArenaSeason, ArenaDivisionName } from '.';
 
 @ObjectType()
 @Entity({ name: 'arena_users_progress' })
+@Index(['division', 'league', 'leagueRank'])
 export class ArenaUserProgress extends BaseEntity {
+  @Field(() => String)
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true })
+  @ManyToOne(() => ArenaSeason)
+  @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
+  seasonNumber!: string;
+
   @Field(() => String)
   @PrimaryColumn('text')
   @ManyToOne(() => ArenaUser)
   @JoinColumn({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' })
   userTwitterId!: string;
-
-  @Field(() => String)
-  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-  @ManyToOne(() => ArenaSeason)
-  @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
-  seasonNumber!: string;
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
@@ -58,6 +60,7 @@ export class ArenaUserProgress extends BaseEntity {
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  @Index()
   rank!: string;
 
   @Field(() => String)
@@ -66,5 +69,6 @@ export class ArenaUserProgress extends BaseEntity {
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  @Index()
   twentyFourHourRank!: string;
 }

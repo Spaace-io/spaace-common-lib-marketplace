@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryColumn, BaseEntity, Column } from 'typeorm';
+import { Entity, PrimaryColumn, BaseEntity, Column, Index } from 'typeorm';
 
 @ObjectType()
 @Entity({ name: 'arena_spaace_tweet' })
@@ -25,11 +25,14 @@ export class ArenaSpaaceTweet extends BaseEntity {
   retweetPaginationToken!: string;
 
   @Column('boolean', { default: false })
+  @Index()
   postOfTheDay!: boolean;
 
   @Column('boolean', { default: false })
+  @Index()
   primePost!: boolean;
 
   @Column('boolean', { default: false })
+  @Index()
   onboardingPost!: boolean;
 }

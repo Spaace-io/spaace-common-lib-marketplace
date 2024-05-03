@@ -6,11 +6,13 @@ import {
   ManyToOne,
   JoinColumn,
   PrimaryGeneratedColumn,
+  Index,
 } from 'typeorm';
 import { ArenaUser, ArenaWowChestType, ArenaWowChestPeriod } from '.';
 
 @ObjectType()
 @Entity({ name: 'arena_users_claimed_wow_chest' })
+@Index(['chestPeriod', 'userTwitterId'])
 export class ArenaUserClaimedWowChest extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
@@ -18,15 +20,15 @@ export class ArenaUserClaimedWowChest extends BaseEntity {
 
   @Field(() => String)
   @Column('text')
-  @ManyToOne(() => ArenaUser)
-  @JoinColumn({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' })
-  userTwitterId!: string;
-
-  @Field(() => String)
-  @Column('text')
   @ManyToOne(() => ArenaWowChestPeriod)
   @JoinColumn({ name: 'chestPeriod', referencedColumnName: 'id' })
   chestPeriod!: string;
+
+  @Field(() => String)
+  @Column('text')
+  @ManyToOne(() => ArenaUser)
+  @JoinColumn({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' })
+  userTwitterId!: string;
 
   @Field(() => ArenaWowChestType)
   @Column('text')

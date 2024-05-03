@@ -6,6 +6,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { ArenaSeason } from './ArenaSeason.entity';
 import { ArenaCrew } from './ArenaCrew.entity';
@@ -14,19 +15,20 @@ import { ArenaCrew } from './ArenaCrew.entity';
 @Entity({ name: 'arena_crew_progress' })
 export class ArenaCrewProgress extends BaseEntity {
   @Field(() => String)
-  @PrimaryColumn('text')
-  @ManyToOne(() => ArenaCrew)
-  @JoinColumn({ name: 'crewName', referencedColumnName: 'name' })
-  crewName!: string;
-
-  @Field(() => String)
   @PrimaryColumn('numeric', { precision: 78, unsigned: true })
   @ManyToOne(() => ArenaSeason)
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
   seasonNumber!: string;
 
   @Field(() => String)
+  @PrimaryColumn('text')
+  @ManyToOne(() => ArenaCrew)
+  @JoinColumn({ name: 'crewName', referencedColumnName: 'name' })
+  crewName!: string;
+
+  @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  @Index()
   stars!: string;
 
   @Field(() => String)
@@ -39,9 +41,11 @@ export class ArenaCrewProgress extends BaseEntity {
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  @Index()
   rank!: string;
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  @Index()
   twentyFourHourRank!: string;
 }

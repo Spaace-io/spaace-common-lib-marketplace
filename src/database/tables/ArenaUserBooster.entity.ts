@@ -6,11 +6,13 @@ import {
   ManyToOne,
   JoinColumn,
   PrimaryGeneratedColumn,
+  Index,
 } from 'typeorm';
 import { ArenaUser, ArenaSeason } from '.';
 
 @ObjectType()
 @Entity({ name: 'arena_users_booster' })
+@Index(['userTwitterId', 'seasonNumber', 'expiresOn'])
 export class ArenaUserBooster extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
@@ -28,11 +30,11 @@ export class ArenaUserBooster extends BaseEntity {
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
   seasonNumber!: string;
 
-  @Field(() => Number)
-  @Column('numeric', { precision: 78, unsigned: true, default: 0 })
-  booster!: number;
-
   @Field(() => Date)
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   expiresOn!: Date;
+
+  @Field(() => Number)
+  @Column('numeric', { precision: 78, unsigned: true, default: 0 })
+  booster!: number;
 }

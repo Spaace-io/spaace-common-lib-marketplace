@@ -13,11 +13,11 @@ import { ArenaUser } from './ArenaUser.entity';
 export class ArenaSpaaceOnboardingTweetLikes extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('text')
-  tweetId!: string;
-
-  @Field(() => String)
-  @PrimaryColumn('text')
   @OneToOne(() => ArenaUser)
   @JoinColumn({ name: 'userTwitter', referencedColumnName: 'userTwitterId' })
   userTwitter!: string;
+
+  @Field(() => String)
+  @PrimaryColumn('text')
+  tweetId!: string;
 }

@@ -24,14 +24,6 @@ __decorate([
 ], ArenaCrewQuestProgress.prototype, "crewName", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
-    ,
-    (0, typeorm_1.ManyToOne)(() => _1.ArenaSeason),
-    (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
-    __metadata("design:type", String)
-], ArenaCrewQuestProgress.prototype, "seasonNumber", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('uuid'),
     (0, typeorm_1.ManyToOne)(() => _1.AreanaQuest),
     (0, typeorm_1.JoinColumn)([
@@ -40,6 +32,14 @@ __decorate([
     ]),
     __metadata("design:type", String)
 ], ArenaCrewQuestProgress.prototype, "questId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    ,
+    (0, typeorm_1.ManyToOne)(() => _1.ArenaSeason),
+    (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
+    __metadata("design:type", String)
+], ArenaCrewQuestProgress.prototype, "seasonNumber", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),

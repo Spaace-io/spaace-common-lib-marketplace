@@ -18,13 +18,6 @@ let ArenaCrewProgress = class ArenaCrewProgress extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('text'),
-    (0, typeorm_1.ManyToOne)(() => ArenaCrew_entity_1.ArenaCrew),
-    (0, typeorm_1.JoinColumn)({ name: 'crewName', referencedColumnName: 'name' }),
-    __metadata("design:type", String)
-], ArenaCrewProgress.prototype, "crewName", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
     (0, typeorm_1.ManyToOne)(() => ArenaSeason_entity_1.ArenaSeason),
     (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
@@ -32,7 +25,15 @@ __decorate([
 ], ArenaCrewProgress.prototype, "seasonNumber", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.PrimaryColumn)('text'),
+    (0, typeorm_1.ManyToOne)(() => ArenaCrew_entity_1.ArenaCrew),
+    (0, typeorm_1.JoinColumn)({ name: 'crewName', referencedColumnName: 'name' }),
+    __metadata("design:type", String)
+], ArenaCrewProgress.prototype, "crewName", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    (0, typeorm_1.Index)(),
     __metadata("design:type", String)
 ], ArenaCrewProgress.prototype, "stars", void 0);
 __decorate([
@@ -48,11 +49,13 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    (0, typeorm_1.Index)(),
     __metadata("design:type", String)
 ], ArenaCrewProgress.prototype, "rank", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    (0, typeorm_1.Index)(),
     __metadata("design:type", String)
 ], ArenaCrewProgress.prototype, "twentyFourHourRank", void 0);
 ArenaCrewProgress = __decorate([

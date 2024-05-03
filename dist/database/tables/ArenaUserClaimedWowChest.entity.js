@@ -23,17 +23,17 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
-    (0, typeorm_1.ManyToOne)(() => _1.ArenaUser),
-    (0, typeorm_1.JoinColumn)({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' }),
-    __metadata("design:type", String)
-], ArenaUserClaimedWowChest.prototype, "userTwitterId", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('text'),
     (0, typeorm_1.ManyToOne)(() => _1.ArenaWowChestPeriod),
     (0, typeorm_1.JoinColumn)({ name: 'chestPeriod', referencedColumnName: 'id' }),
     __metadata("design:type", String)
 ], ArenaUserClaimedWowChest.prototype, "chestPeriod", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('text'),
+    (0, typeorm_1.ManyToOne)(() => _1.ArenaUser),
+    (0, typeorm_1.JoinColumn)({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' }),
+    __metadata("design:type", String)
+], ArenaUserClaimedWowChest.prototype, "userTwitterId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => _1.ArenaWowChestType),
     (0, typeorm_1.Column)('text'),
@@ -51,7 +51,8 @@ __decorate([
 ], ArenaUserClaimedWowChest.prototype, "timestamp", void 0);
 ArenaUserClaimedWowChest = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'arena_users_claimed_wow_chest' })
+    (0, typeorm_1.Entity)({ name: 'arena_users_claimed_wow_chest' }),
+    (0, typeorm_1.Index)(['chestPeriod', 'userTwitterId'])
 ], ArenaUserClaimedWowChest);
 exports.ArenaUserClaimedWowChest = ArenaUserClaimedWowChest;
 //# sourceMappingURL=ArenaUserClaimedWowChest.entity.js.map

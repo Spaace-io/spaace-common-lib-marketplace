@@ -36,18 +36,19 @@ __decorate([
     __metadata("design:type", String)
 ], ArenaUserBooster.prototype, "seasonNumber", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => Number),
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
-    __metadata("design:type", Number)
-], ArenaUserBooster.prototype, "booster", void 0);
-__decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], ArenaUserBooster.prototype, "expiresOn", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Number),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
+    __metadata("design:type", Number)
+], ArenaUserBooster.prototype, "booster", void 0);
 ArenaUserBooster = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'arena_users_booster' })
+    (0, typeorm_1.Entity)({ name: 'arena_users_booster' }),
+    (0, typeorm_1.Index)(['userTwitterId', 'seasonNumber', 'expiresOn'])
 ], ArenaUserBooster);
 exports.ArenaUserBooster = ArenaUserBooster;
 //# sourceMappingURL=ArenaUserBooster.entity.js.map
