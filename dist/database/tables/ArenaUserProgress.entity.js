@@ -17,18 +17,18 @@ let ArenaUserProgress = class ArenaUserProgress extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
-    (0, typeorm_1.ManyToOne)(() => _1.ArenaSeason),
-    (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
-    __metadata("design:type", String)
-], ArenaUserProgress.prototype, "seasonNumber", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
     (0, typeorm_1.ManyToOne)(() => _1.ArenaUser),
     (0, typeorm_1.JoinColumn)({ name: 'userTwitterId', referencedColumnName: 'userTwitterId' }),
     __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "userTwitterId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
+    (0, typeorm_1.ManyToOne)(() => _1.ArenaSeason),
+    (0, typeorm_1.JoinColumn)({ name: 'seasonNumber', referencedColumnName: 'number' }),
+    __metadata("design:type", String)
+], ArenaUserProgress.prototype, "seasonNumber", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
