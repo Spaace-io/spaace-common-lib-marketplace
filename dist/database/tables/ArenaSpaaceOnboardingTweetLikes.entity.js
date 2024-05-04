@@ -21,7 +21,7 @@ __decorate([
 ], ArenaSpaaceOnboardingTweetLikes.prototype, "userTwitter", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.PrimaryColumn)('text'),
+    (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], ArenaSpaaceOnboardingTweetLikes.prototype, "tweetId", void 0);
 ArenaSpaaceOnboardingTweetLikes = __decorate([

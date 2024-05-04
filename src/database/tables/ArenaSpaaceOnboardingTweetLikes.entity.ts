@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryColumn, BaseEntity } from 'typeorm';
+import { Entity, PrimaryColumn, BaseEntity, Column } from 'typeorm';
 
 @ObjectType()
 @Entity({ name: 'arena_spaace_onboarding_tweet_likes' })
@@ -9,6 +9,6 @@ export class ArenaSpaaceOnboardingTweetLikes extends BaseEntity {
   userTwitter!: string;
 
   @Field(() => String)
-  @PrimaryColumn('text')
+  @Column('text')
   tweetId!: string;
 }
