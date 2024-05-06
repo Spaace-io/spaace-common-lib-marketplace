@@ -4,4 +4,5 @@ export declare const exchangeMap: {
     "collection-import": string;
     "search-index": string;
     data: string;
+    "level-progress": string;
 };

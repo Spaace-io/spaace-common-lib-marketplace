@@ -13,7 +13,7 @@ exports.RabbitMQ = void 0;
 const nestjs_rabbitmq_1 = require("@golevelup/nestjs-rabbitmq");
 const rabbitmq_client_1 = require("./rabbitmq.client");
 class RabbitMQ {
-    static getAmpqConnectionFactory() {
+    static getAmpqConnectionFactory(prefetchCount) {
         return nestjs_rabbitmq_1.RabbitMQModule.AmqpConnectionFactory({
             name: 'default',
             exchanges: [
@@ -33,11 +33,12 @@ class RabbitMQ {
             ],
             uri: 'amqp://guest:guest@rabbitmq:5672/',
             enableControllerDiscovery: true,
+            prefetchCount,
         });
     }
-    static getRabbitMQClient() {
+    static getRabbitMQClient(prefetchCount) {
         return __awaiter(this, void 0, void 0, function* () {
-            const amqpConnection = yield RabbitMQ.getAmpqConnectionFactory();
+            const amqpConnection = yield RabbitMQ.getAmpqConnectionFactory(prefetchCount);
             if (!amqpConnection)
                 throw new Error('Failed to connect to RabbitMQ');
             return new rabbitmq_client_1.RabbitMQClient(amqpConnection);

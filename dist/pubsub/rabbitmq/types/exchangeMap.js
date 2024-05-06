@@ -8,5 +8,6 @@ exports.exchangeMap = {
     [types_1.PubSubTopic.COLLECTION_IMPORT]: 'collection-import-exchange',
     [types_1.PubSubTopic.SEARCH_INDEX]: 'search-index-exchange',
     [types_1.PubSubTopic.DATA]: 'data-exchange',
+    [types_1.PubSubTopic.LEVEL_PROGRESS]: 'level-progress',
 };
 //# sourceMappingURL=exchangeMap.js.map

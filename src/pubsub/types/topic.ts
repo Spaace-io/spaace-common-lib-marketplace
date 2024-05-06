@@ -4,4 +4,5 @@ export enum PubSubTopic {
   COLLECTION_IMPORT = 'collection-import',
   SEARCH_INDEX = 'search-index',
   DATA = 'data',
+  LEVEL_PROGRESS = 'level-progress',
 }

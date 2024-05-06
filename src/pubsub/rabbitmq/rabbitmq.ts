@@ -2,7 +2,7 @@ import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { RabbitMQClient } from './rabbitmq.client';
 
 export class RabbitMQ {
-  static getAmpqConnectionFactory() {
+  static getAmpqConnectionFactory(prefetchCount?: number) {
     return RabbitMQModule.AmqpConnectionFactory({
       name: 'default',
       exchanges: [
@@ -23,11 +23,14 @@ export class RabbitMQ {
       ],
       uri: 'amqp://guest:guest@rabbitmq:5672/',
       enableControllerDiscovery: true,
+      prefetchCount,
     });
   }
 
-  static async getRabbitMQClient() {
-    const amqpConnection = await RabbitMQ.getAmpqConnectionFactory();
+  static async getRabbitMQClient(prefetchCount?: number) {
+    const amqpConnection = await RabbitMQ.getAmpqConnectionFactory(
+      prefetchCount,
+    );
 
     if (!amqpConnection) throw new Error('Failed to connect to RabbitMQ');
 

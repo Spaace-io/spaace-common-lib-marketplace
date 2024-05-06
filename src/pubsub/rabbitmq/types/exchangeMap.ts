@@ -6,4 +6,5 @@ export const exchangeMap = {
   [PubSubTopic.COLLECTION_IMPORT]: 'collection-import-exchange',
   [PubSubTopic.SEARCH_INDEX]: 'search-index-exchange',
   [PubSubTopic.DATA]: 'data-exchange',
+  [PubSubTopic.LEVEL_PROGRESS]: 'level-progress',
 };

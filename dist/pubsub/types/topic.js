@@ -8,5 +8,6 @@ var PubSubTopic;
     PubSubTopic["COLLECTION_IMPORT"] = "collection-import";
     PubSubTopic["SEARCH_INDEX"] = "search-index";
     PubSubTopic["DATA"] = "data";
+    PubSubTopic["LEVEL_PROGRESS"] = "level-progress";
 })(PubSubTopic = exports.PubSubTopic || (exports.PubSubTopic = {}));
 //# sourceMappingURL=topic.js.map
