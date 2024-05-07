@@ -11,4 +11,8 @@ export class ArenaSpaaceOnboardingTweetLikes extends BaseEntity {
   @Field(() => String)
   @Column('text')
   tweetId!: string;
+
+  @Field(() => String)
+  @Column('text')
+  actionType!: string;
 }
