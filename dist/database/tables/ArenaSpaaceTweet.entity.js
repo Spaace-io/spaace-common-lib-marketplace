@@ -43,11 +43,6 @@ __decorate([
     (0, typeorm_1.Column)('boolean', { default: false }),
     (0, typeorm_1.Index)(),
     __metadata("design:type", Boolean)
-], ArenaSpaaceTweet.prototype, "postOfTheDay", void 0);
-__decorate([
-    (0, typeorm_1.Column)('boolean', { default: false }),
-    (0, typeorm_1.Index)(),
-    __metadata("design:type", Boolean)
 ], ArenaSpaaceTweet.prototype, "primePost", void 0);
 __decorate([
     (0, typeorm_1.Column)('boolean', { default: false }),

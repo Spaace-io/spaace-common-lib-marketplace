@@ -26,10 +26,6 @@ export class ArenaSpaaceTweet extends BaseEntity {
 
   @Column('boolean', { default: false })
   @Index()
-  postOfTheDay!: boolean;
-
-  @Column('boolean', { default: false })
-  @Index()
   primePost!: boolean;
 
   @Column('boolean', { default: false })
