@@ -4,5 +4,6 @@ export declare enum PubSubTopic {
     COLLECTION_IMPORT = "collection-import",
     SEARCH_INDEX = "search-index",
     DATA = "data",
-    LEVEL_PROGRESS = "level-progress"
+    LEVEL_PROGRESS = "level-progress",
+    GQL_MESSAGE = "gql-message"
 }

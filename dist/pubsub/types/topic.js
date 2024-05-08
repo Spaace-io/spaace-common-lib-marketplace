@@ -9,5 +9,6 @@ var PubSubTopic;
     PubSubTopic["SEARCH_INDEX"] = "search-index";
     PubSubTopic["DATA"] = "data";
     PubSubTopic["LEVEL_PROGRESS"] = "level-progress";
+    PubSubTopic["GQL_MESSAGE"] = "gql-message";
 })(PubSubTopic = exports.PubSubTopic || (exports.PubSubTopic = {}));
 //# sourceMappingURL=topic.js.map

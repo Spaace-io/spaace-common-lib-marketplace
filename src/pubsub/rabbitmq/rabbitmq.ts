@@ -10,6 +10,7 @@ export class RabbitMQ {
         { name: 'collection-import-exchange', type: 'topic' },
         { name: 'search-index-exchange', type: 'topic' },
         { name: 'data-exchange', type: 'topic' },
+        { name: 'gql-message-exchange', type: 'topic' },
 
         { name: 'exchange1', type: 'topic' },
         {

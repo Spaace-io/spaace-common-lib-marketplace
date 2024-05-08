@@ -5,4 +5,5 @@ export declare const exchangeMap: {
     "search-index": string;
     data: string;
     "level-progress": string;
+    "gql-message": string;
 };

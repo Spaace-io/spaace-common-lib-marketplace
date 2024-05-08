@@ -9,5 +9,6 @@ exports.exchangeMap = {
     [types_1.PubSubTopic.SEARCH_INDEX]: 'search-index-exchange',
     [types_1.PubSubTopic.DATA]: 'data-exchange',
     [types_1.PubSubTopic.LEVEL_PROGRESS]: 'level-progress',
+    [types_1.PubSubTopic.GQL_MESSAGE]: 'gql-message-exchange',
 };
 //# sourceMappingURL=exchangeMap.js.map

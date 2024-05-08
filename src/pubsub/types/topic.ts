@@ -5,4 +5,5 @@ export enum PubSubTopic {
   SEARCH_INDEX = 'search-index',
   DATA = 'data',
   LEVEL_PROGRESS = 'level-progress',
+  GQL_MESSAGE = 'gql-message',
 }

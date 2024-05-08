@@ -7,4 +7,5 @@ export const exchangeMap = {
   [PubSubTopic.SEARCH_INDEX]: 'search-index-exchange',
   [PubSubTopic.DATA]: 'data-exchange',
   [PubSubTopic.LEVEL_PROGRESS]: 'level-progress',
+  [PubSubTopic.GQL_MESSAGE]: 'gql-message-exchange',
 };
