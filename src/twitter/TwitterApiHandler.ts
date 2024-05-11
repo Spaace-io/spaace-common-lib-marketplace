@@ -173,9 +173,9 @@ export class TwitterApiHandler {
     } = await this.twitterApiInstance.get(
       `2/tweets/search/recent?start_time=${encodeURIComponent(
         startTime,
-      )}&end_time=${encodeURIComponent(endTime)}&query=${encodeURIComponent(
+      )}&end_time=${encodeURIComponent(endTime)}&query=(${encodeURIComponent(
         query,
-      )} -is:retweet&tweet.fields=author_id,id,text,public_metrics`,
+      )}) -is:retweet -is:reply&tweet.fields=author_id,id,text,public_metrics`,
     );
 
     return data.data;
