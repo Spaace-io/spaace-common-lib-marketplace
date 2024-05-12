@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   Entity,
   BaseEntity,
@@ -9,6 +9,15 @@ import {
   Index,
 } from 'typeorm';
 import { ArenaUser, ArenaSeason } from '.';
+
+export enum ArenaUserBoosterType {
+  SPECIAL = 'SPECIAL',
+  WOW_CHEST = 'WOW_CHEST',
+}
+
+registerEnumType(ArenaUserBoosterType, {
+  name: 'ArenaUserBoosterType',
+});
 
 @ObjectType()
 @Entity({ name: 'arena_users_booster' })
@@ -37,4 +46,8 @@ export class ArenaUserBooster extends BaseEntity {
   @Field(() => Number)
   @Column('numeric', { precision: 78, unsigned: true, default: 0 })
   booster!: number;
+
+  @Field(() => ArenaUserBoosterType)
+  @Column('enum', { enum: ArenaUserBoosterType, enumName: 'booster_type' })
+  type!: ArenaUserBoosterType;
 }

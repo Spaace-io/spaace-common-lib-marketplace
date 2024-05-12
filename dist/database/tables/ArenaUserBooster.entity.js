@@ -9,10 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArenaUserBooster = void 0;
+exports.ArenaUserBooster = exports.ArenaUserBoosterType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const _1 = require(".");
+var ArenaUserBoosterType;
+(function (ArenaUserBoosterType) {
+    ArenaUserBoosterType["SPECIAL"] = "SPECIAL";
+    ArenaUserBoosterType["WOW_CHEST"] = "WOW_CHEST";
+})(ArenaUserBoosterType = exports.ArenaUserBoosterType || (exports.ArenaUserBoosterType = {}));
+(0, graphql_1.registerEnumType)(ArenaUserBoosterType, {
+    name: 'ArenaUserBoosterType',
+});
 let ArenaUserBooster = class ArenaUserBooster extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -45,6 +53,11 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
     __metadata("design:type", Number)
 ], ArenaUserBooster.prototype, "booster", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => ArenaUserBoosterType),
+    (0, typeorm_1.Column)('enum', { enum: ArenaUserBoosterType, enumName: 'booster_type' }),
+    __metadata("design:type", String)
+], ArenaUserBooster.prototype, "type", void 0);
 ArenaUserBooster = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users_booster' }),
