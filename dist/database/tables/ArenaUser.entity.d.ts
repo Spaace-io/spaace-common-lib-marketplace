@@ -19,4 +19,5 @@ export declare class ArenaUser extends BaseEntity {
     twitterSecretToken: string;
     twitterAccessToken: string;
     userWalletAddress: string | undefined;
+    isOnboardingChestClaimed: boolean;
 }
