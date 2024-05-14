@@ -12,6 +12,7 @@ export declare class TwitterApiHandler {
     constructor(userCreds?: Pick<ArenaUser, 'twitterAccessToken' | 'twitterSecretToken'>, twitterApiVersion?: TwitterApiVersions);
     static build(twitterId?: string, twitterApiVersion?: TwitterApiVersions): Promise<TwitterApiHandler>;
     static buildWithCreds(twitterAccessToken: string, twitterSecretToken: string, twitterApiVersion?: TwitterApiVersions): Promise<TwitterApiHandler>;
+    getUserById(id: string): Promise<TwitterUserv2>;
     getUserByUsername(username: string): Promise<TwitterUserv2>;
     getMultipleTweets(tweetIds: string[]): Promise<MultipleTweetsLookupResponse[]>;
     getLikingUsers(tweetId: string, pagination_token?: string): Promise<UserStatsResponse>;

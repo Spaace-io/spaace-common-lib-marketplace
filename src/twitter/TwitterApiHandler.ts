@@ -87,6 +87,15 @@ export class TwitterApiHandler {
     );
   }
 
+  async getUserById(id: string) {
+    const { data }: { data: { data: TwitterUserv2 } } =
+      await this.twitterApiInstance.get(
+        `2/users/${id}?user.fields=public_metrics,description,verified,created_at`,
+      );
+
+    return data.data;
+  }
+
   async getUserByUsername(username: string) {
     const { data }: { data: { data: TwitterUserv2 } } =
       await this.twitterApiInstance.get(

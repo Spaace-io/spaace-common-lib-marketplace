@@ -68,6 +68,12 @@ class TwitterApiHandler {
             }, twitterApiVersion);
         });
     }
+    getUserById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { data } = yield this.twitterApiInstance.get(`2/users/${id}?user.fields=public_metrics,description,verified,created_at`);
+            return data.data;
+        });
+    }
     getUserByUsername(username) {
         return __awaiter(this, void 0, void 0, function* () {
             const { data } = yield this.twitterApiInstance.get(`2/users/by/username/${username}?user.fields=public_metrics,description`);
