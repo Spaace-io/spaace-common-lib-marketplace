@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArenaUser = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
+const class_transformer_1 = require("class-transformer");
 const _1 = require(".");
 let ArenaUser = ArenaUser_1 = class ArenaUser extends typeorm_1.BaseEntity {
 };
@@ -112,11 +113,13 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text', { unique: true }),
+    (0, class_transformer_1.Exclude)(),
     __metadata("design:type", String)
 ], ArenaUser.prototype, "twitterSecretToken", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text', { unique: true }),
+    (0, class_transformer_1.Exclude)(),
     __metadata("design:type", String)
 ], ArenaUser.prototype, "twitterAccessToken", void 0);
 __decorate([

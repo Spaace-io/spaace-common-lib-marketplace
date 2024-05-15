@@ -8,6 +8,7 @@ import {
   JoinColumn,
   Index,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { ArenaCrew } from '.';
 
 @ObjectType()
@@ -92,10 +93,12 @@ export class ArenaUser extends BaseEntity {
 
   @Field(() => String)
   @Column('text', { unique: true })
+  @Exclude()
   twitterSecretToken!: string;
 
   @Field(() => String)
   @Column('text', { unique: true })
+  @Exclude()
   twitterAccessToken!: string;
 
   @Field(() => String, { nullable: true })
