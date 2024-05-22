@@ -23,6 +23,10 @@ class RedisClient {
     await this.redis.connect();
   }
 
+  getRedisClient(): RedisClientType {
+    return this.redis;
+  }
+
   async shouldImportCollections(limit = this.COLLECTIONS_LIMIT) {
     return (await this.redis.zCard(this.COLLECTIONS_KEY)) >= limit;
   }

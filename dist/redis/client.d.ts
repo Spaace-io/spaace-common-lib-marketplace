@@ -1,3 +1,4 @@
+import { RedisClientType } from 'redis';
 import { CollectionEntity, ItemEntity } from '../database';
 declare class RedisClient {
     readonly COLLECTIONS_KEY = "collection-import:collections";
@@ -7,6 +8,7 @@ declare class RedisClient {
     private readonly redis;
     constructor();
     initialize(): Promise<void>;
+    getRedisClient(): RedisClientType;
     shouldImportCollections(limit?: number): Promise<boolean>;
     importCollections(collections: readonly Pick<CollectionEntity, 'address'>[], priority?: number): Promise<void>;
     popCollections(): Promise<Pick<CollectionEntity, 'address'>[]>;
