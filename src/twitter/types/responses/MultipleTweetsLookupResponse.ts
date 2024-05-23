@@ -3,6 +3,7 @@ export interface MultipleTweetsLookupResponse {
   author_id: string; // ? Author user id
   text: string;
   id: string; // ? tweet id
+  conversation_id: string;
 }
 
 export interface TweetMetrics {
