@@ -187,6 +187,15 @@ export class TwitterApiHandler {
       )}) -is:retweet -is:reply&tweet.fields=author_id,id,text,public_metrics`,
     );
 
+    console.log(
+      'get mentions api console ==>>',
+      `2/tweets/search/recent?start_time=${encodeURIComponent(
+        startTime,
+      )}&end_time=${encodeURIComponent(endTime)}&query=(${encodeURIComponent(
+        query,
+      )}) -is:retweet -is:reply&tweet.fields=author_id,id,text,public_metrics`,
+    );
+
     return data.data;
   }
 }
