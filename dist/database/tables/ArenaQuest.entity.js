@@ -73,6 +73,7 @@ var ArenaQuestSubType;
     ArenaQuestSubType["LEVEL"] = "LEVEL";
     ArenaQuestSubType["POST_OF_THE_DAY"] = "POST_OF_THE_DAY";
     ArenaQuestSubType["PRIME_POST"] = "PRIME_POST";
+    ArenaQuestSubType["COMMUNITY_POST"] = "COMMUNITY_POST";
     ArenaQuestSubType["MENTION_METRICS"] = "MENTION_METRICS";
     ArenaQuestSubType["MENTION"] = "MENTION";
     ArenaQuestSubType["ONBOARDING"] = "ONBOARDING";

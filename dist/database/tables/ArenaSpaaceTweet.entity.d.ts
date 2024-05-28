@@ -7,4 +7,5 @@ export declare class ArenaSpaaceTweet extends BaseEntity {
     retweetPaginationToken: string;
     primePost: boolean;
     onboardingPost: boolean;
+    communityPost: boolean;
 }

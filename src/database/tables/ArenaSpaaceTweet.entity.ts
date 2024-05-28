@@ -31,4 +31,8 @@ export class ArenaSpaaceTweet extends BaseEntity {
   @Column('boolean', { default: false })
   @Index()
   onboardingPost!: boolean;
+
+  @Column('boolean', { default: false })
+  @Index()
+  communityPost!: boolean;
 }
