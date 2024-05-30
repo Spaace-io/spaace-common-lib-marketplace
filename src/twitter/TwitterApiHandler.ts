@@ -174,7 +174,7 @@ export class TwitterApiHandler {
     return data;
   }
 
-  async getMentions(startTime: string, endTime: string, query: string) {
+  async getMentions(query: string, startTime?: string, endTime?: string) {
     const {
       data,
     }: {

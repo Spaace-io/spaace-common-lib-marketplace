@@ -119,7 +119,7 @@ class TwitterApiHandler {
             return data;
         });
     }
-    getMentions(startTime, endTime, query) {
+    getMentions(query, startTime, endTime) {
         return __awaiter(this, void 0, void 0, function* () {
             const { data, } = yield this.twitterApiInstance.get(startTime && endTime
                 ? `2/tweets/search/recent?start_time=${encodeURIComponent(startTime)}&end_time=${encodeURIComponent(endTime)}&query=(${encodeURIComponent(query)}) -is:retweet&tweet.fields=author_id,id,text,public_metrics,conversation_id`
