@@ -121,7 +121,9 @@ class TwitterApiHandler {
     }
     getMentions(startTime, endTime, query) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { data, } = yield this.twitterApiInstance.get(`2/tweets/search/recent?start_time=${encodeURIComponent(startTime)}&end_time=${encodeURIComponent(endTime)}&query=(${encodeURIComponent(query)}) -is:retweet&tweet.fields=author_id,id,text,public_metrics,conversation_id`);
+            const { data, } = yield this.twitterApiInstance.get(startTime && endTime
+                ? `2/tweets/search/recent?start_time=${encodeURIComponent(startTime)}&end_time=${encodeURIComponent(endTime)}&query=(${encodeURIComponent(query)}) -is:retweet&tweet.fields=author_id,id,text,public_metrics,conversation_id`
+                : `2/tweets/search/recent?query=(${encodeURIComponent(query)}) -is:retweet&tweet.fields=author_id,id,text,public_metrics,conversation_id`);
             const filteredTweets = data.data.filter((tweet) => tweet.conversation_id === tweet.id);
             return filteredTweets;
         });

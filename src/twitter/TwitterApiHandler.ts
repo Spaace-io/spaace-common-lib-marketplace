@@ -180,11 +180,17 @@ export class TwitterApiHandler {
     }: {
       data: { data: MultipleTweetsLookupResponse[] };
     } = await this.twitterApiInstance.get(
-      `2/tweets/search/recent?start_time=${encodeURIComponent(
-        startTime,
-      )}&end_time=${encodeURIComponent(endTime)}&query=(${encodeURIComponent(
-        query,
-      )}) -is:retweet&tweet.fields=author_id,id,text,public_metrics,conversation_id`,
+      startTime && endTime
+        ? `2/tweets/search/recent?start_time=${encodeURIComponent(
+            startTime,
+          )}&end_time=${encodeURIComponent(
+            endTime,
+          )}&query=(${encodeURIComponent(
+            query,
+          )}) -is:retweet&tweet.fields=author_id,id,text,public_metrics,conversation_id`
+        : `2/tweets/search/recent?query=(${encodeURIComponent(
+            query,
+          )}) -is:retweet&tweet.fields=author_id,id,text,public_metrics,conversation_id`,
     );
 
     const filteredTweets = data.data.filter(
