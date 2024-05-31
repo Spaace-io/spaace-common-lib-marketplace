@@ -5,7 +5,7 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> = T extends QuestTr
     primaryMedia: ItemMediaEntity | null;
 } : T extends SearchIndexType.COLLECTION ? CollectionEntity : T extends SearchIndexType.USER ? User : never;
 export type ArenaPubSubData<T extends ArenaQuestTrigger> = T extends ArenaQuestTrigger.USER ? ArenaUser & {
-    follow?: boolean;
+    action?: string;
 } : T extends ArenaQuestTrigger.REFERRAL ? ArenaUser : T extends ArenaQuestTrigger.USER_LEVEL_PROGRESS ? ArenaUser : T extends ArenaQuestTrigger.CREW_PROGRESS ? ArenaUser : T extends ArenaQuestTrigger.SOCIAL ? ArenaTweet & {
     action?: string;
 } : T extends ArenaQuestTrigger.SOCIAL_PRIME ? ArenaTweet : never;

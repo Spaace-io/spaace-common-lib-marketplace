@@ -65,7 +65,7 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
 
 export type ArenaPubSubData<T extends ArenaQuestTrigger> =
   T extends ArenaQuestTrigger.USER
-    ? ArenaUser & { follow?: boolean }
+    ? ArenaUser & { action?: string }
     : T extends ArenaQuestTrigger.REFERRAL
     ? ArenaUser
     : T extends ArenaQuestTrigger.USER_LEVEL_PROGRESS
