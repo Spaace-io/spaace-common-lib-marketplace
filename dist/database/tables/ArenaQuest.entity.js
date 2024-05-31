@@ -77,6 +77,7 @@ var ArenaQuestSubType;
     ArenaQuestSubType["MENTION_METRICS"] = "MENTION_METRICS";
     ArenaQuestSubType["MENTION"] = "MENTION";
     ArenaQuestSubType["ONBOARDING"] = "ONBOARDING";
+    ArenaQuestSubType["REFERRAL_SOCIAL"] = "REFERRAL_SOCIAL";
     ArenaQuestSubType["OTHERS"] = "OTHERS";
 })(ArenaQuestSubType = exports.ArenaQuestSubType || (exports.ArenaQuestSubType = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestSubType, {

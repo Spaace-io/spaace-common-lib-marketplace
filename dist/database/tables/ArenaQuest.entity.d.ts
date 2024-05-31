@@ -44,6 +44,7 @@ export declare enum ArenaQuestSubType {
     MENTION_METRICS = "MENTION_METRICS",
     MENTION = "MENTION",
     ONBOARDING = "ONBOARDING",
+    REFERRAL_SOCIAL = "REFERRAL_SOCIAL",
     OTHERS = "OTHERS"
 }
 export declare class ArenaQuestRule {
