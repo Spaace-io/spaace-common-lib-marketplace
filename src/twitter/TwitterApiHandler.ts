@@ -193,7 +193,7 @@ export class TwitterApiHandler {
           )}) -is:retweet&tweet.fields=author_id,id,text,public_metrics,conversation_id`,
     );
 
-    const filteredTweets = data.data.filter(
+    const filteredTweets = data?.data?.filter(
       (tweet) => tweet.conversation_id === tweet.id,
     );
 
