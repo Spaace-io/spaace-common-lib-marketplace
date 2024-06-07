@@ -1,3 +1,3 @@
-import '../config';
+import '../../config';
 export declare class RabbitMQCustomModule {
 }
