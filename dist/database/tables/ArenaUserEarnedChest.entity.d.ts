@@ -5,6 +5,7 @@ export declare class ArenaUserEarnedChest extends BaseEntity {
     userTwitterId: string;
     seasonNumber: string;
     xp: string;
+    stars: string;
     chestName: ArenaChestName;
     isClaimed: boolean;
 }

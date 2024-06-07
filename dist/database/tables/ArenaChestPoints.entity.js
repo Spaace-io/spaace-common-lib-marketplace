@@ -21,6 +21,7 @@ var ArenaChestName;
     ArenaChestName["COMMON"] = "COMMON";
     ArenaChestName["GENESIS"] = "GENESIS";
     ArenaChestName["CREW"] = "CREW";
+    ArenaChestName["REFERRAL"] = "REFERRAL";
 })(ArenaChestName = exports.ArenaChestName || (exports.ArenaChestName = {}));
 (0, graphql_1.registerEnumType)(ArenaChestName, { name: 'ArenaChestName' });
 let ArenaChestPoints = class ArenaChestPoints extends typeorm_1.BaseEntity {

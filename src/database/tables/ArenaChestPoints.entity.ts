@@ -9,6 +9,7 @@ export enum ArenaChestName {
   COMMON = 'COMMON',
   GENESIS = 'GENESIS',
   CREW = 'CREW',
+  REFERRAL = 'REFERRAL',
 }
 
 registerEnumType(ArenaChestName, { name: 'ArenaChestName' });

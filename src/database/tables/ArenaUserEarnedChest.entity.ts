@@ -34,6 +34,10 @@ export class ArenaUserEarnedChest extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   xp!: string;
 
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  stars!: string;
+
   @Field(() => ArenaChestName)
   @Column('text')
   chestName!: ArenaChestName;
