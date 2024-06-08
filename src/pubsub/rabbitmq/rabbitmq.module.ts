@@ -3,7 +3,7 @@ import { RabbitMQClient } from './rabbitmq.client';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import '../../config';
 
-const host = process.env.RABBITMQ_HOST ?? 'localhost';
+const host = process.env.RABBITMQ_HOST ?? 'rabbitmq';
 const port = parseInt(process.env.RABBITMQ_PORT ?? '5672', 10);
 
 @Module({

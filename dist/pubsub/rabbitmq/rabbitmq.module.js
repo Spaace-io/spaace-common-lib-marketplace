@@ -12,7 +12,7 @@ const common_1 = require("@nestjs/common");
 const rabbitmq_client_1 = require("./rabbitmq.client");
 const nestjs_rabbitmq_1 = require("@golevelup/nestjs-rabbitmq");
 require("../../config");
-const host = (_a = process.env.RABBITMQ_HOST) !== null && _a !== void 0 ? _a : 'localhost';
+const host = (_a = process.env.RABBITMQ_HOST) !== null && _a !== void 0 ? _a : 'rabbitmq';
 const port = parseInt((_b = process.env.RABBITMQ_PORT) !== null && _b !== void 0 ? _b : '5672', 10);
 let RabbitMQCustomModule = class RabbitMQCustomModule {
 };
