@@ -14,6 +14,7 @@ const redis_1 = require("redis");
 const database_1 = require("../database");
 const __1 = require("..");
 const class_transformer_1 = require("class-transformer");
+const v8_1 = require("v8");
 class RedisClient {
     constructor() {
         var _a;
@@ -32,6 +33,35 @@ class RedisClient {
     }
     getRedisClient() {
         return this.redis;
+    }
+    subscribeServerSubscription(handler) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.subscriber = this.redis.duplicate();
+            yield this.subscriber.connect();
+            yield this.subscriber.pSubscribe('__keyevent@0__:expired', (keyName) => {
+                if (keyName.startsWith('debounce:')) {
+                    handler(keyName);
+                }
+            });
+        });
+    }
+    publishServerSubscribtions(data, delay) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { userTwitterId, objectName, triggerName, queryParams } = data;
+            const serializedQuery = (0, v8_1.serialize)(queryParams).toString('base64'); // Serialize the queryParams object
+            const debounceKey = `debounce:${userTwitterId}:${objectName}:${triggerName}:${serializedQuery}`;
+            const result = yield this.redis.set(debounceKey, 'active', {
+                PX: delay * 1000,
+                NX: true,
+            });
+            if (result) {
+                console.log(`Debounce set for ${debounceKey}`);
+            }
+            else {
+                console.log(`Debounce reset for ${debounceKey}`);
+                yield this.redis.pExpire(debounceKey, delay * 1000);
+            }
+        });
     }
     shouldImportCollections(limit = this.COLLECTIONS_LIMIT) {
         return __awaiter(this, void 0, void 0, function* () {
