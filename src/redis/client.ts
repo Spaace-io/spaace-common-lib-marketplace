@@ -5,6 +5,9 @@ import { plainToInstance } from 'class-transformer';
 import { serialize } from 'v8';
 import { DebounceData, ExpiryHandler } from './interface';
 
+const host = process.env.REDIS_HOST ?? 'redis';
+const port = parseInt(process.env.REDIS_PORT ?? '6379', 10);
+
 class RedisClient {
   public readonly COLLECTIONS_KEY = 'collection-import:collections';
   public readonly COLLECTIONS_LIMIT = 100;
@@ -16,9 +19,7 @@ class RedisClient {
 
   constructor() {
     this.redis = createClient({
-      url: `redis://${process.env.REDIS_HOST}:${
-        process.env.REDIS_PORT ?? 6379
-      }`,
+      url: `redis://${host}:${port}`,
     });
   }
 
