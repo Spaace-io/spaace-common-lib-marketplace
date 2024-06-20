@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { RabbitMQClient } from './rabbitmq.client';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
+import '../../config';
+
+const host = process.env.RABBITMQ_HOST ?? 'rabbitmq';
+const port = parseInt(process.env.RABBITMQ_PORT ?? '5672', 10);
 
 @Module({
   imports: [
@@ -21,7 +25,7 @@ import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
           },
         },
       ],
-      uri: 'amqp://guest:guest@rabbitmq:5672/',
+      uri: `amqp://guest:guest@${host}:${port}/`,
       enableControllerDiscovery: true,
     }),
   ],

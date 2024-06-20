@@ -8,10 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RabbitMQ = void 0;
 const nestjs_rabbitmq_1 = require("@golevelup/nestjs-rabbitmq");
 const rabbitmq_client_1 = require("./rabbitmq.client");
+require("../../config");
+const host = (_a = process.env.RABBITMQ_HOST) !== null && _a !== void 0 ? _a : 'rabbitmq';
+const port = parseInt((_b = process.env.RABBITMQ_PORT) !== null && _b !== void 0 ? _b : '5672', 10);
 class RabbitMQ {
     static getAmpqConnectionFactory(prefetchCount) {
         return nestjs_rabbitmq_1.RabbitMQModule.AmqpConnectionFactory({
@@ -32,7 +36,7 @@ class RabbitMQ {
                     },
                 },
             ],
-            uri: 'amqp://guest:guest@rabbitmq:5672/',
+            uri: `amqp://guest:guest@${host}:${port}/`,
             enableControllerDiscovery: true,
             prefetchCount,
         });

@@ -1,5 +1,9 @@
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { RabbitMQClient } from './rabbitmq.client';
+import '../../config';
+
+const host = process.env.RABBITMQ_HOST ?? 'rabbitmq';
+const port = parseInt(process.env.RABBITMQ_PORT ?? '5672', 10);
 
 export class RabbitMQ {
   static getAmpqConnectionFactory(prefetchCount?: number) {
@@ -22,7 +26,7 @@ export class RabbitMQ {
           },
         },
       ],
-      uri: 'amqp://guest:guest@rabbitmq:5672/',
+      uri: `amqp://guest:guest@${host}:${port}/`,
       enableControllerDiscovery: true,
       prefetchCount,
     });

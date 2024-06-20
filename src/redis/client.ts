@@ -2,6 +2,11 @@ import { RedisClientType, createClient } from 'redis';
 import { CollectionEntity, ItemEntity } from '../database';
 import { CollectionImportRequest, PubSubTopic, pubsub, utils } from '..';
 import { plainToInstance } from 'class-transformer';
+import { serialize } from 'v8';
+import { DebounceData, ExpiryHandler } from './interface';
+
+const host = process.env.REDIS_HOST ?? 'redis';
+const port = parseInt(process.env.REDIS_PORT ?? '6379', 10);
 
 class RedisClient {
   public readonly COLLECTIONS_KEY = 'collection-import:collections';
@@ -10,12 +15,11 @@ class RedisClient {
   public readonly ITEMS_LIMIT = 100;
 
   private readonly redis: RedisClientType;
+  private subscriber!: RedisClientType;
 
   constructor() {
     this.redis = createClient({
-      url: `redis://${process.env.REDIS_HOST}:${
-        process.env.REDIS_PORT ?? 6379
-      }`,
+      url: `redis://${host}:${port}`,
     });
   }
 
@@ -25,6 +29,33 @@ class RedisClient {
 
   getRedisClient(): RedisClientType {
     return this.redis;
+  }
+
+  async subscribeServerSubscription(handler: ExpiryHandler) {
+    this.subscriber = this.redis.duplicate();
+    await this.subscriber.connect();
+    await this.subscriber.pSubscribe('__keyevent@0__:expired', (keyName) => {
+      if (keyName.startsWith('debounce:')) {
+        handler(keyName);
+      }
+    });
+  }
+
+  async publishServerSubscribtions(data: DebounceData, delay: number) {
+    const { userTwitterId, objectName, triggerName, queryParams } = data;
+    const serializedQuery = serialize(queryParams).toString('base64'); // Serialize the queryParams object
+    const debounceKey = `debounce:${userTwitterId}:${objectName}:${triggerName}:${serializedQuery}`;
+    const result = await this.redis.set(debounceKey, 'active', {
+      PX: delay * 1000,
+      NX: true,
+    });
+
+    if (result) {
+      console.log(`Debounce set for ${debounceKey}`);
+    } else {
+      console.log(`Debounce reset for ${debounceKey}`);
+      await this.redis.pExpire(debounceKey, delay * 1000);
+    }
   }
 
   async shouldImportCollections(limit = this.COLLECTIONS_LIMIT) {
