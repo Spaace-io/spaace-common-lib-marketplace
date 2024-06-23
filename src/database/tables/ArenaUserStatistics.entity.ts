@@ -1,12 +1,13 @@
 import {
   Entity,
   Column,
-  OneToOne,
   JoinColumn,
   BaseEntity,
   PrimaryColumn,
+  ManyToOne,
 } from 'typeorm';
 import { ArenaUser } from './ArenaUser.entity';
+import { ArenaSeason } from '.';
 import { ObjectType, Field } from '@nestjs/graphql';
 
 @ObjectType()
@@ -14,12 +15,18 @@ import { ObjectType, Field } from '@nestjs/graphql';
 export class ArenaUserStatistics extends BaseEntity {
   @Field(() => String)
   @PrimaryColumn('text')
-  @OneToOne(() => ArenaUser)
+  @ManyToOne(() => ArenaUser)
   @JoinColumn({
     name: 'userTwitterId',
     referencedColumnName: 'userTwitterId',
   })
   userTwitterId!: string;
+
+  @Field(() => String)
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true })
+  @ManyToOne(() => ArenaSeason)
+  @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
+  seasonNumber!: string;
 
   @Field(() => Number)
   @Column('numeric', { precision: 78, unsigned: true, default: 0 })
