@@ -55,6 +55,11 @@ __decorate([
     __metadata("design:type", String)
 ], ArenaUser.prototype, "referralCode", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => Date),
+    (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
+    __metadata("design:type", Date)
+], ArenaUser.prototype, "referralCodeLastShared", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     (0, typeorm_1.ManyToOne)(() => ArenaUser_1, { nullable: true }),

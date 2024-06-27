@@ -10,4 +10,5 @@ export declare class ArenaTweet extends BaseEntity {
     quoteCount: string;
     quoteTweetId: string | null;
     replyTweetId: string | null;
+    repliesLastFetched: Date;
 }

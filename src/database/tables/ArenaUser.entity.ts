@@ -44,6 +44,10 @@ export class ArenaUser extends BaseEntity {
   @Index()
   referralCode!: string;
 
+  @Field(() => Date)
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
+  referralCodeLastShared!: Date;
+
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
   @ManyToOne(() => ArenaUser, { nullable: true })
