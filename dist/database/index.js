@@ -33,14 +33,14 @@ exports.Database = new typeorm_1.DataSource({
     password,
     database,
     schema,
-    synchronize: false,
-    migrationsRun: true,
-    logging: false,
+    migrationsRun: false,
+    logging: true,
     entities: [
         __dirname + '/tables/**.entity.{js,ts}',
         __dirname + '/cache/**.entity.{js,ts}',
         __dirname + '/types/**.view.{js,ts}',
     ],
+    synchronize: true,
     migrations: [__dirname + '/migrations/*-*.{js,ts}'],
     subscribers: [],
 });

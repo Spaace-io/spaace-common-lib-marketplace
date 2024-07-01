@@ -35,6 +35,8 @@ import { ActiveOrderCached, Marketplace, OrderEntity, OrderType } from '..';
       .addSelect('"order"."cancelTxHash"', 'cancelTxHash')
       .addSelect('"order"."cancelLogIdx"', 'cancelLogIdx')
       .addSelect('"order"."cancelTimestamp"', 'cancelTimestamp')
+      .addSelect('"order"."fulfillQuantity"', 'fulfillQuantity')
+      .addSelect('"order"."remainingQuantity"', 'remainingQuantity')
       .addSelect(
         (query) =>
           query.fromDummy().select(
@@ -169,7 +171,13 @@ export class Order extends BaseEntity {
   @Field(() => Date, { nullable: true })
   @ViewColumn()
   cancelTimestamp!: Date | null;
+  @Field(() => String)
+  @ViewColumn()
+  fulfillQuantity!: string;
 
+  @Field(() => String)
+  @ViewColumn()
+  remainingQuantity!: string;
   // Cached columns
 
   @Field(() => Boolean)

@@ -120,6 +120,14 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], OrderEntity.prototype, "cancelTimestamp", void 0);
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
+    __metadata("design:type", String)
+], OrderEntity.prototype, "fulfillQuantity", void 0);
+__decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
+    __metadata("design:type", String)
+], OrderEntity.prototype, "remainingQuantity", void 0);
 OrderEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'orders' }),
     (0, typeorm_1.Index)(['collectionAddress', 'startTime']) // Collection analytics & activity

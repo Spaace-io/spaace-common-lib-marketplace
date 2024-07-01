@@ -8,7 +8,6 @@ const username = process.env.DATABASE_USERNAME ?? 'root';
 const password = process.env.DATABASE_PASSWORD;
 const database = process.env.DATABASE_NAME;
 const schema = process.env.DATABASE_SCHEMA;
-
 export const Database = new DataSource({
   type: 'postgres',
   host,
@@ -17,14 +16,14 @@ export const Database = new DataSource({
   password,
   database,
   schema,
-  synchronize: false,
-  migrationsRun: true,
-  logging: false,
+  migrationsRun: false,
+  logging: true,
   entities: [
     __dirname + '/tables/**.entity.{js,ts}',
     __dirname + '/cache/**.entity.{js,ts}',
     __dirname + '/types/**.view.{js,ts}',
   ],
+  synchronize: true,
   migrations: [__dirname + '/migrations/*-*.{js,ts}'],
   subscribers: [],
 });

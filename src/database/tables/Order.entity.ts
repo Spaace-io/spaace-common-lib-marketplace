@@ -100,4 +100,9 @@ export class OrderEntity extends BaseEntity {
 
   @Column('timestamp without time zone', { nullable: true })
   cancelTimestamp!: Date | null;
+  @Column('numeric', { precision: 78, unsigned: true, default: 0 })
+  fulfillQuantity!: string;
+
+  @Column('numeric', { precision: 78, unsigned: true, default: 0 })
+  remainingQuantity!: string;
 }

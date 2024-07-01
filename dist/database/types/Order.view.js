@@ -136,6 +136,16 @@ __decorate([
     __metadata("design:type", Object)
 ], Order.prototype, "cancelTimestamp", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Order.prototype, "fulfillQuantity", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Order.prototype, "remainingQuantity", void 0);
+__decorate([
     (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Boolean)
@@ -166,6 +176,8 @@ Order = __decorate([
                 .addSelect('"order"."cancelTxHash"', 'cancelTxHash')
                 .addSelect('"order"."cancelLogIdx"', 'cancelLogIdx')
                 .addSelect('"order"."cancelTimestamp"', 'cancelTimestamp')
+                .addSelect('"order"."fulfillQuantity"', 'fulfillQuantity')
+                .addSelect('"order"."remainingQuantity"', 'remainingQuantity')
                 .addSelect((query) => query.fromDummy().select(`EXISTS ${query
                 .subQuery()
                 .from(__1.ActiveOrderCached, 'active')

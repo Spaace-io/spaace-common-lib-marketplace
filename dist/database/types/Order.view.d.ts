@@ -20,5 +20,7 @@ export declare class Order extends BaseEntity {
     cancelTxHash: string | null;
     cancelLogIdx: string | null;
     cancelTimestamp: Date | null;
+    fulfillQuantity: string;
+    remainingQuantity: string;
     active: boolean;
 }
