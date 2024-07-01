@@ -141,12 +141,19 @@ export class TwitterApiHandler {
     return data;
   }
 
-  async getReplies(tweetId: string, startTime?: string, endTime?: string) {
+  async getReplies(
+    tweetId: string,
+    startTime?: string,
+    endTime?: string,
+    pagination_token?: string,
+  ) {
     const { data }: { data: TweetsStatsResponse } =
       await this.twitterApiInstance.get(
         `2/tweets/search/recent?max_results=100&tweet.fields=author_id,id&query=in_reply_to_tweet_id: ${tweetId}${
           startTime ? `&start_time=${startTime}` : ''
-        }${endTime ? `&end_time=${endTime}` : ''}`,
+        }${endTime ? `&end_time=${endTime}` : ''}${
+          pagination_token ? `&next_token=${pagination_token}` : ''
+        }`,
       );
 
     return data;
