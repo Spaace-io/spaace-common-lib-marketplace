@@ -17,7 +17,7 @@ export const Database = new DataSource({
   database,
   schema,
   migrationsRun: false,
-  logging: true,
+  logging: false,
   entities: [
     __dirname + '/tables/**.entity.{js,ts}',
     __dirname + '/cache/**.entity.{js,ts}',
