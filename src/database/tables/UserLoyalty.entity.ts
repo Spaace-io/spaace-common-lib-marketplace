@@ -41,7 +41,7 @@ export class UserLoyalty extends BaseEntity {
   questCompleted!: string;
 
   @Field(() => LoyaltyRank)
-  @PrimaryColumn('enum', { enum: LoyaltyRank, enumName: 'rank' })
+  @Column('enum', { enum: LoyaltyRank, enumName: 'rank' })
   @ValidateNested()
   rank!: LoyaltyRank;
 }
