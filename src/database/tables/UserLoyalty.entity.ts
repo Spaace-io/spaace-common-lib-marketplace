@@ -10,7 +10,8 @@ import {
   Index,
 } from 'typeorm';
 import { ethers } from 'ethers';
-import { Season, User } from '.';
+import { LoyaltyRank, Season, User } from '.';
+import { ValidateNested } from 'class-validator';
 
 @ObjectType()
 @Entity({ name: 'user_loyalties' })
@@ -38,4 +39,9 @@ export class UserLoyalty extends BaseEntity {
   @Field(() => String)
   @Column('bigint', { default: '0' })
   questCompleted!: string;
+
+  @Field(() => LoyaltyRank)
+  @PrimaryColumn('enum', { enum: LoyaltyRank, enumName: 'rank' })
+  @ValidateNested()
+  rank!: LoyaltyRank;
 }

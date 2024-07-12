@@ -15,6 +15,7 @@ const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
 const _1 = require(".");
+const class_validator_1 = require("class-validator");
 let UserLoyalty = class UserLoyalty extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -45,6 +46,12 @@ __decorate([
     (0, typeorm_1.Column)('bigint', { default: '0' }),
     __metadata("design:type", String)
 ], UserLoyalty.prototype, "questCompleted", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => _1.LoyaltyRank),
+    (0, typeorm_1.PrimaryColumn)('enum', { enum: _1.LoyaltyRank, enumName: 'rank' }),
+    (0, class_validator_1.ValidateNested)(),
+    __metadata("design:type", String)
+], UserLoyalty.prototype, "rank", void 0);
 UserLoyalty = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'user_loyalties' }),
