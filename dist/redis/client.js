@@ -18,6 +18,7 @@ const class_transformer_1 = require("class-transformer");
 const v8_1 = require("v8");
 const host = (_a = process.env.REDIS_HOST) !== null && _a !== void 0 ? _a : 'redis';
 const port = parseInt((_b = process.env.REDIS_PORT) !== null && _b !== void 0 ? _b : '6379', 10);
+const connectionType = process.env.REDIS_USE_TLS === 'true' ? 'rediss' : 'redis';
 class RedisClient {
     constructor() {
         this.COLLECTIONS_KEY = 'collection-import:collections';
@@ -25,7 +26,7 @@ class RedisClient {
         this.ITEMS_KEY = 'collection-import:items';
         this.ITEMS_LIMIT = 100;
         this.redis = (0, redis_1.createClient)({
-            url: `redis://${host}:${port}`,
+            url: `${connectionType}://${host}:${port}`,
         });
     }
     initialize() {
