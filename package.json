@@ -1,8 +1,7 @@
 {
-  "name": "@spaace/common-lib",
+  "name": "@Spaace-io/common-lib",
   "version": "0.0.1",
   "description": "",
-  "private": true,
   "main": "dist/index.js",
   "files": [
     "/dist"
@@ -17,6 +16,14 @@
     "migration:generate": "npm run typeorm -- migration:generate -d src/database src/database/migrations/$npm_config_name",
     "migrate": "npm run typeorm -- migration:run -d src/database",
     "migration:revert": "npm run typeorm -- migration:revert -d src/database"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Spaace-io/spaace-common-lib-marketplace.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
     "@golevelup/nestjs-rabbitmq": "^5.1.0",
