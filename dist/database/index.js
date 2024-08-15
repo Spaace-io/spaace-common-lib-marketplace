@@ -25,6 +25,7 @@ const username = (_c = process.env.DATABASE_USERNAME) !== null && _c !== void 0 
 const password = process.env.DATABASE_PASSWORD;
 const database = process.env.DATABASE_NAME;
 const schema = process.env.DATABASE_SCHEMA;
+const ssl = process.env.DATABASE_SSL === 'true';
 exports.Database = new typeorm_1.DataSource({
     type: 'postgres',
     host,
@@ -43,6 +44,7 @@ exports.Database = new typeorm_1.DataSource({
     synchronize: true,
     migrations: [__dirname + '/migrations/*-*.{js,ts}'],
     subscribers: [],
+    ssl,
 });
 __exportStar(require("./tables"), exports);
 __exportStar(require("./cache"), exports);
