@@ -8,6 +8,7 @@ const username = process.env.DATABASE_USERNAME ?? 'root';
 const password = process.env.DATABASE_PASSWORD;
 const database = process.env.DATABASE_NAME;
 const schema = process.env.DATABASE_SCHEMA;
+const ssl = process.env.DATABASE_SSL === 'true';
 export const Database = new DataSource({
   type: 'postgres',
   host,
@@ -26,6 +27,7 @@ export const Database = new DataSource({
   synchronize: true,
   migrations: [__dirname + '/migrations/*-*.{js,ts}'],
   subscribers: [],
+  ssl,
 });
 
 export * from './tables';

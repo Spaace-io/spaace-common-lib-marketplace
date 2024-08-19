@@ -7,6 +7,8 @@ import { DebounceData, ExpiryHandler } from './interface';
 
 const host = process.env.REDIS_HOST ?? 'redis';
 const port = parseInt(process.env.REDIS_PORT ?? '6379', 10);
+const connectionType =
+  process.env.REDIS_USE_TLS === 'true' ? 'rediss' : 'redis';
 
 class RedisClient {
   public readonly COLLECTIONS_KEY = 'collection-import:collections';
@@ -19,7 +21,7 @@ class RedisClient {
 
   constructor() {
     this.redis = createClient({
-      url: `redis://${host}:${port}`,
+      url: `${connectionType}://${host}:${port}`,
     });
   }
 
