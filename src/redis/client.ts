@@ -1,6 +1,6 @@
 import { RedisClientType, createClient } from 'redis';
 import { CollectionEntity, ItemEntity } from '../database';
-import { CollectionImportRequest, PubSubTopic, pubsub, utils } from '..';
+import { utils } from '..';
 import { plainToInstance } from 'class-transformer';
 import { serialize } from 'v8';
 import { DebounceData, ExpiryHandler } from './interface';
