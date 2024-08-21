@@ -143,7 +143,6 @@ export class MergeDatabases1695136745634 implements MigrationInterface {
     await queryRunner.query(`DROP TABLE "quests"`);
     await queryRunner.query(`DROP TYPE "public"."quest_period"`);
     await queryRunner.query(`DROP TABLE "season_ranks"`);
-    await queryRunner.query(`DROP TYPE "public"."rank"`);
     await queryRunner.query(`DROP TABLE "seasons"`);
     await queryRunner.query(`DROP TABLE "hidden_items"`);
     await queryRunner.query(`DROP TABLE "notable_collections"`);
