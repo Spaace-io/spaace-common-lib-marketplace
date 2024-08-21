@@ -82,12 +82,13 @@ class RedisClient {
       )
       .exec();
 
-    if (await this.shouldImportCollections()) {
-      pubsub.publish(PubSubTopic.COLLECTION_IMPORT, {
-        trigger: CollectionImportRequest.COLLECTIONS,
-        data: false,
-      });
-    }
+    // TODO: this is not used anymore
+    // if (await this.shouldImportCollections()) {
+    //   pubsub.publish(PubSubTopic.COLLECTION_IMPORT, {
+    //     trigger: CollectionImportRequest.COLLECTIONS,
+    //     data: false,
+    //   });
+    // }
   }
 
   async popCollections(): Promise<Pick<CollectionEntity, 'address'>[]> {
@@ -123,12 +124,13 @@ class RedisClient {
       )
       .exec();
 
-    if (await this.shouldImportItems()) {
-      pubsub.publish(PubSubTopic.COLLECTION_IMPORT, {
-        trigger: CollectionImportRequest.ITEMS,
-        data: false,
-      });
-    }
+    // TODO: this is not used anymore
+    // if (await this.shouldImportItems()) {
+    //   pubsub.publish(PubSubTopic.COLLECTION_IMPORT, {
+    //     trigger: CollectionImportRequest.ITEMS,
+    //     data: false,
+    //   });
+    // }
   }
 
   async popItems(): Promise<
