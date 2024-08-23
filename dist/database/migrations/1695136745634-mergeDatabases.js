@@ -72,7 +72,6 @@ class MergeDatabases1695136745634 {
             yield queryRunner.query(`DROP TABLE "quests"`);
             yield queryRunner.query(`DROP TYPE "public"."quest_period"`);
             yield queryRunner.query(`DROP TABLE "season_ranks"`);
-            yield queryRunner.query(`DROP TYPE "public"."rank"`);
             yield queryRunner.query(`DROP TABLE "seasons"`);
             yield queryRunner.query(`DROP TABLE "hidden_items"`);
             yield queryRunner.query(`DROP TABLE "notable_collections"`);
