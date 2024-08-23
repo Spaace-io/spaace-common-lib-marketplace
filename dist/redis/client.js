@@ -78,12 +78,13 @@ class RedisClient {
             yield collections
                 .reduce((transaction, collection) => transaction.zIncrBy(this.COLLECTIONS_KEY, priority, __1.utils.strip0x(collection.address)), this.redis.multi())
                 .exec();
-            if (yield this.shouldImportCollections()) {
-                __1.pubsub.publish(__1.PubSubTopic.COLLECTION_IMPORT, {
-                    trigger: __1.CollectionImportRequest.COLLECTIONS,
-                    data: false,
-                });
-            }
+            // TODO: this is not used anymore
+            // if (await this.shouldImportCollections()) {
+            //   pubsub.publish(PubSubTopic.COLLECTION_IMPORT, {
+            //     trigger: CollectionImportRequest.COLLECTIONS,
+            //     data: false,
+            //   });
+            // }
         });
     }
     popCollections() {
@@ -104,12 +105,13 @@ class RedisClient {
             yield items
                 .reduce((transaction, item) => transaction.zIncrBy(this.ITEMS_KEY, priority, `${__1.utils.strip0x(item.collectionAddress)}-${item.tokenId}`), this.redis.multi())
                 .exec();
-            if (yield this.shouldImportItems()) {
-                __1.pubsub.publish(__1.PubSubTopic.COLLECTION_IMPORT, {
-                    trigger: __1.CollectionImportRequest.ITEMS,
-                    data: false,
-                });
-            }
+            // TODO: this is not used anymore
+            // if (await this.shouldImportItems()) {
+            //   pubsub.publish(PubSubTopic.COLLECTION_IMPORT, {
+            //     trigger: CollectionImportRequest.ITEMS,
+            //     data: false,
+            //   });
+            // }
         });
     }
     popItems() {

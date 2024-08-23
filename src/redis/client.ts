@@ -1,6 +1,6 @@
 import { RedisClientType, createClient } from 'redis';
 import { CollectionEntity, ItemEntity } from '../database';
-import { CollectionImportRequest, PubSubTopic, pubsub, utils } from '..';
+import { utils } from '..';
 import { plainToInstance } from 'class-transformer';
 import { serialize } from 'v8';
 import { DebounceData, ExpiryHandler } from './interface';
@@ -82,12 +82,13 @@ class RedisClient {
       )
       .exec();
 
-    if (await this.shouldImportCollections()) {
-      pubsub.publish(PubSubTopic.COLLECTION_IMPORT, {
-        trigger: CollectionImportRequest.COLLECTIONS,
-        data: false,
-      });
-    }
+    // TODO: this is not used anymore
+    // if (await this.shouldImportCollections()) {
+    //   pubsub.publish(PubSubTopic.COLLECTION_IMPORT, {
+    //     trigger: CollectionImportRequest.COLLECTIONS,
+    //     data: false,
+    //   });
+    // }
   }
 
   async popCollections(): Promise<Pick<CollectionEntity, 'address'>[]> {
@@ -123,12 +124,13 @@ class RedisClient {
       )
       .exec();
 
-    if (await this.shouldImportItems()) {
-      pubsub.publish(PubSubTopic.COLLECTION_IMPORT, {
-        trigger: CollectionImportRequest.ITEMS,
-        data: false,
-      });
-    }
+    // TODO: this is not used anymore
+    // if (await this.shouldImportItems()) {
+    //   pubsub.publish(PubSubTopic.COLLECTION_IMPORT, {
+    //     trigger: CollectionImportRequest.ITEMS,
+    //     data: false,
+    //   });
+    // }
   }
 
   async popItems(): Promise<
