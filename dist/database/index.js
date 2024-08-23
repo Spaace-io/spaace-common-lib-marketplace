@@ -41,7 +41,7 @@ exports.Database = new typeorm_1.DataSource({
         __dirname + '/cache/**.entity.{js,ts}',
         __dirname + '/types/**.view.{js,ts}',
     ],
-    synchronize: true,
+    synchronize: false,
     migrations: [__dirname + '/migrations/*-*.{js,ts}'],
     subscribers: [],
     ssl,
