@@ -5,6 +5,8 @@ import '../../config';
 
 const host = process.env.RABBITMQ_HOST ?? 'rabbitmq';
 const port = parseInt(process.env.RABBITMQ_PORT ?? '5672', 10);
+const username = process.env.RABBITMQ_USERNAME ?? 'guest';
+const password = process.env.RABBITMQ_PASSWORD ?? 'guest';
 
 @Module({
   imports: [
@@ -15,6 +17,7 @@ const port = parseInt(process.env.RABBITMQ_PORT ?? '5672', 10);
         { name: 'collection-import-exchange', type: 'topic' },
         { name: 'search-index-exchange', type: 'topic' },
         { name: 'data-exchange', type: 'topic' },
+        { name: 'gql-message-exchange', type: 'topic' },
         { name: 'exchange1', type: 'topic' },
         {
           name: 'delayed-triggers-exchange',
@@ -25,7 +28,7 @@ const port = parseInt(process.env.RABBITMQ_PORT ?? '5672', 10);
           },
         },
       ],
-      uri: `amqp://guest:guest@${host}:${port}/`,
+      uri: `amqp://${username}:${password}@${host}:${port}/`,
       enableControllerDiscovery: true,
     }),
   ],
