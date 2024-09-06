@@ -47,10 +47,9 @@ __decorate([
     __metadata("design:type", String)
 ], UserLoyalty.prototype, "questCompleted", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => _1.LoyaltyRank),
-    (0, typeorm_1.Column)('enum', { enum: _1.LoyaltyRank, enumName: 'rank' }),
+    (0, graphql_1.Field)(() => _1.SeasonRank),
     (0, class_validator_1.ValidateNested)(),
-    __metadata("design:type", String)
+    __metadata("design:type", _1.SeasonRank)
 ], UserLoyalty.prototype, "rank", void 0);
 UserLoyalty = __decorate([
     (0, graphql_1.ObjectType)(),
