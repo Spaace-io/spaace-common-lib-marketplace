@@ -93,6 +93,24 @@ class RedisClient {
             return entries.map(({ value }) => (0, class_transformer_1.plainToInstance)(database_1.CollectionEntity, { address: value }));
         });
     }
+    readCollections() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const entries = yield this.redis.zRange(this.COLLECTIONS_KEY, '+inf', '-inf', {
+                BY: 'SCORE',
+                REV: true,
+                LIMIT: { count: this.ITEMS_LIMIT, offset: 0 },
+            });
+            return entries.map((value) => (0, class_transformer_1.plainToInstance)(database_1.CollectionEntity, { address: value }));
+        });
+    }
+    removeCollections(items) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const entries = items.map(({ address }) => {
+                return address;
+            });
+            return yield this.redis.zRem(this.COLLECTIONS_KEY, entries);
+        });
+    }
     shouldImportItems(limit = this.ITEMS_LIMIT) {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.redis.zCard(this.ITEMS_KEY)) >= limit;
@@ -121,6 +139,27 @@ class RedisClient {
                 const [collectionAddress, tokenId] = value.split('-', 2);
                 return (0, class_transformer_1.plainToInstance)(database_1.ItemEntity, { collectionAddress, tokenId });
             });
+        });
+    }
+    readItems() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const entries = yield this.redis.zRange(this.ITEMS_KEY, '+inf', '-inf', {
+                BY: 'SCORE',
+                REV: true,
+                LIMIT: { count: this.ITEMS_LIMIT, offset: 0 },
+            });
+            return entries.map((value) => {
+                const [collectionAddress, tokenId] = value.split('-', 2);
+                return (0, class_transformer_1.plainToInstance)(database_1.ItemEntity, { collectionAddress, tokenId });
+            });
+        });
+    }
+    removeItems(items) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const entries = items.map(({ collectionAddress, tokenId }) => {
+                return `${collectionAddress}-${tokenId}`;
+            });
+            return yield this.redis.zRem(this.ITEMS_KEY, entries);
         });
     }
 }

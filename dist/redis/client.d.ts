@@ -16,9 +16,13 @@ declare class RedisClient {
     shouldImportCollections(limit?: number): Promise<boolean>;
     importCollections(collections: readonly Pick<CollectionEntity, 'address'>[], priority?: number): Promise<void>;
     popCollections(): Promise<Pick<CollectionEntity, 'address'>[]>;
+    readCollections(): Promise<Pick<CollectionEntity, 'address'>[]>;
+    removeCollections(items: Pick<CollectionEntity, 'address'>[]): Promise<number>;
     shouldImportItems(limit?: number): Promise<boolean>;
     importItems(items: readonly Pick<ItemEntity, 'collectionAddress' | 'tokenId'>[], priority?: number): Promise<void>;
     popItems(): Promise<Pick<ItemEntity, 'collectionAddress' | 'tokenId'>[]>;
+    readItems(): Promise<Pick<ItemEntity, 'collectionAddress' | 'tokenId'>[]>;
+    removeItems(items: Pick<ItemEntity, 'collectionAddress' | 'tokenId'>[]): Promise<number>;
 }
 export declare const redis: RedisClient;
 export {};

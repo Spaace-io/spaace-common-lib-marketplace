@@ -102,6 +102,33 @@ class RedisClient {
     );
   }
 
+  async readCollections(): Promise<Pick<CollectionEntity, 'address'>[]> {
+    const entries = await this.redis.zRange(
+      this.COLLECTIONS_KEY,
+      '+inf',
+      '-inf',
+      {
+        BY: 'SCORE',
+        REV: true,
+        LIMIT: { count: this.ITEMS_LIMIT, offset: 0 },
+      },
+    );
+
+    return entries.map((value) =>
+      plainToInstance(CollectionEntity, { address: value }),
+    );
+  }
+
+  async removeCollections(
+    items: Pick<CollectionEntity, 'address'>[],
+  ): Promise<number> {
+    const entries = items.map(({ address }) => {
+      return address;
+    });
+
+    return await this.redis.zRem(this.COLLECTIONS_KEY, entries);
+  }
+
   async shouldImportItems(limit = this.ITEMS_LIMIT) {
     return (await this.redis.zCard(this.ITEMS_KEY)) >= limit;
   }
@@ -145,6 +172,31 @@ class RedisClient {
       const [collectionAddress, tokenId] = value.split('-', 2);
       return plainToInstance(ItemEntity, { collectionAddress, tokenId });
     });
+  }
+
+  async readItems(): Promise<
+    Pick<ItemEntity, 'collectionAddress' | 'tokenId'>[]
+  > {
+    const entries = await this.redis.zRange(this.ITEMS_KEY, '+inf', '-inf', {
+      BY: 'SCORE',
+      REV: true,
+      LIMIT: { count: this.ITEMS_LIMIT, offset: 0 },
+    });
+
+    return entries.map((value) => {
+      const [collectionAddress, tokenId] = value.split('-', 2);
+      return plainToInstance(ItemEntity, { collectionAddress, tokenId });
+    });
+  }
+
+  async removeItems(
+    items: Pick<ItemEntity, 'collectionAddress' | 'tokenId'>[],
+  ): Promise<number> {
+    const entries = items.map(({ collectionAddress, tokenId }) => {
+      return `${collectionAddress}-${tokenId}`;
+    });
+
+    return await this.redis.zRem(this.ITEMS_KEY, entries);
   }
 }
 
