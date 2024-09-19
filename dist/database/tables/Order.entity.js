@@ -81,9 +81,17 @@ __decorate([
     __metadata("design:type", String)
 ], OrderEntity.prototype, "currency", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
-    __metadata("design:type", String)
-], OrderEntity.prototype, "royalties", void 0);
+    (0, typeorm_1.Column)('smallint', { unsigned: true }),
+    __metadata("design:type", Number)
+], OrderEntity.prototype, "marketplaceFeeBps", void 0);
+__decorate([
+    (0, typeorm_1.Column)('char', { length: 40, nullable: true }),
+    __metadata("design:type", Object)
+], OrderEntity.prototype, "marketplaceFeeReceiver", void 0);
+__decorate([
+    (0, typeorm_1.Column)('smallint', { unsigned: true }),
+    __metadata("design:type", Number)
+], OrderEntity.prototype, "royaltiesBps", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
     __metadata("design:type", Object)

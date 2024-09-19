@@ -25,7 +25,9 @@ import { ActiveOrderCached, Marketplace, OrderEntity, OrderType } from '..';
       .addSelect('"order"."price"', 'price')
       .addSelect('"order"."startingPrice"', 'startingPrice')
       .addSelect('"order"."currency"', 'currency')
-      .addSelect('"order"."royalties"', 'royalties')
+      .addSelect('"order"."marketplaceFeeBps"', 'marketplaceFeeBps')
+      .addSelect('"order"."marketplaceFeeReceiver"', 'marketplaceFeeReceiver')
+      .addSelect('"order"."royaltiesBps"', 'royaltiesBps')
       .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
       .addSelect('"order"."royaltiesReceiver"', 'royaltiesReceiver')
       .addSelect('"order"."startTime"', 'startTime')
@@ -111,9 +113,23 @@ export class Order extends BaseEntity {
   })
   currency!: string;
 
-  @Field(() => String)
+  @Field(() => Number)
   @ViewColumn()
-  royalties!: string;
+  marketplaceFeeBps!: number;
+
+  @Field(() => String, { nullable: true })
+  @ViewColumn()
+  @Transform(
+    ({ value }) => (value !== null ? ethers.utils.getAddress(value) : null),
+    {
+      toPlainOnly: true,
+    },
+  )
+  marketplaceFeeReceiver!: string | null;
+
+  @Field(() => Number)
+  @ViewColumn()
+  royaltiesBps!: number;
 
   @Field(() => String, { nullable: true })
   @ViewColumn()
