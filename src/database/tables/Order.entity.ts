@@ -71,8 +71,14 @@ export class OrderEntity extends BaseEntity {
   @Column('char', { length: 40 })
   currency!: string;
 
-  @Column('numeric', { precision: 78, unsigned: true })
-  royalties!: string;
+  @Column('smallint', { unsigned: true })
+  marketplaceFeeBps!: number;
+
+  @Column('char', { length: 40, nullable: true })
+  marketplaceFeeReceiver!: string | null;
+
+  @Column('smallint', { unsigned: true })
+  royaltiesBps!: number;
 
   @Column('numeric', { precision: 78, unsigned: true, nullable: true })
   startingRoyalties!: string | null;

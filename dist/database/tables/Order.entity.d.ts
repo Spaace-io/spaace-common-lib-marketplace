@@ -20,7 +20,9 @@ export declare class OrderEntity extends BaseEntity {
     price: string;
     startingPrice: string | null;
     currency: string;
-    royalties: string;
+    marketplaceFeeBps: number;
+    marketplaceFeeReceiver: string | null;
+    royaltiesBps: number;
     startingRoyalties: string | null;
     royaltiesReceiver: string | null;
     startTime: Date;

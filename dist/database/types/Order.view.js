@@ -75,10 +75,23 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "currency", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => Number),
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", String)
-], Order.prototype, "royalties", void 0);
+    __metadata("design:type", Number)
+], Order.prototype, "marketplaceFeeBps", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.ViewColumn)(),
+    (0, class_transformer_1.Transform)(({ value }) => (value !== null ? ethers_1.ethers.utils.getAddress(value) : null), {
+        toPlainOnly: true,
+    }),
+    __metadata("design:type", Object)
+], Order.prototype, "marketplaceFeeReceiver", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Number),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Number)
+], Order.prototype, "royaltiesBps", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
@@ -166,7 +179,9 @@ Order = __decorate([
                 .addSelect('"order"."price"', 'price')
                 .addSelect('"order"."startingPrice"', 'startingPrice')
                 .addSelect('"order"."currency"', 'currency')
-                .addSelect('"order"."royalties"', 'royalties')
+                .addSelect('"order"."marketplaceFeeBps"', 'marketplaceFeeBps')
+                .addSelect('"order"."marketplaceFeeReceiver"', 'marketplaceFeeReceiver')
+                .addSelect('"order"."royaltiesBps"', 'royaltiesBps')
                 .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
                 .addSelect('"order"."royaltiesReceiver"', 'royaltiesReceiver')
                 .addSelect('"order"."startTime"', 'startTime')
