@@ -163,6 +163,25 @@ export class Order extends BaseEntity {
 
   @Field(() => String)
   @ViewColumn()
+  salt!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  zone!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  conduitKey!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
+  protocolAddress!: string;
+
+  @Field(() => String)
+  @ViewColumn()
   @Transform(
     ({ value }) => ethers.utils.hexlify(value, { allowMissingPrefix: true }),
     {
