@@ -98,6 +98,15 @@ export class OrderEntity extends BaseEntity {
   @Column('text')
   signature!: string;
 
+  @Column('text', { nullable: true })
+  salt!: string;
+
+  @Column('text', { nullable: true })
+  zone!: string;
+
+  @Column('text', { nullable: true })
+  conduitKey!: string;
+
   @Column('char', { length: 64, nullable: true })
   cancelTxHash!: string | null;
 

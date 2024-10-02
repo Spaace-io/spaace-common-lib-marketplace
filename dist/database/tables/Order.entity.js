@@ -117,6 +117,18 @@ __decorate([
     __metadata("design:type", String)
 ], OrderEntity.prototype, "signature", void 0);
 __decorate([
+    (0, typeorm_1.Column)('text', { nullable: true }),
+    __metadata("design:type", String)
+], OrderEntity.prototype, "salt", void 0);
+__decorate([
+    (0, typeorm_1.Column)('text', { nullable: true }),
+    __metadata("design:type", String)
+], OrderEntity.prototype, "zone", void 0);
+__decorate([
+    (0, typeorm_1.Column)('text', { nullable: true }),
+    __metadata("design:type", String)
+], OrderEntity.prototype, "conduitKey", void 0);
+__decorate([
     (0, typeorm_1.Column)('char', { length: 64, nullable: true }),
     __metadata("design:type", Object)
 ], OrderEntity.prototype, "cancelTxHash", void 0);

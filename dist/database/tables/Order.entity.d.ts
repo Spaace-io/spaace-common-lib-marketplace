@@ -29,6 +29,9 @@ export declare class OrderEntity extends BaseEntity {
     endTime: Date | null;
     counter: string;
     signature: string;
+    salt: string;
+    zone: string;
+    conduitKey: string;
     cancelTxHash: string | null;
     cancelLogIdx: string | null;
     cancelTimestamp: Date | null;
