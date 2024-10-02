@@ -32,6 +32,7 @@ export declare class OrderEntity extends BaseEntity {
     salt: string;
     zone: string;
     conduitKey: string;
+    protocolAddress: string | null;
     cancelTxHash: string | null;
     cancelLogIdx: string | null;
     cancelTimestamp: Date | null;

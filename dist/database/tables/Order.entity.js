@@ -129,6 +129,10 @@ __decorate([
     __metadata("design:type", String)
 ], OrderEntity.prototype, "conduitKey", void 0);
 __decorate([
+    (0, typeorm_1.Column)('char', { length: 40, nullable: true }),
+    __metadata("design:type", Object)
+], OrderEntity.prototype, "protocolAddress", void 0);
+__decorate([
     (0, typeorm_1.Column)('char', { length: 64, nullable: true }),
     __metadata("design:type", Object)
 ], OrderEntity.prototype, "cancelTxHash", void 0);

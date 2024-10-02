@@ -107,6 +107,9 @@ export class OrderEntity extends BaseEntity {
   @Column('text', { nullable: true })
   conduitKey!: string;
 
+  @Column('char', { length: 40, nullable: true })
+  protocolAddress!: string | null;
+
   @Column('char', { length: 64, nullable: true })
   cancelTxHash!: string | null;
 

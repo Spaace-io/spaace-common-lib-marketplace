@@ -190,6 +190,7 @@ Order = __decorate([
                 .addSelect('"order"."salt"', 'salt')
                 .addSelect('"order"."zone"', 'zone')
                 .addSelect('"order"."conduitKey"', 'conduitKey')
+                .addSelect('"order"."protocolAddress"', 'protocolAddress')
                 .addSelect('"order"."signature"', 'signature')
                 .addSelect('"order"."cancelTxHash"', 'cancelTxHash')
                 .addSelect('"order"."cancelLogIdx"', 'cancelLogIdx')

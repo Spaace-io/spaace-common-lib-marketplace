@@ -36,6 +36,7 @@ import { ActiveOrderCached, Marketplace, OrderEntity, OrderType } from '..';
       .addSelect('"order"."salt"', 'salt')
       .addSelect('"order"."zone"', 'zone')
       .addSelect('"order"."conduitKey"', 'conduitKey')
+      .addSelect('"order"."protocolAddress"', 'protocolAddress')
       .addSelect('"order"."signature"', 'signature')
       .addSelect('"order"."cancelTxHash"', 'cancelTxHash')
       .addSelect('"order"."cancelLogIdx"', 'cancelLogIdx')
