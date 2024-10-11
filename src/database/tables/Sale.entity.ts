@@ -8,7 +8,7 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { ItemEntity } from './Item.entity';
-import { Marketplace } from './Order.entity';
+import { Marketplace } from '../enums';
 
 @Entity({ name: 'sales' })
 @Index(['timestamp'])

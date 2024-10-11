@@ -1,6 +1,7 @@
 import { Entity, Index, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
-import { OrderEntity, OrderType } from '..';
+import { OrderEntity } from '..';
 import * as utils from '../../utils';
+import { OrderType } from '../enums';
 
 @Entity({ name: 'active_orders_cache' })
 @Index(['collectionAddress', 'price'], {

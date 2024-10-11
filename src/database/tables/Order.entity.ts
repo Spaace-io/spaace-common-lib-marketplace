@@ -1,4 +1,3 @@
-import { registerEnumType } from '@nestjs/graphql';
 import {
   BaseEntity,
   Column,
@@ -9,27 +8,7 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { ItemEntity, CollectionEntity } from '.';
-
-export enum Marketplace {
-  SPAACE = 'SPAACE',
-  OPENSEA = 'OPENSEA',
-  BLUR = 'BLUR',
-}
-
-registerEnumType(Marketplace, {
-  name: 'Marketplace',
-});
-
-export enum OrderType {
-  ASK = 'ASK',
-  BID = 'BID',
-  ENGLISH_AUCTION = 'ENGLISH_AUCTION',
-  DUTCH_AUCTION = 'DUTCH_AUCTION',
-}
-
-registerEnumType(OrderType, {
-  name: 'OrderType',
-});
+import { Marketplace, OrderType } from '../enums';
 
 @Entity({ name: 'orders' })
 @Index(['collectionAddress', 'startTime']) // Collection analytics & activity

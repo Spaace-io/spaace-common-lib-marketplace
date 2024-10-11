@@ -13,11 +13,11 @@ import {
   CollectionRankingCached,
   ItemEntity,
   LikeEntity,
-  OrderType,
   SaleEntity,
   TransferEntity,
 } from '..';
 import { utils } from '../..';
+import { OrderType } from '../enums';
 
 @ObjectType()
 @ViewEntity({

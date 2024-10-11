@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Entity, PrimaryColumn, BaseEntity, Column } from 'typeorm';
-import { ArenaDivisionName, ArenaChestName } from '.';
+import { ArenaChestName } from '.';
+import { ArenaDivisionName } from '../enums';
 
 @ObjectType()
 class ChestCount {
