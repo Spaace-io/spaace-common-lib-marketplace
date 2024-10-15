@@ -9,20 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArenaDivision = exports.ArenaDivisionName = void 0;
+exports.ArenaDivision = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 const _1 = require(".");
-var ArenaDivisionName;
-(function (ArenaDivisionName) {
-    ArenaDivisionName["DIAMOND"] = "DIAMOND";
-    ArenaDivisionName["PLATINUM"] = "PLATINUM";
-    ArenaDivisionName["GOLD"] = "GOLD";
-    ArenaDivisionName["SILVER"] = "SILVER";
-    ArenaDivisionName["BRONZE"] = "BRONZE";
-})(ArenaDivisionName = exports.ArenaDivisionName || (exports.ArenaDivisionName = {}));
-(0, graphql_1.registerEnumType)(ArenaDivisionName, { name: 'ArenaDivisionName' });
+const enums_1 = require("../enums");
 let ArenaDivision = class ArenaDivision extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -33,9 +25,9 @@ __decorate([
     __metadata("design:type", String)
 ], ArenaDivision.prototype, "seasonNumber", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => ArenaDivisionName),
+    (0, graphql_1.Field)(() => enums_1.ArenaDivisionName),
     (0, typeorm_1.PrimaryColumn)('enum', {
-        enum: ArenaDivisionName,
+        enum: enums_1.ArenaDivisionName,
         enumName: 'arena_divison_name',
     }),
     (0, class_validator_1.ValidateNested)(),

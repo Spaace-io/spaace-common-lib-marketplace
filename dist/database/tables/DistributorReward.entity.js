@@ -9,18 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DistributorRewardEntity = exports.DistributorContract = void 0;
-const graphql_1 = require("@nestjs/graphql");
+exports.DistributorRewardEntity = void 0;
 const typeorm_1 = require("typeorm");
-var DistributorContract;
-(function (DistributorContract) {
-    DistributorContract["TRADING_REWARDS"] = "TRADING_REWARDS";
-    DistributorContract["REFERRAL_REWARDS"] = "REFERRAL_REWARDS";
-    DistributorContract["LOYALTY_REWARDS"] = "LOYALTY_REWARDS";
-})(DistributorContract = exports.DistributorContract || (exports.DistributorContract = {}));
-(0, graphql_1.registerEnumType)(DistributorContract, {
-    name: 'DistributorContract',
-});
+const enums_1 = require("../enums");
 let DistributorRewardEntity = class DistributorRewardEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -29,7 +20,7 @@ __decorate([
 ], DistributorRewardEntity.prototype, "userAddress", void 0);
 __decorate([
     (0, typeorm_1.PrimaryColumn)('enum', {
-        enum: DistributorContract,
+        enum: enums_1.DistributorContract,
         enumName: 'distributor_contract',
     }),
     __metadata("design:type", String)

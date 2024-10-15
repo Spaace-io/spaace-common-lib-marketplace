@@ -9,29 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrderEntity = exports.OrderType = exports.Marketplace = void 0;
-const graphql_1 = require("@nestjs/graphql");
+exports.OrderEntity = void 0;
 const typeorm_1 = require("typeorm");
 const _1 = require(".");
-var Marketplace;
-(function (Marketplace) {
-    Marketplace["SPAACE"] = "SPAACE";
-    Marketplace["OPENSEA"] = "OPENSEA";
-    Marketplace["BLUR"] = "BLUR";
-})(Marketplace = exports.Marketplace || (exports.Marketplace = {}));
-(0, graphql_1.registerEnumType)(Marketplace, {
-    name: 'Marketplace',
-});
-var OrderType;
-(function (OrderType) {
-    OrderType["ASK"] = "ASK";
-    OrderType["BID"] = "BID";
-    OrderType["ENGLISH_AUCTION"] = "ENGLISH_AUCTION";
-    OrderType["DUTCH_AUCTION"] = "DUTCH_AUCTION";
-})(OrderType = exports.OrderType || (exports.OrderType = {}));
-(0, graphql_1.registerEnumType)(OrderType, {
-    name: 'OrderType',
-});
+const enums_1 = require("../enums");
 let OrderEntity = class OrderEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -51,21 +32,11 @@ __decorate([
     __metadata("design:type", String)
 ], OrderEntity.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
-    ,
-    (0, typeorm_1.ManyToOne)(() => _1.ItemEntity, { nullable: true }),
-    (0, typeorm_1.JoinColumn)([
-        { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
-        { name: 'tokenId', referencedColumnName: 'tokenId' },
-    ]),
-    __metadata("design:type", Object)
-], OrderEntity.prototype, "tokenId", void 0);
-__decorate([
-    (0, typeorm_1.Column)('enum', { enum: OrderType, enumName: 'order_type' }),
+    (0, typeorm_1.Column)('enum', { enum: enums_1.OrderType, enumName: 'order_type' }),
     __metadata("design:type", String)
 ], OrderEntity.prototype, "type", void 0);
 __decorate([
-    (0, typeorm_1.Column)('enum', { enum: Marketplace, enumName: 'marketplace' }),
+    (0, typeorm_1.Column)('enum', { enum: enums_1.Marketplace, enumName: 'marketplace' }),
     __metadata("design:type", String)
 ], OrderEntity.prototype, "marketplace", void 0);
 __decorate([
@@ -152,11 +123,15 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
     __metadata("design:type", String)
 ], OrderEntity.prototype, "remainingQuantity", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => _1.OrderItemEntity, (orderItemsEntity) => orderItemsEntity.order),
+    __metadata("design:type", Array)
+], OrderEntity.prototype, "tokens", void 0);
 OrderEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'orders' }),
     (0, typeorm_1.Index)(['collectionAddress', 'startTime']) // Collection analytics & activity
     ,
-    (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId']),
+    (0, typeorm_1.Index)(['userAddress', 'collectionAddress']),
     (0, typeorm_1.Index)(['userAddress', 'counter'])
 ], OrderEntity);
 exports.OrderEntity = OrderEntity;

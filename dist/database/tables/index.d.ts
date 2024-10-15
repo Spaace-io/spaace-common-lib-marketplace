@@ -15,6 +15,7 @@ export * from './TokenBalance.entity';
 export * from './DistributorReward.entity';
 export * from './RewardPeriod.entity';
 export * from './Order.entity';
+export * from './OrderItem.entity';
 export * from './LoginNonce.entity';
 export * from './User.entity';
 export * from './NotableCollection.entity';

@@ -2,7 +2,8 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
-import { Marketplace, SaleEntity } from '..';
+import { SaleEntity } from '..';
+import { Marketplace } from '../enums';
 
 @ObjectType()
 @ViewEntity({

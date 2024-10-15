@@ -15,6 +15,8 @@ const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
+const enums_1 = require("../enums");
+const tables_1 = require("../tables");
 let CollectionAttribute = class CollectionAttribute extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -68,11 +70,18 @@ CollectionAttribute = __decorate([
                 .addSelect('COUNT(*)', 'itemCount')
                 .addSelect(`SUM(CASE WHEN EXISTS ${query
                 .subQuery()
-                .from(__1.ActiveOrderCached, 'order')
-                .select('1')
-                .where(`"order"."type" IN ('${__1.OrderType.ASK}', '${__1.OrderType.DUTCH_AUCTION}')`)
+                .from(__1.ActiveOrderCachedEntity, 'order')
+                .select('"order".*')
+                .innerJoin((q) => q
+                .from(tables_1.OrderItemEntity, 'orders_items')
+                .select([
+                '"orders_items"."hash"',
+                'array_agg("orders_items"."tokenId") as "tokenIds"',
+            ])
+                .groupBy('"orders_items"."hash"')
+                .having('"attribute"."tokenId" = ANY (array_agg("orders_items"."tokenId"))'), 'orders_items', '"orders_items"."hash" = "order"."hash"')
+                .where(`"order"."type" IN ('${enums_1.OrderType.ASK}', '${enums_1.OrderType.DUTCH_AUCTION}')`)
                 .andWhere('"order"."collectionAddress" = "attribute"."collectionAddress"')
-                .andWhere('"order"."tokenId" = "attribute"."tokenId"')
                 .getQuery()} THEN 1 ELSE 0 END)`, 'listedCount')
                 .groupBy('"attribute"."collectionAddress"')
                 .addGroupBy('"attribute"."traitHash"')

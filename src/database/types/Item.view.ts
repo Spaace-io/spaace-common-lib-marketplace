@@ -9,15 +9,16 @@ import {
 } from 'typeorm';
 import { Transform } from 'class-transformer';
 import {
-  ActiveOrderCached,
+  ActiveOrderCachedEntity,
   CollectionRankingCached,
   ItemEntity,
   LikeEntity,
-  OrderType,
+  OrderItemEntity,
   SaleEntity,
   TransferEntity,
 } from '..';
 import { utils } from '../..';
+import { OrderType } from '../enums';
 
 @ObjectType()
 @ViewEntity({
@@ -35,8 +36,16 @@ import { utils } from '../..';
         .leftJoin(
           (q) =>
             q
-              .from(ActiveOrderCached, 'order')
-              .select()
+              .from(ActiveOrderCachedEntity, 'order')
+              .select('"order".*')
+              .addSelect(
+                (query) =>
+                  query
+                    .from(OrderItemEntity, 'orders_items')
+                    .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                    .where('"orders_items"."hash" = "order"."hash"'),
+                'tokenIds',
+              )
               .where(
                 `"order"."type" IN ('${OrderType.ASK}', '${OrderType.DUTCH_AUCTION}')`,
               )
@@ -52,21 +61,31 @@ import { utils } from '../..';
                     .orWhere('"order"."endTime" IS NULL'),
                 ),
               )
-              .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
-              .orderBy('"order"."collectionAddress"')
-              .addOrderBy('"order"."tokenId"')
+              .distinctOn(['"order"."hash"'])
+              .orderBy('"order"."hash"')
+              // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
+              // .orderBy('"order"."collectionAddress"')
+              // .addOrderBy('"order"."tokenIds"')
               .addOrderBy(
                 `CASE WHEN "order"."type" = '${OrderType.DUTCH_AUCTION}' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END`,
                 'ASC',
               ),
           'buyNow',
-          '"buyNow"."collectionAddress" = "item"."collectionAddress" AND "buyNow"."tokenId" = "item"."tokenId"',
+          '"buyNow"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId" = ANY("buyNow"."tokenIds")',
         )
         .leftJoin(
           (q) =>
             q
-              .from(ActiveOrderCached, 'order')
-              .select()
+              .from(ActiveOrderCachedEntity, 'order')
+              .select('"order".*')
+              .addSelect(
+                (query) =>
+                  query
+                    .from(OrderItemEntity, 'orders_items')
+                    .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                    .where('"orders_items"."hash" = "order"."hash"'),
+                'tokenIds',
+              )
               .where(`"order"."type" = '${OrderType.BID}'`)
               .andWhere(
                 `"order"."currency" IN ('${utils
@@ -80,18 +99,28 @@ import { utils } from '../..';
                     .orWhere('"order"."endTime" IS NULL'),
                 ),
               )
-              .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
-              .orderBy('"order"."collectionAddress"')
-              .addOrderBy('"order"."tokenId"')
+              .distinctOn(['"order"."hash"'])
+              .orderBy('"order"."hash"')
+              // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
+              // .orderBy('"order"."collectionAddress"')
+              // .addOrderBy('"order"."tokenIds"')
               .addOrderBy('"order"."price"', 'DESC'),
           'sellNow',
-          '"sellNow"."collectionAddress" = "item"."collectionAddress" AND ("sellNow"."tokenId" = "item"."tokenId" OR "sellNow"."tokenId" IS NULL)',
+          '"sellNow"."collectionAddress" = "item"."collectionAddress" AND ("item"."tokenId" = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)',
         )
         .leftJoin(
           (q) =>
             q
-              .from(ActiveOrderCached, 'order')
-              .select()
+              .from(ActiveOrderCachedEntity, 'order')
+              .select('"order".*')
+              .addSelect(
+                (query) =>
+                  query
+                    .from(OrderItemEntity, 'orders_items')
+                    .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                    .where('"orders_items"."hash" = "order"."hash"'),
+                'tokenIds',
+              )
               .where(`"order"."type" = '${OrderType.ENGLISH_AUCTION}'`)
               .andWhere(
                 `"order"."currency" IN ('${utils
@@ -105,12 +134,14 @@ import { utils } from '../..';
                     .orWhere('"order"."endTime" IS NULL'),
                 ),
               )
-              .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
-              .orderBy('"order"."collectionAddress"')
-              .addOrderBy('"order"."tokenId"')
+              .distinctOn(['"order"."hash"'])
+              .orderBy('"order"."hash"')
+              // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
+              // .orderBy('"order"."collectionAddress"')
+              // .addOrderBy('"order"."tokenIds"')
               .addOrderBy('"order"."endTime"', 'ASC'), // TODO: Order by highest bid
           'auction',
-          '"auction"."collectionAddress" = "item"."collectionAddress" AND "auction"."tokenId" = "item"."tokenId"',
+          '"auction"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId" = ANY("auction"."tokenIds")',
         )
         .leftJoin(
           (q) =>

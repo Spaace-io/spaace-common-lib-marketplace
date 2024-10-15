@@ -15,6 +15,7 @@ const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
+const enums_1 = require("../enums");
 let Sale = class Sale extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -86,7 +87,7 @@ __decorate([
     __metadata("design:type", String)
 ], Sale.prototype, "currency", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => __1.Marketplace),
+    (0, graphql_1.Field)(() => enums_1.Marketplace),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Sale.prototype, "marketplace", void 0);

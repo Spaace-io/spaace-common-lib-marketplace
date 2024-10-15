@@ -13,10 +13,11 @@ exports.RewardPeriod = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const __1 = require("..");
+const enums_1 = require("../enums");
 let RewardPeriod = class RewardPeriod extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, graphql_1.Field)(() => __1.DistributorContract),
+    (0, graphql_1.Field)(() => enums_1.DistributorContract),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], RewardPeriod.prototype, "distributor", void 0);

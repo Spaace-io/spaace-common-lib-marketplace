@@ -1,5 +1,6 @@
 import { BaseEntity } from 'typeorm';
-import { ArenaDivisionName, ArenaChestName } from '.';
+import { ArenaChestName } from '.';
+import { ArenaDivisionName } from '../enums';
 declare class ChestCount {
     name: ArenaChestName;
     count: number;

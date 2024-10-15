@@ -1,15 +1,5 @@
-import { registerEnumType } from '@nestjs/graphql';
 import { BaseEntity, Column, Entity, Index, PrimaryColumn } from 'typeorm';
-
-export enum DistributorContract {
-  TRADING_REWARDS = 'TRADING_REWARDS',
-  REFERRAL_REWARDS = 'REFERRAL_REWARDS',
-  LOYALTY_REWARDS = 'LOYALTY_REWARDS',
-}
-
-registerEnumType(DistributorContract, {
-  name: 'DistributorContract',
-});
+import { DistributorContract } from '../enums';
 
 @Entity({ name: 'distributor_rewards' })
 @Index(['userAddress', 'distributor', 'amount'], {

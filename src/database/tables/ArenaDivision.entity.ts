@@ -1,4 +1,4 @@
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Entity,
   PrimaryColumn,
@@ -9,16 +9,7 @@ import {
 } from 'typeorm';
 import { ValidateNested } from 'class-validator';
 import { ArenaSeason } from '.';
-
-export enum ArenaDivisionName {
-  DIAMOND = 'DIAMOND',
-  PLATINUM = 'PLATINUM',
-  GOLD = 'GOLD',
-  SILVER = 'SILVER',
-  BRONZE = 'BRONZE',
-}
-
-registerEnumType(ArenaDivisionName, { name: 'ArenaDivisionName' });
+import { ArenaDivisionName } from '../enums';
 
 @ObjectType()
 @Entity({ name: 'arena_divisions' })

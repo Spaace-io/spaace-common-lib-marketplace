@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
-import { DistributorContract, RewardPeriodEntity } from '..';
+import { RewardPeriodEntity } from '..';
+import { DistributorContract } from '../enums';
 
 @ObjectType()
 @ViewEntity({
