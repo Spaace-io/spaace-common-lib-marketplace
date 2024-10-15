@@ -8,7 +8,8 @@ import {
   ViewEntity,
 } from 'typeorm';
 import { Transform } from 'class-transformer';
-import { ActiveOrderCached, Marketplace, OrderEntity, OrderType } from '..';
+import { ActiveOrderCachedEntity, OrderEntity, OrderItemEntity } from '..';
+import { Marketplace, OrderType } from '../enums';
 
 @ObjectType()
 @ViewEntity({
@@ -19,7 +20,6 @@ import { ActiveOrderCached, Marketplace, OrderEntity, OrderType } from '..';
       .select('"order"."hash"', 'hash')
       .addSelect('"order"."userAddress"', 'userAddress')
       .addSelect('"order"."collectionAddress"', 'collectionAddress')
-      .addSelect('"order"."tokenId"', 'tokenId')
       .addSelect('"order"."type"', 'type')
       .addSelect('"order"."marketplace"', 'marketplace')
       .addSelect('"order"."price"', 'price')
@@ -48,8 +48,16 @@ import { ActiveOrderCached, Marketplace, OrderEntity, OrderType } from '..';
           query.fromDummy().select(
             `EXISTS ${query
               .subQuery()
-              .from(ActiveOrderCached, 'active')
+              .from(ActiveOrderCachedEntity, 'active')
               .select('1')
+              .addSelect(
+                (query) =>
+                  query
+                    .from(OrderItemEntity, 'orders_items')
+                    .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                    .where('"orders_items"."hash" = "order"."hash"'),
+                'tokenIds',
+              )
               .where('"active"."hash" = "order"."hash"')
               .andWhere(
                 new Brackets((query) =>
@@ -61,6 +69,14 @@ import { ActiveOrderCached, Marketplace, OrderEntity, OrderType } from '..';
               .getQuery()}`,
           ),
         'active',
+      )
+      .addSelect(
+        (query) =>
+          query
+            .from(OrderItemEntity, 'orders_items')
+            .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+            .where('"orders_items"."hash" = "order"."hash"'),
+        'tokenIds',
       );
   },
   name: 'orders_view',
@@ -90,9 +106,9 @@ export class Order extends BaseEntity {
   })
   collectionAddress!: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => [String])
   @ViewColumn()
-  tokenId!: string | null;
+  tokenIds!: string[];
 
   @Field(() => OrderType)
   @ViewColumn()

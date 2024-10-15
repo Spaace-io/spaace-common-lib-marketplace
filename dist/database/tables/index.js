@@ -31,6 +31,7 @@ __exportStar(require("./TokenBalance.entity"), exports);
 __exportStar(require("./DistributorReward.entity"), exports);
 __exportStar(require("./RewardPeriod.entity"), exports);
 __exportStar(require("./Order.entity"), exports);
+__exportStar(require("./OrderItem.entity"), exports);
 __exportStar(require("./LoginNonce.entity"), exports);
 __exportStar(require("./User.entity"), exports);
 __exportStar(require("./NotableCollection.entity"), exports);

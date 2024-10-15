@@ -1,10 +1,10 @@
 import { BaseEntity } from 'typeorm';
-import { Marketplace, OrderType } from '..';
+import { Marketplace, OrderType } from '../enums';
 export declare class Order extends BaseEntity {
     hash: string;
     userAddress: string;
     collectionAddress: string;
-    tokenId: string | null;
+    tokenIds: string[];
     type: OrderType;
     marketplace: Marketplace;
     price: string;

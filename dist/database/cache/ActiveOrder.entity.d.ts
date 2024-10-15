@@ -1,4 +1,4 @@
 import { OrderEntity } from '..';
-export declare class ActiveOrderCached extends OrderEntity {
+export declare class ActiveOrderCachedEntity extends OrderEntity {
     hash: string;
 }

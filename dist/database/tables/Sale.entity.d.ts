@@ -1,5 +1,5 @@
 import { BaseEntity } from 'typeorm';
-import { Marketplace } from './Order.entity';
+import { Marketplace } from '../enums';
 export declare class SaleEntity extends BaseEntity {
     txHash: string;
     logIdx: string;

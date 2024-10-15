@@ -5,14 +5,15 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
 } from 'typeorm';
-import { ItemEntity, CollectionEntity } from '.';
+import { OrderItemEntity, CollectionEntity } from '.';
 import { Marketplace, OrderType } from '../enums';
 
 @Entity({ name: 'orders' })
 @Index(['collectionAddress', 'startTime']) // Collection analytics & activity
-@Index(['userAddress', 'collectionAddress', 'tokenId'])
+@Index(['userAddress', 'collectionAddress'])
 @Index(['userAddress', 'counter'])
 export class OrderEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
@@ -26,14 +27,6 @@ export class OrderEntity extends BaseEntity {
   @ManyToOne(() => CollectionEntity)
   @JoinColumn({ name: 'collectionAddress', referencedColumnName: 'address' })
   collectionAddress!: string;
-
-  @Column('numeric', { precision: 78, unsigned: true, nullable: true }) // 78 digits = Maximum uint256 value
-  @ManyToOne(() => ItemEntity, { nullable: true })
-  @JoinColumn([
-    { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
-    { name: 'tokenId', referencedColumnName: 'tokenId' },
-  ])
-  tokenId!: string | null;
 
   @Column('enum', { enum: OrderType, enumName: 'order_type' })
   type!: OrderType;
@@ -102,4 +95,10 @@ export class OrderEntity extends BaseEntity {
 
   @Column('numeric', { precision: 78, unsigned: true, default: 0 })
   remainingQuantity!: string;
+
+  @OneToMany(
+    () => OrderItemEntity,
+    (orderItemsEntity) => orderItemsEntity.order,
+  )
+  tokens: OrderItemEntity[];
 }

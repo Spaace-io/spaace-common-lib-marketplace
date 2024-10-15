@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SaleEntity = void 0;
 const typeorm_1 = require("typeorm");
 const Item_entity_1 = require("./Item.entity");
-const Order_entity_1 = require("./Order.entity");
+const enums_1 = require("../enums");
 let SaleEntity = class SaleEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -62,7 +62,7 @@ __decorate([
     __metadata("design:type", String)
 ], SaleEntity.prototype, "currency", void 0);
 __decorate([
-    (0, typeorm_1.Column)('enum', { enum: Order_entity_1.Marketplace, enumName: 'marketplace' }),
+    (0, typeorm_1.Column)('enum', { enum: enums_1.Marketplace, enumName: 'marketplace' }),
     __metadata("design:type", String)
 ], SaleEntity.prototype, "marketplace", void 0);
 __decorate([

@@ -1,20 +1,10 @@
 import { BaseEntity } from 'typeorm';
-export declare enum Marketplace {
-    SPAACE = "SPAACE",
-    OPENSEA = "OPENSEA",
-    BLUR = "BLUR"
-}
-export declare enum OrderType {
-    ASK = "ASK",
-    BID = "BID",
-    ENGLISH_AUCTION = "ENGLISH_AUCTION",
-    DUTCH_AUCTION = "DUTCH_AUCTION"
-}
+import { OrderItemEntity } from '.';
+import { Marketplace, OrderType } from '../enums';
 export declare class OrderEntity extends BaseEntity {
     hash: string;
     userAddress: string;
     collectionAddress: string;
-    tokenId: string | null;
     type: OrderType;
     marketplace: Marketplace;
     price: string;
@@ -38,4 +28,5 @@ export declare class OrderEntity extends BaseEntity {
     cancelTimestamp: Date | null;
     fulfillQuantity: string;
     remainingQuantity: string;
+    tokens: OrderItemEntity[];
 }

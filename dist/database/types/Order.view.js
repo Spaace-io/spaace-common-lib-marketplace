@@ -15,6 +15,7 @@ const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
+const enums_1 = require("../enums");
 let Order = class Order extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -42,17 +43,17 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, graphql_1.Field)(() => [String]),
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", Object)
-], Order.prototype, "tokenId", void 0);
+    __metadata("design:type", Array)
+], Order.prototype, "tokenIds", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => __1.OrderType),
+    (0, graphql_1.Field)(() => enums_1.OrderType),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Order.prototype, "type", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => __1.Marketplace),
+    (0, graphql_1.Field)(() => enums_1.Marketplace),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Order.prototype, "marketplace", void 0);
@@ -196,7 +197,6 @@ Order = __decorate([
                 .select('"order"."hash"', 'hash')
                 .addSelect('"order"."userAddress"', 'userAddress')
                 .addSelect('"order"."collectionAddress"', 'collectionAddress')
-                .addSelect('"order"."tokenId"', 'tokenId')
                 .addSelect('"order"."type"', 'type')
                 .addSelect('"order"."marketplace"', 'marketplace')
                 .addSelect('"order"."price"', 'price')
@@ -222,13 +222,21 @@ Order = __decorate([
                 .addSelect('"order"."remainingQuantity"', 'remainingQuantity')
                 .addSelect((query) => query.fromDummy().select(`EXISTS ${query
                 .subQuery()
-                .from(__1.ActiveOrderCached, 'active')
+                .from(__1.ActiveOrderCachedEntity, 'active')
                 .select('1')
+                .addSelect((query) => query
+                .from(__1.OrderItemEntity, 'orders_items')
+                .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds')
                 .where('"active"."hash" = "order"."hash"')
                 .andWhere(new typeorm_1.Brackets((query) => query
                 .where('"order"."endTime" > NOW()')
                 .orWhere('"order"."endTime" IS NULL')))
-                .getQuery()}`), 'active');
+                .getQuery()}`), 'active')
+                .addSelect((query) => query
+                .from(__1.OrderItemEntity, 'orders_items')
+                .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds');
         },
         name: 'orders_view',
     })
