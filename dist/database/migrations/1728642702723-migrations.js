@@ -20,6 +20,7 @@ class Migrations1728642702723 {
             yield queryRunner.query(`CREATE TABLE "last_refresh" ("pk" boolean NOT NULL DEFAULT true, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "CHK_502e27f4e8ff88c013b483e6f5" CHECK ("pk" = TRUE), CONSTRAINT "PK_0dc50ad411bca7361507c40d7e1" PRIMARY KEY ("pk"))`);
             yield queryRunner.query(`CREATE TABLE "token_transfers" ("txHash" character(64) NOT NULL, "logIdx" numeric(78) NOT NULL, "from" character(40) NOT NULL, "to" character(40) NOT NULL, "currency" character(40) NOT NULL, "amount" numeric(78) NOT NULL DEFAULT '1', "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_577b7d4a5f8030441dcb95e9a7b" PRIMARY KEY ("txHash", "logIdx"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_e4c29e58b1e24afe6a420eac12" ON "token_transfers" ("timestamp") `);
+            yield queryRunner.query(`CREATE TYPE "public"."collection_type" AS ENUM('ERC721', 'ERC1155')`);
             yield queryRunner.query(`CREATE TABLE "collections" ("address" character(40) NOT NULL, "type" "public"."collection_type" NOT NULL, "name" text, "symbol" text, "imageUrl" text, "active" boolean NOT NULL DEFAULT true, "verified" boolean NOT NULL DEFAULT false, "explicit" boolean NOT NULL DEFAULT false, "bannerUrl" text, "description" text, "deployedAt" TIMESTAMP, "deployer" character(40), "links" jsonb NOT NULL DEFAULT '[]', "lastImport" TIMESTAMP, CONSTRAINT "PK_6a20f6af50eaccf584e5e2a9a6a" PRIMARY KEY ("address"))`);
             yield queryRunner.query(`CREATE TABLE "items" ("collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "title" text, "description" text, "tokenUri" text, "decimals" numeric(2), "rarityRanking" numeric(78), "rarityScore" double precision, "lastImport" TIMESTAMP, CONSTRAINT "PK_77a2ad67a01059ccd7e3b6df3ec" PRIMARY KEY ("collectionAddress", "tokenId"))`);
             yield queryRunner.query(`CREATE UNIQUE INDEX "IDX_77a2ad67a01059ccd7e3b6df3e" ON "items" ("collectionAddress", "tokenId") `);
@@ -34,6 +35,7 @@ class Migrations1728642702723 {
             yield queryRunner.query(`CREATE INDEX "IDX_48ff10123de1f12ad97d9389ec" ON "transfers" ("to", "timestamp") `);
             yield queryRunner.query(`CREATE INDEX "IDX_6ad30b2019d8c3c912e8ebcbad" ON "transfers" ("from", "timestamp") `);
             yield queryRunner.query(`CREATE INDEX "IDX_d6446d8f923c6a64337de94a4f" ON "transfers" ("timestamp") `);
+            yield queryRunner.query(`CREATE TYPE "public"."marketplace" AS ENUM('SPAACE', 'OPENSEA', 'BLUR')`);
             yield queryRunner.query(`CREATE TABLE "sales" ("txHash" character(64) NOT NULL, "logIdx" numeric(78) NOT NULL, "collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "orderHash" character(64) NOT NULL, "amount" numeric(78) NOT NULL DEFAULT '1', "from" character(40) NOT NULL, "to" character(40) NOT NULL, "price" numeric(78) NOT NULL, "currency" character(40) NOT NULL, "marketplace" "public"."marketplace" NOT NULL, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_af745151659fc2b3ae3b81ca9d7" PRIMARY KEY ("txHash", "logIdx", "collectionAddress", "tokenId"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_134cc4bb09e09430239513a907" ON "sales" ("orderHash") `);
             yield queryRunner.query(`CREATE INDEX "IDX_f7931cf6fcf04f0899ff8a2405" ON "sales" ("collectionAddress", "tokenId", "timestamp") `);
@@ -41,6 +43,7 @@ class Migrations1728642702723 {
             yield queryRunner.query(`CREATE INDEX "IDX_7b9e171cf268ba8a046a7880ef" ON "sales" ("to", "timestamp") `);
             yield queryRunner.query(`CREATE INDEX "IDX_d2c4359130e7be0d1b845c418b" ON "sales" ("from", "timestamp") `);
             yield queryRunner.query(`CREATE INDEX "IDX_0558657f578aa1eee221654227" ON "sales" ("timestamp") `);
+            yield queryRunner.query(`CREATE TYPE "public"."staking_type" AS ENUM('PASSIVE', 'ACTIVE')`);
             yield queryRunner.query(`CREATE TABLE "staking_deposits" ("txHash" character(64) NOT NULL, "logIdx" numeric(78) NOT NULL, "type" "public"."staking_type" NOT NULL, "pool" character(40) NOT NULL, "userAddress" character(40) NOT NULL, "shares" numeric(78) NOT NULL, "tokens" numeric(78) NOT NULL, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), "depositId" numeric(78), "lockTypeId" numeric(78), "vestingTypeId" numeric(78), CONSTRAINT "PK_a9faf6c57ab8c33732fb50dfa2c" PRIMARY KEY ("txHash", "logIdx"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_41126261e9a22d2405c6ebde64" ON "staking_deposits" ("userAddress", "timestamp") `);
             yield queryRunner.query(`CREATE INDEX "IDX_c866abee7aaf01b4f6a6d6f006" ON "staking_deposits" ("pool", "userAddress", "timestamp") `);
@@ -55,10 +58,12 @@ class Migrations1728642702723 {
             yield queryRunner.query(`CREATE TABLE "token_balances" ("currency" character(40) NOT NULL, "userAddress" character(40) NOT NULL, "balance" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_985e4f6c85bfb2ebac16a3908db" PRIMARY KEY ("currency", "userAddress"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_b7195f977f51ee35c43cda5000" ON "token_balances" ("userAddress", "currency", "balance") `);
             yield queryRunner.query(`CREATE INDEX "IDX_7a4d4751963a565d8085df2759" ON "token_balances" ("currency", "balance") `);
+            yield queryRunner.query(`CREATE TYPE "public"."distributor_contract" AS ENUM('TRADING_REWARDS', 'REFERRAL_REWARDS', 'LOYALTY_REWARDS')`);
             yield queryRunner.query(`CREATE TABLE "distributor_rewards" ("userAddress" character(40) NOT NULL, "distributor" "public"."distributor_contract" NOT NULL, "amount" numeric(78) NOT NULL, "signature" text NOT NULL, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), "harvestTxHash" character(64), "harvestLogIdx" numeric(78), "harvestTimestamp" TIMESTAMP, CONSTRAINT "PK_7f2dd6f32fc52c74ade6c89ae72" PRIMARY KEY ("userAddress", "distributor", "amount"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_0f54ad337df477893cd474b5b7" ON "distributor_rewards" ("userAddress", "distributor", "amount") WHERE "harvestTimestamp" IS NOT NULL`);
             yield queryRunner.query(`CREATE INDEX "IDX_e12796feacc86a1415cb0828d0" ON "distributor_rewards" ("userAddress", "distributor", "amount") WHERE "harvestTimestamp" IS NULL`);
             yield queryRunner.query(`CREATE TABLE "reward_periods" ("distributor" "public"."distributor_contract" NOT NULL, "startTime" TIMESTAMP NOT NULL DEFAULT now(), "endTime" TIMESTAMP NOT NULL, "amount" numeric(78) NOT NULL, "distributed" boolean NOT NULL DEFAULT false, CONSTRAINT "PK_6babd6a5403539152e46098b0b4" PRIMARY KEY ("distributor", "startTime"))`);
+            yield queryRunner.query(`CREATE TYPE "public"."order_type" AS ENUM('ASK', 'BID', 'ENGLISH_AUCTION', 'DUTCH_AUCTION')`);
             yield queryRunner.query(`CREATE TABLE "orders" ("hash" character(64) NOT NULL, "userAddress" character(40) NOT NULL, "collectionAddress" character(40) NOT NULL, "type" "public"."order_type" NOT NULL, "marketplace" "public"."marketplace" NOT NULL, "price" numeric(78) NOT NULL, "startingPrice" numeric(78), "currency" character(40) NOT NULL, "marketplaceFeeBps" smallint NOT NULL, "marketplaceFeeReceiver" character(40), "royaltiesBps" smallint NOT NULL, "startingRoyalties" numeric(78), "royaltiesReceiver" character(40), "startTime" TIMESTAMP NOT NULL, "endTime" TIMESTAMP, "counter" numeric(78) NOT NULL, "signature" text NOT NULL, "salt" text, "zone" text, "conduitKey" text, "protocolAddress" character(40), "cancelTxHash" character(64), "cancelLogIdx" numeric(78), "cancelTimestamp" TIMESTAMP, "fulfillQuantity" numeric(78) NOT NULL DEFAULT '0', "remainingQuantity" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_13ab9c024e81573c05451b9004f" PRIMARY KEY ("hash"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_8015da564b715d467c36eb4cfb" ON "orders" ("userAddress", "counter") `);
             yield queryRunner.query(`CREATE INDEX "IDX_ed5303e883ab8bda04aeda2564" ON "orders" ("userAddress", "collectionAddress") `);
@@ -72,8 +77,11 @@ class Migrations1728642702723 {
             yield queryRunner.query(`CREATE UNIQUE INDEX "IDX_c84aeceb104a1a0f0e923e1ab1" ON "hidden_items" ("userAddress", "collectionAddress", "tokenId") `);
             yield queryRunner.query(`CREATE TABLE "seasons" ("number" numeric(78) NOT NULL, "startTime" TIMESTAMP NOT NULL DEFAULT now(), "endTime" TIMESTAMP, CONSTRAINT "PK_4b3a0e07a243b350d51796064d3" PRIMARY KEY ("number"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_7e703d89736f55eee5b6fa68c2" ON "seasons" ("startTime") `);
+            yield queryRunner.query(`CREATE TYPE "public"."rank" AS ENUM('BRONZE_5', 'BRONZE_4', 'BRONZE_3', 'BRONZE_2', 'BRONZE_1', 'SILVER_5', 'SILVER_4', 'SILVER_3', 'SILVER_2', 'SILVER_1', 'GOLD_5', 'GOLD_4', 'GOLD_3', 'GOLD_2', 'GOLD_1', 'PLATINUM_5', 'PLATINUM_4', 'PLATINUM_3', 'PLATINUM_2', 'PLATINUM_1', 'DIAMOND_5', 'DIAMOND_4', 'DIAMOND_3', 'DIAMOND_2', 'DIAMOND_1')`);
             yield queryRunner.query(`CREATE TABLE "season_ranks" ("seasonNumber" numeric(78) NOT NULL, "rank" "public"."rank" NOT NULL, "threshold" numeric(78) NOT NULL, "rewards" jsonb NOT NULL DEFAULT '[]', CONSTRAINT "PK_5700c760e314c8816befbdc2c69" PRIMARY KEY ("seasonNumber", "rank"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_ed3f26097caa408923b69e5ab2" ON "season_ranks" ("seasonNumber", "threshold") `);
+            yield queryRunner.query(`CREATE TYPE "public"."quest_period" AS ENUM('DAILY', 'SEASONAL')`);
+            yield queryRunner.query(`CREATE TYPE "public"."loyalty_rank" AS ENUM('BRONZE_5', 'BRONZE_4', 'BRONZE_3', 'BRONZE_2', 'BRONZE_1', 'SILVER_5', 'SILVER_4', 'SILVER_3', 'SILVER_2', 'SILVER_1', 'GOLD_5', 'GOLD_4', 'GOLD_3', 'GOLD_2', 'GOLD_1', 'PLATINUM_5', 'PLATINUM_4', 'PLATINUM_3', 'PLATINUM_2', 'PLATINUM_1', 'DIAMOND_5', 'DIAMOND_4', 'DIAMOND_3', 'DIAMOND_2', 'DIAMOND_1')`);
             yield queryRunner.query(`CREATE TABLE "quests" ("seasonNumber" numeric(78) NOT NULL, "id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" text NOT NULL, "previousQuestId" uuid, "count" numeric(78) NOT NULL, "prime" boolean NOT NULL DEFAULT false, "steps" jsonb NOT NULL DEFAULT '[]', "loyaltyPoints" numeric(78) NOT NULL DEFAULT '0', "boost" numeric(78) NOT NULL DEFAULT '0', "boostLimit" numeric(78), "limit" numeric(78) NOT NULL DEFAULT '1', "period" "public"."quest_period" NOT NULL, "rank" "public"."loyalty_rank" NOT NULL DEFAULT 'BRONZE_5', CONSTRAINT "UQ_4d91b52a8e3fe3ce2caac4a6139" UNIQUE ("seasonNumber", "name"), CONSTRAINT "REL_f94aec94cffab50834b8edaa1f" UNIQUE ("seasonNumber", "previousQuestId"), CONSTRAINT "PK_3a6a6a0b62780e61b384452424b" PRIMARY KEY ("seasonNumber", "id"))`);
             yield queryRunner.query(`CREATE TABLE "user_loyalties" ("userAddress" character(40) NOT NULL, "seasonNumber" numeric(78) NOT NULL, "points" numeric(78) NOT NULL DEFAULT '0', "questCompleted" bigint NOT NULL DEFAULT '0', CONSTRAINT "PK_5254410832e753bed54603862d8" PRIMARY KEY ("userAddress", "seasonNumber"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_70dee80d600300da49dd4d1e34" ON "user_loyalties" ("seasonNumber", "points") `);
@@ -83,11 +91,13 @@ class Migrations1728642702723 {
             yield queryRunner.query(`CREATE TABLE "cart_items" ("userAddress" character(40) NOT NULL, "collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, CONSTRAINT "PK_a0df34081b7a800e85cd78cfce3" PRIMARY KEY ("userAddress", "collectionAddress", "tokenId"))`);
             yield queryRunner.query(`CREATE TABLE "likes" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "userAddress" character(40) NOT NULL, "collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, CONSTRAINT "PK_a9323de3f8bced7539a794b4a37" PRIMARY KEY ("id"))`);
             yield queryRunner.query(`CREATE UNIQUE INDEX "IDX_dd8b4ee8d658dbbc0a9360f28b" ON "likes" ("userAddress", "collectionAddress", "tokenId") `);
+            yield queryRunner.query(`CREATE TYPE "public"."report_reason" AS ENUM('FAKE', 'EXPLICIT', 'SPAM', 'OTHER')`);
             yield queryRunner.query(`CREATE TABLE "reports" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "userAddress" character(40) NOT NULL, "collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "reason" "public"."report_reason" NOT NULL, CONSTRAINT "UQ_66592117509d55235181645b336" UNIQUE ("userAddress", "collectionAddress", "tokenId"), CONSTRAINT "PK_d9013193989303580053c0b5ef6" PRIMARY KEY ("id"))`);
             yield queryRunner.query(`CREATE TABLE "arena_users" ("twitterUsername" text NOT NULL, "twitterBio" text NOT NULL DEFAULT '', "userTwitterId" text NOT NULL, "twitterPicture" text NOT NULL, "name" text, "imageUrl" text, "referralCode" text NOT NULL, "referralCodeLastShared" TIMESTAMP NOT NULL DEFAULT now(), "referrerTwitterId" text, "crewName" text, "totalXpEarned" numeric(78) NOT NULL DEFAULT '0', "totalStarsEarned" numeric(78) NOT NULL DEFAULT '0', "level" numeric(78) NOT NULL DEFAULT '0', "dailyStreak" numeric(78) NOT NULL DEFAULT '0', "lastActive" TIMESTAMP NOT NULL DEFAULT now(), "accountCreationDate" TIMESTAMP NOT NULL DEFAULT now(), "twitterAccountCreationDate" TIMESTAMP NOT NULL DEFAULT now(), "twitterSecretToken" text NOT NULL, "twitterAccessToken" text NOT NULL, "userWalletAddress" text, "isOnboardingChestClaimed" boolean NOT NULL DEFAULT false, CONSTRAINT "UQ_6116a28ce34f6bcb2fb3735f5ac" UNIQUE ("referralCode"), CONSTRAINT "UQ_85642adebf0f867ebb474a473e6" UNIQUE ("twitterSecretToken"), CONSTRAINT "UQ_50231f38688a079dc31f67399ad" UNIQUE ("twitterAccessToken"), CONSTRAINT "PK_e830721892799dc0da5013bbc0d" PRIMARY KEY ("userTwitterId"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_5369e233e18e92fecb08b7991a" ON "arena_users" ("twitterUsername") `);
             yield queryRunner.query(`CREATE INDEX "IDX_6116a28ce34f6bcb2fb3735f5a" ON "arena_users" ("referralCode") `);
             yield queryRunner.query(`CREATE INDEX "IDX_0cece92ebcf29a89687133a476" ON "arena_users" ("crewName") `);
+            yield queryRunner.query(`CREATE TYPE "public"."arena_divison_name" AS ENUM('DIAMOND', 'PLATINUM', 'GOLD', 'SILVER', 'BRONZE')`);
             yield queryRunner.query(`CREATE TABLE "arena_users_progress" ("userTwitterId" text NOT NULL, "seasonNumber" numeric(78) NOT NULL, "stars" numeric(78) NOT NULL DEFAULT '0', "xp" numeric(78) NOT NULL DEFAULT '0', "totalReferrals" numeric(78) NOT NULL DEFAULT '0', "totalReferralStars" numeric(78) NOT NULL DEFAULT '0', "questCompleted" bigint NOT NULL DEFAULT '0', "division" "public"."arena_divison_name", "league" text, "rank" numeric(78) NOT NULL DEFAULT '0', "leagueRank" numeric(78) NOT NULL DEFAULT '0', "twentyFourHourRank" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_6450bfdfc1d35a6cef49994c0dd" PRIMARY KEY ("userTwitterId", "seasonNumber"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_adbe3f13cde72d3e0e59cc2745" ON "arena_users_progress" ("rank") `);
             yield queryRunner.query(`CREATE INDEX "IDX_9d28e5a1d308eeba7eb74223b3" ON "arena_users_progress" ("twentyFourHourRank") `);
@@ -97,9 +107,12 @@ class Migrations1728642702723 {
             yield queryRunner.query(`CREATE TABLE "arena_divisions" ("seasonNumber" numeric(78) NOT NULL, "name" "public"."arena_divison_name" NOT NULL, "numberOfLeagues" numeric NOT NULL, CONSTRAINT "PK_25764ae558b24214f37af1d98a1" PRIMARY KEY ("seasonNumber", "name"))`);
             yield queryRunner.query(`CREATE TABLE "arena_leagues" ("seasonNumber" numeric(78) NOT NULL, "divisionName" "public"."arena_divison_name" NOT NULL, "leagueNumber" numeric(78) NOT NULL, "numberOfUsers" numeric NOT NULL, CONSTRAINT "PK_ba0dde4bf4aaa668dddac2f0b3c" PRIMARY KEY ("seasonNumber", "divisionName", "leagueNumber"))`);
             yield queryRunner.query(`CREATE TABLE "arena_user_level_event" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "userTwitterId" text NOT NULL, "oldLevel" numeric(78) NOT NULL DEFAULT '0', "newLevel" numeric(78) NOT NULL DEFAULT '0', "inProcess" boolean NOT NULL DEFAULT false, CONSTRAINT "PK_ef22192eaa701e56f7386d32310" PRIMARY KEY ("id"))`);
+            yield queryRunner.query(`CREATE TYPE "public"."arena_quest_type" AS ENUM('PRIME', 'SPECIAL', 'ONE_SHOT', 'PROGRESSIVE_STREAK', 'PROGRESSIVE', 'CREW', 'ONBOARDING')`);
+            yield queryRunner.query(`CREATE TYPE "public"."arena_quest_sub_type" AS ENUM('CREW_ACTION', 'CREW_MEMBERS', 'LEVEL', 'POST_OF_THE_DAY', 'PRIME_POST', 'COMMUNITY_POST', 'MENTION_METRICS', 'MENTION', 'ONBOARDING', 'REFERRAL_SOCIAL', 'OTHERS')`);
             yield queryRunner.query(`CREATE TABLE "arena_quests" ("seasonNumber" numeric(78) NOT NULL, "id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" text NOT NULL, "previousQuestId" uuid, "referenceQuestId" uuid, "count" numeric(78) NOT NULL, "steps" jsonb NOT NULL DEFAULT '[]', "operations" jsonb NOT NULL DEFAULT '[]', "stars" numeric(78) NOT NULL DEFAULT '0', "limit" numeric(78) NOT NULL DEFAULT '1', "period" "public"."quest_period" NOT NULL, "rank" "public"."loyalty_rank" NOT NULL DEFAULT 'BRONZE_5', "type" "public"."arena_quest_type" NOT NULL, "subType" "public"."arena_quest_sub_type" NOT NULL, "cronName" text, "cronParameter" text, "link" text, "image" text, "isVisible" boolean NOT NULL DEFAULT true, "allSeasonId" text, CONSTRAINT "UQ_9584ee667d7a54a163e70ea6eb8" UNIQUE ("seasonNumber", "name"), CONSTRAINT "REL_ccac340383b05000d610f79473" UNIQUE ("seasonNumber", "previousQuestId"), CONSTRAINT "PK_a1dba9cc4f41b4f7c00a0d05fe9" PRIMARY KEY ("seasonNumber", "id"))`);
             yield queryRunner.query(`CREATE TABLE "arena_quest_progress" ("userTwitterId" text NOT NULL, "questId" uuid NOT NULL, "seasonNumber" numeric(78) NOT NULL, "nonce" uuid NOT NULL DEFAULT uuid_generate_v4(), "data" jsonb NOT NULL, "completed" boolean NOT NULL DEFAULT false, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_87a03813428ab4a75d856cef528" PRIMARY KEY ("userTwitterId", "questId", "seasonNumber", "nonce"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_3cd5e9a2a6827f571ad6d7da60" ON "arena_quest_progress" ("userTwitterId", "seasonNumber", "questId") WHERE "completed"`);
+            yield queryRunner.query(`CREATE TYPE "public"."arena_chest_name" AS ENUM('MYTIC', 'LEGENDARY', 'RARE', 'UNCOMMON', 'COMMON', 'GENESIS', 'CREW', 'REFERRAL')`);
             yield queryRunner.query(`CREATE TABLE "arena_chest_points" ("name" "public"."arena_chest_name" NOT NULL, "xp" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_1fc27ffcf9493669230428fb573" PRIMARY KEY ("name"))`);
             yield queryRunner.query(`CREATE TABLE "arena_levels" ("level" numeric(78) NOT NULL DEFAULT '0', "stars" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_0cb5d8862205cb4fa094616d080" PRIMARY KEY ("level"))`);
             yield queryRunner.query(`CREATE TABLE "arena_seasons_chest" ("divisionName" "public"."arena_divison_name" NOT NULL, "rank" text NOT NULL, "chestCount" jsonb NOT NULL DEFAULT '[]', CONSTRAINT "PK_de046ac583e8be33d3b9f42f4a1" PRIMARY KEY ("divisionName", "rank"))`);
@@ -132,10 +145,12 @@ class Migrations1728642702723 {
             yield queryRunner.query(`CREATE TABLE "arena_spaace_onboarding_tweet_likes" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "userTwitter" text NOT NULL, "tweetId" text NOT NULL, "actionType" text NOT NULL, CONSTRAINT "PK_31d3af91969ca277c4467ed19e3" PRIMARY KEY ("id"))`);
             yield queryRunner.query(`CREATE TABLE "arena_user_stars_tracking" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "userTwitterId" text NOT NULL, "stars" numeric(78) NOT NULL DEFAULT '0', "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_bbafe775a9c17fc0288642d410f" PRIMARY KEY ("id"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_86c55a1a06538cf396e4dbbd93" ON "arena_user_stars_tracking" ("userTwitterId") `);
-            yield queryRunner.query(`CREATE TABLE "arena_wow_chest_probability" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "type" "public"."arena_wow_chest_type" NOT NULL, "value" numeric(78) NOT NULL DEFAULT '0', "probability" numeric(10,2) NOT NULL DEFAULT '0', CONSTRAINT "UQ_8ec460bf8a57510890cd60fbed2" UNIQUE ("type", "value"), CONSTRAINT "PK_3343967b7e6f23a8908cad8cdb7" PRIMARY KEY ("id"))`);
+            yield queryRunner.query(`CREATE TYPE "public"."arena_wow_chest_type" AS ENUM('XP', 'BOOSTER', 'EMPTY', 'BITCOIN')`);
+            yield queryRunner.query(`CREATE TABLE "arena_wow_chest_probability" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "type" "public"."arena_wow_chest_type" NOT NULL, "value" numeric(78) NOT NULL DEFAULT '0', "probability" numeric(10,2) NOT NULL DEFAULT '0.00', CONSTRAINT "UQ_8ec460bf8a57510890cd60fbed2" UNIQUE ("type", "value"), CONSTRAINT "PK_3343967b7e6f23a8908cad8cdb7" PRIMARY KEY ("id"))`);
             yield queryRunner.query(`CREATE TABLE "arena_wow_chest_period" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "startTime" TIMESTAMP NOT NULL DEFAULT now(), "numberOfChest" numeric(78) NOT NULL DEFAULT '0', "starsThreshold" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_dcbdc01eba32a92f4751543d688" PRIMARY KEY ("id"))`);
             yield queryRunner.query(`CREATE TABLE "arena_users_claimed_wow_chest" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "chestPeriod" uuid NOT NULL, "userTwitterId" text NOT NULL, "type" text NOT NULL, "value" numeric(78) NOT NULL DEFAULT '0', "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_38f29efec3d06710a103f5e43c6" PRIMARY KEY ("id"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_3e6c6386c1872b76c624596129" ON "arena_users_claimed_wow_chest" ("chestPeriod", "userTwitterId") `);
+            yield queryRunner.query(`CREATE TYPE "public"."booster_type" AS ENUM('SPECIAL', 'WOW_CHEST')`);
             yield queryRunner.query(`CREATE TABLE "arena_users_booster" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "userTwitterId" text NOT NULL, "seasonNumber" numeric(78) NOT NULL, "expiresOn" TIMESTAMP NOT NULL DEFAULT now(), "booster" numeric(78) NOT NULL DEFAULT '0', "type" "public"."booster_type" NOT NULL, CONSTRAINT "PK_d33d583ef49900681a9e08ba229" PRIMARY KEY ("id"))`);
             yield queryRunner.query(`CREATE INDEX "IDX_d88598a9b134a17250fd0761fd" ON "arena_users_booster" ("userTwitterId", "seasonNumber", "expiresOn") `);
             yield queryRunner.query(`CREATE TABLE "arena_crew_chest_points" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "minRank" numeric(78) NOT NULL DEFAULT '0', "maxRank" numeric(78) NOT NULL DEFAULT '0', "tiers" jsonb NOT NULL DEFAULT '[]', CONSTRAINT "UQ_d8279cff4cd34c04adcd6bf9ef7" UNIQUE ("minRank", "maxRank"), CONSTRAINT "PK_4ee6b76059733e2ce25ab2ac830" PRIMARY KEY ("id"))`);
@@ -321,6 +336,13 @@ class Migrations1728642702723 {
                 'likes_view',
                 'SELECT "like"."id" AS "id", "like"."userAddress" AS "userAddress", "like"."collectionAddress" AS "collectionAddress", "like"."tokenId" AS "tokenId", (SELECT "collection"."description" FROM "collections" "collection" WHERE "collection"."address" = "like"."collectionAddress") AS "description", (SELECT "collection"."name" FROM "collections" "collection" WHERE "collection"."address" = "like"."collectionAddress") AS "name", (SELECT "item"."title" FROM "items" "item" WHERE "item"."collectionAddress" = "like"."collectionAddress" AND "item"."tokenId" = "like"."tokenId") AS "title", (SELECT "item"."description" FROM "items" "item" WHERE "item"."collectionAddress" = "like"."collectionAddress" AND "item"."tokenId" = "like"."tokenId") AS "itemDescription" FROM "likes" "like"',
             ]);
+            yield queryRunner.query(`CREATE VIEW "active_orders_cache_view" AS SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"`);
+            yield queryRunner.query(`INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`, [
+                'public',
+                'VIEW',
+                'active_orders_cache_view',
+                'SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"',
+            ]);
             yield queryRunner.query(`CREATE VIEW "orders_view" AS SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT EXISTS (SELECT 1, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "active" WHERE "active"."hash" = "order"."hash" AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL)) FROM (SELECT 1 AS dummy_column) "dummy_table") AS "active", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"`);
             yield queryRunner.query(`INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`, [
                 'public',
@@ -398,19 +420,10 @@ class Migrations1728642702723 {
                 'transfers_view',
                 'SELECT "transfer"."txHash" AS "txHash", "transfer"."logIdx" AS "logIdx", "transfer"."from" AS "from", "transfer"."to" AS "to", "transfer"."collectionAddress" AS "collectionAddress", "transfer"."tokenId" AS "tokenId", "transfer"."amount" AS "amount", "transfer"."timestamp" AS "timestamp" FROM "transfers" "transfer"',
             ]);
-            yield queryRunner.query(`CREATE VIEW "active_orders_cache_view" AS SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"`);
-            yield queryRunner.query(`INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`, [
-                'public',
-                'VIEW',
-                'active_orders_cache_view',
-                'SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"',
-            ]);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`, ['VIEW', 'active_orders_cache_view', 'public']);
-            yield queryRunner.query(`DROP VIEW "active_orders_cache_view"`);
             yield queryRunner.query(`DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`, ['VIEW', 'transfers_view', 'public']);
             yield queryRunner.query(`DROP VIEW "transfers_view"`);
             yield queryRunner.query(`DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`, ['VIEW', 'token_transfers_view', 'public']);
@@ -433,6 +446,8 @@ class Migrations1728642702723 {
             yield queryRunner.query(`DROP VIEW "reward_periods_view"`);
             yield queryRunner.query(`DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`, ['VIEW', 'orders_view', 'public']);
             yield queryRunner.query(`DROP VIEW "orders_view"`);
+            yield queryRunner.query(`DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`, ['VIEW', 'active_orders_cache_view', 'public']);
+            yield queryRunner.query(`DROP VIEW "active_orders_cache_view"`);
             yield queryRunner.query(`DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`, ['VIEW', 'likes_view', 'public']);
             yield queryRunner.query(`DROP VIEW "likes_view"`);
             yield queryRunner.query(`DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`, ['VIEW', 'item_attributes_view', 'public']);
@@ -529,6 +544,8 @@ class Migrations1728642702723 {
             yield queryRunner.query(`DROP INDEX "public"."IDX_5180b06fa5d9657accb80de534"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_0dee45ecf1a0f2555d4af76c97"`);
             yield queryRunner.query(`DROP TABLE "active_orders_cache"`);
+            yield queryRunner.query(`DROP TYPE "public"."marketplace"`);
+            yield queryRunner.query(`DROP TYPE "public"."order_type"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_372f08cce6315ff748f0605db6"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_f8aa2834ec0fbeee533eebc1ea"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_5b8893e59fda1cee1b2508e1d1"`);
@@ -568,10 +585,12 @@ class Migrations1728642702723 {
             yield queryRunner.query(`DROP TABLE "arena_crew_chest_points"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_d88598a9b134a17250fd0761fd"`);
             yield queryRunner.query(`DROP TABLE "arena_users_booster"`);
+            yield queryRunner.query(`DROP TYPE "public"."booster_type"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_3e6c6386c1872b76c624596129"`);
             yield queryRunner.query(`DROP TABLE "arena_users_claimed_wow_chest"`);
             yield queryRunner.query(`DROP TABLE "arena_wow_chest_period"`);
             yield queryRunner.query(`DROP TABLE "arena_wow_chest_probability"`);
+            yield queryRunner.query(`DROP TYPE "public"."arena_wow_chest_type"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_86c55a1a06538cf396e4dbbd93"`);
             yield queryRunner.query(`DROP TABLE "arena_user_stars_tracking"`);
             yield queryRunner.query(`DROP TABLE "arena_spaace_onboarding_tweet_likes"`);
@@ -602,11 +621,17 @@ class Migrations1728642702723 {
             yield queryRunner.query(`DROP INDEX "public"."IDX_8b24ff8e11120eba8598149a0b"`);
             yield queryRunner.query(`DROP TABLE "arena_users_earned_chest"`);
             yield queryRunner.query(`DROP TABLE "arena_seasons_chest"`);
+            yield queryRunner.query(`DROP TYPE "public"."arena_divison_name"`);
             yield queryRunner.query(`DROP TABLE "arena_levels"`);
             yield queryRunner.query(`DROP TABLE "arena_chest_points"`);
+            yield queryRunner.query(`DROP TYPE "public"."arena_chest_name"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_3cd5e9a2a6827f571ad6d7da60"`);
             yield queryRunner.query(`DROP TABLE "arena_quest_progress"`);
             yield queryRunner.query(`DROP TABLE "arena_quests"`);
+            yield queryRunner.query(`DROP TYPE "public"."arena_quest_sub_type"`);
+            yield queryRunner.query(`DROP TYPE "public"."arena_quest_type"`);
+            yield queryRunner.query(`DROP TYPE "public"."loyalty_rank"`);
+            yield queryRunner.query(`DROP TYPE "public"."quest_period"`);
             yield queryRunner.query(`DROP TABLE "arena_user_level_event"`);
             yield queryRunner.query(`DROP TABLE "arena_leagues"`);
             yield queryRunner.query(`DROP TABLE "arena_divisions"`);
@@ -621,10 +646,12 @@ class Migrations1728642702723 {
             yield queryRunner.query(`DROP INDEX "public"."IDX_5369e233e18e92fecb08b7991a"`);
             yield queryRunner.query(`DROP TABLE "arena_users"`);
             yield queryRunner.query(`DROP TABLE "reports"`);
+            yield queryRunner.query(`DROP TYPE "public"."report_reason"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_dd8b4ee8d658dbbc0a9360f28b"`);
             yield queryRunner.query(`DROP TABLE "likes"`);
             yield queryRunner.query(`DROP TABLE "cart_items"`);
             yield queryRunner.query(`DROP TABLE "user_season_rank_claims"`);
+            yield queryRunner.query(`DROP TYPE "public"."rank"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_2ef2260573a9244e2eb7208341"`);
             yield queryRunner.query(`DROP TABLE "user_quest_progress"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_70dee80d600300da49dd4d1e34"`);
@@ -646,6 +673,7 @@ class Migrations1728642702723 {
             yield queryRunner.query(`DROP INDEX "public"."IDX_8015da564b715d467c36eb4cfb"`);
             yield queryRunner.query(`DROP TABLE "orders"`);
             yield queryRunner.query(`DROP TABLE "reward_periods"`);
+            yield queryRunner.query(`DROP TYPE "public"."distributor_contract"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_e12796feacc86a1415cb0828d0"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_0f54ad337df477893cd474b5b7"`);
             yield queryRunner.query(`DROP TABLE "distributor_rewards"`);
@@ -663,6 +691,7 @@ class Migrations1728642702723 {
             yield queryRunner.query(`DROP INDEX "public"."IDX_c866abee7aaf01b4f6a6d6f006"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_41126261e9a22d2405c6ebde64"`);
             yield queryRunner.query(`DROP TABLE "staking_deposits"`);
+            yield queryRunner.query(`DROP TYPE "public"."staking_type"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_0558657f578aa1eee221654227"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_d2c4359130e7be0d1b845c418b"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_7b9e171cf268ba8a046a7880ef"`);
@@ -684,6 +713,7 @@ class Migrations1728642702723 {
             yield queryRunner.query(`DROP INDEX "public"."IDX_77a2ad67a01059ccd7e3b6df3e"`);
             yield queryRunner.query(`DROP TABLE "items"`);
             yield queryRunner.query(`DROP TABLE "collections"`);
+            yield queryRunner.query(`DROP TYPE "public"."collection_type"`);
             yield queryRunner.query(`DROP INDEX "public"."IDX_e4c29e58b1e24afe6a420eac12"`);
             yield queryRunner.query(`DROP TABLE "token_transfers"`);
             yield queryRunner.query(`DROP TABLE "last_refresh"`);

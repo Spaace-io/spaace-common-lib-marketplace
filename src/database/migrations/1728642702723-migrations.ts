@@ -2,7 +2,6 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class Migrations1728642702723 implements MigrationInterface {
   name = 'Migrations1728642702723';
-
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
       `CREATE TABLE "latest_block" ("pk" boolean NOT NULL DEFAULT true, "number" numeric(78) NOT NULL, "hash" character(64) NOT NULL, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "CHK_a6e4d39162b05136d98f963774" CHECK (pk = TRUE), CONSTRAINT "PK_7b31af3e9abf8a0d5b6984dff44" PRIMARY KEY ("pk"))`,
@@ -15,6 +14,9 @@ export class Migrations1728642702723 implements MigrationInterface {
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_e4c29e58b1e24afe6a420eac12" ON "token_transfers" ("timestamp") `,
+    );
+    await queryRunner.query(
+      `CREATE TYPE "public"."collection_type" AS ENUM('ERC721', 'ERC1155')`,
     );
     await queryRunner.query(
       `CREATE TABLE "collections" ("address" character(40) NOT NULL, "type" "public"."collection_type" NOT NULL, "name" text, "symbol" text, "imageUrl" text, "active" boolean NOT NULL DEFAULT true, "verified" boolean NOT NULL DEFAULT false, "explicit" boolean NOT NULL DEFAULT false, "bannerUrl" text, "description" text, "deployedAt" TIMESTAMP, "deployer" character(40), "links" jsonb NOT NULL DEFAULT '[]', "lastImport" TIMESTAMP, CONSTRAINT "PK_6a20f6af50eaccf584e5e2a9a6a" PRIMARY KEY ("address"))`,
@@ -59,6 +61,9 @@ export class Migrations1728642702723 implements MigrationInterface {
       `CREATE INDEX "IDX_d6446d8f923c6a64337de94a4f" ON "transfers" ("timestamp") `,
     );
     await queryRunner.query(
+      `CREATE TYPE "public"."marketplace" AS ENUM('SPAACE', 'OPENSEA', 'BLUR')`,
+    );
+    await queryRunner.query(
       `CREATE TABLE "sales" ("txHash" character(64) NOT NULL, "logIdx" numeric(78) NOT NULL, "collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "orderHash" character(64) NOT NULL, "amount" numeric(78) NOT NULL DEFAULT '1', "from" character(40) NOT NULL, "to" character(40) NOT NULL, "price" numeric(78) NOT NULL, "currency" character(40) NOT NULL, "marketplace" "public"."marketplace" NOT NULL, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_af745151659fc2b3ae3b81ca9d7" PRIMARY KEY ("txHash", "logIdx", "collectionAddress", "tokenId"))`,
     );
     await queryRunner.query(
@@ -78,6 +83,9 @@ export class Migrations1728642702723 implements MigrationInterface {
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_0558657f578aa1eee221654227" ON "sales" ("timestamp") `,
+    );
+    await queryRunner.query(
+      `CREATE TYPE "public"."staking_type" AS ENUM('PASSIVE', 'ACTIVE')`,
     );
     await queryRunner.query(
       `CREATE TABLE "staking_deposits" ("txHash" character(64) NOT NULL, "logIdx" numeric(78) NOT NULL, "type" "public"."staking_type" NOT NULL, "pool" character(40) NOT NULL, "userAddress" character(40) NOT NULL, "shares" numeric(78) NOT NULL, "tokens" numeric(78) NOT NULL, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), "depositId" numeric(78), "lockTypeId" numeric(78), "vestingTypeId" numeric(78), CONSTRAINT "PK_a9faf6c57ab8c33732fb50dfa2c" PRIMARY KEY ("txHash", "logIdx"))`,
@@ -122,6 +130,9 @@ export class Migrations1728642702723 implements MigrationInterface {
       `CREATE INDEX "IDX_7a4d4751963a565d8085df2759" ON "token_balances" ("currency", "balance") `,
     );
     await queryRunner.query(
+      `CREATE TYPE "public"."distributor_contract" AS ENUM('TRADING_REWARDS', 'REFERRAL_REWARDS', 'LOYALTY_REWARDS')`,
+    );
+    await queryRunner.query(
       `CREATE TABLE "distributor_rewards" ("userAddress" character(40) NOT NULL, "distributor" "public"."distributor_contract" NOT NULL, "amount" numeric(78) NOT NULL, "signature" text NOT NULL, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), "harvestTxHash" character(64), "harvestLogIdx" numeric(78), "harvestTimestamp" TIMESTAMP, CONSTRAINT "PK_7f2dd6f32fc52c74ade6c89ae72" PRIMARY KEY ("userAddress", "distributor", "amount"))`,
     );
     await queryRunner.query(
@@ -132,6 +143,9 @@ export class Migrations1728642702723 implements MigrationInterface {
     );
     await queryRunner.query(
       `CREATE TABLE "reward_periods" ("distributor" "public"."distributor_contract" NOT NULL, "startTime" TIMESTAMP NOT NULL DEFAULT now(), "endTime" TIMESTAMP NOT NULL, "amount" numeric(78) NOT NULL, "distributed" boolean NOT NULL DEFAULT false, CONSTRAINT "PK_6babd6a5403539152e46098b0b4" PRIMARY KEY ("distributor", "startTime"))`,
+    );
+    await queryRunner.query(
+      `CREATE TYPE "public"."order_type" AS ENUM('ASK', 'BID', 'ENGLISH_AUCTION', 'DUTCH_AUCTION')`,
     );
     await queryRunner.query(
       `CREATE TABLE "orders" ("hash" character(64) NOT NULL, "userAddress" character(40) NOT NULL, "collectionAddress" character(40) NOT NULL, "type" "public"."order_type" NOT NULL, "marketplace" "public"."marketplace" NOT NULL, "price" numeric(78) NOT NULL, "startingPrice" numeric(78), "currency" character(40) NOT NULL, "marketplaceFeeBps" smallint NOT NULL, "marketplaceFeeReceiver" character(40), "royaltiesBps" smallint NOT NULL, "startingRoyalties" numeric(78), "royaltiesReceiver" character(40), "startTime" TIMESTAMP NOT NULL, "endTime" TIMESTAMP, "counter" numeric(78) NOT NULL, "signature" text NOT NULL, "salt" text, "zone" text, "conduitKey" text, "protocolAddress" character(40), "cancelTxHash" character(64), "cancelLogIdx" numeric(78), "cancelTimestamp" TIMESTAMP, "fulfillQuantity" numeric(78) NOT NULL DEFAULT '0', "remainingQuantity" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_13ab9c024e81573c05451b9004f" PRIMARY KEY ("hash"))`,
@@ -173,10 +187,19 @@ export class Migrations1728642702723 implements MigrationInterface {
       `CREATE INDEX "IDX_7e703d89736f55eee5b6fa68c2" ON "seasons" ("startTime") `,
     );
     await queryRunner.query(
+      `CREATE TYPE "public"."rank" AS ENUM('BRONZE_5', 'BRONZE_4', 'BRONZE_3', 'BRONZE_2', 'BRONZE_1', 'SILVER_5', 'SILVER_4', 'SILVER_3', 'SILVER_2', 'SILVER_1', 'GOLD_5', 'GOLD_4', 'GOLD_3', 'GOLD_2', 'GOLD_1', 'PLATINUM_5', 'PLATINUM_4', 'PLATINUM_3', 'PLATINUM_2', 'PLATINUM_1', 'DIAMOND_5', 'DIAMOND_4', 'DIAMOND_3', 'DIAMOND_2', 'DIAMOND_1')`,
+    );
+    await queryRunner.query(
       `CREATE TABLE "season_ranks" ("seasonNumber" numeric(78) NOT NULL, "rank" "public"."rank" NOT NULL, "threshold" numeric(78) NOT NULL, "rewards" jsonb NOT NULL DEFAULT '[]', CONSTRAINT "PK_5700c760e314c8816befbdc2c69" PRIMARY KEY ("seasonNumber", "rank"))`,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_ed3f26097caa408923b69e5ab2" ON "season_ranks" ("seasonNumber", "threshold") `,
+    );
+    await queryRunner.query(
+      `CREATE TYPE "public"."quest_period" AS ENUM('DAILY', 'SEASONAL')`,
+    );
+    await queryRunner.query(
+      `CREATE TYPE "public"."loyalty_rank" AS ENUM('BRONZE_5', 'BRONZE_4', 'BRONZE_3', 'BRONZE_2', 'BRONZE_1', 'SILVER_5', 'SILVER_4', 'SILVER_3', 'SILVER_2', 'SILVER_1', 'GOLD_5', 'GOLD_4', 'GOLD_3', 'GOLD_2', 'GOLD_1', 'PLATINUM_5', 'PLATINUM_4', 'PLATINUM_3', 'PLATINUM_2', 'PLATINUM_1', 'DIAMOND_5', 'DIAMOND_4', 'DIAMOND_3', 'DIAMOND_2', 'DIAMOND_1')`,
     );
     await queryRunner.query(
       `CREATE TABLE "quests" ("seasonNumber" numeric(78) NOT NULL, "id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" text NOT NULL, "previousQuestId" uuid, "count" numeric(78) NOT NULL, "prime" boolean NOT NULL DEFAULT false, "steps" jsonb NOT NULL DEFAULT '[]', "loyaltyPoints" numeric(78) NOT NULL DEFAULT '0', "boost" numeric(78) NOT NULL DEFAULT '0', "boostLimit" numeric(78), "limit" numeric(78) NOT NULL DEFAULT '1', "period" "public"."quest_period" NOT NULL, "rank" "public"."loyalty_rank" NOT NULL DEFAULT 'BRONZE_5', CONSTRAINT "UQ_4d91b52a8e3fe3ce2caac4a6139" UNIQUE ("seasonNumber", "name"), CONSTRAINT "REL_f94aec94cffab50834b8edaa1f" UNIQUE ("seasonNumber", "previousQuestId"), CONSTRAINT "PK_3a6a6a0b62780e61b384452424b" PRIMARY KEY ("seasonNumber", "id"))`,
@@ -206,6 +229,9 @@ export class Migrations1728642702723 implements MigrationInterface {
       `CREATE UNIQUE INDEX "IDX_dd8b4ee8d658dbbc0a9360f28b" ON "likes" ("userAddress", "collectionAddress", "tokenId") `,
     );
     await queryRunner.query(
+      `CREATE TYPE "public"."report_reason" AS ENUM('FAKE', 'EXPLICIT', 'SPAM', 'OTHER')`,
+    );
+    await queryRunner.query(
       `CREATE TABLE "reports" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "userAddress" character(40) NOT NULL, "collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "reason" "public"."report_reason" NOT NULL, CONSTRAINT "UQ_66592117509d55235181645b336" UNIQUE ("userAddress", "collectionAddress", "tokenId"), CONSTRAINT "PK_d9013193989303580053c0b5ef6" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
@@ -219,6 +245,9 @@ export class Migrations1728642702723 implements MigrationInterface {
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_0cece92ebcf29a89687133a476" ON "arena_users" ("crewName") `,
+    );
+    await queryRunner.query(
+      `CREATE TYPE "public"."arena_divison_name" AS ENUM('DIAMOND', 'PLATINUM', 'GOLD', 'SILVER', 'BRONZE')`,
     );
     await queryRunner.query(
       `CREATE TABLE "arena_users_progress" ("userTwitterId" text NOT NULL, "seasonNumber" numeric(78) NOT NULL, "stars" numeric(78) NOT NULL DEFAULT '0', "xp" numeric(78) NOT NULL DEFAULT '0', "totalReferrals" numeric(78) NOT NULL DEFAULT '0', "totalReferralStars" numeric(78) NOT NULL DEFAULT '0', "questCompleted" bigint NOT NULL DEFAULT '0', "division" "public"."arena_divison_name", "league" text, "rank" numeric(78) NOT NULL DEFAULT '0', "leagueRank" numeric(78) NOT NULL DEFAULT '0', "twentyFourHourRank" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_6450bfdfc1d35a6cef49994c0dd" PRIMARY KEY ("userTwitterId", "seasonNumber"))`,
@@ -248,6 +277,12 @@ export class Migrations1728642702723 implements MigrationInterface {
       `CREATE TABLE "arena_user_level_event" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "userTwitterId" text NOT NULL, "oldLevel" numeric(78) NOT NULL DEFAULT '0', "newLevel" numeric(78) NOT NULL DEFAULT '0', "inProcess" boolean NOT NULL DEFAULT false, CONSTRAINT "PK_ef22192eaa701e56f7386d32310" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
+      `CREATE TYPE "public"."arena_quest_type" AS ENUM('PRIME', 'SPECIAL', 'ONE_SHOT', 'PROGRESSIVE_STREAK', 'PROGRESSIVE', 'CREW', 'ONBOARDING')`,
+    );
+    await queryRunner.query(
+      `CREATE TYPE "public"."arena_quest_sub_type" AS ENUM('CREW_ACTION', 'CREW_MEMBERS', 'LEVEL', 'POST_OF_THE_DAY', 'PRIME_POST', 'COMMUNITY_POST', 'MENTION_METRICS', 'MENTION', 'ONBOARDING', 'REFERRAL_SOCIAL', 'OTHERS')`,
+    );
+    await queryRunner.query(
       `CREATE TABLE "arena_quests" ("seasonNumber" numeric(78) NOT NULL, "id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" text NOT NULL, "previousQuestId" uuid, "referenceQuestId" uuid, "count" numeric(78) NOT NULL, "steps" jsonb NOT NULL DEFAULT '[]', "operations" jsonb NOT NULL DEFAULT '[]', "stars" numeric(78) NOT NULL DEFAULT '0', "limit" numeric(78) NOT NULL DEFAULT '1', "period" "public"."quest_period" NOT NULL, "rank" "public"."loyalty_rank" NOT NULL DEFAULT 'BRONZE_5', "type" "public"."arena_quest_type" NOT NULL, "subType" "public"."arena_quest_sub_type" NOT NULL, "cronName" text, "cronParameter" text, "link" text, "image" text, "isVisible" boolean NOT NULL DEFAULT true, "allSeasonId" text, CONSTRAINT "UQ_9584ee667d7a54a163e70ea6eb8" UNIQUE ("seasonNumber", "name"), CONSTRAINT "REL_ccac340383b05000d610f79473" UNIQUE ("seasonNumber", "previousQuestId"), CONSTRAINT "PK_a1dba9cc4f41b4f7c00a0d05fe9" PRIMARY KEY ("seasonNumber", "id"))`,
     );
     await queryRunner.query(
@@ -255,6 +290,9 @@ export class Migrations1728642702723 implements MigrationInterface {
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_3cd5e9a2a6827f571ad6d7da60" ON "arena_quest_progress" ("userTwitterId", "seasonNumber", "questId") WHERE "completed"`,
+    );
+    await queryRunner.query(
+      `CREATE TYPE "public"."arena_chest_name" AS ENUM('MYTIC', 'LEGENDARY', 'RARE', 'UNCOMMON', 'COMMON', 'GENESIS', 'CREW', 'REFERRAL')`,
     );
     await queryRunner.query(
       `CREATE TABLE "arena_chest_points" ("name" "public"."arena_chest_name" NOT NULL, "xp" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_1fc27ffcf9493669230428fb573" PRIMARY KEY ("name"))`,
@@ -353,7 +391,10 @@ export class Migrations1728642702723 implements MigrationInterface {
       `CREATE INDEX "IDX_86c55a1a06538cf396e4dbbd93" ON "arena_user_stars_tracking" ("userTwitterId") `,
     );
     await queryRunner.query(
-      `CREATE TABLE "arena_wow_chest_probability" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "type" "public"."arena_wow_chest_type" NOT NULL, "value" numeric(78) NOT NULL DEFAULT '0', "probability" numeric(10,2) NOT NULL DEFAULT '0', CONSTRAINT "UQ_8ec460bf8a57510890cd60fbed2" UNIQUE ("type", "value"), CONSTRAINT "PK_3343967b7e6f23a8908cad8cdb7" PRIMARY KEY ("id"))`,
+      `CREATE TYPE "public"."arena_wow_chest_type" AS ENUM('XP', 'BOOSTER', 'EMPTY', 'BITCOIN')`,
+    );
+    await queryRunner.query(
+      `CREATE TABLE "arena_wow_chest_probability" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "type" "public"."arena_wow_chest_type" NOT NULL, "value" numeric(78) NOT NULL DEFAULT '0', "probability" numeric(10,2) NOT NULL DEFAULT '0.00', CONSTRAINT "UQ_8ec460bf8a57510890cd60fbed2" UNIQUE ("type", "value"), CONSTRAINT "PK_3343967b7e6f23a8908cad8cdb7" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TABLE "arena_wow_chest_period" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "startTime" TIMESTAMP NOT NULL DEFAULT now(), "numberOfChest" numeric(78) NOT NULL DEFAULT '0', "starsThreshold" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_dcbdc01eba32a92f4751543d688" PRIMARY KEY ("id"))`,
@@ -363,6 +404,9 @@ export class Migrations1728642702723 implements MigrationInterface {
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_3e6c6386c1872b76c624596129" ON "arena_users_claimed_wow_chest" ("chestPeriod", "userTwitterId") `,
+    );
+    await queryRunner.query(
+      `CREATE TYPE "public"."booster_type" AS ENUM('SPECIAL', 'WOW_CHEST')`,
     );
     await queryRunner.query(
       `CREATE TABLE "arena_users_booster" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "userTwitterId" text NOT NULL, "seasonNumber" numeric(78) NOT NULL, "expiresOn" TIMESTAMP NOT NULL DEFAULT now(), "booster" numeric(78) NOT NULL DEFAULT '0', "type" "public"."booster_type" NOT NULL, CONSTRAINT "PK_d33d583ef49900681a9e08ba229" PRIMARY KEY ("id"))`,
@@ -830,6 +874,18 @@ export class Migrations1728642702723 implements MigrationInterface {
       ],
     );
     await queryRunner.query(
+      `CREATE VIEW "active_orders_cache_view" AS SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"`,
+    );
+    await queryRunner.query(
+      `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
+      [
+        'public',
+        'VIEW',
+        'active_orders_cache_view',
+        'SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"',
+      ],
+    );
+    await queryRunner.query(
       `CREATE VIEW "orders_view" AS SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT EXISTS (SELECT 1, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "active" WHERE "active"."hash" = "order"."hash" AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL)) FROM (SELECT 1 AS dummy_column) "dummy_table") AS "active", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"`,
     );
     await queryRunner.query(
@@ -961,26 +1017,8 @@ export class Migrations1728642702723 implements MigrationInterface {
         'SELECT "transfer"."txHash" AS "txHash", "transfer"."logIdx" AS "logIdx", "transfer"."from" AS "from", "transfer"."to" AS "to", "transfer"."collectionAddress" AS "collectionAddress", "transfer"."tokenId" AS "tokenId", "transfer"."amount" AS "amount", "transfer"."timestamp" AS "timestamp" FROM "transfers" "transfer"',
       ],
     );
-    await queryRunner.query(
-      `CREATE VIEW "active_orders_cache_view" AS SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"`,
-    );
-    await queryRunner.query(
-      `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
-      [
-        'public',
-        'VIEW',
-        'active_orders_cache_view',
-        'SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"',
-      ],
-    );
   }
-
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(
-      `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`,
-      ['VIEW', 'active_orders_cache_view', 'public'],
-    );
-    await queryRunner.query(`DROP VIEW "active_orders_cache_view"`);
     await queryRunner.query(
       `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`,
       ['VIEW', 'transfers_view', 'public'],
@@ -1036,6 +1074,11 @@ export class Migrations1728642702723 implements MigrationInterface {
       ['VIEW', 'orders_view', 'public'],
     );
     await queryRunner.query(`DROP VIEW "orders_view"`);
+    await queryRunner.query(
+      `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`,
+      ['VIEW', 'active_orders_cache_view', 'public'],
+    );
+    await queryRunner.query(`DROP VIEW "active_orders_cache_view"`);
     await queryRunner.query(
       `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`,
       ['VIEW', 'likes_view', 'public'],
@@ -1312,6 +1355,8 @@ export class Migrations1728642702723 implements MigrationInterface {
       `DROP INDEX "public"."IDX_0dee45ecf1a0f2555d4af76c97"`,
     );
     await queryRunner.query(`DROP TABLE "active_orders_cache"`);
+    await queryRunner.query(`DROP TYPE "public"."marketplace"`);
+    await queryRunner.query(`DROP TYPE "public"."order_type"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_372f08cce6315ff748f0605db6"`,
     );
@@ -1421,12 +1466,14 @@ export class Migrations1728642702723 implements MigrationInterface {
       `DROP INDEX "public"."IDX_d88598a9b134a17250fd0761fd"`,
     );
     await queryRunner.query(`DROP TABLE "arena_users_booster"`);
+    await queryRunner.query(`DROP TYPE "public"."booster_type"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_3e6c6386c1872b76c624596129"`,
     );
     await queryRunner.query(`DROP TABLE "arena_users_claimed_wow_chest"`);
     await queryRunner.query(`DROP TABLE "arena_wow_chest_period"`);
     await queryRunner.query(`DROP TABLE "arena_wow_chest_probability"`);
+    await queryRunner.query(`DROP TYPE "public"."arena_wow_chest_type"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_86c55a1a06538cf396e4dbbd93"`,
     );
@@ -1481,13 +1528,19 @@ export class Migrations1728642702723 implements MigrationInterface {
     );
     await queryRunner.query(`DROP TABLE "arena_users_earned_chest"`);
     await queryRunner.query(`DROP TABLE "arena_seasons_chest"`);
+    await queryRunner.query(`DROP TYPE "public"."arena_divison_name"`);
     await queryRunner.query(`DROP TABLE "arena_levels"`);
     await queryRunner.query(`DROP TABLE "arena_chest_points"`);
+    await queryRunner.query(`DROP TYPE "public"."arena_chest_name"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_3cd5e9a2a6827f571ad6d7da60"`,
     );
     await queryRunner.query(`DROP TABLE "arena_quest_progress"`);
     await queryRunner.query(`DROP TABLE "arena_quests"`);
+    await queryRunner.query(`DROP TYPE "public"."arena_quest_sub_type"`);
+    await queryRunner.query(`DROP TYPE "public"."arena_quest_type"`);
+    await queryRunner.query(`DROP TYPE "public"."loyalty_rank"`);
+    await queryRunner.query(`DROP TYPE "public"."quest_period"`);
     await queryRunner.query(`DROP TABLE "arena_user_level_event"`);
     await queryRunner.query(`DROP TABLE "arena_leagues"`);
     await queryRunner.query(`DROP TABLE "arena_divisions"`);
@@ -1516,12 +1569,14 @@ export class Migrations1728642702723 implements MigrationInterface {
     );
     await queryRunner.query(`DROP TABLE "arena_users"`);
     await queryRunner.query(`DROP TABLE "reports"`);
+    await queryRunner.query(`DROP TYPE "public"."report_reason"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_dd8b4ee8d658dbbc0a9360f28b"`,
     );
     await queryRunner.query(`DROP TABLE "likes"`);
     await queryRunner.query(`DROP TABLE "cart_items"`);
     await queryRunner.query(`DROP TABLE "user_season_rank_claims"`);
+    await queryRunner.query(`DROP TYPE "public"."rank"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_2ef2260573a9244e2eb7208341"`,
     );
@@ -1561,6 +1616,7 @@ export class Migrations1728642702723 implements MigrationInterface {
     );
     await queryRunner.query(`DROP TABLE "orders"`);
     await queryRunner.query(`DROP TABLE "reward_periods"`);
+    await queryRunner.query(`DROP TYPE "public"."distributor_contract"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_e12796feacc86a1415cb0828d0"`,
     );
@@ -1600,6 +1656,7 @@ export class Migrations1728642702723 implements MigrationInterface {
       `DROP INDEX "public"."IDX_41126261e9a22d2405c6ebde64"`,
     );
     await queryRunner.query(`DROP TABLE "staking_deposits"`);
+    await queryRunner.query(`DROP TYPE "public"."staking_type"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_0558657f578aa1eee221654227"`,
     );
@@ -1651,6 +1708,7 @@ export class Migrations1728642702723 implements MigrationInterface {
     );
     await queryRunner.query(`DROP TABLE "items"`);
     await queryRunner.query(`DROP TABLE "collections"`);
+    await queryRunner.query(`DROP TYPE "public"."collection_type"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_e4c29e58b1e24afe6a420eac12"`,
     );
