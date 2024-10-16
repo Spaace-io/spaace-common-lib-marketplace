@@ -9,6 +9,7 @@ import {
   CollectionType,
   CollectionRankingCached,
   NotableCollection,
+  ItemEntity,
 } from '..';
 
 @ObjectType()
@@ -121,6 +122,14 @@ import {
                 .getQuery()}`,
             ),
         'notable',
+      )
+      .addSelect(
+        (query) =>
+          query
+            .from(ItemEntity, 'item')
+            .select('MAX("item"."rarityRanking") as "maxRarityRanking"')
+            .where('"item"."collectionAddress" = "collection"."address"'),
+        'maxRarityRanking',
       );
   },
   name: 'collections_view',
@@ -342,4 +351,8 @@ export class Collection extends BaseEntity {
   @Field(() => Boolean)
   @ViewColumn()
   notable!: boolean;
+
+  @Field(() => String, { nullable: true })
+  @ViewColumn()
+  maxRarityRanking!: string | null;
 }

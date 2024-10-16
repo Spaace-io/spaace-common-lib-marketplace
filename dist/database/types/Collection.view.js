@@ -281,6 +281,11 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Boolean)
 ], Collection.prototype, "notable", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Object)
+], Collection.prototype, "maxRarityRanking", void 0);
 Collection = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
@@ -346,7 +351,11 @@ Collection = __decorate([
                 .select('1')
                 .from(__1.NotableCollection, 'notable')
                 .where('"notable"."collectionAddress" = "collection"."address"')
-                .getQuery()}`), 'notable');
+                .getQuery()}`), 'notable')
+                .addSelect((query) => query
+                .from(__1.ItemEntity, 'item')
+                .select('MAX("item"."rarityRanking") as "maxRarityRanking"')
+                .where('"item"."collectionAddress" = "collection"."address"'), 'maxRarityRanking');
         },
         name: 'collections_view',
     })
