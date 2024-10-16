@@ -100,5 +100,5 @@ export class OrderEntity extends BaseEntity {
     () => OrderItemEntity,
     (orderItemsEntity) => orderItemsEntity.order,
   )
-  tokens: OrderItemEntity[];
+  tokens?: OrderItemEntity[];
 }

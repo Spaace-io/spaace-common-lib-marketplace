@@ -31,10 +31,10 @@ export class OrderItemEntity extends BaseEntity {
   @ManyToOne(() => OrderEntity, (order) => order.tokens, {
     onDelete: 'CASCADE',
   })
-  order: OrderEntity;
+  order!: OrderEntity;
 
   @ManyToOne(() => ItemEntity, (itemEntity) => itemEntity.tokenId, {
     onDelete: 'CASCADE',
   })
-  itemEntity: ItemEntity;
+  itemEntity!: ItemEntity;
 }

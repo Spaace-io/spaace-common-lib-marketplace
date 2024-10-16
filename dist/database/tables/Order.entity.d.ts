@@ -28,5 +28,5 @@ export declare class OrderEntity extends BaseEntity {
     cancelTimestamp: Date | null;
     fulfillQuantity: string;
     remainingQuantity: string;
-    tokens: OrderItemEntity[];
+    tokens?: OrderItemEntity[];
 }
