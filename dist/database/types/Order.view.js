@@ -43,9 +43,9 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [String]),
+    (0, graphql_1.Field)(() => [String], { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
-    __metadata("design:type", Array)
+    __metadata("design:type", Object)
 ], Order.prototype, "tokenIds", void 0);
 __decorate([
     (0, graphql_1.Field)(() => enums_1.OrderType),

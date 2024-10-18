@@ -106,9 +106,9 @@ export class Order extends BaseEntity {
   })
   collectionAddress!: string;
 
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   @ViewColumn()
-  tokenIds!: string[];
+  tokenIds!: string[] | null;
 
   @Field(() => OrderType)
   @ViewColumn()

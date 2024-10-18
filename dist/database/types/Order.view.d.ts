@@ -4,7 +4,7 @@ export declare class Order extends BaseEntity {
     hash: string;
     userAddress: string;
     collectionAddress: string;
-    tokenIds: string[];
+    tokenIds: string[] | null;
     type: OrderType;
     marketplace: Marketplace;
     price: string;
