@@ -19,13 +19,13 @@ __decorate([
     __metadata("design:type", String)
 ], OrderItemEntity.prototype, "hash", void 0);
 __decorate([
-    (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => _1.CollectionEntity),
     (0, typeorm_1.JoinColumn)({ name: 'collectionAddress', referencedColumnName: 'address' }),
     __metadata("design:type", String)
 ], OrderItemEntity.prototype, "collectionAddress", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+    (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
     ,
     (0, typeorm_1.ManyToOne)(() => _1.ItemEntity),
     (0, typeorm_1.JoinColumn)([
@@ -48,6 +48,8 @@ __decorate([
 ], OrderItemEntity.prototype, "itemEntity", void 0);
 OrderItemEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'orders_items' }),
+    (0, typeorm_1.Index)(['hash']),
+    (0, typeorm_1.Index)(['hash', 'collectionAddress']),
     (0, typeorm_1.Index)(['hash', 'collectionAddress', 'tokenId'])
 ], OrderItemEntity);
 exports.OrderItemEntity = OrderItemEntity;

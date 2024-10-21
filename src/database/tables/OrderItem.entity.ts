@@ -1,6 +1,5 @@
 import {
   BaseEntity,
-  Column,
   Entity,
   Index,
   JoinColumn,
@@ -10,17 +9,19 @@ import {
 import { ItemEntity, CollectionEntity, OrderEntity } from '.';
 
 @Entity({ name: 'orders_items' })
+@Index(['hash'])
+@Index(['hash', 'collectionAddress'])
 @Index(['hash', 'collectionAddress', 'tokenId'])
 export class OrderItemEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   hash!: string;
 
-  @Column('char', { length: 40 })
+  @PrimaryColumn('char', { length: 40 })
   @ManyToOne(() => CollectionEntity)
   @JoinColumn({ name: 'collectionAddress', referencedColumnName: 'address' })
   collectionAddress!: string;
 
-  @Column('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
+  @PrimaryColumn('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
   @ManyToOne(() => ItemEntity)
   @JoinColumn([
     { name: 'collectionAddress', referencedColumnName: 'collectionAddress' },
