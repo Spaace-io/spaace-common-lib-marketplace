@@ -52,4 +52,5 @@ export declare class Collection extends BaseEntity {
     ownerCount: string;
     listedCount: string;
     notable: boolean;
+    maxRarityRanking: string | null;
 }
