@@ -13,6 +13,7 @@ exports.ArenaUserProgress = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const _1 = require(".");
+const enums_1 = require("../enums");
 let ArenaUserProgress = class ArenaUserProgress extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -55,9 +56,9 @@ __decorate([
     __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "questCompleted", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => _1.ArenaDivisionName, { nullable: true }),
+    (0, graphql_1.Field)(() => enums_1.ArenaDivisionName, { nullable: true }),
     (0, typeorm_1.Column)('enum', {
-        enum: _1.ArenaDivisionName,
+        enum: enums_1.ArenaDivisionName,
         enumName: 'arena_divison_name',
         nullable: true,
     }),

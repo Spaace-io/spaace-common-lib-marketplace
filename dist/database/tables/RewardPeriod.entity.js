@@ -11,12 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RewardPeriodEntity = void 0;
 const typeorm_1 = require("typeorm");
-const _1 = require(".");
+const enums_1 = require("../enums");
 let RewardPeriodEntity = class RewardPeriodEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, typeorm_1.PrimaryColumn)('enum', {
-        enum: _1.DistributorContract,
+        enum: enums_1.DistributorContract,
         enumName: 'distributor_contract',
     }),
     __metadata("design:type", String)

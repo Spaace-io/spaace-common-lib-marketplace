@@ -16,6 +16,7 @@ const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
 const __2 = require("../..");
+const enums_1 = require("../enums");
 let Item = class Item extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -75,48 +76,66 @@ Item = __decorate([
                 .from(__1.ItemEntity, 'item')
                 .leftJoin(__1.CollectionRankingCached, 'collection', '"collection"."address" = "item"."collectionAddress"')
                 .leftJoin((q) => q
-                .from(__1.ActiveOrderCached, 'order')
-                .select()
-                .where(`"order"."type" IN ('${__1.OrderType.ASK}', '${__1.OrderType.DUTCH_AUCTION}')`)
+                .from(__1.ActiveOrderCachedEntity, 'order')
+                .select('"order".*')
+                .addSelect((query) => query
+                .from(__1.OrderItemEntity, 'orders_items')
+                .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds')
+                .where(`"order"."type" IN ('${enums_1.OrderType.ASK}', '${enums_1.OrderType.DUTCH_AUCTION}')`)
                 .andWhere(`"order"."currency" IN ('${__2.utils
                 .strip0x(__2.utils.constants.ETH_TOKENS)
                 .join("','")}')`)
                 .andWhere(new typeorm_1.Brackets((query) => query
                 .where('"order"."endTime" > NOW()')
                 .orWhere('"order"."endTime" IS NULL')))
-                .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
-                .orderBy('"order"."collectionAddress"')
-                .addOrderBy('"order"."tokenId"')
-                .addOrderBy(`CASE WHEN "order"."type" = '${__1.OrderType.DUTCH_AUCTION}' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END`, 'ASC'), 'buyNow', '"buyNow"."collectionAddress" = "item"."collectionAddress" AND "buyNow"."tokenId" = "item"."tokenId"')
+                .distinctOn(['"order"."hash"'])
+                .orderBy('"order"."hash"')
+                // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
+                // .orderBy('"order"."collectionAddress"')
+                // .addOrderBy('"order"."tokenIds"')
+                .addOrderBy(`CASE WHEN "order"."type" = '${enums_1.OrderType.DUTCH_AUCTION}' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END`, 'ASC'), 'buyNow', '"buyNow"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId" = ANY("buyNow"."tokenIds")')
                 .leftJoin((q) => q
-                .from(__1.ActiveOrderCached, 'order')
-                .select()
-                .where(`"order"."type" = '${__1.OrderType.BID}'`)
+                .from(__1.ActiveOrderCachedEntity, 'order')
+                .select('"order".*')
+                .addSelect((query) => query
+                .from(__1.OrderItemEntity, 'orders_items')
+                .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds')
+                .where(`"order"."type" = '${enums_1.OrderType.BID}'`)
                 .andWhere(`"order"."currency" IN ('${__2.utils
                 .strip0x(__2.utils.constants.ETH_TOKENS)
                 .join("','")}')`)
                 .andWhere(new typeorm_1.Brackets((query) => query
                 .where('"order"."endTime" > NOW()')
                 .orWhere('"order"."endTime" IS NULL')))
-                .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
-                .orderBy('"order"."collectionAddress"')
-                .addOrderBy('"order"."tokenId"')
-                .addOrderBy('"order"."price"', 'DESC'), 'sellNow', '"sellNow"."collectionAddress" = "item"."collectionAddress" AND ("sellNow"."tokenId" = "item"."tokenId" OR "sellNow"."tokenId" IS NULL)')
+                .distinctOn(['"order"."hash"'])
+                .orderBy('"order"."hash"')
+                // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
+                // .orderBy('"order"."collectionAddress"')
+                // .addOrderBy('"order"."tokenIds"')
+                .addOrderBy('"order"."price"', 'DESC'), 'sellNow', '"sellNow"."collectionAddress" = "item"."collectionAddress" AND ("item"."tokenId" = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)')
                 .leftJoin((q) => q
-                .from(__1.ActiveOrderCached, 'order')
-                .select()
-                .where(`"order"."type" = '${__1.OrderType.ENGLISH_AUCTION}'`)
+                .from(__1.ActiveOrderCachedEntity, 'order')
+                .select('"order".*')
+                .addSelect((query) => query
+                .from(__1.OrderItemEntity, 'orders_items')
+                .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds')
+                .where(`"order"."type" = '${enums_1.OrderType.ENGLISH_AUCTION}'`)
                 .andWhere(`"order"."currency" IN ('${__2.utils
                 .strip0x(__2.utils.constants.ETH_TOKENS)
                 .join("','")}')`)
                 .andWhere(new typeorm_1.Brackets((query) => query
                 .where('"order"."endTime" > NOW()')
                 .orWhere('"order"."endTime" IS NULL')))
-                .distinctOn(['"order"."collectionAddress"', '"order"."tokenId"'])
-                .orderBy('"order"."collectionAddress"')
-                .addOrderBy('"order"."tokenId"')
+                .distinctOn(['"order"."hash"'])
+                .orderBy('"order"."hash"')
+                // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
+                // .orderBy('"order"."collectionAddress"')
+                // .addOrderBy('"order"."tokenIds"')
                 .addOrderBy('"order"."endTime"', 'ASC'), // TODO: Order by highest bid
-            'auction', '"auction"."collectionAddress" = "item"."collectionAddress" AND "auction"."tokenId" = "item"."tokenId"')
+            'auction', '"auction"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId" = ANY("auction"."tokenIds")')
                 .leftJoin((q) => q
                 .from(__1.SaleEntity, 'sale')
                 .select()
@@ -155,7 +174,7 @@ Item = __decorate([
                 .addSelect('"item"."lastImport"', 'lastImport')
                 // Used for sorting/filtering, but not included in the GraphQL output
                 .addSelect('CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END', 'rarityBasisPoints')
-                .addSelect(`CASE WHEN "buyNow"."type" = '${__1.OrderType.DUTCH_AUCTION}' THEN "buyNow"."startingPrice" - ("buyNow"."startingPrice" - "buyNow"."price") * EXTRACT(EPOCH FROM NOW() - "buyNow"."startTime") / EXTRACT(EPOCH FROM "buyNow"."endTime" - "buyNow"."startTime") ELSE "buyNow"."price" END`, 'buyNowPrice')
+                .addSelect(`CASE WHEN "buyNow"."type" = '${enums_1.OrderType.DUTCH_AUCTION}' THEN "buyNow"."startingPrice" - ("buyNow"."startingPrice" - "buyNow"."price") * EXTRACT(EPOCH FROM NOW() - "buyNow"."startTime") / EXTRACT(EPOCH FROM "buyNow"."endTime" - "buyNow"."startTime") ELSE "buyNow"."price" END`, 'buyNowPrice')
                 .addSelect('"buyNow"."startTime"', 'buyNowStartTime')
                 .addSelect('"sellNow"."price"', 'sellNowPrice')
                 .addSelect('"sellNow"."startTime"', 'sellNowStartTime')

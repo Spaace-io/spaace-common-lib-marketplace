@@ -2,7 +2,9 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
-import { ActiveOrderCached, ItemAttributeEntity, OrderType } from '..';
+import { ActiveOrderCachedEntity, ItemAttributeEntity } from '..';
+import { OrderType } from '../enums';
+import { OrderItemEntity } from '../tables';
 
 @ObjectType()
 @ViewEntity({
@@ -19,15 +21,29 @@ import { ActiveOrderCached, ItemAttributeEntity, OrderType } from '..';
       .addSelect(
         `SUM(CASE WHEN EXISTS ${query
           .subQuery()
-          .from(ActiveOrderCached, 'order')
-          .select('1')
+          .from(ActiveOrderCachedEntity, 'order')
+          .select('"order".*')
+          .innerJoin(
+            (q) =>
+              q
+                .from(OrderItemEntity, 'orders_items')
+                .select([
+                  '"orders_items"."hash"',
+                  'array_agg("orders_items"."tokenId") as "tokenIds"',
+                ])
+                .groupBy('"orders_items"."hash"')
+                .having(
+                  '"attribute"."tokenId" = ANY (array_agg("orders_items"."tokenId"))',
+                ),
+            'orders_items',
+            '"orders_items"."hash" = "order"."hash"',
+          )
           .where(
             `"order"."type" IN ('${OrderType.ASK}', '${OrderType.DUTCH_AUCTION}')`,
           )
           .andWhere(
             '"order"."collectionAddress" = "attribute"."collectionAddress"',
           )
-          .andWhere('"order"."tokenId" = "attribute"."tokenId"')
           .getQuery()} THEN 1 ELSE 0 END)`,
         'listedCount',
       )

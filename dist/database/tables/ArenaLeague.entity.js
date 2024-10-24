@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const _1 = require(".");
 const class_validator_1 = require("class-validator");
+const enums_1 = require("../enums");
 let ArenaLeague = class ArenaLeague extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -24,9 +25,9 @@ __decorate([
     __metadata("design:type", String)
 ], ArenaLeague.prototype, "seasonNumber", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => _1.ArenaDivisionName),
+    (0, graphql_1.Field)(() => enums_1.ArenaDivisionName),
     (0, typeorm_1.PrimaryColumn)('enum', {
-        enum: _1.ArenaDivisionName,
+        enum: enums_1.ArenaDivisionName,
         enumName: 'arena_divison_name',
     }),
     (0, typeorm_1.ManyToOne)(() => _1.ArenaDivision),

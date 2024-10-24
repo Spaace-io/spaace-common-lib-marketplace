@@ -8,7 +8,8 @@ import {
   JoinColumn,
   Index,
 } from 'typeorm';
-import { ArenaUser, ArenaSeason, ArenaDivisionName } from '.';
+import { ArenaUser, ArenaSeason } from '.';
+import { ArenaDivisionName } from '../enums';
 
 @ObjectType()
 @Entity({ name: 'arena_users_progress' })

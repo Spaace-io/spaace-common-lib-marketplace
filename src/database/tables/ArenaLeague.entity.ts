@@ -7,8 +7,9 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { ArenaSeason, ArenaDivision, ArenaDivisionName } from '.';
+import { ArenaSeason, ArenaDivision } from '.';
 import { ValidateNested } from 'class-validator';
+import { ArenaDivisionName } from '../enums';
 
 @ObjectType()
 @Entity({ name: 'arena_leagues' })

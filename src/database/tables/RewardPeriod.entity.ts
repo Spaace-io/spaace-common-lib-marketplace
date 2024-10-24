@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
-import { DistributorContract } from '.';
+import { DistributorContract } from '../enums';
 
 @Entity({ name: 'reward_periods' })
 export class RewardPeriodEntity extends BaseEntity {
