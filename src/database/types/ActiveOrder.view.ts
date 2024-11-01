@@ -2,7 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
-import { OrderEntity, OrderItemEntity } from '..';
+import { ActiveOrderCachedEntity, OrderItemEntity } from '..';
 import { Marketplace, OrderType } from '../enums';
 
 @ObjectType()
@@ -11,7 +11,7 @@ import { Marketplace, OrderType } from '../enums';
     return (
       dataSource
         .createQueryBuilder()
-        .from(OrderEntity, 'order')
+        .from(ActiveOrderCachedEntity, 'order')
         .select('"order"."hash"', 'hash')
         .addSelect('"order"."userAddress"', 'userAddress')
         .addSelect('"order"."collectionAddress"', 'collectionAddress')

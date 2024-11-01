@@ -188,7 +188,7 @@ ActiveOrderCached = __decorate([
         expression: (dataSource) => {
             return (dataSource
                 .createQueryBuilder()
-                .from(__1.OrderEntity, 'order')
+                .from(__1.ActiveOrderCachedEntity, 'order')
                 .select('"order"."hash"', 'hash')
                 .addSelect('"order"."userAddress"', 'userAddress')
                 .addSelect('"order"."collectionAddress"', 'collectionAddress')
