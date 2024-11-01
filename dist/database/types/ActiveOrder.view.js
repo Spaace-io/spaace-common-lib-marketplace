@@ -186,13 +186,12 @@ ActiveOrderCached = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
-            return (dataSource
+            return dataSource
                 .createQueryBuilder()
-                .from(__1.OrderEntity, 'order')
+                .from(__1.ActiveOrderCachedEntity, 'order')
                 .select('"order"."hash"', 'hash')
                 .addSelect('"order"."userAddress"', 'userAddress')
                 .addSelect('"order"."collectionAddress"', 'collectionAddress')
-                // .addSelect('"order"."tokenId"', 'tokenId')
                 .addSelect('"order"."type"', 'type')
                 .addSelect('"order"."marketplace"', 'marketplace')
                 .addSelect('"order"."price"', 'price')
@@ -219,7 +218,7 @@ ActiveOrderCached = __decorate([
                 .addSelect((query) => query
                 .from(__1.OrderItemEntity, 'orders_items')
                 .select('array_agg("orders_items"."tokenId") as "tokenIds"')
-                .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds'));
+                .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds');
         },
         name: 'active_orders_cache_view',
     })
