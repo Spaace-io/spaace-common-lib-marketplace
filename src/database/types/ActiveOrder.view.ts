@@ -8,46 +8,43 @@ import { Marketplace, OrderType } from '../enums';
 @ObjectType()
 @ViewEntity({
   expression: (dataSource: DataSource) => {
-    return (
-      dataSource
-        .createQueryBuilder()
-        .from(ActiveOrderCachedEntity, 'order')
-        .select('"order"."hash"', 'hash')
-        .addSelect('"order"."userAddress"', 'userAddress')
-        .addSelect('"order"."collectionAddress"', 'collectionAddress')
-        // .addSelect('"order"."tokenId"', 'tokenId')
-        .addSelect('"order"."type"', 'type')
-        .addSelect('"order"."marketplace"', 'marketplace')
-        .addSelect('"order"."price"', 'price')
-        .addSelect('"order"."startingPrice"', 'startingPrice')
-        .addSelect('"order"."currency"', 'currency')
-        .addSelect('"order"."marketplaceFeeBps"', 'marketplaceFeeBps')
-        .addSelect('"order"."marketplaceFeeReceiver"', 'marketplaceFeeReceiver')
-        .addSelect('"order"."royaltiesBps"', 'royaltiesBps')
-        .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
-        .addSelect('"order"."royaltiesReceiver"', 'royaltiesReceiver')
-        .addSelect('"order"."startTime"', 'startTime')
-        .addSelect('"order"."endTime"', 'endTime')
-        .addSelect('"order"."counter"', 'counter')
-        .addSelect('"order"."salt"', 'salt')
-        .addSelect('"order"."zone"', 'zone')
-        .addSelect('"order"."conduitKey"', 'conduitKey')
-        .addSelect('"order"."protocolAddress"', 'protocolAddress')
-        .addSelect('"order"."signature"', 'signature')
-        .addSelect('"order"."cancelTxHash"', 'cancelTxHash')
-        .addSelect('"order"."cancelLogIdx"', 'cancelLogIdx')
-        .addSelect('"order"."cancelTimestamp"', 'cancelTimestamp')
-        .addSelect('"order"."fulfillQuantity"', 'fulfillQuantity')
-        .addSelect('"order"."remainingQuantity"', 'remainingQuantity')
-        .addSelect(
-          (query) =>
-            query
-              .from(OrderItemEntity, 'orders_items')
-              .select('array_agg("orders_items"."tokenId") as "tokenIds"')
-              .where('"orders_items"."hash" = "order"."hash"'),
-          'tokenIds',
-        )
-    );
+    return dataSource
+      .createQueryBuilder()
+      .from(ActiveOrderCachedEntity, 'order')
+      .select('"order"."hash"', 'hash')
+      .addSelect('"order"."userAddress"', 'userAddress')
+      .addSelect('"order"."collectionAddress"', 'collectionAddress')
+      .addSelect('"order"."type"', 'type')
+      .addSelect('"order"."marketplace"', 'marketplace')
+      .addSelect('"order"."price"', 'price')
+      .addSelect('"order"."startingPrice"', 'startingPrice')
+      .addSelect('"order"."currency"', 'currency')
+      .addSelect('"order"."marketplaceFeeBps"', 'marketplaceFeeBps')
+      .addSelect('"order"."marketplaceFeeReceiver"', 'marketplaceFeeReceiver')
+      .addSelect('"order"."royaltiesBps"', 'royaltiesBps')
+      .addSelect('"order"."startingRoyalties"', 'startingRoyalties')
+      .addSelect('"order"."royaltiesReceiver"', 'royaltiesReceiver')
+      .addSelect('"order"."startTime"', 'startTime')
+      .addSelect('"order"."endTime"', 'endTime')
+      .addSelect('"order"."counter"', 'counter')
+      .addSelect('"order"."salt"', 'salt')
+      .addSelect('"order"."zone"', 'zone')
+      .addSelect('"order"."conduitKey"', 'conduitKey')
+      .addSelect('"order"."protocolAddress"', 'protocolAddress')
+      .addSelect('"order"."signature"', 'signature')
+      .addSelect('"order"."cancelTxHash"', 'cancelTxHash')
+      .addSelect('"order"."cancelLogIdx"', 'cancelLogIdx')
+      .addSelect('"order"."cancelTimestamp"', 'cancelTimestamp')
+      .addSelect('"order"."fulfillQuantity"', 'fulfillQuantity')
+      .addSelect('"order"."remainingQuantity"', 'remainingQuantity')
+      .addSelect(
+        (query) =>
+          query
+            .from(OrderItemEntity, 'orders_items')
+            .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+            .where('"orders_items"."hash" = "order"."hash"'),
+        'tokenIds',
+      );
   },
   name: 'active_orders_cache_view',
 })
