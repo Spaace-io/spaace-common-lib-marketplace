@@ -44,7 +44,9 @@ import { OrderType } from '../enums';
                 (query) =>
                   query
                     .from(OrderItemEntity, 'orders_items')
-                    .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                    .select(
+                      'array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds"',
+                    )
                     .where('"orders_items"."hash" = "order"."hash"'),
                 'tokenIds',
               )
@@ -73,7 +75,7 @@ import { OrderType } from '../enums';
                 'ASC',
               ),
           'buyNow',
-          '"buyNow"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId" = ANY("buyNow"."tokenIds")',
+          '"buyNow"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId"::TEXT = ANY("buyNow"."tokenIds")',
         )
         .leftJoin(
           (q) =>
@@ -84,7 +86,9 @@ import { OrderType } from '../enums';
                 (query) =>
                   query
                     .from(OrderItemEntity, 'orders_items')
-                    .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                    .select(
+                      'array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds"',
+                    )
                     .where('"orders_items"."hash" = "order"."hash"'),
                 'tokenIds',
               )
@@ -108,7 +112,7 @@ import { OrderType } from '../enums';
               // .addOrderBy('"order"."tokenIds"')
               .addOrderBy('"order"."price"', 'DESC'),
           'sellNow',
-          '"sellNow"."collectionAddress" = "balance"."collectionAddress" AND ("balance"."tokenId" = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)',
+          '"sellNow"."collectionAddress" = "balance"."collectionAddress" AND ("balance"."tokenId"::TEXT = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)',
         )
         .leftJoin(
           (q) =>
@@ -119,7 +123,9 @@ import { OrderType } from '../enums';
                 (query) =>
                   query
                     .from(OrderItemEntity, 'orders_items')
-                    .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                    .select(
+                      'array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds"',
+                    )
                     .where('"orders_items"."hash" = "order"."hash"'),
                 'tokenIds',
               )
@@ -143,7 +149,7 @@ import { OrderType } from '../enums';
               // .addOrderBy('"order"."tokenIds"')
               .addOrderBy('"order"."endTime"', 'ASC'), // TODO: Order by highest bid
           'auction',
-          '"auction"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId" = ANY("auction"."tokenIds")',
+          '"auction"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId"::TEXT = ANY("auction"."tokenIds")',
         )
         .leftJoin(
           (q) =>

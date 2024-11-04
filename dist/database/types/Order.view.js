@@ -235,7 +235,7 @@ Order = __decorate([
                 .getQuery()}`), 'active')
                 .addSelect((query) => query
                 .from(__1.OrderItemEntity, 'orders_items')
-                .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                .select('array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds"')
                 .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds');
         },
         name: 'orders_view',
