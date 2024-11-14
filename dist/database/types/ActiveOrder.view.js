@@ -217,7 +217,7 @@ ActiveOrderCached = __decorate([
                 .addSelect('"order"."remainingQuantity"', 'remainingQuantity')
                 .addSelect((query) => query
                 .from(__1.OrderItemEntity, 'orders_items')
-                .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                .select('array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds"')
                 .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds');
         },
         name: 'active_orders_cache_view',

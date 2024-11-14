@@ -74,7 +74,7 @@ import { Marketplace, OrderType } from '../enums';
         (query) =>
           query
             .from(OrderItemEntity, 'orders_items')
-            .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+            .select('array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds"')
             .where('"orders_items"."hash" = "order"."hash"'),
         'tokenIds',
       );

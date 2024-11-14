@@ -58,7 +58,7 @@ Balance = __decorate([
                 .select('"order".*')
                 .addSelect((query) => query
                 .from(__1.OrderItemEntity, 'orders_items')
-                .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                .select('array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds"')
                 .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds')
                 .where(`"order"."type" IN ('${enums_1.OrderType.ASK}', '${enums_1.OrderType.DUTCH_AUCTION}')`)
                 .andWhere(`"order"."currency" IN ('${__2.utils
@@ -72,13 +72,13 @@ Balance = __decorate([
                 // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
                 // .orderBy('"order"."collectionAddress"')
                 // .addOrderBy('"order"."tokenIds"')
-                .addOrderBy(`CASE WHEN "order"."type" = '${enums_1.OrderType.DUTCH_AUCTION}' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END`, 'ASC'), 'buyNow', '"buyNow"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId" = ANY("buyNow"."tokenIds")')
+                .addOrderBy(`CASE WHEN "order"."type" = '${enums_1.OrderType.DUTCH_AUCTION}' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END`, 'ASC'), 'buyNow', '"buyNow"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId"::TEXT = ANY("buyNow"."tokenIds")')
                 .leftJoin((q) => q
                 .from(__1.ActiveOrderCachedEntity, 'order')
                 .select('"order".*')
                 .addSelect((query) => query
                 .from(__1.OrderItemEntity, 'orders_items')
-                .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                .select('array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds"')
                 .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds')
                 .where(`"order"."type" = '${enums_1.OrderType.BID}'`)
                 .andWhere(`"order"."currency" IN ('${__2.utils
@@ -92,13 +92,13 @@ Balance = __decorate([
                 // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
                 // .orderBy('"order"."collectionAddress"')
                 // .addOrderBy('"order"."tokenIds"')
-                .addOrderBy('"order"."price"', 'DESC'), 'sellNow', '"sellNow"."collectionAddress" = "balance"."collectionAddress" AND ("balance"."tokenId" = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)')
+                .addOrderBy('"order"."price"', 'DESC'), 'sellNow', '"sellNow"."collectionAddress" = "balance"."collectionAddress" AND ("balance"."tokenId"::TEXT = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)')
                 .leftJoin((q) => q
                 .from(__1.ActiveOrderCachedEntity, 'order')
                 .select('"order".*')
                 .addSelect((query) => query
                 .from(__1.OrderItemEntity, 'orders_items')
-                .select('array_agg("orders_items"."tokenId") as "tokenIds"')
+                .select('array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds"')
                 .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds')
                 .where(`"order"."type" = '${enums_1.OrderType.ENGLISH_AUCTION}'`)
                 .andWhere(`"order"."currency" IN ('${__2.utils
@@ -113,7 +113,7 @@ Balance = __decorate([
                 // .orderBy('"order"."collectionAddress"')
                 // .addOrderBy('"order"."tokenIds"')
                 .addOrderBy('"order"."endTime"', 'ASC'), // TODO: Order by highest bid
-            'auction', '"auction"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId" = ANY("auction"."tokenIds")')
+            'auction', '"auction"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId"::TEXT = ANY("auction"."tokenIds")')
                 .leftJoin((q) => q
                 .from(__1.SaleEntity, 'sale')
                 .select()
