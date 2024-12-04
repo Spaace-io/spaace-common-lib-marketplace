@@ -38,6 +38,12 @@ export declare enum QuestPeriod {
     DAILY = "DAILY",
     SEASONAL = "SEASONAL"
 }
+export declare enum QuestType {
+    GENESIS = "GENESIS",
+    PRIME = "PRIME",
+    DAILY = "DAILY",
+    PROGRESSIVE = "PROGRESSIVE"
+}
 export declare class Quest extends BaseEntity {
     seasonNumber: string;
     id: string;
@@ -52,4 +58,5 @@ export declare class Quest extends BaseEntity {
     limit: string;
     period: QuestPeriod;
     rank: LoyaltyRank;
+    questType: QuestType;
 }

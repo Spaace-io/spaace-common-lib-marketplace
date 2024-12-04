@@ -13,7 +13,7 @@ import {
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
 import { LoyaltyRank, Season } from '.';
-import { ValidateNested } from 'class-validator';
+import { IsEnum, ValidateNested } from 'class-validator';
 
 export enum QuestTrigger {
   TOKEN_TRANSFER = 'TOKEN_TRANSFER',
@@ -86,6 +86,17 @@ registerEnumType(QuestPeriod, {
   name: 'QuestPeriod',
 });
 
+export enum QuestType {
+  GENESIS = 'GENESIS',
+  PRIME = 'PRIME',
+  DAILY = 'DAILY',
+  PROGRESSIVE = 'PROGRESSIVE',
+}
+
+registerEnumType(QuestType, {
+  name: 'QuestType',
+});
+
 @ObjectType()
 @Entity({ name: 'quests' })
 @Unique(['seasonNumber', 'name'])
@@ -154,4 +165,12 @@ export class Quest extends BaseEntity {
     default: LoyaltyRank.BRONZE_5,
   })
   rank!: LoyaltyRank;
+
+  @Field(() => QuestType)
+  @Column('enum', { enum: QuestType, enumName: 'quest_type' })
+  @IsEnum(QuestType, {
+    message:
+      'type must be one of the following: GENESIS, PRIME, DAILY, PROGRESSIVE',
+  })
+  questType!: QuestType;
 }
