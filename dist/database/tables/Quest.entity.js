@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var Quest_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Quest = exports.QuestPeriod = exports.QuestStep = exports.QuestRule = exports.QuestRuleOperator = exports.QuestTrigger = void 0;
+exports.Quest = exports.QuestType = exports.QuestPeriod = exports.QuestStep = exports.QuestRule = exports.QuestRuleOperator = exports.QuestTrigger = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
@@ -97,6 +97,16 @@ var QuestPeriod;
 (0, graphql_1.registerEnumType)(QuestPeriod, {
     name: 'QuestPeriod',
 });
+var QuestType;
+(function (QuestType) {
+    QuestType["GENESIS"] = "GENESIS";
+    QuestType["PRIME"] = "PRIME";
+    QuestType["DAILY"] = "DAILY";
+    QuestType["PROGRESSIVE"] = "PROGRESSIVE";
+})(QuestType = exports.QuestType || (exports.QuestType = {}));
+(0, graphql_1.registerEnumType)(QuestType, {
+    name: 'QuestType',
+});
 let Quest = Quest_1 = class Quest extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -178,6 +188,14 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], Quest.prototype, "rank", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => QuestType),
+    (0, typeorm_1.Column)('enum', { enum: QuestType, enumName: 'quest_type' }),
+    (0, class_validator_1.IsEnum)(QuestType, {
+        message: 'type must be one of the following: GENESIS, PRIME, DAILY, PROGRESSIVE',
+    }),
+    __metadata("design:type", String)
+], Quest.prototype, "questType", void 0);
 Quest = Quest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'quests' }),
