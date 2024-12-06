@@ -7,4 +7,5 @@ export declare class UserQuestProgress extends BaseEntity {
     data: string[][];
     completed: boolean;
     timestamp: Date;
+    orderHash: string | null;
 }
