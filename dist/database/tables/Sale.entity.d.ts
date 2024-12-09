@@ -10,6 +10,7 @@ export declare class SaleEntity extends BaseEntity {
     from: string;
     to: string;
     price: string;
+    perUnitPrice: string;
     currency: string;
     marketplace: Marketplace;
     timestamp: Date;

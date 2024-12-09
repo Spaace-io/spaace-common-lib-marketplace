@@ -81,6 +81,11 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Sale.prototype, "perUnitPrice", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
     (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
         toPlainOnly: true,
     }),
@@ -112,6 +117,7 @@ Sale = __decorate([
                 .addSelect('"sale"."from"', 'from')
                 .addSelect('"sale"."to"', 'to')
                 .addSelect('"sale"."price"', 'price')
+                .addSelect('"sale"."perUnitPrice"', 'perUnitPrice')
                 .addSelect('"sale"."currency"', 'currency')
                 .addSelect('"sale"."marketplace"', 'marketplace')
                 .addSelect('"sale"."timestamp"', 'timestamp');
