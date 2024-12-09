@@ -71,7 +71,8 @@ import { OrderType } from '../enums';
               .addOrderBy(
                 `CASE WHEN "order"."type" = '${OrderType.DUTCH_AUCTION}' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."perUnitPrice") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."perUnitPrice" END`,
                 'ASC',
-              ),
+              )
+              .addOrderBy('"order"."marketplace"', 'ASC'),
           'buyNow',
           '"buyNow"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId"::TEXT = ANY("buyNow"."tokenIds")',
         )
@@ -108,7 +109,8 @@ import { OrderType } from '../enums';
               // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
               // .orderBy('"order"."collectionAddress"')
               // .addOrderBy('"order"."tokenIds"')
-              .addOrderBy('"order"."perUnitPrice"', 'DESC'),
+              .addOrderBy('"order"."perUnitPrice"', 'DESC')
+              .addOrderBy('"order"."marketplace"', 'ASC'),
           'sellNow',
           '"sellNow"."collectionAddress" = "item"."collectionAddress" AND ("item"."tokenId"::TEXT = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)',
         )
@@ -145,7 +147,8 @@ import { OrderType } from '../enums';
               // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
               // .orderBy('"order"."collectionAddress"')
               // .addOrderBy('"order"."tokenIds"')
-              .addOrderBy('"order"."endTime"', 'ASC'), // TODO: Order by highest bid
+              .addOrderBy('"order"."endTime"', 'ASC')
+              .addOrderBy('"order"."marketplace"', 'ASC'), // TODO: Order by highest bid
           'auction',
           '"auction"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId"::TEXT = ANY("auction"."tokenIds")',
         )
