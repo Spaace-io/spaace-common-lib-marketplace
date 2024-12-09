@@ -72,7 +72,8 @@ Balance = __decorate([
                 // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
                 // .orderBy('"order"."collectionAddress"')
                 // .addOrderBy('"order"."tokenIds"')
-                .addOrderBy(`CASE WHEN "order"."type" = '${enums_1.OrderType.DUTCH_AUCTION}' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END`, 'ASC'), 'buyNow', '"buyNow"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId"::TEXT = ANY("buyNow"."tokenIds")')
+                .addOrderBy(`CASE WHEN "order"."type" = '${enums_1.OrderType.DUTCH_AUCTION}' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."perUnitPrice") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."perUnitPrice" END`, 'ASC')
+                .addOrderBy('"order"."marketplace"', 'ASC'), 'buyNow', '"buyNow"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId"::TEXT = ANY("buyNow"."tokenIds")')
                 .leftJoin((q) => q
                 .from(__1.ActiveOrderCachedEntity, 'order')
                 .select('"order".*')
@@ -92,7 +93,8 @@ Balance = __decorate([
                 // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
                 // .orderBy('"order"."collectionAddress"')
                 // .addOrderBy('"order"."tokenIds"')
-                .addOrderBy('"order"."price"', 'DESC'), 'sellNow', '"sellNow"."collectionAddress" = "balance"."collectionAddress" AND ("balance"."tokenId"::TEXT = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)')
+                .addOrderBy('"order"."perUnitPrice"', 'DESC')
+                .addOrderBy('"order"."marketplace"', 'ASC'), 'sellNow', '"sellNow"."collectionAddress" = "balance"."collectionAddress" AND ("balance"."tokenId"::TEXT = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)')
                 .leftJoin((q) => q
                 .from(__1.ActiveOrderCachedEntity, 'order')
                 .select('"order".*')
@@ -112,7 +114,8 @@ Balance = __decorate([
                 // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
                 // .orderBy('"order"."collectionAddress"')
                 // .addOrderBy('"order"."tokenIds"')
-                .addOrderBy('"order"."endTime"', 'ASC'), // TODO: Order by highest bid
+                .addOrderBy('"order"."endTime"', 'ASC')
+                .addOrderBy('"order"."marketplace"', 'ASC'), // TODO: Order by highest bid
             'auction', '"auction"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId"::TEXT = ANY("auction"."tokenIds")')
                 .leftJoin((q) => q
                 .from(__1.SaleEntity, 'sale')
@@ -179,12 +182,16 @@ Balance = __decorate([
                 .where('"item"."collectionAddress" = "balance"."collectionAddress"')
                 .andWhere('"item"."tokenId" = "balance"."tokenId"'), 'rarityBasisPoints')
                 .addSelect(`CASE WHEN "buyNow"."type" = '${enums_1.OrderType.DUTCH_AUCTION}' THEN "buyNow"."startingPrice" - ("buyNow"."startingPrice" - "buyNow"."price") * EXTRACT(EPOCH FROM NOW() - "buyNow"."startTime") / EXTRACT(EPOCH FROM "buyNow"."endTime" - "buyNow"."startTime") ELSE "buyNow"."price" END`, 'buyNowPrice')
+                .addSelect(`CASE WHEN "buyNow"."type" = '${enums_1.OrderType.DUTCH_AUCTION}' THEN "buyNow"."startingPrice" - ("buyNow"."startingPrice" - "buyNow"."perUnitPrice") * EXTRACT(EPOCH FROM NOW() - "buyNow"."startTime") / EXTRACT(EPOCH FROM "buyNow"."endTime" - "buyNow"."startTime") ELSE "buyNow"."perUnitPrice" END`, 'buyNowPerUnitPrice')
                 .addSelect('"buyNow"."startTime"', 'buyNowStartTime')
                 .addSelect('"sellNow"."price"', 'sellNowPrice')
+                .addSelect('"sellNow"."perUnitPrice"', 'sellNowPerUnitPrice')
                 .addSelect('"sellNow"."startTime"', 'sellNowStartTime')
+                .addSelect('CASE WHEN "auction"."hash" IS NOT NULL THEN GREATEST("sellNow"."perUnitPrice", "auction"."perUnitPrice") ELSE NULL END', 'auctionPerUnitPrice')
                 .addSelect('CASE WHEN "auction"."hash" IS NOT NULL THEN GREATEST("sellNow"."price", "auction"."price") ELSE NULL END', 'auctionPrice')
                 .addSelect('"auction"."endTime"', 'auctionEndTime')
                 .addSelect('"lastSale"."price"', 'lastSalePrice')
+                .addSelect('"lastSale"."perUnitPrice"', 'lastSalePerUnitPrice')
                 .addSelect('"lastSale"."timestamp"', 'lastSaleTimestamp')
                 .addSelect('"mint"."timestamp"', 'mintTimestamp')
                 .addSelect('"lastTransfer"."timestamp"', 'lastTransferTimestamp')

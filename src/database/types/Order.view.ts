@@ -23,6 +23,7 @@ import { Marketplace, OrderType } from '../enums';
       .addSelect('"order"."type"', 'type')
       .addSelect('"order"."marketplace"', 'marketplace')
       .addSelect('"order"."price"', 'price')
+      .addSelect('"order"."perUnitPrice"', 'perUnitPrice')
       .addSelect('"order"."startingPrice"', 'startingPrice')
       .addSelect('"order"."currency"', 'currency')
       .addSelect('"order"."marketplaceFeeBps"', 'marketplaceFeeBps')
@@ -121,6 +122,10 @@ export class Order extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   price!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  perUnitPrice!: string;
 
   @Field(() => String, { nullable: true })
   @ViewColumn()

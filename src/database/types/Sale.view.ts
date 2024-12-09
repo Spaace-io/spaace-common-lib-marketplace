@@ -20,6 +20,7 @@ import { Marketplace } from '../enums';
       .addSelect('"sale"."from"', 'from')
       .addSelect('"sale"."to"', 'to')
       .addSelect('"sale"."price"', 'price')
+      .addSelect('"sale"."perUnitPrice"', 'perUnitPrice')
       .addSelect('"sale"."currency"', 'currency')
       .addSelect('"sale"."marketplace"', 'marketplace')
       .addSelect('"sale"."timestamp"', 'timestamp');
@@ -83,6 +84,10 @@ export class Sale extends BaseEntity {
   @Field(() => String)
   @ViewColumn()
   price!: string;
+
+  @Field(() => String)
+  @ViewColumn()
+  perUnitPrice!: string;
 
   @Field(() => String)
   @ViewColumn()

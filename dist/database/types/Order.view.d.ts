@@ -8,6 +8,7 @@ export declare class Order extends BaseEntity {
     type: OrderType;
     marketplace: Marketplace;
     price: string;
+    perUnitPrice: string;
     startingPrice: string | null;
     currency: string;
     marketplaceFeeBps: number;

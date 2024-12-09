@@ -44,6 +44,10 @@ __decorate([
     __metadata("design:type", String)
 ], OrderEntity.prototype, "price", void 0);
 __decorate([
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
+    __metadata("design:type", String)
+], OrderEntity.prototype, "perUnitPrice", void 0);
+__decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
     __metadata("design:type", Object)
 ], OrderEntity.prototype, "startingPrice", void 0);
