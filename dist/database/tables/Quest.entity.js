@@ -16,6 +16,7 @@ const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const _1 = require(".");
 const class_validator_1 = require("class-validator");
+const QuestType_enum_1 = require("../enums/QuestType.enum");
 var QuestTrigger;
 (function (QuestTrigger) {
     QuestTrigger["TOKEN_TRANSFER"] = "TOKEN_TRANSFER";
@@ -178,6 +179,14 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], Quest.prototype, "rank", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => QuestType_enum_1.QuestType),
+    (0, typeorm_1.Column)('enum', { enum: QuestType_enum_1.QuestType, enumName: 'quest_type' }),
+    (0, class_validator_1.IsEnum)(QuestType_enum_1.QuestType, {
+        message: 'type must be one of the following: GENESIS, PRIME, DAILY, PROGRESSIVE',
+    }),
+    __metadata("design:type", String)
+], Quest.prototype, "questType", void 0);
 Quest = Quest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'quests' }),
