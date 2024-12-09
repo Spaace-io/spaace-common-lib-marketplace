@@ -14,6 +14,7 @@ import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
 import { LoyaltyRank, Season } from '.';
 import { IsEnum, ValidateNested } from 'class-validator';
+import { QuestType } from '../enums/QuestType.enum';
 
 export enum QuestTrigger {
   TOKEN_TRANSFER = 'TOKEN_TRANSFER',
@@ -84,17 +85,6 @@ export enum QuestPeriod {
 
 registerEnumType(QuestPeriod, {
   name: 'QuestPeriod',
-});
-
-export enum QuestType {
-  GENESIS = 'GENESIS',
-  PRIME = 'PRIME',
-  DAILY = 'DAILY',
-  PROGRESSIVE = 'PROGRESSIVE',
-}
-
-registerEnumType(QuestType, {
-  name: 'QuestType',
 });
 
 @ObjectType()

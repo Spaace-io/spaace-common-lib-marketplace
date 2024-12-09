@@ -1,5 +1,6 @@
 import { BaseEntity } from 'typeorm';
 import { LoyaltyRank } from '.';
+import { QuestType } from '../enums/QuestType.enum';
 export declare enum QuestTrigger {
     TOKEN_TRANSFER = "TOKEN_TRANSFER",
     UNISWAP = "UNISWAP",
@@ -37,12 +38,6 @@ export declare class QuestStep {
 export declare enum QuestPeriod {
     DAILY = "DAILY",
     SEASONAL = "SEASONAL"
-}
-export declare enum QuestType {
-    GENESIS = "GENESIS",
-    PRIME = "PRIME",
-    DAILY = "DAILY",
-    PROGRESSIVE = "PROGRESSIVE"
 }
 export declare class Quest extends BaseEntity {
     seasonNumber: string;
