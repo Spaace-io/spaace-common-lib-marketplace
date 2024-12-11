@@ -18,35 +18,26 @@ import { OrderItemEntity } from '../tables';
       .addSelect('"attribute"."valueHash"', 'valueHash')
       .addSelect('MIN("attribute"."value")', 'value')
       .addSelect('COUNT(*)', 'itemCount')
-      .addSelect(
-        `SUM(CASE WHEN EXISTS ${query
-          .subQuery()
+      .addSelect((qb) => {
+        return qb
+          .select('COALESCE(COUNT(DISTINCT order.hash), 0)')
           .from(ActiveOrderCachedEntity, 'order')
-          .select('"order".*')
-          .innerJoin(
-            (q) =>
-              q
-                .from(OrderItemEntity, 'orders_items')
-                .select([
-                  '"orders_items"."hash"',
-                  'array_agg("orders_items"."tokenId") as "tokenIds"',
-                ])
-                .groupBy('"orders_items"."hash"')
-                .having(
-                  '"attribute"."tokenId" = ANY (array_agg("orders_items"."tokenId"))',
-                ),
-            'orders_items',
-            '"orders_items"."hash" = "order"."hash"',
-          )
-          .where(
-            `"order"."type" IN ('${OrderType.ASK}', '${OrderType.DUTCH_AUCTION}')`,
+          .whereExists(
+            qb
+              .subQuery()
+              .select('1')
+              .from(OrderItemEntity, 'orders_items')
+              .where('orders_items.tokenId = ANY(array_agg(attribute.tokenId))')
+              .andWhere('orders_items.hash = order.hash')
+              .andWhere(
+                'orders_items.collectionAddress = attribute.collectionAddress',
+              ),
           )
           .andWhere(
-            '"order"."collectionAddress" = "attribute"."collectionAddress"',
+            `"order"."type" IN ('${OrderType.ASK}', '${OrderType.DUTCH_AUCTION}')`,
           )
-          .getQuery()} THEN 1 ELSE 0 END)`,
-        'listedCount',
-      )
+          .andWhere('order.collectionAddress = attribute.collectionAddress');
+      }, 'listedCount')
       .groupBy('"attribute"."collectionAddress"')
       .addGroupBy('"attribute"."traitHash"')
       .addGroupBy('"attribute"."valueHash"');

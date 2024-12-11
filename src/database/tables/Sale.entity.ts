@@ -50,6 +50,9 @@ export class SaleEntity extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true })
   price!: string;
 
+  @Column('numeric', { precision: 78, unsigned: true })
+  perUnitPrice!: string;
+
   @Column('char', { length: 40 })
   currency!: string;
 

@@ -11,7 +11,19 @@ import { OrderType } from '../enums';
     .strip0x(utils.constants.ETH_TOKENS)
     .join("','")}')`,
 })
+@Index(['collectionAddress', 'perUnitPrice'], {
+  where: `"type" IN ('${OrderType.ASK}', '${
+    OrderType.DUTCH_AUCTION
+  }') AND "currency" IN ('${utils
+    .strip0x(utils.constants.ETH_TOKENS)
+    .join("','")}')`,
+})
 @Index(['collectionAddress', 'price'], {
+  where: `"type" = '${OrderType.BID}' AND "currency" IN ('${utils
+    .strip0x(utils.constants.ETH_TOKENS)
+    .join("','")}')`,
+})
+@Index(['collectionAddress', 'perUnitPrice'], {
   where: `"type" = '${OrderType.BID}' AND "currency" IN ('${utils
     .strip0x(utils.constants.ETH_TOKENS)
     .join("','")}')`,

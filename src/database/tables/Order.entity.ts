@@ -37,6 +37,9 @@ export class OrderEntity extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true })
   price!: string;
 
+  @Column('numeric', { precision: 78, unsigned: true })
+  perUnitPrice!: string;
+
   @Column('numeric', { precision: 78, unsigned: true, nullable: true })
   startingPrice!: string | null;
 

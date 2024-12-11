@@ -29,7 +29,17 @@ ActiveOrderCachedEntity = __decorate([
             .strip0x(utils.constants.ETH_TOKENS)
             .join("','")}')`,
     }),
+    (0, typeorm_1.Index)(['collectionAddress', 'perUnitPrice'], {
+        where: `"type" IN ('${enums_1.OrderType.ASK}', '${enums_1.OrderType.DUTCH_AUCTION}') AND "currency" IN ('${utils
+            .strip0x(utils.constants.ETH_TOKENS)
+            .join("','")}')`,
+    }),
     (0, typeorm_1.Index)(['collectionAddress', 'price'], {
+        where: `"type" = '${enums_1.OrderType.BID}' AND "currency" IN ('${utils
+            .strip0x(utils.constants.ETH_TOKENS)
+            .join("','")}')`,
+    }),
+    (0, typeorm_1.Index)(['collectionAddress', 'perUnitPrice'], {
         where: `"type" = '${enums_1.OrderType.BID}' AND "currency" IN ('${utils
             .strip0x(utils.constants.ETH_TOKENS)
             .join("','")}')`,
