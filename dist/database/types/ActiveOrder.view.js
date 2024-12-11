@@ -63,6 +63,11 @@ __decorate([
     __metadata("design:type", String)
 ], ActiveOrderCached.prototype, "price", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], ActiveOrderCached.prototype, "perUnitPrice", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
@@ -195,6 +200,7 @@ ActiveOrderCached = __decorate([
                 .addSelect('"order"."type"', 'type')
                 .addSelect('"order"."marketplace"', 'marketplace')
                 .addSelect('"order"."price"', 'price')
+                .addSelect('"order"."perUnitPrice"', 'perUnitPrice')
                 .addSelect('"order"."startingPrice"', 'startingPrice')
                 .addSelect('"order"."currency"', 'currency')
                 .addSelect('"order"."marketplaceFeeBps"', 'marketplaceFeeBps')
