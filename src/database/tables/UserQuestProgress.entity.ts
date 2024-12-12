@@ -61,4 +61,8 @@ export class UserQuestProgress extends BaseEntity {
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
   orderHash: string | null;
+
+  @Field(() => Date)
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
+  createdAt!: Date;
 }
