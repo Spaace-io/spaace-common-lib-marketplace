@@ -76,22 +76,22 @@ __decorate([
     __metadata("design:type", Date)
 ], User.prototype, "timestamp", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], User.prototype, "twitterUsername", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], User.prototype, "twitterId", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], User.prototype, "twitterSecretToken", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], User.prototype, "twitterAccessToken", void 0);
