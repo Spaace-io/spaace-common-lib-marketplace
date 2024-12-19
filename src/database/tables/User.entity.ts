@@ -63,4 +63,20 @@ export class User extends BaseEntity {
   @Field(() => Date)
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  twitterUsername!: string | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  twitterId!: string | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  twitterSecretToken!: string | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  twitterAccessToken!: string | null;
 }
