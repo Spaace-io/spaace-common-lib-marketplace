@@ -187,6 +187,11 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], Quest.prototype, "questType", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Boolean, { defaultValue: false }),
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    __metadata("design:type", Boolean)
+], Quest.prototype, "featured", void 0);
 Quest = Quest_1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'quests' }),

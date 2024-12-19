@@ -163,4 +163,8 @@ export class Quest extends BaseEntity {
       'type must be one of the following: GENESIS, PRIME, DAILY, PROGRESSIVE',
   })
   questType!: QuestType;
+
+  @Field(() => Boolean, { defaultValue: false })
+  @Column('boolean', { default: false })
+  featured: boolean;
 }

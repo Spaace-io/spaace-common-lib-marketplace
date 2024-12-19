@@ -54,4 +54,5 @@ export declare class Quest extends BaseEntity {
     period: QuestPeriod;
     rank: LoyaltyRank;
     questType: QuestType;
+    featured: boolean;
 }

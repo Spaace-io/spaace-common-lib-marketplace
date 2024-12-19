@@ -51,6 +51,11 @@ __decorate([
     (0, class_validator_1.ValidateNested)(),
     __metadata("design:type", _1.SeasonRank)
 ], UserLoyalty.prototype, "rank", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, scale: 2, default: 1.0 }),
+    __metadata("design:type", Number)
+], UserLoyalty.prototype, "boostMultiplier", void 0);
 UserLoyalty = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'user_loyalties' }),
