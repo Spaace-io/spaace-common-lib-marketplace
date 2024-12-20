@@ -40,8 +40,12 @@ __decorate([
 ], UserInteraction.prototype, "userAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => enums_1.TweetAction, { nullable: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], UserInteraction.prototype, "tweetAction", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", Object)
+], UserInteraction.prototype, "tweetId", void 0);
 UserInteraction = __decorate([
     (0, graphql_1.ObjectType)()
 ], UserInteraction);

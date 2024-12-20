@@ -9,5 +9,6 @@ export declare enum UserInteractionType {
 export declare class UserInteraction {
     type: UserInteractionType;
     userAddress: string;
-    tweetAction?: TweetAction;
+    tweetAction: TweetAction | null;
+    tweetId: string | null;
 }

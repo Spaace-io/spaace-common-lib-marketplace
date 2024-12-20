@@ -27,5 +27,8 @@ export class UserInteraction {
   userAddress!: string;
 
   @Field(() => TweetAction, { nullable: true })
-  tweetAction?: TweetAction;
+  tweetAction!: TweetAction | null;
+
+  @Field(() => String, { nullable: true })
+  tweetId!: string | null;
 }
