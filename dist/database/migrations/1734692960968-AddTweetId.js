@@ -9,20 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddTwitterId1734692960968 = void 0;
-class AddTwitterId1734692960968 {
+exports.AddTweetId1734692960968 = void 0;
+class AddTweetId1734692960968 {
     constructor() {
-        this.name = 'AddTwitterId1734692960968';
+        this.name = 'AddTweetId1734692960968';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
             yield queryRunner.query(`
       ALTER TABLE "quests"
-      ADD COLUMN "twitterId" text DEFAULT NULL
+      ADD COLUMN "tweetId" text DEFAULT NULL
     `);
             yield queryRunner.query(`
       ALTER TABLE "user_quest_progress"
-      ADD COLUMN "twitterId" text DEFAULT NULL
+      ADD COLUMN "tweetId" text DEFAULT NULL
     `);
         });
     }
@@ -30,14 +30,14 @@ class AddTwitterId1734692960968 {
         return __awaiter(this, void 0, void 0, function* () {
             yield queryRunner.query(`
       ALTER TABLE "user_quest_progress"
-      DROP COLUMN "twitterId"
+      DROP COLUMN "tweetId"
     `);
             yield queryRunner.query(`
       ALTER TABLE "quests"
-      DROP COLUMN "twitterId"
+      DROP COLUMN "tweetId"
     `);
         });
     }
 }
-exports.AddTwitterId1734692960968 = AddTwitterId1734692960968;
-//# sourceMappingURL=1734692960968-AddTwitterId.js.map
+exports.AddTweetId1734692960968 = AddTweetId1734692960968;
+//# sourceMappingURL=1734692960968-AddTweetId.js.map
