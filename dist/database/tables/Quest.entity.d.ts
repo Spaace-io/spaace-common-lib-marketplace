@@ -55,4 +55,5 @@ export declare class Quest extends BaseEntity {
     rank: LoyaltyRank;
     questType: QuestType;
     featured: boolean;
+    tweetId: string | null;
 }

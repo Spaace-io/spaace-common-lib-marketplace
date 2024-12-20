@@ -80,6 +80,11 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], UserQuestProgress.prototype, "completedAt", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true }),
+    __metadata("design:type", Object)
+], UserQuestProgress.prototype, "tweetId", void 0);
 UserQuestProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'user_quest_progress' }),

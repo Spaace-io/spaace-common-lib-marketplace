@@ -167,4 +167,8 @@ export class Quest extends BaseEntity {
   @Field(() => Boolean, { defaultValue: false })
   @Column('boolean', { default: false })
   featured: boolean;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  tweetId!: string | null;
 }

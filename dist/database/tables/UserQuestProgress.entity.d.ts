@@ -10,4 +10,5 @@ export declare class UserQuestProgress extends BaseEntity {
     orderHash: string | null;
     createdAt: Date;
     completedAt: Date | null;
+    tweetId: string | null;
 }

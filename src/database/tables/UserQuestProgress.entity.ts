@@ -69,4 +69,8 @@ export class UserQuestProgress extends BaseEntity {
   @Field(() => Date, { nullable: true })
   @Column('timestamp without time zone', { nullable: true })
   completedAt!: Date | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  tweetId!: string | null;
 }
