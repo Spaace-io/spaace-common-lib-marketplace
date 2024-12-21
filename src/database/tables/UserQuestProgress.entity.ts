@@ -73,4 +73,12 @@ export class UserQuestProgress extends BaseEntity {
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
   tweetId!: string | null;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, scale: 2, default: 1.0 })
+  boostMultiplier!: number;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  points!: string;
 }

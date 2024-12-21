@@ -85,6 +85,16 @@ __decorate([
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], UserQuestProgress.prototype, "tweetId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, scale: 2, default: 1.0 }),
+    __metadata("design:type", Number)
+], UserQuestProgress.prototype, "boostMultiplier", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], UserQuestProgress.prototype, "points", void 0);
 UserQuestProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'user_quest_progress' }),
