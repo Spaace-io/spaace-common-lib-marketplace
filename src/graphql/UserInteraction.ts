@@ -9,6 +9,7 @@ export enum UserInteractionType {
   SELL_INSTANTLY = 'SELL_INSTANTLY',
   SWEEP_FLOOR = 'SWEEP_FLOOR',
   TWEET_ACTION = 'TWEET_ACTION',
+  SHARE_CARD = 'SHARE_CARD',
 }
 
 registerEnumType(UserInteractionType, {

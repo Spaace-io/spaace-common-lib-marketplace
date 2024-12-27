@@ -21,6 +21,7 @@ var UserInteractionType;
     UserInteractionType["SELL_INSTANTLY"] = "SELL_INSTANTLY";
     UserInteractionType["SWEEP_FLOOR"] = "SWEEP_FLOOR";
     UserInteractionType["TWEET_ACTION"] = "TWEET_ACTION";
+    UserInteractionType["SHARE_CARD"] = "SHARE_CARD";
 })(UserInteractionType = exports.UserInteractionType || (exports.UserInteractionType = {}));
 (0, graphql_1.registerEnumType)(UserInteractionType, {
     name: 'UserInteractionType',
