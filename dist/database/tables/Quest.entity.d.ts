@@ -1,5 +1,7 @@
 import { BaseEntity } from 'typeorm';
 import { LoyaltyRank } from '.';
+import { QuestType } from '../enums/QuestType.enum';
+import { TweetAction } from '../enums';
 export declare enum QuestTrigger {
     TOKEN_TRANSFER = "TOKEN_TRANSFER",
     UNISWAP = "UNISWAP",
@@ -52,4 +54,8 @@ export declare class Quest extends BaseEntity {
     limit: string;
     period: QuestPeriod;
     rank: LoyaltyRank;
+    questType: QuestType;
+    featured: boolean;
+    tweetId: string | null;
+    tweetAction: TweetAction | null;
 }

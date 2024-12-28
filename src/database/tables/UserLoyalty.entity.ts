@@ -43,4 +43,8 @@ export class UserLoyalty extends BaseEntity {
   @Field(() => SeasonRank)
   @ValidateNested()
   rank!: SeasonRank;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, scale: 2, default: 1.0 })
+  boostMultiplier!: number;
 }

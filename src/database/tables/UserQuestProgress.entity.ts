@@ -57,4 +57,28 @@ export class UserQuestProgress extends BaseEntity {
   @Field(() => Date)
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   timestamp!: Date;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  orderHash: string | null;
+
+  @Field(() => Date)
+  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
+  createdAt!: Date;
+
+  @Field(() => Date, { nullable: true })
+  @Column('timestamp without time zone', { nullable: true })
+  completedAt!: Date | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  tweetId!: string | null;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, scale: 2, default: 1.0 })
+  boostMultiplier!: number;
+
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true, default: '0' })
+  points!: string;
 }

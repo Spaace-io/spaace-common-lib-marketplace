@@ -13,12 +13,15 @@ exports.UserInteraction = exports.UserInteractionType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
+const enums_1 = require("../database/enums");
 var UserInteractionType;
 (function (UserInteractionType) {
     UserInteractionType["DAILY_CLAIM"] = "DAILY_CLAIM";
     UserInteractionType["BUY_NOW"] = "BUY_NOW";
     UserInteractionType["SELL_INSTANTLY"] = "SELL_INSTANTLY";
     UserInteractionType["SWEEP_FLOOR"] = "SWEEP_FLOOR";
+    UserInteractionType["TWEET_ACTION"] = "TWEET_ACTION";
+    UserInteractionType["SHARE_CARD"] = "SHARE_CARD";
 })(UserInteractionType = exports.UserInteractionType || (exports.UserInteractionType = {}));
 (0, graphql_1.registerEnumType)(UserInteractionType, {
     name: 'UserInteractionType',
@@ -36,6 +39,14 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], UserInteraction.prototype, "userAddress", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => enums_1.TweetAction, { nullable: true }),
+    __metadata("design:type", Object)
+], UserInteraction.prototype, "tweetAction", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", Object)
+], UserInteraction.prototype, "tweetId", void 0);
 UserInteraction = __decorate([
     (0, graphql_1.ObjectType)()
 ], UserInteraction);
