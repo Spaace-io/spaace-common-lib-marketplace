@@ -27,7 +27,7 @@ __decorate([
 ], User.prototype, "address", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
-    (0, typeorm_1.Column)('text', { nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true, unique: true }),
     __metadata("design:type", Object)
 ], User.prototype, "name", void 0);
 __decorate([
