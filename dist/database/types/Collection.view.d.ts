@@ -15,6 +15,7 @@ export declare class Collection extends BaseEntity {
     deployer: string | null;
     links: CollectionLink[];
     lastImport: Date | null;
+    prime: boolean;
     volume: string;
     volume1h: string;
     volume6h: string;

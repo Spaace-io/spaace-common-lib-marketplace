@@ -36,6 +36,7 @@ import {
       .addSelect('"collection"."deployedAt"', 'deployedAt')
       .addSelect('"collection"."deployer"', 'deployer')
       .addSelect('"collection"."links"', 'links')
+      .addSelect('"collection"."prime"', 'prime')
       .addSelect('"collection"."lastImport"', 'lastImport')
       .addSelect('COALESCE("ranking"."volume", 0)', 'volume')
       .addSelect('COALESCE("ranking"."volume1h", 0)', 'volume1h')
@@ -201,6 +202,10 @@ export class Collection extends BaseEntity {
   @Field(() => Date, { nullable: true })
   @ViewColumn()
   lastImport!: Date | null;
+
+  @Field(() => Boolean)
+  @ViewColumn()
+  prime!: boolean;
 
   // Cached columns
 
