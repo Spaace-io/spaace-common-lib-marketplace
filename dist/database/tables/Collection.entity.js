@@ -104,6 +104,11 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], CollectionEntity.prototype, "lastImport", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Boolean, { defaultValue: false }),
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    __metadata("design:type", Boolean)
+], CollectionEntity.prototype, "prime", void 0);
 CollectionEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'collections' })
 ], CollectionEntity);
