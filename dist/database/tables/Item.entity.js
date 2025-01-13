@@ -38,10 +38,10 @@ __decorate([
     __metadata("design:type", Object)
 ], ItemEntity.prototype, "tokenUri", void 0);
 __decorate([
-    (0, typeorm_1.Column)('numeric', { precision: 2, unsigned: true, nullable: true }) // 2 digits = Maximum decimals value (77)
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 1 }) // 78 digits = Maximum uint256 value
     ,
     __metadata("design:type", Object)
-], ItemEntity.prototype, "decimals", void 0);
+], ItemEntity.prototype, "numberOfCopies", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, nullable: true }),
     __metadata("design:type", Object)

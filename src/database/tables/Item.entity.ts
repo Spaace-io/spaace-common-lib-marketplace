@@ -29,8 +29,8 @@ export class ItemEntity extends BaseEntity {
   @Column('text', { nullable: true })
   tokenUri!: string | null;
 
-  @Column('numeric', { precision: 2, unsigned: true, nullable: true }) // 2 digits = Maximum decimals value (77)
-  decimals!: string | null;
+  @Column('numeric', { precision: 78, unsigned: true, default: 1 }) // 78 digits = Maximum uint256 value
+  numberOfCopies!: string | null;
 
   @Column('numeric', { precision: 78, unsigned: true, nullable: true })
   rarityRanking!: string | null;

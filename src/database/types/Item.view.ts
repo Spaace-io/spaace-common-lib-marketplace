@@ -200,7 +200,7 @@ import { OrderType } from '../enums';
         .addSelect('"item"."title"', 'title')
         .addSelect('"item"."description"', 'description')
         .addSelect('"item"."tokenUri"', 'tokenUri')
-        .addSelect('"item"."decimals"', 'decimals')
+        .addSelect('"item"."numberOfCopies"', 'numberOfCopies')
         .addSelect('"item"."rarityRanking"', 'rarityRanking')
         .addSelect('"item"."rarityScore"', 'rarityScore')
         .addSelect('"item"."lastImport"', 'lastImport')
@@ -280,7 +280,7 @@ export class Item extends BaseEntity {
 
   @Field(() => String, { nullable: true })
   @ViewColumn()
-  decimals!: string | null;
+  numberOfCopies!: string | null;
 
   @Field(() => String, { nullable: true })
   @ViewColumn()

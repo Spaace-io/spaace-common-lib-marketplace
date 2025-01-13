@@ -5,7 +5,7 @@ export declare class Item extends BaseEntity {
     title: string | null;
     description: string | null;
     tokenUri: string | null;
-    decimals: string | null;
+    numberOfCopies: string | null;
     rarityRanking: string | null;
     rarityScore: string | null;
     lastImport: Date | null;

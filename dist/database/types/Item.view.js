@@ -51,7 +51,7 @@ __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
-], Item.prototype, "decimals", void 0);
+], Item.prototype, "numberOfCopies", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.ViewColumn)(),
@@ -171,7 +171,7 @@ Item = __decorate([
                 .addSelect('"item"."title"', 'title')
                 .addSelect('"item"."description"', 'description')
                 .addSelect('"item"."tokenUri"', 'tokenUri')
-                .addSelect('"item"."decimals"', 'decimals')
+                .addSelect('"item"."numberOfCopies"', 'numberOfCopies')
                 .addSelect('"item"."rarityRanking"', 'rarityRanking')
                 .addSelect('"item"."rarityScore"', 'rarityScore')
                 .addSelect('"item"."lastImport"', 'lastImport')
