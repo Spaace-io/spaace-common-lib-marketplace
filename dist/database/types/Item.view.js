@@ -195,6 +195,12 @@ Item = __decorate([
                 .select('COUNT(*)')
                 .where('"like"."collectionAddress" = "item"."collectionAddress"')
                 .andWhere('"like"."tokenId" = "item"."tokenId"'), 'likeCount')
+                .addSelect((q) => q
+                .select("COALESCE(array_agg(DISTINCT orders.marketplace), '{}')", 'marketplaces')
+                .from('active_orders_cache', 'orders')
+                .innerJoin('orders_items', 'orders_items', 'orders.hash = orders_items.hash')
+                .where('orders_items.tokenId = item.tokenId')
+                .andWhere('orders.collectionAddress = item.collectionAddress'), 'marketplaces')
                 // Some LEFT JOINs could return several rows, so we deduplicate results here
                 .distinctOn(['"item"."collectionAddress"', '"item"."tokenId"'])
                 .orderBy('"item"."collectionAddress"')
