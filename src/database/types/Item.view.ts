@@ -200,7 +200,7 @@ import { OrderType } from '../enums';
         .addSelect('"item"."title"', 'title')
         .addSelect('"item"."description"', 'description')
         .addSelect('"item"."tokenUri"', 'tokenUri')
-        .addSelect('"item"."decimals"', 'decimals')
+        .addSelect('"item"."numberOfCopies"', 'numberOfCopies')
         .addSelect('"item"."rarityRanking"', 'rarityRanking')
         .addSelect('"item"."rarityScore"', 'rarityScore')
         .addSelect('"item"."lastImport"', 'lastImport')
@@ -244,6 +244,23 @@ import { OrderType } from '../enums';
               .andWhere('"like"."tokenId" = "item"."tokenId"'),
           'likeCount',
         )
+        .addSelect(
+          (q) =>
+            q
+              .select(
+                "COALESCE(array_agg(DISTINCT orders.marketplace), '{}')",
+                'marketplaces',
+              )
+              .from('active_orders_cache', 'orders')
+              .innerJoin(
+                'orders_items',
+                'orders_items',
+                'orders.hash = orders_items.hash',
+              )
+              .where('orders_items.tokenId = item.tokenId')
+              .andWhere('orders.collectionAddress = item.collectionAddress'),
+          'marketplaces',
+        )
 
         // Some LEFT JOINs could return several rows, so we deduplicate results here
         .distinctOn(['"item"."collectionAddress"', '"item"."tokenId"'])
@@ -280,7 +297,7 @@ export class Item extends BaseEntity {
 
   @Field(() => String, { nullable: true })
   @ViewColumn()
-  decimals!: string | null;
+  numberOfCopies!: string | null;
 
   @Field(() => String, { nullable: true })
   @ViewColumn()
