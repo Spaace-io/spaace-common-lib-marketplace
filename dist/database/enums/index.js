@@ -19,4 +19,5 @@ __exportStar(require("./Marketplace.enum"), exports);
 __exportStar(require("./OrderType.enum"), exports);
 __exportStar(require("./DistributorContract.enum"), exports);
 __exportStar(require("./QuestType.enum"), exports);
+__exportStar(require("./TweetAction.enum"), exports);
 //# sourceMappingURL=index.js.map

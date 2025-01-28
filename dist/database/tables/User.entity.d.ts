@@ -10,4 +10,8 @@ export declare class User extends BaseEntity {
     referralCode: string;
     referrerAddress: string | null;
     timestamp: Date;
+    twitterUsername: string | null;
+    twitterId: string | null;
+    twitterSecretToken: string | null;
+    twitterAccessToken: string | null;
 }

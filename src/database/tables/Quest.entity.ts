@@ -15,6 +15,7 @@ import { Type } from 'class-transformer';
 import { LoyaltyRank, Season } from '.';
 import { IsEnum, ValidateNested } from 'class-validator';
 import { QuestType } from '../enums/QuestType.enum';
+import { TweetAction } from '../enums';
 
 export enum QuestTrigger {
   TOKEN_TRANSFER = 'TOKEN_TRANSFER',
@@ -163,4 +164,20 @@ export class Quest extends BaseEntity {
       'type must be one of the following: GENESIS, PRIME, DAILY, PROGRESSIVE',
   })
   questType!: QuestType;
+
+  @Field(() => Boolean, { defaultValue: false })
+  @Column('boolean', { default: false })
+  featured: boolean;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  tweetId!: string | null;
+
+  @Field(() => TweetAction, { nullable: true })
+  @Column('enum', {
+    enum: TweetAction,
+    enumName: 'tweet_action',
+    nullable: true,
+  })
+  tweetAction!: TweetAction | null;
 }
