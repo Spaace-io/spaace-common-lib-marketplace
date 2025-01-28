@@ -10,6 +10,8 @@ interface ExchangeOptions {
   arguments?: Record<string, any>;
 }
 
+const disablePublishLogs = process.env.RABBITMQ_DISABLE_PUBLISH_LOGS ?? false;
+
 @Injectable()
 export class RabbitMQClient {
   constructor(private readonly amqpConnection: AmqpConnection) {}
@@ -28,7 +30,9 @@ export class RabbitMQClient {
       routingKey,
       messages ? Buffer.from(JSON.stringify(messages)) : Buffer.from(''),
     );
-    console.log(`Published message to ${exchange}:${routingKey}`);
+    if (!disablePublishLogs) {
+      console.debug(`Published message to ${exchange}:${routingKey}`);
+    }
   }
 
   async publish<T extends PubSubTopic>(
@@ -63,11 +67,14 @@ export class RabbitMQClient {
       Buffer.from(JSON.stringify(message)),
       options,
     );
-    console.log(
-      `Published message to ${exchange}:${routingKey} with ${
-        delay ? delay + 'ms delay' : 'no delay'
-      }`,
-    );
+
+    if (!disablePublishLogs) {
+      console.debug(
+        `Published message to ${exchange}:${routingKey} with ${
+          delay ? delay + 'ms delay' : 'no delay'
+        }`,
+      );
+    }
   }
 
   async subscribe<T extends PubSubTopic>(

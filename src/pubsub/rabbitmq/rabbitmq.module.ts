@@ -7,6 +7,9 @@ const host = process.env.RABBITMQ_HOST ?? 'rabbitmq';
 const port = parseInt(process.env.RABBITMQ_PORT ?? '5672', 10);
 const username = process.env.RABBITMQ_USERNAME ?? 'guest';
 const password = process.env.RABBITMQ_PASSWORD ?? 'guest';
+const heartbeatIntervalInSeconds = process.env.RABBITMQ_HEARTBEAT_INTERVAL
+  ? Number(process.env.RABBITMQ_HEARTBEAT_INTERVAL)
+  : 5;
 
 @Module({
   imports: [
@@ -30,6 +33,9 @@ const password = process.env.RABBITMQ_PASSWORD ?? 'guest';
       ],
       uri: `amqp://${username}:${password}@${host}:${port}/`,
       enableControllerDiscovery: true,
+      connectionManagerOptions: {
+        heartbeatIntervalInSeconds,
+      },
     }),
   ],
   providers: [RabbitMQClient],

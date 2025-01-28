@@ -16,6 +16,9 @@ const host = (_a = process.env.RABBITMQ_HOST) !== null && _a !== void 0 ? _a : '
 const port = parseInt((_b = process.env.RABBITMQ_PORT) !== null && _b !== void 0 ? _b : '5672', 10);
 const username = (_c = process.env.RABBITMQ_USERNAME) !== null && _c !== void 0 ? _c : 'guest';
 const password = (_d = process.env.RABBITMQ_PASSWORD) !== null && _d !== void 0 ? _d : 'guest';
+const heartbeatIntervalInSeconds = process.env.RABBITMQ_HEARTBEAT_INTERVAL
+    ? Number(process.env.RABBITMQ_HEARTBEAT_INTERVAL)
+    : 5;
 let RabbitMQCustomModule = class RabbitMQCustomModule {
 };
 RabbitMQCustomModule = __decorate([
@@ -41,6 +44,9 @@ RabbitMQCustomModule = __decorate([
                 ],
                 uri: `amqp://${username}:${password}@${host}:${port}/`,
                 enableControllerDiscovery: true,
+                connectionManagerOptions: {
+                    heartbeatIntervalInSeconds,
+                },
             }),
         ],
         providers: [rabbitmq_client_1.RabbitMQClient],

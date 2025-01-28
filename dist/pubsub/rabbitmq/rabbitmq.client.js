@@ -17,6 +17,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RabbitMQClient = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -25,6 +26,7 @@ const common_1 = require("@nestjs/common");
 const nestjs_rabbitmq_1 = require("@golevelup/nestjs-rabbitmq");
 const types_1 = require("../types");
 const exchangeMap_1 = require("./types/exchangeMap");
+const disablePublishLogs = (_a = process.env.RABBITMQ_DISABLE_PUBLISH_LOGS) !== null && _a !== void 0 ? _a : false;
 let RabbitMQClient = class RabbitMQClient {
     constructor(amqpConnection) {
         this.amqpConnection = amqpConnection;
@@ -36,7 +38,9 @@ let RabbitMQClient = class RabbitMQClient {
                 durable: true,
             });
             this.amqpConnection.channel.publish(exchange, routingKey, messages ? Buffer.from(JSON.stringify(messages)) : Buffer.from(''));
-            console.log(`Published message to ${exchange}:${routingKey}`);
+            if (!disablePublishLogs) {
+                console.debug(`Published message to ${exchange}:${routingKey}`);
+            }
         });
     }
     publish(topic, routingKey, message, delay) {
@@ -56,7 +60,9 @@ let RabbitMQClient = class RabbitMQClient {
             // Assert the exchange based on whether there's a delay or not
             yield this.amqpConnection.channel.assertExchange(exchange, exchangeType, options);
             this.amqpConnection.channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(message)), options);
-            console.log(`Published message to ${exchange}:${routingKey} with ${delay ? delay + 'ms delay' : 'no delay'}`);
+            if (!disablePublishLogs) {
+                console.debug(`Published message to ${exchange}:${routingKey} with ${delay ? delay + 'ms delay' : 'no delay'}`);
+            }
         });
     }
     subscribe(topic, routingKey, queueName, onMessage) {
