@@ -97,6 +97,11 @@ __decorate([
     __metadata("design:type", Object)
 ], Collection.prototype, "lastImport", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Boolean)
+], Collection.prototype, "prime", void 0);
+__decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
@@ -307,6 +312,7 @@ Collection = __decorate([
                 .addSelect('"collection"."deployedAt"', 'deployedAt')
                 .addSelect('"collection"."deployer"', 'deployer')
                 .addSelect('"collection"."links"', 'links')
+                .addSelect('"collection"."prime"', 'prime')
                 .addSelect('"collection"."lastImport"', 'lastImport')
                 .addSelect('COALESCE("ranking"."volume", 0)', 'volume')
                 .addSelect('COALESCE("ranking"."volume1h", 0)', 'volume1h')
