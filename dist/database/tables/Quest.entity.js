@@ -33,6 +33,7 @@ var QuestTrigger;
     QuestTrigger["CART_ITEM"] = "CART_ITEM";
     QuestTrigger["USER_INTERACTION"] = "USER_INTERACTION";
     QuestTrigger["DATA_COMPILED"] = "DATA_COMPILED";
+    QuestTrigger["QUEST_COMPLETED"] = "QUEST_COMPLETED";
 })(QuestTrigger = exports.QuestTrigger || (exports.QuestTrigger = {}));
 (0, graphql_1.registerEnumType)(QuestTrigger, {
     name: 'QuestTrigger',

@@ -31,6 +31,7 @@ export enum QuestTrigger {
   CART_ITEM = 'CART_ITEM',
   USER_INTERACTION = 'USER_INTERACTION',
   DATA_COMPILED = 'DATA_COMPILED',
+  QUEST_COMPLETED = 'QUEST_COMPLETED',
 }
 
 registerEnumType(QuestTrigger, {
