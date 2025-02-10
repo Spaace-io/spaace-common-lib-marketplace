@@ -75,4 +75,7 @@ export class CollectionEntity extends BaseEntity {
 
   @Column('timestamp without time zone', { nullable: true })
   lastImport!: Date | null;
+
+  @Column('boolean', { default: false })
+  prime!: boolean;
 }
