@@ -4,17 +4,27 @@
 # Reset the dist folder as we're going to rebuild it
 git restore --staged --worktree ./dist/
 
-# If there are unstaged changes, discard them
-# and restore them only after this script exits
-unstaged_diff="$(git diff)"
-if [ ! -z "$unstaged_diff" ]; then
-    git restore .
-    trap 'git restore . && (echo "$unstaged_diff" | git apply)' EXIT
+# Stash unstaged changes
+git stash push --keep-index --include-untracked
+
+# Run lint and build on staged changes
+npm run lint -- --max-warnings=0
+LINT_EXIT_CODE=$?
+
+if [ $LINT_EXIT_CODE -eq 0 ]; then
+    npm run build
+    BUILD_EXIT_CODE=$?
+else
+    BUILD_EXIT_CODE=1
 fi
 
-# Lint and build staged changes
-npm run lint -- --max-warnings=0
 git add .
 
-npm run build
-git add ./dist/
+# Restore unstaged changes
+git stash pop -q
+
+# Exit with the lint/build status
+if [ $LINT_EXIT_CODE -ne 0 ]; then
+    exit $LINT_EXIT_CODE
+fi
+exit $BUILD_EXIT_CODE

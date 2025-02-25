@@ -44,46 +44,56 @@ let RabbitMQClient = class RabbitMQClient {
         });
     }
     publish(topic, routingKey, message, delay) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const exchange = delay
-                ? exchangeMap_1.exchangeMap[types_1.PubSubTopic.DELAYED_TRIGGERS]
-                : exchangeMap_1.exchangeMap[topic];
-            const exchangeType = delay ? 'x-delayed-message' : 'topic';
-            const options = {
-                durable: true,
-            };
-            // If a delay is specified, set delay arguments
-            if (delay) {
-                options.arguments = { 'x-delayed-type': 'topic', 'x-delay': delay };
-                options.headers = { 'x-delay': delay };
-            }
-            // Assert the exchange based on whether there's a delay or not
-            yield this.amqpConnection.channel.assertExchange(exchange, exchangeType, options);
-            this.amqpConnection.channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(message)), options);
-            if (!disablePublishLogs) {
-                console.debug(`Published message to ${exchange}:${routingKey} with ${delay ? delay + 'ms delay' : 'no delay'}`);
-            }
-        });
+        const exchange = delay
+            ? exchangeMap_1.exchangeMap[types_1.PubSubTopic.DELAYED_TRIGGERS]
+            : exchangeMap_1.exchangeMap[topic];
+        const options = {
+            durable: true,
+        };
+        // If a delay is specified, set delay arguments
+        if (delay) {
+            options.arguments = { 'x-delayed-type': 'topic', 'x-delay': delay };
+            options.headers = { 'x-delay': delay };
+        }
+        this.amqpConnection.publish(exchange, routingKey, Buffer.from(JSON.stringify(message)), options);
+        if (!disablePublishLogs) {
+            console.debug(`Published message to ${exchange}:${routingKey} with ${delay ? delay + 'ms delay' : 'no delay'}`);
+        }
     }
-    subscribe(topic, routingKey, queueName, onMessage) {
+    subscribe(topic, routingKey, queueName, onMessage, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const exchange = exchangeMap_1.exchangeMap[topic];
-            const exchangeType = topic === types_1.PubSubTopic.DELAYED_TRIGGERS ? 'x-delayed-message' : 'topic';
-            const options = { durable: true };
-            if (exchangeType === 'x-delayed-message') {
-                options.arguments = { 'x-delayed-type': 'topic' };
-            }
-            yield this.amqpConnection.channel.assertExchange(exchange, exchangeType, options);
-            yield this.amqpConnection.channel.assertQueue(queueName, { durable: true });
-            yield this.amqpConnection.channel.bindQueue(queueName, exchange, routingKey);
-            this.amqpConnection.channel.consume(queueName, (msg) => {
-                if (msg) {
-                    const message = JSON.parse(msg.content.toString());
-                    onMessage(message);
-                    this.amqpConnection.channel.ack(msg);
+            try {
+                const exchange = exchangeMap_1.exchangeMap[topic];
+                const exchangeType = topic === types_1.PubSubTopic.DELAYED_TRIGGERS ? 'x-delayed-message' : 'topic';
+                options = Object.assign({ durable: true }, options);
+                if (exchangeType === 'x-delayed-message') {
+                    options.arguments = { 'x-delayed-type': 'topic' };
                 }
-            }, { noAck: false });
-            console.log(`Subscribed to ${exchange}:${routingKey} with queue ${queueName}`);
+                yield this.amqpConnection.createSubscriber((msg) => __awaiter(this, void 0, void 0, function* () {
+                    if (msg) {
+                        try {
+                            onMessage(msg);
+                        }
+                        catch (error) {
+                            console.error('Error processing message:', error);
+                            return new nestjs_rabbitmq_1.Nack(false);
+                        }
+                    }
+                }), {
+                    exchange: exchange,
+                    routingKey: routingKey,
+                    queue: queueName,
+                    queueOptions: {
+                        arguments: options.arguments,
+                        durable: options.durable,
+                    },
+                }, '', { noAck: false });
+                console.log(`Subscribed to ${exchange}:${routingKey} with queue ${queueName}`);
+            }
+            catch (error) {
+                console.error('Error setting up subscription:', error);
+                throw error;
+            }
         });
     }
 };
