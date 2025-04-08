@@ -56,6 +56,7 @@ __decorate([
 ], ItemEntity.prototype, "lastImport", void 0);
 ItemEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'items' }),
+    (0, typeorm_1.Index)(['collectionAddress', 'rarityRanking']),
     (0, typeorm_1.Index)(['collectionAddress', 'tokenId'], { unique: true })
 ], ItemEntity);
 exports.ItemEntity = ItemEntity;

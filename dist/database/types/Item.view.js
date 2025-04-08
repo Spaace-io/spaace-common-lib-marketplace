@@ -78,6 +78,34 @@ Item = __decorate([
                 .leftJoin((q) => q
                 .from(__1.ActiveOrderCachedEntity, 'order')
                 .select('"order".*')
+                .addSelect(`
+                CASE
+                  WHEN "order".TYPE = 'DUTCH_AUCTION'::ORDER_TYPE THEN "order"."startingPrice" - ("order"."startingPrice" - "order".PRICE) * EXTRACT(
+                    EPOCH
+                    FROM
+                      NOW() - "order"."startTime"::TIMESTAMP WITH TIME ZONE
+                  ) / EXTRACT(
+                    EPOCH
+                    FROM
+                      "order"."endTime" - "order"."startTime"
+                  )
+                  ELSE "order".PRICE
+                END AS "buyNowPrice"
+                `)
+                .addSelect(`
+                CASE
+                  WHEN "order".TYPE = 'DUTCH_AUCTION'::ORDER_TYPE THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."perUnitPrice") * EXTRACT(
+                    EPOCH
+                    FROM
+                      NOW() - "order"."startTime"::TIMESTAMP WITH TIME ZONE
+                  ) / EXTRACT(
+                    EPOCH
+                    FROM
+                      "order"."endTime" - "order"."startTime"
+                  )
+                  ELSE "order"."perUnitPrice"
+                END AS "buyNowPerUnitPrice"
+                `)
                 .addSelect((query) => query
                 .from(__1.OrderItemEntity, 'orders_items')
                 .select('array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds"')
@@ -86,15 +114,9 @@ Item = __decorate([
                 .andWhere(`"order"."currency" IN ('${__2.utils
                 .strip0x(__2.utils.constants.ETH_TOKENS)
                 .join("','")}')`)
-                .andWhere(new typeorm_1.Brackets((query) => query
-                .where('"order"."endTime" > NOW()')
-                .orWhere('"order"."endTime" IS NULL')))
-                .distinctOn(['"order"."hash"'])
-                .orderBy('"order"."hash"')
-                // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
-                // .orderBy('"order"."collectionAddress"')
-                // .addOrderBy('"order"."tokenIds"')
-                .addOrderBy(`CASE WHEN "order"."type" = '${enums_1.OrderType.DUTCH_AUCTION}' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."perUnitPrice") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."perUnitPrice" END`, 'ASC')
+                .andWhere('"order"."endTime" > NOW()')
+                .andWhere('"order"."startTime" <= NOW()')
+                .addOrderBy('"buyNowPerUnitPrice"', 'ASC')
                 .addOrderBy('"order"."marketplace"', 'ASC'), 'buyNow', '"buyNow"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId"::TEXT = ANY("buyNow"."tokenIds")')
                 .leftJoin((q) => q
                 .from(__1.ActiveOrderCachedEntity, 'order')
@@ -107,14 +129,8 @@ Item = __decorate([
                 .andWhere(`"order"."currency" IN ('${__2.utils
                 .strip0x(__2.utils.constants.ETH_TOKENS)
                 .join("','")}')`)
-                .andWhere(new typeorm_1.Brackets((query) => query
-                .where('"order"."endTime" > NOW()')
-                .orWhere('"order"."endTime" IS NULL')))
-                .distinctOn(['"order"."hash"'])
-                .orderBy('"order"."hash"')
-                // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
-                // .orderBy('"order"."collectionAddress"')
-                // .addOrderBy('"order"."tokenIds"')
+                .andWhere('"order"."endTime" > NOW()')
+                .andWhere('"order"."startTime" <= NOW()')
                 .addOrderBy('"order"."perUnitPrice"', 'DESC')
                 .addOrderBy('"order"."marketplace"', 'ASC'), 'sellNow', '"sellNow"."collectionAddress" = "item"."collectionAddress" AND ("item"."tokenId"::TEXT = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)')
                 .leftJoin((q) => q
@@ -128,14 +144,8 @@ Item = __decorate([
                 .andWhere(`"order"."currency" IN ('${__2.utils
                 .strip0x(__2.utils.constants.ETH_TOKENS)
                 .join("','")}')`)
-                .andWhere(new typeorm_1.Brackets((query) => query
-                .where('"order"."endTime" > NOW()')
-                .orWhere('"order"."endTime" IS NULL')))
-                .distinctOn(['"order"."hash"'])
-                .orderBy('"order"."hash"')
-                // .distinctOn(['"order"."collectionAddress"', '"order"."tokenIds"'])
-                // .orderBy('"order"."collectionAddress"')
-                // .addOrderBy('"order"."tokenIds"')
+                .andWhere('"order"."endTime" > NOW()')
+                .andWhere('"order"."startTime" <= NOW()')
                 .addOrderBy('"order"."endTime"', 'ASC')
                 .addOrderBy('"order"."marketplace"', 'ASC'), // TODO: Order by highest bid
             'auction', '"auction"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId"::TEXT = ANY("auction"."tokenIds")')
@@ -153,19 +163,43 @@ Item = __decorate([
                 '"transfer"."collectionAddress"',
                 '"transfer"."tokenId"',
             ])
+                .where(`
+                (
+                  (
+                    TRANSFER."txHash",
+                    TRANSFER."timestamp",
+                    TRANSFER."logIdx"
+                  ) = (
+                    SELECT
+                      MIN(T2."txHash") AS MIN,
+                      MIN(T2."timestamp") AS MIN,
+                      MIN(T2."logIdx") AS MIN
+                    FROM
+                      TRANSFERS T2
+                    WHERE
+                      T2."collectionAddress" = TRANSFER."collectionAddress"
+                      AND T2."tokenId" = TRANSFER."tokenId"
+                      AND T2."from" = '0000000000000000000000000000000000000000'::BPCHAR
+                  )
+                )`)
                 .orderBy('"transfer"."collectionAddress"')
                 .addOrderBy('"transfer"."tokenId"')
                 .addOrderBy('"timestamp"', 'ASC'), 'mint', '"mint"."collectionAddress" = "item"."collectionAddress" AND "mint"."tokenId" = "item"."tokenId"')
-                .leftJoin((q) => q
-                .from(__1.TransferEntity, 'transfer')
-                .select()
-                .distinctOn([
-                '"transfer"."collectionAddress"',
-                '"transfer"."tokenId"',
-            ])
-                .orderBy('"transfer"."collectionAddress"')
-                .addOrderBy('"transfer"."tokenId"')
-                .addOrderBy('"timestamp"', 'DESC'), 'lastTransfer', '"lastTransfer"."collectionAddress" = "item"."collectionAddress" AND "lastTransfer"."tokenId" = "item"."tokenId"')
+                // .leftJoin(
+                //   (q) =>
+                //     q
+                //       .from(TransferEntity, 'transfer')
+                //       .select()
+                //       .distinctOn([
+                //         '"transfer"."collectionAddress"',
+                //         '"transfer"."tokenId"',
+                //       ])
+                //       .orderBy('"transfer"."collectionAddress"')
+                //       .addOrderBy('"transfer"."tokenId"')
+                //       .addOrderBy('"timestamp"', 'DESC'),
+                //   'lastTransfer',
+                //   '"lastTransfer"."collectionAddress" = "item"."collectionAddress" AND "lastTransfer"."tokenId" = "item"."tokenId"',
+                // )
                 .select('"item"."collectionAddress"', 'collectionAddress')
                 .addSelect('"item"."tokenId"', 'tokenId')
                 .addSelect('"item"."title"', 'title')
@@ -177,8 +211,8 @@ Item = __decorate([
                 .addSelect('"item"."lastImport"', 'lastImport')
                 // Used for sorting/filtering, but not included in the GraphQL output
                 .addSelect('CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END', 'rarityBasisPoints')
-                .addSelect(`CASE WHEN "buyNow"."type" = '${enums_1.OrderType.DUTCH_AUCTION}' THEN "buyNow"."startingPrice" - ("buyNow"."startingPrice" - "buyNow"."perUnitPrice") * EXTRACT(EPOCH FROM NOW() - "buyNow"."startTime") / EXTRACT(EPOCH FROM "buyNow"."endTime" - "buyNow"."startTime") ELSE "buyNow"."price" END`, 'buyNowPrice')
-                .addSelect(`CASE WHEN "buyNow"."type" = '${enums_1.OrderType.DUTCH_AUCTION}' THEN "buyNow"."startingPrice" - ("buyNow"."startingPrice" - "buyNow"."perUnitPrice") * EXTRACT(EPOCH FROM NOW() - "buyNow"."startTime") / EXTRACT(EPOCH FROM "buyNow"."endTime" - "buyNow"."startTime") ELSE "buyNow"."perUnitPrice" END`, 'buyNowPerUnitPrice')
+                .addSelect(`"buyNow"."buyNowPrice"`, 'buyNowPrice')
+                .addSelect(`"buyNow"."buyNowPerUnitPrice"`, 'buyNowPerUnitPrice')
                 .addSelect('"buyNow"."startTime"', 'buyNowStartTime')
                 .addSelect('"sellNow"."price"', 'sellNowPrice')
                 .addSelect('"sellNow"."perUnitPrice"', 'sellNowPerUnitPrice')
@@ -189,18 +223,31 @@ Item = __decorate([
                 .addSelect('"lastSale"."price"', 'lastSalePrice')
                 .addSelect('"lastSale"."timestamp"', 'lastSaleTimestamp')
                 .addSelect('"mint"."timestamp"', 'mintTimestamp')
-                .addSelect('"lastTransfer"."timestamp"', 'lastTransferTimestamp')
+                // .addSelect('"lastTransfer"."timestamp"', 'lastTransferTimestamp')
                 .addSelect((q) => q
                 .from(__1.LikeEntity, 'like')
                 .select('COUNT(*)')
                 .where('"like"."collectionAddress" = "item"."collectionAddress"')
                 .andWhere('"like"."tokenId" = "item"."tokenId"'), 'likeCount')
+                // SELECT TRUE
+                // FROM
+                //     ACTIVE_ORDERS_CACHE ORDERS
+                //     LEFT JOIN ORDERS_ITEMS ORDERS_ITEMS ON ORDERS.HASH = ORDERS_ITEMS.HASH
+                // WHERE (
+                //         ORDERS_ITEMS."tokenId" = ITEM."tokenId"
+                //         OR ORDERS_ITEMS.* IS NULL
+                //     )
+                //     AND ORDERS."collectionAddress" = ITEM."collectionAddress"
+                //     AND ORDERS.MARKETPLACE = 'OPENSEA'::MARKETPLACE
+                // LIMIT 1
                 .addSelect((q) => q
-                .select("COALESCE(array_agg(DISTINCT orders.marketplace), '{}')", 'marketplaces')
+                .select('TRUE')
                 .from('active_orders_cache', 'orders')
-                .innerJoin('orders_items', 'orders_items', 'orders.hash = orders_items.hash')
-                .where('orders_items.tokenId = item.tokenId')
-                .andWhere('orders.collectionAddress = item.collectionAddress'), 'marketplaces')
+                .leftJoin('orders_items', 'orders_items', 'orders.hash = orders_items.hash')
+                .where('orders_items."tokenId" = item."tokenId" OR orders_items."tokenId" IS NULL')
+                .andWhere('orders."collectionAddress" = item."collectionAddress"')
+                .andWhere(`orders.marketplace = '${enums_1.Marketplace.SPAACE}'`)
+                .limit(1), 'isOnSpaace')
                 // Some LEFT JOINs could return several rows, so we deduplicate results here
                 .distinctOn(['"item"."collectionAddress"', '"item"."tokenId"'])
                 .orderBy('"item"."collectionAddress"')

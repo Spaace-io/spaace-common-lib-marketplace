@@ -80,8 +80,8 @@ __decorate([
     __metadata("design:type", Date)
 ], OrderEntity.prototype, "startTime", void 0);
 __decorate([
-    (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
-    __metadata("design:type", Object)
+    (0, typeorm_1.PrimaryColumn)('timestamp without time zone'),
+    __metadata("design:type", Date)
 ], OrderEntity.prototype, "endTime", void 0);
 __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
@@ -136,7 +136,12 @@ OrderEntity = __decorate([
     (0, typeorm_1.Index)(['collectionAddress', 'startTime']) // Collection analytics & activity
     ,
     (0, typeorm_1.Index)(['userAddress', 'collectionAddress']),
-    (0, typeorm_1.Index)(['userAddress', 'counter'])
+    (0, typeorm_1.Index)(['userAddress', 'counter']),
+    (0, typeorm_1.Index)('orders_endTime_idx', 
+    // ['endTime DESC'],
+    {
+        synchronize: false,
+    })
 ], OrderEntity);
 exports.OrderEntity = OrderEntity;
 //# sourceMappingURL=Order.entity.js.map

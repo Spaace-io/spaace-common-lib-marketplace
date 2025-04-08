@@ -1,7 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class Migrations1730740796341 implements MigrationInterface {
-  name = 'Migrations1730740796341';
+export class Init1743686022799 implements MigrationInterface {
+  name = 'Init1743686022799';
+
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
       `CREATE TABLE "latest_block" ("pk" boolean NOT NULL DEFAULT true, "number" numeric(78) NOT NULL, "hash" character(64) NOT NULL, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "CHK_a6e4d39162b05136d98f963774" CHECK (pk = TRUE), CONSTRAINT "PK_7b31af3e9abf8a0d5b6984dff44" PRIMARY KEY ("pk"))`,
@@ -22,10 +23,13 @@ export class Migrations1730740796341 implements MigrationInterface {
       `CREATE TABLE "collections" ("address" character(40) NOT NULL, "type" "public"."collection_type" NOT NULL, "name" text, "symbol" text, "imageUrl" text, "active" boolean NOT NULL DEFAULT true, "verified" boolean NOT NULL DEFAULT false, "explicit" boolean NOT NULL DEFAULT false, "bannerUrl" text, "description" text, "deployedAt" TIMESTAMP, "deployer" character(40), "links" jsonb NOT NULL DEFAULT '[]', "lastImport" TIMESTAMP, CONSTRAINT "PK_6a20f6af50eaccf584e5e2a9a6a" PRIMARY KEY ("address"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "items" ("collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "title" text, "description" text, "tokenUri" text, "decimals" numeric(2), "rarityRanking" numeric(78), "rarityScore" double precision, "lastImport" TIMESTAMP, CONSTRAINT "PK_77a2ad67a01059ccd7e3b6df3ec" PRIMARY KEY ("collectionAddress", "tokenId"))`,
+      `CREATE TABLE "items" ("collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "title" text, "description" text, "tokenUri" text, "numberOfCopies" numeric(78) NOT NULL DEFAULT '1', "rarityRanking" numeric(78), "rarityScore" double precision, "lastImport" TIMESTAMP, CONSTRAINT "PK_77a2ad67a01059ccd7e3b6df3ec" PRIMARY KEY ("collectionAddress", "tokenId"))`,
     );
     await queryRunner.query(
       `CREATE UNIQUE INDEX "IDX_77a2ad67a01059ccd7e3b6df3e" ON "items" ("collectionAddress", "tokenId") `,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "IDX_1744e50336e087d28e9d97f6bb" ON "items" ("collectionAddress", "rarityRanking") `,
     );
     await queryRunner.query(
       `CREATE TABLE "item_medias" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "primary" boolean NOT NULL, "raw" text NOT NULL, CONSTRAINT "PK_1ffc8f063fdd9c5a8277515bc33" PRIMARY KEY ("id"))`,
@@ -49,6 +53,9 @@ export class Migrations1730740796341 implements MigrationInterface {
       `CREATE TABLE "transfers" ("txHash" character(64) NOT NULL, "logIdx" numeric(78) NOT NULL, "from" character(40) NOT NULL, "to" character(40) NOT NULL, "collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "amount" numeric(78) NOT NULL DEFAULT '1', "batch" boolean NOT NULL DEFAULT false, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_70222dd18791828bd64ca2552e2" PRIMARY KEY ("txHash", "logIdx", "from", "to", "collectionAddress", "tokenId"))`,
     );
     await queryRunner.query(
+      `CREATE INDEX "IDX_97ad816101e9aeb529f30cd6c2" ON "transfers" ("collectionAddress", "tokenId", "timestamp") WHERE "from" = '0000000000000000000000000000000000000000'`,
+    );
+    await queryRunner.query(
       `CREATE INDEX "IDX_949ca1a8640dba9fde696bc9ed" ON "transfers" ("collectionAddress", "tokenId", "timestamp") `,
     );
     await queryRunner.query(
@@ -64,13 +71,16 @@ export class Migrations1730740796341 implements MigrationInterface {
       `CREATE TYPE "public"."marketplace" AS ENUM('SPAACE', 'OPENSEA', 'BLUR')`,
     );
     await queryRunner.query(
-      `CREATE TABLE "sales" ("txHash" character(64) NOT NULL, "logIdx" numeric(78) NOT NULL, "collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "orderHash" character(64) NOT NULL, "amount" numeric(78) NOT NULL DEFAULT '1', "from" character(40) NOT NULL, "to" character(40) NOT NULL, "price" numeric(78) NOT NULL, "currency" character(40) NOT NULL, "marketplace" "public"."marketplace" NOT NULL, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_af745151659fc2b3ae3b81ca9d7" PRIMARY KEY ("txHash", "logIdx", "collectionAddress", "tokenId"))`,
+      `CREATE TABLE "sales" ("txHash" character(64) NOT NULL, "logIdx" numeric(78) NOT NULL, "collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "orderHash" character(64) NOT NULL, "amount" numeric(78) NOT NULL DEFAULT '1', "from" character(40) NOT NULL, "to" character(40) NOT NULL, "price" numeric(78) NOT NULL, "perUnitPrice" numeric(78) NOT NULL, "currency" character(40) NOT NULL, "marketplace" "public"."marketplace" NOT NULL, "timestamp" TIMESTAMP NOT NULL, CONSTRAINT "PK_476748d67842cbed831935eba64" PRIMARY KEY ("txHash", "logIdx", "collectionAddress", "tokenId", "timestamp"))`,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_134cc4bb09e09430239513a907" ON "sales" ("orderHash") `,
     );
     await queryRunner.query(
-      `CREATE INDEX "IDX_f7931cf6fcf04f0899ff8a2405" ON "sales" ("collectionAddress", "tokenId", "timestamp") `,
+      `CREATE INDEX "IDX_5c515a06a5e174fc590a284211" ON "sales" ("collectionAddress") `,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "IDX_ce3a81e501bd9a9e759bdc64e6" ON "sales" ("collectionAddress", "perUnitPrice") `,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_9d68251a8e87059a9f7988f3fe" ON "sales" ("collectionAddress", "timestamp") `,
@@ -118,6 +128,12 @@ export class Migrations1730740796341 implements MigrationInterface {
       `CREATE UNIQUE INDEX "IDX_5037fb0b2a13ac921c73a05492" ON "balances" ("userAddress", "collectionAddress", "tokenId") WHERE "balance" > 0`,
     );
     await queryRunner.query(
+      `CREATE INDEX "IDX_82684fa9b28390e1454018d4ee" ON "balances" ("collectionAddress", "userAddress") WHERE "balance" > 0`,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "IDX_f5ee403e94bfee0f3e7b3472bb" ON "balances" ("balance", "collectionAddress") `,
+    );
+    await queryRunner.query(
       `CREATE INDEX "IDX_4859f158ae3d83ed963fd88e9b" ON "balances" ("collectionAddress", "tokenId", "balance") WHERE "balance" > 0`,
     );
     await queryRunner.query(
@@ -148,7 +164,7 @@ export class Migrations1730740796341 implements MigrationInterface {
       `CREATE TYPE "public"."order_type" AS ENUM('ASK', 'BID', 'ENGLISH_AUCTION', 'DUTCH_AUCTION')`,
     );
     await queryRunner.query(
-      `CREATE TABLE "orders" ("hash" character(64) NOT NULL, "userAddress" character(40) NOT NULL, "collectionAddress" character(40) NOT NULL, "type" "public"."order_type" NOT NULL, "marketplace" "public"."marketplace" NOT NULL, "price" numeric(78) NOT NULL, "startingPrice" numeric(78), "currency" character(40) NOT NULL, "marketplaceFeeBps" smallint NOT NULL, "marketplaceFeeReceiver" character(40), "royaltiesBps" smallint NOT NULL, "startingRoyalties" numeric(78), "royaltiesReceiver" character(40), "startTime" TIMESTAMP NOT NULL, "endTime" TIMESTAMP, "counter" numeric(78) NOT NULL, "signature" text NOT NULL, "salt" text, "zone" text, "conduitKey" text, "protocolAddress" character(40), "cancelTxHash" character(64), "cancelLogIdx" numeric(78), "cancelTimestamp" TIMESTAMP, "fulfillQuantity" numeric(78) NOT NULL DEFAULT '0', "remainingQuantity" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_13ab9c024e81573c05451b9004f" PRIMARY KEY ("hash"))`,
+      `CREATE TABLE "orders" ("hash" character(64) NOT NULL, "userAddress" character(40) NOT NULL, "collectionAddress" character(40) NOT NULL, "type" "public"."order_type" NOT NULL, "marketplace" "public"."marketplace" NOT NULL, "price" numeric(78) NOT NULL, "perUnitPrice" numeric(78) NOT NULL, "startingPrice" numeric(78), "currency" character(40) NOT NULL, "marketplaceFeeBps" smallint NOT NULL, "marketplaceFeeReceiver" character(40), "royaltiesBps" smallint NOT NULL, "startingRoyalties" numeric(78), "royaltiesReceiver" character(40), "startTime" TIMESTAMP NOT NULL, "endTime" TIMESTAMP NOT NULL, "counter" numeric(78) NOT NULL, "signature" text NOT NULL, "salt" text, "zone" text, "conduitKey" text, "protocolAddress" character(40), "cancelTxHash" character(64), "cancelLogIdx" numeric(78), "cancelTimestamp" TIMESTAMP, "fulfillQuantity" numeric(78) NOT NULL DEFAULT '0', "remainingQuantity" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_bb565e2bfc50dcf19470e3082c3" PRIMARY KEY ("hash", "endTime"))`,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_8015da564b715d467c36eb4cfb" ON "orders" ("userAddress", "counter") `,
@@ -160,7 +176,7 @@ export class Migrations1730740796341 implements MigrationInterface {
       `CREATE INDEX "IDX_8b6c737c16b17e9b2b2868e9e9" ON "orders" ("collectionAddress", "startTime") `,
     );
     await queryRunner.query(
-      `CREATE TABLE "orders_items" ("hash" character(64) NOT NULL, "collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "orderHash" character(64), "itemEntityCollectionAddress" character(40), "itemEntityTokenId" numeric(78), CONSTRAINT "PK_ce4b762f4246205df79d7c0d29e" PRIMARY KEY ("hash", "collectionAddress", "tokenId"))`,
+      `CREATE TABLE "orders_items" ("hash" character(64) NOT NULL, "collectionAddress" character(40) NOT NULL, "tokenId" numeric(78) NOT NULL, "orderHash" character(64), "orderEndTime" TIMESTAMP, "itemEntityCollectionAddress" character(40), "itemEntityTokenId" numeric(78), CONSTRAINT "PK_ce4b762f4246205df79d7c0d29e" PRIMARY KEY ("hash", "collectionAddress", "tokenId"))`,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_ce4b762f4246205df79d7c0d29" ON "orders_items" ("hash", "collectionAddress", "tokenId") `,
@@ -175,7 +191,7 @@ export class Migrations1730740796341 implements MigrationInterface {
       `CREATE TABLE "login_nonces" ("nonce" character(32) NOT NULL, "address" character(40) NOT NULL, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_8da3f5a598f7e0e5744cf7680d4" PRIMARY KEY ("nonce"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "users" ("address" character(40) NOT NULL, "name" text, "email" text, "biography" text, "imageUrl" text, "bannerUrl" text, "admin" boolean NOT NULL DEFAULT false, "referralCode" text NOT NULL, "referrerAddress" character(40), "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_b7f8278f4e89249bb75c9a15899" UNIQUE ("referralCode"), CONSTRAINT "PK_b0ec0293d53a1385955f9834d5c" PRIMARY KEY ("address"))`,
+      `CREATE TABLE "users" ("address" character(40) NOT NULL, "name" text, "email" text, "biography" text, "imageUrl" text, "bannerUrl" text, "admin" boolean NOT NULL DEFAULT false, "referralCode" text NOT NULL, "referrerAddress" character(40), "timestamp" TIMESTAMP NOT NULL DEFAULT now(), "twitterUsername" text, "twitterId" text, "twitterSecretToken" text, "twitterAccessToken" text, CONSTRAINT "UQ_51b8b26ac168fbe7d6f5653e6cf" UNIQUE ("name"), CONSTRAINT "UQ_b7f8278f4e89249bb75c9a15899" UNIQUE ("referralCode"), CONSTRAINT "PK_b0ec0293d53a1385955f9834d5c" PRIMARY KEY ("address"))`,
     );
     await queryRunner.query(
       `CREATE TABLE "notable_collections" ("collectionAddress" character(40) NOT NULL, CONSTRAINT "PK_b927dbd37a77ed934fcf53d185d" PRIMARY KEY ("collectionAddress"))`,
@@ -208,16 +224,22 @@ export class Migrations1730740796341 implements MigrationInterface {
       `CREATE TYPE "public"."loyalty_rank" AS ENUM('BRONZE_5', 'BRONZE_4', 'BRONZE_3', 'BRONZE_2', 'BRONZE_1', 'SILVER_5', 'SILVER_4', 'SILVER_3', 'SILVER_2', 'SILVER_1', 'GOLD_5', 'GOLD_4', 'GOLD_3', 'GOLD_2', 'GOLD_1', 'PLATINUM_5', 'PLATINUM_4', 'PLATINUM_3', 'PLATINUM_2', 'PLATINUM_1', 'DIAMOND_5', 'DIAMOND_4', 'DIAMOND_3', 'DIAMOND_2', 'DIAMOND_1')`,
     );
     await queryRunner.query(
-      `CREATE TABLE "quests" ("seasonNumber" numeric(78) NOT NULL, "id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" text NOT NULL, "previousQuestId" uuid, "count" numeric(78) NOT NULL, "prime" boolean NOT NULL DEFAULT false, "steps" jsonb NOT NULL DEFAULT '[]', "loyaltyPoints" numeric(78) NOT NULL DEFAULT '0', "boost" numeric(78) NOT NULL DEFAULT '0', "boostLimit" numeric(78), "limit" numeric(78) NOT NULL DEFAULT '1', "period" "public"."quest_period" NOT NULL, "rank" "public"."loyalty_rank" NOT NULL DEFAULT 'BRONZE_5', CONSTRAINT "UQ_4d91b52a8e3fe3ce2caac4a6139" UNIQUE ("seasonNumber", "name"), CONSTRAINT "REL_f94aec94cffab50834b8edaa1f" UNIQUE ("seasonNumber", "previousQuestId"), CONSTRAINT "PK_3a6a6a0b62780e61b384452424b" PRIMARY KEY ("seasonNumber", "id"))`,
+      `CREATE TYPE "public"."quest_type" AS ENUM('GENESIS', 'PRIME', 'DAILY', 'PROGRESSIVE')`,
     );
     await queryRunner.query(
-      `CREATE TABLE "user_loyalties" ("userAddress" character(40) NOT NULL, "seasonNumber" numeric(78) NOT NULL, "points" numeric(78) NOT NULL DEFAULT '0', "questCompleted" bigint NOT NULL DEFAULT '0', CONSTRAINT "PK_5254410832e753bed54603862d8" PRIMARY KEY ("userAddress", "seasonNumber"))`,
+      `CREATE TYPE "public"."tweet_action" AS ENUM('LIKE', 'REPLY', 'REPOST')`,
+    );
+    await queryRunner.query(
+      `CREATE TABLE "quests" ("seasonNumber" numeric(78) NOT NULL, "id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" text NOT NULL, "previousQuestId" uuid, "count" numeric(78) NOT NULL, "prime" boolean NOT NULL DEFAULT false, "steps" jsonb NOT NULL DEFAULT '[]', "loyaltyPoints" numeric(78) NOT NULL DEFAULT '0', "boost" numeric(78) NOT NULL DEFAULT '0', "boostLimit" numeric(78), "limit" numeric(78) NOT NULL DEFAULT '1', "period" "public"."quest_period" NOT NULL, "rank" "public"."loyalty_rank" NOT NULL DEFAULT 'BRONZE_5', "questType" "public"."quest_type" NOT NULL, "featured" boolean NOT NULL DEFAULT false, "tweetId" text, "tweetAction" "public"."tweet_action", CONSTRAINT "UQ_4d91b52a8e3fe3ce2caac4a6139" UNIQUE ("seasonNumber", "name"), CONSTRAINT "REL_f94aec94cffab50834b8edaa1f" UNIQUE ("seasonNumber", "previousQuestId"), CONSTRAINT "PK_3a6a6a0b62780e61b384452424b" PRIMARY KEY ("seasonNumber", "id"))`,
+    );
+    await queryRunner.query(
+      `CREATE TABLE "user_loyalties" ("userAddress" character(40) NOT NULL, "seasonNumber" numeric(78) NOT NULL, "points" numeric(78) NOT NULL DEFAULT '0', "questCompleted" bigint NOT NULL DEFAULT '0', "boostMultiplier" numeric(78,2) NOT NULL DEFAULT '1', CONSTRAINT "PK_5254410832e753bed54603862d8" PRIMARY KEY ("userAddress", "seasonNumber"))`,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_70dee80d600300da49dd4d1e34" ON "user_loyalties" ("seasonNumber", "points") `,
     );
     await queryRunner.query(
-      `CREATE TABLE "user_quest_progress" ("userAddress" character(40) NOT NULL, "seasonNumber" numeric(78) NOT NULL, "questId" uuid NOT NULL, "nonce" uuid NOT NULL DEFAULT uuid_generate_v4(), "data" jsonb NOT NULL, "completed" boolean NOT NULL DEFAULT false, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_2d7da4fd6b94b753d49e95a9b38" PRIMARY KEY ("userAddress", "seasonNumber", "questId", "nonce"))`,
+      `CREATE TABLE "user_quest_progress" ("userAddress" character(40) NOT NULL, "seasonNumber" numeric(78) NOT NULL, "questId" uuid NOT NULL, "nonce" uuid NOT NULL DEFAULT uuid_generate_v4(), "data" jsonb NOT NULL, "completed" boolean NOT NULL DEFAULT false, "timestamp" TIMESTAMP NOT NULL DEFAULT now(), "orderHash" text, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "completedAt" TIMESTAMP, "tweetId" text, "boostMultiplier" numeric(78,2) NOT NULL DEFAULT '1', "points" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_2d7da4fd6b94b753d49e95a9b38" PRIMARY KEY ("userAddress", "seasonNumber", "questId", "nonce"))`,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_2ef2260573a9244e2eb7208341" ON "user_quest_progress" ("userAddress", "seasonNumber", "questId") WHERE "completed"`,
@@ -430,109 +452,10 @@ export class Migrations1730740796341 implements MigrationInterface {
       `CREATE TABLE "collection_rankings_cache" ("address" character(40) NOT NULL, "volume" numeric(78) NOT NULL DEFAULT '0', "volume1h" numeric(78) NOT NULL DEFAULT '0', "volume6h" numeric(78) NOT NULL DEFAULT '0', "volume24h" numeric(78) NOT NULL DEFAULT '0', "volume7d" numeric(78) NOT NULL DEFAULT '0', "volume30d" numeric(78) NOT NULL DEFAULT '0', "volume90d" numeric(78) NOT NULL DEFAULT '0', "previousVolume1h" numeric(78) NOT NULL DEFAULT '0', "previousVolume6h" numeric(78) NOT NULL DEFAULT '0', "previousVolume24h" numeric(78) NOT NULL DEFAULT '0', "previousVolume7d" numeric(78) NOT NULL DEFAULT '0', "previousVolume30d" numeric(78) NOT NULL DEFAULT '0', "previousVolume90d" numeric(78) NOT NULL DEFAULT '0', "floorPrice" numeric(78), "previousFloorPrice1h" numeric(78), "previousFloorPrice6h" numeric(78), "previousFloorPrice24h" numeric(78), "previousFloorPrice7d" numeric(78), "previousFloorPrice30d" numeric(78), "previousFloorPrice90d" numeric(78), "saleCount" numeric(78) NOT NULL DEFAULT '0', "saleCount1h" numeric(78) NOT NULL DEFAULT '0', "saleCount6h" numeric(78) NOT NULL DEFAULT '0', "saleCount24h" numeric(78) NOT NULL DEFAULT '0', "saleCount7d" numeric(78) NOT NULL DEFAULT '0', "saleCount30d" numeric(78) NOT NULL DEFAULT '0', "saleCount90d" numeric(78) NOT NULL DEFAULT '0', "previousSaleCount1h" numeric(78) NOT NULL DEFAULT '0', "previousSaleCount6h" numeric(78) NOT NULL DEFAULT '0', "previousSaleCount24h" numeric(78) NOT NULL DEFAULT '0', "previousSaleCount7d" numeric(78) NOT NULL DEFAULT '0', "previousSaleCount30d" numeric(78) NOT NULL DEFAULT '0', "previousSaleCount90d" numeric(78) NOT NULL DEFAULT '0', "totalSupply" numeric(78) NOT NULL DEFAULT '0', "ownerCount" numeric(78) NOT NULL DEFAULT '0', "listedCount" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_372f08cce6315ff748f0605db69" PRIMARY KEY ("address"))`,
     );
     await queryRunner.query(
-      `CREATE INDEX "IDX_a90030b5aeb0928bcdcc55cf19" ON "collection_rankings_cache" ("previousSaleCount90d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_cbb6ec802cc6619ede1e468ae8" ON "collection_rankings_cache" ("previousSaleCount30d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_5f69bf6b8e5aa033c2039c652e" ON "collection_rankings_cache" ("previousSaleCount7d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_260239fda621a869ade81670cf" ON "collection_rankings_cache" ("previousSaleCount24h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_ce8a640bfd03f32da7436dc06c" ON "collection_rankings_cache" ("previousSaleCount6h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_024347fcfc9d8e48f9c65705d8" ON "collection_rankings_cache" ("previousSaleCount1h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_aa8ebee98ce8a49f619362c453" ON "collection_rankings_cache" ("saleCount90d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_2bcbb453635cf8b1296e76df4e" ON "collection_rankings_cache" ("saleCount30d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_4259a6b20b2c613de99daf44d7" ON "collection_rankings_cache" ("saleCount7d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_f5ed5354eebf6979cdbed0deb0" ON "collection_rankings_cache" ("saleCount24h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_d57698ba1c360dbe7e04d7b382" ON "collection_rankings_cache" ("saleCount6h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_d95951c6f13359e9bc2a49bed1" ON "collection_rankings_cache" ("saleCount1h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_4cb243afbbf4bc1497f9d9550a" ON "collection_rankings_cache" ("saleCount") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_b1872fcd12e98ec90278c5d34d" ON "collection_rankings_cache" ("previousFloorPrice90d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_c3f1edde9e36fbca871819f861" ON "collection_rankings_cache" ("previousFloorPrice30d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_361ac95dbd56e20dbd9d6f93ba" ON "collection_rankings_cache" ("previousFloorPrice7d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_21347659be38cc7a878e871bc3" ON "collection_rankings_cache" ("previousFloorPrice24h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_3c1bc78ebd9cecc7dca6793060" ON "collection_rankings_cache" ("previousFloorPrice6h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_bf7a5708a0d32c91f98799c174" ON "collection_rankings_cache" ("previousFloorPrice1h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_ca00a94c02dba69e5605367472" ON "collection_rankings_cache" ("floorPrice") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_6688ed0ceb82e95f6975e14a3e" ON "collection_rankings_cache" ("previousVolume90d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_d9ba0151823fdcd100d0f81536" ON "collection_rankings_cache" ("previousVolume30d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_80dc012d87c3e3261a1a0dcc2b" ON "collection_rankings_cache" ("previousVolume7d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_5ed9f478f54b494990997ba425" ON "collection_rankings_cache" ("previousVolume24h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_be3febb756fbf3bc6d618dd845" ON "collection_rankings_cache" ("previousVolume6h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_a1823d008c8023b6b0a589b10c" ON "collection_rankings_cache" ("previousVolume1h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_d6aacdfc6997c3a8c665c97f9b" ON "collection_rankings_cache" ("volume90d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_e33af69bf81bef914cf9758a12" ON "collection_rankings_cache" ("volume30d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_404b0993f307ab4ecc1eb240cb" ON "collection_rankings_cache" ("volume7d") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_22bc22d06378750c6891970cfa" ON "collection_rankings_cache" ("volume24h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_508017d641b5f3f0b89cc84d0a" ON "collection_rankings_cache" ("volume6h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_5b8893e59fda1cee1b2508e1d1" ON "collection_rankings_cache" ("volume1h") `,
-    );
-    await queryRunner.query(
-      `CREATE INDEX "IDX_f8aa2834ec0fbeee533eebc1ea" ON "collection_rankings_cache" ("volume") `,
-    );
-    await queryRunner.query(
       `CREATE UNIQUE INDEX "IDX_372f08cce6315ff748f0605db6" ON "collection_rankings_cache" ("address") `,
     );
     await queryRunner.query(
-      `CREATE TABLE "active_orders_cache" ("hash" character(64) NOT NULL, "userAddress" character(40) NOT NULL, "collectionAddress" character(40) NOT NULL, "type" "public"."order_type" NOT NULL, "marketplace" "public"."marketplace" NOT NULL, "price" numeric(78) NOT NULL, "startingPrice" numeric(78), "currency" character(40) NOT NULL, "marketplaceFeeBps" smallint NOT NULL, "marketplaceFeeReceiver" character(40), "royaltiesBps" smallint NOT NULL, "startingRoyalties" numeric(78), "royaltiesReceiver" character(40), "startTime" TIMESTAMP NOT NULL, "endTime" TIMESTAMP, "counter" numeric(78) NOT NULL, "signature" text NOT NULL, "salt" text, "zone" text, "conduitKey" text, "protocolAddress" character(40), "cancelTxHash" character(64), "cancelLogIdx" numeric(78), "cancelTimestamp" TIMESTAMP, "fulfillQuantity" numeric(78) NOT NULL DEFAULT '0', "remainingQuantity" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_4930cae8caee19b4544501c2364" PRIMARY KEY ("hash"))`,
+      `CREATE TABLE "active_orders_cache" ("hash" character(64) NOT NULL, "userAddress" character(40) NOT NULL, "collectionAddress" character(40) NOT NULL, "type" "public"."order_type" NOT NULL, "marketplace" "public"."marketplace" NOT NULL, "price" numeric(78) NOT NULL, "perUnitPrice" numeric(78) NOT NULL, "startingPrice" numeric(78), "currency" character(40) NOT NULL, "marketplaceFeeBps" smallint NOT NULL, "marketplaceFeeReceiver" character(40), "royaltiesBps" smallint NOT NULL, "startingRoyalties" numeric(78), "royaltiesReceiver" character(40), "startTime" TIMESTAMP NOT NULL, "endTime" TIMESTAMP NOT NULL, "counter" numeric(78) NOT NULL, "signature" text NOT NULL, "salt" text, "zone" text, "conduitKey" text, "protocolAddress" character(40), "cancelTxHash" character(64), "cancelLogIdx" numeric(78), "cancelTimestamp" TIMESTAMP, "fulfillQuantity" numeric(78) NOT NULL DEFAULT '0', "remainingQuantity" numeric(78) NOT NULL DEFAULT '0', CONSTRAINT "PK_a586d890281ffabfa980ee767fb" PRIMARY KEY ("hash", "endTime"))`,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_0dee45ecf1a0f2555d4af76c97" ON "active_orders_cache" ("userAddress", "counter") `,
@@ -544,13 +467,25 @@ export class Migrations1730740796341 implements MigrationInterface {
       `CREATE INDEX "IDX_f5ddc8c9d991bd95c56bc857c0" ON "active_orders_cache" ("collectionAddress", "startTime") `,
     );
     await queryRunner.query(
+      `CREATE INDEX "IDX_4cc448a56e8ac8cebabfd0cf36" ON "active_orders_cache" ("collectionAddress", "endTime") WHERE "type" IN ('ASK', 'DUTCH_AUCTION') AND "currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9')`,
+    );
+    await queryRunner.query(
       `CREATE INDEX "IDX_a80ef1486d5f1f906288f5356d" ON "active_orders_cache" ("collectionAddress", "endTime") WHERE "type" = 'ENGLISH_AUCTION' AND "currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9')`,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "IDX_975fa0912f084bddc0e06e0b13" ON "active_orders_cache" ("collectionAddress", "perUnitPrice") WHERE "type" = 'BID' AND "currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9')`,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_fe84aefba3e8423adbdd1a681f" ON "active_orders_cache" ("collectionAddress", "price") WHERE "type" = 'BID' AND "currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9')`,
     );
     await queryRunner.query(
+      `CREATE INDEX "IDX_cd271977f24d553c7d462b0aba" ON "active_orders_cache" ("collectionAddress", "perUnitPrice") WHERE "type" IN ('ASK', 'DUTCH_AUCTION') AND "currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9')`,
+    );
+    await queryRunner.query(
       `CREATE INDEX "IDX_b1f2cc9b4628ed724db73e3483" ON "active_orders_cache" ("collectionAddress", "price") WHERE "type" IN ('ASK', 'DUTCH_AUCTION') AND "currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9')`,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "IDX_55dd6cc8d758bf15f62d11cc02" ON "active_orders_cache" ("collectionAddress", "marketplace") `,
     );
     await queryRunner.query(
       `ALTER TABLE "items" ADD CONSTRAINT "FK_2bfde47c481cca182def5607932" FOREIGN KEY ("collectionAddress") REFERENCES "collections"("address") ON DELETE NO ACTION ON UPDATE NO ACTION`,
@@ -580,7 +515,7 @@ export class Migrations1730740796341 implements MigrationInterface {
       `ALTER TABLE "orders_items" ADD CONSTRAINT "FK_4fb999f3466270b59cd0ff9b353" FOREIGN KEY ("collectionAddress", "tokenId") REFERENCES "items"("collectionAddress","tokenId") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
-      `ALTER TABLE "orders_items" ADD CONSTRAINT "FK_5e5ffd6165663fb307df283fc04" FOREIGN KEY ("orderHash") REFERENCES "orders"("hash") ON DELETE CASCADE ON UPDATE NO ACTION`,
+      `ALTER TABLE "orders_items" ADD CONSTRAINT "FK_bc5812688438ac2708fb09c2730" FOREIGN KEY ("orderHash", "orderEndTime") REFERENCES "orders"("hash","endTime") ON DELETE CASCADE ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
       `ALTER TABLE "orders_items" ADD CONSTRAINT "FK_6aa9d2c843cdf72a5bd228f100d" FOREIGN KEY ("itemEntityCollectionAddress", "itemEntityTokenId") REFERENCES "items"("collectionAddress","tokenId") ON DELETE CASCADE ON UPDATE NO ACTION`,
@@ -756,35 +691,61 @@ export class Migrations1730740796341 implements MigrationInterface {
     await queryRunner.query(
       `ALTER TABLE "active_orders_cache" ADD CONSTRAINT "FK_6dc3b9e60955c4273c6b325c16b" FOREIGN KEY ("collectionAddress") REFERENCES "collections"("address") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
-    await queryRunner.query(
-      `ALTER TABLE "active_orders_cache" ADD CONSTRAINT "FK_4930cae8caee19b4544501c2364" FOREIGN KEY ("hash") REFERENCES "orders"("hash") ON DELETE NO ACTION ON UPDATE NO ACTION`,
-    );
-    await queryRunner.query(
-      `CREATE VIEW "balances_view" AS SELECT DISTINCT ON ("balance"."collectionAddress", "balance"."tokenId", "balance"."userAddress") "balance"."collectionAddress" AS "collectionAddress", "balance"."tokenId" AS "tokenId", "balance"."userAddress" AS "userAddress", "balance"."balance" AS "balance", (SELECT "item"."description" FROM "items" "item" WHERE "item"."collectionAddress" = "balance"."collectionAddress" AND "item"."tokenId" = "balance"."tokenId") AS "description", (SELECT "item"."title" FROM "items" "item" WHERE "item"."collectionAddress" = "balance"."collectionAddress" AND "item"."tokenId" = "balance"."tokenId") AS "title", (SELECT EXISTS (SELECT 1 FROM "hidden_items" "hidden" WHERE "hidden"."userAddress" = "balance"."userAddress" AND "hidden"."collectionAddress" = "balance"."collectionAddress" AND "hidden"."tokenId" = "balance"."tokenId") FROM (SELECT 1 AS dummy_column) "dummy_table") AS "hidden", (SELECT "item"."rarityScore" FROM "items" "item" WHERE "item"."collectionAddress" = "balance"."collectionAddress" AND "item"."tokenId" = "balance"."tokenId") AS "rarityScore", (SELECT CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END FROM "items" "item" WHERE "item"."collectionAddress" = "balance"."collectionAddress" AND "item"."tokenId" = "balance"."tokenId") AS "rarityBasisPoints", CASE WHEN "buyNow"."type" = 'DUTCH_AUCTION' THEN "buyNow"."startingPrice" - ("buyNow"."startingPrice" - "buyNow"."price") * EXTRACT(EPOCH FROM NOW() - "buyNow"."startTime") / EXTRACT(EPOCH FROM "buyNow"."endTime" - "buyNow"."startTime") ELSE "buyNow"."price" END AS "buyNowPrice", "buyNow"."startTime" AS "buyNowStartTime", "sellNow"."price" AS "sellNowPrice", "sellNow"."startTime" AS "sellNowStartTime", CASE WHEN "auction"."hash" IS NOT NULL THEN GREATEST("sellNow"."price", "auction"."price") ELSE NULL END AS "auctionPrice", "auction"."endTime" AS "auctionEndTime", "lastSale"."price" AS "lastSalePrice", "lastSale"."timestamp" AS "lastSaleTimestamp", "mint"."timestamp" AS "mintTimestamp", "lastTransfer"."timestamp" AS "lastTransferTimestamp", (SELECT COUNT(*) FROM "likes" "like" WHERE "like"."collectionAddress" = "balance"."collectionAddress" AND "like"."tokenId" = "balance"."tokenId") AS "likeCount" FROM "balances" "balance" LEFT JOIN "collection_rankings_cache" "collection" ON "collection"."address" = "balance"."collectionAddress"  LEFT JOIN (SELECT DISTINCT ON ("order"."hash") "order".*, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" IN ('ASK', 'DUTCH_AUCTION') AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) ORDER BY "order"."hash" ASC, CASE WHEN "order"."type" = 'DUTCH_AUCTION' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END ASC) "buyNow" ON "buyNow"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId" = ANY("buyNow"."tokenIds")  LEFT JOIN (SELECT DISTINCT ON ("order"."hash") "order".*, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = 'BID' AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) ORDER BY "order"."hash" ASC, "order"."price" DESC) "sellNow" ON "sellNow"."collectionAddress" = "balance"."collectionAddress" AND ("balance"."tokenId" = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)  LEFT JOIN (SELECT DISTINCT ON ("order"."hash") "order".*, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = 'ENGLISH_AUCTION' AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) ORDER BY "order"."hash" ASC, "order"."endTime" ASC) "auction" ON "auction"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId" = ANY("auction"."tokenIds")  LEFT JOIN (SELECT DISTINCT ON ("sale"."collectionAddress", "sale"."tokenId") * FROM "sales" "sale" ORDER BY "sale"."collectionAddress" ASC, "sale"."tokenId" ASC, "timestamp" DESC) "lastSale" ON "lastSale"."collectionAddress" = "balance"."collectionAddress" AND "lastSale"."tokenId" = "balance"."tokenId"  LEFT JOIN (SELECT DISTINCT ON ("transfer"."collectionAddress", "transfer"."tokenId") * FROM "transfers" "transfer" ORDER BY "transfer"."collectionAddress" ASC, "transfer"."tokenId" ASC, "timestamp" ASC) "mint" ON "mint"."collectionAddress" = "balance"."collectionAddress" AND "mint"."tokenId" = "balance"."tokenId"  LEFT JOIN (SELECT DISTINCT ON ("transfer"."collectionAddress", "transfer"."tokenId") * FROM "transfers" "transfer" ORDER BY "transfer"."collectionAddress" ASC, "transfer"."tokenId" ASC, "timestamp" DESC) "lastTransfer" ON "lastTransfer"."collectionAddress" = "balance"."collectionAddress" AND "lastTransfer"."tokenId" = "balance"."tokenId" WHERE "balance"."balance" > 0 ORDER BY "balance"."collectionAddress" ASC, "balance"."tokenId" ASC, "balance"."userAddress" ASC`,
-    );
+    await queryRunner.query(`CREATE VIEW "balances_view" AS SELECT DISTINCT ON ("balance"."collectionAddress", "balance"."tokenId", "balance"."userAddress") "balance"."collectionAddress" AS "collectionAddress", "balance"."tokenId" AS "tokenId", "balance"."userAddress" AS "userAddress", "balance"."balance" AS "balance", "item"."description" AS "description", "item"."title" AS "title", (SELECT EXISTS (SELECT 1 FROM "hidden_items" "hidden" WHERE "hidden"."userAddress" = "balance"."userAddress" AND "hidden"."collectionAddress" = "balance"."collectionAddress" AND "hidden"."tokenId" = "balance"."tokenId") FROM (SELECT 1 AS dummy_column) "dummy_table") AS "hidden", "item"."rarityScore" AS "rarityScore", CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END AS "rarityBasisPoints", "buyNow"."buyNowPrice" AS "buyNowPrice", "buyNow"."buyNowPerUnitPrice" AS "buyNowPerUnitPrice", "buyNow"."startTime" AS "buyNowStartTime", "sellNow"."price" AS "sellNowPrice", "sellNow"."perUnitPrice" AS "sellNowPerUnitPrice", "sellNow"."startTime" AS "sellNowStartTime", "auction"."perUnitPrice" AS "auctionPerUnitPrice", "auction"."price" AS "auctionPrice", "auction"."endTime" AS "auctionEndTime", "mint"."timestamp" AS "mintTimestamp", (SELECT COUNT(*) FROM "likes" "like" WHERE "like"."collectionAddress" = "balance"."collectionAddress" AND "like"."tokenId" = "balance"."tokenId") AS "likeCount" FROM "balances" "balance" INNER JOIN "items" "item" ON "item"."collectionAddress" = "balance"."collectionAddress" AND "item"."tokenId" = "balance"."tokenId"  LEFT JOIN "collection_rankings_cache" "collection" ON "collection"."address" = "balance"."collectionAddress"  LEFT JOIN (SELECT "order".*, 
+                CASE
+                  WHEN "order".TYPE = 'DUTCH_AUCTION'::ORDER_TYPE THEN "order"."startingPrice" - ("order"."startingPrice" - "order".PRICE) * EXTRACT(
+                    EPOCH
+                    FROM
+                      NOW() - "order"."startTime"::TIMESTAMP WITH TIME ZONE
+                  ) / EXTRACT(
+                    EPOCH
+                    FROM
+                      "order"."endTime" - "order"."startTime"
+                  )
+                  ELSE "order".PRICE
+                END AS "buyNowPrice"
+                , 
+                CASE
+                  WHEN "order".TYPE = 'DUTCH_AUCTION'::ORDER_TYPE THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."perUnitPrice") * EXTRACT(
+                    EPOCH
+                    FROM
+                      NOW() - "order"."startTime"::TIMESTAMP WITH TIME ZONE
+                  ) / EXTRACT(
+                    EPOCH
+                    FROM
+                      "order"."endTime" - "order"."startTime"
+                  )
+                  ELSE "order"."perUnitPrice"
+                END AS "buyNowPerUnitPrice"
+                , (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" IN ('ASK', 'DUTCH_AUCTION') AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() ORDER BY CASE WHEN "order"."type" = 'DUTCH_AUCTION' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."perUnitPrice") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."perUnitPrice" END ASC, "order"."marketplace" ASC) "buyNow" ON "buyNow"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId"::TEXT = ANY("buyNow"."tokenIds")  LEFT JOIN (SELECT "order".*, (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = 'BID' AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() ORDER BY "order"."perUnitPrice" DESC, "order"."marketplace" ASC) "sellNow" ON "sellNow"."collectionAddress" = "balance"."collectionAddress" AND ("balance"."tokenId"::TEXT = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)  LEFT JOIN (SELECT "order".*, (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = 'ENGLISH_AUCTION' AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() ORDER BY "order"."endTime" ASC, "order"."marketplace" ASC) "auction" ON "auction"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId"::TEXT = ANY("auction"."tokenIds")  LEFT JOIN (SELECT * FROM "transfers" "transfer" WHERE (
+                  (
+                    TRANSFER."txHash",
+                    TRANSFER."timestamp",
+                    TRANSFER."logIdx"
+                  ) = (
+                    SELECT
+                      MIN(T2."txHash") AS MIN,
+                      MIN(T2."timestamp") AS MIN,
+                      MIN(T2."logIdx") AS MIN
+                    FROM
+                      TRANSFERS T2
+                    WHERE
+                      T2."collectionAddress" = TRANSFER."collectionAddress"
+                      AND T2."tokenId" = TRANSFER."tokenId"
+                      AND T2."from" = '0000000000000000000000000000000000000000'::BPCHAR
+                  )
+                ) ORDER BY "transfer"."collectionAddress" ASC, "transfer"."tokenId" ASC, "timestamp" ASC) "mint" ON "mint"."collectionAddress" = "balance"."collectionAddress" AND "mint"."tokenId" = "balance"."tokenId" WHERE "balance"."balance" > 0 ORDER BY "balance"."collectionAddress" ASC, "balance"."tokenId" ASC, "balance"."userAddress" ASC`);
     await queryRunner.query(
       `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
       [
         'public',
         'VIEW',
         'balances_view',
-        'SELECT DISTINCT ON ("balance"."collectionAddress", "balance"."tokenId", "balance"."userAddress") "balance"."collectionAddress" AS "collectionAddress", "balance"."tokenId" AS "tokenId", "balance"."userAddress" AS "userAddress", "balance"."balance" AS "balance", (SELECT "item"."description" FROM "items" "item" WHERE "item"."collectionAddress" = "balance"."collectionAddress" AND "item"."tokenId" = "balance"."tokenId") AS "description", (SELECT "item"."title" FROM "items" "item" WHERE "item"."collectionAddress" = "balance"."collectionAddress" AND "item"."tokenId" = "balance"."tokenId") AS "title", (SELECT EXISTS (SELECT 1 FROM "hidden_items" "hidden" WHERE "hidden"."userAddress" = "balance"."userAddress" AND "hidden"."collectionAddress" = "balance"."collectionAddress" AND "hidden"."tokenId" = "balance"."tokenId") FROM (SELECT 1 AS dummy_column) "dummy_table") AS "hidden", (SELECT "item"."rarityScore" FROM "items" "item" WHERE "item"."collectionAddress" = "balance"."collectionAddress" AND "item"."tokenId" = "balance"."tokenId") AS "rarityScore", (SELECT CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END FROM "items" "item" WHERE "item"."collectionAddress" = "balance"."collectionAddress" AND "item"."tokenId" = "balance"."tokenId") AS "rarityBasisPoints", CASE WHEN "buyNow"."type" = \'DUTCH_AUCTION\' THEN "buyNow"."startingPrice" - ("buyNow"."startingPrice" - "buyNow"."price") * EXTRACT(EPOCH FROM NOW() - "buyNow"."startTime") / EXTRACT(EPOCH FROM "buyNow"."endTime" - "buyNow"."startTime") ELSE "buyNow"."price" END AS "buyNowPrice", "buyNow"."startTime" AS "buyNowStartTime", "sellNow"."price" AS "sellNowPrice", "sellNow"."startTime" AS "sellNowStartTime", CASE WHEN "auction"."hash" IS NOT NULL THEN GREATEST("sellNow"."price", "auction"."price") ELSE NULL END AS "auctionPrice", "auction"."endTime" AS "auctionEndTime", "lastSale"."price" AS "lastSalePrice", "lastSale"."timestamp" AS "lastSaleTimestamp", "mint"."timestamp" AS "mintTimestamp", "lastTransfer"."timestamp" AS "lastTransferTimestamp", (SELECT COUNT(*) FROM "likes" "like" WHERE "like"."collectionAddress" = "balance"."collectionAddress" AND "like"."tokenId" = "balance"."tokenId") AS "likeCount" FROM "balances" "balance" LEFT JOIN "collection_rankings_cache" "collection" ON "collection"."address" = "balance"."collectionAddress"  LEFT JOIN (SELECT DISTINCT ON ("order"."hash") "order".*, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" IN (\'ASK\', \'DUTCH_AUCTION\') AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) ORDER BY "order"."hash" ASC, CASE WHEN "order"."type" = \'DUTCH_AUCTION\' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END ASC) "buyNow" ON "buyNow"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId" = ANY("buyNow"."tokenIds")  LEFT JOIN (SELECT DISTINCT ON ("order"."hash") "order".*, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = \'BID\' AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) ORDER BY "order"."hash" ASC, "order"."price" DESC) "sellNow" ON "sellNow"."collectionAddress" = "balance"."collectionAddress" AND ("balance"."tokenId" = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)  LEFT JOIN (SELECT DISTINCT ON ("order"."hash") "order".*, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = \'ENGLISH_AUCTION\' AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) ORDER BY "order"."hash" ASC, "order"."endTime" ASC) "auction" ON "auction"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId" = ANY("auction"."tokenIds")  LEFT JOIN (SELECT DISTINCT ON ("sale"."collectionAddress", "sale"."tokenId") * FROM "sales" "sale" ORDER BY "sale"."collectionAddress" ASC, "sale"."tokenId" ASC, "timestamp" DESC) "lastSale" ON "lastSale"."collectionAddress" = "balance"."collectionAddress" AND "lastSale"."tokenId" = "balance"."tokenId"  LEFT JOIN (SELECT DISTINCT ON ("transfer"."collectionAddress", "transfer"."tokenId") * FROM "transfers" "transfer" ORDER BY "transfer"."collectionAddress" ASC, "transfer"."tokenId" ASC, "timestamp" ASC) "mint" ON "mint"."collectionAddress" = "balance"."collectionAddress" AND "mint"."tokenId" = "balance"."tokenId"  LEFT JOIN (SELECT DISTINCT ON ("transfer"."collectionAddress", "transfer"."tokenId") * FROM "transfers" "transfer" ORDER BY "transfer"."collectionAddress" ASC, "transfer"."tokenId" ASC, "timestamp" DESC) "lastTransfer" ON "lastTransfer"."collectionAddress" = "balance"."collectionAddress" AND "lastTransfer"."tokenId" = "balance"."tokenId" WHERE "balance"."balance" > 0 ORDER BY "balance"."collectionAddress" ASC, "balance"."tokenId" ASC, "balance"."userAddress" ASC',
+        'SELECT DISTINCT ON ("balance"."collectionAddress", "balance"."tokenId", "balance"."userAddress") "balance"."collectionAddress" AS "collectionAddress", "balance"."tokenId" AS "tokenId", "balance"."userAddress" AS "userAddress", "balance"."balance" AS "balance", "item"."description" AS "description", "item"."title" AS "title", (SELECT EXISTS (SELECT 1 FROM "hidden_items" "hidden" WHERE "hidden"."userAddress" = "balance"."userAddress" AND "hidden"."collectionAddress" = "balance"."collectionAddress" AND "hidden"."tokenId" = "balance"."tokenId") FROM (SELECT 1 AS dummy_column) "dummy_table") AS "hidden", "item"."rarityScore" AS "rarityScore", CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END AS "rarityBasisPoints", "buyNow"."buyNowPrice" AS "buyNowPrice", "buyNow"."buyNowPerUnitPrice" AS "buyNowPerUnitPrice", "buyNow"."startTime" AS "buyNowStartTime", "sellNow"."price" AS "sellNowPrice", "sellNow"."perUnitPrice" AS "sellNowPerUnitPrice", "sellNow"."startTime" AS "sellNowStartTime", "auction"."perUnitPrice" AS "auctionPerUnitPrice", "auction"."price" AS "auctionPrice", "auction"."endTime" AS "auctionEndTime", "mint"."timestamp" AS "mintTimestamp", (SELECT COUNT(*) FROM "likes" "like" WHERE "like"."collectionAddress" = "balance"."collectionAddress" AND "like"."tokenId" = "balance"."tokenId") AS "likeCount" FROM "balances" "balance" INNER JOIN "items" "item" ON "item"."collectionAddress" = "balance"."collectionAddress" AND "item"."tokenId" = "balance"."tokenId"  LEFT JOIN "collection_rankings_cache" "collection" ON "collection"."address" = "balance"."collectionAddress"  LEFT JOIN (SELECT "order".*, \n                CASE\n                  WHEN "order".TYPE = \'DUTCH_AUCTION\'::ORDER_TYPE THEN "order"."startingPrice" - ("order"."startingPrice" - "order".PRICE) * EXTRACT(\n                    EPOCH\n                    FROM\n                      NOW() - "order"."startTime"::TIMESTAMP WITH TIME ZONE\n                  ) / EXTRACT(\n                    EPOCH\n                    FROM\n                      "order"."endTime" - "order"."startTime"\n                  )\n                  ELSE "order".PRICE\n                END AS "buyNowPrice"\n                , \n                CASE\n                  WHEN "order".TYPE = \'DUTCH_AUCTION\'::ORDER_TYPE THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."perUnitPrice") * EXTRACT(\n                    EPOCH\n                    FROM\n                      NOW() - "order"."startTime"::TIMESTAMP WITH TIME ZONE\n                  ) / EXTRACT(\n                    EPOCH\n                    FROM\n                      "order"."endTime" - "order"."startTime"\n                  )\n                  ELSE "order"."perUnitPrice"\n                END AS "buyNowPerUnitPrice"\n                , (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" IN (\'ASK\', \'DUTCH_AUCTION\') AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() ORDER BY CASE WHEN "order"."type" = \'DUTCH_AUCTION\' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."perUnitPrice") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."perUnitPrice" END ASC, "order"."marketplace" ASC) "buyNow" ON "buyNow"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId"::TEXT = ANY("buyNow"."tokenIds")  LEFT JOIN (SELECT "order".*, (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = \'BID\' AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() ORDER BY "order"."perUnitPrice" DESC, "order"."marketplace" ASC) "sellNow" ON "sellNow"."collectionAddress" = "balance"."collectionAddress" AND ("balance"."tokenId"::TEXT = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)  LEFT JOIN (SELECT "order".*, (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = \'ENGLISH_AUCTION\' AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() ORDER BY "order"."endTime" ASC, "order"."marketplace" ASC) "auction" ON "auction"."collectionAddress" = "balance"."collectionAddress" AND "balance"."tokenId"::TEXT = ANY("auction"."tokenIds")  LEFT JOIN (SELECT * FROM "transfers" "transfer" WHERE (\n                  (\n                    TRANSFER."txHash",\n                    TRANSFER."timestamp",\n                    TRANSFER."logIdx"\n                  ) = (\n                    SELECT\n                      MIN(T2."txHash") AS MIN,\n                      MIN(T2."timestamp") AS MIN,\n                      MIN(T2."logIdx") AS MIN\n                    FROM\n                      TRANSFERS T2\n                    WHERE\n                      T2."collectionAddress" = TRANSFER."collectionAddress"\n                      AND T2."tokenId" = TRANSFER."tokenId"\n                      AND T2."from" = \'0000000000000000000000000000000000000000\'::BPCHAR\n                  )\n                ) ORDER BY "transfer"."collectionAddress" ASC, "transfer"."tokenId" ASC, "timestamp" ASC) "mint" ON "mint"."collectionAddress" = "balance"."collectionAddress" AND "mint"."tokenId" = "balance"."tokenId" WHERE "balance"."balance" > 0 ORDER BY "balance"."collectionAddress" ASC, "balance"."tokenId" ASC, "balance"."userAddress" ASC',
       ],
     );
     await queryRunner.query(
-      `CREATE VIEW "collections_view" AS SELECT "collection"."address" AS "address", "collection"."type" AS "type", "collection"."name" AS "name", "collection"."symbol" AS "symbol", "collection"."imageUrl" AS "imageUrl", "collection"."active" AS "active", "collection"."verified" AS "verified", "collection"."explicit" AS "explicit", "collection"."bannerUrl" AS "bannerUrl", "collection"."description" AS "description", "collection"."deployedAt" AS "deployedAt", "collection"."deployer" AS "deployer", "collection"."links" AS "links", "collection"."lastImport" AS "lastImport", COALESCE("ranking"."volume", 0) AS "volume", COALESCE("ranking"."volume1h", 0) AS "volume1h", COALESCE("ranking"."volume6h", 0) AS "volume6h", COALESCE("ranking"."volume24h", 0) AS "volume24h", COALESCE("ranking"."volume7d", 0) AS "volume7d", COALESCE("ranking"."volume30d", 0) AS "volume30d", COALESCE("ranking"."volume90d", 0) AS "volume90d", COALESCE("ranking"."previousVolume1h", 0) AS "previousVolume1h", COALESCE("ranking"."previousVolume6h", 0) AS "previousVolume6h", COALESCE("ranking"."previousVolume24h", 0) AS "previousVolume24h", COALESCE("ranking"."previousVolume7d", 0) AS "previousVolume7d", COALESCE("ranking"."previousVolume30d", 0) AS "previousVolume30d", COALESCE("ranking"."previousVolume90d", 0) AS "previousVolume90d", "ranking"."floorPrice" AS "floorPrice", "ranking"."previousFloorPrice1h" AS "previousFloorPrice1h", "ranking"."previousFloorPrice6h" AS "previousFloorPrice6h", "ranking"."previousFloorPrice24h" AS "previousFloorPrice24h", "ranking"."previousFloorPrice7d" AS "previousFloorPrice7d", "ranking"."previousFloorPrice30d" AS "previousFloorPrice30d", "ranking"."previousFloorPrice90d" AS "previousFloorPrice90d", COALESCE("ranking"."saleCount", 0) AS "saleCount", COALESCE("ranking"."saleCount1h", 0) AS "saleCount1h", COALESCE("ranking"."saleCount6h", 0) AS "saleCount6h", COALESCE("ranking"."saleCount24h", 0) AS "saleCount24h", COALESCE("ranking"."saleCount7d", 0) AS "saleCount7d", COALESCE("ranking"."saleCount30d", 0) AS "saleCount30d", COALESCE("ranking"."saleCount90d", 0) AS "saleCount90d", COALESCE("ranking"."previousSaleCount1h", 0) AS "previousSaleCount1h", COALESCE("ranking"."previousSaleCount6h", 0) AS "previousSaleCount6h", COALESCE("ranking"."previousSaleCount24h", 0) AS "previousSaleCount24h", COALESCE("ranking"."previousSaleCount7d", 0) AS "previousSaleCount7d", COALESCE("ranking"."previousSaleCount30d", 0) AS "previousSaleCount30d", COALESCE("ranking"."previousSaleCount90d", 0) AS "previousSaleCount90d", COALESCE("ranking"."totalSupply", 0) AS "totalSupply", COALESCE("ranking"."ownerCount", 0) AS "ownerCount", COALESCE("ranking"."listedCount", 0) AS "listedCount", (SELECT EXISTS (SELECT 1 FROM "notable_collections" "notable" WHERE "notable"."collectionAddress" = "collection"."address") FROM (SELECT 1 AS dummy_column) "dummy_table") AS "notable", (SELECT MAX("item"."rarityRanking") as "maxRarityRanking" FROM "items" "item" WHERE "item"."collectionAddress" = "collection"."address") AS "maxRarityRanking" FROM "collections" "collection" LEFT JOIN "collection_rankings_cache" "ranking" ON "ranking"."address" = "collection"."address"`,
-    );
-    await queryRunner.query(
-      `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
-      [
-        'public',
-        'VIEW',
-        'collections_view',
-        'SELECT "collection"."address" AS "address", "collection"."type" AS "type", "collection"."name" AS "name", "collection"."symbol" AS "symbol", "collection"."imageUrl" AS "imageUrl", "collection"."active" AS "active", "collection"."verified" AS "verified", "collection"."explicit" AS "explicit", "collection"."bannerUrl" AS "bannerUrl", "collection"."description" AS "description", "collection"."deployedAt" AS "deployedAt", "collection"."deployer" AS "deployer", "collection"."links" AS "links", "collection"."lastImport" AS "lastImport", COALESCE("ranking"."volume", 0) AS "volume", COALESCE("ranking"."volume1h", 0) AS "volume1h", COALESCE("ranking"."volume6h", 0) AS "volume6h", COALESCE("ranking"."volume24h", 0) AS "volume24h", COALESCE("ranking"."volume7d", 0) AS "volume7d", COALESCE("ranking"."volume30d", 0) AS "volume30d", COALESCE("ranking"."volume90d", 0) AS "volume90d", COALESCE("ranking"."previousVolume1h", 0) AS "previousVolume1h", COALESCE("ranking"."previousVolume6h", 0) AS "previousVolume6h", COALESCE("ranking"."previousVolume24h", 0) AS "previousVolume24h", COALESCE("ranking"."previousVolume7d", 0) AS "previousVolume7d", COALESCE("ranking"."previousVolume30d", 0) AS "previousVolume30d", COALESCE("ranking"."previousVolume90d", 0) AS "previousVolume90d", "ranking"."floorPrice" AS "floorPrice", "ranking"."previousFloorPrice1h" AS "previousFloorPrice1h", "ranking"."previousFloorPrice6h" AS "previousFloorPrice6h", "ranking"."previousFloorPrice24h" AS "previousFloorPrice24h", "ranking"."previousFloorPrice7d" AS "previousFloorPrice7d", "ranking"."previousFloorPrice30d" AS "previousFloorPrice30d", "ranking"."previousFloorPrice90d" AS "previousFloorPrice90d", COALESCE("ranking"."saleCount", 0) AS "saleCount", COALESCE("ranking"."saleCount1h", 0) AS "saleCount1h", COALESCE("ranking"."saleCount6h", 0) AS "saleCount6h", COALESCE("ranking"."saleCount24h", 0) AS "saleCount24h", COALESCE("ranking"."saleCount7d", 0) AS "saleCount7d", COALESCE("ranking"."saleCount30d", 0) AS "saleCount30d", COALESCE("ranking"."saleCount90d", 0) AS "saleCount90d", COALESCE("ranking"."previousSaleCount1h", 0) AS "previousSaleCount1h", COALESCE("ranking"."previousSaleCount6h", 0) AS "previousSaleCount6h", COALESCE("ranking"."previousSaleCount24h", 0) AS "previousSaleCount24h", COALESCE("ranking"."previousSaleCount7d", 0) AS "previousSaleCount7d", COALESCE("ranking"."previousSaleCount30d", 0) AS "previousSaleCount30d", COALESCE("ranking"."previousSaleCount90d", 0) AS "previousSaleCount90d", COALESCE("ranking"."totalSupply", 0) AS "totalSupply", COALESCE("ranking"."ownerCount", 0) AS "ownerCount", COALESCE("ranking"."listedCount", 0) AS "listedCount", (SELECT EXISTS (SELECT 1 FROM "notable_collections" "notable" WHERE "notable"."collectionAddress" = "collection"."address") FROM (SELECT 1 AS dummy_column) "dummy_table") AS "notable", (SELECT MAX("item"."rarityRanking") as "maxRarityRanking" FROM "items" "item" WHERE "item"."collectionAddress" = "collection"."address") AS "maxRarityRanking" FROM "collections" "collection" LEFT JOIN "collection_rankings_cache" "ranking" ON "ranking"."address" = "collection"."address"',
-      ],
-    );
-    await queryRunner.query(
-      `CREATE VIEW "collection_attributes_view" AS SELECT "attribute"."collectionAddress", "attribute"."traitHash" AS "traitHash", MIN("attribute"."trait") AS "trait", "attribute"."valueHash" AS "valueHash", MIN("attribute"."value") AS "value", COUNT(*) AS "itemCount", SUM(CASE WHEN EXISTS (SELECT "order".* FROM "active_orders_cache" "order" INNER JOIN (SELECT "orders_items"."hash", array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" GROUP BY "orders_items"."hash" HAVING "attribute"."tokenId" = ANY (array_agg("orders_items"."tokenId"))) "orders_items" ON "orders_items"."hash" = "order"."hash" WHERE "order"."type" IN ('ASK', 'DUTCH_AUCTION') AND "order"."collectionAddress" = "attribute"."collectionAddress") THEN 1 ELSE 0 END) AS "listedCount" FROM "item_attributes" "attribute" GROUP BY "attribute"."collectionAddress", "attribute"."traitHash", "attribute"."valueHash"`,
+      `CREATE VIEW "collection_attributes_view" AS SELECT "attribute"."collectionAddress", "attribute"."traitHash" AS "traitHash", MIN("attribute"."trait") AS "trait", "attribute"."valueHash" AS "valueHash", MIN("attribute"."value") AS "value", COUNT(*) AS "itemCount", (SELECT COALESCE(COUNT(DISTINCT "order"."hash"), 0) FROM "active_orders_cache" "order" WHERE EXISTS ((SELECT 1 FROM "orders_items" "orders_items" WHERE "orders_items"."tokenId" = ANY(array_agg("attribute"."tokenId")) AND "orders_items"."hash" = "order"."hash" AND "orders_items"."collectionAddress" = "attribute"."collectionAddress")) AND "order"."type" IN ('ASK', 'DUTCH_AUCTION') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() AND "order"."collectionAddress" = "attribute"."collectionAddress") AS "listedCount" FROM "item_attributes" "attribute" GROUP BY "attribute"."collectionAddress", "attribute"."traitHash", "attribute"."valueHash"`,
     );
     await queryRunner.query(
       `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
@@ -792,7 +753,7 @@ export class Migrations1730740796341 implements MigrationInterface {
         'public',
         'VIEW',
         'collection_attributes_view',
-        'SELECT "attribute"."collectionAddress", "attribute"."traitHash" AS "traitHash", MIN("attribute"."trait") AS "trait", "attribute"."valueHash" AS "valueHash", MIN("attribute"."value") AS "value", COUNT(*) AS "itemCount", SUM(CASE WHEN EXISTS (SELECT "order".* FROM "active_orders_cache" "order" INNER JOIN (SELECT "orders_items"."hash", array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" GROUP BY "orders_items"."hash" HAVING "attribute"."tokenId" = ANY (array_agg("orders_items"."tokenId"))) "orders_items" ON "orders_items"."hash" = "order"."hash" WHERE "order"."type" IN (\'ASK\', \'DUTCH_AUCTION\') AND "order"."collectionAddress" = "attribute"."collectionAddress") THEN 1 ELSE 0 END) AS "listedCount" FROM "item_attributes" "attribute" GROUP BY "attribute"."collectionAddress", "attribute"."traitHash", "attribute"."valueHash"',
+        'SELECT "attribute"."collectionAddress", "attribute"."traitHash" AS "traitHash", MIN("attribute"."trait") AS "trait", "attribute"."valueHash" AS "valueHash", MIN("attribute"."value") AS "value", COUNT(*) AS "itemCount", (SELECT COALESCE(COUNT(DISTINCT "order"."hash"), 0) FROM "active_orders_cache" "order" WHERE EXISTS ((SELECT 1 FROM "orders_items" "orders_items" WHERE "orders_items"."tokenId" = ANY(array_agg("attribute"."tokenId")) AND "orders_items"."hash" = "order"."hash" AND "orders_items"."collectionAddress" = "attribute"."collectionAddress")) AND "order"."type" IN (\'ASK\', \'DUTCH_AUCTION\') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() AND "order"."collectionAddress" = "attribute"."collectionAddress") AS "listedCount" FROM "item_attributes" "attribute" GROUP BY "attribute"."collectionAddress", "attribute"."traitHash", "attribute"."valueHash"',
       ],
     );
     await queryRunner.query(
@@ -808,18 +769,6 @@ export class Migrations1730740796341 implements MigrationInterface {
       ],
     );
     await queryRunner.query(
-      `CREATE VIEW "collection_balances_view" AS SELECT "balance"."collectionAddress" AS "collectionAddress", "balance"."userAddress" AS "userAddress", "balance"."balance" AS "balance", "balance"."itemCount" AS "itemCount", (SELECT "collection"."description" FROM "collections" "collection" WHERE "collection"."address" = "balance"."collectionAddress") AS "description", (SELECT "collection"."name" FROM "collections" "collection" WHERE "collection"."address" = "balance"."collectionAddress") AS "name", COALESCE("collection"."volume", 0) AS "volume", COALESCE("collection"."volume1h", 0) AS "volume1h", COALESCE("collection"."volume6h", 0) AS "volume6h", COALESCE("collection"."volume24h", 0) AS "volume24h", COALESCE("collection"."volume7d", 0) AS "volume7d", COALESCE("collection"."volume30d", 0) AS "volume30d", COALESCE("collection"."volume90d", 0) AS "volume90d" FROM (SELECT "balance"."collectionAddress" AS "collectionAddress", "balance"."userAddress" AS "userAddress", SUM("balance"."balance") AS "balance", COUNT(DISTINCT "balance"."tokenId") AS "itemCount" FROM "balances" "balance" WHERE "balance"."balance" > 0 GROUP BY "balance"."collectionAddress", "balance"."userAddress") "balance" LEFT JOIN "collection_rankings_cache" "collection" ON "collection"."address" = "balance"."collectionAddress"`,
-    );
-    await queryRunner.query(
-      `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
-      [
-        'public',
-        'VIEW',
-        'collection_balances_view',
-        'SELECT "balance"."collectionAddress" AS "collectionAddress", "balance"."userAddress" AS "userAddress", "balance"."balance" AS "balance", "balance"."itemCount" AS "itemCount", (SELECT "collection"."description" FROM "collections" "collection" WHERE "collection"."address" = "balance"."collectionAddress") AS "description", (SELECT "collection"."name" FROM "collections" "collection" WHERE "collection"."address" = "balance"."collectionAddress") AS "name", COALESCE("collection"."volume", 0) AS "volume", COALESCE("collection"."volume1h", 0) AS "volume1h", COALESCE("collection"."volume6h", 0) AS "volume6h", COALESCE("collection"."volume24h", 0) AS "volume24h", COALESCE("collection"."volume7d", 0) AS "volume7d", COALESCE("collection"."volume30d", 0) AS "volume30d", COALESCE("collection"."volume90d", 0) AS "volume90d" FROM (SELECT "balance"."collectionAddress" AS "collectionAddress", "balance"."userAddress" AS "userAddress", SUM("balance"."balance") AS "balance", COUNT(DISTINCT "balance"."tokenId") AS "itemCount" FROM "balances" "balance" WHERE "balance"."balance" > 0 GROUP BY "balance"."collectionAddress", "balance"."userAddress") "balance" LEFT JOIN "collection_rankings_cache" "collection" ON "collection"."address" = "balance"."collectionAddress"',
-      ],
-    );
-    await queryRunner.query(
       `CREATE VIEW "distributor_rewards_view" AS SELECT "reward"."userAddress" AS "userAddress", "reward"."distributor" AS "distributor", "reward"."amount" AS "amount", "reward"."signature" AS "signature", "reward"."timestamp" AS "timestamp", "reward"."harvestTxHash" AS "harvestTxHash", "reward"."harvestLogIdx" AS "harvestLogIdx", "reward"."harvestTimestamp" AS "harvestTimestamp" FROM "distributor_rewards" "reward"`,
     );
     await queryRunner.query(
@@ -831,16 +780,57 @@ export class Migrations1730740796341 implements MigrationInterface {
         'SELECT "reward"."userAddress" AS "userAddress", "reward"."distributor" AS "distributor", "reward"."amount" AS "amount", "reward"."signature" AS "signature", "reward"."timestamp" AS "timestamp", "reward"."harvestTxHash" AS "harvestTxHash", "reward"."harvestLogIdx" AS "harvestLogIdx", "reward"."harvestTimestamp" AS "harvestTimestamp" FROM "distributor_rewards" "reward"',
       ],
     );
-    await queryRunner.query(
-      `CREATE VIEW "items_view" AS SELECT DISTINCT ON ("item"."collectionAddress", "item"."tokenId") "item"."collectionAddress" AS "collectionAddress", "item"."tokenId" AS "tokenId", "item"."title" AS "title", "item"."description" AS "description", "item"."tokenUri" AS "tokenUri", "item"."decimals" AS "decimals", "item"."rarityRanking" AS "rarityRanking", "item"."rarityScore" AS "rarityScore", "item"."lastImport" AS "lastImport", CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END AS "rarityBasisPoints", CASE WHEN "buyNow"."type" = 'DUTCH_AUCTION' THEN "buyNow"."startingPrice" - ("buyNow"."startingPrice" - "buyNow"."price") * EXTRACT(EPOCH FROM NOW() - "buyNow"."startTime") / EXTRACT(EPOCH FROM "buyNow"."endTime" - "buyNow"."startTime") ELSE "buyNow"."price" END AS "buyNowPrice", "buyNow"."startTime" AS "buyNowStartTime", "sellNow"."price" AS "sellNowPrice", "sellNow"."startTime" AS "sellNowStartTime", CASE WHEN "auction"."hash" IS NOT NULL THEN GREATEST("sellNow"."price", "auction"."price") ELSE NULL END AS "auctionPrice", "auction"."endTime" AS "auctionEndTime", "lastSale"."price" AS "lastSalePrice", "lastSale"."timestamp" AS "lastSaleTimestamp", "mint"."timestamp" AS "mintTimestamp", "lastTransfer"."timestamp" AS "lastTransferTimestamp", (SELECT COUNT(*) FROM "likes" "like" WHERE "like"."collectionAddress" = "item"."collectionAddress" AND "like"."tokenId" = "item"."tokenId") AS "likeCount" FROM "items" "item" LEFT JOIN "collection_rankings_cache" "collection" ON "collection"."address" = "item"."collectionAddress"  LEFT JOIN (SELECT DISTINCT ON ("order"."hash") "order".*, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" IN ('ASK', 'DUTCH_AUCTION') AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) ORDER BY "order"."hash" ASC, CASE WHEN "order"."type" = 'DUTCH_AUCTION' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END ASC) "buyNow" ON "buyNow"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId" = ANY("buyNow"."tokenIds")  LEFT JOIN (SELECT DISTINCT ON ("order"."hash") "order".*, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = 'BID' AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) ORDER BY "order"."hash" ASC, "order"."price" DESC) "sellNow" ON "sellNow"."collectionAddress" = "item"."collectionAddress" AND ("item"."tokenId" = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)  LEFT JOIN (SELECT DISTINCT ON ("order"."hash") "order".*, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = 'ENGLISH_AUCTION' AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) ORDER BY "order"."hash" ASC, "order"."endTime" ASC) "auction" ON "auction"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId" = ANY("auction"."tokenIds")  LEFT JOIN (SELECT DISTINCT ON ("sale"."collectionAddress", "sale"."tokenId") * FROM "sales" "sale" ORDER BY "sale"."collectionAddress" ASC, "sale"."tokenId" ASC, "timestamp" DESC) "lastSale" ON "lastSale"."collectionAddress" = "item"."collectionAddress" AND "lastSale"."tokenId" = "item"."tokenId"  LEFT JOIN (SELECT DISTINCT ON ("transfer"."collectionAddress", "transfer"."tokenId") * FROM "transfers" "transfer" ORDER BY "transfer"."collectionAddress" ASC, "transfer"."tokenId" ASC, "timestamp" ASC) "mint" ON "mint"."collectionAddress" = "item"."collectionAddress" AND "mint"."tokenId" = "item"."tokenId"  LEFT JOIN (SELECT DISTINCT ON ("transfer"."collectionAddress", "transfer"."tokenId") * FROM "transfers" "transfer" ORDER BY "transfer"."collectionAddress" ASC, "transfer"."tokenId" ASC, "timestamp" DESC) "lastTransfer" ON "lastTransfer"."collectionAddress" = "item"."collectionAddress" AND "lastTransfer"."tokenId" = "item"."tokenId" ORDER BY "item"."collectionAddress" ASC, "item"."tokenId" ASC, "sellNow"."price" DESC`,
-    );
+    await queryRunner.query(`CREATE VIEW "items_view" AS SELECT DISTINCT ON ("item"."collectionAddress", "item"."tokenId") "item"."collectionAddress" AS "collectionAddress", "item"."tokenId" AS "tokenId", "item"."title" AS "title", "item"."description" AS "description", "item"."tokenUri" AS "tokenUri", "item"."numberOfCopies" AS "numberOfCopies", "item"."rarityRanking" AS "rarityRanking", "item"."rarityScore" AS "rarityScore", "item"."lastImport" AS "lastImport", CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END AS "rarityBasisPoints", "buyNow"."buyNowPrice" AS "buyNowPrice", "buyNow"."buyNowPerUnitPrice" AS "buyNowPerUnitPrice", "buyNow"."startTime" AS "buyNowStartTime", "sellNow"."price" AS "sellNowPrice", "sellNow"."perUnitPrice" AS "sellNowPerUnitPrice", "sellNow"."startTime" AS "sellNowStartTime", CASE WHEN "auction"."hash" IS NOT NULL THEN GREATEST("sellNow"."perUnitPrice", "auction"."perUnitPrice") ELSE NULL END AS "auctionPerUnitPrice", CASE WHEN "auction"."hash" IS NOT NULL THEN GREATEST("sellNow"."price", "auction"."price") ELSE NULL END AS "auctionPrice", "auction"."endTime" AS "auctionEndTime", "lastSale"."price" AS "lastSalePrice", "lastSale"."timestamp" AS "lastSaleTimestamp", "mint"."timestamp" AS "mintTimestamp", (SELECT COUNT(*) FROM "likes" "like" WHERE "like"."collectionAddress" = "item"."collectionAddress" AND "like"."tokenId" = "item"."tokenId") AS "likeCount", (SELECT TRUE FROM "active_orders_cache" "orders" LEFT JOIN "orders_items" "orders_items" ON "orders"."hash" = "orders_items"."hash" WHERE orders_items."tokenId" = item."tokenId" OR orders_items."tokenId" IS NULL AND orders."collectionAddress" = item."collectionAddress" AND "orders"."marketplace" = 'SPAACE' LIMIT 1) AS "isOnSpaace" FROM "items" "item" LEFT JOIN "collection_rankings_cache" "collection" ON "collection"."address" = "item"."collectionAddress"  LEFT JOIN (SELECT "order".*, 
+                CASE
+                  WHEN "order".TYPE = 'DUTCH_AUCTION'::ORDER_TYPE THEN "order"."startingPrice" - ("order"."startingPrice" - "order".PRICE) * EXTRACT(
+                    EPOCH
+                    FROM
+                      NOW() - "order"."startTime"::TIMESTAMP WITH TIME ZONE
+                  ) / EXTRACT(
+                    EPOCH
+                    FROM
+                      "order"."endTime" - "order"."startTime"
+                  )
+                  ELSE "order".PRICE
+                END AS "buyNowPrice"
+                , 
+                CASE
+                  WHEN "order".TYPE = 'DUTCH_AUCTION'::ORDER_TYPE THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."perUnitPrice") * EXTRACT(
+                    EPOCH
+                    FROM
+                      NOW() - "order"."startTime"::TIMESTAMP WITH TIME ZONE
+                  ) / EXTRACT(
+                    EPOCH
+                    FROM
+                      "order"."endTime" - "order"."startTime"
+                  )
+                  ELSE "order"."perUnitPrice"
+                END AS "buyNowPerUnitPrice"
+                , (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" IN ('ASK', 'DUTCH_AUCTION') AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() ORDER BY "buyNowPerUnitPrice" ASC, "order"."marketplace" ASC) "buyNow" ON "buyNow"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId"::TEXT = ANY("buyNow"."tokenIds")  LEFT JOIN (SELECT "order".*, (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = 'BID' AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() ORDER BY "order"."perUnitPrice" DESC, "order"."marketplace" ASC) "sellNow" ON "sellNow"."collectionAddress" = "item"."collectionAddress" AND ("item"."tokenId"::TEXT = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)  LEFT JOIN (SELECT "order".*, (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = 'ENGLISH_AUCTION' AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() ORDER BY "order"."endTime" ASC, "order"."marketplace" ASC) "auction" ON "auction"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId"::TEXT = ANY("auction"."tokenIds")  LEFT JOIN (SELECT DISTINCT ON ("sale"."collectionAddress", "sale"."tokenId") * FROM "sales" "sale" ORDER BY "sale"."collectionAddress" ASC, "sale"."tokenId" ASC, "timestamp" DESC) "lastSale" ON "lastSale"."collectionAddress" = "item"."collectionAddress" AND "lastSale"."tokenId" = "item"."tokenId"  LEFT JOIN (SELECT DISTINCT ON ("transfer"."collectionAddress", "transfer"."tokenId") * FROM "transfers" "transfer" WHERE (
+                  (
+                    TRANSFER."txHash",
+                    TRANSFER."timestamp",
+                    TRANSFER."logIdx"
+                  ) = (
+                    SELECT
+                      MIN(T2."txHash") AS MIN,
+                      MIN(T2."timestamp") AS MIN,
+                      MIN(T2."logIdx") AS MIN
+                    FROM
+                      TRANSFERS T2
+                    WHERE
+                      T2."collectionAddress" = TRANSFER."collectionAddress"
+                      AND T2."tokenId" = TRANSFER."tokenId"
+                      AND T2."from" = '0000000000000000000000000000000000000000'::BPCHAR
+                  )
+                ) ORDER BY "transfer"."collectionAddress" ASC, "transfer"."tokenId" ASC, "timestamp" ASC) "mint" ON "mint"."collectionAddress" = "item"."collectionAddress" AND "mint"."tokenId" = "item"."tokenId" ORDER BY "item"."collectionAddress" ASC, "item"."tokenId" ASC, "sellNow"."perUnitPrice" DESC`);
     await queryRunner.query(
       `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
       [
         'public',
         'VIEW',
         'items_view',
-        'SELECT DISTINCT ON ("item"."collectionAddress", "item"."tokenId") "item"."collectionAddress" AS "collectionAddress", "item"."tokenId" AS "tokenId", "item"."title" AS "title", "item"."description" AS "description", "item"."tokenUri" AS "tokenUri", "item"."decimals" AS "decimals", "item"."rarityRanking" AS "rarityRanking", "item"."rarityScore" AS "rarityScore", "item"."lastImport" AS "lastImport", CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END AS "rarityBasisPoints", CASE WHEN "buyNow"."type" = \'DUTCH_AUCTION\' THEN "buyNow"."startingPrice" - ("buyNow"."startingPrice" - "buyNow"."price") * EXTRACT(EPOCH FROM NOW() - "buyNow"."startTime") / EXTRACT(EPOCH FROM "buyNow"."endTime" - "buyNow"."startTime") ELSE "buyNow"."price" END AS "buyNowPrice", "buyNow"."startTime" AS "buyNowStartTime", "sellNow"."price" AS "sellNowPrice", "sellNow"."startTime" AS "sellNowStartTime", CASE WHEN "auction"."hash" IS NOT NULL THEN GREATEST("sellNow"."price", "auction"."price") ELSE NULL END AS "auctionPrice", "auction"."endTime" AS "auctionEndTime", "lastSale"."price" AS "lastSalePrice", "lastSale"."timestamp" AS "lastSaleTimestamp", "mint"."timestamp" AS "mintTimestamp", "lastTransfer"."timestamp" AS "lastTransferTimestamp", (SELECT COUNT(*) FROM "likes" "like" WHERE "like"."collectionAddress" = "item"."collectionAddress" AND "like"."tokenId" = "item"."tokenId") AS "likeCount" FROM "items" "item" LEFT JOIN "collection_rankings_cache" "collection" ON "collection"."address" = "item"."collectionAddress"  LEFT JOIN (SELECT DISTINCT ON ("order"."hash") "order".*, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" IN (\'ASK\', \'DUTCH_AUCTION\') AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) ORDER BY "order"."hash" ASC, CASE WHEN "order"."type" = \'DUTCH_AUCTION\' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."price") * EXTRACT(EPOCH FROM NOW() - "order"."startTime") / EXTRACT(EPOCH FROM "order"."endTime" - "order"."startTime") ELSE "order"."price" END ASC) "buyNow" ON "buyNow"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId" = ANY("buyNow"."tokenIds")  LEFT JOIN (SELECT DISTINCT ON ("order"."hash") "order".*, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = \'BID\' AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) ORDER BY "order"."hash" ASC, "order"."price" DESC) "sellNow" ON "sellNow"."collectionAddress" = "item"."collectionAddress" AND ("item"."tokenId" = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)  LEFT JOIN (SELECT DISTINCT ON ("order"."hash") "order".*, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = \'ENGLISH_AUCTION\' AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL) ORDER BY "order"."hash" ASC, "order"."endTime" ASC) "auction" ON "auction"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId" = ANY("auction"."tokenIds")  LEFT JOIN (SELECT DISTINCT ON ("sale"."collectionAddress", "sale"."tokenId") * FROM "sales" "sale" ORDER BY "sale"."collectionAddress" ASC, "sale"."tokenId" ASC, "timestamp" DESC) "lastSale" ON "lastSale"."collectionAddress" = "item"."collectionAddress" AND "lastSale"."tokenId" = "item"."tokenId"  LEFT JOIN (SELECT DISTINCT ON ("transfer"."collectionAddress", "transfer"."tokenId") * FROM "transfers" "transfer" ORDER BY "transfer"."collectionAddress" ASC, "transfer"."tokenId" ASC, "timestamp" ASC) "mint" ON "mint"."collectionAddress" = "item"."collectionAddress" AND "mint"."tokenId" = "item"."tokenId"  LEFT JOIN (SELECT DISTINCT ON ("transfer"."collectionAddress", "transfer"."tokenId") * FROM "transfers" "transfer" ORDER BY "transfer"."collectionAddress" ASC, "transfer"."tokenId" ASC, "timestamp" DESC) "lastTransfer" ON "lastTransfer"."collectionAddress" = "item"."collectionAddress" AND "lastTransfer"."tokenId" = "item"."tokenId" ORDER BY "item"."collectionAddress" ASC, "item"."tokenId" ASC, "sellNow"."price" DESC',
+        'SELECT DISTINCT ON ("item"."collectionAddress", "item"."tokenId") "item"."collectionAddress" AS "collectionAddress", "item"."tokenId" AS "tokenId", "item"."title" AS "title", "item"."description" AS "description", "item"."tokenUri" AS "tokenUri", "item"."numberOfCopies" AS "numberOfCopies", "item"."rarityRanking" AS "rarityRanking", "item"."rarityScore" AS "rarityScore", "item"."lastImport" AS "lastImport", CASE WHEN "item"."rarityRanking" IS NOT NULL AND "collection"."totalSupply" > 0 THEN 10000 - "item"."rarityRanking" * 10000 / "collection"."totalSupply" ELSE NULL END AS "rarityBasisPoints", "buyNow"."buyNowPrice" AS "buyNowPrice", "buyNow"."buyNowPerUnitPrice" AS "buyNowPerUnitPrice", "buyNow"."startTime" AS "buyNowStartTime", "sellNow"."price" AS "sellNowPrice", "sellNow"."perUnitPrice" AS "sellNowPerUnitPrice", "sellNow"."startTime" AS "sellNowStartTime", CASE WHEN "auction"."hash" IS NOT NULL THEN GREATEST("sellNow"."perUnitPrice", "auction"."perUnitPrice") ELSE NULL END AS "auctionPerUnitPrice", CASE WHEN "auction"."hash" IS NOT NULL THEN GREATEST("sellNow"."price", "auction"."price") ELSE NULL END AS "auctionPrice", "auction"."endTime" AS "auctionEndTime", "lastSale"."price" AS "lastSalePrice", "lastSale"."timestamp" AS "lastSaleTimestamp", "mint"."timestamp" AS "mintTimestamp", (SELECT COUNT(*) FROM "likes" "like" WHERE "like"."collectionAddress" = "item"."collectionAddress" AND "like"."tokenId" = "item"."tokenId") AS "likeCount", (SELECT TRUE FROM "active_orders_cache" "orders" LEFT JOIN "orders_items" "orders_items" ON "orders"."hash" = "orders_items"."hash" WHERE orders_items."tokenId" = item."tokenId" OR orders_items."tokenId" IS NULL AND orders."collectionAddress" = item."collectionAddress" AND "orders"."marketplace" = \'SPAACE\' LIMIT 1) AS "isOnSpaace" FROM "items" "item" LEFT JOIN "collection_rankings_cache" "collection" ON "collection"."address" = "item"."collectionAddress"  LEFT JOIN (SELECT "order".*, \n                CASE\n                  WHEN "order".TYPE = \'DUTCH_AUCTION\'::ORDER_TYPE THEN "order"."startingPrice" - ("order"."startingPrice" - "order".PRICE) * EXTRACT(\n                    EPOCH\n                    FROM\n                      NOW() - "order"."startTime"::TIMESTAMP WITH TIME ZONE\n                  ) / EXTRACT(\n                    EPOCH\n                    FROM\n                      "order"."endTime" - "order"."startTime"\n                  )\n                  ELSE "order".PRICE\n                END AS "buyNowPrice"\n                , \n                CASE\n                  WHEN "order".TYPE = \'DUTCH_AUCTION\'::ORDER_TYPE THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."perUnitPrice") * EXTRACT(\n                    EPOCH\n                    FROM\n                      NOW() - "order"."startTime"::TIMESTAMP WITH TIME ZONE\n                  ) / EXTRACT(\n                    EPOCH\n                    FROM\n                      "order"."endTime" - "order"."startTime"\n                  )\n                  ELSE "order"."perUnitPrice"\n                END AS "buyNowPerUnitPrice"\n                , (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" IN (\'ASK\', \'DUTCH_AUCTION\') AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() ORDER BY "buyNowPerUnitPrice" ASC, "order"."marketplace" ASC) "buyNow" ON "buyNow"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId"::TEXT = ANY("buyNow"."tokenIds")  LEFT JOIN (SELECT "order".*, (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = \'BID\' AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() ORDER BY "order"."perUnitPrice" DESC, "order"."marketplace" ASC) "sellNow" ON "sellNow"."collectionAddress" = "item"."collectionAddress" AND ("item"."tokenId"::TEXT = ANY("sellNow"."tokenIds") OR "sellNow"."tokenIds" IS NULL)  LEFT JOIN (SELECT "order".*, (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order" WHERE "order"."type" = \'ENGLISH_AUCTION\' AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW() ORDER BY "order"."endTime" ASC, "order"."marketplace" ASC) "auction" ON "auction"."collectionAddress" = "item"."collectionAddress" AND "item"."tokenId"::TEXT = ANY("auction"."tokenIds")  LEFT JOIN (SELECT DISTINCT ON ("sale"."collectionAddress", "sale"."tokenId") * FROM "sales" "sale" ORDER BY "sale"."collectionAddress" ASC, "sale"."tokenId" ASC, "timestamp" DESC) "lastSale" ON "lastSale"."collectionAddress" = "item"."collectionAddress" AND "lastSale"."tokenId" = "item"."tokenId"  LEFT JOIN (SELECT DISTINCT ON ("transfer"."collectionAddress", "transfer"."tokenId") * FROM "transfers" "transfer" WHERE (\n                  (\n                    TRANSFER."txHash",\n                    TRANSFER."timestamp",\n                    TRANSFER."logIdx"\n                  ) = (\n                    SELECT\n                      MIN(T2."txHash") AS MIN,\n                      MIN(T2."timestamp") AS MIN,\n                      MIN(T2."logIdx") AS MIN\n                    FROM\n                      TRANSFERS T2\n                    WHERE\n                      T2."collectionAddress" = TRANSFER."collectionAddress"\n                      AND T2."tokenId" = TRANSFER."tokenId"\n                      AND T2."from" = \'0000000000000000000000000000000000000000\'::BPCHAR\n                  )\n                ) ORDER BY "transfer"."collectionAddress" ASC, "transfer"."tokenId" ASC, "timestamp" ASC) "mint" ON "mint"."collectionAddress" = "item"."collectionAddress" AND "mint"."tokenId" = "item"."tokenId" ORDER BY "item"."collectionAddress" ASC, "item"."tokenId" ASC, "sellNow"."perUnitPrice" DESC',
       ],
     );
     await queryRunner.query(
@@ -880,7 +870,7 @@ export class Migrations1730740796341 implements MigrationInterface {
       ],
     );
     await queryRunner.query(
-      `CREATE VIEW "active_orders_cache_view" AS SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order"`,
+      `CREATE VIEW "active_orders_cache_view" AS SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."perUnitPrice" AS "perUnitPrice", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order"`,
     );
     await queryRunner.query(
       `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
@@ -888,11 +878,11 @@ export class Migrations1730740796341 implements MigrationInterface {
         'public',
         'VIEW',
         'active_orders_cache_view',
-        'SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order"',
+        'SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."perUnitPrice" AS "perUnitPrice", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "order"',
       ],
     );
     await queryRunner.query(
-      `CREATE VIEW "orders_view" AS SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT EXISTS (SELECT 1, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "active" WHERE "active"."hash" = "order"."hash" AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL)) FROM (SELECT 1 AS dummy_column) "dummy_table") AS "active", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"`,
+      `CREATE VIEW "orders_view" AS SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."perUnitPrice" AS "perUnitPrice", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT EXISTS (SELECT 1, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "active" WHERE "active"."hash" = "order"."hash" AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW()) FROM (SELECT 1 AS dummy_column) "dummy_table") AS "active", (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"`,
     );
     await queryRunner.query(
       `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
@@ -900,7 +890,7 @@ export class Migrations1730740796341 implements MigrationInterface {
         'public',
         'VIEW',
         'orders_view',
-        'SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT EXISTS (SELECT 1, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "active" WHERE "active"."hash" = "order"."hash" AND ("order"."endTime" > NOW() OR "order"."endTime" IS NULL)) FROM (SELECT 1 AS dummy_column) "dummy_table") AS "active", (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"',
+        'SELECT "order"."hash" AS "hash", "order"."userAddress" AS "userAddress", "order"."collectionAddress" AS "collectionAddress", "order"."type" AS "type", "order"."marketplace" AS "marketplace", "order"."price" AS "price", "order"."perUnitPrice" AS "perUnitPrice", "order"."startingPrice" AS "startingPrice", "order"."currency" AS "currency", "order"."marketplaceFeeBps" AS "marketplaceFeeBps", "order"."marketplaceFeeReceiver" AS "marketplaceFeeReceiver", "order"."royaltiesBps" AS "royaltiesBps", "order"."startingRoyalties" AS "startingRoyalties", "order"."royaltiesReceiver" AS "royaltiesReceiver", "order"."startTime" AS "startTime", "order"."endTime" AS "endTime", "order"."counter" AS "counter", "order"."salt" AS "salt", "order"."zone" AS "zone", "order"."conduitKey" AS "conduitKey", "order"."protocolAddress" AS "protocolAddress", "order"."signature" AS "signature", "order"."cancelTxHash" AS "cancelTxHash", "order"."cancelLogIdx" AS "cancelLogIdx", "order"."cancelTimestamp" AS "cancelTimestamp", "order"."fulfillQuantity" AS "fulfillQuantity", "order"."remainingQuantity" AS "remainingQuantity", (SELECT EXISTS (SELECT 1, (SELECT array_agg("orders_items"."tokenId") as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "active_orders_cache" "active" WHERE "active"."hash" = "order"."hash" AND "order"."endTime" > NOW() AND "order"."startTime" <= NOW()) FROM (SELECT 1 AS dummy_column) "dummy_table") AS "active", (SELECT array_agg("orders_items"."tokenId")::TEXT[] as "tokenIds" FROM "orders_items" "orders_items" WHERE "orders_items"."hash" = "order"."hash") AS "tokenIds" FROM "orders" "order"',
       ],
     );
     await queryRunner.query(
@@ -916,7 +906,7 @@ export class Migrations1730740796341 implements MigrationInterface {
       ],
     );
     await queryRunner.query(
-      `CREATE VIEW "sales_view" AS SELECT "sale"."txHash" AS "txHash", "sale"."logIdx" AS "logIdx", "sale"."orderHash" AS "orderHash", "sale"."collectionAddress" AS "collectionAddress", "sale"."tokenId" AS "tokenId", "sale"."amount" AS "amount", "sale"."from" AS "from", "sale"."to" AS "to", "sale"."price" AS "price", "sale"."currency" AS "currency", "sale"."marketplace" AS "marketplace", "sale"."timestamp" AS "timestamp" FROM "sales" "sale"`,
+      `CREATE VIEW "sales_view" AS SELECT "sale"."txHash" AS "txHash", "sale"."logIdx" AS "logIdx", "sale"."orderHash" AS "orderHash", "sale"."collectionAddress" AS "collectionAddress", "sale"."tokenId" AS "tokenId", "sale"."amount" AS "amount", "sale"."from" AS "from", "sale"."to" AS "to", "sale"."price" AS "price", "sale"."perUnitPrice" AS "perUnitPrice", "sale"."currency" AS "currency", "sale"."marketplace" AS "marketplace", "sale"."timestamp" AS "timestamp" FROM "sales" "sale"`,
     );
     await queryRunner.query(
       `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
@@ -924,7 +914,7 @@ export class Migrations1730740796341 implements MigrationInterface {
         'public',
         'VIEW',
         'sales_view',
-        'SELECT "sale"."txHash" AS "txHash", "sale"."logIdx" AS "logIdx", "sale"."orderHash" AS "orderHash", "sale"."collectionAddress" AS "collectionAddress", "sale"."tokenId" AS "tokenId", "sale"."amount" AS "amount", "sale"."from" AS "from", "sale"."to" AS "to", "sale"."price" AS "price", "sale"."currency" AS "currency", "sale"."marketplace" AS "marketplace", "sale"."timestamp" AS "timestamp" FROM "sales" "sale"',
+        'SELECT "sale"."txHash" AS "txHash", "sale"."logIdx" AS "logIdx", "sale"."orderHash" AS "orderHash", "sale"."collectionAddress" AS "collectionAddress", "sale"."tokenId" AS "tokenId", "sale"."amount" AS "amount", "sale"."from" AS "from", "sale"."to" AS "to", "sale"."price" AS "price", "sale"."perUnitPrice" AS "perUnitPrice", "sale"."currency" AS "currency", "sale"."marketplace" AS "marketplace", "sale"."timestamp" AS "timestamp" FROM "sales" "sale"',
       ],
     );
     await queryRunner.query(
@@ -1023,7 +1013,235 @@ export class Migrations1730740796341 implements MigrationInterface {
         'SELECT "transfer"."txHash" AS "txHash", "transfer"."logIdx" AS "logIdx", "transfer"."from" AS "from", "transfer"."to" AS "to", "transfer"."collectionAddress" AS "collectionAddress", "transfer"."tokenId" AS "tokenId", "transfer"."amount" AS "amount", "transfer"."timestamp" AS "timestamp" FROM "transfers" "transfer"',
       ],
     );
+
+    await queryRunner.query(
+      `SELECT create_hypertable ('sales', 'timestamp', migrate_data => TRUE)`,
+    );
+    await queryRunner.query(
+      `SELECT create_hypertable ('orders', 'endTime', migrate_data => TRUE)`,
+    );
+    await queryRunner.query(
+      `SELECT create_hypertable ('active_orders_cache', 'endTime', migrate_data => TRUE)`,
+    );
+
+    await queryRunner.query(
+      `
+      CREATE MATERIALIZED VIEW sales_volume_6h
+      WITH (timescaledb.continuous) AS
+      SELECT
+        time_bucket ('6 h'::interval, timestamp) as bucket_6h,
+        "collectionAddress",
+        sum(price) as "volume",
+        sum(amount) as "saleCount"
+      FROM sales
+      GROUP BY
+        "collectionAddress",
+        bucket_6h
+      WITH NO DATA
+      `,
+    );
+    await queryRunner.query(
+      `
+      SELECT
+      add_continuous_aggregate_policy (
+        'sales_volume_6h',
+        start_offset => NULL,
+        end_offset => INTERVAL '1 h',
+        schedule_interval => INTERVAL '1 h'
+      )
+      `,
+    );
+    await queryRunner.query(
+      `
+      ALTER MATERIALIZED VIEW sales_volume_6h
+      set (
+        timescaledb.materialized_only = false
+      )
+      `,
+    );
+
+    await queryRunner.query(
+      `
+      CREATE MATERIALIZED VIEW sales_volume_1d
+      WITH (timescaledb.continuous) AS
+      SELECT
+        time_bucket ('1 d'::interval, bucket_6h) as bucket_1d,
+        "collectionAddress",
+        sum(volume) as "volume",
+        sum("saleCount") as "saleCount"
+      FROM sales_volume_6h
+      GROUP BY
+        "collectionAddress",
+        bucket_1d
+      WITH NO DATA
+      `,
+    );
+    await queryRunner.query(
+      `
+      SELECT
+      add_continuous_aggregate_policy (
+        'sales_volume_1d',
+        start_offset => NULL,
+        end_offset => INTERVAL '1 h',
+        schedule_interval => INTERVAL '1 h'
+      )
+      `,
+    );
+    await queryRunner.query(
+      `
+      ALTER MATERIALIZED VIEW sales_volume_1d
+      set (
+        timescaledb.materialized_only = false
+      )
+      `,
+    );
+
+    await queryRunner.query(
+      `
+      CREATE MATERIALIZED VIEW sales_volume_7d
+      WITH (timescaledb.continuous) AS
+      SELECT
+        time_bucket ('7 d'::interval, bucket_1d) as bucket_7d,
+        "collectionAddress",
+        sum(volume) as "volume",
+        sum("saleCount") as "saleCount"
+      FROM sales_volume_1d
+      GROUP BY
+        "collectionAddress",
+        bucket_7d
+      WITH NO DATA
+      `,
+    );
+    await queryRunner.query(
+      `
+      SELECT
+      add_continuous_aggregate_policy (
+        'sales_volume_7d',
+        start_offset => NULL,
+        end_offset => INTERVAL '1 h',
+        schedule_interval => INTERVAL '1 h'
+      )
+      `,
+    );
+    await queryRunner.query(
+      `
+      ALTER MATERIALIZED VIEW sales_volume_7d
+      set (
+        timescaledb.materialized_only = false
+      )
+      `,
+    );
+
+    await queryRunner.query(
+      `
+      CREATE MATERIALIZED VIEW sales_volume_90d
+      WITH (timescaledb.continuous) AS
+      SELECT
+        time_bucket ('90 d'::interval, bucket_1d) as bucket_90d,
+        "collectionAddress",
+        sum(volume) as "volume",
+        sum("saleCount") as "saleCount"
+      FROM sales_volume_1d
+      GROUP BY
+        "collectionAddress",
+        bucket_90d
+      WITH NO DATA
+      `,
+    );
+    await queryRunner.query(
+      `
+      SELECT
+      add_continuous_aggregate_policy (
+        'sales_volume_90d',
+        start_offset => NULL,
+        end_offset => INTERVAL '1 h',
+        schedule_interval => INTERVAL '1 h'
+      )
+      `,
+    );
+    await queryRunner.query(
+      `
+      ALTER MATERIALIZED VIEW sales_volume_90d
+      set (
+        timescaledb.materialized_only = false
+      )
+      `,
+    );
+
+    await queryRunner.query(
+      `
+      CREATE MATERIALIZED VIEW sales_volume_10y
+      WITH (timescaledb.continuous) AS
+      SELECT
+        time_bucket ('10 y'::interval, bucket_1d) as bucket_10y,
+        "collectionAddress",
+        sum(volume) as "volume",
+        sum("saleCount") as "saleCount"
+      FROM sales_volume_1d
+      GROUP BY
+        "collectionAddress",
+        bucket_10y
+      WITH NO DATA
+      `,
+    );
+    await queryRunner.query(
+      `
+      SELECT
+      add_continuous_aggregate_policy (
+        'sales_volume_10y',
+        start_offset => NULL,
+        end_offset => INTERVAL '1 h',
+        schedule_interval => INTERVAL '1 h'
+      )
+      `,
+    );
+    await queryRunner.query(
+      `
+      ALTER MATERIALIZED VIEW sales_volume_10y
+      set (
+        timescaledb.materialized_only = false
+      )
+      `,
+    );
+
+    await queryRunner.query(
+      `CREATE VIEW "collection_balances_view" AS SELECT "balance"."collectionAddress" AS "collectionAddress", "balance"."userAddress" AS "userAddress", "balance"."balance" AS "balance", "balance"."itemCount" AS "itemCount", (SELECT "collection"."description" FROM "collections" "collection" WHERE "balance"."collectionAddress" = "balance"."collectionAddress") AS "description", (SELECT "collection"."name" FROM "collections" "collection" WHERE "balance"."collectionAddress" = "balance"."collectionAddress") AS "name", COALESCE(sales_volume."volume", 0) AS "volume", COALESCE(sales_volume_1h."volume1h", 0) AS "volume1h", COALESCE(sales_volume_1h."saleCount1h", 0) AS "saleCount1h", COALESCE(sales_volume_6h."volume6h", 0) AS "volume6h", COALESCE(sales_volume_6h."saleCount6h", 0) AS "saleCount6h", COALESCE(sales_volume_1d."volume24h", 0) AS "volume24h", COALESCE(sales_volume_1d."saleCount24h", 0) AS "saleCount24h", COALESCE(sales_volume_7d."volume7d", 0) AS "volume7d", COALESCE(sales_volume_7d."saleCount7d", 0) AS "saleCount7d", COALESCE(sales_volume_30d."volume30d", 0) AS "volume30d", COALESCE(sales_volume_30d."saleCount30d", 0) AS "saleCount30d", COALESCE(sales_volume_90d."volume90d", 0) AS "volume90d", COALESCE(sales_volume_90d."saleCount90d", 0) AS "saleCount90d" FROM (SELECT "balance"."collectionAddress" AS "collectionAddress", "balance"."userAddress" AS "userAddress", SUM("balance"."balance") AS "balance", COUNT(DISTINCT "balance"."tokenId") AS "itemCount" FROM "balances" "balance" WHERE "balance"."balance" > 0 GROUP BY "balance"."collectionAddress", "balance"."userAddress") "balance" LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "volume", SUM("saleCount") AS "saleCount" FROM "sales_volume_10y" "sales" GROUP BY "collectionAddress") "sales_volume" ON "sales_volume"."collectionAddress" = "balance"."collectionAddress"  LEFT JOIN (SELECT "collectionAddress", SUM("perUnitPrice") AS "volume1h", SUM("amount") AS "saleCount1h" FROM "sales" "sales" WHERE "timestamp" >= NOW() - INTERVAL '1 hour' GROUP BY "collectionAddress") "sales_volume_1h" ON "sales_volume_1h"."collectionAddress" = "balance"."collectionAddress"  LEFT JOIN (SELECT "collectionAddress", SUM("perUnitPrice") AS "volume6h", SUM("amount") AS "saleCount6h" FROM "sales" "sales_volume_6h" WHERE "timestamp" >= NOW() - INTERVAL '6 hour' GROUP BY "collectionAddress") "sales_volume_6h" ON "sales_volume_6h"."collectionAddress" = "balance"."collectionAddress"  LEFT JOIN (SELECT "collectionAddress", "volume" AS "volume24h", "saleCount" AS "saleCount24h" FROM "sales_volume_1d" "sales_volume_1d" WHERE "bucket_1d" >= NOW() - INTERVAL '1 day') "sales_volume_1d" ON "sales_volume_1d"."collectionAddress" = "balance"."collectionAddress"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "volume7d", SUM("saleCount") AS "saleCount7d" FROM "sales_volume_1d" "sales_volume_7d" WHERE "bucket_1d" >= NOW() - INTERVAL '7 day' GROUP BY "collectionAddress") "sales_volume_7d" ON "sales_volume_7d"."collectionAddress" = "balance"."collectionAddress"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "volume30d", SUM("saleCount") AS "saleCount30d" FROM "sales_volume_1d" "sales_volume_30d" WHERE "bucket_1d" >= NOW() - INTERVAL '30 day' GROUP BY "collectionAddress") "sales_volume_30d" ON "sales_volume_30d"."collectionAddress" = "balance"."collectionAddress"  LEFT JOIN (SELECT "collectionAddress", "volume" AS "volume90d", "saleCount" AS "saleCount90d" FROM "sales_volume_90d" "sales_volume_90d" WHERE "bucket_90d" >= NOW() - INTERVAL '90 day') "sales_volume_90d" ON "sales_volume_90d"."collectionAddress" = "balance"."collectionAddress"`,
+    );
+    await queryRunner.query(
+      `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
+      [
+        'public',
+        'VIEW',
+        'collection_balances_view',
+        'SELECT "balance"."collectionAddress" AS "collectionAddress", "balance"."userAddress" AS "userAddress", "balance"."balance" AS "balance", "balance"."itemCount" AS "itemCount", (SELECT "collection"."description" FROM "collections" "collection" WHERE "balance"."collectionAddress" = "balance"."collectionAddress") AS "description", (SELECT "collection"."name" FROM "collections" "collection" WHERE "balance"."collectionAddress" = "balance"."collectionAddress") AS "name", COALESCE(sales_volume."volume", 0) AS "volume", COALESCE(sales_volume_1h."volume1h", 0) AS "volume1h", COALESCE(sales_volume_1h."saleCount1h", 0) AS "saleCount1h", COALESCE(sales_volume_6h."volume6h", 0) AS "volume6h", COALESCE(sales_volume_6h."saleCount6h", 0) AS "saleCount6h", COALESCE(sales_volume_1d."volume24h", 0) AS "volume24h", COALESCE(sales_volume_1d."saleCount24h", 0) AS "saleCount24h", COALESCE(sales_volume_7d."volume7d", 0) AS "volume7d", COALESCE(sales_volume_7d."saleCount7d", 0) AS "saleCount7d", COALESCE(sales_volume_30d."volume30d", 0) AS "volume30d", COALESCE(sales_volume_30d."saleCount30d", 0) AS "saleCount30d", COALESCE(sales_volume_90d."volume90d", 0) AS "volume90d", COALESCE(sales_volume_90d."saleCount90d", 0) AS "saleCount90d" FROM (SELECT "balance"."collectionAddress" AS "collectionAddress", "balance"."userAddress" AS "userAddress", SUM("balance"."balance") AS "balance", COUNT(DISTINCT "balance"."tokenId") AS "itemCount" FROM "balances" "balance" WHERE "balance"."balance" > 0 GROUP BY "balance"."collectionAddress", "balance"."userAddress") "balance" LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "volume", SUM("saleCount") AS "saleCount" FROM "sales_volume_10y" "sales" GROUP BY "collectionAddress") "sales_volume" ON "sales_volume"."collectionAddress" = "balance"."collectionAddress"  LEFT JOIN (SELECT "collectionAddress", SUM("perUnitPrice") AS "volume1h", SUM("amount") AS "saleCount1h" FROM "sales" "sales" WHERE "timestamp" >= NOW() - INTERVAL \'1 hour\' GROUP BY "collectionAddress") "sales_volume_1h" ON "sales_volume_1h"."collectionAddress" = "balance"."collectionAddress"  LEFT JOIN (SELECT "collectionAddress", SUM("perUnitPrice") AS "volume6h", SUM("amount") AS "saleCount6h" FROM "sales" "sales_volume_6h" WHERE "timestamp" >= NOW() - INTERVAL \'6 hour\' GROUP BY "collectionAddress") "sales_volume_6h" ON "sales_volume_6h"."collectionAddress" = "balance"."collectionAddress"  LEFT JOIN (SELECT "collectionAddress", "volume" AS "volume24h", "saleCount" AS "saleCount24h" FROM "sales_volume_1d" "sales_volume_1d" WHERE "bucket_1d" >= NOW() - INTERVAL \'1 day\') "sales_volume_1d" ON "sales_volume_1d"."collectionAddress" = "balance"."collectionAddress"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "volume7d", SUM("saleCount") AS "saleCount7d" FROM "sales_volume_1d" "sales_volume_7d" WHERE "bucket_1d" >= NOW() - INTERVAL \'7 day\' GROUP BY "collectionAddress") "sales_volume_7d" ON "sales_volume_7d"."collectionAddress" = "balance"."collectionAddress"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "volume30d", SUM("saleCount") AS "saleCount30d" FROM "sales_volume_1d" "sales_volume_30d" WHERE "bucket_1d" >= NOW() - INTERVAL \'30 day\' GROUP BY "collectionAddress") "sales_volume_30d" ON "sales_volume_30d"."collectionAddress" = "balance"."collectionAddress"  LEFT JOIN (SELECT "collectionAddress", "volume" AS "volume90d", "saleCount" AS "saleCount90d" FROM "sales_volume_90d" "sales_volume_90d" WHERE "bucket_90d" >= NOW() - INTERVAL \'90 day\') "sales_volume_90d" ON "sales_volume_90d"."collectionAddress" = "balance"."collectionAddress"',
+      ],
+    );
+    await queryRunner.query(`
+    CREATE VIEW "collections_view" AS SELECT "collection"."address" AS "address", "collection"."type" AS "type", "collection"."name" AS "name", "collection"."symbol" AS "symbol", "collection"."imageUrl" AS "imageUrl", "collection"."active" AS "active", "collection"."verified" AS "verified", "collection"."explicit" AS "explicit", "collection"."bannerUrl" AS "bannerUrl", "collection"."description" AS "description", "collection"."deployedAt" AS "deployedAt", "collection"."deployer" AS "deployer", "collection"."links" AS "links", "collection"."lastImport" AS "lastImport", floor_price."floorPrice" AS "floorPrice", 0 AS "previousFloorPrice1h", 0 AS "previousFloorPrice6h", 0 AS "previousFloorPrice24h", 0 AS "previousFloorPrice7d", 0 AS "previousFloorPrice30d", 0 AS "previousFloorPrice90d", COALESCE(sales_volume."volume", 0) AS "volume", COALESCE(sales_volume."saleCount", 0) AS "saleCount", COALESCE(sales_volume_1h."volume1h", 0) AS "volume1h", COALESCE(sales_volume_1h."saleCount1h", 0) AS "saleCount1h", COALESCE(sales_volume_1h_prev."previousVolume1h", 0) AS "previousVolume1h", COALESCE(sales_volume_1h_prev."previousSaleCount1h", 0) AS "previousSaleCount1h", COALESCE(sales_volume_6h."volume6h", 0) AS "volume6h", COALESCE(sales_volume_6h."saleCount6h", 0) AS "saleCount6h", COALESCE(sales_volume_6h_prev."previousVolume6h", 0) AS "previousVolume6h", COALESCE(sales_volume_6h_prev."previousSaleCount6h", 0) AS "previousSaleCount6h", COALESCE(sales_volume_1d."volume24h", 0) AS "volume24h", COALESCE(sales_volume_1d."saleCount24h", 0) AS "saleCount24h", COALESCE(sales_volume_1d_prev."previousVolume24h", 0) AS "previousVolume24h", COALESCE(sales_volume_1d_prev."previousSaleCount24h", 0) AS "previousSaleCount24h", COALESCE(sales_volume_7d."volume7d", 0) AS "volume7d", COALESCE(sales_volume_7d."saleCount7d", 0) AS "saleCount7d", COALESCE(sales_volume_7d_prev."previousVolume7d", 0) AS "previousVolume7d", COALESCE(sales_volume_7d_prev."previousSaleCount7d", 0) AS "previousSaleCount7d", COALESCE(sales_volume_30d."volume30d", 0) AS "volume30d", COALESCE(sales_volume_30d."saleCount30d", 0) AS "saleCount30d", COALESCE(sales_volume_30d_prev."previousVolume30d", 0) AS "previousVolume30d", COALESCE(sales_volume_30d_prev."previousSaleCount30d", 0) AS "previousSaleCount30d", COALESCE(sales_volume_90d."volume90d", 0) AS "volume90d", COALESCE(sales_volume_90d."saleCount90d", 0) AS "saleCount90d", COALESCE(sales_volume_90d_prev."previousVolume90d", 0) AS "previousVolume90d", COALESCE(sales_volume_90d_prev."previousSaleCount90d", 0) AS "previousSaleCount90d", COALESCE("ranking"."totalSupply", 0) AS "totalSupply", COALESCE("ranking"."ownerCount", 0) AS "ownerCount", COALESCE("ranking"."listedCount", 0) AS "listedCount", (SELECT EXISTS (SELECT 1 FROM "notable_collections" "notable" WHERE "notable"."collectionAddress" = "collection"."address") FROM (SELECT 1 AS dummy_column) "dummy_table") AS "notable", (SELECT MAX("item"."rarityRanking") as "maxRarityRanking" FROM "items" "item" WHERE "item"."collectionAddress" = "collection"."address") AS "maxRarityRanking" FROM "collections" "collection" LEFT JOIN "collection_rankings_cache" "ranking" ON "ranking"."address" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "volume", SUM("saleCount") AS "saleCount" FROM "sales_volume_10y" "sales" GROUP BY "collectionAddress") "sales_volume" ON "sales_volume"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("perUnitPrice") AS "volume1h", SUM("amount") AS "saleCount1h" FROM "sales" "sales" WHERE "timestamp" >= NOW() - INTERVAL '1 hour' GROUP BY "collectionAddress") "sales_volume_1h" ON "sales_volume_1h"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("perUnitPrice") AS "previousVolume1h", SUM("amount") AS "previousSaleCount1h" FROM "sales" "sales" WHERE "timestamp" >= NOW() - INTERVAL '1 hour' - INTERVAL '1 hour' AND "timestamp" < NOW() - INTERVAL '1 hour' GROUP BY "collectionAddress") "sales_volume_1h_prev" ON "sales_volume_1h_prev"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("perUnitPrice") AS "volume6h", SUM("amount") AS "saleCount6h" FROM "sales" "sales_volume_6h" WHERE "timestamp" >= NOW() - INTERVAL '6 hour' GROUP BY "collectionAddress") "sales_volume_6h" ON "sales_volume_6h"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("perUnitPrice") AS "previousVolume6h", SUM("amount") AS "previousSaleCount6h" FROM "sales" "sales_volume_6h" WHERE "timestamp" >= NOW() - INTERVAL '6 hour' - INTERVAL '6 hour' AND "timestamp" < NOW() - INTERVAL '6 hour' GROUP BY "collectionAddress") "sales_volume_6h_prev" ON "sales_volume_6h_prev"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", "volume" AS "volume24h", "saleCount" AS "saleCount24h" FROM "sales_volume_1d" "sales_volume_1d" WHERE "bucket_1d" >= NOW() - INTERVAL '1 day') "sales_volume_1d" ON "sales_volume_1d"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", "volume" AS "previousVolume24h", "saleCount" AS "previousSaleCount24h" FROM "sales_volume_1d" "sales_volume_1d" WHERE "bucket_1d" >= NOW() - INTERVAL '1 day' - INTERVAL '1 day' AND "bucket_1d" < NOW() - INTERVAL '1 day') "sales_volume_1d_prev" ON "sales_volume_1d_prev"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "volume7d", SUM("saleCount") AS "saleCount7d" FROM "sales_volume_1d" "sales_volume_7d" WHERE "bucket_1d" >= NOW() - INTERVAL '7 day' GROUP BY "collectionAddress") "sales_volume_7d" ON "sales_volume_7d"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "previousVolume7d", SUM("saleCount") AS "previousSaleCount7d" FROM "sales_volume_1d" "sales_volume_7d" WHERE "bucket_1d" >= NOW() - INTERVAL '7 day' - INTERVAL '7 day' AND "bucket_1d" < NOW() - INTERVAL '7 day' GROUP BY "collectionAddress") "sales_volume_7d_prev" ON "sales_volume_7d_prev"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "volume30d", SUM("saleCount") AS "saleCount30d" FROM "sales_volume_1d" "sales_volume_30d" WHERE "bucket_1d" >= NOW() - INTERVAL '30 day' GROUP BY "collectionAddress") "sales_volume_30d" ON "sales_volume_30d"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "previousVolume30d", SUM("saleCount") AS "previousSaleCount30d" FROM "sales_volume_1d" "sales_volume_30d" WHERE "bucket_1d" >= NOW() - INTERVAL '30 day' - INTERVAL '30 day' AND "bucket_1d" < NOW() - INTERVAL '30 day' GROUP BY "collectionAddress") "sales_volume_30d_prev" ON "sales_volume_30d_prev"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", "volume" AS "volume90d", "saleCount" AS "saleCount90d" FROM "sales_volume_90d" "sales_volume_90d" WHERE "bucket_90d" >= NOW() - INTERVAL '90 day') "sales_volume_90d" ON "sales_volume_90d"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", "volume" AS "previousVolume90d", "saleCount" AS "previousSaleCount90d" FROM "sales_volume_90d" "sales_volume_90d" WHERE "bucket_90d" >= NOW() - INTERVAL '90 day' - INTERVAL '90 day' AND "bucket_90d" < NOW() - INTERVAL '90 day') "sales_volume_90d_prev" ON "sales_volume_90d_prev"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", MIN(
+      CASE
+        WHEN "order"."type" = 'DUTCH_AUCTION' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."perUnitPrice") * EXTRACT(
+          EPOCH
+          FROM
+            NOW() - "order"."startTime"
+        ) / EXTRACT(
+          EPOCH
+          FROM
+            "order"."endTime" - "order"."startTime"
+        )
+        ELSE "order"."perUnitPrice"
+      END
+    ) AS "floorPrice" FROM "active_orders_cache_view" "order" WHERE "order"."endTime" >= NOW() OR "order"."endTime" IS NULL AND "order"."currency" IN ('0000000000000000000000000000000000000000','c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2','7b79995e5f793a07bc00c21412e50ecae098e7f9') AND "order"."type" IN ('ASK', 'DUTCH_AUCTION', 'ENGLISH_AUCTION') AND "order"."remainingQuantity" > 0 GROUP BY "collectionAddress") "floor_price" ON "floor_price"."collectionAddress" = "collection"."address"`);
+    await queryRunner.query(
+      `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES (DEFAULT, $1, DEFAULT, $2, $3, $4)`,
+      [
+        'public',
+        'VIEW',
+        'collections_view',
+        'SELECT "collection"."address" AS "address", "collection"."type" AS "type", "collection"."name" AS "name", "collection"."symbol" AS "symbol", "collection"."imageUrl" AS "imageUrl", "collection"."active" AS "active", "collection"."verified" AS "verified", "collection"."explicit" AS "explicit", "collection"."bannerUrl" AS "bannerUrl", "collection"."description" AS "description", "collection"."deployedAt" AS "deployedAt", "collection"."deployer" AS "deployer", "collection"."links" AS "links", "collection"."lastImport" AS "lastImport", floor_price."floorPrice" AS "floorPrice", 0 AS "previousFloorPrice1h", 0 AS "previousFloorPrice6h", 0 AS "previousFloorPrice24h", 0 AS "previousFloorPrice7d", 0 AS "previousFloorPrice30d", 0 AS "previousFloorPrice90d", COALESCE(sales_volume."volume", 0) AS "volume", COALESCE(sales_volume."saleCount", 0) AS "saleCount", COALESCE(sales_volume_1h."volume1h", 0) AS "volume1h", COALESCE(sales_volume_1h."saleCount1h", 0) AS "saleCount1h", COALESCE(sales_volume_1h_prev."previousVolume1h", 0) AS "previousVolume1h", COALESCE(sales_volume_1h_prev."previousSaleCount1h", 0) AS "previousSaleCount1h", COALESCE(sales_volume_6h."volume6h", 0) AS "volume6h", COALESCE(sales_volume_6h."saleCount6h", 0) AS "saleCount6h", COALESCE(sales_volume_6h_prev."previousVolume6h", 0) AS "previousVolume6h", COALESCE(sales_volume_6h_prev."previousSaleCount6h", 0) AS "previousSaleCount6h", COALESCE(sales_volume_1d."volume24h", 0) AS "volume24h", COALESCE(sales_volume_1d."saleCount24h", 0) AS "saleCount24h", COALESCE(sales_volume_1d_prev."previousVolume24h", 0) AS "previousVolume24h", COALESCE(sales_volume_1d_prev."previousSaleCount24h", 0) AS "previousSaleCount24h", COALESCE(sales_volume_7d."volume7d", 0) AS "volume7d", COALESCE(sales_volume_7d."saleCount7d", 0) AS "saleCount7d", COALESCE(sales_volume_7d_prev."previousVolume7d", 0) AS "previousVolume7d", COALESCE(sales_volume_7d_prev."previousSaleCount7d", 0) AS "previousSaleCount7d", COALESCE(sales_volume_30d."volume30d", 0) AS "volume30d", COALESCE(sales_volume_30d."saleCount30d", 0) AS "saleCount30d", COALESCE(sales_volume_30d_prev."previousVolume30d", 0) AS "previousVolume30d", COALESCE(sales_volume_30d_prev."previousSaleCount30d", 0) AS "previousSaleCount30d", COALESCE(sales_volume_90d."volume90d", 0) AS "volume90d", COALESCE(sales_volume_90d."saleCount90d", 0) AS "saleCount90d", COALESCE(sales_volume_90d_prev."previousVolume90d", 0) AS "previousVolume90d", COALESCE(sales_volume_90d_prev."previousSaleCount90d", 0) AS "previousSaleCount90d", COALESCE("ranking"."totalSupply", 0) AS "totalSupply", COALESCE("ranking"."ownerCount", 0) AS "ownerCount", COALESCE("ranking"."listedCount", 0) AS "listedCount", (SELECT EXISTS (SELECT 1 FROM "notable_collections" "notable" WHERE "notable"."collectionAddress" = "collection"."address") FROM (SELECT 1 AS dummy_column) "dummy_table") AS "notable", (SELECT MAX("item"."rarityRanking") as "maxRarityRanking" FROM "items" "item" WHERE "item"."collectionAddress" = "collection"."address") AS "maxRarityRanking" FROM "collections" "collection" LEFT JOIN "collection_rankings_cache" "ranking" ON "ranking"."address" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "volume", SUM("saleCount") AS "saleCount" FROM "sales_volume_10y" "sales" GROUP BY "collectionAddress") "sales_volume" ON "sales_volume"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("perUnitPrice") AS "volume1h", SUM("amount") AS "saleCount1h" FROM "sales" "sales" WHERE "timestamp" >= NOW() - INTERVAL \'1 hour\' GROUP BY "collectionAddress") "sales_volume_1h" ON "sales_volume_1h"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("perUnitPrice") AS "previousVolume1h", SUM("amount") AS "previousSaleCount1h" FROM "sales" "sales" WHERE "timestamp" >= NOW() - INTERVAL \'1 hour\' - INTERVAL \'1 hour\' AND "timestamp" < NOW() - INTERVAL \'1 hour\' GROUP BY "collectionAddress") "sales_volume_1h_prev" ON "sales_volume_1h_prev"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("perUnitPrice") AS "volume6h", SUM("amount") AS "saleCount6h" FROM "sales" "sales_volume_6h" WHERE "timestamp" >= NOW() - INTERVAL \'6 hour\' GROUP BY "collectionAddress") "sales_volume_6h" ON "sales_volume_6h"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("perUnitPrice") AS "previousVolume6h", SUM("amount") AS "previousSaleCount6h" FROM "sales" "sales_volume_6h" WHERE "timestamp" >= NOW() - INTERVAL \'6 hour\' - INTERVAL \'6 hour\' AND "timestamp" < NOW() - INTERVAL \'6 hour\' GROUP BY "collectionAddress") "sales_volume_6h_prev" ON "sales_volume_6h_prev"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", "volume" AS "volume24h", "saleCount" AS "saleCount24h" FROM "sales_volume_1d" "sales_volume_1d" WHERE "bucket_1d" >= NOW() - INTERVAL \'1 day\') "sales_volume_1d" ON "sales_volume_1d"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", "volume" AS "previousVolume24h", "saleCount" AS "previousSaleCount24h" FROM "sales_volume_1d" "sales_volume_1d" WHERE "bucket_1d" >= NOW() - INTERVAL \'1 day\' - INTERVAL \'1 day\' AND "bucket_1d" < NOW() - INTERVAL \'1 day\') "sales_volume_1d_prev" ON "sales_volume_1d_prev"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "volume7d", SUM("saleCount") AS "saleCount7d" FROM "sales_volume_1d" "sales_volume_7d" WHERE "bucket_1d" >= NOW() - INTERVAL \'7 day\' GROUP BY "collectionAddress") "sales_volume_7d" ON "sales_volume_7d"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "previousVolume7d", SUM("saleCount") AS "previousSaleCount7d" FROM "sales_volume_1d" "sales_volume_7d" WHERE "bucket_1d" >= NOW() - INTERVAL \'7 day\' - INTERVAL \'7 day\' AND "bucket_1d" < NOW() - INTERVAL \'7 day\' GROUP BY "collectionAddress") "sales_volume_7d_prev" ON "sales_volume_7d_prev"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "volume30d", SUM("saleCount") AS "saleCount30d" FROM "sales_volume_1d" "sales_volume_30d" WHERE "bucket_1d" >= NOW() - INTERVAL \'30 day\' GROUP BY "collectionAddress") "sales_volume_30d" ON "sales_volume_30d"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", SUM("volume") AS "previousVolume30d", SUM("saleCount") AS "previousSaleCount30d" FROM "sales_volume_1d" "sales_volume_30d" WHERE "bucket_1d" >= NOW() - INTERVAL \'30 day\' - INTERVAL \'30 day\' AND "bucket_1d" < NOW() - INTERVAL \'30 day\' GROUP BY "collectionAddress") "sales_volume_30d_prev" ON "sales_volume_30d_prev"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", "volume" AS "volume90d", "saleCount" AS "saleCount90d" FROM "sales_volume_90d" "sales_volume_90d" WHERE "bucket_90d" >= NOW() - INTERVAL \'90 day\') "sales_volume_90d" ON "sales_volume_90d"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", "volume" AS "previousVolume90d", "saleCount" AS "previousSaleCount90d" FROM "sales_volume_90d" "sales_volume_90d" WHERE "bucket_90d" >= NOW() - INTERVAL \'90 day\' - INTERVAL \'90 day\' AND "bucket_90d" < NOW() - INTERVAL \'90 day\') "sales_volume_90d_prev" ON "sales_volume_90d_prev"."collectionAddress" = "collection"."address"  LEFT JOIN (SELECT "collectionAddress", MIN(\n                CASE\n                  WHEN "order"."type" = \'DUTCH_AUCTION\' THEN "order"."startingPrice" - ("order"."startingPrice" - "order"."perUnitPrice") * EXTRACT(\n                    EPOCH\n                    FROM\n                      NOW() - "order"."startTime"\n                  ) / EXTRACT(\n                    EPOCH\n                    FROM\n                      "order"."endTime" - "order"."startTime"\n                  )\n                  ELSE "order"."perUnitPrice"\n                END\n              ) AS "floorPrice" FROM "active_orders_cache_view" "order" WHERE "order"."endTime" >= NOW() OR "order"."endTime" IS NULL AND "order"."currency" IN (\'0000000000000000000000000000000000000000\',\'c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\',\'7b79995e5f793a07bc00c21412e50ecae098e7f9\') AND "order"."type" IN (\'ASK\', \'DUTCH_AUCTION\', \'ENGLISH_AUCTION\') AND "order"."remainingQuantity" > 0 GROUP BY "collectionAddress") "floor_price" ON "floor_price"."collectionAddress" = "collection"."address"',
+      ],
+    );
   }
+
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
       `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`,
@@ -1112,11 +1330,6 @@ export class Migrations1730740796341 implements MigrationInterface {
     await queryRunner.query(`DROP VIEW "distributor_rewards_view"`);
     await queryRunner.query(
       `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`,
-      ['VIEW', 'collection_balances_view', 'public'],
-    );
-    await queryRunner.query(`DROP VIEW "collection_balances_view"`);
-    await queryRunner.query(
-      `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`,
       ['VIEW', 'collection_attribute_traits_view', 'public'],
     );
     await queryRunner.query(`DROP VIEW "collection_attribute_traits_view"`);
@@ -1127,17 +1340,9 @@ export class Migrations1730740796341 implements MigrationInterface {
     await queryRunner.query(`DROP VIEW "collection_attributes_view"`);
     await queryRunner.query(
       `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`,
-      ['VIEW', 'collections_view', 'public'],
-    );
-    await queryRunner.query(`DROP VIEW "collections_view"`);
-    await queryRunner.query(
-      `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`,
       ['VIEW', 'balances_view', 'public'],
     );
     await queryRunner.query(`DROP VIEW "balances_view"`);
-    await queryRunner.query(
-      `ALTER TABLE "active_orders_cache" DROP CONSTRAINT "FK_4930cae8caee19b4544501c2364"`,
-    );
     await queryRunner.query(
       `ALTER TABLE "active_orders_cache" DROP CONSTRAINT "FK_6dc3b9e60955c4273c6b325c16b"`,
     );
@@ -1313,7 +1518,7 @@ export class Migrations1730740796341 implements MigrationInterface {
       `ALTER TABLE "orders_items" DROP CONSTRAINT "FK_6aa9d2c843cdf72a5bd228f100d"`,
     );
     await queryRunner.query(
-      `ALTER TABLE "orders_items" DROP CONSTRAINT "FK_5e5ffd6165663fb307df283fc04"`,
+      `ALTER TABLE "orders_items" DROP CONSTRAINT "FK_bc5812688438ac2708fb09c2730"`,
     );
     await queryRunner.query(
       `ALTER TABLE "orders_items" DROP CONSTRAINT "FK_4fb999f3466270b59cd0ff9b353"`,
@@ -1342,14 +1547,43 @@ export class Migrations1730740796341 implements MigrationInterface {
     await queryRunner.query(
       `ALTER TABLE "items" DROP CONSTRAINT "FK_2bfde47c481cca182def5607932"`,
     );
+
+    await queryRunner.query(
+      `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`,
+      ['VIEW', 'collection_balances_view', 'public'],
+    );
+    await queryRunner.query(`DROP VIEW "collection_balances_view"`);
+    await queryRunner.query(
+      `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "schema" = $3`,
+      ['VIEW', 'collections_view', 'public'],
+    );
+    await queryRunner.query(`DROP VIEW "collections_view"`);
+    await queryRunner.query(`DROP MATERIALIZED VIEW sales_volume_10y`);
+    await queryRunner.query(`DROP MATERIALIZED VIEW sales_volume_90d`);
+    await queryRunner.query(`DROP MATERIALIZED VIEW sales_volume_7d`);
+    await queryRunner.query(`DROP MATERIALIZED VIEW sales_volume_1d`);
+    await queryRunner.query(`DROP MATERIALIZED VIEW sales_volume_6h`);
+
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_55dd6cc8d758bf15f62d11cc02"`,
+    );
     await queryRunner.query(
       `DROP INDEX "public"."IDX_b1f2cc9b4628ed724db73e3483"`,
+    );
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_cd271977f24d553c7d462b0aba"`,
     );
     await queryRunner.query(
       `DROP INDEX "public"."IDX_fe84aefba3e8423adbdd1a681f"`,
     );
     await queryRunner.query(
+      `DROP INDEX "public"."IDX_975fa0912f084bddc0e06e0b13"`,
+    );
+    await queryRunner.query(
       `DROP INDEX "public"."IDX_a80ef1486d5f1f906288f5356d"`,
+    );
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_4cc448a56e8ac8cebabfd0cf36"`,
     );
     await queryRunner.query(
       `DROP INDEX "public"."IDX_f5ddc8c9d991bd95c56bc857c0"`,
@@ -1361,109 +1595,8 @@ export class Migrations1730740796341 implements MigrationInterface {
       `DROP INDEX "public"."IDX_0dee45ecf1a0f2555d4af76c97"`,
     );
     await queryRunner.query(`DROP TABLE "active_orders_cache"`);
-    await queryRunner.query(`DROP TYPE "public"."marketplace"`);
-    await queryRunner.query(`DROP TYPE "public"."order_type"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_372f08cce6315ff748f0605db6"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_f8aa2834ec0fbeee533eebc1ea"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_5b8893e59fda1cee1b2508e1d1"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_508017d641b5f3f0b89cc84d0a"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_22bc22d06378750c6891970cfa"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_404b0993f307ab4ecc1eb240cb"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_e33af69bf81bef914cf9758a12"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_d6aacdfc6997c3a8c665c97f9b"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_a1823d008c8023b6b0a589b10c"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_be3febb756fbf3bc6d618dd845"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_5ed9f478f54b494990997ba425"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_80dc012d87c3e3261a1a0dcc2b"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_d9ba0151823fdcd100d0f81536"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_6688ed0ceb82e95f6975e14a3e"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_ca00a94c02dba69e5605367472"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_bf7a5708a0d32c91f98799c174"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_3c1bc78ebd9cecc7dca6793060"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_21347659be38cc7a878e871bc3"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_361ac95dbd56e20dbd9d6f93ba"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_c3f1edde9e36fbca871819f861"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_b1872fcd12e98ec90278c5d34d"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_4cb243afbbf4bc1497f9d9550a"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_d95951c6f13359e9bc2a49bed1"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_d57698ba1c360dbe7e04d7b382"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_f5ed5354eebf6979cdbed0deb0"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_4259a6b20b2c613de99daf44d7"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_2bcbb453635cf8b1296e76df4e"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_aa8ebee98ce8a49f619362c453"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_024347fcfc9d8e48f9c65705d8"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_ce8a640bfd03f32da7436dc06c"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_260239fda621a869ade81670cf"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_5f69bf6b8e5aa033c2039c652e"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_cbb6ec802cc6619ede1e468ae8"`,
-    );
-    await queryRunner.query(
-      `DROP INDEX "public"."IDX_a90030b5aeb0928bcdcc55cf19"`,
     );
     await queryRunner.query(`DROP TABLE "collection_rankings_cache"`);
     await queryRunner.query(`DROP TABLE "arena_admins"`);
@@ -1472,14 +1605,12 @@ export class Migrations1730740796341 implements MigrationInterface {
       `DROP INDEX "public"."IDX_d88598a9b134a17250fd0761fd"`,
     );
     await queryRunner.query(`DROP TABLE "arena_users_booster"`);
-    await queryRunner.query(`DROP TYPE "public"."booster_type"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_3e6c6386c1872b76c624596129"`,
     );
     await queryRunner.query(`DROP TABLE "arena_users_claimed_wow_chest"`);
     await queryRunner.query(`DROP TABLE "arena_wow_chest_period"`);
     await queryRunner.query(`DROP TABLE "arena_wow_chest_probability"`);
-    await queryRunner.query(`DROP TYPE "public"."arena_wow_chest_type"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_86c55a1a06538cf396e4dbbd93"`,
     );
@@ -1534,19 +1665,13 @@ export class Migrations1730740796341 implements MigrationInterface {
     );
     await queryRunner.query(`DROP TABLE "arena_users_earned_chest"`);
     await queryRunner.query(`DROP TABLE "arena_seasons_chest"`);
-    await queryRunner.query(`DROP TYPE "public"."arena_divison_name"`);
     await queryRunner.query(`DROP TABLE "arena_levels"`);
     await queryRunner.query(`DROP TABLE "arena_chest_points"`);
-    await queryRunner.query(`DROP TYPE "public"."arena_chest_name"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_3cd5e9a2a6827f571ad6d7da60"`,
     );
     await queryRunner.query(`DROP TABLE "arena_quest_progress"`);
     await queryRunner.query(`DROP TABLE "arena_quests"`);
-    await queryRunner.query(`DROP TYPE "public"."arena_quest_sub_type"`);
-    await queryRunner.query(`DROP TYPE "public"."arena_quest_type"`);
-    await queryRunner.query(`DROP TYPE "public"."loyalty_rank"`);
-    await queryRunner.query(`DROP TYPE "public"."quest_period"`);
     await queryRunner.query(`DROP TABLE "arena_user_level_event"`);
     await queryRunner.query(`DROP TABLE "arena_leagues"`);
     await queryRunner.query(`DROP TABLE "arena_divisions"`);
@@ -1575,14 +1700,12 @@ export class Migrations1730740796341 implements MigrationInterface {
     );
     await queryRunner.query(`DROP TABLE "arena_users"`);
     await queryRunner.query(`DROP TABLE "reports"`);
-    await queryRunner.query(`DROP TYPE "public"."report_reason"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_dd8b4ee8d658dbbc0a9360f28b"`,
     );
     await queryRunner.query(`DROP TABLE "likes"`);
     await queryRunner.query(`DROP TABLE "cart_items"`);
     await queryRunner.query(`DROP TABLE "user_season_rank_claims"`);
-    await queryRunner.query(`DROP TYPE "public"."rank"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_2ef2260573a9244e2eb7208341"`,
     );
@@ -1628,7 +1751,6 @@ export class Migrations1730740796341 implements MigrationInterface {
     );
     await queryRunner.query(`DROP TABLE "orders"`);
     await queryRunner.query(`DROP TABLE "reward_periods"`);
-    await queryRunner.query(`DROP TYPE "public"."distributor_contract"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_e12796feacc86a1415cb0828d0"`,
     );
@@ -1645,6 +1767,12 @@ export class Migrations1730740796341 implements MigrationInterface {
     await queryRunner.query(`DROP TABLE "token_balances"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_4859f158ae3d83ed963fd88e9b"`,
+    );
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_f5ee403e94bfee0f3e7b3472bb"`,
+    );
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_82684fa9b28390e1454018d4ee"`,
     );
     await queryRunner.query(
       `DROP INDEX "public"."IDX_5037fb0b2a13ac921c73a05492"`,
@@ -1668,7 +1796,6 @@ export class Migrations1730740796341 implements MigrationInterface {
       `DROP INDEX "public"."IDX_41126261e9a22d2405c6ebde64"`,
     );
     await queryRunner.query(`DROP TABLE "staking_deposits"`);
-    await queryRunner.query(`DROP TYPE "public"."staking_type"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_0558657f578aa1eee221654227"`,
     );
@@ -1682,7 +1809,10 @@ export class Migrations1730740796341 implements MigrationInterface {
       `DROP INDEX "public"."IDX_9d68251a8e87059a9f7988f3fe"`,
     );
     await queryRunner.query(
-      `DROP INDEX "public"."IDX_f7931cf6fcf04f0899ff8a2405"`,
+      `DROP INDEX "public"."IDX_ce3a81e501bd9a9e759bdc64e6"`,
+    );
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_5c515a06a5e174fc590a284211"`,
     );
     await queryRunner.query(
       `DROP INDEX "public"."IDX_134cc4bb09e09430239513a907"`,
@@ -1700,6 +1830,9 @@ export class Migrations1730740796341 implements MigrationInterface {
     await queryRunner.query(
       `DROP INDEX "public"."IDX_949ca1a8640dba9fde696bc9ed"`,
     );
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_97ad816101e9aeb529f30cd6c2"`,
+    );
     await queryRunner.query(`DROP TABLE "transfers"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_1866bd8ac2446df677ded46be6"`,
@@ -1716,16 +1849,35 @@ export class Migrations1730740796341 implements MigrationInterface {
     );
     await queryRunner.query(`DROP TABLE "item_medias"`);
     await queryRunner.query(
+      `DROP INDEX "public"."IDX_1744e50336e087d28e9d97f6bb"`,
+    );
+    await queryRunner.query(
       `DROP INDEX "public"."IDX_77a2ad67a01059ccd7e3b6df3e"`,
     );
     await queryRunner.query(`DROP TABLE "items"`);
     await queryRunner.query(`DROP TABLE "collections"`);
-    await queryRunner.query(`DROP TYPE "public"."collection_type"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_e4c29e58b1e24afe6a420eac12"`,
     );
     await queryRunner.query(`DROP TABLE "token_transfers"`);
     await queryRunner.query(`DROP TABLE "last_refresh"`);
     await queryRunner.query(`DROP TABLE "latest_block"`);
+    await queryRunner.query(`DROP TYPE "public"."marketplace"`);
+    await queryRunner.query(`DROP TYPE "public"."order_type"`);
+    await queryRunner.query(`DROP TYPE "public"."booster_type"`);
+    await queryRunner.query(`DROP TYPE "public"."arena_wow_chest_type"`);
+    await queryRunner.query(`DROP TYPE "public"."arena_divison_name"`);
+    await queryRunner.query(`DROP TYPE "public"."arena_chest_name"`);
+    await queryRunner.query(`DROP TYPE "public"."arena_quest_sub_type"`);
+    await queryRunner.query(`DROP TYPE "public"."arena_quest_type"`);
+    await queryRunner.query(`DROP TYPE "public"."loyalty_rank"`);
+    await queryRunner.query(`DROP TYPE "public"."quest_period"`);
+    await queryRunner.query(`DROP TYPE "public"."report_reason"`);
+    await queryRunner.query(`DROP TYPE "public"."rank"`);
+    await queryRunner.query(`DROP TYPE "public"."tweet_action"`);
+    await queryRunner.query(`DROP TYPE "public"."quest_type"`);
+    await queryRunner.query(`DROP TYPE "public"."distributor_contract"`);
+    await queryRunner.query(`DROP TYPE "public"."staking_type"`);
+    await queryRunner.query(`DROP TYPE "public"."collection_type"`);
   }
 }

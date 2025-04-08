@@ -70,7 +70,7 @@ __decorate([
     __metadata("design:type", String)
 ], SaleEntity.prototype, "marketplace", void 0);
 __decorate([
-    (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
+    (0, typeorm_1.PrimaryColumn)('timestamp without time zone'),
     __metadata("design:type", Date)
 ], SaleEntity.prototype, "timestamp", void 0);
 SaleEntity = __decorate([
@@ -79,7 +79,18 @@ SaleEntity = __decorate([
     (0, typeorm_1.Index)(['from', 'timestamp']),
     (0, typeorm_1.Index)(['to', 'timestamp']),
     (0, typeorm_1.Index)(['collectionAddress', 'timestamp']),
-    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'timestamp']),
+    (0, typeorm_1.Index)(['collectionAddress', 'perUnitPrice']),
+    (0, typeorm_1.Index)('sales_h_timestamp_idx', 
+    // ['timestamp DESC'],
+    {
+        synchronize: false,
+    }),
+    (0, typeorm_1.Index)(['collectionAddress']),
+    (0, typeorm_1.Index)('IDX_f7931cf6fcf04f0899ff8a2405', 
+    // ['collectionAddress', 'tokenId', 'timestamp DESC'],
+    {
+        synchronize: false,
+    }),
     (0, typeorm_1.Index)(['orderHash'])
 ], SaleEntity);
 exports.SaleEntity = SaleEntity;

@@ -80,6 +80,8 @@ CollectionAttribute = __decorate([
                     .andWhere('orders_items.hash = order.hash')
                     .andWhere('orders_items.collectionAddress = attribute.collectionAddress'))
                     .andWhere(`"order"."type" IN ('${enums_1.OrderType.ASK}', '${enums_1.OrderType.DUTCH_AUCTION}')`)
+                    .andWhere('"order"."endTime" > NOW()')
+                    .andWhere('"order"."startTime" <= NOW()')
                     .andWhere('order.collectionAddress = attribute.collectionAddress');
             }, 'listedCount')
                 .groupBy('"attribute"."collectionAddress"')

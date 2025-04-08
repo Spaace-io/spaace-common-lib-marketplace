@@ -39,6 +39,10 @@ __decorate([
 BalanceEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'balances' }),
     (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'balance'], { where: '"balance" > 0' }),
+    (0, typeorm_1.Index)(['balance', 'collectionAddress']),
+    (0, typeorm_1.Index)(['collectionAddress', 'userAddress'], {
+        where: '"balance" > 0',
+    }),
     (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId'], {
         where: '"balance" > 0',
         unique: true,

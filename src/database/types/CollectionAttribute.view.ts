@@ -36,6 +36,8 @@ import { OrderItemEntity } from '../tables';
           .andWhere(
             `"order"."type" IN ('${OrderType.ASK}', '${OrderType.DUTCH_AUCTION}')`,
           )
+          .andWhere('"order"."endTime" > NOW()')
+          .andWhere('"order"."startTime" <= NOW()')
           .andWhere('order.collectionAddress = attribute.collectionAddress');
       }, 'listedCount')
       .groupBy('"attribute"."collectionAddress"')

@@ -10,6 +10,7 @@ import {
 import { CollectionEntity } from '.';
 
 @Entity({ name: 'items' })
+@Index(['collectionAddress', 'rarityRanking'])
 @Index(['collectionAddress', 'tokenId'], { unique: true })
 export class ItemEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 40 })
