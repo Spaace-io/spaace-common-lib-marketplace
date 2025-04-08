@@ -29,6 +29,7 @@ ChestCount = __decorate([
 ], ChestCount);
 let ArenaSeasonChest = class ArenaSeasonChest extends typeorm_1.BaseEntity {
 };
+exports.ArenaSeasonChest = ArenaSeasonChest;
 __decorate([
     (0, graphql_1.Field)(() => enums_1.ArenaDivisionName),
     (0, typeorm_1.PrimaryColumn)('enum', {
@@ -47,9 +48,8 @@ __decorate([
     (0, typeorm_1.Column)('jsonb', { default: [] }),
     __metadata("design:type", Array)
 ], ArenaSeasonChest.prototype, "chestCount", void 0);
-ArenaSeasonChest = __decorate([
+exports.ArenaSeasonChest = ArenaSeasonChest = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_seasons_chest' })
 ], ArenaSeasonChest);
-exports.ArenaSeasonChest = ArenaSeasonChest;
 //# sourceMappingURL=ArenaSeasonChest.entity.js.map

@@ -17,6 +17,7 @@ const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
 let StakingReward = class StakingReward extends typeorm_1.BaseEntity {
 };
+exports.StakingReward = StakingReward;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -61,7 +62,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
 ], StakingReward.prototype, "timestamp", void 0);
-StakingReward = __decorate([
+exports.StakingReward = StakingReward = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -79,5 +80,4 @@ StakingReward = __decorate([
         name: 'staking_rewards_view',
     })
 ], StakingReward);
-exports.StakingReward = StakingReward;
 //# sourceMappingURL=StakingRewards.view.js.map

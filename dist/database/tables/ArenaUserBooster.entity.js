@@ -17,12 +17,13 @@ var ArenaUserBoosterType;
 (function (ArenaUserBoosterType) {
     ArenaUserBoosterType["SPECIAL"] = "SPECIAL";
     ArenaUserBoosterType["WOW_CHEST"] = "WOW_CHEST";
-})(ArenaUserBoosterType = exports.ArenaUserBoosterType || (exports.ArenaUserBoosterType = {}));
+})(ArenaUserBoosterType || (exports.ArenaUserBoosterType = ArenaUserBoosterType = {}));
 (0, graphql_1.registerEnumType)(ArenaUserBoosterType, {
     name: 'ArenaUserBoosterType',
 });
 let ArenaUserBooster = class ArenaUserBooster extends typeorm_1.BaseEntity {
 };
+exports.ArenaUserBooster = ArenaUserBooster;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -58,10 +59,9 @@ __decorate([
     (0, typeorm_1.Column)('enum', { enum: ArenaUserBoosterType, enumName: 'booster_type' }),
     __metadata("design:type", String)
 ], ArenaUserBooster.prototype, "type", void 0);
-ArenaUserBooster = __decorate([
+exports.ArenaUserBooster = ArenaUserBooster = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users_booster' }),
     (0, typeorm_1.Index)(['userTwitterId', 'seasonNumber', 'expiresOn'])
 ], ArenaUserBooster);
-exports.ArenaUserBooster = ArenaUserBooster;
 //# sourceMappingURL=ArenaUserBooster.entity.js.map

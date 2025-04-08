@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 const _1 = require(".");
 let ArenaUserClaimedWowChest = class ArenaUserClaimedWowChest extends typeorm_1.BaseEntity {
 };
+exports.ArenaUserClaimedWowChest = ArenaUserClaimedWowChest;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -49,10 +50,9 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], ArenaUserClaimedWowChest.prototype, "timestamp", void 0);
-ArenaUserClaimedWowChest = __decorate([
+exports.ArenaUserClaimedWowChest = ArenaUserClaimedWowChest = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users_claimed_wow_chest' }),
     (0, typeorm_1.Index)(['chestPeriod', 'userTwitterId'])
 ], ArenaUserClaimedWowChest);
-exports.ArenaUserClaimedWowChest = ArenaUserClaimedWowChest;
 //# sourceMappingURL=ArenaUserClaimedWowChest.entity.js.map

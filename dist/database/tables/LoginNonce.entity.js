@@ -22,6 +22,7 @@ let LoginNonce = class LoginNonce extends typeorm_1.BaseEntity {
         (_a = this.nonce) !== null && _a !== void 0 ? _a : (this.nonce = (0, crypto_1.randomUUID)().replace(/-/g, ''));
     }
 };
+exports.LoginNonce = LoginNonce;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 32 }),
@@ -48,9 +49,8 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], LoginNonce.prototype, "generateNonce", null);
-LoginNonce = __decorate([
+exports.LoginNonce = LoginNonce = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'login_nonces' })
 ], LoginNonce);
-exports.LoginNonce = LoginNonce;
 //# sourceMappingURL=LoginNonce.entity.js.map

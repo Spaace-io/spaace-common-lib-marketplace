@@ -15,6 +15,7 @@ const Item_entity_1 = require("./Item.entity");
 const enums_1 = require("../enums");
 let SaleEntity = class SaleEntity extends typeorm_1.BaseEntity {
 };
+exports.SaleEntity = SaleEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
@@ -73,7 +74,7 @@ __decorate([
     (0, typeorm_1.PrimaryColumn)('timestamp without time zone'),
     __metadata("design:type", Date)
 ], SaleEntity.prototype, "timestamp", void 0);
-SaleEntity = __decorate([
+exports.SaleEntity = SaleEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'sales' }),
     (0, typeorm_1.Index)(['timestamp']),
     (0, typeorm_1.Index)(['from', 'timestamp']),
@@ -93,5 +94,4 @@ SaleEntity = __decorate([
     }),
     (0, typeorm_1.Index)(['orderHash'])
 ], SaleEntity);
-exports.SaleEntity = SaleEntity;
 //# sourceMappingURL=Sale.entity.js.map

@@ -16,6 +16,7 @@ const _1 = require(".");
 const enums_1 = require("../enums");
 let ArenaUserProgress = class ArenaUserProgress extends typeorm_1.BaseEntity {
 };
+exports.ArenaUserProgress = ArenaUserProgress;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
@@ -86,10 +87,9 @@ __decorate([
     (0, typeorm_1.Index)(),
     __metadata("design:type", String)
 ], ArenaUserProgress.prototype, "twentyFourHourRank", void 0);
-ArenaUserProgress = __decorate([
+exports.ArenaUserProgress = ArenaUserProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users_progress' }),
     (0, typeorm_1.Index)(['division', 'league', 'leagueRank'])
 ], ArenaUserProgress);
-exports.ArenaUserProgress = ArenaUserProgress;
 //# sourceMappingURL=ArenaUserProgress.entity.js.map

@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 let ArenaLevel = class ArenaLevel extends typeorm_1.BaseEntity {
 };
+exports.ArenaLevel = ArenaLevel;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true, default: '0' }),
@@ -24,9 +25,8 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], ArenaLevel.prototype, "stars", void 0);
-ArenaLevel = __decorate([
+exports.ArenaLevel = ArenaLevel = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_levels' })
 ], ArenaLevel);
-exports.ArenaLevel = ArenaLevel;
 //# sourceMappingURL=ArenaLevel.entity.js.map

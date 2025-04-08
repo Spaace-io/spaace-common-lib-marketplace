@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 let ArenaCrewLeaderBoard = class ArenaCrewLeaderBoard extends typeorm_1.BaseEntity {
 };
+exports.ArenaCrewLeaderBoard = ArenaCrewLeaderBoard;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
@@ -24,9 +25,8 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], ArenaCrewLeaderBoard.prototype, "position", void 0);
-ArenaCrewLeaderBoard = __decorate([
+exports.ArenaCrewLeaderBoard = ArenaCrewLeaderBoard = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_crew_leaderboard' })
 ], ArenaCrewLeaderBoard);
-exports.ArenaCrewLeaderBoard = ArenaCrewLeaderBoard;
 //# sourceMappingURL=ArenaCrewLeaderBoard.entity.js.map

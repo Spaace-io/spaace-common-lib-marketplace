@@ -13,6 +13,7 @@ exports.StakingRewardEntity = void 0;
 const typeorm_1 = require("typeorm");
 let StakingRewardEntity = class StakingRewardEntity extends typeorm_1.BaseEntity {
 };
+exports.StakingRewardEntity = StakingRewardEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
@@ -42,9 +43,8 @@ __decorate([
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], StakingRewardEntity.prototype, "timestamp", void 0);
-StakingRewardEntity = __decorate([
+exports.StakingRewardEntity = StakingRewardEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'staking_rewards' }),
     (0, typeorm_1.Index)(['pool', 'token', 'timestamp'])
 ], StakingRewardEntity);
-exports.StakingRewardEntity = StakingRewardEntity;
 //# sourceMappingURL=StakingReward.entity.js.map

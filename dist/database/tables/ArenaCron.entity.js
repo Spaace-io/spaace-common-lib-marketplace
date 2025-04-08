@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 let ArenaCron = class ArenaCron extends typeorm_1.BaseEntity {
 };
+exports.ArenaCron = ArenaCron;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
@@ -24,9 +25,8 @@ __decorate([
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], ArenaCron.prototype, "pointer", void 0);
-ArenaCron = __decorate([
+exports.ArenaCron = ArenaCron = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_crons' })
 ], ArenaCron);
-exports.ArenaCron = ArenaCron;
 //# sourceMappingURL=ArenaCron.entity.js.map

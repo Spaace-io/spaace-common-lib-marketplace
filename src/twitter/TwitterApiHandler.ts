@@ -6,8 +6,8 @@ import {
 } from './types/responses/TweetsStatsResponse';
 import { ArenaUser } from '../database';
 import { TwitterUserv2 } from './types';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { default: addOAuthInterceptor } = require('axios-oauth-1.0a');
+
+import addOAuthInterceptor from 'axios-oauth-1.0a';
 
 export enum TwitterApiVersions {
   V1 = '1.1',
@@ -27,7 +27,17 @@ export class TwitterApiHandler {
     });
 
     if (twitterApiVersion === TwitterApiVersions.V1 && userCreds) {
+      if (
+        !process.env.TWITTER_CONSUMER_KEY ||
+        !process.env.TWITTER_CONSUMER_SECRET
+      ) {
+        throw new Error(
+          'Twitter consumer key and secret are required for OAuth 1.0a',
+        );
+      }
+
       const options = {
+        algorithm: 'HMAC-SHA1' as const,
         key: process.env.TWITTER_CONSUMER_KEY,
         secret: process.env.TWITTER_CONSUMER_SECRET,
         token: userCreds.twitterAccessToken,
@@ -36,9 +46,8 @@ export class TwitterApiHandler {
 
       addOAuthInterceptor(axiosInstance, options);
     } else {
-      axiosInstance.defaults.headers.common[
-        'Authorization'
-      ] = `Bearer ${process.env.TWITTER_APP_BEARER_TOKEN}`;
+      axiosInstance.defaults.headers.common['Authorization'] =
+        `Bearer ${process.env.TWITTER_APP_BEARER_TOKEN}`;
     }
 
     this.twitterApiInstance = axiosInstance;

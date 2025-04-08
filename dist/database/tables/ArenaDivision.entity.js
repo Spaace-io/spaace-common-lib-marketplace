@@ -17,6 +17,7 @@ const _1 = require(".");
 const enums_1 = require("../enums");
 let ArenaDivision = class ArenaDivision extends typeorm_1.BaseEntity {
 };
+exports.ArenaDivision = ArenaDivision;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
@@ -38,9 +39,8 @@ __decorate([
     (0, typeorm_1.Column)('numeric'),
     __metadata("design:type", String)
 ], ArenaDivision.prototype, "numberOfLeagues", void 0);
-ArenaDivision = __decorate([
+exports.ArenaDivision = ArenaDivision = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_divisions' })
 ], ArenaDivision);
-exports.ArenaDivision = ArenaDivision;
 //# sourceMappingURL=ArenaDivision.entity.js.map

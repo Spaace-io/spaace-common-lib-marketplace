@@ -8,15 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var User_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
-let User = User_1 = class User extends typeorm_1.BaseEntity {
+let User = class User extends typeorm_1.BaseEntity {
 };
+exports.User = User;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
@@ -63,7 +63,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('char', { length: 40, nullable: true }),
-    (0, typeorm_1.ManyToOne)(() => User_1, { nullable: true }),
+    (0, typeorm_1.ManyToOne)(() => User, { nullable: true }),
     (0, typeorm_1.JoinColumn)({ name: 'referrerAddress', referencedColumnName: 'address' }),
     (0, class_transformer_1.Transform)(({ value }) => (value !== null ? ethers_1.ethers.utils.getAddress(value) : null), {
         toPlainOnly: true,
@@ -95,9 +95,8 @@ __decorate([
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], User.prototype, "twitterAccessToken", void 0);
-User = User_1 = __decorate([
+exports.User = User = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'users' })
 ], User);
-exports.User = User;
 //# sourceMappingURL=User.entity.js.map

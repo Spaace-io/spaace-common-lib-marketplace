@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 const _1 = require(".");
 let ArenaUserEarnedChest = class ArenaUserEarnedChest extends typeorm_1.BaseEntity {
 };
+exports.ArenaUserEarnedChest = ArenaUserEarnedChest;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -54,10 +55,9 @@ __decorate([
     (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)
 ], ArenaUserEarnedChest.prototype, "isClaimed", void 0);
-ArenaUserEarnedChest = __decorate([
+exports.ArenaUserEarnedChest = ArenaUserEarnedChest = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users_earned_chest' }),
     (0, typeorm_1.Index)(['userTwitterId', 'id'])
 ], ArenaUserEarnedChest);
-exports.ArenaUserEarnedChest = ArenaUserEarnedChest;
 //# sourceMappingURL=ArenaUserEarnedChest.entity.js.map

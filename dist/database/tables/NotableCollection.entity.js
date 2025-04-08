@@ -17,6 +17,7 @@ const ethers_1 = require("ethers");
 const Collection_entity_1 = require("./Collection.entity");
 let NotableCollection = class NotableCollection extends typeorm_1.BaseEntity {
 };
+exports.NotableCollection = NotableCollection;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
@@ -27,9 +28,8 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], NotableCollection.prototype, "collectionAddress", void 0);
-NotableCollection = __decorate([
+exports.NotableCollection = NotableCollection = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'notable_collections' })
 ], NotableCollection);
-exports.NotableCollection = NotableCollection;
 //# sourceMappingURL=NotableCollection.entity.js.map

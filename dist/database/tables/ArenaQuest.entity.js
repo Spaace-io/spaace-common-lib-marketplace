@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var AreanaQuest_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AreanaQuest = exports.ArenaQuestPeriod = exports.ArenaQuestOperation = exports.ArenaQuestStep = exports.ArenaQuestRule = exports.ArenaQuestSubType = exports.ArenaQuestType = exports.ArenaQuestOperator = exports.ArenaQuestRuleOperator = exports.ArenaQuestTrigger = void 0;
 const typeorm_1 = require("typeorm");
@@ -25,7 +24,7 @@ var ArenaQuestTrigger;
     ArenaQuestTrigger["SOCIAL_PRIME"] = "SOCIAL_PRIME";
     ArenaQuestTrigger["USER_LEVEL_PROGRESS"] = "USER_LEVEL_PROGRESS";
     ArenaQuestTrigger["CREW_PROGRESS"] = "CREW_PROGRESS";
-})(ArenaQuestTrigger = exports.ArenaQuestTrigger || (exports.ArenaQuestTrigger = {}));
+})(ArenaQuestTrigger || (exports.ArenaQuestTrigger = ArenaQuestTrigger = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestTrigger, {
     name: 'ArenaQuestTrigger',
 });
@@ -39,14 +38,14 @@ var ArenaQuestRuleOperator;
     ArenaQuestRuleOperator["NEQ"] = "NEQ";
     ArenaQuestRuleOperator["IN"] = "IN";
     ArenaQuestRuleOperator["NIN"] = "NIN";
-})(ArenaQuestRuleOperator = exports.ArenaQuestRuleOperator || (exports.ArenaQuestRuleOperator = {}));
+})(ArenaQuestRuleOperator || (exports.ArenaQuestRuleOperator = ArenaQuestRuleOperator = {}));
 var ArenaQuestOperator;
 (function (ArenaQuestOperator) {
     ArenaQuestOperator["SUM"] = "SUM";
     ArenaQuestOperator["SUB"] = "SUB";
     ArenaQuestOperator["MUL"] = "MUL";
     ArenaQuestOperator["DIV"] = "DIV";
-})(ArenaQuestOperator = exports.ArenaQuestOperator || (exports.ArenaQuestOperator = {}));
+})(ArenaQuestOperator || (exports.ArenaQuestOperator = ArenaQuestOperator = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestOperator, {
     name: 'ArenaQuestOperator',
 });
@@ -62,7 +61,7 @@ var ArenaQuestType;
     ArenaQuestType["PROGRESSIVE"] = "PROGRESSIVE";
     ArenaQuestType["CREW"] = "CREW";
     ArenaQuestType["ONBOARDING"] = "ONBOARDING";
-})(ArenaQuestType = exports.ArenaQuestType || (exports.ArenaQuestType = {}));
+})(ArenaQuestType || (exports.ArenaQuestType = ArenaQuestType = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestType, {
     name: 'ArenaQuestType',
 });
@@ -79,12 +78,13 @@ var ArenaQuestSubType;
     ArenaQuestSubType["ONBOARDING"] = "ONBOARDING";
     ArenaQuestSubType["REFERRAL_SOCIAL"] = "REFERRAL_SOCIAL";
     ArenaQuestSubType["OTHERS"] = "OTHERS";
-})(ArenaQuestSubType = exports.ArenaQuestSubType || (exports.ArenaQuestSubType = {}));
+})(ArenaQuestSubType || (exports.ArenaQuestSubType = ArenaQuestSubType = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestSubType, {
     name: 'ArenaQuestSubType',
 });
 let ArenaQuestRule = class ArenaQuestRule {
 };
+exports.ArenaQuestRule = ArenaQuestRule;
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
@@ -101,12 +101,12 @@ __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     __metadata("design:type", Object)
 ], ArenaQuestRule.prototype, "delta", void 0);
-ArenaQuestRule = __decorate([
+exports.ArenaQuestRule = ArenaQuestRule = __decorate([
     (0, graphql_1.ObjectType)()
 ], ArenaQuestRule);
-exports.ArenaQuestRule = ArenaQuestRule;
 let ArenaQuestStep = class ArenaQuestStep {
 };
+exports.ArenaQuestStep = ArenaQuestStep;
 __decorate([
     (0, graphql_1.Field)(() => ArenaQuestTrigger),
     __metadata("design:type", String)
@@ -121,12 +121,12 @@ __decorate([
     (0, graphql_1.Field)(() => Boolean, { defaultValue: false }),
     __metadata("design:type", Boolean)
 ], ArenaQuestStep.prototype, "cron", void 0);
-ArenaQuestStep = __decorate([
+exports.ArenaQuestStep = ArenaQuestStep = __decorate([
     (0, graphql_1.ObjectType)()
 ], ArenaQuestStep);
-exports.ArenaQuestStep = ArenaQuestStep;
 let ArenaQuestOperation = class ArenaQuestOperation {
 };
+exports.ArenaQuestOperation = ArenaQuestOperation;
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
@@ -143,20 +143,20 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], ArenaQuestOperation.prototype, "updates", void 0);
-ArenaQuestOperation = __decorate([
+exports.ArenaQuestOperation = ArenaQuestOperation = __decorate([
     (0, graphql_1.ObjectType)()
 ], ArenaQuestOperation);
-exports.ArenaQuestOperation = ArenaQuestOperation;
 var ArenaQuestPeriod;
 (function (ArenaQuestPeriod) {
     ArenaQuestPeriod["DAILY"] = "DAILY";
     ArenaQuestPeriod["SEASONAL"] = "SEASONAL";
-})(ArenaQuestPeriod = exports.ArenaQuestPeriod || (exports.ArenaQuestPeriod = {}));
+})(ArenaQuestPeriod || (exports.ArenaQuestPeriod = ArenaQuestPeriod = {}));
 (0, graphql_1.registerEnumType)(ArenaQuestPeriod, {
     name: 'ArenaQuestPeriod',
 });
-let AreanaQuest = AreanaQuest_1 = class AreanaQuest extends typeorm_1.BaseEntity {
+let AreanaQuest = class AreanaQuest extends typeorm_1.BaseEntity {
 };
+exports.AreanaQuest = AreanaQuest;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -178,7 +178,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('uuid', { nullable: true }),
-    (0, typeorm_1.OneToOne)(() => AreanaQuest_1),
+    (0, typeorm_1.OneToOne)(() => AreanaQuest),
     (0, typeorm_1.JoinColumn)([
         { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
         { name: 'previousQuestId', referencedColumnName: 'id' },
@@ -188,7 +188,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('uuid', { nullable: true }),
-    (0, typeorm_1.ManyToOne)(() => AreanaQuest_1),
+    (0, typeorm_1.ManyToOne)(() => AreanaQuest),
     (0, typeorm_1.JoinColumn)([
         { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
         { name: 'referenceQuestId', referencedColumnName: 'id' },
@@ -278,10 +278,9 @@ __decorate([
     (0, typeorm_1.Column)('text', { default: null, nullable: true }),
     __metadata("design:type", Object)
 ], AreanaQuest.prototype, "allSeasonId", void 0);
-AreanaQuest = AreanaQuest_1 = __decorate([
+exports.AreanaQuest = AreanaQuest = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_quests' }),
     (0, typeorm_1.Unique)(['seasonNumber', 'name'])
 ], AreanaQuest);
-exports.AreanaQuest = AreanaQuest;
 //# sourceMappingURL=ArenaQuest.entity.js.map

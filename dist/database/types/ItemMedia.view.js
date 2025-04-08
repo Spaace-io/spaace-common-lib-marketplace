@@ -17,6 +17,7 @@ const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
 let ItemMedia = class ItemMedia extends typeorm_1.BaseEntity {
 };
+exports.ItemMedia = ItemMedia;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -45,7 +46,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], ItemMedia.prototype, "raw", void 0);
-ItemMedia = __decorate([
+exports.ItemMedia = ItemMedia = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -61,5 +62,4 @@ ItemMedia = __decorate([
         name: 'item_medias_view',
     })
 ], ItemMedia);
-exports.ItemMedia = ItemMedia;
 //# sourceMappingURL=ItemMedia.view.js.map

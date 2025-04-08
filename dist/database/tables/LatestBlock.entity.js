@@ -13,6 +13,7 @@ exports.LatestBlockEntity = void 0;
 const typeorm_1 = require("typeorm");
 let LatestBlockEntity = class LatestBlockEntity extends typeorm_1.BaseEntity {
 };
+exports.LatestBlockEntity = LatestBlockEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)({ default: true }),
     (0, typeorm_1.Check)('pk = TRUE'),
@@ -31,8 +32,7 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], LatestBlockEntity.prototype, "timestamp", void 0);
-LatestBlockEntity = __decorate([
+exports.LatestBlockEntity = LatestBlockEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'latest_block' })
 ], LatestBlockEntity);
-exports.LatestBlockEntity = LatestBlockEntity;
 //# sourceMappingURL=LatestBlock.entity.js.map

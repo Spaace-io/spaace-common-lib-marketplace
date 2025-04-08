@@ -17,6 +17,7 @@ const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
 let Like = class Like extends typeorm_1.BaseEntity {
 };
+exports.Like = Like;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -46,7 +47,7 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], Like.prototype, "tokenId", void 0);
-Like = __decorate([
+exports.Like = Like = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -81,5 +82,4 @@ Like = __decorate([
         name: 'likes_view',
     })
 ], Like);
-exports.Like = Like;
 //# sourceMappingURL=Like.view.js.map

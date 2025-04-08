@@ -8,7 +8,7 @@ var OrderType;
     OrderType["BID"] = "BID";
     OrderType["ENGLISH_AUCTION"] = "ENGLISH_AUCTION";
     OrderType["DUTCH_AUCTION"] = "DUTCH_AUCTION";
-})(OrderType = exports.OrderType || (exports.OrderType = {}));
+})(OrderType || (exports.OrderType = OrderType = {}));
 (0, graphql_1.registerEnumType)(OrderType, {
     name: 'OrderType',
 });

@@ -9,18 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.runChunks = exports.splitChunks = void 0;
+exports.splitChunks = splitChunks;
+exports.runChunks = runChunks;
 function* splitChunks(array, chunkSize) {
     array = [...array];
     while (array.length)
         yield array.splice(0, chunkSize);
 }
-exports.splitChunks = splitChunks;
 function runChunks(array, chunkSize, job) {
     return __awaiter(this, void 0, void 0, function* () {
         for (const chunk of splitChunks(array, chunkSize))
             yield job(chunk);
     });
 }
-exports.runChunks = runChunks;
 //# sourceMappingURL=chunks.js.map

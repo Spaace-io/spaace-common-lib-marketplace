@@ -10,5 +10,5 @@ var PubSubTopic;
     PubSubTopic["DATA"] = "data";
     PubSubTopic["LEVEL_PROGRESS"] = "level-progress";
     PubSubTopic["GQL_MESSAGE"] = "gql-message";
-})(PubSubTopic = exports.PubSubTopic || (exports.PubSubTopic = {}));
+})(PubSubTopic || (exports.PubSubTopic = PubSubTopic = {}));
 //# sourceMappingURL=topic.js.map

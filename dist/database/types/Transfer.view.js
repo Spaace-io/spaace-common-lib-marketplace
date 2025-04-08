@@ -19,6 +19,7 @@ const __1 = require("..");
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. ERC1155's TransferBatch)
 let Transfer = class Transfer extends typeorm_1.BaseEntity {
 };
+exports.Transfer = Transfer;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -71,7 +72,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
 ], Transfer.prototype, "timestamp", void 0);
-Transfer = __decorate([
+exports.Transfer = Transfer = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -90,5 +91,4 @@ Transfer = __decorate([
         name: 'transfers_view',
     })
 ], Transfer);
-exports.Transfer = Transfer;
 //# sourceMappingURL=Transfer.view.js.map

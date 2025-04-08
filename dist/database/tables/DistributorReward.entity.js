@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const enums_1 = require("../enums");
 let DistributorRewardEntity = class DistributorRewardEntity extends typeorm_1.BaseEntity {
 };
+exports.DistributorRewardEntity = DistributorRewardEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     __metadata("design:type", String)
@@ -52,7 +53,7 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], DistributorRewardEntity.prototype, "harvestTimestamp", void 0);
-DistributorRewardEntity = __decorate([
+exports.DistributorRewardEntity = DistributorRewardEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'distributor_rewards' }),
     (0, typeorm_1.Index)(['userAddress', 'distributor', 'amount'], {
         where: '"harvestTimestamp" IS NULL',
@@ -61,5 +62,4 @@ DistributorRewardEntity = __decorate([
         where: '"harvestTimestamp" IS NOT NULL',
     })
 ], DistributorRewardEntity);
-exports.DistributorRewardEntity = DistributorRewardEntity;
 //# sourceMappingURL=DistributorReward.entity.js.map

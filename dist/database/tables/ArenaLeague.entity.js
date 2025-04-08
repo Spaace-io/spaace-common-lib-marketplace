@@ -17,6 +17,7 @@ const class_validator_1 = require("class-validator");
 const enums_1 = require("../enums");
 let ArenaLeague = class ArenaLeague extends typeorm_1.BaseEntity {
 };
+exports.ArenaLeague = ArenaLeague;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }),
@@ -48,9 +49,8 @@ __decorate([
     (0, typeorm_1.Column)('numeric'),
     __metadata("design:type", String)
 ], ArenaLeague.prototype, "numberOfUsers", void 0);
-ArenaLeague = __decorate([
+exports.ArenaLeague = ArenaLeague = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_leagues' })
 ], ArenaLeague);
-exports.ArenaLeague = ArenaLeague;
 //# sourceMappingURL=ArenaLeague.entity.js.map

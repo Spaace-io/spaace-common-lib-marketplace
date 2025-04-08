@@ -17,6 +17,7 @@ const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
 let CollectionBalance = class CollectionBalance extends typeorm_1.BaseEntity {
 };
+exports.CollectionBalance = CollectionBalance;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -43,7 +44,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], CollectionBalance.prototype, "itemCount", void 0);
-CollectionBalance = __decorate([
+exports.CollectionBalance = CollectionBalance = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -136,5 +137,4 @@ CollectionBalance = __decorate([
         name: 'collection_balances_view',
     })
 ], CollectionBalance);
-exports.CollectionBalance = CollectionBalance;
 //# sourceMappingURL=CollectionBalance.view.js.map

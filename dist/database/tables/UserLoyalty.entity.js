@@ -18,6 +18,7 @@ const _1 = require(".");
 const class_validator_1 = require("class-validator");
 let UserLoyalty = class UserLoyalty extends typeorm_1.BaseEntity {
 };
+exports.UserLoyalty = UserLoyalty;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
@@ -56,10 +57,9 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, scale: 2, default: 1.0 }),
     __metadata("design:type", Number)
 ], UserLoyalty.prototype, "boostMultiplier", void 0);
-UserLoyalty = __decorate([
+exports.UserLoyalty = UserLoyalty = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'user_loyalties' }),
     (0, typeorm_1.Index)(['seasonNumber', 'points'])
 ], UserLoyalty);
-exports.UserLoyalty = UserLoyalty;
 //# sourceMappingURL=UserLoyalty.entity.js.map

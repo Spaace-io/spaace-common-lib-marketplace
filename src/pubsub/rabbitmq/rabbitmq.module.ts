@@ -13,7 +13,7 @@ const heartbeatIntervalInSeconds = process.env.RABBITMQ_HEARTBEAT_INTERVAL
 
 @Module({
   imports: [
-    RabbitMQModule.forRoot(RabbitMQModule, {
+    RabbitMQModule.forRoot({
       name: 'default',
       exchanges: [
         { name: 'triggers-exchange', type: 'topic' },

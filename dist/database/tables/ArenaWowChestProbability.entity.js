@@ -18,10 +18,11 @@ var ArenaWowChestType;
     ArenaWowChestType["BOOSTER"] = "BOOSTER";
     ArenaWowChestType["EMPTY"] = "EMPTY";
     ArenaWowChestType["BITCOIN"] = "BITCOIN";
-})(ArenaWowChestType = exports.ArenaWowChestType || (exports.ArenaWowChestType = {}));
+})(ArenaWowChestType || (exports.ArenaWowChestType = ArenaWowChestType = {}));
 (0, graphql_1.registerEnumType)(ArenaWowChestType, { name: 'ArenaWowChestType' });
 let ArenaWowChestProbability = class ArenaWowChestProbability extends typeorm_1.BaseEntity {
 };
+exports.ArenaWowChestProbability = ArenaWowChestProbability;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -45,10 +46,9 @@ __decorate([
     (0, typeorm_1.Column)('decimal', { precision: 10, scale: 2, default: '0.00' }),
     __metadata("design:type", String)
 ], ArenaWowChestProbability.prototype, "probability", void 0);
-ArenaWowChestProbability = __decorate([
+exports.ArenaWowChestProbability = ArenaWowChestProbability = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_wow_chest_probability' }),
     (0, typeorm_1.Unique)(['type', 'value'])
 ], ArenaWowChestProbability);
-exports.ArenaWowChestProbability = ArenaWowChestProbability;
 //# sourceMappingURL=ArenaWowChestProbability.entity.js.map

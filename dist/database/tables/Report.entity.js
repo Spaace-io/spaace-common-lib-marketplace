@@ -22,12 +22,13 @@ var ReportReason;
     ReportReason["EXPLICIT"] = "EXPLICIT";
     ReportReason["SPAM"] = "SPAM";
     ReportReason["OTHER"] = "OTHER";
-})(ReportReason = exports.ReportReason || (exports.ReportReason = {}));
+})(ReportReason || (exports.ReportReason = ReportReason = {}));
 (0, graphql_1.registerEnumType)(ReportReason, {
     name: 'ReportReason',
 });
 let Report = class Report extends typeorm_1.BaseEntity {
 };
+exports.Report = Report;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
@@ -66,10 +67,9 @@ __decorate([
     (0, typeorm_1.Column)('enum', { enum: ReportReason, enumName: 'report_reason' }),
     __metadata("design:type", String)
 ], Report.prototype, "reason", void 0);
-Report = __decorate([
+exports.Report = Report = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'reports' }),
     (0, typeorm_1.Unique)(['userAddress', 'collectionAddress', 'tokenId'])
 ], Report);
-exports.Report = Report;
 //# sourceMappingURL=Report.entity.js.map

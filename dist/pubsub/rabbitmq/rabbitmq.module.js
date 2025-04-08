@@ -21,10 +21,11 @@ const heartbeatIntervalInSeconds = process.env.RABBITMQ_HEARTBEAT_INTERVAL
     : 5;
 let RabbitMQCustomModule = class RabbitMQCustomModule {
 };
-RabbitMQCustomModule = __decorate([
+exports.RabbitMQCustomModule = RabbitMQCustomModule;
+exports.RabbitMQCustomModule = RabbitMQCustomModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            nestjs_rabbitmq_1.RabbitMQModule.forRoot(nestjs_rabbitmq_1.RabbitMQModule, {
+            nestjs_rabbitmq_1.RabbitMQModule.forRoot({
                 name: 'default',
                 exchanges: [
                     { name: 'triggers-exchange', type: 'topic' },
@@ -53,5 +54,4 @@ RabbitMQCustomModule = __decorate([
         exports: [rabbitmq_client_1.RabbitMQClient],
     })
 ], RabbitMQCustomModule);
-exports.RabbitMQCustomModule = RabbitMQCustomModule;
 //# sourceMappingURL=rabbitmq.module.js.map

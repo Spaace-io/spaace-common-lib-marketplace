@@ -17,6 +17,7 @@ const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
 let TokenTransfer = class TokenTransfer extends typeorm_1.BaseEntity {
 };
+exports.TokenTransfer = TokenTransfer;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -64,7 +65,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
 ], TokenTransfer.prototype, "timestamp", void 0);
-TokenTransfer = __decorate([
+exports.TokenTransfer = TokenTransfer = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -82,5 +83,4 @@ TokenTransfer = __decorate([
         name: 'token_transfers_view',
     })
 ], TokenTransfer);
-exports.TokenTransfer = TokenTransfer;
 //# sourceMappingURL=TokenTransfer.view.js.map

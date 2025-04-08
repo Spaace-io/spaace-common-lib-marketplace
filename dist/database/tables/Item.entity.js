@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const _1 = require(".");
 let ItemEntity = class ItemEntity extends typeorm_1.BaseEntity {
 };
+exports.ItemEntity = ItemEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => _1.CollectionEntity),
@@ -54,10 +55,9 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], ItemEntity.prototype, "lastImport", void 0);
-ItemEntity = __decorate([
+exports.ItemEntity = ItemEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'items' }),
     (0, typeorm_1.Index)(['collectionAddress', 'rarityRanking']),
     (0, typeorm_1.Index)(['collectionAddress', 'tokenId'], { unique: true })
 ], ItemEntity);
-exports.ItemEntity = ItemEntity;
 //# sourceMappingURL=Item.entity.js.map

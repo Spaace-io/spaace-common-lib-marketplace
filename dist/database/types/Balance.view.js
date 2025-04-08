@@ -19,6 +19,7 @@ const __2 = require("../..");
 const enums_1 = require("../enums");
 let Balance = class Balance extends typeorm_1.BaseEntity {
 };
+exports.Balance = Balance;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -45,7 +46,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], Balance.prototype, "balance", void 0);
-Balance = __decorate([
+exports.Balance = Balance = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -233,5 +234,4 @@ Balance = __decorate([
         name: 'balances_view',
     })
 ], Balance);
-exports.Balance = Balance;
 //# sourceMappingURL=Balance.view.js.map

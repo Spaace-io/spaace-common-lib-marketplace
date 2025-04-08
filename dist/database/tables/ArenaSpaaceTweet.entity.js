@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 let ArenaSpaaceTweet = class ArenaSpaaceTweet extends typeorm_1.BaseEntity {
 };
+exports.ArenaSpaaceTweet = ArenaSpaaceTweet;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
@@ -54,9 +55,8 @@ __decorate([
     (0, typeorm_1.Index)(),
     __metadata("design:type", Boolean)
 ], ArenaSpaaceTweet.prototype, "communityPost", void 0);
-ArenaSpaaceTweet = __decorate([
+exports.ArenaSpaaceTweet = ArenaSpaaceTweet = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_spaace_tweet' })
 ], ArenaSpaaceTweet);
-exports.ArenaSpaaceTweet = ArenaSpaaceTweet;
 //# sourceMappingURL=ArenaSpaaceTweet.entity.js.map

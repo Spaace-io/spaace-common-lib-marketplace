@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const Item_entity_1 = require("./Item.entity");
 let BalanceEntity = class BalanceEntity extends typeorm_1.BaseEntity {
 };
+exports.BalanceEntity = BalanceEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     __metadata("design:type", String)
@@ -36,7 +37,7 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
 ], BalanceEntity.prototype, "balance", void 0);
-BalanceEntity = __decorate([
+exports.BalanceEntity = BalanceEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'balances' }),
     (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'balance'], { where: '"balance" > 0' }),
     (0, typeorm_1.Index)(['balance', 'collectionAddress']),
@@ -48,5 +49,4 @@ BalanceEntity = __decorate([
         unique: true,
     })
 ], BalanceEntity);
-exports.BalanceEntity = BalanceEntity;
 //# sourceMappingURL=Balance.entity.js.map

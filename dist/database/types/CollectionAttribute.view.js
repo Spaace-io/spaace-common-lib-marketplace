@@ -19,6 +19,7 @@ const enums_1 = require("../enums");
 const tables_1 = require("../tables");
 let CollectionAttribute = class CollectionAttribute extends typeorm_1.BaseEntity {
 };
+exports.CollectionAttribute = CollectionAttribute;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -55,7 +56,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], CollectionAttribute.prototype, "listedCount", void 0);
-CollectionAttribute = __decorate([
+exports.CollectionAttribute = CollectionAttribute = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -91,5 +92,4 @@ CollectionAttribute = __decorate([
         name: 'collection_attributes_view',
     })
 ], CollectionAttribute);
-exports.CollectionAttribute = CollectionAttribute;
 //# sourceMappingURL=CollectionAttribute.view.js.map

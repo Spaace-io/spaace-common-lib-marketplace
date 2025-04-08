@@ -18,6 +18,7 @@ const __1 = require("..");
 const enums_1 = require("../enums");
 let DistributorReward = class DistributorReward extends typeorm_1.BaseEntity {
 };
+exports.DistributorReward = DistributorReward;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -69,7 +70,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], DistributorReward.prototype, "harvestTimestamp", void 0);
-DistributorReward = __decorate([
+exports.DistributorReward = DistributorReward = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -88,5 +89,4 @@ DistributorReward = __decorate([
         name: 'distributor_rewards_view',
     })
 ], DistributorReward);
-exports.DistributorReward = DistributorReward;
 //# sourceMappingURL=DistributorReward.view.js.map

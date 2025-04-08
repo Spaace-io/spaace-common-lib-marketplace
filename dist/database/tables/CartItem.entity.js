@@ -18,6 +18,7 @@ const Item_entity_1 = require("./Item.entity");
 const User_entity_1 = require("./User.entity");
 let CartItem = class CartItem extends typeorm_1.BaseEntity {
 };
+exports.CartItem = CartItem;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
@@ -47,9 +48,8 @@ __decorate([
     ]),
     __metadata("design:type", String)
 ], CartItem.prototype, "tokenId", void 0);
-CartItem = __decorate([
+exports.CartItem = CartItem = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'cart_items' })
 ], CartItem);
-exports.CartItem = CartItem;
 //# sourceMappingURL=CartItem.entity.js.map

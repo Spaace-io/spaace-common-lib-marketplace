@@ -16,10 +16,10 @@ export type PubSubTrigger<T extends PubSubTopic> =
   T extends PubSubTopic.TRIGGERS
     ? QuestTrigger
     : T extends PubSubTopic.COLLECTION_IMPORT
-    ? CollectionImportRequest
-    : T extends PubSubTopic.SEARCH_INDEX
-    ? SearchIndexType
-    : never;
+      ? CollectionImportRequest
+      : T extends PubSubTopic.SEARCH_INDEX
+        ? SearchIndexType
+        : never;
 
 export type ArenaPubSubTrigger<T extends PubSubTopic> =
   T extends PubSubTopic.TRIGGERS ? ArenaQuestTrigger : never;

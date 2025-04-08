@@ -17,6 +17,7 @@ const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
 let StakingDeposit = class StakingDeposit extends typeorm_1.BaseEntity {
 };
+exports.StakingDeposit = StakingDeposit;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -81,7 +82,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
 ], StakingDeposit.prototype, "timestamp", void 0);
-StakingDeposit = __decorate([
+exports.StakingDeposit = StakingDeposit = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -103,9 +104,9 @@ StakingDeposit = __decorate([
         name: 'staking_deposits_view',
     })
 ], StakingDeposit);
-exports.StakingDeposit = StakingDeposit;
 let ActiveStakingDeposit = class ActiveStakingDeposit extends typeorm_1.BaseEntity {
 };
+exports.ActiveStakingDeposit = ActiveStakingDeposit;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -165,7 +166,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
 ], ActiveStakingDeposit.prototype, "timestamp", void 0);
-ActiveStakingDeposit = __decorate([
+exports.ActiveStakingDeposit = ActiveStakingDeposit = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -187,9 +188,9 @@ ActiveStakingDeposit = __decorate([
         name: 'active_staking_deposits_view',
     })
 ], ActiveStakingDeposit);
-exports.ActiveStakingDeposit = ActiveStakingDeposit;
 let PassiveStakingDeposit = class PassiveStakingDeposit extends typeorm_1.BaseEntity {
 };
+exports.PassiveStakingDeposit = PassiveStakingDeposit;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -244,7 +245,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
 ], PassiveStakingDeposit.prototype, "timestamp", void 0);
-PassiveStakingDeposit = __decorate([
+exports.PassiveStakingDeposit = PassiveStakingDeposit = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -265,5 +266,4 @@ PassiveStakingDeposit = __decorate([
         name: 'passive_staking_deposits_view',
     })
 ], PassiveStakingDeposit);
-exports.PassiveStakingDeposit = PassiveStakingDeposit;
 //# sourceMappingURL=StakingDeposit.view.js.map

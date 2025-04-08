@@ -16,7 +16,7 @@ var CollectionType;
 (function (CollectionType) {
     CollectionType["ERC721"] = "ERC721";
     CollectionType["ERC1155"] = "ERC1155";
-})(CollectionType = exports.CollectionType || (exports.CollectionType = {}));
+})(CollectionType || (exports.CollectionType = CollectionType = {}));
 (0, graphql_1.registerEnumType)(CollectionType, {
     name: 'CollectionType',
 });
@@ -28,12 +28,13 @@ var CollectionLinkType;
     CollectionLinkType["INSTAGRAM"] = "INSTAGRAM";
     CollectionLinkType["TELEGRAM"] = "TELEGRAM";
     CollectionLinkType["MEDIUM"] = "MEDIUM";
-})(CollectionLinkType = exports.CollectionLinkType || (exports.CollectionLinkType = {}));
+})(CollectionLinkType || (exports.CollectionLinkType = CollectionLinkType = {}));
 (0, graphql_1.registerEnumType)(CollectionLinkType, {
     name: 'CollectionLinkType',
 });
 let CollectionLink = class CollectionLink {
 };
+exports.CollectionLink = CollectionLink;
 __decorate([
     (0, graphql_1.Field)(() => CollectionLinkType),
     __metadata("design:type", String)
@@ -42,12 +43,12 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], CollectionLink.prototype, "url", void 0);
-CollectionLink = __decorate([
+exports.CollectionLink = CollectionLink = __decorate([
     (0, graphql_1.ObjectType)()
 ], CollectionLink);
-exports.CollectionLink = CollectionLink;
 let CollectionEntity = class CollectionEntity extends typeorm_1.BaseEntity {
 };
+exports.CollectionEntity = CollectionEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     __metadata("design:type", String)
@@ -104,8 +105,7 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], CollectionEntity.prototype, "lastImport", void 0);
-CollectionEntity = __decorate([
+exports.CollectionEntity = CollectionEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'collections' })
 ], CollectionEntity);
-exports.CollectionEntity = CollectionEntity;
 //# sourceMappingURL=Collection.entity.js.map

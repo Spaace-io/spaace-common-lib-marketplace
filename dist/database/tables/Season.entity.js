@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 let Season = class Season extends typeorm_1.BaseEntity {
 };
+exports.Season = Season;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -30,10 +31,9 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], Season.prototype, "endTime", void 0);
-Season = __decorate([
+exports.Season = Season = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'seasons' }),
     (0, typeorm_1.Index)(['startTime'])
 ], Season);
-exports.Season = Season;
 //# sourceMappingURL=Season.entity.js.map

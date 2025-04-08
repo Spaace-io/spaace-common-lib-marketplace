@@ -66,13 +66,13 @@ class RedisClient {
             }
         });
     }
-    shouldImportCollections(limit = this.COLLECTIONS_LIMIT) {
-        return __awaiter(this, void 0, void 0, function* () {
+    shouldImportCollections() {
+        return __awaiter(this, arguments, void 0, function* (limit = this.COLLECTIONS_LIMIT) {
             return (yield this.redis.zCard(this.COLLECTIONS_KEY)) >= limit;
         });
     }
-    importCollections(collections, priority = 1) {
-        return __awaiter(this, void 0, void 0, function* () {
+    importCollections(collections_1) {
+        return __awaiter(this, arguments, void 0, function* (collections, priority = 1) {
             if (collections.length === 0)
                 return;
             yield collections
@@ -111,13 +111,13 @@ class RedisClient {
             return yield this.redis.zRem(this.COLLECTIONS_KEY, entries);
         });
     }
-    shouldImportItems(limit = this.ITEMS_LIMIT) {
-        return __awaiter(this, void 0, void 0, function* () {
+    shouldImportItems() {
+        return __awaiter(this, arguments, void 0, function* (limit = this.ITEMS_LIMIT) {
             return (yield this.redis.zCard(this.ITEMS_KEY)) >= limit;
         });
     }
-    importItems(items, priority = 1) {
-        return __awaiter(this, void 0, void 0, function* () {
+    importItems(items_1) {
+        return __awaiter(this, arguments, void 0, function* (items, priority = 1) {
             if (items.length === 0)
                 return;
             yield items

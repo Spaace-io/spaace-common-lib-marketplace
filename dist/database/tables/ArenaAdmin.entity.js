@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 let ArenaAdmin = class ArenaAdmin extends typeorm_1.BaseEntity {
 };
+exports.ArenaAdmin = ArenaAdmin;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
@@ -54,9 +55,8 @@ __decorate([
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], ArenaAdmin.prototype, "tweetLikePaginationToken", void 0);
-ArenaAdmin = __decorate([
+exports.ArenaAdmin = ArenaAdmin = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_admins' })
 ], ArenaAdmin);
-exports.ArenaAdmin = ArenaAdmin;
 //# sourceMappingURL=ArenaAdmin.entity.js.map

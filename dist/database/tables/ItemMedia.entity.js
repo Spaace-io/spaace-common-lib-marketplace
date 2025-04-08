@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const _1 = require(".");
 let ItemMediaEntity = class ItemMediaEntity extends typeorm_1.BaseEntity {
 };
+exports.ItemMediaEntity = ItemMediaEntity;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
@@ -40,10 +41,9 @@ __decorate([
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], ItemMediaEntity.prototype, "raw", void 0);
-ItemMediaEntity = __decorate([
+exports.ItemMediaEntity = ItemMediaEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'item_medias' }),
     (0, typeorm_1.Index)(['collectionAddress', 'tokenId'], { unique: true, where: '"primary"' }),
     (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'id'])
 ], ItemMediaEntity);
-exports.ItemMediaEntity = ItemMediaEntity;
 //# sourceMappingURL=ItemMedia.entity.js.map

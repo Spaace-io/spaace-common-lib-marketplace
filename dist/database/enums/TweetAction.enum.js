@@ -7,7 +7,7 @@ var TweetAction;
     TweetAction["LIKE"] = "LIKE";
     TweetAction["REPLY"] = "REPLY";
     TweetAction["REPOST"] = "REPOST";
-})(TweetAction = exports.TweetAction || (exports.TweetAction = {}));
+})(TweetAction || (exports.TweetAction = TweetAction = {}));
 (0, graphql_1.registerEnumType)(TweetAction, {
     name: 'TweetAction',
 });

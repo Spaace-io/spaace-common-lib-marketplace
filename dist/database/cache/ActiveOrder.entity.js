@@ -16,6 +16,7 @@ const utils = require("../../utils");
 const enums_1 = require("../enums");
 let ActiveOrderCachedEntity = class ActiveOrderCachedEntity extends __1.OrderEntity {
 };
+exports.ActiveOrderCachedEntity = ActiveOrderCachedEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
@@ -24,7 +25,7 @@ __decorate([
     (0, typeorm_1.PrimaryColumn)('timestamp without time zone'),
     __metadata("design:type", Date)
 ], ActiveOrderCachedEntity.prototype, "endTime", void 0);
-ActiveOrderCachedEntity = __decorate([
+exports.ActiveOrderCachedEntity = ActiveOrderCachedEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'active_orders_cache' }),
     (0, typeorm_1.Index)(['collectionAddress', 'marketplace']),
     (0, typeorm_1.Index)('active_orders_cache_endTime_idx', 
@@ -63,5 +64,4 @@ ActiveOrderCachedEntity = __decorate([
             .join("','")}')`,
     })
 ], ActiveOrderCachedEntity);
-exports.ActiveOrderCachedEntity = ActiveOrderCachedEntity;
 //# sourceMappingURL=ActiveOrder.entity.js.map
