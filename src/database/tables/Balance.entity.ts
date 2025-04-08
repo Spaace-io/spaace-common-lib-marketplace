@@ -11,6 +11,10 @@ import { ItemEntity } from './Item.entity';
 
 @Entity({ name: 'balances' })
 @Index(['collectionAddress', 'tokenId', 'balance'], { where: '"balance" > 0' })
+@Index(['balance', 'collectionAddress'])
+@Index(['collectionAddress', 'userAddress'], {
+  where: '"balance" > 0',
+})
 @Index(['userAddress', 'collectionAddress', 'tokenId'], {
   where: '"balance" > 0',
   unique: true,

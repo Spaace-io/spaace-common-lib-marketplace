@@ -17,6 +17,16 @@ import { ItemEntity } from '.';
 @Index(['from', 'timestamp'])
 @Index(['to', 'timestamp'])
 @Index(['collectionAddress', 'tokenId', 'timestamp'])
+@Index(
+  'idx_collection_token_timestamp_desc_transfers',
+  // ['collectionAddress', 'timestamp DESC', 'tokenId'],
+  {
+    synchronize: false,
+  },
+)
+@Index(['collectionAddress', 'tokenId', 'timestamp'], {
+  where: '"from" = \'0000000000000000000000000000000000000000\'',
+})
 export class TransferEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   txHash!: string;

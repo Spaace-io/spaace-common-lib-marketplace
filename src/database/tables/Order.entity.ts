@@ -15,6 +15,13 @@ import { Marketplace, OrderType } from '../enums';
 @Index(['collectionAddress', 'startTime']) // Collection analytics & activity
 @Index(['userAddress', 'collectionAddress'])
 @Index(['userAddress', 'counter'])
+@Index(
+  'orders_endTime_idx',
+  // ['endTime DESC'],
+  {
+    synchronize: false,
+  },
+)
 export class OrderEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
   hash!: string;
@@ -64,8 +71,8 @@ export class OrderEntity extends BaseEntity {
   @Column('timestamp without time zone')
   startTime!: Date;
 
-  @Column('timestamp without time zone', { nullable: true })
-  endTime!: Date | null;
+  @PrimaryColumn('timestamp without time zone')
+  endTime!: Date;
 
   @Column('numeric', { precision: 78, unsigned: true })
   counter!: string;

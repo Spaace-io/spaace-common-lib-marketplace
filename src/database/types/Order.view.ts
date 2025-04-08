@@ -1,12 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
-import {
-  BaseEntity,
-  Brackets,
-  DataSource,
-  ViewColumn,
-  ViewEntity,
-} from 'typeorm';
+import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
 import { ActiveOrderCachedEntity, OrderEntity, OrderItemEntity } from '..';
 import { Marketplace, OrderType } from '../enums';
@@ -60,13 +54,8 @@ import { Marketplace, OrderType } from '../enums';
                 'tokenIds',
               )
               .where('"active"."hash" = "order"."hash"')
-              .andWhere(
-                new Brackets((query) =>
-                  query
-                    .where('"order"."endTime" > NOW()')
-                    .orWhere('"order"."endTime" IS NULL'),
-                ),
-              )
+              .andWhere('"order"."endTime" > NOW()')
+              .andWhere('"order"."startTime" <= NOW()')
               .getQuery()}`,
           ),
         'active',

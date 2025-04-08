@@ -17,7 +17,7 @@ export declare class OrderEntity extends BaseEntity {
     startingRoyalties: string | null;
     royaltiesReceiver: string | null;
     startTime: Date;
-    endTime: Date | null;
+    endTime: Date;
     counter: string;
     signature: string;
     salt: string;

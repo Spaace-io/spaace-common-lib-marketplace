@@ -15,7 +15,22 @@ import { Marketplace } from '../enums';
 @Index(['from', 'timestamp'])
 @Index(['to', 'timestamp'])
 @Index(['collectionAddress', 'timestamp'])
-@Index(['collectionAddress', 'tokenId', 'timestamp'])
+@Index(['collectionAddress', 'perUnitPrice'])
+@Index(
+  'sales_h_timestamp_idx',
+  // ['timestamp DESC'],
+  {
+    synchronize: false,
+  },
+)
+@Index(['collectionAddress'])
+@Index(
+  'IDX_f7931cf6fcf04f0899ff8a2405',
+  // ['collectionAddress', 'tokenId', 'timestamp DESC'],
+  {
+    synchronize: false,
+  },
+)
 @Index(['orderHash'])
 export class SaleEntity extends BaseEntity {
   @PrimaryColumn('char', { length: 64 })
@@ -50,8 +65,14 @@ export class SaleEntity extends BaseEntity {
   @Column('numeric', { precision: 78, unsigned: true })
   price!: string;
 
+  // @Column('numeric', { precision: 78, unsigned: true })
+  // wethPrice!: string;
+
   @Column('numeric', { precision: 78, unsigned: true })
   perUnitPrice!: string;
+
+  // @Column('numeric', { precision: 78, unsigned: true })
+  // wethPerUnitPrice!: string;
 
   @Column('char', { length: 40 })
   currency!: string;
@@ -59,6 +80,6 @@ export class SaleEntity extends BaseEntity {
   @Column('enum', { enum: Marketplace, enumName: 'marketplace' })
   marketplace!: Marketplace;
 
-  @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
+  @PrimaryColumn('timestamp without time zone')
   timestamp!: Date;
 }

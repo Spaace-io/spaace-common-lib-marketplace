@@ -18,12 +18,20 @@ let ActiveOrderCachedEntity = class ActiveOrderCachedEntity extends __1.OrderEnt
 };
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
-    (0, typeorm_1.ManyToOne)(() => __1.OrderEntity),
-    (0, typeorm_1.JoinColumn)({ name: 'hash', referencedColumnName: 'hash' }),
     __metadata("design:type", String)
 ], ActiveOrderCachedEntity.prototype, "hash", void 0);
+__decorate([
+    (0, typeorm_1.PrimaryColumn)('timestamp without time zone'),
+    __metadata("design:type", Date)
+], ActiveOrderCachedEntity.prototype, "endTime", void 0);
 ActiveOrderCachedEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'active_orders_cache' }),
+    (0, typeorm_1.Index)(['collectionAddress', 'marketplace']),
+    (0, typeorm_1.Index)('active_orders_cache_endTime_idx', 
+    // ['endTime DESC'],
+    {
+        synchronize: false,
+    }),
     (0, typeorm_1.Index)(['collectionAddress', 'price'], {
         where: `"type" IN ('${enums_1.OrderType.ASK}', '${enums_1.OrderType.DUTCH_AUCTION}') AND "currency" IN ('${utils
             .strip0x(utils.constants.ETH_TOKENS)
@@ -46,6 +54,11 @@ ActiveOrderCachedEntity = __decorate([
     }),
     (0, typeorm_1.Index)(['collectionAddress', 'endTime'], {
         where: `"type" = '${enums_1.OrderType.ENGLISH_AUCTION}' AND "currency" IN ('${utils
+            .strip0x(utils.constants.ETH_TOKENS)
+            .join("','")}')`,
+    }),
+    (0, typeorm_1.Index)(['collectionAddress', 'endTime'], {
+        where: `"type" IN ('${enums_1.OrderType.ASK}', '${enums_1.OrderType.DUTCH_AUCTION}') AND "currency" IN ('${utils
             .strip0x(utils.constants.ETH_TOKENS)
             .join("','")}')`,
     })

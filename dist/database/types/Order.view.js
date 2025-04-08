@@ -235,9 +235,8 @@ Order = __decorate([
                 .select('array_agg("orders_items"."tokenId") as "tokenIds"')
                 .where('"orders_items"."hash" = "order"."hash"'), 'tokenIds')
                 .where('"active"."hash" = "order"."hash"')
-                .andWhere(new typeorm_1.Brackets((query) => query
-                .where('"order"."endTime" > NOW()')
-                .orWhere('"order"."endTime" IS NULL')))
+                .andWhere('"order"."endTime" > NOW()')
+                .andWhere('"order"."startTime" <= NOW()')
                 .getQuery()}`), 'active')
                 .addSelect((query) => query
                 .from(__1.OrderItemEntity, 'orders_items')

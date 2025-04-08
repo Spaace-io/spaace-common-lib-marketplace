@@ -167,40 +167,7 @@ __decorate([
 ], CollectionRankingCached.prototype, "listedCount", void 0);
 CollectionRankingCached = __decorate([
     (0, typeorm_1.Entity)({ name: 'collection_rankings_cache' }),
-    (0, typeorm_1.Index)(['address'], { unique: true }),
-    (0, typeorm_1.Index)(['volume']),
-    (0, typeorm_1.Index)(['volume1h']),
-    (0, typeorm_1.Index)(['volume6h']),
-    (0, typeorm_1.Index)(['volume24h']),
-    (0, typeorm_1.Index)(['volume7d']),
-    (0, typeorm_1.Index)(['volume30d']),
-    (0, typeorm_1.Index)(['volume90d']),
-    (0, typeorm_1.Index)(['previousVolume1h']),
-    (0, typeorm_1.Index)(['previousVolume6h']),
-    (0, typeorm_1.Index)(['previousVolume24h']),
-    (0, typeorm_1.Index)(['previousVolume7d']),
-    (0, typeorm_1.Index)(['previousVolume30d']),
-    (0, typeorm_1.Index)(['previousVolume90d']),
-    (0, typeorm_1.Index)(['floorPrice']),
-    (0, typeorm_1.Index)(['previousFloorPrice1h']),
-    (0, typeorm_1.Index)(['previousFloorPrice6h']),
-    (0, typeorm_1.Index)(['previousFloorPrice24h']),
-    (0, typeorm_1.Index)(['previousFloorPrice7d']),
-    (0, typeorm_1.Index)(['previousFloorPrice30d']),
-    (0, typeorm_1.Index)(['previousFloorPrice90d']),
-    (0, typeorm_1.Index)(['saleCount']),
-    (0, typeorm_1.Index)(['saleCount1h']),
-    (0, typeorm_1.Index)(['saleCount6h']),
-    (0, typeorm_1.Index)(['saleCount24h']),
-    (0, typeorm_1.Index)(['saleCount7d']),
-    (0, typeorm_1.Index)(['saleCount30d']),
-    (0, typeorm_1.Index)(['saleCount90d']),
-    (0, typeorm_1.Index)(['previousSaleCount1h']),
-    (0, typeorm_1.Index)(['previousSaleCount6h']),
-    (0, typeorm_1.Index)(['previousSaleCount24h']),
-    (0, typeorm_1.Index)(['previousSaleCount7d']),
-    (0, typeorm_1.Index)(['previousSaleCount30d']),
-    (0, typeorm_1.Index)(['previousSaleCount90d'])
+    (0, typeorm_1.Index)(['address'], { unique: true })
 ], CollectionRankingCached);
 exports.CollectionRankingCached = CollectionRankingCached;
 //# sourceMappingURL=CollectionRanking.entity.js.map

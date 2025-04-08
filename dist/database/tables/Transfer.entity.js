@@ -63,7 +63,15 @@ TransferEntity = __decorate([
     (0, typeorm_1.Index)(['timestamp']),
     (0, typeorm_1.Index)(['from', 'timestamp']),
     (0, typeorm_1.Index)(['to', 'timestamp']),
-    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'timestamp'])
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'timestamp']),
+    (0, typeorm_1.Index)('idx_collection_token_timestamp_desc_transfers', 
+    // ['collectionAddress', 'timestamp DESC', 'tokenId'],
+    {
+        synchronize: false,
+    }),
+    (0, typeorm_1.Index)(['collectionAddress', 'tokenId', 'timestamp'], {
+        where: '"from" = \'0000000000000000000000000000000000000000\'',
+    })
 ], TransferEntity);
 exports.TransferEntity = TransferEntity;
 //# sourceMappingURL=Transfer.entity.js.map
