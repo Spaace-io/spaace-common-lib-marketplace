@@ -14,9 +14,6 @@ export class Migrations1744889185008 implements MigrationInterface {
       `CREATE INDEX "IDX_ee91131973231e298882b5c239" ON "user_xp_log" ("userAddress", "seasonNumber", "questId") `,
     );
     await queryRunner.query(
-      `ALTER TABLE "arena_wow_chest_probability" ALTER COLUMN "probability" SET DEFAULT '0.00'`,
-    );
-    await queryRunner.query(
       `ALTER TABLE "user_xp_log" ADD CONSTRAINT "FK_40f355303420080acce90be1551" FOREIGN KEY ("userAddress") REFERENCES "users"("address") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
@@ -36,9 +33,6 @@ export class Migrations1744889185008 implements MigrationInterface {
     );
     await queryRunner.query(
       `ALTER TABLE "user_xp_log" DROP CONSTRAINT "FK_40f355303420080acce90be1551"`,
-    );
-    await queryRunner.query(
-      `ALTER TABLE "arena_wow_chest_probability" ALTER COLUMN "probability" SET DEFAULT 0.00`,
     );
     await queryRunner.query(
       `DROP INDEX "public"."IDX_ee91131973231e298882b5c239"`,
