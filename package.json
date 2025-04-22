@@ -1,6 +1,6 @@
 {
   "name": "@Spaace-io/common-lib",
-  "version": "0.0.21-alpha.0",
+  "version": "0.0.22",
   "description": "",
   "main": "dist/index.js",
   "files": [
