@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 const ArenaCrew_entity_1 = require("./ArenaCrew.entity");
 let ArenaCrewStarTracking = class ArenaCrewStarTracking extends typeorm_1.BaseEntity {
 };
+exports.ArenaCrewStarTracking = ArenaCrewStarTracking;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -37,9 +38,8 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], ArenaCrewStarTracking.prototype, "timestamp", void 0);
-ArenaCrewStarTracking = __decorate([
+exports.ArenaCrewStarTracking = ArenaCrewStarTracking = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_crew_stars_tracking' })
 ], ArenaCrewStarTracking);
-exports.ArenaCrewStarTracking = ArenaCrewStarTracking;
 //# sourceMappingURL=ArenaCrewStarTracking.entity.js.map

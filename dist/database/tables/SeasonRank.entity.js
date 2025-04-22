@@ -42,7 +42,7 @@ var LoyaltyRank;
     LoyaltyRank["DIAMOND_3"] = "DIAMOND_3";
     LoyaltyRank["DIAMOND_2"] = "DIAMOND_2";
     LoyaltyRank["DIAMOND_1"] = "DIAMOND_1";
-})(LoyaltyRank = exports.LoyaltyRank || (exports.LoyaltyRank = {}));
+})(LoyaltyRank || (exports.LoyaltyRank = LoyaltyRank = {}));
 (0, graphql_1.registerEnumType)(LoyaltyRank, {
     name: 'LoyaltyRank',
 });
@@ -52,7 +52,7 @@ var LoyaltyRewardType;
     LoyaltyRewardType["STAKING_BONUS"] = "STAKING_BONUS";
     LoyaltyRewardType["SPAACE_TOKENS"] = "SPAACE_TOKENS";
     LoyaltyRewardType["COSMETIC"] = "COSMETIC";
-})(LoyaltyRewardType = exports.LoyaltyRewardType || (exports.LoyaltyRewardType = {}));
+})(LoyaltyRewardType || (exports.LoyaltyRewardType = LoyaltyRewardType = {}));
 (0, graphql_1.registerEnumType)(LoyaltyRewardType, {
     name: 'LoyaltyRewardType',
 });
@@ -63,6 +63,7 @@ let LoyaltyPointsLoyaltyReward = class LoyaltyPointsLoyaltyReward {
         this.max = max;
     }
 };
+exports.LoyaltyPointsLoyaltyReward = LoyaltyPointsLoyaltyReward;
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
@@ -71,11 +72,10 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], LoyaltyPointsLoyaltyReward.prototype, "max", void 0);
-LoyaltyPointsLoyaltyReward = __decorate([
+exports.LoyaltyPointsLoyaltyReward = LoyaltyPointsLoyaltyReward = __decorate([
     (0, graphql_1.ObjectType)(),
     __metadata("design:paramtypes", [String, String])
 ], LoyaltyPointsLoyaltyReward);
-exports.LoyaltyPointsLoyaltyReward = LoyaltyPointsLoyaltyReward;
 let StakingBonusLoyaltyReward = class StakingBonusLoyaltyReward {
     constructor(min, max) {
         this.type = LoyaltyRewardType.STAKING_BONUS;
@@ -83,6 +83,7 @@ let StakingBonusLoyaltyReward = class StakingBonusLoyaltyReward {
         this.max = max;
     }
 };
+exports.StakingBonusLoyaltyReward = StakingBonusLoyaltyReward;
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
@@ -91,11 +92,10 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], StakingBonusLoyaltyReward.prototype, "max", void 0);
-StakingBonusLoyaltyReward = __decorate([
+exports.StakingBonusLoyaltyReward = StakingBonusLoyaltyReward = __decorate([
     (0, graphql_1.ObjectType)(),
     __metadata("design:paramtypes", [String, String])
 ], StakingBonusLoyaltyReward);
-exports.StakingBonusLoyaltyReward = StakingBonusLoyaltyReward;
 let SpaaceTokensLoyaltyReward = class SpaaceTokensLoyaltyReward {
     constructor(min, max) {
         this.type = LoyaltyRewardType.SPAACE_TOKENS;
@@ -103,6 +103,7 @@ let SpaaceTokensLoyaltyReward = class SpaaceTokensLoyaltyReward {
         this.max = max;
     }
 };
+exports.SpaaceTokensLoyaltyReward = SpaaceTokensLoyaltyReward;
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
@@ -111,26 +112,25 @@ __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], SpaaceTokensLoyaltyReward.prototype, "max", void 0);
-SpaaceTokensLoyaltyReward = __decorate([
+exports.SpaaceTokensLoyaltyReward = SpaaceTokensLoyaltyReward = __decorate([
     (0, graphql_1.ObjectType)(),
     __metadata("design:paramtypes", [String, String])
 ], SpaaceTokensLoyaltyReward);
-exports.SpaaceTokensLoyaltyReward = SpaaceTokensLoyaltyReward;
 let CosmeticLoyaltyReward = class CosmeticLoyaltyReward {
     constructor(ids) {
         this.type = LoyaltyRewardType.COSMETIC;
         this.ids = ids;
     }
 };
+exports.CosmeticLoyaltyReward = CosmeticLoyaltyReward;
 __decorate([
     (0, graphql_1.Field)(() => [String]),
     __metadata("design:type", Array)
 ], CosmeticLoyaltyReward.prototype, "ids", void 0);
-CosmeticLoyaltyReward = __decorate([
+exports.CosmeticLoyaltyReward = CosmeticLoyaltyReward = __decorate([
     (0, graphql_1.ObjectType)(),
     __metadata("design:paramtypes", [Array])
 ], CosmeticLoyaltyReward);
-exports.CosmeticLoyaltyReward = CosmeticLoyaltyReward;
 exports.LoyaltyReward = (0, graphql_1.createUnionType)({
     name: 'LoyaltyReward',
     types: () => [
@@ -142,6 +142,7 @@ exports.LoyaltyReward = (0, graphql_1.createUnionType)({
 });
 let SeasonRank = class SeasonRank extends typeorm_1.BaseEntity {
 };
+exports.SeasonRank = SeasonRank;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -190,10 +191,9 @@ __decorate([
     (0, class_validator_1.ValidateNested)({ each: true }),
     __metadata("design:type", Array)
 ], SeasonRank.prototype, "rewards", void 0);
-SeasonRank = __decorate([
+exports.SeasonRank = SeasonRank = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'season_ranks' }),
     (0, typeorm_1.Index)(['seasonNumber', 'threshold'])
 ], SeasonRank);
-exports.SeasonRank = SeasonRank;
 //# sourceMappingURL=SeasonRank.entity.js.map

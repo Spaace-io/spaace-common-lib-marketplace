@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const _1 = require(".");
 let OrderItemEntity = class OrderItemEntity extends typeorm_1.BaseEntity {
 };
+exports.OrderItemEntity = OrderItemEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
@@ -46,11 +47,10 @@ __decorate([
     }),
     __metadata("design:type", _1.ItemEntity)
 ], OrderItemEntity.prototype, "itemEntity", void 0);
-OrderItemEntity = __decorate([
+exports.OrderItemEntity = OrderItemEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'orders_items' }),
     (0, typeorm_1.Index)(['hash']),
     (0, typeorm_1.Index)(['hash', 'collectionAddress']),
     (0, typeorm_1.Index)(['hash', 'collectionAddress', 'tokenId'])
 ], OrderItemEntity);
-exports.OrderItemEntity = OrderItemEntity;
 //# sourceMappingURL=OrderItem.entity.js.map

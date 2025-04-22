@@ -22,12 +22,13 @@ var UserInteractionType;
     UserInteractionType["SWEEP_FLOOR"] = "SWEEP_FLOOR";
     UserInteractionType["TWEET_ACTION"] = "TWEET_ACTION";
     UserInteractionType["SHARE_CARD"] = "SHARE_CARD";
-})(UserInteractionType = exports.UserInteractionType || (exports.UserInteractionType = {}));
+})(UserInteractionType || (exports.UserInteractionType = UserInteractionType = {}));
 (0, graphql_1.registerEnumType)(UserInteractionType, {
     name: 'UserInteractionType',
 });
 let UserInteraction = class UserInteraction {
 };
+exports.UserInteraction = UserInteraction;
 __decorate([
     (0, graphql_1.Field)(() => UserInteractionType),
     __metadata("design:type", String)
@@ -47,8 +48,7 @@ __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     __metadata("design:type", Object)
 ], UserInteraction.prototype, "tweetId", void 0);
-UserInteraction = __decorate([
+exports.UserInteraction = UserInteraction = __decorate([
     (0, graphql_1.ObjectType)()
 ], UserInteraction);
-exports.UserInteraction = UserInteraction;
 //# sourceMappingURL=UserInteraction.js.map

@@ -13,6 +13,7 @@ exports.TokenBalanceEntity = void 0;
 const typeorm_1 = require("typeorm");
 let TokenBalanceEntity = class TokenBalanceEntity extends typeorm_1.BaseEntity {
 };
+exports.TokenBalanceEntity = TokenBalanceEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     __metadata("design:type", String)
@@ -25,10 +26,9 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
 ], TokenBalanceEntity.prototype, "balance", void 0);
-TokenBalanceEntity = __decorate([
+exports.TokenBalanceEntity = TokenBalanceEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'token_balances' }),
     (0, typeorm_1.Index)(['currency', 'balance']),
     (0, typeorm_1.Index)(['userAddress', 'currency', 'balance'])
 ], TokenBalanceEntity);
-exports.TokenBalanceEntity = TokenBalanceEntity;
 //# sourceMappingURL=TokenBalance.entity.js.map

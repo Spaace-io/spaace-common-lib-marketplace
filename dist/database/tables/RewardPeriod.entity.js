@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const enums_1 = require("../enums");
 let RewardPeriodEntity = class RewardPeriodEntity extends typeorm_1.BaseEntity {
 };
+exports.RewardPeriodEntity = RewardPeriodEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('enum', {
         enum: enums_1.DistributorContract,
@@ -40,8 +41,7 @@ __decorate([
     (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)
 ], RewardPeriodEntity.prototype, "distributed", void 0);
-RewardPeriodEntity = __decorate([
+exports.RewardPeriodEntity = RewardPeriodEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'reward_periods' })
 ], RewardPeriodEntity);
-exports.RewardPeriodEntity = RewardPeriodEntity;
 //# sourceMappingURL=RewardPeriod.entity.js.map

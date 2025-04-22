@@ -8,7 +8,7 @@ var QuestType;
     QuestType["PRIME"] = "PRIME";
     QuestType["DAILY"] = "DAILY";
     QuestType["PROGRESSIVE"] = "PROGRESSIVE";
-})(QuestType = exports.QuestType || (exports.QuestType = {}));
+})(QuestType || (exports.QuestType = QuestType = {}));
 (0, graphql_1.registerEnumType)(QuestType, {
     name: 'QuestType',
 });

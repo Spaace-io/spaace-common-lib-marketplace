@@ -17,6 +17,7 @@ const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
 let TokenBalance = class TokenBalance extends typeorm_1.BaseEntity {
 };
+exports.TokenBalance = TokenBalance;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -38,7 +39,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], TokenBalance.prototype, "balance", void 0);
-TokenBalance = __decorate([
+exports.TokenBalance = TokenBalance = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -54,5 +55,4 @@ TokenBalance = __decorate([
     }),
     (0, typeorm_1.Index)(['userAddress', 'currency'])
 ], TokenBalance);
-exports.TokenBalance = TokenBalance;
 //# sourceMappingURL=TokenBalance.view.js.map

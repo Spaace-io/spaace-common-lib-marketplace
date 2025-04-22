@@ -51,8 +51,8 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
         });
     }
     _sign(digest) {
-        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const cryptoKeyVersion = yield this._getCryptoKeyVersion();
             // Google Cloud KMS does not support keccak256, only regular SHA256.
             // So, we need to compute the hash and send that instead of the data.
@@ -75,8 +75,8 @@ class GoogleCloudKMSSigner extends ethers_1.Signer {
             // read the correct tags, assuming it always matches the right OID.
             const derReader = new asn1_1.BerReader(derBuffer);
             derReader.readSequence();
-            const rawR = Buffer.from((_a = derReader.readString(asn1_1.Ber.Integer, true)) !== null && _a !== void 0 ? _a : '');
-            const rawS = Buffer.from((_b = derReader.readString(asn1_1.Ber.Integer, true)) !== null && _b !== void 0 ? _b : '');
+            const rawR = Buffer.from((_a = derReader.readString(asn1_1.Ber.Integer)) !== null && _a !== void 0 ? _a : '');
+            const rawS = Buffer.from((_b = derReader.readString(asn1_1.Ber.Integer)) !== null && _b !== void 0 ? _b : '');
             // Because DER imposes signed integers, if the first bit of either r or s is
             // one, the DER sequence can contain integers of 33 bytes instead of 32:
             // they are padded with a 0x00 for the first bit to go back to zero.

@@ -16,6 +16,7 @@ const __1 = require("..");
 const enums_1 = require("../enums");
 let RewardPeriod = class RewardPeriod extends typeorm_1.BaseEntity {
 };
+exports.RewardPeriod = RewardPeriod;
 __decorate([
     (0, graphql_1.Field)(() => enums_1.DistributorContract),
     (0, typeorm_1.ViewColumn)(),
@@ -41,7 +42,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Boolean)
 ], RewardPeriod.prototype, "distributed", void 0);
-RewardPeriod = __decorate([
+exports.RewardPeriod = RewardPeriod = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -57,5 +58,4 @@ RewardPeriod = __decorate([
         name: 'reward_periods_view',
     })
 ], RewardPeriod);
-exports.RewardPeriod = RewardPeriod;
 //# sourceMappingURL=RewardPeriod.view.js.map

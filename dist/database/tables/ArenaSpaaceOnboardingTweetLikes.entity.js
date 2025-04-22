@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 let ArenaSpaaceOnboardingTweetLikes = class ArenaSpaaceOnboardingTweetLikes extends typeorm_1.BaseEntity {
 };
+exports.ArenaSpaaceOnboardingTweetLikes = ArenaSpaaceOnboardingTweetLikes;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -34,9 +35,8 @@ __decorate([
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], ArenaSpaaceOnboardingTweetLikes.prototype, "actionType", void 0);
-ArenaSpaaceOnboardingTweetLikes = __decorate([
+exports.ArenaSpaaceOnboardingTweetLikes = ArenaSpaaceOnboardingTweetLikes = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_spaace_onboarding_tweet_likes' })
 ], ArenaSpaaceOnboardingTweetLikes);
-exports.ArenaSpaaceOnboardingTweetLikes = ArenaSpaaceOnboardingTweetLikes;
 //# sourceMappingURL=ArenaSpaaceOnboardingTweetLikes.entity.js.map

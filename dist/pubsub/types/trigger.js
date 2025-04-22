@@ -5,11 +5,11 @@ var CollectionImportRequest;
 (function (CollectionImportRequest) {
     CollectionImportRequest["COLLECTIONS"] = "COLLECTIONS";
     CollectionImportRequest["ITEMS"] = "ITEMS";
-})(CollectionImportRequest = exports.CollectionImportRequest || (exports.CollectionImportRequest = {}));
+})(CollectionImportRequest || (exports.CollectionImportRequest = CollectionImportRequest = {}));
 var SearchIndexType;
 (function (SearchIndexType) {
     SearchIndexType["ITEM"] = "ITEM";
     SearchIndexType["COLLECTION"] = "COLLECTION";
     SearchIndexType["USER"] = "USER";
-})(SearchIndexType = exports.SearchIndexType || (exports.SearchIndexType = {}));
+})(SearchIndexType || (exports.SearchIndexType = SearchIndexType = {}));
 //# sourceMappingURL=trigger.js.map

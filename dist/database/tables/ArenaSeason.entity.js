@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 let ArenaSeason = class ArenaSeason extends typeorm_1.BaseEntity {
 };
+exports.ArenaSeason = ArenaSeason;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -35,10 +36,9 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], ArenaSeason.prototype, "rewardCoefiecient", void 0);
-ArenaSeason = __decorate([
+exports.ArenaSeason = ArenaSeason = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_seasons' }),
     (0, typeorm_1.Index)(['startTime'])
 ], ArenaSeason);
-exports.ArenaSeason = ArenaSeason;
 //# sourceMappingURL=ArenaSeason.entity.js.map

@@ -9,6 +9,6 @@ var ArenaDivisionName;
     ArenaDivisionName["GOLD"] = "GOLD";
     ArenaDivisionName["SILVER"] = "SILVER";
     ArenaDivisionName["BRONZE"] = "BRONZE";
-})(ArenaDivisionName = exports.ArenaDivisionName || (exports.ArenaDivisionName = {}));
+})(ArenaDivisionName || (exports.ArenaDivisionName = ArenaDivisionName = {}));
 (0, graphql_1.registerEnumType)(ArenaDivisionName, { name: 'ArenaDivisionName' });
 //# sourceMappingURL=ArenaDivisionName.enum.js.map

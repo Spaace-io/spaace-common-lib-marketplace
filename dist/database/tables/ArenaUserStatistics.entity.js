@@ -16,6 +16,7 @@ const _1 = require(".");
 const graphql_1 = require("@nestjs/graphql");
 let ArenaUserStatistics = class ArenaUserStatistics extends typeorm_1.BaseEntity {
 };
+exports.ArenaUserStatistics = ArenaUserStatistics;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
@@ -53,9 +54,8 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: 0 }),
     __metadata("design:type", String)
 ], ArenaUserStatistics.prototype, "totalQuotes", void 0);
-ArenaUserStatistics = __decorate([
+exports.ArenaUserStatistics = ArenaUserStatistics = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_user_statistics' })
 ], ArenaUserStatistics);
-exports.ArenaUserStatistics = ArenaUserStatistics;
 //# sourceMappingURL=ArenaUserStatistics.entity.js.map

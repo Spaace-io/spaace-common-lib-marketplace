@@ -20,12 +20,13 @@ var UserXpLogSource;
 (function (UserXpLogSource) {
     UserXpLogSource["QUEST"] = "QUEST";
     UserXpLogSource["REFERRAL"] = "REFERRAL";
-})(UserXpLogSource = exports.UserXpLogSource || (exports.UserXpLogSource = {}));
+})(UserXpLogSource || (exports.UserXpLogSource = UserXpLogSource = {}));
 (0, graphql_1.registerEnumType)(UserXpLogSource, {
     name: 'UserXpLogSource',
 });
 let UserXpLogMetadata = class UserXpLogMetadata {
 };
+exports.UserXpLogMetadata = UserXpLogMetadata;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
@@ -36,12 +37,12 @@ __decorate([
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], UserXpLogMetadata.prototype, "value", void 0);
-UserXpLogMetadata = __decorate([
+exports.UserXpLogMetadata = UserXpLogMetadata = __decorate([
     (0, graphql_1.ObjectType)()
 ], UserXpLogMetadata);
-exports.UserXpLogMetadata = UserXpLogMetadata;
 let UserXpLog = class UserXpLog extends typeorm_1.BaseEntity {
 };
+exports.UserXpLog = UserXpLog;
 __decorate([
     (0, graphql_1.Field)(() => Number),
     (0, typeorm_1.PrimaryGeneratedColumn)('increment'),
@@ -98,10 +99,9 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], UserXpLog.prototype, "xp", void 0);
-UserXpLog = __decorate([
+exports.UserXpLog = UserXpLog = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'user_xp_log' }),
     (0, typeorm_1.Index)(['userAddress', 'seasonNumber', 'questId'])
 ], UserXpLog);
-exports.UserXpLog = UserXpLog;
 //# sourceMappingURL=UserXpLog.entity.js.map

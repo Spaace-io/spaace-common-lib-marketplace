@@ -16,6 +16,7 @@ const ArenaSeason_entity_1 = require("./ArenaSeason.entity");
 const ArenaCrew_entity_1 = require("./ArenaCrew.entity");
 let ArenaCrewProgress = class ArenaCrewProgress extends typeorm_1.BaseEntity {
 };
+exports.ArenaCrewProgress = ArenaCrewProgress;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
@@ -58,9 +59,8 @@ __decorate([
     (0, typeorm_1.Index)(),
     __metadata("design:type", String)
 ], ArenaCrewProgress.prototype, "twentyFourHourRank", void 0);
-ArenaCrewProgress = __decorate([
+exports.ArenaCrewProgress = ArenaCrewProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_crew_progress' })
 ], ArenaCrewProgress);
-exports.ArenaCrewProgress = ArenaCrewProgress;
 //# sourceMappingURL=ArenaCrewProgress.entity.js.map

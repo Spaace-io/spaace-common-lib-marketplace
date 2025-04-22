@@ -13,6 +13,7 @@ exports.TokenTransferEntity = void 0;
 const typeorm_1 = require("typeorm");
 let TokenTransferEntity = class TokenTransferEntity extends typeorm_1.BaseEntity {
 };
+exports.TokenTransferEntity = TokenTransferEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
@@ -41,9 +42,8 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], TokenTransferEntity.prototype, "timestamp", void 0);
-TokenTransferEntity = __decorate([
+exports.TokenTransferEntity = TokenTransferEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'token_transfers' }),
     (0, typeorm_1.Index)(['timestamp'])
 ], TokenTransferEntity);
-exports.TokenTransferEntity = TokenTransferEntity;
 //# sourceMappingURL=TokenTransfer.entity.js.map

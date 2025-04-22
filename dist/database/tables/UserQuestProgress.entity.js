@@ -17,6 +17,7 @@ const ethers_1 = require("ethers");
 const class_transformer_1 = require("class-transformer");
 let UserQuestProgress = class UserQuestProgress extends typeorm_1.BaseEntity {
 };
+exports.UserQuestProgress = UserQuestProgress;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
@@ -95,10 +96,9 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], UserQuestProgress.prototype, "points", void 0);
-UserQuestProgress = __decorate([
+exports.UserQuestProgress = UserQuestProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'user_quest_progress' }),
     (0, typeorm_1.Index)(['userAddress', 'seasonNumber', 'questId'], { where: '"completed"' })
 ], UserQuestProgress);
-exports.UserQuestProgress = UserQuestProgress;
 //# sourceMappingURL=UserQuestProgress.entity.js.map

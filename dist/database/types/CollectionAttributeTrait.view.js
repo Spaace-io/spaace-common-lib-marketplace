@@ -17,6 +17,7 @@ const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
 let CollectionAttributeTrait = class CollectionAttributeTrait extends typeorm_1.BaseEntity {
 };
+exports.CollectionAttributeTrait = CollectionAttributeTrait;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -44,7 +45,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], CollectionAttributeTrait.prototype, "itemCount", void 0);
-CollectionAttributeTrait = __decorate([
+exports.CollectionAttributeTrait = CollectionAttributeTrait = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -62,5 +63,4 @@ CollectionAttributeTrait = __decorate([
         name: 'collection_attribute_traits_view',
     })
 ], CollectionAttributeTrait);
-exports.CollectionAttributeTrait = CollectionAttributeTrait;
 //# sourceMappingURL=CollectionAttributeTrait.view.js.map

@@ -91,8 +91,8 @@ export class GoogleCloudKMSSigner extends Signer {
     // read the correct tags, assuming it always matches the right OID.
     const derReader = new BerReader(derBuffer);
     derReader.readSequence();
-    const rawR = Buffer.from(derReader.readString(Ber.Integer, true) ?? '');
-    const rawS = Buffer.from(derReader.readString(Ber.Integer, true) ?? '');
+    const rawR = Buffer.from(derReader.readString(Ber.Integer) ?? '');
+    const rawS = Buffer.from(derReader.readString(Ber.Integer) ?? '');
 
     // Because DER imposes signed integers, if the first bit of either r or s is
     // one, the DER sequence can contain integers of 33 bytes instead of 32:

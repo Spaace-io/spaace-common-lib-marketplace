@@ -17,7 +17,7 @@ var ArenaCrewChestTiers;
     ArenaCrewChestTiers["TIER_1"] = "1";
     ArenaCrewChestTiers["TIER_2"] = "2";
     ArenaCrewChestTiers["TIER_3"] = "3";
-})(ArenaCrewChestTiers = exports.ArenaCrewChestTiers || (exports.ArenaCrewChestTiers = {}));
+})(ArenaCrewChestTiers || (exports.ArenaCrewChestTiers = ArenaCrewChestTiers = {}));
 (0, graphql_1.registerEnumType)(ArenaCrewChestTiers, { name: 'ArenaCrewChestTiers' });
 let XpTier = class XpTier {
 };
@@ -34,6 +34,7 @@ XpTier = __decorate([
 ], XpTier);
 let ArenaCrewChestPoint = class ArenaCrewChestPoint extends typeorm_1.BaseEntity {
 };
+exports.ArenaCrewChestPoint = ArenaCrewChestPoint;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -54,10 +55,9 @@ __decorate([
     (0, typeorm_1.Column)('jsonb', { default: [] }),
     __metadata("design:type", Array)
 ], ArenaCrewChestPoint.prototype, "tiers", void 0);
-ArenaCrewChestPoint = __decorate([
+exports.ArenaCrewChestPoint = ArenaCrewChestPoint = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_crew_chest_points' }),
     (0, typeorm_1.Unique)(['minRank', 'maxRank'])
 ], ArenaCrewChestPoint);
-exports.ArenaCrewChestPoint = ArenaCrewChestPoint;
 //# sourceMappingURL=ArenaCrewChestPoints.entity.js.map

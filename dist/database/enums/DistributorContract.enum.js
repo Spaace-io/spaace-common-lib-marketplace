@@ -7,7 +7,7 @@ var DistributorContract;
     DistributorContract["TRADING_REWARDS"] = "TRADING_REWARDS";
     DistributorContract["REFERRAL_REWARDS"] = "REFERRAL_REWARDS";
     DistributorContract["LOYALTY_REWARDS"] = "LOYALTY_REWARDS";
-})(DistributorContract = exports.DistributorContract || (exports.DistributorContract = {}));
+})(DistributorContract || (exports.DistributorContract = DistributorContract = {}));
 (0, graphql_1.registerEnumType)(DistributorContract, {
     name: 'DistributorContract',
 });

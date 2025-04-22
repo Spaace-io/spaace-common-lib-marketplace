@@ -13,6 +13,7 @@ exports.StakingHarvestEntity = void 0;
 const typeorm_1 = require("typeorm");
 let StakingHarvestEntity = class StakingHarvestEntity extends typeorm_1.BaseEntity {
 };
+exports.StakingHarvestEntity = StakingHarvestEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
@@ -46,9 +47,8 @@ __decorate([
     (0, typeorm_1.Column)({ default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], StakingHarvestEntity.prototype, "timestamp", void 0);
-StakingHarvestEntity = __decorate([
+exports.StakingHarvestEntity = StakingHarvestEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'staking_harvests' }),
     (0, typeorm_1.Index)(['pool', 'token', 'timestamp'])
 ], StakingHarvestEntity);
-exports.StakingHarvestEntity = StakingHarvestEntity;
 //# sourceMappingURL=StakingHarvest.entity.js.map

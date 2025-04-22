@@ -15,6 +15,7 @@ const _1 = require(".");
 const enums_1 = require("../enums");
 let OrderEntity = class OrderEntity extends typeorm_1.BaseEntity {
 };
+exports.OrderEntity = OrderEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
@@ -131,7 +132,7 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => _1.OrderItemEntity, (orderItemsEntity) => orderItemsEntity.order),
     __metadata("design:type", Array)
 ], OrderEntity.prototype, "tokens", void 0);
-OrderEntity = __decorate([
+exports.OrderEntity = OrderEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'orders' }),
     (0, typeorm_1.Index)(['collectionAddress', 'startTime']) // Collection analytics & activity
     ,
@@ -143,5 +144,4 @@ OrderEntity = __decorate([
         synchronize: false,
     })
 ], OrderEntity);
-exports.OrderEntity = OrderEntity;
 //# sourceMappingURL=Order.entity.js.map

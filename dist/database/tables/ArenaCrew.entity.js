@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 const ArenaUser_entity_1 = require("./ArenaUser.entity");
 let ArenaCrew = class ArenaCrew extends typeorm_1.BaseEntity {
 };
+exports.ArenaCrew = ArenaCrew;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
@@ -76,9 +77,8 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], ArenaCrew.prototype, "creationDate", void 0);
-ArenaCrew = __decorate([
+exports.ArenaCrew = ArenaCrew = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_crews' })
 ], ArenaCrew);
-exports.ArenaCrew = ArenaCrew;
 //# sourceMappingURL=ArenaCrew.entity.js.map

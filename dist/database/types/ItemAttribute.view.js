@@ -17,6 +17,7 @@ const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
 let ItemAttribute = class ItemAttribute extends typeorm_1.BaseEntity {
 };
+exports.ItemAttribute = ItemAttribute;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -48,7 +49,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], ItemAttribute.prototype, "value", void 0);
-ItemAttribute = __decorate([
+exports.ItemAttribute = ItemAttribute = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -65,5 +66,4 @@ ItemAttribute = __decorate([
         name: 'item_attributes_view',
     })
 ], ItemAttribute);
-exports.ItemAttribute = ItemAttribute;
 //# sourceMappingURL=ItemAttribute.view.js.map

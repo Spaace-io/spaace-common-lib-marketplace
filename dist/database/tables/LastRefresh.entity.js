@@ -13,6 +13,7 @@ exports.LastRefreshEntity = void 0;
 const typeorm_1 = require("typeorm");
 let LastRefreshEntity = class LastRefreshEntity extends typeorm_1.BaseEntity {
 };
+exports.LastRefreshEntity = LastRefreshEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)({ default: true }),
     (0, typeorm_1.Check)('"pk" = TRUE'),
@@ -22,8 +23,7 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], LastRefreshEntity.prototype, "timestamp", void 0);
-LastRefreshEntity = __decorate([
+exports.LastRefreshEntity = LastRefreshEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'last_refresh' })
 ], LastRefreshEntity);
-exports.LastRefreshEntity = LastRefreshEntity;
 //# sourceMappingURL=LastRefresh.entity.js.map

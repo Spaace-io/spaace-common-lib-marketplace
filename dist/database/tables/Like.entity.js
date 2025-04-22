@@ -15,6 +15,7 @@ const Collection_entity_1 = require("./Collection.entity");
 const User_entity_1 = require("./User.entity");
 let LikeEntity = class LikeEntity extends typeorm_1.BaseEntity {
 };
+exports.LikeEntity = LikeEntity;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
@@ -36,9 +37,8 @@ __decorate([
     ,
     __metadata("design:type", String)
 ], LikeEntity.prototype, "tokenId", void 0);
-LikeEntity = __decorate([
+exports.LikeEntity = LikeEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'likes' }),
     (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId'], { unique: true })
 ], LikeEntity);
-exports.LikeEntity = LikeEntity;
 //# sourceMappingURL=Like.entity.js.map

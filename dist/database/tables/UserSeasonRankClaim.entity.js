@@ -22,60 +22,60 @@ let LoyaltyPointsLoyaltyRewardClaim = class LoyaltyPointsLoyaltyRewardClaim {
         this.amount = amount;
     }
 };
+exports.LoyaltyPointsLoyaltyRewardClaim = LoyaltyPointsLoyaltyRewardClaim;
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], LoyaltyPointsLoyaltyRewardClaim.prototype, "amount", void 0);
-LoyaltyPointsLoyaltyRewardClaim = __decorate([
+exports.LoyaltyPointsLoyaltyRewardClaim = LoyaltyPointsLoyaltyRewardClaim = __decorate([
     (0, graphql_1.ObjectType)(),
     __metadata("design:paramtypes", [String])
 ], LoyaltyPointsLoyaltyRewardClaim);
-exports.LoyaltyPointsLoyaltyRewardClaim = LoyaltyPointsLoyaltyRewardClaim;
 let StakingBonusLoyaltyRewardClaim = class StakingBonusLoyaltyRewardClaim {
     constructor(amount) {
         this.type = _1.LoyaltyRewardType.STAKING_BONUS;
         this.amount = amount;
     }
 };
+exports.StakingBonusLoyaltyRewardClaim = StakingBonusLoyaltyRewardClaim;
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], StakingBonusLoyaltyRewardClaim.prototype, "amount", void 0);
-StakingBonusLoyaltyRewardClaim = __decorate([
+exports.StakingBonusLoyaltyRewardClaim = StakingBonusLoyaltyRewardClaim = __decorate([
     (0, graphql_1.ObjectType)(),
     __metadata("design:paramtypes", [String])
 ], StakingBonusLoyaltyRewardClaim);
-exports.StakingBonusLoyaltyRewardClaim = StakingBonusLoyaltyRewardClaim;
 let SpaaceTokensLoyaltyRewardClaim = class SpaaceTokensLoyaltyRewardClaim {
     constructor(amount) {
         this.type = _1.LoyaltyRewardType.SPAACE_TOKENS;
         this.amount = amount;
     }
 };
+exports.SpaaceTokensLoyaltyRewardClaim = SpaaceTokensLoyaltyRewardClaim;
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], SpaaceTokensLoyaltyRewardClaim.prototype, "amount", void 0);
-SpaaceTokensLoyaltyRewardClaim = __decorate([
+exports.SpaaceTokensLoyaltyRewardClaim = SpaaceTokensLoyaltyRewardClaim = __decorate([
     (0, graphql_1.ObjectType)(),
     __metadata("design:paramtypes", [String])
 ], SpaaceTokensLoyaltyRewardClaim);
-exports.SpaaceTokensLoyaltyRewardClaim = SpaaceTokensLoyaltyRewardClaim;
 let CosmeticLoyaltyRewardClaim = class CosmeticLoyaltyRewardClaim {
     constructor(id) {
         this.type = _1.LoyaltyRewardType.COSMETIC;
         this.id = id;
     }
 };
+exports.CosmeticLoyaltyRewardClaim = CosmeticLoyaltyRewardClaim;
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], CosmeticLoyaltyRewardClaim.prototype, "id", void 0);
-CosmeticLoyaltyRewardClaim = __decorate([
+exports.CosmeticLoyaltyRewardClaim = CosmeticLoyaltyRewardClaim = __decorate([
     (0, graphql_1.ObjectType)(),
     __metadata("design:paramtypes", [String])
 ], CosmeticLoyaltyRewardClaim);
-exports.CosmeticLoyaltyRewardClaim = CosmeticLoyaltyRewardClaim;
 exports.LoyaltyRewardClaim = (0, graphql_1.createUnionType)({
     name: 'LoyaltyRewardClaim',
     types: () => [
@@ -87,6 +87,7 @@ exports.LoyaltyRewardClaim = (0, graphql_1.createUnionType)({
 });
 let UserSeasonRankClaim = class UserSeasonRankClaim extends typeorm_1.BaseEntity {
 };
+exports.UserSeasonRankClaim = UserSeasonRankClaim;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
@@ -150,9 +151,8 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], UserSeasonRankClaim.prototype, "timestamp", void 0);
-UserSeasonRankClaim = __decorate([
+exports.UserSeasonRankClaim = UserSeasonRankClaim = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'user_season_rank_claims' })
 ], UserSeasonRankClaim);
-exports.UserSeasonRankClaim = UserSeasonRankClaim;
 //# sourceMappingURL=UserSeasonRankClaim.entity.js.map

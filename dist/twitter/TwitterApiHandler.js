@@ -12,13 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TwitterApiHandler = exports.TwitterApiVersions = void 0;
 const axios_1 = require("axios");
 const database_1 = require("../database");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { default: addOAuthInterceptor } = require('axios-oauth-1.0a');
+const axios_oauth_1_0a_1 = require("axios-oauth-1.0a");
 var TwitterApiVersions;
 (function (TwitterApiVersions) {
     TwitterApiVersions["V1"] = "1.1";
     TwitterApiVersions["V2"] = "2";
-})(TwitterApiVersions = exports.TwitterApiVersions || (exports.TwitterApiVersions = {}));
+})(TwitterApiVersions || (exports.TwitterApiVersions = TwitterApiVersions = {}));
 class TwitterApiHandler {
     constructor(userCreds, twitterApiVersion = TwitterApiVersions.V1) {
         this.twitterApiBaseUrl = 'https://api.twitter.com';
@@ -26,16 +25,22 @@ class TwitterApiHandler {
             baseURL: this.twitterApiBaseUrl,
         });
         if (twitterApiVersion === TwitterApiVersions.V1 && userCreds) {
+            if (!process.env.TWITTER_CONSUMER_KEY ||
+                !process.env.TWITTER_CONSUMER_SECRET) {
+                throw new Error('Twitter consumer key and secret are required for OAuth 1.0a');
+            }
             const options = {
+                algorithm: 'HMAC-SHA1',
                 key: process.env.TWITTER_CONSUMER_KEY,
                 secret: process.env.TWITTER_CONSUMER_SECRET,
                 token: userCreds.twitterAccessToken,
                 tokenSecret: userCreds.twitterSecretToken,
             };
-            addOAuthInterceptor(axiosInstance, options);
+            (0, axios_oauth_1_0a_1.default)(axiosInstance, options);
         }
         else {
-            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${process.env.TWITTER_APP_BEARER_TOKEN}`;
+            axiosInstance.defaults.headers.common['Authorization'] =
+                `Bearer ${process.env.TWITTER_APP_BEARER_TOKEN}`;
         }
         this.twitterApiInstance = axiosInstance;
     }
@@ -120,8 +125,8 @@ class TwitterApiHandler {
         });
     }
     getMentions(query, startTime, endTime) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const { data, } = yield this.twitterApiInstance.get(startTime && endTime
                 ? `2/tweets/search/recent?start_time=${encodeURIComponent(startTime)}&end_time=${encodeURIComponent(endTime)}&query=(${encodeURIComponent(query)}) -is:retweet&tweet.fields=author_id,id,text,public_metrics,conversation_id`
                 : `2/tweets/search/recent?query=(${encodeURIComponent(query)}) -is:retweet&tweet.fields=author_id,id,text,public_metrics,conversation_id`);

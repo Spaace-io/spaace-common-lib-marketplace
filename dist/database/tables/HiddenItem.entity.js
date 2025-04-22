@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const _1 = require(".");
 let HiddenItem = class HiddenItem extends typeorm_1.BaseEntity {
 };
+exports.HiddenItem = HiddenItem;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => _1.User),
@@ -34,9 +35,8 @@ __decorate([
     ]),
     __metadata("design:type", String)
 ], HiddenItem.prototype, "tokenId", void 0);
-HiddenItem = __decorate([
+exports.HiddenItem = HiddenItem = __decorate([
     (0, typeorm_1.Entity)({ name: 'hidden_items' }),
     (0, typeorm_1.Index)(['userAddress', 'collectionAddress', 'tokenId'], { unique: true })
 ], HiddenItem);
-exports.HiddenItem = HiddenItem;
 //# sourceMappingURL=HiddenItem.entity.js.map

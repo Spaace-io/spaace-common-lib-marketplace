@@ -19,6 +19,7 @@ const __1 = require("..");
 const __2 = require("../..");
 let Collection = class Collection extends typeorm_1.BaseEntity {
 };
+exports.Collection = Collection;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -287,7 +288,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Object)
 ], Collection.prototype, "maxRarityRanking", void 0);
-Collection = __decorate([
+exports.Collection = Collection = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => dataSource
@@ -475,5 +476,4 @@ Collection = __decorate([
         name: 'collections_view',
     })
 ], Collection);
-exports.Collection = Collection;
 //# sourceMappingURL=Collection.view.js.map

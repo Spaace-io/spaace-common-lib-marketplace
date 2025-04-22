@@ -8,15 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var ArenaUser_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArenaUser = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const _1 = require(".");
-let ArenaUser = ArenaUser_1 = class ArenaUser extends typeorm_1.BaseEntity {
+let ArenaUser = class ArenaUser extends typeorm_1.BaseEntity {
 };
+exports.ArenaUser = ArenaUser;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('text'),
@@ -62,7 +62,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
-    (0, typeorm_1.ManyToOne)(() => ArenaUser_1, { nullable: true }),
+    (0, typeorm_1.ManyToOne)(() => ArenaUser, { nullable: true }),
     (0, typeorm_1.JoinColumn)({
         name: 'referrerTwitterId',
         referencedColumnName: 'userTwitterId',
@@ -137,9 +137,8 @@ __decorate([
     (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)
 ], ArenaUser.prototype, "isOnboardingChestClaimed", void 0);
-ArenaUser = ArenaUser_1 = __decorate([
+exports.ArenaUser = ArenaUser = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_users' })
 ], ArenaUser);
-exports.ArenaUser = ArenaUser;
 //# sourceMappingURL=ArenaUser.entity.js.map

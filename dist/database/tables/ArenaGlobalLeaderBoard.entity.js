@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 const ArenaUser_entity_1 = require("./ArenaUser.entity");
 let ArenaGlobalLeaderBoard = class ArenaGlobalLeaderBoard extends typeorm_1.BaseEntity {
 };
+exports.ArenaGlobalLeaderBoard = ArenaGlobalLeaderBoard;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
@@ -27,9 +28,8 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], ArenaGlobalLeaderBoard.prototype, "position", void 0);
-ArenaGlobalLeaderBoard = __decorate([
+exports.ArenaGlobalLeaderBoard = ArenaGlobalLeaderBoard = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_global_leaderboard' })
 ], ArenaGlobalLeaderBoard);
-exports.ArenaGlobalLeaderBoard = ArenaGlobalLeaderBoard;
 //# sourceMappingURL=ArenaGlobalLeaderBoard.entity.js.map

@@ -97,9 +97,9 @@ let RabbitMQClient = class RabbitMQClient {
         });
     }
 };
-RabbitMQClient = __decorate([
+exports.RabbitMQClient = RabbitMQClient;
+exports.RabbitMQClient = RabbitMQClient = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [nestjs_rabbitmq_1.AmqpConnection])
 ], RabbitMQClient);
-exports.RabbitMQClient = RabbitMQClient;
 //# sourceMappingURL=rabbitmq.client.js.map

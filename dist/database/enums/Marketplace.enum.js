@@ -7,7 +7,7 @@ var Marketplace;
     Marketplace["SPAACE"] = "SPAACE";
     Marketplace["OPENSEA"] = "OPENSEA";
     Marketplace["BLUR"] = "BLUR";
-})(Marketplace = exports.Marketplace || (exports.Marketplace = {}));
+})(Marketplace || (exports.Marketplace = Marketplace = {}));
 (0, graphql_1.registerEnumType)(Marketplace, {
     name: 'Marketplace',
 });

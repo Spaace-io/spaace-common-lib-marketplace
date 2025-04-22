@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 let ArenaChestProbabilityGenesis = class ArenaChestProbabilityGenesis extends typeorm_1.BaseEntity {
 };
+exports.ArenaChestProbabilityGenesis = ArenaChestProbabilityGenesis;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -49,10 +50,9 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], ArenaChestProbabilityGenesis.prototype, "minLevelBetweenChest", void 0);
-ArenaChestProbabilityGenesis = __decorate([
+exports.ArenaChestProbabilityGenesis = ArenaChestProbabilityGenesis = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_chest_probability_genesis' }),
     (0, typeorm_1.Unique)(['minLevel', 'maxLevel'])
 ], ArenaChestProbabilityGenesis);
-exports.ArenaChestProbabilityGenesis = ArenaChestProbabilityGenesis;
 //# sourceMappingURL=ArenaChestProbabilityGenesis.entity.js.map

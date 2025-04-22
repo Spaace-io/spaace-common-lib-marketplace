@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var Quest_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Quest = exports.QuestPeriod = exports.QuestStep = exports.QuestRule = exports.QuestRuleOperator = exports.QuestTrigger = void 0;
 const typeorm_1 = require("typeorm");
@@ -34,7 +33,7 @@ var QuestTrigger;
     QuestTrigger["USER_INTERACTION"] = "USER_INTERACTION";
     QuestTrigger["DATA_COMPILED"] = "DATA_COMPILED";
     QuestTrigger["QUEST_COMPLETED"] = "QUEST_COMPLETED";
-})(QuestTrigger = exports.QuestTrigger || (exports.QuestTrigger = {}));
+})(QuestTrigger || (exports.QuestTrigger = QuestTrigger = {}));
 (0, graphql_1.registerEnumType)(QuestTrigger, {
     name: 'QuestTrigger',
 });
@@ -46,12 +45,13 @@ var QuestRuleOperator;
     QuestRuleOperator["LT"] = "LT";
     QuestRuleOperator["LTE"] = "LTE";
     QuestRuleOperator["NEQ"] = "NEQ";
-})(QuestRuleOperator = exports.QuestRuleOperator || (exports.QuestRuleOperator = {}));
+})(QuestRuleOperator || (exports.QuestRuleOperator = QuestRuleOperator = {}));
 (0, graphql_1.registerEnumType)(QuestRuleOperator, {
     name: 'QuestRuleOperator',
 });
 let QuestRule = class QuestRule {
 };
+exports.QuestRule = QuestRule;
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
@@ -68,12 +68,12 @@ __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     __metadata("design:type", Object)
 ], QuestRule.prototype, "delta", void 0);
-QuestRule = __decorate([
+exports.QuestRule = QuestRule = __decorate([
     (0, graphql_1.ObjectType)()
 ], QuestRule);
-exports.QuestRule = QuestRule;
 let QuestStep = class QuestStep {
 };
+exports.QuestStep = QuestStep;
 __decorate([
     (0, graphql_1.Field)(() => QuestTrigger),
     __metadata("design:type", String)
@@ -88,20 +88,20 @@ __decorate([
     (0, graphql_1.Field)(() => Boolean, { defaultValue: false }),
     __metadata("design:type", Boolean)
 ], QuestStep.prototype, "cron", void 0);
-QuestStep = __decorate([
+exports.QuestStep = QuestStep = __decorate([
     (0, graphql_1.ObjectType)()
 ], QuestStep);
-exports.QuestStep = QuestStep;
 var QuestPeriod;
 (function (QuestPeriod) {
     QuestPeriod["DAILY"] = "DAILY";
     QuestPeriod["SEASONAL"] = "SEASONAL";
-})(QuestPeriod = exports.QuestPeriod || (exports.QuestPeriod = {}));
+})(QuestPeriod || (exports.QuestPeriod = QuestPeriod = {}));
 (0, graphql_1.registerEnumType)(QuestPeriod, {
     name: 'QuestPeriod',
 });
-let Quest = Quest_1 = class Quest extends typeorm_1.BaseEntity {
+let Quest = class Quest extends typeorm_1.BaseEntity {
 };
+exports.Quest = Quest;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('numeric', { precision: 78, unsigned: true }) // 78 digits = Maximum uint256 value
@@ -123,7 +123,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('uuid', { nullable: true }),
-    (0, typeorm_1.OneToOne)(() => Quest_1),
+    (0, typeorm_1.OneToOne)(() => Quest),
     (0, typeorm_1.JoinColumn)([
         { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
         { name: 'previousQuestId', referencedColumnName: 'id' },
@@ -208,10 +208,9 @@ __decorate([
     }),
     __metadata("design:type", Object)
 ], Quest.prototype, "tweetAction", void 0);
-Quest = Quest_1 = __decorate([
+exports.Quest = Quest = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'quests' }),
     (0, typeorm_1.Unique)(['seasonNumber', 'name'])
 ], Quest);
-exports.Quest = Quest;
 //# sourceMappingURL=Quest.entity.js.map

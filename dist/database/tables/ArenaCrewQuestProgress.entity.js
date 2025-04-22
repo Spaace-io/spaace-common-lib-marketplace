@@ -15,6 +15,7 @@ const graphql_1 = require("@nestjs/graphql");
 const _1 = require(".");
 let ArenaCrewQuestProgress = class ArenaCrewQuestProgress extends typeorm_1.BaseEntity {
 };
+exports.ArenaCrewQuestProgress = ArenaCrewQuestProgress;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryColumn)('text'),
@@ -60,10 +61,9 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], ArenaCrewQuestProgress.prototype, "timestamp", void 0);
-ArenaCrewQuestProgress = __decorate([
+exports.ArenaCrewQuestProgress = ArenaCrewQuestProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_crew_quest_progress' }),
     (0, typeorm_1.Index)(['crewName', 'seasonNumber', 'questId'], { where: '"completed"' })
 ], ArenaCrewQuestProgress);
-exports.ArenaCrewQuestProgress = ArenaCrewQuestProgress;
 //# sourceMappingURL=ArenaCrewQuestProgress.entity.js.map

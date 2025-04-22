@@ -17,6 +17,7 @@ const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
 let StakingHarvest = class StakingHarvest extends typeorm_1.BaseEntity {
 };
+exports.StakingHarvest = StakingHarvest;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -69,7 +70,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
 ], StakingHarvest.prototype, "timestamp", void 0);
-StakingHarvest = __decorate([
+exports.StakingHarvest = StakingHarvest = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -88,5 +89,4 @@ StakingHarvest = __decorate([
         name: 'staking_harvests_view',
     })
 ], StakingHarvest);
-exports.StakingHarvest = StakingHarvest;
 //# sourceMappingURL=StakingHarvest.view.js.map

@@ -35,9 +35,8 @@ export class RabbitMQ {
   }
 
   static async getRabbitMQClient(prefetchCount?: number) {
-    const amqpConnection = await RabbitMQ.getAmpqConnectionFactory(
-      prefetchCount,
-    );
+    const amqpConnection =
+      await RabbitMQ.getAmpqConnectionFactory(prefetchCount);
 
     if (!amqpConnection) throw new Error('Failed to connect to RabbitMQ');
 

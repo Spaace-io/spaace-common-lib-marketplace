@@ -16,6 +16,7 @@ const _1 = require(".");
 // Because one event (txHash + logIdx) can equal multiple transfers (e.g. ERC1155's TransferBatch)
 let TransferEntity = class TransferEntity extends typeorm_1.BaseEntity {
 };
+exports.TransferEntity = TransferEntity;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
@@ -58,7 +59,7 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], TransferEntity.prototype, "timestamp", void 0);
-TransferEntity = __decorate([
+exports.TransferEntity = TransferEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'transfers' }),
     (0, typeorm_1.Index)(['timestamp']),
     (0, typeorm_1.Index)(['from', 'timestamp']),
@@ -73,5 +74,4 @@ TransferEntity = __decorate([
         where: '"from" = \'0000000000000000000000000000000000000000\'',
     })
 ], TransferEntity);
-exports.TransferEntity = TransferEntity;
 //# sourceMappingURL=Transfer.entity.js.map

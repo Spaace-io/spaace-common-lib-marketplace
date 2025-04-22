@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const __1 = require("..");
 let CollectionRankingCached = class CollectionRankingCached extends typeorm_1.BaseEntity {
 };
+exports.CollectionRankingCached = CollectionRankingCached;
 __decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
     (0, typeorm_1.ManyToOne)(() => __1.CollectionEntity),
@@ -165,9 +166,8 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], CollectionRankingCached.prototype, "listedCount", void 0);
-CollectionRankingCached = __decorate([
+exports.CollectionRankingCached = CollectionRankingCached = __decorate([
     (0, typeorm_1.Entity)({ name: 'collection_rankings_cache' }),
     (0, typeorm_1.Index)(['address'], { unique: true })
 ], CollectionRankingCached);
-exports.CollectionRankingCached = CollectionRankingCached;
 //# sourceMappingURL=CollectionRanking.entity.js.map

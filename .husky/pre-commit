@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 # Reset the dist folder as we're going to rebuild it
 git restore --staged --worktree ./dist/
 

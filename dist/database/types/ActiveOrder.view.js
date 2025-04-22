@@ -18,6 +18,7 @@ const __1 = require("..");
 const enums_1 = require("../enums");
 let ActiveOrderCached = class ActiveOrderCached extends typeorm_1.BaseEntity {
 };
+exports.ActiveOrderCached = ActiveOrderCached;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.ViewColumn)(),
@@ -187,7 +188,7 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", String)
 ], ActiveOrderCached.prototype, "remainingQuantity", void 0);
-ActiveOrderCached = __decorate([
+exports.ActiveOrderCached = ActiveOrderCached = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
         expression: (dataSource) => {
@@ -229,5 +230,4 @@ ActiveOrderCached = __decorate([
         name: 'active_orders_cache_view',
     })
 ], ActiveOrderCached);
-exports.ActiveOrderCached = ActiveOrderCached;
 //# sourceMappingURL=ActiveOrder.view.js.map

@@ -19,7 +19,7 @@ var ArenaTiers;
     ArenaTiers["TIER_3"] = "3";
     ArenaTiers["TIER_4"] = "4";
     ArenaTiers["TIER_5"] = "5";
-})(ArenaTiers = exports.ArenaTiers || (exports.ArenaTiers = {}));
+})(ArenaTiers || (exports.ArenaTiers = ArenaTiers = {}));
 (0, graphql_1.registerEnumType)(ArenaTiers, { name: 'ArenaTiers' });
 let Tier = class Tier {
 };
@@ -40,6 +40,7 @@ Tier = __decorate([
 ], Tier);
 let ArenaSeasonChestGenesis = class ArenaSeasonChestGenesis extends typeorm_1.BaseEntity {
 };
+exports.ArenaSeasonChestGenesis = ArenaSeasonChestGenesis;
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -60,10 +61,9 @@ __decorate([
     (0, typeorm_1.Column)('jsonb', { default: [] }),
     __metadata("design:type", Array)
 ], ArenaSeasonChestGenesis.prototype, "tiers", void 0);
-ArenaSeasonChestGenesis = __decorate([
+exports.ArenaSeasonChestGenesis = ArenaSeasonChestGenesis = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'arena_seasons_chest_genesis' }),
     (0, typeorm_1.Unique)(['minChestCount', 'maxChestCount'])
 ], ArenaSeasonChestGenesis);
-exports.ArenaSeasonChestGenesis = ArenaSeasonChestGenesis;
 //# sourceMappingURL=ArenaSeasonChestGenesis.entity.js.map
