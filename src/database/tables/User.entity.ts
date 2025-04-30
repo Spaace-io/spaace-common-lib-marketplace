@@ -9,6 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { ethers } from 'ethers';
+import { AccessLevel } from '../enums/AccessLevel.enum';
 
 @ObjectType()
 @Entity({ name: 'users' })
@@ -59,6 +60,14 @@ export class User extends BaseEntity {
     },
   )
   referrerAddress!: string | null;
+
+  @Field(() => AccessLevel)
+  @Column('enum', {
+    enum: AccessLevel,
+    enumName: 'access_level',
+    default: AccessLevel.LOCKED,
+  })
+  accessLevel!: AccessLevel;
 
   @Field(() => Date)
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
