@@ -1,4 +1,5 @@
 import { BaseEntity } from 'typeorm';
+import { AccessLevel } from '../enums/AccessLevel.enum';
 export declare class User extends BaseEntity {
     address: string;
     name: string | null;
@@ -9,6 +10,7 @@ export declare class User extends BaseEntity {
     admin: boolean;
     referralCode: string;
     referrerAddress: string | null;
+    accessLevel: AccessLevel;
     timestamp: Date;
     twitterUsername: string | null;
     twitterId: string | null;

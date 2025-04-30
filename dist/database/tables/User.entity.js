@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
+const AccessLevel_enum_1 = require("../enums/AccessLevel.enum");
 let User = class User extends typeorm_1.BaseEntity {
 };
 exports.User = User;
@@ -70,6 +71,15 @@ __decorate([
     }),
     __metadata("design:type", Object)
 ], User.prototype, "referrerAddress", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => AccessLevel_enum_1.AccessLevel),
+    (0, typeorm_1.Column)('enum', {
+        enum: AccessLevel_enum_1.AccessLevel,
+        enumName: 'access_level',
+        default: AccessLevel_enum_1.AccessLevel.LOCKED,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "accessLevel", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' }),
