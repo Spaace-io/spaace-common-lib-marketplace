@@ -66,3 +66,4 @@ export * from './ArenaAdmin.entity';
 export * from './UserXpLog.entity';
 export * from './PrimeCollection.entity';
 export * from './XpMultiplier.entity';
+export * from './CollectionUserVote.entity';

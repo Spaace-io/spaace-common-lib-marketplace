@@ -83,4 +83,5 @@ __exportStar(require("./ArenaAdmin.entity"), exports);
 __exportStar(require("./UserXpLog.entity"), exports);
 __exportStar(require("./PrimeCollection.entity"), exports);
 __exportStar(require("./XpMultiplier.entity"), exports);
+__exportStar(require("./CollectionUserVote.entity"), exports);
 //# sourceMappingURL=index.js.map
