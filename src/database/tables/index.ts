@@ -78,3 +78,11 @@ export * from './PrimeCollection.entity';
 export * from './XpMultiplier.entity';
 
 export * from './CollectionUserVote.entity';
+
+// Airdrop Schema
+export * from './AirdropChest.entity';
+export * from './AirdropTier.entity';
+export * from './AirdropTierDeliveryRule.entity';
+export * from './AirdropUser.entity';
+export * from './AirdropUserChest.entity';
+export * from './AirdropTierUnlocking.entity';

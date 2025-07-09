@@ -18,3 +18,4 @@ export * from './StakingRewards.view';
 export * from './TokenBalance.view';
 export * from './TokenTransfer.view';
 export * from './Transfer.view';
+export * from './UserAirdropChest.view';

@@ -23,6 +23,14 @@ __decorate([
     __metadata("design:type", Boolean)
 ], PrimeCollectionEntity.prototype, "isPrime", void 0);
 __decorate([
+    (0, typeorm_1.Column)('text', { nullable: true }),
+    __metadata("design:type", Object)
+], PrimeCollectionEntity.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.Column)('text', { nullable: true }),
+    __metadata("design:type", Object)
+], PrimeCollectionEntity.prototype, "imageUrl", void 0);
+__decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], PrimeCollectionEntity.prototype, "updatedAt", void 0);

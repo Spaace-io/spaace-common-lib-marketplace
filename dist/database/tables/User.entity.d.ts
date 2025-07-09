@@ -16,4 +16,6 @@ export declare class User extends BaseEntity {
     twitterId: string | null;
     twitterSecretToken: string | null;
     twitterAccessToken: string | null;
+    sharedAirdropOGImage: string | null;
+    checkedAirdropS1: boolean;
 }

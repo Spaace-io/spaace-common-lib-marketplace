@@ -84,4 +84,11 @@ __exportStar(require("./UserXpLog.entity"), exports);
 __exportStar(require("./PrimeCollection.entity"), exports);
 __exportStar(require("./XpMultiplier.entity"), exports);
 __exportStar(require("./CollectionUserVote.entity"), exports);
+// Airdrop Schema
+__exportStar(require("./AirdropChest.entity"), exports);
+__exportStar(require("./AirdropTier.entity"), exports);
+__exportStar(require("./AirdropTierDeliveryRule.entity"), exports);
+__exportStar(require("./AirdropUser.entity"), exports);
+__exportStar(require("./AirdropUserChest.entity"), exports);
+__exportStar(require("./AirdropTierUnlocking.entity"), exports);
 //# sourceMappingURL=index.js.map

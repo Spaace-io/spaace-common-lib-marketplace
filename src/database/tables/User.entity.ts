@@ -88,4 +88,12 @@ export class User extends BaseEntity {
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
   twitterAccessToken!: string | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  sharedAirdropOGImage!: string | null;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  checkedAirdropS1!: boolean;
 }
