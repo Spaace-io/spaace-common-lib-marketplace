@@ -31,4 +31,16 @@ export class AirdropUser extends BaseEntity {
   @Field(() => Boolean)
   @Column('boolean', { default: false })
   tierUpgraded!: boolean;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  unlockedLevel1!: boolean;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  unlockedLevel2!: boolean;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  unlockedLevel3!: boolean;
 }

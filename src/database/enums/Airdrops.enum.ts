@@ -3,8 +3,8 @@ import { registerEnumType } from '@nestjs/graphql';
 export enum AirdropChestsType {
   MYTHIC = 'Mythic',
   LEGENDARY = 'Legendary',
+  EPIC = 'Epic',
   RARE = 'Rare',
-  UNCOMMON = 'Uncommon',
   COMMON = 'Common',
 }
 
