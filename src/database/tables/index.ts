@@ -86,3 +86,5 @@ export * from './AirdropTierDeliveryRule.entity';
 export * from './AirdropUser.entity';
 export * from './AirdropUserChest.entity';
 export * from './AirdropTierUnlocking.entity';
+
+export * from './UserFeeCommission.entity';
