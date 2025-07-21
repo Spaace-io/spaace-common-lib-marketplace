@@ -31,14 +31,6 @@ __decorate([
     (0, typeorm_1.Column)('integer'),
     __metadata("design:type", Number)
 ], AirdropChest.prototype, "valueXp", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Airdrops_enum_1.AirdropUsersChestsStatus),
-    (0, typeorm_1.Column)('enum', {
-        enum: Airdrops_enum_1.AirdropUsersChestsStatus,
-        enumName: 'users_chests_status',
-    }),
-    __metadata("design:type", String)
-], AirdropChest.prototype, "status", void 0);
 exports.AirdropChest = AirdropChest = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'airdrop_chests' })

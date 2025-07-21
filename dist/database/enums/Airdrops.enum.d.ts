@@ -1,8 +1,8 @@
 export declare enum AirdropChestsType {
     MYTHIC = "Mythic",
     LEGENDARY = "Legendary",
+    EPIC = "Epic",
     RARE = "Rare",
-    UNCOMMON = "Uncommon",
     COMMON = "Common"
 }
 export declare enum AirdropTiersName {

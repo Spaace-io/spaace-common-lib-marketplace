@@ -59,4 +59,5 @@ export declare class Quest extends BaseEntity {
     featured: boolean;
     tweetId: string | null;
     tweetAction: TweetAction | null;
+    order: string;
 }

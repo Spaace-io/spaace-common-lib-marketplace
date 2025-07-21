@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 const AirdropUser_entity_1 = require("./AirdropUser.entity");
 const AirdropChest_entity_1 = require("./AirdropChest.entity");
 const Airdrops_enum_1 = require("../enums/Airdrops.enum");
+const SeasonRank_entity_1 = require("./SeasonRank.entity");
 let AirdropUserChest = class AirdropUserChest extends typeorm_1.BaseEntity {
 };
 exports.AirdropUserChest = AirdropUserChest;
@@ -46,6 +47,15 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], AirdropUserChest.prototype, "status", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => SeasonRank_entity_1.LoyaltyRank),
+    (0, typeorm_1.Column)('enum', {
+        enum: SeasonRank_entity_1.LoyaltyRank,
+        enumName: 'airdrop_users_chests_rank',
+        default: SeasonRank_entity_1.LoyaltyRank.BRONZE_5,
+    }),
+    __metadata("design:type", String)
+], AirdropUserChest.prototype, "rank", void 0);
 exports.AirdropUserChest = AirdropUserChest = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'airdrop_users_chests' }),

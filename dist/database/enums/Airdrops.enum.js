@@ -6,8 +6,8 @@ var AirdropChestsType;
 (function (AirdropChestsType) {
     AirdropChestsType["MYTHIC"] = "Mythic";
     AirdropChestsType["LEGENDARY"] = "Legendary";
+    AirdropChestsType["EPIC"] = "Epic";
     AirdropChestsType["RARE"] = "Rare";
-    AirdropChestsType["UNCOMMON"] = "Uncommon";
     AirdropChestsType["COMMON"] = "Common";
 })(AirdropChestsType || (exports.AirdropChestsType = AirdropChestsType = {}));
 (0, graphql_1.registerEnumType)(AirdropChestsType, {

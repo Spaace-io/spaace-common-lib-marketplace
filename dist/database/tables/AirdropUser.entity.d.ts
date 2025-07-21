@@ -4,4 +4,7 @@ export declare class AirdropUser extends BaseEntity {
     address: string;
     tierId: number;
     tierUpgraded: boolean;
+    unlockedLevel1: boolean;
+    unlockedLevel2: boolean;
+    unlockedLevel3: boolean;
 }

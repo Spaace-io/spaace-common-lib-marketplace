@@ -9,21 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Migrations1751018416144 = void 0;
-class Migrations1751018416144 {
+exports.Migrations1751018416143 = void 0;
+class Migrations1751018416143 {
     constructor() {
-        this.name = 'Migrations1751018416144';
+        this.name = 'Migrations1751018416143';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "airdrop_users" ADD "tierUpgraded" boolean NOT NULL DEFAULT false`);
+            yield queryRunner.query(`ALTER TABLE "users" ADD "sharedReferralImage" text`);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "airdrop_users" DROP COLUMN "tierUpgraded"`);
+            // Drop the added columns in reverse order
+            yield queryRunner.query(`ALTER TABLE "users" DROP COLUMN "sharedReferralImage"`);
         });
     }
 }
-exports.Migrations1751018416144 = Migrations1751018416144;
-//# sourceMappingURL=1751018416144-check-airdrop-user-upgrade.js.map
+exports.Migrations1751018416143 = Migrations1751018416143;
+//# sourceMappingURL=1751018416143-add-user-referral-image%20copy.js.map

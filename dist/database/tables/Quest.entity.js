@@ -208,6 +208,11 @@ __decorate([
     }),
     __metadata("design:type", Object)
 ], Quest.prototype, "tweetAction", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
+    __metadata("design:type", String)
+], Quest.prototype, "order", void 0);
 exports.Quest = Quest = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'quests' }),

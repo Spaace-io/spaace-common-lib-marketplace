@@ -9,21 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Migrations1751018416138 = void 0;
-class Migrations1751018416138 {
+exports.Migrations1751018416144 = void 0;
+class Migrations1751018416144 {
     constructor() {
-        this.name = 'Migrations1751018416138';
+        this.name = 'Migrations1751018416144';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "users" ADD "sharedAirdropOGImage" text`);
+            yield queryRunner.query(`ALTER TABLE "quests" ADD "order" integer NOT NULL DEFAULT 0`);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "users" DROP COLUMN "sharedAirdropOGImage"`);
+            // Drop the added columns in reverse order
+            yield queryRunner.query(`ALTER TABLE "quests" DROP COLUMN "order"`);
         });
     }
 }
-exports.Migrations1751018416138 = Migrations1751018416138;
-//# sourceMappingURL=1751018416138-migrations.js.map
+exports.Migrations1751018416144 = Migrations1751018416144;
+//# sourceMappingURL=1751018416144-quests-order-field.js.map

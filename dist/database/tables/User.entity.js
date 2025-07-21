@@ -111,6 +111,11 @@ __decorate([
     __metadata("design:type", Object)
 ], User.prototype, "sharedAirdropOGImage", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "sharedReferralImage", void 0);
+__decorate([
     (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)

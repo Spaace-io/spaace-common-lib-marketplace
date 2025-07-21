@@ -1,9 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Entity, PrimaryGeneratedColumn, BaseEntity, Column } from 'typeorm';
-import {
-  AirdropChestsType,
-  AirdropUsersChestsStatus,
-} from '../enums/Airdrops.enum';
+import { AirdropChestsType } from '../enums/Airdrops.enum';
 
 @ObjectType()
 @Entity({ name: 'airdrop_chests' })
