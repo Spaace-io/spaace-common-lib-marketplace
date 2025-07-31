@@ -14,6 +14,18 @@ export class PrimeCollectionEntity extends BaseEntity {
   @Column('text', { nullable: true })
   imageUrl!: string | null;
 
+  @Column('numeric', { nullable: true })
+  volume24h!: number | null;
+
+  @Column('numeric', { nullable: true })
+  volume7d!: number | null;
+
+  @Column('numeric', { nullable: true })
+  volume30d!: number | null;
+
+  @Column('numeric', { nullable: true })
+  volumeAllTime!: number | null;
+
   @Column('timestamp without time zone', { nullable: true })
   updatedAt!: Date | null;
 }
