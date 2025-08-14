@@ -25,6 +25,13 @@ export class UserFeeCommission extends BaseEntity {
   address: string;
 
   @Field(() => String)
+  @Column('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
+  referrerAddress: string;
+
+  @Field(() => String)
   @Column('character varying', { length: 10 })
   day: string;
 

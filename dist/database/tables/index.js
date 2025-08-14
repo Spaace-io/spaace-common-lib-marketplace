@@ -91,4 +91,5 @@ __exportStar(require("./AirdropTierDeliveryRule.entity"), exports);
 __exportStar(require("./AirdropUser.entity"), exports);
 __exportStar(require("./AirdropUserChest.entity"), exports);
 __exportStar(require("./AirdropTierUnlocking.entity"), exports);
+__exportStar(require("./UserFeeCommission.entity"), exports);
 //# sourceMappingURL=index.js.map
