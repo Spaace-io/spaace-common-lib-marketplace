@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { ethers } from 'ethers';
 import { AccessLevel } from '../enums/AccessLevel.enum';
+import { EmailStatus } from '../enums/EmailStatus.enum';
 
 @ObjectType()
 @Entity({ name: 'users' })
@@ -28,6 +29,31 @@ export class User extends BaseEntity {
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
   email!: string | null;
+
+  @Field(() => String, {
+    nullable: true,
+  })
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  pendingEmail: string | null;
+
+  @Field(() => EmailStatus)
+  @Column({ type: 'enum', enum: EmailStatus, default: EmailStatus.UNSET })
+  emailStatus: EmailStatus;
+
+  @Field(() => Date, {
+    nullable: true,
+  })
+  @Column({ type: 'timestamptz', nullable: true })
+  emailVerifiedAt: Date | null;
+
+  @Column({ type: 'varchar', length: 128, nullable: true })
+  emailVerificationTokenHash: string | null;
+
+  @Column({ type: 'timestamptz', nullable: true })
+  emailVerificationExpiresAt: Date | null;
+
+  @Column({ type: 'timestamptz', nullable: true })
+  emailVerificationLastSentAt: Date | null;
 
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })

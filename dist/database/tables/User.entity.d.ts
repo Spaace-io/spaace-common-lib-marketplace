@@ -1,9 +1,16 @@
 import { BaseEntity } from 'typeorm';
 import { AccessLevel } from '../enums/AccessLevel.enum';
+import { EmailStatus } from '../enums/EmailStatus.enum';
 export declare class User extends BaseEntity {
     address: string;
     name: string | null;
     email: string | null;
+    pendingEmail: string | null;
+    emailStatus: EmailStatus;
+    emailVerifiedAt: Date | null;
+    emailVerificationTokenHash: string | null;
+    emailVerificationExpiresAt: Date | null;
+    emailVerificationLastSentAt: Date | null;
     biography: string | null;
     imageUrl: string | null;
     bannerUrl: string | null;

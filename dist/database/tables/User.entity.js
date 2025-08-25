@@ -15,6 +15,7 @@ const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
 const AccessLevel_enum_1 = require("../enums/AccessLevel.enum");
+const EmailStatus_enum_1 = require("../enums/EmailStatus.enum");
 let User = class User extends typeorm_1.BaseEntity {
 };
 exports.User = User;
@@ -36,6 +37,37 @@ __decorate([
     (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", Object)
 ], User.prototype, "email", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, {
+        nullable: true,
+    }),
+    (0, typeorm_1.Column)({ type: 'varchar', length: 255, nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "pendingEmail", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => EmailStatus_enum_1.EmailStatus),
+    (0, typeorm_1.Column)({ type: 'enum', enum: EmailStatus_enum_1.EmailStatus, default: EmailStatus_enum_1.EmailStatus.UNSET }),
+    __metadata("design:type", String)
+], User.prototype, "emailStatus", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Date, {
+        nullable: true,
+    }),
+    (0, typeorm_1.Column)({ type: 'timestamptz', nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "emailVerifiedAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'varchar', length: 128, nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "emailVerificationTokenHash", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'timestamptz', nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "emailVerificationExpiresAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'timestamptz', nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "emailVerificationLastSentAt", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
