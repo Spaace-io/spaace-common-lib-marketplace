@@ -41,5 +41,11 @@ export class UserInteraction {
   twitterHandle!: string | null;
 
   @Field(() => String, { nullable: true })
-  followTarget!: string | null;
+  followTwitterTarget!: string | null;
+
+  @Field(() => String, { nullable: true })
+  discordHandle!: string | null;
+
+  @Field(() => String, { nullable: true })
+  followDiscordTarget!: string | null;
 }

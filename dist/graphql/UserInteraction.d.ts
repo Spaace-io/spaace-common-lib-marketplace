@@ -17,5 +17,7 @@ export declare class UserInteraction {
     tweetAction: TweetAction | null;
     tweetId: string | null;
     twitterHandle: string | null;
-    followTarget: string | null;
+    followTwitterTarget: string | null;
+    discordHandle: string | null;
+    followDiscordTarget: string | null;
 }

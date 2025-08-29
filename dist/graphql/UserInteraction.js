@@ -59,7 +59,15 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     __metadata("design:type", Object)
-], UserInteraction.prototype, "followTarget", void 0);
+], UserInteraction.prototype, "followTwitterTarget", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", Object)
+], UserInteraction.prototype, "discordHandle", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", Object)
+], UserInteraction.prototype, "followDiscordTarget", void 0);
 exports.UserInteraction = UserInteraction = __decorate([
     (0, graphql_1.ObjectType)()
 ], UserInteraction);
