@@ -9,7 +9,7 @@ import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 @Entity('token_prices')
-@Index(['symbol', 'vsCurrency', 'bucketedAt'], { unique: true })
+@Index(['symbol', 'vsCurrency'], { unique: true })
 export class TokenPriceEntity extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')

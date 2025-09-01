@@ -17,7 +17,7 @@ class AddCurrencies1756727333933 {
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
             yield queryRunner.query(`CREATE TABLE "token_prices" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "symbol" character varying(32) NOT NULL, "vsCurrency" character varying(16) NOT NULL, "price" numeric(36,18) NOT NULL, "bucketedAt" TIMESTAMP WITH TIME ZONE NOT NULL, "fetchedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), CONSTRAINT "PK_42e2a1a31b88976beb8421f80f9" PRIMARY KEY ("id"))`);
-            yield queryRunner.query(`CREATE UNIQUE INDEX "IDX_2d96136f2a0593b1dfca5ceb0d" ON "token_prices" ("symbol", "vsCurrency", "bucketedAt") `);
+            yield queryRunner.query(`CREATE UNIQUE INDEX "IDX_2d96136f2a0593b1dfca5ceb0d" ON "token_prices" ("symbol", "vsCurrency") `);
         });
     }
     down(queryRunner) {

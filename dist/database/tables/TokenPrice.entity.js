@@ -48,6 +48,6 @@ __decorate([
 exports.TokenPriceEntity = TokenPriceEntity = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)('token_prices'),
-    (0, typeorm_1.Index)(['symbol', 'vsCurrency', 'bucketedAt'], { unique: true })
+    (0, typeorm_1.Index)(['symbol', 'vsCurrency'], { unique: true })
 ], TokenPriceEntity);
 //# sourceMappingURL=TokenPrice.entity.js.map
