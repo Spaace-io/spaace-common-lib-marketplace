@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddCurrencies1756725187890 = void 0;
-class AddCurrencies1756725187890 {
+exports.AddCurrencies1756727333933 = void 0;
+class AddCurrencies1756727333933 {
     constructor() {
-        this.name = 'AddCurrencies1756725187890';
+        this.name = 'AddCurrencies1756727333933';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -27,5 +27,5 @@ class AddCurrencies1756725187890 {
         });
     }
 }
-exports.AddCurrencies1756725187890 = AddCurrencies1756725187890;
-//# sourceMappingURL=1756725187890-AddCurrencies.js.map
+exports.AddCurrencies1756727333933 = AddCurrencies1756727333933;
+//# sourceMappingURL=1756727333933-AddCurrencies.js.map

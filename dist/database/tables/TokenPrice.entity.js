@@ -12,10 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TokenPriceEntity = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
-let TokenPriceEntity = class TokenPriceEntity {
+let TokenPriceEntity = class TokenPriceEntity extends typeorm_1.BaseEntity {
 };
 exports.TokenPriceEntity = TokenPriceEntity;
 __decorate([
+    (0, graphql_1.Field)(() => graphql_1.ID),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
 ], TokenPriceEntity.prototype, "id", void 0);
@@ -45,6 +46,7 @@ __decorate([
     __metadata("design:type", Date)
 ], TokenPriceEntity.prototype, "fetchedAt", void 0);
 exports.TokenPriceEntity = TokenPriceEntity = __decorate([
+    (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)('token_prices'),
     (0, typeorm_1.Index)(['symbol', 'vsCurrency', 'bucketedAt'], { unique: true })
 ], TokenPriceEntity);

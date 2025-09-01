@@ -1,4 +1,5 @@
-export declare class TokenPriceEntity {
+import { BaseEntity } from 'typeorm';
+export declare class TokenPriceEntity extends BaseEntity {
     id: string;
     symbol: string;
     vsCurrency: string;

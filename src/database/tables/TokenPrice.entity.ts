@@ -1,9 +1,17 @@
-import { Entity, Index, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { Field, GraphQLISODateTime } from '@nestjs/graphql';
+import {
+  Entity,
+  Index,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+} from 'typeorm';
+import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity('token_prices')
 @Index(['symbol', 'vsCurrency', 'bucketedAt'], { unique: true })
-export class TokenPriceEntity {
+export class TokenPriceEntity extends BaseEntity {
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
