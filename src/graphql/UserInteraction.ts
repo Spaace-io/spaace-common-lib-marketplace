@@ -10,6 +10,10 @@ export enum UserInteractionType {
   SWEEP_FLOOR = 'SWEEP_FLOOR',
   TWEET_ACTION = 'TWEET_ACTION',
   SHARE_CARD = 'SHARE_CARD',
+  LINK_TWITTER = 'LINK_TWITTER',
+  FOLLOW_TWITTER_SPAACE = 'FOLLOW_TWITTER_SPAACE',
+  LINK_DISCORD = 'LINK_DISCORD',
+  FOLLOW_DISCORD_SPAACE = 'FOLLOW_DISCORD_SPAACE',
 }
 
 registerEnumType(UserInteractionType, {
@@ -32,4 +36,16 @@ export class UserInteraction {
 
   @Field(() => String, { nullable: true })
   tweetId!: string | null;
+
+  @Field(() => String, { nullable: true })
+  twitterHandle!: string | null;
+
+  @Field(() => String, { nullable: true })
+  followTwitterTarget!: string | null;
+
+  @Field(() => String, { nullable: true })
+  discordHandle!: string | null;
+
+  @Field(() => String, { nullable: true })
+  followDiscordTarget!: string | null;
 }

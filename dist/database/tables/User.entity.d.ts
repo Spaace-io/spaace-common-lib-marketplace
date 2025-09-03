@@ -26,4 +26,8 @@ export declare class User extends BaseEntity {
     sharedAirdropOGImage: string | null;
     sharedReferralImage: string | null;
     checkedAirdropS1: boolean;
+    discordId: string | null;
+    discordUsername: string | null;
+    discordAccessToken: string | null;
+    discordRefreshToken: string | null;
 }

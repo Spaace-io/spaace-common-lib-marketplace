@@ -22,6 +22,10 @@ var UserInteractionType;
     UserInteractionType["SWEEP_FLOOR"] = "SWEEP_FLOOR";
     UserInteractionType["TWEET_ACTION"] = "TWEET_ACTION";
     UserInteractionType["SHARE_CARD"] = "SHARE_CARD";
+    UserInteractionType["LINK_TWITTER"] = "LINK_TWITTER";
+    UserInteractionType["FOLLOW_TWITTER_SPAACE"] = "FOLLOW_TWITTER_SPAACE";
+    UserInteractionType["LINK_DISCORD"] = "LINK_DISCORD";
+    UserInteractionType["FOLLOW_DISCORD_SPAACE"] = "FOLLOW_DISCORD_SPAACE";
 })(UserInteractionType || (exports.UserInteractionType = UserInteractionType = {}));
 (0, graphql_1.registerEnumType)(UserInteractionType, {
     name: 'UserInteractionType',
@@ -48,6 +52,22 @@ __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     __metadata("design:type", Object)
 ], UserInteraction.prototype, "tweetId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", Object)
+], UserInteraction.prototype, "twitterHandle", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", Object)
+], UserInteraction.prototype, "followTwitterTarget", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", Object)
+], UserInteraction.prototype, "discordHandle", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", Object)
+], UserInteraction.prototype, "followDiscordTarget", void 0);
 exports.UserInteraction = UserInteraction = __decorate([
     (0, graphql_1.ObjectType)()
 ], UserInteraction);
