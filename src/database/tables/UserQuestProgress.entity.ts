@@ -81,4 +81,8 @@ export class UserQuestProgress extends BaseEntity {
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true, default: '0' })
   points!: string;
+
+  @Field(() => Date, { nullable: true })
+  @Column('timestamp without time zone', { nullable: true })
+  lastProcessedAt!: Date | null;
 }

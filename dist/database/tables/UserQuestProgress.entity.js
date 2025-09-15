@@ -96,6 +96,11 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true, default: '0' }),
     __metadata("design:type", String)
 ], UserQuestProgress.prototype, "points", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Date, { nullable: true }),
+    (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
+    __metadata("design:type", Object)
+], UserQuestProgress.prototype, "lastProcessedAt", void 0);
 exports.UserQuestProgress = UserQuestProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'user_quest_progress' }),

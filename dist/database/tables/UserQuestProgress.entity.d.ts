@@ -13,4 +13,5 @@ export declare class UserQuestProgress extends BaseEntity {
     tweetId: string | null;
     boostMultiplier: number;
     points: string;
+    lastProcessedAt: Date | null;
 }
