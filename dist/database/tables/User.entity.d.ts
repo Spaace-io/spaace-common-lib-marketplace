@@ -30,4 +30,5 @@ export declare class User extends BaseEntity {
     discordUsername: string | null;
     discordAccessToken: string | null;
     discordRefreshToken: string | null;
+    isAmbassador: boolean;
 }
