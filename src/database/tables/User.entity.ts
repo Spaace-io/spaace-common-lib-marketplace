@@ -140,4 +140,8 @@ export class User extends BaseEntity {
 
   @Column('text', { nullable: true })
   discordRefreshToken!: string | null;
+
+  @Field(() => Boolean)
+  @Column({ type: 'boolean', default: false })
+  isAmbassador!: boolean;
 }
