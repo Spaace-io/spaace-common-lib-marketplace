@@ -16,7 +16,8 @@ export declare enum QuestTrigger {
     CART_ITEM = "CART_ITEM",
     USER_INTERACTION = "USER_INTERACTION",
     DATA_COMPILED = "DATA_COMPILED",
-    QUEST_COMPLETED = "QUEST_COMPLETED"
+    QUEST_COMPLETED = "QUEST_COMPLETED",
+    REFERRER = "REFERRER"
 }
 export declare enum QuestRuleOperator {
     EQ = "EQ",
