@@ -32,6 +32,7 @@ export enum QuestTrigger {
   USER_INTERACTION = 'USER_INTERACTION',
   DATA_COMPILED = 'DATA_COMPILED',
   QUEST_COMPLETED = 'QUEST_COMPLETED',
+  REFERRER = 'REFERRER',
 }
 
 registerEnumType(QuestTrigger, {

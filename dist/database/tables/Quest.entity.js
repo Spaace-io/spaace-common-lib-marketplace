@@ -33,6 +33,7 @@ var QuestTrigger;
     QuestTrigger["USER_INTERACTION"] = "USER_INTERACTION";
     QuestTrigger["DATA_COMPILED"] = "DATA_COMPILED";
     QuestTrigger["QUEST_COMPLETED"] = "QUEST_COMPLETED";
+    QuestTrigger["REFERRER"] = "REFERRER";
 })(QuestTrigger || (exports.QuestTrigger = QuestTrigger = {}));
 (0, graphql_1.registerEnumType)(QuestTrigger, {
     name: 'QuestTrigger',
