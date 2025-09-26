@@ -175,6 +175,11 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'boolean', default: false }),
     __metadata("design:type", Boolean)
 ], User.prototype, "isAmbassador", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('varchar', { length: 32, nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "referralStatus", void 0);
 exports.User = User = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'users' })
