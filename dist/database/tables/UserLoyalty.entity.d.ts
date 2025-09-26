@@ -7,4 +7,5 @@ export declare class UserLoyalty extends BaseEntity {
     questCompleted: string;
     rank: SeasonRank;
     boostMultiplier: number;
+    nftScore: number;
 }

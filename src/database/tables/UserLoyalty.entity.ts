@@ -47,4 +47,8 @@ export class UserLoyalty extends BaseEntity {
   @Field(() => String)
   @Column('numeric', { precision: 78, scale: 2, default: 1.0 })
   boostMultiplier!: number;
+
+  @Field(() => Number)
+  @Column('integer', { default: 0 })
+  nftScore!: number;
 }
