@@ -144,4 +144,8 @@ export class User extends BaseEntity {
   @Field(() => Boolean)
   @Column({ type: 'boolean', default: false })
   isAmbassador!: boolean;
+
+  @Field(() => String, { nullable: true })
+  @Column('varchar', { length: 32, nullable: true })
+  referralStatus!: 'pending' | 'active' | null;
 }
