@@ -16,6 +16,7 @@ const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
 const AccessLevel_enum_1 = require("../enums/AccessLevel.enum");
 const EmailStatus_enum_1 = require("../enums/EmailStatus.enum");
+const UserStatus_enum_1 = require("../enums/UserStatus.enum");
 let User = class User extends typeorm_1.BaseEntity {
 };
 exports.User = User;
@@ -180,6 +181,31 @@ __decorate([
     (0, typeorm_1.Column)('varchar', { length: 32, nullable: true }),
     __metadata("design:type", Object)
 ], User.prototype, "referralStatus", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => UserStatus_enum_1.UserStatus),
+    (0, typeorm_1.Index)('idx_users_status'),
+    (0, typeorm_1.Column)('enum', {
+        enum: UserStatus_enum_1.UserStatus,
+        enumName: 'users_status_enum',
+        default: UserStatus_enum_1.UserStatus.ACTIVE,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "status", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Number, { nullable: true }),
+    (0, typeorm_1.Column)('integer', { nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "abuseScore", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "abuseReason", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Date),
+    (0, typeorm_1.Column)({ type: 'timestamptz', default: () => 'NOW()' }),
+    __metadata("design:type", Date)
+], User.prototype, "statusUpdatedAt", void 0);
 exports.User = User = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'users' })
