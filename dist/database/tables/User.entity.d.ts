@@ -1,6 +1,7 @@
 import { BaseEntity } from 'typeorm';
 import { AccessLevel } from '../enums/AccessLevel.enum';
 import { EmailStatus } from '../enums/EmailStatus.enum';
+import { UserStatus } from '../enums/UserStatus.enum';
 export declare class User extends BaseEntity {
     address: string;
     name: string | null;
@@ -32,4 +33,8 @@ export declare class User extends BaseEntity {
     discordRefreshToken: string | null;
     isAmbassador: boolean;
     referralStatus: 'pending' | 'active' | null;
+    status: UserStatus;
+    abuseScore: number | null;
+    abuseReason: string | null;
+    statusUpdatedAt: Date;
 }

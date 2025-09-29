@@ -7,10 +7,12 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { ethers } from 'ethers';
 import { AccessLevel } from '../enums/AccessLevel.enum';
 import { EmailStatus } from '../enums/EmailStatus.enum';
+import { UserStatus } from '../enums/UserStatus.enum';
 
 @ObjectType()
 @Entity({ name: 'users' })
@@ -148,4 +150,25 @@ export class User extends BaseEntity {
   @Field(() => String, { nullable: true })
   @Column('varchar', { length: 32, nullable: true })
   referralStatus!: 'pending' | 'active' | null;
+
+  @Field(() => UserStatus)
+  @Index('idx_users_status')
+  @Column('enum', {
+    enum: UserStatus,
+    enumName: 'users_status_enum',
+    default: UserStatus.ACTIVE,
+  })
+  status!: UserStatus;
+
+  @Field(() => Number, { nullable: true })
+  @Column('integer', { nullable: true })
+  abuseScore!: number | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  abuseReason!: string | null;
+
+  @Field(() => Date)
+  @Column({ type: 'timestamptz', default: () => 'NOW()' })
+  statusUpdatedAt!: Date;
 }
