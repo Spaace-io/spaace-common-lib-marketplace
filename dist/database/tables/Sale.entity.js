@@ -74,6 +74,10 @@ __decorate([
     (0, typeorm_1.PrimaryColumn)('timestamp without time zone'),
     __metadata("design:type", Date)
 ], SaleEntity.prototype, "timestamp", void 0);
+__decorate([
+    (0, typeorm_1.Column)('jsonb', { default: () => "'[]'::jsonb" }),
+    __metadata("design:type", Array)
+], SaleEntity.prototype, "feeBreakdown", void 0);
 exports.SaleEntity = SaleEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'sales' }),
     (0, typeorm_1.Index)(['timestamp']),

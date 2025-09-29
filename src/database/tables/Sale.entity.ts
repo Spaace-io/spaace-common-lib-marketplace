@@ -10,6 +10,14 @@ import {
 import { ItemEntity } from './Item.entity';
 import { Marketplace } from '../enums';
 
+export type FeeItemBase = {
+  kind?: string;
+  rawAmount?: string;
+  source?: string | null;
+  recipient?: string | null;
+  bps?: number;
+};
+
 @Entity({ name: 'sales' })
 @Index(['timestamp'])
 @Index(['from', 'timestamp'])
@@ -82,4 +90,7 @@ export class SaleEntity extends BaseEntity {
 
   @PrimaryColumn('timestamp without time zone')
   timestamp!: Date;
+
+  @Column('jsonb', { default: () => "'[]'::jsonb" })
+  feeBreakdown!: FeeItemBase[];
 }

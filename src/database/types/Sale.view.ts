@@ -6,6 +6,24 @@ import { SaleEntity } from '..';
 import { Marketplace } from '../enums';
 
 @ObjectType()
+export class FeeItem {
+  @Field(() => String, { nullable: true })
+  kind?: string;
+
+  @Field(() => String)
+  rawAmount!: string;
+
+  @Field(() => String, { nullable: true })
+  source?: string | null;
+
+  @Field(() => String, { nullable: true })
+  recipient?: string | null;
+
+  @Field(() => Number, { nullable: true })
+  bps?: number;
+}
+
+@ObjectType()
 @ViewEntity({
   expression: (dataSource: DataSource) => {
     return dataSource
@@ -23,7 +41,8 @@ import { Marketplace } from '../enums';
       .addSelect('"sale"."perUnitPrice"', 'perUnitPrice')
       .addSelect('"sale"."currency"', 'currency')
       .addSelect('"sale"."marketplace"', 'marketplace')
-      .addSelect('"sale"."timestamp"', 'timestamp');
+      .addSelect('"sale"."timestamp"', 'timestamp')
+      .addSelect('"sale"."feeBreakdown"', 'feeBreakdown');
   },
   name: 'sales_view',
 })
@@ -103,4 +122,8 @@ export class Sale extends BaseEntity {
   @Field(() => Date)
   @ViewColumn()
   timestamp!: Date;
+
+  @Field(() => [FeeItem])
+  @ViewColumn()
+  feeBreakdown!: FeeItem[];
 }

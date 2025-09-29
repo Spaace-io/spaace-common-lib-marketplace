@@ -9,13 +9,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Sale = void 0;
+exports.Sale = exports.FeeItem = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const __1 = require("..");
 const enums_1 = require("../enums");
+let FeeItem = class FeeItem {
+};
+exports.FeeItem = FeeItem;
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", String)
+], FeeItem.prototype, "kind", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], FeeItem.prototype, "rawAmount", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", Object)
+], FeeItem.prototype, "source", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", Object)
+], FeeItem.prototype, "recipient", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Number, { nullable: true }),
+    __metadata("design:type", Number)
+], FeeItem.prototype, "bps", void 0);
+exports.FeeItem = FeeItem = __decorate([
+    (0, graphql_1.ObjectType)()
+], FeeItem);
 let Sale = class Sale extends typeorm_1.BaseEntity {
 };
 exports.Sale = Sale;
@@ -102,6 +128,11 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Date)
 ], Sale.prototype, "timestamp", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [FeeItem]),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", Array)
+], Sale.prototype, "feeBreakdown", void 0);
 exports.Sale = Sale = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
@@ -121,7 +152,8 @@ exports.Sale = Sale = __decorate([
                 .addSelect('"sale"."perUnitPrice"', 'perUnitPrice')
                 .addSelect('"sale"."currency"', 'currency')
                 .addSelect('"sale"."marketplace"', 'marketplace')
-                .addSelect('"sale"."timestamp"', 'timestamp');
+                .addSelect('"sale"."timestamp"', 'timestamp')
+                .addSelect('"sale"."feeBreakdown"', 'feeBreakdown');
         },
         name: 'sales_view',
     })
