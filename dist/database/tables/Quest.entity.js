@@ -96,6 +96,7 @@ var QuestPeriod;
 (function (QuestPeriod) {
     QuestPeriod["DAILY"] = "DAILY";
     QuestPeriod["SEASONAL"] = "SEASONAL";
+    QuestPeriod["FOREVER"] = "FOREVER";
 })(QuestPeriod || (exports.QuestPeriod = QuestPeriod = {}));
 (0, graphql_1.registerEnumType)(QuestPeriod, {
     name: 'QuestPeriod',

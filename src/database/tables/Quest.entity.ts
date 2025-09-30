@@ -84,6 +84,7 @@ export class QuestStep {
 export enum QuestPeriod {
   DAILY = 'DAILY',
   SEASONAL = 'SEASONAL',
+  FOREVER = 'FOREVER',
 }
 
 registerEnumType(QuestPeriod, {

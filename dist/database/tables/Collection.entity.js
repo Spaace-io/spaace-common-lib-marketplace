@@ -105,6 +105,14 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], CollectionEntity.prototype, "lastImport", void 0);
+__decorate([
+    (0, typeorm_1.Column)('text', { nullable: true }),
+    __metadata("design:type", Object)
+], CollectionEntity.prototype, "openseaVerificationStatus", void 0);
+__decorate([
+    (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
+    __metadata("design:type", Object)
+], CollectionEntity.prototype, "openseaVerifiedCheckedAt", void 0);
 exports.CollectionEntity = CollectionEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'collections' })
 ], CollectionEntity);

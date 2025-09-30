@@ -40,7 +40,8 @@ export declare class QuestStep {
 }
 export declare enum QuestPeriod {
     DAILY = "DAILY",
-    SEASONAL = "SEASONAL"
+    SEASONAL = "SEASONAL",
+    FOREVER = "FOREVER"
 }
 export declare class Quest extends BaseEntity {
     seasonNumber: string;
