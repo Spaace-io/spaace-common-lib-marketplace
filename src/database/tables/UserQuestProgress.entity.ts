@@ -85,4 +85,8 @@ export class UserQuestProgress extends BaseEntity {
   @Field(() => Date, { nullable: true })
   @Column('timestamp without time zone', { nullable: true })
   lastProcessedAt!: Date | null;
+
+  @Field(() => Boolean, { nullable: true })
+  @Column('boolean', { nullable: true })
+  isProcessing!: boolean | null;
 }

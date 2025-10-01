@@ -14,4 +14,5 @@ export declare class UserQuestProgress extends BaseEntity {
     boostMultiplier: number;
     points: string;
     lastProcessedAt: Date | null;
+    isProcessing: boolean | null;
 }
