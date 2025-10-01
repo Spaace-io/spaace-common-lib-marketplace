@@ -28,6 +28,8 @@ __exportStar(require("./StakingHarvest.entity"), exports);
 __exportStar(require("./StakingReward.entity"), exports);
 __exportStar(require("./Balance.entity"), exports);
 __exportStar(require("./TokenBalance.entity"), exports);
+__exportStar(require("./IdentityBlacklist.entity"), exports);
+__exportStar(require("./ModerationAudit.entity"), exports);
 __exportStar(require("./DistributorReward.entity"), exports);
 __exportStar(require("./RewardPeriod.entity"), exports);
 __exportStar(require("./Order.entity"), exports);
@@ -84,6 +86,9 @@ __exportStar(require("./UserXpLog.entity"), exports);
 __exportStar(require("./PrimeCollection.entity"), exports);
 __exportStar(require("./XpMultiplier.entity"), exports);
 __exportStar(require("./CollectionUserVote.entity"), exports);
+__exportStar(require("./UserRoyaltyCollection.entity"), exports);
+__exportStar(require("./TokenPrice.entity"), exports);
+__exportStar(require("./UserCollectionRoyaltyTrackBlock.entity"), exports);
 // Airdrop Schema
 __exportStar(require("./AirdropChest.entity"), exports);
 __exportStar(require("./AirdropTier.entity"), exports);

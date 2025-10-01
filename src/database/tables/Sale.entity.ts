@@ -2,6 +2,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  Generated,
   Index,
   JoinColumn,
   ManyToOne,
@@ -41,6 +42,10 @@ export type FeeItemBase = {
 )
 @Index(['orderHash'])
 export class SaleEntity extends BaseEntity {
+  @Column('bigint', { nullable: false })
+  @Generated('increment')
+  id!: string;
+
   @PrimaryColumn('char', { length: 64 })
   txHash!: string;
 

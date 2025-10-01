@@ -22,4 +22,5 @@ export declare class Sale extends BaseEntity {
     marketplace: Marketplace;
     timestamp: Date;
     feeBreakdown: FeeItem[];
+    id: string;
 }

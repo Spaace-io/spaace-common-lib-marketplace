@@ -8,6 +8,7 @@ export type FeeItemBase = {
     bps?: number;
 };
 export declare class SaleEntity extends BaseEntity {
+    id: string;
     txHash: string;
     logIdx: string;
     collectionAddress: string;

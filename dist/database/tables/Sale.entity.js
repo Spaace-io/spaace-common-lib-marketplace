@@ -17,6 +17,11 @@ let SaleEntity = class SaleEntity extends typeorm_1.BaseEntity {
 };
 exports.SaleEntity = SaleEntity;
 __decorate([
+    (0, typeorm_1.Column)('bigint', { nullable: false }),
+    (0, typeorm_1.Generated)('increment'),
+    __metadata("design:type", String)
+], SaleEntity.prototype, "id", void 0);
+__decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
 ], SaleEntity.prototype, "txHash", void 0);

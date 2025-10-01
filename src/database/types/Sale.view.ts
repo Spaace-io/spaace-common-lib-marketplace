@@ -42,7 +42,8 @@ export class FeeItem {
       .addSelect('"sale"."currency"', 'currency')
       .addSelect('"sale"."marketplace"', 'marketplace')
       .addSelect('"sale"."timestamp"', 'timestamp')
-      .addSelect('"sale"."feeBreakdown"', 'feeBreakdown');
+      .addSelect('"sale"."feeBreakdown"', 'feeBreakdown')
+      .addSelect('"sale"."id"', 'id');
   },
   name: 'sales_view',
 })
@@ -126,4 +127,8 @@ export class Sale extends BaseEntity {
   @Field(() => [FeeItem])
   @ViewColumn()
   feeBreakdown!: FeeItem[];
+
+  @Field(() => String)
+  @ViewColumn()
+  id!: string;
 }

@@ -133,6 +133,11 @@ __decorate([
     (0, typeorm_1.ViewColumn)(),
     __metadata("design:type", Array)
 ], Sale.prototype, "feeBreakdown", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.ViewColumn)(),
+    __metadata("design:type", String)
+], Sale.prototype, "id", void 0);
 exports.Sale = Sale = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.ViewEntity)({
@@ -153,7 +158,8 @@ exports.Sale = Sale = __decorate([
                 .addSelect('"sale"."currency"', 'currency')
                 .addSelect('"sale"."marketplace"', 'marketplace')
                 .addSelect('"sale"."timestamp"', 'timestamp')
-                .addSelect('"sale"."feeBreakdown"', 'feeBreakdown');
+                .addSelect('"sale"."feeBreakdown"', 'feeBreakdown')
+                .addSelect('"sale"."id"', 'id');
         },
         name: 'sales_view',
     })
