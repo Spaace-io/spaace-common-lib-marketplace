@@ -30,4 +30,6 @@ export declare class CollectionEntity extends BaseEntity {
     deployer: string | null;
     links: CollectionLink[];
     lastImport: Date | null;
+    openseaVerificationStatus: string | null;
+    openseaVerifiedCheckedAt: Date | null;
 }

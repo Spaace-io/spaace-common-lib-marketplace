@@ -34,6 +34,7 @@ var QuestTrigger;
     QuestTrigger["DATA_COMPILED"] = "DATA_COMPILED";
     QuestTrigger["QUEST_COMPLETED"] = "QUEST_COMPLETED";
     QuestTrigger["REFERRER"] = "REFERRER";
+    QuestTrigger["COLLECTION_ROYALTY"] = "COLLECTION_ROYALTY";
 })(QuestTrigger || (exports.QuestTrigger = QuestTrigger = {}));
 (0, graphql_1.registerEnumType)(QuestTrigger, {
     name: 'QuestTrigger',
@@ -96,6 +97,7 @@ var QuestPeriod;
 (function (QuestPeriod) {
     QuestPeriod["DAILY"] = "DAILY";
     QuestPeriod["SEASONAL"] = "SEASONAL";
+    QuestPeriod["FOREVER"] = "FOREVER";
 })(QuestPeriod || (exports.QuestPeriod = QuestPeriod = {}));
 (0, graphql_1.registerEnumType)(QuestPeriod, {
     name: 'QuestPeriod',

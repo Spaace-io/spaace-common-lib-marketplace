@@ -33,6 +33,7 @@ export enum QuestTrigger {
   DATA_COMPILED = 'DATA_COMPILED',
   QUEST_COMPLETED = 'QUEST_COMPLETED',
   REFERRER = 'REFERRER',
+  COLLECTION_ROYALTY = 'COLLECTION_ROYALTY',
 }
 
 registerEnumType(QuestTrigger, {
@@ -84,6 +85,7 @@ export class QuestStep {
 export enum QuestPeriod {
   DAILY = 'DAILY',
   SEASONAL = 'SEASONAL',
+  FOREVER = 'FOREVER',
 }
 
 registerEnumType(QuestPeriod, {

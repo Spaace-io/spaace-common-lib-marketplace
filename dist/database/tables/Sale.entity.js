@@ -17,6 +17,11 @@ let SaleEntity = class SaleEntity extends typeorm_1.BaseEntity {
 };
 exports.SaleEntity = SaleEntity;
 __decorate([
+    (0, typeorm_1.Column)('bigint', { nullable: false }),
+    (0, typeorm_1.Generated)('increment'),
+    __metadata("design:type", String)
+], SaleEntity.prototype, "id", void 0);
+__decorate([
     (0, typeorm_1.PrimaryColumn)('char', { length: 64 }),
     __metadata("design:type", String)
 ], SaleEntity.prototype, "txHash", void 0);
@@ -74,6 +79,10 @@ __decorate([
     (0, typeorm_1.PrimaryColumn)('timestamp without time zone'),
     __metadata("design:type", Date)
 ], SaleEntity.prototype, "timestamp", void 0);
+__decorate([
+    (0, typeorm_1.Column)('jsonb', { default: () => "'[]'::jsonb" }),
+    __metadata("design:type", Array)
+], SaleEntity.prototype, "feeBreakdown", void 0);
 exports.SaleEntity = SaleEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'sales' }),
     (0, typeorm_1.Index)(['timestamp']),

@@ -75,4 +75,10 @@ export class CollectionEntity extends BaseEntity {
 
   @Column('timestamp without time zone', { nullable: true })
   lastImport!: Date | null;
+
+  @Column('text', { nullable: true })
+  openseaVerificationStatus!: string | null;
+
+  @Column('timestamp without time zone', { nullable: true })
+  openseaVerifiedCheckedAt!: Date | null;
 }

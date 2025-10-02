@@ -1,5 +1,12 @@
 import { BaseEntity } from 'typeorm';
 import { Marketplace } from '../enums';
+export declare class FeeItem {
+    kind?: string;
+    rawAmount: string;
+    source?: string | null;
+    recipient?: string | null;
+    bps?: number;
+}
 export declare class Sale extends BaseEntity {
     txHash: string;
     logIdx: string;
@@ -14,4 +21,6 @@ export declare class Sale extends BaseEntity {
     currency: string;
     marketplace: Marketplace;
     timestamp: Date;
+    feeBreakdown: FeeItem[];
+    id: string;
 }

@@ -17,7 +17,8 @@ export declare enum QuestTrigger {
     USER_INTERACTION = "USER_INTERACTION",
     DATA_COMPILED = "DATA_COMPILED",
     QUEST_COMPLETED = "QUEST_COMPLETED",
-    REFERRER = "REFERRER"
+    REFERRER = "REFERRER",
+    COLLECTION_ROYALTY = "COLLECTION_ROYALTY"
 }
 export declare enum QuestRuleOperator {
     EQ = "EQ",
@@ -40,7 +41,8 @@ export declare class QuestStep {
 }
 export declare enum QuestPeriod {
     DAILY = "DAILY",
-    SEASONAL = "SEASONAL"
+    SEASONAL = "SEASONAL",
+    FOREVER = "FOREVER"
 }
 export declare class Quest extends BaseEntity {
     seasonNumber: string;

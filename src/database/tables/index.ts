@@ -12,6 +12,8 @@ export * from './StakingHarvest.entity';
 export * from './StakingReward.entity';
 export * from './Balance.entity';
 export * from './TokenBalance.entity';
+export * from './IdentityBlacklist.entity';
+export * from './ModerationAudit.entity';
 
 export * from './DistributorReward.entity';
 export * from './RewardPeriod.entity';
@@ -78,6 +80,9 @@ export * from './PrimeCollection.entity';
 export * from './XpMultiplier.entity';
 
 export * from './CollectionUserVote.entity';
+export * from './UserRoyaltyCollection.entity';
+export * from './TokenPrice.entity';
+export * from './UserCollectionRoyaltyTrackBlock.entity';
 
 // Airdrop Schema
 export * from './AirdropChest.entity';
