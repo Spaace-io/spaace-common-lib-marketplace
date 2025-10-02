@@ -101,6 +101,11 @@ __decorate([
     (0, typeorm_1.Column)('timestamp without time zone', { nullable: true }),
     __metadata("design:type", Object)
 ], UserQuestProgress.prototype, "lastProcessedAt", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Boolean, { nullable: true }),
+    (0, typeorm_1.Column)('boolean', { nullable: true }),
+    __metadata("design:type", Object)
+], UserQuestProgress.prototype, "isProcessing", void 0);
 exports.UserQuestProgress = UserQuestProgress = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'user_quest_progress' }),
