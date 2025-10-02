@@ -45,27 +45,31 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
                     ? User
                     : T extends QuestTrigger.REFERRER
                       ? User
-                      : T extends QuestTrigger.USER
-                        ? User
-                        : T extends QuestTrigger.CART_ITEM
-                          ? CartItem
-                          : T extends QuestTrigger.USER_INTERACTION
-                            ? UserInteraction
-                            : T extends QuestTrigger.DATA_COMPILED
-                              ? object
-                              : T extends CollectionImportRequest.COLLECTIONS
-                                ? boolean
-                                : T extends CollectionImportRequest.ITEMS
+                      : T extends QuestTrigger.COLLECTION_ROYALTY
+                        ? {
+                            address: string;
+                          }
+                        : T extends QuestTrigger.USER
+                          ? User
+                          : T extends QuestTrigger.CART_ITEM
+                            ? CartItem
+                            : T extends QuestTrigger.USER_INTERACTION
+                              ? UserInteraction
+                              : T extends QuestTrigger.DATA_COMPILED
+                                ? object
+                                : T extends CollectionImportRequest.COLLECTIONS
                                   ? boolean
-                                  : T extends SearchIndexType.ITEM
-                                    ? ItemEntity & {
-                                        primaryMedia: ItemMediaEntity | null;
-                                      }
-                                    : T extends SearchIndexType.COLLECTION
-                                      ? CollectionEntity
-                                      : T extends SearchIndexType.USER
-                                        ? User
-                                        : never;
+                                  : T extends CollectionImportRequest.ITEMS
+                                    ? boolean
+                                    : T extends SearchIndexType.ITEM
+                                      ? ItemEntity & {
+                                          primaryMedia: ItemMediaEntity | null;
+                                        }
+                                      : T extends SearchIndexType.COLLECTION
+                                        ? CollectionEntity
+                                        : T extends SearchIndexType.USER
+                                          ? User
+                                          : never;
 
 export type ArenaPubSubData<T extends ArenaQuestTrigger> =
   T extends ArenaQuestTrigger.USER

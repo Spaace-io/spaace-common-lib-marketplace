@@ -33,6 +33,7 @@ export enum QuestTrigger {
   DATA_COMPILED = 'DATA_COMPILED',
   QUEST_COMPLETED = 'QUEST_COMPLETED',
   REFERRER = 'REFERRER',
+  COLLECTION_ROYALTY = 'COLLECTION_ROYALTY',
 }
 
 registerEnumType(QuestTrigger, {
