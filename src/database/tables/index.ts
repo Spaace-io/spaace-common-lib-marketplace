@@ -83,6 +83,7 @@ export * from './CollectionUserVote.entity';
 export * from './UserRoyaltyCollection.entity';
 export * from './TokenPrice.entity';
 export * from './UserCollectionRoyaltyTrackBlock.entity';
+export * from './UserQuestProcessing.entity';
 
 // Airdrop Schema
 export * from './AirdropChest.entity';
