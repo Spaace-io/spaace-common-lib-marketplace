@@ -89,6 +89,7 @@ __exportStar(require("./CollectionUserVote.entity"), exports);
 __exportStar(require("./UserRoyaltyCollection.entity"), exports);
 __exportStar(require("./TokenPrice.entity"), exports);
 __exportStar(require("./UserCollectionRoyaltyTrackBlock.entity"), exports);
+__exportStar(require("./UserQuestProcessing.entity"), exports);
 // Airdrop Schema
 __exportStar(require("./AirdropChest.entity"), exports);
 __exportStar(require("./AirdropTier.entity"), exports);

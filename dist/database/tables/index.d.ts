@@ -72,6 +72,7 @@ export * from './CollectionUserVote.entity';
 export * from './UserRoyaltyCollection.entity';
 export * from './TokenPrice.entity';
 export * from './UserCollectionRoyaltyTrackBlock.entity';
+export * from './UserQuestProcessing.entity';
 export * from './AirdropChest.entity';
 export * from './AirdropTier.entity';
 export * from './AirdropTierDeliveryRule.entity';
