@@ -93,4 +93,11 @@ export * from './AirdropUser.entity';
 export * from './AirdropUserChest.entity';
 export * from './AirdropTierUnlocking.entity';
 
+// Airdrop Chapter 1 Schema
+export * from './AirdropChestChapter1.entity';
+export * from './AirdropTierChapter1.entity';
+export * from './AirdropTierDeliveryRuleChapter1.entity';
+export * from './AirdropUserChapter1.entity';
+export * from './AirdropUserChestChapter1.entity';
+
 export * from './UserFeeCommission.entity';

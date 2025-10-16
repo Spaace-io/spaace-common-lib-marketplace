@@ -127,7 +127,11 @@ export class User extends BaseEntity {
 
   @Field(() => Boolean)
   @Column('boolean', { default: false })
-  checkedAirdropS1!: boolean;
+  checkedAirdropChapter0!: boolean;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  checkedAirdropChapter1!: boolean;
 
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })

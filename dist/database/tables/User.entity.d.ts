@@ -26,7 +26,8 @@ export declare class User extends BaseEntity {
     twitterAccessToken: string | null;
     sharedAirdropOGImage: string | null;
     sharedReferralImage: string | null;
-    checkedAirdropS1: boolean;
+    checkedAirdropChapter0: boolean;
+    checkedAirdropChapter1: boolean;
     discordId: string | null;
     discordUsername: string | null;
     discordAccessToken: string | null;

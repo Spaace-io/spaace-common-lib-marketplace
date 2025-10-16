@@ -97,5 +97,11 @@ __exportStar(require("./AirdropTierDeliveryRule.entity"), exports);
 __exportStar(require("./AirdropUser.entity"), exports);
 __exportStar(require("./AirdropUserChest.entity"), exports);
 __exportStar(require("./AirdropTierUnlocking.entity"), exports);
+// Airdrop Chapter 1 Schema
+__exportStar(require("./AirdropChestChapter1.entity"), exports);
+__exportStar(require("./AirdropTierChapter1.entity"), exports);
+__exportStar(require("./AirdropTierDeliveryRuleChapter1.entity"), exports);
+__exportStar(require("./AirdropUserChapter1.entity"), exports);
+__exportStar(require("./AirdropUserChestChapter1.entity"), exports);
 __exportStar(require("./UserFeeCommission.entity"), exports);
 //# sourceMappingURL=index.js.map
