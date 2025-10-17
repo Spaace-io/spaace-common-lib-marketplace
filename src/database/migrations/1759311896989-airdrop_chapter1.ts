@@ -41,7 +41,9 @@ export class Migrations1759311896989 implements MigrationInterface {
   `);
 
     // Set the sequence to start from 6 for future inserts
-    await queryRunner.query(`SELECT setval('airdrop_chests_chapter1_id_seq', 5, true)`);
+    await queryRunner.query(
+      `SELECT setval('airdrop_chests_chapter1_id_seq', 5, true)`,
+    );
 
     // Create the custom enum type for airdrop tiers
     await queryRunner.query(`
@@ -84,7 +86,9 @@ export class Migrations1759311896989 implements MigrationInterface {
   `);
 
     // Set the sequence to start from 16 for future inserts
-    await queryRunner.query(`SELECT setval('airdrop_tiers_chapter1_id_seq', 19, true)`);
+    await queryRunner.query(
+      `SELECT setval('airdrop_tiers_chapter1_id_seq', 19, true)`,
+    );
 
     // Create the airdrop_tiers_delivery_rules table
     await queryRunner.query(`
@@ -186,7 +190,6 @@ export class Migrations1759311896989 implements MigrationInterface {
     await queryRunner.query(
       `CREATE INDEX "IDX_airdrop_users_chests_chapter1_status" ON "airdrop_users_chests_chapter1" ("status")`,
     );
-   
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
@@ -196,7 +199,9 @@ export class Migrations1759311896989 implements MigrationInterface {
     await queryRunner.query(`DROP TABLE "airdrop_users_chests_chapter1"`);
     await queryRunner.query(`DROP TYPE "users_chests_status_chapter1"`);
     await queryRunner.query(`DROP TABLE "airdrop_users_chapter1"`);
-    await queryRunner.query(`DROP TABLE "airdrop_tiers_delivery_rules_chapter1"`);
+    await queryRunner.query(
+      `DROP TABLE "airdrop_tiers_delivery_rules_chapter1"`,
+    );
     await queryRunner.query(`DROP TABLE "airdrop_tiers_chapter1"`);
     await queryRunner.query(`DROP TYPE "airdrop_tiers_name_chapter1"`);
     await queryRunner.query(`DROP TABLE "airdrop_chests_chapter1"`);
