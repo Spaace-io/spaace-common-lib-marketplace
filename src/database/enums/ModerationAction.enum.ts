@@ -5,6 +5,7 @@ export enum ModerationAction {
   MANUAL_SET_STATUS = 'MANUAL_SET_STATUS',
   ADD_BLACKLIST_ID = 'ADD_BLACKLIST_ID',
   REMOVE_BLACKLIST_ID = 'REMOVE_BLACKLIST_ID',
+  AUTO_REVIEW = 'AUTO_REVIEW',
 }
 
 registerEnumType(ModerationAction, { name: 'ModerationAction' });
