@@ -21,4 +21,7 @@ export class UserQuestProcessing extends BaseEntity {
 
   @Column({ type: 'timestamptz', default: () => 'now()' })
   createdAt!: Date;
+
+  @Column({ type: 'timestamptz', nullable: true })
+  completedAt!: Date | null;
 }
