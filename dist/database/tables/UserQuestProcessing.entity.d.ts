@@ -5,4 +5,5 @@ export declare class UserQuestProcessing extends BaseEntity {
     seasonNumber: string;
     scopeKey: string;
     createdAt: Date;
+    completedAt: Date | null;
 }

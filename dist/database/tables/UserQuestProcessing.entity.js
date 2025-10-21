@@ -39,6 +39,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'timestamptz', default: () => 'now()' }),
     __metadata("design:type", Date)
 ], UserQuestProcessing.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'timestamptz', nullable: true }),
+    __metadata("design:type", Object)
+], UserQuestProcessing.prototype, "completedAt", void 0);
 exports.UserQuestProcessing = UserQuestProcessing = __decorate([
     (0, typeorm_1.Entity)({ name: 'user_quest_processing' })
 ], UserQuestProcessing);
