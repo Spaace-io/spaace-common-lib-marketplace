@@ -17,6 +17,7 @@ import { Transform } from 'class-transformer';
 export enum UserXpLogSource {
   QUEST = 'QUEST',
   REFERRAL = 'REFERRAL',
+  ADMIN = 'ADMIN',
 }
 
 registerEnumType(UserXpLogSource, {
@@ -57,14 +58,14 @@ export class UserXpLog extends BaseEntity {
   @JoinColumn({ name: 'seasonNumber', referencedColumnName: 'number' })
   seasonNumber!: string;
 
-  @Field(() => String)
-  @Column('uuid')
-  @ManyToOne(() => Quest)
+  @Field(() => String, { nullable: true })
+  @Column('uuid', { nullable: true })
+  @ManyToOne(() => Quest, { nullable: true })
   @JoinColumn([
     { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
     { name: 'questId', referencedColumnName: 'id' },
   ])
-  questId!: string;
+  questId?: string | null;
 
   @Field(() => UserXpLogSource)
   @Column('enum', { enum: UserXpLogSource, enumName: 'user_xp_log_source' })
