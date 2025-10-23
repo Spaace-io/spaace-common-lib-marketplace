@@ -20,6 +20,7 @@ var UserXpLogSource;
 (function (UserXpLogSource) {
     UserXpLogSource["QUEST"] = "QUEST";
     UserXpLogSource["REFERRAL"] = "REFERRAL";
+    UserXpLogSource["ADMIN"] = "ADMIN";
 })(UserXpLogSource || (exports.UserXpLogSource = UserXpLogSource = {}));
 (0, graphql_1.registerEnumType)(UserXpLogSource, {
     name: 'UserXpLogSource',
@@ -67,14 +68,14 @@ __decorate([
     __metadata("design:type", String)
 ], UserXpLog.prototype, "seasonNumber", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('uuid'),
-    (0, typeorm_1.ManyToOne)(() => _1.Quest),
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('uuid', { nullable: true }),
+    (0, typeorm_1.ManyToOne)(() => _1.Quest, { nullable: true }),
     (0, typeorm_1.JoinColumn)([
         { name: 'seasonNumber', referencedColumnName: 'seasonNumber' },
         { name: 'questId', referencedColumnName: 'id' },
     ]),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], UserXpLog.prototype, "questId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => UserXpLogSource),
