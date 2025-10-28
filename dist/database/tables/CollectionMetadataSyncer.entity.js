@@ -22,7 +22,7 @@ __decorate([
 ], CollectionMetadataSyncer.prototype, "address", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
-    (0, typeorm_1.Column)('integer', { default: 0 }),
+    (0, typeorm_1.Column)('float', { default: 0 }),
     __metadata("design:type", Number)
 ], CollectionMetadataSyncer.prototype, "visited", void 0);
 __decorate([

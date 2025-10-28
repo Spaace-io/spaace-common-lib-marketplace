@@ -11,7 +11,7 @@ export class CollectionMetadataSyncer extends BaseEntity {
   address!: string;
 
   @Field(() => Number)
-  @Column('integer', { default: 0 })
+  @Column('float', { default: 0 })
   visited!: number;
 
   @Field(() => Boolean)

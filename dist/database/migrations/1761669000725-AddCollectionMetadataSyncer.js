@@ -19,7 +19,7 @@ class Migrations1761669000725 {
             yield queryRunner.query(`
       CREATE TABLE "collection_metadata_syncer" (
         "address" CHAR(40) PRIMARY KEY,
-        "visited" INTEGER NOT NULL DEFAULT 0,
+        "visited" DOUBLE PRECISION NOT NULL DEFAULT 0,
         "proceed" BOOLEAN NOT NULL DEFAULT false
       )
     `);
