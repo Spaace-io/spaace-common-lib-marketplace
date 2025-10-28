@@ -175,4 +175,21 @@ export class User extends BaseEntity {
   @Field(() => Date)
   @Column({ type: 'timestamptz', default: () => 'NOW()' })
   statusUpdatedAt!: Date;
+
+  // Anti-bot detection fields
+  @Field(() => String, { nullable: true })
+  @Column('varchar', { length: 45, nullable: true })
+  creationIP!: string | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('varchar', { length: 100, nullable: true })
+  creationFingerprint!: string | null;
+
+  @Field(() => String, { nullable: true })
+  @Column('varchar', { length: 45, nullable: true })
+  lastConnectionIP!: string | null;
+
+  @Field(() => Date, { nullable: true })
+  @Column({ type: 'timestamptz', nullable: true })
+  lastConnectionAt!: Date | null;
 }

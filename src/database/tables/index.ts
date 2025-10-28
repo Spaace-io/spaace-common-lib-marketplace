@@ -101,3 +101,8 @@ export * from './AirdropUserChapter1.entity';
 export * from './AirdropUserChestChapter1.entity';
 
 export * from './UserFeeCommission.entity';
+
+// Anti-bot Detection System
+export * from './UserConnectionLog.entity';
+export * from './IpIntelligence.entity';
+export * from './DeviceFingerprint.entity';
