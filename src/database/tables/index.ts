@@ -106,3 +106,5 @@ export * from './UserFeeCommission.entity';
 export * from './UserConnectionLog.entity';
 export * from './IpIntelligence.entity';
 export * from './DeviceFingerprint.entity';
+
+export * from './CollectionMetadataSyncer.entity';

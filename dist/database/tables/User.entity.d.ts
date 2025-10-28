@@ -38,4 +38,8 @@ export declare class User extends BaseEntity {
     abuseScore: number | null;
     abuseReason: string | null;
     statusUpdatedAt: Date;
+    creationIP: string | null;
+    creationFingerprint: string | null;
+    lastConnectionIP: string | null;
+    lastConnectionAt: Date | null;
 }

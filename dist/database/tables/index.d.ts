@@ -85,3 +85,7 @@ export * from './AirdropTierDeliveryRuleChapter1.entity';
 export * from './AirdropUserChapter1.entity';
 export * from './AirdropUserChestChapter1.entity';
 export * from './UserFeeCommission.entity';
+export * from './UserConnectionLog.entity';
+export * from './IpIntelligence.entity';
+export * from './DeviceFingerprint.entity';
+export * from './CollectionMetadataSyncer.entity';

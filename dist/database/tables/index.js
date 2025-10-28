@@ -104,4 +104,9 @@ __exportStar(require("./AirdropTierDeliveryRuleChapter1.entity"), exports);
 __exportStar(require("./AirdropUserChapter1.entity"), exports);
 __exportStar(require("./AirdropUserChestChapter1.entity"), exports);
 __exportStar(require("./UserFeeCommission.entity"), exports);
+// Anti-bot Detection System
+__exportStar(require("./UserConnectionLog.entity"), exports);
+__exportStar(require("./IpIntelligence.entity"), exports);
+__exportStar(require("./DeviceFingerprint.entity"), exports);
+__exportStar(require("./CollectionMetadataSyncer.entity"), exports);
 //# sourceMappingURL=index.js.map

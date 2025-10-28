@@ -211,6 +211,26 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'timestamptz', default: () => 'NOW()' }),
     __metadata("design:type", Date)
 ], User.prototype, "statusUpdatedAt", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('varchar', { length: 45, nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "creationIP", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('varchar', { length: 100, nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "creationFingerprint", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('varchar', { length: 45, nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "lastConnectionIP", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Date, { nullable: true }),
+    (0, typeorm_1.Column)({ type: 'timestamptz', nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "lastConnectionAt", void 0);
 exports.User = User = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'users' })
