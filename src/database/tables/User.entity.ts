@@ -172,6 +172,10 @@ export class User extends BaseEntity {
   @Column('text', { nullable: true })
   abuseReason!: string | null;
 
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  checkedAbuseReport!: boolean;
+
   @Field(() => Date)
   @Column({ type: 'timestamptz', default: () => 'NOW()' })
   statusUpdatedAt!: Date;
