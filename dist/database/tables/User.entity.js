@@ -207,6 +207,11 @@ __decorate([
     __metadata("design:type", Object)
 ], User.prototype, "abuseReason", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    __metadata("design:type", Boolean)
+], User.prototype, "checkedAbuseReport", void 0);
+__decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)({ type: 'timestamptz', default: () => 'NOW()' }),
     __metadata("design:type", Date)

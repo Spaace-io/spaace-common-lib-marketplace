@@ -9,11 +9,11 @@ export enum AirdropChestsType {
 }
 
 export enum AirdropChestsTypeChapter1 {
-  QANTUM = 'Qantum',
   MYTHIC = 'Mythic',
   LEGENDARY = 'Legendary',
   EPIC = 'Epic',
   RARE = 'Rare',
+  COMMON = 'Common',
 }
 
 registerEnumType(AirdropChestsType, {
@@ -43,6 +43,7 @@ export enum AirdropTiersName {
 }
 
 export enum AirdropTiersNameChapter1 {
+  D5 = 'D5',
   P1 = 'P1',
   P2 = 'P2',
   P3 = 'P3',

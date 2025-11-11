@@ -12,11 +12,11 @@ var AirdropChestsType;
 })(AirdropChestsType || (exports.AirdropChestsType = AirdropChestsType = {}));
 var AirdropChestsTypeChapter1;
 (function (AirdropChestsTypeChapter1) {
-    AirdropChestsTypeChapter1["QANTUM"] = "Qantum";
     AirdropChestsTypeChapter1["MYTHIC"] = "Mythic";
     AirdropChestsTypeChapter1["LEGENDARY"] = "Legendary";
     AirdropChestsTypeChapter1["EPIC"] = "Epic";
     AirdropChestsTypeChapter1["RARE"] = "Rare";
+    AirdropChestsTypeChapter1["COMMON"] = "Common";
 })(AirdropChestsTypeChapter1 || (exports.AirdropChestsTypeChapter1 = AirdropChestsTypeChapter1 = {}));
 (0, graphql_1.registerEnumType)(AirdropChestsType, {
     name: 'AirdropChestsType',
@@ -44,6 +44,7 @@ var AirdropTiersName;
 })(AirdropTiersName || (exports.AirdropTiersName = AirdropTiersName = {}));
 var AirdropTiersNameChapter1;
 (function (AirdropTiersNameChapter1) {
+    AirdropTiersNameChapter1["D5"] = "D5";
     AirdropTiersNameChapter1["P1"] = "P1";
     AirdropTiersNameChapter1["P2"] = "P2";
     AirdropTiersNameChapter1["P3"] = "P3";

@@ -6,11 +6,11 @@ export declare enum AirdropChestsType {
     COMMON = "Common"
 }
 export declare enum AirdropChestsTypeChapter1 {
-    QANTUM = "Qantum",
     MYTHIC = "Mythic",
     LEGENDARY = "Legendary",
     EPIC = "Epic",
-    RARE = "Rare"
+    RARE = "Rare",
+    COMMON = "Common"
 }
 export declare enum AirdropTiersName {
     TIER_1 = "TIER_1",
@@ -30,6 +30,7 @@ export declare enum AirdropTiersName {
     TIER_15 = "TIER_15"
 }
 export declare enum AirdropTiersNameChapter1 {
+    D5 = "D5",
     P1 = "P1",
     P2 = "P2",
     P3 = "P3",
