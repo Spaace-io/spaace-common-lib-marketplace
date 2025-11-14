@@ -4,6 +4,10 @@ export class Migrations1763133781574 implements MigrationInterface {
   name = 'Migrations1763133781574';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `ALTER TABLE "users" ADD "checkedAirdropOpenseaChapter1" boolean NOT NULL DEFAULT false`,
+    );
+
     /**
      * OPENSEA AIRDROP DATA
      */
@@ -199,6 +203,10 @@ export class Migrations1763133781574 implements MigrationInterface {
     await queryRunner.query(`DROP TYPE "airdrop_tiers_name_opensea_chapter1"`);
     await queryRunner.query(`DROP TABLE "airdrop_chests_opensea_chapter1"`);
     await queryRunner.query(`DROP TYPE "airdrop_chests_type_opensea_chapter1"`);
+
+    await queryRunner.query(
+      `ALTER TABLE "users" DROP COLUMN "checkedAirdropOpenseaChapter1"`,
+    );
   }
 }
 
