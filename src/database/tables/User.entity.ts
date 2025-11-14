@@ -133,6 +133,10 @@ export class User extends BaseEntity {
   @Column('boolean', { default: false })
   checkedAirdropChapter1!: boolean;
 
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  checkedAirdropOpenseaChapter1!: boolean;
+
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
   discordId!: string | null;

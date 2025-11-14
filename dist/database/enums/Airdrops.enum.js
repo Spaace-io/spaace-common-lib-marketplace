@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AirdropUsersChestsStatusChapter1 = exports.AirdropUsersChestsStatus = exports.AirdropTiersNameChapter1 = exports.AirdropTiersName = exports.AirdropChestsTypeChapter1 = exports.AirdropChestsType = void 0;
+exports.AirdropUsersChestsStatusOpenseaChapter1 = exports.AirdropUsersChestsStatusChapter1 = exports.AirdropUsersChestsStatus = exports.AirdropTiersNameOpenseaChapter1 = exports.AirdropTiersNameChapter1 = exports.AirdropTiersName = exports.AirdropChestsTypeOpenseaChapter1 = exports.AirdropChestsTypeChapter1 = exports.AirdropChestsType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 var AirdropChestsType;
 (function (AirdropChestsType) {
@@ -18,11 +18,22 @@ var AirdropChestsTypeChapter1;
     AirdropChestsTypeChapter1["RARE"] = "Rare";
     AirdropChestsTypeChapter1["COMMON"] = "Common";
 })(AirdropChestsTypeChapter1 || (exports.AirdropChestsTypeChapter1 = AirdropChestsTypeChapter1 = {}));
+var AirdropChestsTypeOpenseaChapter1;
+(function (AirdropChestsTypeOpenseaChapter1) {
+    AirdropChestsTypeOpenseaChapter1["MYTHIC"] = "Mythic";
+    AirdropChestsTypeOpenseaChapter1["LEGENDARY"] = "Legendary";
+    AirdropChestsTypeOpenseaChapter1["EPIC"] = "Epic";
+    AirdropChestsTypeOpenseaChapter1["RARE"] = "Rare";
+    AirdropChestsTypeOpenseaChapter1["COMMON"] = "Common";
+})(AirdropChestsTypeOpenseaChapter1 || (exports.AirdropChestsTypeOpenseaChapter1 = AirdropChestsTypeOpenseaChapter1 = {}));
 (0, graphql_1.registerEnumType)(AirdropChestsType, {
     name: 'AirdropChestsType',
 });
 (0, graphql_1.registerEnumType)(AirdropChestsTypeChapter1, {
     name: 'AirdropChestsTypeChapter1',
+});
+(0, graphql_1.registerEnumType)(AirdropChestsTypeOpenseaChapter1, {
+    name: 'AirdropChestsTypeOpenseaChapter1',
 });
 var AirdropTiersName;
 (function (AirdropTiersName) {
@@ -65,11 +76,37 @@ var AirdropTiersNameChapter1;
     AirdropTiersNameChapter1["B3"] = "B3";
     AirdropTiersNameChapter1["B4"] = "B4";
 })(AirdropTiersNameChapter1 || (exports.AirdropTiersNameChapter1 = AirdropTiersNameChapter1 = {}));
+var AirdropTiersNameOpenseaChapter1;
+(function (AirdropTiersNameOpenseaChapter1) {
+    AirdropTiersNameOpenseaChapter1["D5"] = "D5";
+    AirdropTiersNameOpenseaChapter1["P1"] = "P1";
+    AirdropTiersNameOpenseaChapter1["P2"] = "P2";
+    AirdropTiersNameOpenseaChapter1["P3"] = "P3";
+    AirdropTiersNameOpenseaChapter1["P4"] = "P4";
+    AirdropTiersNameOpenseaChapter1["P5"] = "P5";
+    AirdropTiersNameOpenseaChapter1["G1"] = "G1";
+    AirdropTiersNameOpenseaChapter1["G2"] = "G2";
+    AirdropTiersNameOpenseaChapter1["G3"] = "G3";
+    AirdropTiersNameOpenseaChapter1["G4"] = "G4";
+    AirdropTiersNameOpenseaChapter1["G5"] = "G5";
+    AirdropTiersNameOpenseaChapter1["S1"] = "S1";
+    AirdropTiersNameOpenseaChapter1["S2"] = "S2";
+    AirdropTiersNameOpenseaChapter1["S3"] = "S3";
+    AirdropTiersNameOpenseaChapter1["S4"] = "S4";
+    AirdropTiersNameOpenseaChapter1["S5"] = "S5";
+    AirdropTiersNameOpenseaChapter1["B1"] = "B1";
+    AirdropTiersNameOpenseaChapter1["B2"] = "B2";
+    AirdropTiersNameOpenseaChapter1["B3"] = "B3";
+    AirdropTiersNameOpenseaChapter1["B4"] = "B4";
+})(AirdropTiersNameOpenseaChapter1 || (exports.AirdropTiersNameOpenseaChapter1 = AirdropTiersNameOpenseaChapter1 = {}));
 (0, graphql_1.registerEnumType)(AirdropTiersName, {
     name: 'AirdropTiersName',
 });
 (0, graphql_1.registerEnumType)(AirdropTiersNameChapter1, {
     name: 'AirdropTiersNameChapter1',
+});
+(0, graphql_1.registerEnumType)(AirdropTiersNameOpenseaChapter1, {
+    name: 'AirdropTiersNameOpenseaChapter1',
 });
 var AirdropUsersChestsStatus;
 (function (AirdropUsersChestsStatus) {
@@ -82,10 +119,18 @@ var AirdropUsersChestsStatusChapter1;
     AirdropUsersChestsStatusChapter1["UNLOCKED"] = "UNLOCKED";
     AirdropUsersChestsStatusChapter1["CLAIMABLE"] = "CLAIMABLE";
 })(AirdropUsersChestsStatusChapter1 || (exports.AirdropUsersChestsStatusChapter1 = AirdropUsersChestsStatusChapter1 = {}));
+var AirdropUsersChestsStatusOpenseaChapter1;
+(function (AirdropUsersChestsStatusOpenseaChapter1) {
+    AirdropUsersChestsStatusOpenseaChapter1["UNLOCKED"] = "UNLOCKED";
+    AirdropUsersChestsStatusOpenseaChapter1["CLAIMABLE"] = "CLAIMABLE";
+})(AirdropUsersChestsStatusOpenseaChapter1 || (exports.AirdropUsersChestsStatusOpenseaChapter1 = AirdropUsersChestsStatusOpenseaChapter1 = {}));
 (0, graphql_1.registerEnumType)(AirdropUsersChestsStatus, {
     name: 'AirdropUsersChestsStatus',
 });
 (0, graphql_1.registerEnumType)(AirdropUsersChestsStatusChapter1, {
     name: 'AirdropUsersChestsStatusChapter1',
+});
+(0, graphql_1.registerEnumType)(AirdropUsersChestsStatusOpenseaChapter1, {
+    name: 'AirdropUsersChestsStatusOpenseaChapter1',
 });
 //# sourceMappingURL=Airdrops.enum.js.map
