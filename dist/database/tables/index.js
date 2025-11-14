@@ -103,6 +103,12 @@ __exportStar(require("./AirdropTierChapter1.entity"), exports);
 __exportStar(require("./AirdropTierDeliveryRuleChapter1.entity"), exports);
 __exportStar(require("./AirdropUserChapter1.entity"), exports);
 __exportStar(require("./AirdropUserChestChapter1.entity"), exports);
+// Airdrop Opensea Chapter 1 Schema
+__exportStar(require("./AirdropChestOpenseaChapter1.entity"), exports);
+__exportStar(require("./AirdropTierOpenseaChapter1.entity"), exports);
+__exportStar(require("./AirdropTierDeliveryRuleOpenseaChapter1.entity"), exports);
+__exportStar(require("./AirdropUserOpenseaChapter1.entity"), exports);
+__exportStar(require("./AirdropUserChestOpenseaChapter1.entity"), exports);
 __exportStar(require("./UserFeeCommission.entity"), exports);
 // Anti-bot Detection System
 __exportStar(require("./UserConnectionLog.entity"), exports);

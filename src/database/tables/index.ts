@@ -100,6 +100,13 @@ export * from './AirdropTierDeliveryRuleChapter1.entity';
 export * from './AirdropUserChapter1.entity';
 export * from './AirdropUserChestChapter1.entity';
 
+// Airdrop Opensea Chapter 1 Schema
+export * from './AirdropChestOpenseaChapter1.entity';
+export * from './AirdropTierOpenseaChapter1.entity';
+export * from './AirdropTierDeliveryRuleOpenseaChapter1.entity';
+export * from './AirdropUserOpenseaChapter1.entity';
+export * from './AirdropUserChestOpenseaChapter1.entity';
+
 export * from './UserFeeCommission.entity';
 
 // Anti-bot Detection System
