@@ -11,6 +11,7 @@ import {
 import { AirdropUserOpenseaChapter1 } from './AirdropUserOpenseaChapter1.entity';
 import { AirdropChestOpenseaChapter1 } from './AirdropChestOpenseaChapter1.entity';
 import { AirdropUsersChestsStatusOpenseaChapter1 } from '../enums/Airdrops.enum';
+import { LoyaltyRank } from './SeasonRank.entity';
 
 @ObjectType()
 @Entity({ name: 'airdrop_users_chests_opensea_chapter1' })
@@ -37,8 +38,15 @@ export class AirdropUserChestOpenseaChapter1 extends BaseEntity {
   @Column('enum', {
     enum: AirdropUsersChestsStatusOpenseaChapter1,
     enumName: 'users_chests_status_opensea_chapter1',
-    default: AirdropUsersChestsStatusOpenseaChapter1.UNLOCKED,
+    default: AirdropUsersChestsStatusOpenseaChapter1.LOCKED,
   })
   status!: AirdropUsersChestsStatusOpenseaChapter1;
-}
 
+  @Field(() => LoyaltyRank)
+  @Column('enum', {
+    enum: LoyaltyRank,
+    enumName: 'airdrop_users_chests_rank',
+    default: LoyaltyRank.BRONZE_5,
+  })
+  rank!: LoyaltyRank;
+}

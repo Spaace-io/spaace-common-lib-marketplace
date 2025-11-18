@@ -18,6 +18,9 @@ export class AirdropTierOpenseaChapter1 extends BaseEntity {
 
   @Field(() => Number)
   @Column('integer')
+  totalXp!: number;
+
+  @Field(() => Number)
+  @Column('integer')
   totalChestsCount!: number;
 }
-

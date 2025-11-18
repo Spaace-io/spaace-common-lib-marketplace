@@ -27,5 +27,20 @@ export class AirdropUserOpenseaChapter1 extends BaseEntity {
   @ManyToOne(() => AirdropTierOpenseaChapter1, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'tierId', referencedColumnName: 'id' })
   tierId!: number;
-}
 
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  tierUpgraded!: boolean;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  unlockedLevel1!: boolean;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  unlockedLevel2!: boolean;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  unlockedLevel3!: boolean;
+}

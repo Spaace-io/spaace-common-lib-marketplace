@@ -106,6 +106,7 @@ export * from './AirdropTierOpenseaChapter1.entity';
 export * from './AirdropTierDeliveryRuleOpenseaChapter1.entity';
 export * from './AirdropUserOpenseaChapter1.entity';
 export * from './AirdropUserChestOpenseaChapter1.entity';
+export * from './AirdropTierUnlockingOpenseaChapter1.entity';
 
 export * from './UserFeeCommission.entity';
 
