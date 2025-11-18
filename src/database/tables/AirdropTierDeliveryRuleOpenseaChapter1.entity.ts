@@ -33,4 +33,3 @@ export class AirdropTierDeliveryRuleOpenseaChapter1 extends BaseEntity {
   @Column('integer')
   count!: number;
 }
-

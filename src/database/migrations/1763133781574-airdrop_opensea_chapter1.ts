@@ -339,10 +339,16 @@ export class Migrations1763133781574 implements MigrationInterface {
     /**
      * OPENSEA AIRDROP DATA
      */
-    await queryRunner.query('DROP VIEW IF EXISTS "user_airdrop_chest_view_opensea_chapter1"');
+    await queryRunner.query(
+      'DROP VIEW IF EXISTS "user_airdrop_chest_view_opensea_chapter1"',
+    );
 
-    await queryRunner.query(`DROP TABLE "airdrop_tiers_unlocking_opensea_chapter1"`);
-    await queryRunner.query(`DROP TABLE "airdrop_users_chests_opensea_chapter1"`);
+    await queryRunner.query(
+      `DROP TABLE "airdrop_tiers_unlocking_opensea_chapter1"`,
+    );
+    await queryRunner.query(
+      `DROP TABLE "airdrop_users_chests_opensea_chapter1"`,
+    );
     await queryRunner.query(`DROP TYPE "users_chests_status_opensea_chapter1"`);
     await queryRunner.query(`DROP TABLE "airdrop_users_opensea_chapter1"`);
     await queryRunner.query(

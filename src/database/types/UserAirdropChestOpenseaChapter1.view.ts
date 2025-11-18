@@ -2,7 +2,10 @@ import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
 import { ethers } from 'ethers';
-import { AirdropTierOpenseaChapter1, AirdropChestOpenseaChapter1 } from '../tables';
+import {
+  AirdropTierOpenseaChapter1,
+  AirdropChestOpenseaChapter1,
+} from '../tables';
 import {
   AirdropChestsTypeOpenseaChapter1,
   AirdropUsersChestsStatusOpenseaChapter1,
@@ -49,7 +52,11 @@ import {
         'chests',
       )
       .from('airdrop_users_opensea_chapter1', 'user')
-      .innerJoin('airdrop_tiers_opensea_chapter1', 'tier', 'tier.id = user.tierId');
+      .innerJoin(
+        'airdrop_tiers_opensea_chapter1',
+        'tier',
+        'tier.id = user.tierId',
+      );
   },
   name: 'user_airdrop_chest_view_opensea_chapter1',
 })
@@ -133,4 +140,3 @@ export class UserAirdropChestLoyaltyOpenseaChapter1 {
   @Field(() => LoyaltyInfoOpenseaChapter1)
   loyalty!: LoyaltyInfoOpenseaChapter1;
 }
-

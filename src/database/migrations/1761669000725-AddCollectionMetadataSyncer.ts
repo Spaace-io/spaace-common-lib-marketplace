@@ -24,7 +24,8 @@ export class Migrations1761669000725 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE IF EXISTS "collection_metadata_syncer"`);
+    await queryRunner.query(
+      `DROP TABLE IF EXISTS "collection_metadata_syncer"`,
+    );
   }
 }
-

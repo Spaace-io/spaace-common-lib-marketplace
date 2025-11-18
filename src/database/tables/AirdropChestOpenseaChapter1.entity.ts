@@ -20,4 +20,3 @@ export class AirdropChestOpenseaChapter1 extends BaseEntity {
   @Column('integer')
   valueXp!: number;
 }
-

@@ -18,4 +18,3 @@ export class CollectionMetadataSyncer extends BaseEntity {
   @Column('boolean', { default: false })
   proceed!: boolean;
 }
-

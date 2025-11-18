@@ -38,4 +38,3 @@ export class AirdropTierUnlockingOpenseaChapter1 extends BaseEntity {
   @Column('integer')
   chestCount!: number;
 }
-
