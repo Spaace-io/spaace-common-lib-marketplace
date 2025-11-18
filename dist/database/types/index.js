@@ -35,4 +35,5 @@ __exportStar(require("./TokenBalance.view"), exports);
 __exportStar(require("./TokenTransfer.view"), exports);
 __exportStar(require("./Transfer.view"), exports);
 __exportStar(require("./UserAirdropChest.view"), exports);
+__exportStar(require("./UserAirdropChestOpenseaChapter1.view"), exports);
 //# sourceMappingURL=index.js.map

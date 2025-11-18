@@ -46,43 +46,39 @@ class Migrations1763133781574 {
             yield queryRunner.query(`SELECT setval('airdrop_chests_opensea_chapter1_id_seq', 5, true)`);
             // Create the custom enum type for airdrop tiers
             yield queryRunner.query(`
-      CREATE TYPE "airdrop_tiers_name_opensea_chapter1" AS ENUM ('D5', 'P1', 'P2', 'P3', 'P4', 'P5', 'G1', 'G2', 'G3', 'G4', 'G5', 'S1', 'S2', 'S3', 'S4', 'S5', 'B1', 'B2', 'B3', 'B4')
+      CREATE TYPE "airdrop_tiers_name_opensea_chapter1" AS ENUM ('TIER_1', 'TIER_2', 'TIER_3', 'TIER_4', 'TIER_5', 'TIER_6', 'TIER_7', 'TIER_8', 'TIER_9', 'TIER_10', 'TIER_11', 'TIER_12', 'TIER_13', 'TIER_14', 'TIER_15')
   `);
             // Create the airdrop_tiers table
             yield queryRunner.query(`
       CREATE TABLE "airdrop_tiers_opensea_chapter1" (
           "id" SERIAL NOT NULL, 
           "name" "airdrop_tiers_name_opensea_chapter1" NOT NULL, 
+          "totalXp" integer NOT NULL,
           "totalChestsCount" integer NOT NULL, 
           CONSTRAINT "PK_airdrop_tiers_opensea_chapter1_id" PRIMARY KEY ("id")
       )
   `);
-            // Insert the 20 predefined records for airdrop_tiers
+            // Insert the 15 predefined records for airdrop_tiers
             yield queryRunner.query(`
-      INSERT INTO "airdrop_tiers_opensea_chapter1" ("id", "name", "totalChestsCount") VALUES 
-      (1, 'D5', 433),
-      (2, 'P1', 396),
-      (3, 'P2', 363),
-      (4, 'P3', 284),
-      (5, 'P4', 155),
-      (6, 'P5', 136),
-      (7, 'G1', 107),
-      (8, 'G2', 99),
-      (9, 'G3', 86),
-      (10, 'G4', 75),
-      (11, 'G5', 71),
-      (12, 'S1', 53),
-      (13, 'S2', 39),
-      (14, 'S3', 35),
-      (15, 'S4', 35),
-      (16, 'S5', 38),
-      (17, 'B1', 27),
-      (18, 'B2', 26),
-      (19, 'B3', 15),
-      (20, 'B4', 5)
+      INSERT INTO "airdrop_tiers_opensea_chapter1" ("id", "name", "totalXp", "totalChestsCount") VALUES 
+      (1, 'TIER_1', 80000, 30),
+      (2, 'TIER_2', 61500, 21),
+      (3, 'TIER_3', 56000, 21),
+      (4, 'TIER_4', 48000, 18),
+      (5, 'TIER_5', 42500, 18),
+      (6, 'TIER_6', 36500, 12),
+      (7, 'TIER_7', 33000, 12),
+      (8, 'TIER_8', 29000, 13),
+      (9, 'TIER_9', 19900, 13),
+      (10, 'TIER_10', 17200, 12),
+      (11, 'TIER_11', 15000, 15),
+      (12, 'TIER_12', 12300, 12),
+      (13, 'TIER_13', 9400, 14),
+      (14, 'TIER_14', 5000, 12),
+      (15, 'TIER_15', 3200, 7)
   `);
-            // Set the sequence to start from 21 for future inserts
-            yield queryRunner.query(`SELECT setval('airdrop_tiers_opensea_chapter1_id_seq', 20, true)`);
+            // Set the sequence to start from 16 for future inserts
+            yield queryRunner.query(`SELECT setval('airdrop_tiers_opensea_chapter1_id_seq', 15, true)`);
             // Create the airdrop_tiers_delivery_rules table
             yield queryRunner.query(`
       CREATE TABLE "airdrop_tiers_delivery_rules_opensea_chapter1" (
@@ -96,49 +92,38 @@ class Migrations1763133781574 {
       )
   `);
             // Insert the delivery rules for each tier
-            // chestId mapping: 1=Mythic, 2=Legendary, 3=Epic, 4=Rare, 5=Common
             yield queryRunner.query(`
       INSERT INTO "airdrop_tiers_delivery_rules_opensea_chapter1" ("tierId", "chestId", "count") VALUES 
-      -- D5: 156 Mythic, 96 Legendary, 92 Epic, 89 Rare
-      (1, 1, 156), (1, 2, 96), (1, 3, 92), (1, 4, 89),
-      -- P1: 99 Mythic, 99 Legendary, 99 Epic, 99 Rare
-      (2, 1, 99), (2, 2, 99), (2, 3, 99), (2, 4, 99),
-      -- P2: 77 Mythic, 99 Legendary, 88 Epic, 99 Rare
-      (3, 1, 77), (3, 2, 99), (3, 3, 88), (3, 4, 99),
-      -- P3: 64 Mythic, 58 Legendary, 88 Epic, 74 Rare
-      (4, 1, 64), (4, 2, 58), (4, 3, 88), (4, 4, 74),
-      -- P4: 45 Mythic, 62 Legendary, 25 Epic, 23 Rare
-      (5, 1, 45), (5, 2, 62), (5, 3, 25), (5, 4, 23),
-      -- P5: 34 Mythic, 49 Legendary, 29 Epic, 24 Rare
-      (6, 1, 34), (6, 2, 49), (6, 3, 29), (6, 4, 24),
-      -- G1: 29 Mythic, 15 Legendary, 31 Epic, 32 Rare
-      (7, 1, 29), (7, 2, 15), (7, 3, 31), (7, 4, 32),
-      -- G2: 22 Mythic, 15 Legendary, 31 Epic, 31 Rare
-      (8, 1, 22), (8, 2, 15), (8, 3, 31), (8, 4, 31),
-      -- G3: 15 Mythic, 18 Legendary, 34 Epic, 19 Rare
-      (9, 1, 15), (9, 2, 18), (9, 3, 34), (9, 4, 19),
-      -- G4: 9 Mythic, 21 Legendary, 34 Epic, 11 Rare
-      (10, 1, 9), (10, 2, 21), (10, 3, 34), (10, 4, 11),
-      -- G5: 7 Mythic, 14 Legendary, 32 Epic, 18 Rare
-      (11, 1, 7), (11, 2, 14), (11, 3, 32), (11, 4, 18),
-      -- S1: 6 Mythic, 9 Legendary, 19 Epic, 19 Rare
-      (12, 1, 6), (12, 2, 9), (12, 3, 19), (12, 4, 19),
-      -- S2: 5 Mythic, 6 Legendary, 3 Epic, 25 Rare
-      (13, 1, 5), (13, 2, 6), (13, 3, 3), (13, 4, 25),
-      -- S3: 3 Mythic, 6 Legendary, 5 Epic, 21 Rare
-      (14, 1, 3), (14, 2, 6), (14, 3, 5), (14, 4, 21),
-      -- S4: 2 Mythic, 3 Legendary, 9 Epic, 21 Rare
-      (15, 1, 2), (15, 2, 3), (15, 3, 9), (15, 4, 21),
-      -- S5: 6 Legendary, 10 Epic, 17 Rare, 5 Common
-      (16, 2, 6), (16, 3, 10), (16, 4, 17), (16, 5, 5),
-      -- B1: 5 Legendary, 7 Epic, 8 Rare, 7 Common
-      (17, 2, 5), (17, 3, 7), (17, 4, 8), (17, 5, 7),
-      -- B2: 3 Legendary, 4 Epic, 5 Rare, 14 Common
-      (18, 2, 3), (18, 3, 4), (18, 4, 5), (18, 5, 14),
-      -- B3: 2 Legendary, 2 Epic, 3 Rare, 8 Common
-      (19, 2, 2), (19, 3, 2), (19, 4, 3), (19, 5, 8),
-      -- B4: 1 Legendary, 1 Epic, 2 Rare, 1 Common
-      (20, 2, 1), (20, 3, 1), (20, 4, 2), (20, 5, 1)
+      -- TIER_1: 10 Mythic, 10 Legendary, 10 Epic
+      (1, 1, 10), (1, 2, 10), (1, 3, 10),
+      -- TIER_2: 8 Mythic, 7 Legendary, 6 Epic
+      (2, 1, 8), (2, 2, 7), (2, 3, 6),
+      -- TIER_3: 7 Mythic, 7 Legendary, 7 Epic
+      (3, 1, 7), (3, 2, 7), (3, 3, 7),
+      -- TIER_4: 6 Mythic, 6 Legendary, 6 Epic
+      (4, 1, 6), (4, 2, 6), (4, 3, 6),
+      -- TIER_5: 5 Mythic, 6 Legendary, 7 Epic
+      (5, 1, 5), (5, 2, 6), (5, 3, 7),
+      -- TIER_6: 5 Mythic, 3 Legendary, 4 Epic
+      (6, 1, 5), (6, 2, 3), (6, 3, 4),
+      -- TIER_7: 4 Mythic, 5 Legendary, 3 Epic
+      (7, 1, 4), (7, 2, 5), (7, 3, 3),
+      -- TIER_8: 3 Mythic, 6 Legendary, 4 Epic
+      (8, 1, 3), (8, 2, 6), (8, 3, 4),
+      -- TIER_9: 2 Mythic, 4 Legendary, 3 Epic, 4 Rare
+      (9, 1, 2), (9, 2, 4), (9, 3, 3), (9, 4, 4),
+      -- TIER_10: 2 Mythic, 1 Legendary, 7 Epic, 2 Rare
+      (10, 1, 2), (10, 2, 1), (10, 3, 7), (10, 4, 2),
+      -- TIER_11: 1 Mythic, 4 Legendary, 5 Epic, 5 Rare
+      (11, 1, 1), (11, 2, 4), (11, 3, 5), (11, 4, 5),
+      -- TIER_12: 1 Mythic, 2 Legendary, 6 Epic, 3 Rare
+      (12, 1, 1), (12, 2, 2), (12, 3, 6), (12, 4, 3),
+      -- TIER_13: 5 Legendary, 3 Epic, 2 Rare, 4 Common
+      (13, 2, 5), (13, 3, 3), (13, 4, 2), (13, 5, 4),
+      -- TIER_14: 2 Legendary, 3 Epic, 3 Rare, 4 Common
+      (14, 2, 2), (14, 3, 3), (14, 4, 3), (14, 5, 4),
+      -- TIER_15: 1 Legendary, 3 Epic, 1 Rare, 2 Common
+      (15, 2, 1), (15, 3, 3), (15, 4, 1), (15, 5, 2)
   `);
             // Create the airdrop_users table
             yield queryRunner.query(`
@@ -146,6 +131,10 @@ class Migrations1763133781574 {
           "id" SERIAL NOT NULL, 
           "address" character varying NOT NULL, 
           "tierId" integer NOT NULL, 
+          "unlockedLevel1" boolean NOT NULL DEFAULT false,
+          "unlockedLevel2" boolean NOT NULL DEFAULT false,
+          "unlockedLevel3" boolean NOT NULL DEFAULT false,
+          "tierUpgraded" boolean NOT NULL DEFAULT false,
           CONSTRAINT "PK_airdrop_users_opensea_chapter1_id" PRIMARY KEY ("id"),
           CONSTRAINT "UQ_airdrop_users_opensea_chapter1_address" UNIQUE ("address"),
           CONSTRAINT "FK_airdrop_users_opensea_chapter1_tierId" FOREIGN KEY ("tierId") REFERENCES "airdrop_tiers_opensea_chapter1"("id") ON DELETE CASCADE ON UPDATE NO ACTION
@@ -155,7 +144,7 @@ class Migrations1763133781574 {
             yield queryRunner.query(`CREATE INDEX "IDX_airdrop_users_opensea_chapter1_address" ON "airdrop_users_opensea_chapter1" ("address")`);
             // Create the custom enum type for users chests status
             yield queryRunner.query(`
-      CREATE TYPE "users_chests_status_opensea_chapter1" AS ENUM ('UNLOCKED', 'CLAIMABLE')
+      CREATE TYPE "users_chests_status_opensea_chapter1" AS ENUM ('LOCKED', 'UNLOCKED', 'CLAIMABLE')
   `);
             // Create the airdrop_users_chests table
             yield queryRunner.query(`
@@ -163,7 +152,8 @@ class Migrations1763133781574 {
           "id" SERIAL NOT NULL, 
           "address" character varying NOT NULL, 
           "chestId" integer NOT NULL,
-          "status" "users_chests_status_opensea_chapter1" NOT NULL DEFAULT 'UNLOCKED', 
+          "status" "users_chests_status_opensea_chapter1" NOT NULL DEFAULT 'LOCKED', 
+          "rank" "rank" NOT NULL DEFAULT 'BRONZE_5',
           CONSTRAINT "PK_airdrop_users_chests_opensea_chapter1_id" PRIMARY KEY ("id"),
           CONSTRAINT "FK_airdrop_users_chests_opensea_chapter1_address" FOREIGN KEY ("address") REFERENCES "airdrop_users_opensea_chapter1"("address") ON DELETE CASCADE ON UPDATE NO ACTION,
           CONSTRAINT "FK_airdrop_users_chests_opensea_chapter1_chestId" FOREIGN KEY ("chestId") REFERENCES "airdrop_chests_opensea_chapter1"("id") ON DELETE CASCADE ON UPDATE NO ACTION
@@ -172,6 +162,159 @@ class Migrations1763133781574 {
             // Create indexes for faster lookups
             yield queryRunner.query(`CREATE INDEX "IDX_airdrop_users_chests_opensea_chapter1_address" ON "airdrop_users_chests_opensea_chapter1" ("address")`);
             yield queryRunner.query(`CREATE INDEX "IDX_airdrop_users_chests_opensea_chapter1_status" ON "airdrop_users_chests_opensea_chapter1" ("status")`);
+            // Create the airdrop_tiers_unlocking table
+            yield queryRunner.query(`
+      CREATE TABLE "airdrop_tiers_unlocking_opensea_chapter1" (
+          "id" SERIAL NOT NULL, 
+          "tierId" integer NOT NULL, 
+          "rank" "rank" NOT NULL,
+          "chestId" integer NOT NULL,
+          "chestCount" integer NOT NULL, 
+          CONSTRAINT "PK_airdrop_tiers_unlocking_opensea_chapter1_id" PRIMARY KEY ("id"),
+          CONSTRAINT "FK_airdrop_tiers_unlocking_opensea_chapter1_tierId" FOREIGN KEY ("tierId") REFERENCES "airdrop_tiers_opensea_chapter1"("id") ON DELETE CASCADE ON UPDATE NO ACTION,
+          CONSTRAINT "FK_airdrop_tiers_unlocking_opensea_chapter1_chestId" FOREIGN KEY ("chestId") REFERENCES "airdrop_chests_opensea_chapter1"("id") ON DELETE CASCADE ON UPDATE NO ACTION
+      )
+  `);
+            // Insert the unlocking rules for all tiers and ranks
+            yield queryRunner.query(`
+      INSERT INTO "airdrop_tiers_unlocking_opensea_chapter1" ("tierId", "rank", "chestId", "chestCount") VALUES 
+      -- TIER_1 BRONZE_3: 3 Mythic, 4 Legendary, 4 Epic
+      (1, 'BRONZE_3', 1, 3), (1, 'BRONZE_3', 2, 4), (1, 'BRONZE_3', 3, 4),
+      -- TIER_1 SILVER_1: 3 Mythic, 4 Legendary, 4 Epic
+      (1, 'SILVER_1', 1, 3), (1, 'SILVER_1', 2, 4), (1, 'SILVER_1', 3, 4),
+      -- TIER_1 GOLD_3: 4 Mythic, 2 Legendary, 2 Epic
+      (1, 'GOLD_3', 1, 4), (1, 'GOLD_3', 2, 2), (1, 'GOLD_3', 3, 2),
+      
+      -- TIER_2 BRONZE_3: 2 Mythic, 2 Legendary, 3 Epic
+      (2, 'BRONZE_3', 1, 2), (2, 'BRONZE_3', 2, 2), (2, 'BRONZE_3', 3, 3),
+      -- TIER_2 SILVER_1: 3 Mythic, 3 Legendary, 1 Epic
+      (2, 'SILVER_1', 1, 3), (2, 'SILVER_1', 2, 3), (2, 'SILVER_1', 3, 1),
+      -- TIER_2 GOLD_3: 3 Mythic, 2 Legendary, 2 Epic
+      (2, 'GOLD_3', 1, 3), (2, 'GOLD_3', 2, 2), (2, 'GOLD_3', 3, 2),
+      
+      -- TIER_3 BRONZE_3: 2 Mythic, 3 Legendary, 3 Epic
+      (3, 'BRONZE_3', 1, 2), (3, 'BRONZE_3', 2, 3), (3, 'BRONZE_3', 3, 3),
+      -- TIER_3 SILVER_1: 3 Mythic, 2 Legendary, 2 Epic
+      (3, 'SILVER_1', 1, 3), (3, 'SILVER_1', 2, 2), (3, 'SILVER_1', 3, 2),
+      -- TIER_3 GOLD_3: 2 Mythic, 2 Legendary, 2 Epic
+      (3, 'GOLD_3', 1, 2), (3, 'GOLD_3', 2, 2), (3, 'GOLD_3', 3, 2),
+      
+      -- TIER_4 BRONZE_3: 2 Mythic, 2 Legendary, 2 Epic
+      (4, 'BRONZE_3', 1, 2), (4, 'BRONZE_3', 2, 2), (4, 'BRONZE_3', 3, 2),
+      -- TIER_4 SILVER_1: 2 Mythic, 3 Legendary, 3 Epic
+      (4, 'SILVER_1', 1, 2), (4, 'SILVER_1', 2, 3), (4, 'SILVER_1', 3, 3),
+      -- TIER_4 GOLD_3: 2 Mythic, 1 Legendary, 1 Epic
+      (4, 'GOLD_3', 1, 2), (4, 'GOLD_3', 2, 1), (4, 'GOLD_3', 3, 1),
+      
+      -- TIER_5 BRONZE_3: 2 Mythic, 1 Legendary, 3 Epic
+      (5, 'BRONZE_3', 1, 2), (5, 'BRONZE_3', 2, 1), (5, 'BRONZE_3', 3, 3),
+      -- TIER_5 SILVER_1: 2 Mythic, 1 Legendary, 2 Epic
+      (5, 'SILVER_1', 1, 2), (5, 'SILVER_1', 2, 1), (5, 'SILVER_1', 3, 2),
+      -- TIER_5 GOLD_3: 1 Mythic, 4 Legendary, 2 Epic
+      (5, 'GOLD_3', 1, 1), (5, 'GOLD_3', 2, 4), (5, 'GOLD_3', 3, 2),
+      
+      -- TIER_6 BRONZE_3: 2 Mythic, 1 Legendary
+      (6, 'BRONZE_3', 1, 2), (6, 'BRONZE_3', 2, 1),
+      -- TIER_6 SILVER_1: 2 Mythic, 1 Epic
+      (6, 'SILVER_1', 1, 2), (6, 'SILVER_1', 3, 1),
+      -- TIER_6 GOLD_3: 1 Mythic, 2 Legendary, 3 Epic
+      (6, 'GOLD_3', 1, 1), (6, 'GOLD_3', 2, 2), (6, 'GOLD_3', 3, 3),
+      
+      -- TIER_7 BRONZE_3: 1 Mythic, 2 Legendary, 1 Epic
+      (7, 'BRONZE_3', 1, 1), (7, 'BRONZE_3', 2, 2), (7, 'BRONZE_3', 3, 1),
+      -- TIER_7 SILVER_1: 2 Mythic, 1 Legendary, 1 Epic
+      (7, 'SILVER_1', 1, 2), (7, 'SILVER_1', 2, 1), (7, 'SILVER_1', 3, 1),
+      -- TIER_7 GOLD_3: 1 Mythic, 2 Legendary, 1 Epic
+      (7, 'GOLD_3', 1, 1), (7, 'GOLD_3', 2, 2), (7, 'GOLD_3', 3, 1),
+      
+      -- TIER_8 BRONZE_3: 1 Mythic, 3 Legendary
+      (8, 'BRONZE_3', 1, 1), (8, 'BRONZE_3', 2, 3),
+      -- TIER_8 SILVER_1: 1 Mythic, 2 Legendary, 1 Epic
+      (8, 'SILVER_1', 1, 1), (8, 'SILVER_1', 2, 2), (8, 'SILVER_1', 3, 1),
+      -- TIER_8 GOLD_3: 1 Mythic, 1 Legendary, 3 Epic
+      (8, 'GOLD_3', 1, 1), (8, 'GOLD_3', 2, 1), (8, 'GOLD_3', 3, 3),
+      
+      -- TIER_9 BRONZE_3: 2 Legendary, 2 Epic, 1 Rare
+      (9, 'BRONZE_3', 2, 2), (9, 'BRONZE_3', 3, 2), (9, 'BRONZE_3', 4, 1),
+      -- TIER_9 SILVER_1: 1 Mythic, 1 Legendary, 1 Epic
+      (9, 'SILVER_1', 1, 1), (9, 'SILVER_1', 2, 1), (9, 'SILVER_1', 3, 1),
+      -- TIER_9 GOLD_3: 1 Mythic, 1 Legendary, 3 Rare
+      (9, 'GOLD_3', 1, 1), (9, 'GOLD_3', 2, 1), (9, 'GOLD_3', 4, 3),
+      
+      -- TIER_10 BRONZE_3: 1 Legendary, 3 Epic, 2 Rare
+      (10, 'BRONZE_3', 2, 1), (10, 'BRONZE_3', 3, 3), (10, 'BRONZE_3', 4, 2),
+      -- TIER_10 SILVER_1: 1 Mythic, 3 Epic
+      (10, 'SILVER_1', 1, 1), (10, 'SILVER_1', 3, 3),
+      -- TIER_10 GOLD_3: 1 Mythic, 1 Epic
+      (10, 'GOLD_3', 1, 1), (10, 'GOLD_3', 3, 1),
+      
+      -- TIER_11 BRONZE_3: 1 Legendary, 3 Epic, 3 Rare
+      (11, 'BRONZE_3', 2, 1), (11, 'BRONZE_3', 3, 3), (11, 'BRONZE_3', 4, 3),
+      -- TIER_11 SILVER_1: 1 Mythic, 1 Epic, 1 Rare
+      (11, 'SILVER_1', 1, 1), (11, 'SILVER_1', 3, 1), (11, 'SILVER_1', 4, 1),
+      -- TIER_11 GOLD_3: 3 Legendary, 1 Epic, 1 Rare
+      (11, 'GOLD_3', 2, 3), (11, 'GOLD_3', 3, 1), (11, 'GOLD_3', 4, 1),
+      
+      -- TIER_12 BRONZE_3: 1 Legendary, 2 Epic, 1 Rare
+      (12, 'BRONZE_3', 2, 1), (12, 'BRONZE_3', 3, 2), (12, 'BRONZE_3', 4, 1),
+      -- TIER_12 SILVER_1: 1 Mythic, 1 Epic
+      (12, 'SILVER_1', 1, 1), (12, 'SILVER_1', 3, 1),
+      -- TIER_12 GOLD_3: 1 Legendary, 3 Epic, 2 Rare
+      (12, 'GOLD_3', 2, 1), (12, 'GOLD_3', 3, 3), (12, 'GOLD_3', 4, 2),
+      
+      -- TIER_13 BRONZE_3: 1 Legendary, 1 Epic, 2 Common
+      (13, 'BRONZE_3', 2, 1), (13, 'BRONZE_3', 3, 1), (13, 'BRONZE_3', 5, 2),
+      -- TIER_13 SILVER_1: 2 Legendary, 1 Epic, 2 Common
+      (13, 'SILVER_1', 2, 2), (13, 'SILVER_1', 3, 1), (13, 'SILVER_1', 5, 2),
+      -- TIER_13 GOLD_3: 2 Legendary, 1 Epic, 2 Rare
+      (13, 'GOLD_3', 2, 2), (13, 'GOLD_3', 3, 1), (13, 'GOLD_3', 4, 2),
+      
+      -- TIER_14 BRONZE_3: 2 Epic, 1 Rare, 3 Common
+      (14, 'BRONZE_3', 3, 2), (14, 'BRONZE_3', 4, 1), (14, 'BRONZE_3', 5, 3),
+      -- TIER_14 SILVER_1: 1 Legendary, 1 Rare, 1 Common
+      (14, 'SILVER_1', 2, 1), (14, 'SILVER_1', 4, 1), (14, 'SILVER_1', 5, 1),
+      -- TIER_14 GOLD_3: 1 Legendary, 1 Epic, 1 Rare
+      (14, 'GOLD_3', 2, 1), (14, 'GOLD_3', 3, 1), (14, 'GOLD_3', 4, 1),
+      
+      -- TIER_15 BRONZE_3: 1 Epic, 1 Rare, 1 Common
+      (15, 'BRONZE_3', 3, 1), (15, 'BRONZE_3', 4, 1), (15, 'BRONZE_3', 5, 1),
+      -- TIER_15 SILVER_1: 2 Epic, 1 Common
+      (15, 'SILVER_1', 3, 2), (15, 'SILVER_1', 5, 1),
+      -- TIER_15 GOLD_3: 1 Legendary
+      (15, 'GOLD_3', 2, 1)
+  `);
+            yield queryRunner.query(`
+    CREATE VIEW "user_airdrop_chest_view_opensea_chapter1" AS
+    SELECT 
+      u.address,
+      jsonb_build_object(
+        'id', t.id,
+        'name', t.name,
+        'totalXp', t."totalXp",
+        'totalChestsCount', t."totalChestsCount"
+      ) as tier,
+      (
+        SELECT jsonb_agg(
+          jsonb_build_object(
+            'id', c.id,
+            'name', c.name,
+            'valueXp', c."valueXp",
+            'status', uc.status,
+            'tier', jsonb_build_object(
+              'id', t.id,
+              'name', t.name,
+              'totalXp', t."totalXp",
+              'totalChestsCount', t."totalChestsCount"
+            )
+          )
+        )
+        FROM "airdrop_users_chests_opensea_chapter1" uc
+        INNER JOIN "airdrop_chests_opensea_chapter1" c ON c.id = uc."chestId"
+        WHERE uc.address = u.address
+      ) as chests
+    FROM "airdrop_users_opensea_chapter1" u
+    INNER JOIN "airdrop_tiers_opensea_chapter1" t ON t.id = u."tierId"
+  `);
         });
     }
     down(queryRunner) {
@@ -179,6 +322,8 @@ class Migrations1763133781574 {
             /**
              * OPENSEA AIRDROP DATA
              */
+            yield queryRunner.query('DROP VIEW IF EXISTS "user_airdrop_chest_view_opensea_chapter1"');
+            yield queryRunner.query(`DROP TABLE "airdrop_tiers_unlocking_opensea_chapter1"`);
             yield queryRunner.query(`DROP TABLE "airdrop_users_chests_opensea_chapter1"`);
             yield queryRunner.query(`DROP TYPE "users_chests_status_opensea_chapter1"`);
             yield queryRunner.query(`DROP TABLE "airdrop_users_opensea_chapter1"`);

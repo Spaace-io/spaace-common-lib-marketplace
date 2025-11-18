@@ -33,6 +33,11 @@ __decorate([
     (0, graphql_1.Field)(() => Number),
     (0, typeorm_1.Column)('integer'),
     __metadata("design:type", Number)
+], AirdropTierOpenseaChapter1.prototype, "totalXp", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Number),
+    (0, typeorm_1.Column)('integer'),
+    __metadata("design:type", Number)
 ], AirdropTierOpenseaChapter1.prototype, "totalChestsCount", void 0);
 exports.AirdropTierOpenseaChapter1 = AirdropTierOpenseaChapter1 = __decorate([
     (0, graphql_1.ObjectType)(),

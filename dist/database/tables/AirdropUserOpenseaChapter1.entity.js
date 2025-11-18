@@ -33,6 +33,26 @@ __decorate([
     (0, typeorm_1.JoinColumn)({ name: 'tierId', referencedColumnName: 'id' }),
     __metadata("design:type", Number)
 ], AirdropUserOpenseaChapter1.prototype, "tierId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    __metadata("design:type", Boolean)
+], AirdropUserOpenseaChapter1.prototype, "tierUpgraded", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    __metadata("design:type", Boolean)
+], AirdropUserOpenseaChapter1.prototype, "unlockedLevel1", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    __metadata("design:type", Boolean)
+], AirdropUserOpenseaChapter1.prototype, "unlockedLevel2", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    __metadata("design:type", Boolean)
+], AirdropUserOpenseaChapter1.prototype, "unlockedLevel3", void 0);
 exports.AirdropUserOpenseaChapter1 = AirdropUserOpenseaChapter1 = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'airdrop_users_opensea_chapter1' }),

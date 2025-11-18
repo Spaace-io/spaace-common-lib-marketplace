@@ -23,7 +23,11 @@ var QuestTrigger;
     QuestTrigger["UNISWAP"] = "UNISWAP";
     QuestTrigger["TRANSFER"] = "TRANSFER";
     QuestTrigger["SALE"] = "SALE";
+    // Order related triggers
     QuestTrigger["ORDER"] = "ORDER";
+    QuestTrigger["CANCEL_ORDER"] = "CANCEL_ORDER";
+    QuestTrigger["FILLED_ORDER"] = "FILLED_ORDER";
+    QuestTrigger["INACTIVE_ORDER"] = "INACTIVE_ORDER";
     QuestTrigger["USER"] = "USER";
     QuestTrigger["STAKING_DEPOSIT"] = "STAKING_DEPOSIT";
     QuestTrigger["DISTRIBUTOR_REWARD"] = "DISTRIBUTOR_REWARD";
