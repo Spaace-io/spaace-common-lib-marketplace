@@ -39,6 +39,7 @@ var QuestTrigger;
     QuestTrigger["QUEST_COMPLETED"] = "QUEST_COMPLETED";
     QuestTrigger["REFERRER"] = "REFERRER";
     QuestTrigger["COLLECTION_ROYALTY"] = "COLLECTION_ROYALTY";
+    QuestTrigger["SALE_UPDATED"] = "SALE_UPDATED";
 })(QuestTrigger || (exports.QuestTrigger = QuestTrigger = {}));
 (0, graphql_1.registerEnumType)(QuestTrigger, {
     name: 'QuestTrigger',
