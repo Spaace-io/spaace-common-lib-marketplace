@@ -109,6 +109,7 @@ export * from './AirdropUserChestOpenseaChapter1.entity';
 export * from './AirdropTierUnlockingOpenseaChapter1.entity';
 
 export * from './UserFeeCommission.entity';
+export * from './ReferralRewardClaims.entity';
 
 // Anti-bot Detection System
 export * from './UserConnectionLog.entity';

@@ -111,6 +111,7 @@ __exportStar(require("./AirdropUserOpenseaChapter1.entity"), exports);
 __exportStar(require("./AirdropUserChestOpenseaChapter1.entity"), exports);
 __exportStar(require("./AirdropTierUnlockingOpenseaChapter1.entity"), exports);
 __exportStar(require("./UserFeeCommission.entity"), exports);
+__exportStar(require("./ReferralRewardClaims.entity"), exports);
 // Anti-bot Detection System
 __exportStar(require("./UserConnectionLog.entity"), exports);
 __exportStar(require("./IpIntelligence.entity"), exports);

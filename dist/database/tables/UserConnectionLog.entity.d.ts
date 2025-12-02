@@ -5,7 +5,7 @@ export declare class UserConnectionLog extends BaseEntity {
     ipAddress: string;
     fingerprint: string | null;
     actionType: string;
-    actionData: Record<string, any> | null;
+    actionData: Record<string, unknown> | null;
     timestamp: Date;
     suspicious: boolean;
 }

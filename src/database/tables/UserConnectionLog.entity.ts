@@ -42,7 +42,7 @@ export class UserConnectionLog extends BaseEntity {
 
   @Field(() => String, { nullable: true })
   @Column('jsonb', { nullable: true })
-  actionData!: Record<string, any> | null;
+  actionData!: Record<string, unknown> | null;
 
   @Field(() => Date)
   @Column('timestamptz', { default: () => 'NOW()' })
