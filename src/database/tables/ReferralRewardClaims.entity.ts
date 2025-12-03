@@ -36,13 +36,6 @@ export class ReferralRewardClaims extends BaseEntity {
   referrerAddress: string; // Referrer address
 
   @Field(() => String)
-  @Column('char')
-  @Transform(({ value }) => ethers.utils.getAddress(value), {
-    toPlainOnly: true,
-  })
-  recipientAddress: string; // Recipient address
-
-  @Field(() => String)
   @Column('numeric', { precision: 78 })
   amount: string; // Amount in Wei
 

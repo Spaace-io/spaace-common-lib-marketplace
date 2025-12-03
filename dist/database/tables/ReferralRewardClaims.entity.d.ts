@@ -7,7 +7,6 @@ export declare enum ClaimStatus {
 export declare class ReferralRewardClaims extends BaseEntity {
     id: string;
     referrerAddress: string;
-    recipientAddress: string;
     amount: string;
     status: ClaimStatus;
     txHash: string | null;

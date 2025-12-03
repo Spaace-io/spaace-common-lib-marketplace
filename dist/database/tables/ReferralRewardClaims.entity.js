@@ -41,14 +41,6 @@ __decorate([
 ], ReferralRewardClaims.prototype, "referrerAddress", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('char'),
-    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
-        toPlainOnly: true,
-    }),
-    __metadata("design:type", String)
-], ReferralRewardClaims.prototype, "recipientAddress", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', { precision: 78 }),
     __metadata("design:type", String)
 ], ReferralRewardClaims.prototype, "amount", void 0);

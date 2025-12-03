@@ -18,11 +18,10 @@ class ReferralRewardClaims1764688943000 {
         return __awaiter(this, void 0, void 0, function* () {
             // Create enum for claim status
             yield queryRunner.query(`CREATE TYPE "claim_status" AS ENUM('pending', 'completed', 'failed')`);
-            // Create referral_reward_claims table
+            // Create referral_reward_claims table (removed a field)
             yield queryRunner.query(`CREATE TABLE "referral_reward_claims" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
         "referrerAddress" character(40) NOT NULL,
-        "recipientAddress" character(40) NOT NULL,
         "amount" numeric(78) NOT NULL,
         "status" "claim_status" NOT NULL DEFAULT 'pending',
         "txHash" character(66),
