@@ -20,6 +20,9 @@ var ClaimStatus;
     ClaimStatus["COMPLETED"] = "completed";
     ClaimStatus["FAILED"] = "failed";
 })(ClaimStatus || (exports.ClaimStatus = ClaimStatus = {}));
+(0, graphql_1.registerEnumType)(ClaimStatus, {
+    name: 'ClaimStatus',
+});
 let ReferralRewardClaims = class ReferralRewardClaims extends typeorm_1.BaseEntity {
 };
 exports.ReferralRewardClaims = ReferralRewardClaims;
@@ -75,7 +78,7 @@ __decorate([
 exports.ReferralRewardClaims = ReferralRewardClaims = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({
-        name: 'referral_rewards_claims',
+        name: 'referral_reward_claims',
     })
 ], ReferralRewardClaims);
 //# sourceMappingURL=ReferralRewardClaims.entity.js.map

@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Transform } from 'class-transformer';
 import { ethers } from 'ethers';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 
 export enum ClaimStatus {
   PENDING = 'pending', // Pending claim
@@ -15,9 +15,13 @@ export enum ClaimStatus {
   FAILED = 'failed', // Failed to claim
 }
 
+registerEnumType(ClaimStatus, {
+  name: 'ClaimStatus',
+});
+
 @ObjectType()
 @Entity({
-  name: 'referral_rewards_claims',
+  name: 'referral_reward_claims',
 })
 export class ReferralRewardClaims extends BaseEntity {
   @Field(() => String)
