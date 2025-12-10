@@ -239,13 +239,13 @@ __decorate([
 ], TournamentParticipant.prototype, "address", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('bigint', {
+    (0, typeorm_1.Column)('numeric', {
+        precision: 78,
         name: 'score',
         comment: 'Current player progress (e.g., trading volume in Wei) (stored as string)',
         default: '0',
     }),
     (0, class_transformer_1.Transform)(({ value }) => {
-        // Конвертируем wei в ETH при чтении из БД
         return ethers_1.ethers.utils.formatEther(value || '0');
     }, { toPlainOnly: true }),
     __metadata("design:type", String)

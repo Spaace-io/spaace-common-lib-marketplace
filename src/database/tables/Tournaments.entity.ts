@@ -208,7 +208,8 @@ export class TournamentParticipant extends BaseEntity {
   address!: string;
 
   @Field(() => String)
-  @Column('bigint', {
+  @Column('numeric', {
+    precision: 78,
     name: 'score',
     comment:
       'Current player progress (e.g., trading volume in Wei) (stored as string)',
@@ -216,12 +217,11 @@ export class TournamentParticipant extends BaseEntity {
   })
   @Transform(
     ({ value }) => {
-      // Конвертируем wei в ETH при чтении из БД
       return ethers.utils.formatEther(value || '0');
     },
     { toPlainOnly: true },
   )
-  score!: string; // В БД хранится в wei, при чтении возвращается в ETH
+  score!: string;
 
   @Field(() => Number)
   @Column('integer', {

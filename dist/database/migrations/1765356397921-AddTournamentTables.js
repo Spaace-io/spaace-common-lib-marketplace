@@ -61,8 +61,8 @@ class AddTournamentTables1765356397921 {
             CREATE TABLE "tournament_participants" (
                 "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                 "tournament_id" uuid NOT NULL,
-                "address" char NOT NULL,
-                "score" bigint NOT NULL DEFAULT '0',
+                "address" char(40) NOT NULL,
+                "score" numeric(78) NOT NULL DEFAULT '0',
                 "place" integer,
                 "count_purchases" integer NOT NULL,
                 "created_at" timestamp without time zone NOT NULL DEFAULT now(),
