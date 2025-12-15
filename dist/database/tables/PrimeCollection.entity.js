@@ -15,9 +15,17 @@ let PrimeCollectionEntity = class PrimeCollectionEntity extends typeorm_1.BaseEn
 };
 exports.PrimeCollectionEntity = PrimeCollectionEntity;
 __decorate([
-    (0, typeorm_1.PrimaryColumn)('char', { length: 40 }),
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    __metadata("design:type", Number)
+], PrimeCollectionEntity.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)('char', { length: 40 }),
     __metadata("design:type", String)
 ], PrimeCollectionEntity.prototype, "collectionAddress", void 0);
+__decorate([
+    (0, typeorm_1.Column)('numrange', { nullable: true }),
+    __metadata("design:type", Object)
+], PrimeCollectionEntity.prototype, "tokenIdRange", void 0);
 __decorate([
     (0, typeorm_1.Column)('boolean', { default: false }),
     __metadata("design:type", Boolean)

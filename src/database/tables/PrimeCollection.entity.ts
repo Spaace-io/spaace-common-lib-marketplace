@@ -1,9 +1,15 @@
-import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'prime_collections' })
 export class PrimeCollectionEntity extends BaseEntity {
-  @PrimaryColumn('char', { length: 40 })
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column('char', { length: 40 })
   collectionAddress!: string;
+
+  @Column('numrange', { nullable: true })
+  tokenIdRange!: string | null;
 
   @Column('boolean', { default: false })
   isPrime!: boolean;
