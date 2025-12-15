@@ -2,6 +2,7 @@ import { BaseEntity } from 'typeorm';
 import { AccessLevel } from '../enums/AccessLevel.enum';
 import { EmailStatus } from '../enums/EmailStatus.enum';
 import { UserStatus } from '../enums/UserStatus.enum';
+import { TournamentParticipant, TournamentResult } from './Tournaments.entity';
 export declare class User extends BaseEntity {
     address: string;
     name: string | null;
@@ -44,4 +45,6 @@ export declare class User extends BaseEntity {
     creationFingerprint: string | null;
     lastConnectionIP: string | null;
     lastConnectionAt: Date | null;
+    tournamentResults: TournamentResult[];
+    tournamentParticipants: TournamentParticipant[];
 }

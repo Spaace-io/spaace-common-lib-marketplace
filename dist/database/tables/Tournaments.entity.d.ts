@@ -1,5 +1,7 @@
 import { BaseEntity } from 'typeorm';
 import { TournamentStatus } from '../enums/TournamentStatus.enum';
+import { UserXpLog } from './UserXpLog.entity';
+import { User } from './User.entity';
 export declare class TournamentsEntity extends BaseEntity {
     id: string;
     name: string;
@@ -13,6 +15,7 @@ export declare class TournamentsEntity extends BaseEntity {
     rewardBrackets: TournamentRewardBracket[];
     results: TournamentResult[];
     participants: TournamentParticipant[];
+    userXpLogs: UserXpLog[];
 }
 export declare class TournamentRewardBracket extends BaseEntity {
     id: string;
@@ -30,6 +33,7 @@ export declare class TournamentResult extends BaseEntity {
     tournamentId: string;
     tournament: TournamentsEntity;
     address: string;
+    user: User;
     finalPlace: number;
     rewardXp: string;
     score: string;
@@ -42,8 +46,9 @@ export declare class TournamentParticipant extends BaseEntity {
     tournamentId: string;
     tournament: TournamentsEntity;
     address: string;
+    user: User;
     score: string;
-    place: number | null;
+    place: number;
     countPurchases: number;
     createdAt: Date;
     updatedAt: Date;

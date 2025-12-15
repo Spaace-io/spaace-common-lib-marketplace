@@ -15,6 +15,8 @@ const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
 const TournamentStatus_enum_1 = require("../enums/TournamentStatus.enum");
+const UserXpLog_entity_1 = require("./UserXpLog.entity");
+const User_entity_1 = require("./User.entity");
 let TournamentsEntity = class TournamentsEntity extends typeorm_1.BaseEntity {
 };
 exports.TournamentsEntity = TournamentsEntity;
@@ -24,8 +26,9 @@ __decorate([
     __metadata("design:type", String)
 ], TournamentsEntity.prototype, "id", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('text'),
+    (0, graphql_1.Field)(() => String, { description: 'Tournament name, unique' }),
+    (0, typeorm_1.Index)({ unique: true }),
+    (0, typeorm_1.Column)('text', { comment: 'Unique tournament name' }),
     __metadata("design:type", String)
 ], TournamentsEntity.prototype, "name", void 0);
 __decorate([
@@ -38,19 +41,19 @@ __decorate([
     (0, typeorm_1.Column)({
         type: 'enum',
         enum: TournamentStatus_enum_1.TournamentStatus,
-        default: TournamentStatus_enum_1.TournamentStatus.DRAFT,
+        default: TournamentStatus_enum_1.TournamentStatus.SCHEDULED,
         name: 'status',
     }),
     __metadata("design:type", String)
 ], TournamentsEntity.prototype, "status", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.Column)('timestamp without time zone', { name: 'start_at' }),
+    (0, typeorm_1.Column)('timestamp with time zone', { name: 'start_at' }),
     __metadata("design:type", Date)
 ], TournamentsEntity.prototype, "startAt", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.Column)('timestamp without time zone', { name: 'end_at' }),
+    (0, typeorm_1.Column)('timestamp with time zone', { name: 'end_at' }),
     __metadata("design:type", Date)
 ], TournamentsEntity.prototype, "endAt", void 0);
 __decorate([
@@ -64,12 +67,12 @@ __decorate([
 ], TournamentsEntity.prototype, "totalPrizeXp", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp without time zone', name: 'created_at' }),
+    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp with time zone', name: 'created_at' }),
     __metadata("design:type", Date)
 ], TournamentsEntity.prototype, "createdAt", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp without time zone', name: 'updated_at' }),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp with time zone', name: 'updated_at' }),
     __metadata("design:type", Date)
 ], TournamentsEntity.prototype, "updatedAt", void 0);
 __decorate([
@@ -84,6 +87,12 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => TournamentParticipant, (tournamentParticipant) => tournamentParticipant.tournament),
     __metadata("design:type", Array)
 ], TournamentsEntity.prototype, "participants", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => UserXpLog_entity_1.UserXpLog, (userXpLog) => userXpLog.tournamentId, {
+        nullable: true,
+    }),
+    __metadata("design:type", Array)
+], TournamentsEntity.prototype, "userXpLogs", void 0);
 exports.TournamentsEntity = TournamentsEntity = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'tournaments' })
@@ -130,12 +139,12 @@ __decorate([
 ], TournamentRewardBracket.prototype, "score", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp without time zone', name: 'created_at' }),
+    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp with time zone', name: 'created_at' }),
     __metadata("design:type", Date)
 ], TournamentRewardBracket.prototype, "createdAt", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp without time zone', name: 'updated_at' }),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp with time zone', name: 'updated_at' }),
     __metadata("design:type", Date)
 ], TournamentRewardBracket.prototype, "updatedAt", void 0);
 __decorate([
@@ -145,7 +154,9 @@ __decorate([
 ], TournamentRewardBracket.prototype, "tournament", void 0);
 exports.TournamentRewardBracket = TournamentRewardBracket = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'tournament_reward_brackets' })
+    (0, typeorm_1.Entity)({ name: 'tournament_reward_brackets' }),
+    (0, typeorm_1.Index)(['tournamentId', 'placeFrom']),
+    (0, typeorm_1.Index)(['tournamentId', 'placeTo'])
 ], TournamentRewardBracket);
 let TournamentResult = class TournamentResult extends typeorm_1.BaseEntity {
 };
@@ -167,9 +178,18 @@ __decorate([
 ], TournamentResult.prototype, "tournament", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('char'),
+    (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], TournamentResult.prototype, "address", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => User_entity_1.User),
+    (0, typeorm_1.ManyToOne)(() => User_entity_1.User),
+    (0, typeorm_1.JoinColumn)({ name: 'address', referencedColumnName: 'address' }),
+    __metadata("design:type", User_entity_1.User)
+], TournamentResult.prototype, "user", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
     (0, typeorm_1.Column)('integer', { name: 'final_place' }),
@@ -202,17 +222,19 @@ __decorate([
 ], TournamentResult.prototype, "countPurchases", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp without time zone', name: 'created_at' }),
+    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp with time zone', name: 'created_at' }),
     __metadata("design:type", Date)
 ], TournamentResult.prototype, "createdAt", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp without time zone', name: 'updated_at' }),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp with time zone', name: 'updated_at' }),
     __metadata("design:type", Date)
 ], TournamentResult.prototype, "updatedAt", void 0);
 exports.TournamentResult = TournamentResult = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'tournament_results' })
+    (0, typeorm_1.Entity)({ name: 'tournament_results' }),
+    (0, typeorm_1.Index)(['tournamentId', 'address']),
+    (0, typeorm_1.Index)(['tournamentId', 'finalPlace'])
 ], TournamentResult);
 let TournamentParticipant = class TournamentParticipant extends typeorm_1.BaseEntity {
 };
@@ -234,9 +256,18 @@ __decorate([
 ], TournamentParticipant.prototype, "tournament", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('char'),
+    (0, typeorm_1.Column)('char', { length: 40 }),
+    (0, class_transformer_1.Transform)(({ value }) => ethers_1.ethers.utils.getAddress(value), {
+        toPlainOnly: true,
+    }),
     __metadata("design:type", String)
 ], TournamentParticipant.prototype, "address", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => User_entity_1.User),
+    (0, typeorm_1.ManyToOne)(() => User_entity_1.User),
+    (0, typeorm_1.JoinColumn)({ name: 'address', referencedColumnName: 'address' }),
+    __metadata("design:type", User_entity_1.User)
+], TournamentParticipant.prototype, "user", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', {
@@ -255,9 +286,8 @@ __decorate([
     (0, typeorm_1.Column)('integer', {
         name: 'place',
         comment: 'Computed field, updated periodically or on request',
-        nullable: true,
     }),
-    __metadata("design:type", Object)
+    __metadata("design:type", Number)
 ], TournamentParticipant.prototype, "place", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number),
@@ -269,16 +299,18 @@ __decorate([
 ], TournamentParticipant.prototype, "countPurchases", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp without time zone', name: 'created_at' }),
+    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp with time zone', name: 'created_at' }),
     __metadata("design:type", Date)
 ], TournamentParticipant.prototype, "createdAt", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp without time zone', name: 'updated_at' }),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp with time zone', name: 'updated_at' }),
     __metadata("design:type", Date)
 ], TournamentParticipant.prototype, "updatedAt", void 0);
 exports.TournamentParticipant = TournamentParticipant = __decorate([
     (0, graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'tournament_participants' })
+    (0, typeorm_1.Entity)({ name: 'tournament_participants' }),
+    (0, typeorm_1.Index)(['tournamentId', 'address']),
+    (0, typeorm_1.Index)(['tournamentId', 'place'])
 ], TournamentParticipant);
 //# sourceMappingURL=Tournaments.entity.js.map

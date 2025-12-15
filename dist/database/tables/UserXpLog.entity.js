@@ -21,6 +21,7 @@ var UserXpLogSource;
     UserXpLogSource["QUEST"] = "QUEST";
     UserXpLogSource["REFERRAL"] = "REFERRAL";
     UserXpLogSource["ADMIN"] = "ADMIN";
+    UserXpLogSource["TOURNAMENT"] = "TOURNAMENT";
 })(UserXpLogSource || (exports.UserXpLogSource = UserXpLogSource = {}));
 (0, graphql_1.registerEnumType)(UserXpLogSource, {
     name: 'UserXpLogSource',
@@ -78,10 +79,17 @@ __decorate([
     __metadata("design:type", Object)
 ], UserXpLog.prototype, "questId", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('uuid', { nullable: true }),
+    (0, typeorm_1.ManyToOne)(() => _1.TournamentsEntity, { nullable: true }),
+    (0, typeorm_1.JoinColumn)({ name: 'tournamentId', referencedColumnName: 'id' }),
+    __metadata("design:type", Object)
+], UserXpLog.prototype, "tournamentId", void 0);
+__decorate([
     (0, graphql_1.Field)(() => UserXpLogSource),
     (0, typeorm_1.Column)('enum', { enum: UserXpLogSource, enumName: 'user_xp_log_source' }),
     (0, class_validator_1.IsEnum)(UserXpLogSource, {
-        message: 'source must be one of the following: QUEST, REFERRAL',
+        message: 'source must be one of the following: QUEST, REFERRAL, ADMIN, TOURNAMENT',
     }),
     __metadata("design:type", String)
 ], UserXpLog.prototype, "source", void 0);

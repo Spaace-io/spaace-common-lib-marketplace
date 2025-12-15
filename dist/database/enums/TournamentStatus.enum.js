@@ -4,7 +4,6 @@ exports.TournamentStatus = void 0;
 const graphql_1 = require("@nestjs/graphql");
 var TournamentStatus;
 (function (TournamentStatus) {
-    TournamentStatus["DRAFT"] = "draft";
     TournamentStatus["SCHEDULED"] = "scheduled";
     TournamentStatus["LIVE"] = "live";
     TournamentStatus["CALCULATING"] = "calculating";

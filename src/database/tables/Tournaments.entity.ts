@@ -6,6 +6,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   OneToMany,
@@ -13,6 +14,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { TournamentStatus } from '../enums/TournamentStatus.enum';
+import { UserXpLog } from './UserXpLog.entity';
+import { User } from './User.entity';
 
 @ObjectType()
 @Entity({ name: 'tournaments' })
@@ -21,8 +24,9 @@ export class TournamentsEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Field(() => String)
-  @Column('text')
+  @Field(() => String, { description: 'Tournament name, unique' })
+  @Index({ unique: true })
+  @Column('text', { comment: 'Unique tournament name' })
   name!: string;
 
   @Field(() => String)
@@ -33,17 +37,17 @@ export class TournamentsEntity extends BaseEntity {
   @Column({
     type: 'enum',
     enum: TournamentStatus,
-    default: TournamentStatus.DRAFT,
+    default: TournamentStatus.SCHEDULED,
     name: 'status',
   })
   status!: TournamentStatus;
 
   @Field(() => Date)
-  @Column('timestamp without time zone', { name: 'start_at' })
+  @Column('timestamp with time zone', { name: 'start_at' })
   startAt!: Date;
 
   @Field(() => Date)
-  @Column('timestamp without time zone', { name: 'end_at' })
+  @Column('timestamp with time zone', { name: 'end_at' })
   endAt!: Date;
 
   @Field(() => String)
@@ -55,11 +59,11 @@ export class TournamentsEntity extends BaseEntity {
   totalPrizeXp!: string;
 
   @Field(() => Date)
-  @CreateDateColumn({ type: 'timestamp without time zone', name: 'created_at' })
+  @CreateDateColumn({ type: 'timestamp with time zone', name: 'created_at' })
   createdAt!: Date;
 
   @Field(() => Date)
-  @UpdateDateColumn({ type: 'timestamp without time zone', name: 'updated_at' })
+  @UpdateDateColumn({ type: 'timestamp with time zone', name: 'updated_at' })
   updatedAt!: Date;
 
   @OneToMany(
@@ -79,10 +83,17 @@ export class TournamentsEntity extends BaseEntity {
     (tournamentParticipant) => tournamentParticipant.tournament,
   )
   participants!: TournamentParticipant[];
+
+  @OneToMany(() => UserXpLog, (userXpLog) => userXpLog.tournamentId, {
+    nullable: true,
+  })
+  userXpLogs!: UserXpLog[];
 }
 
 @ObjectType()
 @Entity({ name: 'tournament_reward_brackets' })
+@Index(['tournamentId', 'placeFrom'])
+@Index(['tournamentId', 'placeTo'])
 export class TournamentRewardBracket extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
@@ -119,11 +130,11 @@ export class TournamentRewardBracket extends BaseEntity {
   score!: string;
 
   @Field(() => Date)
-  @CreateDateColumn({ type: 'timestamp without time zone', name: 'created_at' })
+  @CreateDateColumn({ type: 'timestamp with time zone', name: 'created_at' })
   createdAt!: Date;
 
   @Field(() => Date)
-  @UpdateDateColumn({ type: 'timestamp without time zone', name: 'updated_at' })
+  @UpdateDateColumn({ type: 'timestamp with time zone', name: 'updated_at' })
   updatedAt!: Date;
 
   @ManyToOne(() => TournamentsEntity)
@@ -133,6 +144,8 @@ export class TournamentRewardBracket extends BaseEntity {
 
 @ObjectType()
 @Entity({ name: 'tournament_results' })
+@Index(['tournamentId', 'address'])
+@Index(['tournamentId', 'finalPlace'])
 export class TournamentResult extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
@@ -147,8 +160,16 @@ export class TournamentResult extends BaseEntity {
   tournament!: TournamentsEntity;
 
   @Field(() => String)
-  @Column('char')
+  @Column('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   address!: string;
+
+  @Field(() => User)
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'address', referencedColumnName: 'address' })
+  user!: User;
 
   @Field(() => Number)
   @Column('integer', { name: 'final_place' })
@@ -180,16 +201,18 @@ export class TournamentResult extends BaseEntity {
   countPurchases!: number;
 
   @Field(() => Date)
-  @CreateDateColumn({ type: 'timestamp without time zone', name: 'created_at' })
+  @CreateDateColumn({ type: 'timestamp with time zone', name: 'created_at' })
   createdAt!: Date;
 
   @Field(() => Date)
-  @UpdateDateColumn({ type: 'timestamp without time zone', name: 'updated_at' })
+  @UpdateDateColumn({ type: 'timestamp with time zone', name: 'updated_at' })
   updatedAt!: Date;
 }
 
 @ObjectType()
 @Entity({ name: 'tournament_participants' })
+@Index(['tournamentId', 'address'])
+@Index(['tournamentId', 'place'])
 export class TournamentParticipant extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
@@ -204,8 +227,16 @@ export class TournamentParticipant extends BaseEntity {
   tournament!: TournamentsEntity;
 
   @Field(() => String)
-  @Column('char')
+  @Column('char', { length: 40 })
+  @Transform(({ value }) => ethers.utils.getAddress(value), {
+    toPlainOnly: true,
+  })
   address!: string;
+
+  @Field(() => User)
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'address', referencedColumnName: 'address' })
+  user!: User;
 
   @Field(() => String)
   @Column('numeric', {
@@ -227,9 +258,8 @@ export class TournamentParticipant extends BaseEntity {
   @Column('integer', {
     name: 'place',
     comment: 'Computed field, updated periodically or on request',
-    nullable: true,
   })
-  place!: number | null;
+  place!: number;
 
   @Field(() => Number)
   @Column('integer', {
@@ -239,10 +269,10 @@ export class TournamentParticipant extends BaseEntity {
   countPurchases!: number;
 
   @Field(() => Date)
-  @CreateDateColumn({ type: 'timestamp without time zone', name: 'created_at' })
+  @CreateDateColumn({ type: 'timestamp with time zone', name: 'created_at' })
   createdAt!: Date;
 
   @Field(() => Date)
-  @UpdateDateColumn({ type: 'timestamp without time zone', name: 'updated_at' })
+  @UpdateDateColumn({ type: 'timestamp with time zone', name: 'updated_at' })
   updatedAt!: Date;
 }
