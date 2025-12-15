@@ -2,7 +2,8 @@ import { BaseEntity } from 'typeorm';
 export declare enum UserXpLogSource {
     QUEST = "QUEST",
     REFERRAL = "REFERRAL",
-    ADMIN = "ADMIN"
+    ADMIN = "ADMIN",
+    TOURNAMENT = "TOURNAMENT"
 }
 export declare class UserXpLogMetadata {
     key: string;
@@ -13,6 +14,7 @@ export declare class UserXpLog extends BaseEntity {
     userAddress: string;
     seasonNumber: string;
     questId?: string | null;
+    tournamentId?: string | null;
     source: UserXpLogSource;
     metadata: UserXpLogMetadata[];
     createdAt: Date;

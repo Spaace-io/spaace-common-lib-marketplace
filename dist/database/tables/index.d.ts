@@ -96,3 +96,4 @@ export * from './UserConnectionLog.entity';
 export * from './IpIntelligence.entity';
 export * from './DeviceFingerprint.entity';
 export * from './CollectionMetadataSyncer.entity';
+export * from './Tournaments.entity';

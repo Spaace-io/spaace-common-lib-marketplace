@@ -117,3 +117,6 @@ export * from './IpIntelligence.entity';
 export * from './DeviceFingerprint.entity';
 
 export * from './CollectionMetadataSyncer.entity';
+
+// Tournament Schema
+export * from './Tournaments.entity';

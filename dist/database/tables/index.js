@@ -117,4 +117,6 @@ __exportStar(require("./UserConnectionLog.entity"), exports);
 __exportStar(require("./IpIntelligence.entity"), exports);
 __exportStar(require("./DeviceFingerprint.entity"), exports);
 __exportStar(require("./CollectionMetadataSyncer.entity"), exports);
+// Tournament Schema
+__exportStar(require("./Tournaments.entity"), exports);
 //# sourceMappingURL=index.js.map

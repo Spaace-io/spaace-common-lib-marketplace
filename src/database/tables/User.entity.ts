@@ -1,18 +1,20 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Exclude, Expose, Transform } from 'class-transformer';
+import { ethers } from 'ethers';
 import {
-  Entity,
-  PrimaryColumn,
   BaseEntity,
   Column,
-  ManyToOne,
-  JoinColumn,
+  Entity,
   Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
 } from 'typeorm';
-import { ethers } from 'ethers';
 import { AccessLevel } from '../enums/AccessLevel.enum';
 import { EmailStatus } from '../enums/EmailStatus.enum';
 import { UserStatus } from '../enums/UserStatus.enum';
+import { TournamentParticipant, TournamentResult } from './Tournaments.entity';
 
 @Exclude()
 @ObjectType()
@@ -242,4 +244,24 @@ export class User extends BaseEntity {
   @Column({ type: 'timestamptz', nullable: true })
   @Expose()
   lastConnectionAt!: Date | null;
+
+  @Field(() => [TournamentResult])
+  @OneToMany(
+    () => TournamentResult,
+    (tournamentResult) => tournamentResult.user,
+    {
+      nullable: true,
+    },
+  )
+  tournamentResults!: TournamentResult[];
+
+  @Field(() => [TournamentParticipant])
+  @OneToMany(
+    () => TournamentParticipant,
+    (tournamentParticipant) => tournamentParticipant.user,
+    {
+      nullable: true,
+    },
+  )
+  tournamentParticipants!: TournamentParticipant[];
 }

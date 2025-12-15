@@ -12,11 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
-const typeorm_1 = require("typeorm");
 const ethers_1 = require("ethers");
+const typeorm_1 = require("typeorm");
 const AccessLevel_enum_1 = require("../enums/AccessLevel.enum");
 const EmailStatus_enum_1 = require("../enums/EmailStatus.enum");
 const UserStatus_enum_1 = require("../enums/UserStatus.enum");
+const Tournaments_entity_1 = require("./Tournaments.entity");
 let User = class User extends typeorm_1.BaseEntity {
 };
 exports.User = User;
@@ -282,6 +283,20 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Object)
 ], User.prototype, "lastConnectionAt", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [Tournaments_entity_1.TournamentResult]),
+    (0, typeorm_1.OneToMany)(() => Tournaments_entity_1.TournamentResult, (tournamentResult) => tournamentResult.user, {
+        nullable: true,
+    }),
+    __metadata("design:type", Array)
+], User.prototype, "tournamentResults", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [Tournaments_entity_1.TournamentParticipant]),
+    (0, typeorm_1.OneToMany)(() => Tournaments_entity_1.TournamentParticipant, (tournamentParticipant) => tournamentParticipant.user, {
+        nullable: true,
+    }),
+    __metadata("design:type", Array)
+], User.prototype, "tournamentParticipants", void 0);
 exports.User = User = __decorate([
     (0, class_transformer_1.Exclude)(),
     (0, graphql_1.ObjectType)(),

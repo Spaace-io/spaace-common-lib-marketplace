@@ -22,4 +22,5 @@ __exportStar(require("./QuestType.enum"), exports);
 __exportStar(require("./TweetAction.enum"), exports);
 __exportStar(require("./AccessLevel.enum"), exports);
 __exportStar(require("./Airdrops.enum"), exports);
+__exportStar(require("./TournamentStatus.enum"), exports);
 //# sourceMappingURL=index.js.map

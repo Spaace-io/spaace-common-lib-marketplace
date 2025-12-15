@@ -10,7 +10,7 @@ import {
 import { IsEnum } from 'class-validator';
 
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Quest, Season, User } from '.';
+import { Quest, Season, TournamentsEntity, User } from '.';
 import { ethers } from 'ethers';
 import { Transform } from 'class-transformer';
 
@@ -18,6 +18,7 @@ export enum UserXpLogSource {
   QUEST = 'QUEST',
   REFERRAL = 'REFERRAL',
   ADMIN = 'ADMIN',
+  TOURNAMENT = 'TOURNAMENT',
 }
 
 registerEnumType(UserXpLogSource, {
@@ -67,10 +68,17 @@ export class UserXpLog extends BaseEntity {
   ])
   questId?: string | null;
 
+  @Field(() => String, { nullable: true })
+  @Column('uuid', { nullable: true })
+  @ManyToOne(() => TournamentsEntity, { nullable: true })
+  @JoinColumn({ name: 'tournamentId', referencedColumnName: 'id' })
+  tournamentId?: string | null;
+
   @Field(() => UserXpLogSource)
   @Column('enum', { enum: UserXpLogSource, enumName: 'user_xp_log_source' })
   @IsEnum(UserXpLogSource, {
-    message: 'source must be one of the following: QUEST, REFERRAL',
+    message:
+      'source must be one of the following: QUEST, REFERRAL, ADMIN, TOURNAMENT',
   })
   source!: UserXpLogSource;
 
