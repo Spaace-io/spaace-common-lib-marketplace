@@ -90,6 +90,8 @@ export * from './AirdropTierDeliveryRuleOpenseaChapter1.entity';
 export * from './AirdropUserOpenseaChapter1.entity';
 export * from './AirdropUserChestOpenseaChapter1.entity';
 export * from './AirdropTierUnlockingOpenseaChapter1.entity';
+export * from './NansenAirdropParticipant.entity';
+export * from './NansenMysteryChest.entity';
 export * from './UserFeeCommission.entity';
 export * from './ReferralRewardClaims.entity';
 export * from './UserConnectionLog.entity';

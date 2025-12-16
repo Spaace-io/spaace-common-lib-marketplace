@@ -23,4 +23,5 @@ __exportStar(require("./TweetAction.enum"), exports);
 __exportStar(require("./AccessLevel.enum"), exports);
 __exportStar(require("./Airdrops.enum"), exports);
 __exportStar(require("./TournamentStatus.enum"), exports);
+__exportStar(require("./NansenAirdrop.enum"), exports);
 //# sourceMappingURL=index.js.map

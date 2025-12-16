@@ -110,6 +110,9 @@ __exportStar(require("./AirdropTierDeliveryRuleOpenseaChapter1.entity"), exports
 __exportStar(require("./AirdropUserOpenseaChapter1.entity"), exports);
 __exportStar(require("./AirdropUserChestOpenseaChapter1.entity"), exports);
 __exportStar(require("./AirdropTierUnlockingOpenseaChapter1.entity"), exports);
+// Nansen Partner Airdrop Schema
+__exportStar(require("./NansenAirdropParticipant.entity"), exports);
+__exportStar(require("./NansenMysteryChest.entity"), exports);
 __exportStar(require("./UserFeeCommission.entity"), exports);
 __exportStar(require("./ReferralRewardClaims.entity"), exports);
 // Anti-bot Detection System
