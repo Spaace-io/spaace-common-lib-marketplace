@@ -122,4 +122,5 @@ __exportStar(require("./DeviceFingerprint.entity"), exports);
 __exportStar(require("./CollectionMetadataSyncer.entity"), exports);
 // Tournament Schema
 __exportStar(require("./Tournaments.entity"), exports);
+__exportStar(require("./SpotlightCampaign.entity"), exports);
 //# sourceMappingURL=index.js.map
