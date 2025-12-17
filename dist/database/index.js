@@ -92,7 +92,6 @@ const replicationOptions = {
 };
 exports.Database = new typeorm_1.DataSource(useCluster ? replicationOptions : options);
 __exportStar(require("./tables"), exports);
-__exportStar(require("./cache"), exports);
 __exportStar(require("./types"), exports);
 __exportStar(require("./enums"), exports);
 //# sourceMappingURL=index.js.map

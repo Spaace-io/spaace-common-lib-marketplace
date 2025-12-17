@@ -16,11 +16,4 @@ export class AirdropChest extends BaseEntity {
   @Field(() => Number)
   @Column('integer')
   valueXp!: number;
-
-  // @Field(() => AirdropUsersChestsStatus)
-  // @Column('enum', {
-  //   enum: AirdropUsersChestsStatus,
-  //   enumName: 'users_chests_status',
-  // })
-  // status!: AirdropUsersChestsStatus;
 }

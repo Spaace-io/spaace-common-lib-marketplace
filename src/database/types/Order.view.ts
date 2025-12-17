@@ -2,7 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { ethers } from 'ethers';
 import { BaseEntity, DataSource, ViewColumn, ViewEntity } from 'typeorm';
 import { Transform } from 'class-transformer';
-import { ActiveOrderCachedEntity, OrderEntity, OrderItemEntity } from '..';
+import { OrderEntity, OrderItemEntity } from '..';
 import { Marketplace, OrderType } from '../enums';
 
 @ObjectType()
@@ -43,7 +43,7 @@ import { Marketplace, OrderType } from '../enums';
           query.fromDummy().select(
             `EXISTS ${query
               .subQuery()
-              .from(ActiveOrderCachedEntity, 'active')
+              .from(OrderEntity, 'active')
               .select('1')
               .addSelect(
                 (query) =>

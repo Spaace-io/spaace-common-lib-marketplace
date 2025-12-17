@@ -19,8 +19,6 @@ __exportStar(require("./database"), exports);
 __exportStar(require("./graphql"), exports);
 __exportStar(require("./pubsub"), exports);
 __exportStar(require("./redis"), exports);
-__exportStar(require("./blockchain"), exports);
-__exportStar(require("./twitter"), exports);
 exports.utils = require("./utils");
 __exportStar(require("./providers"), exports);
 //# sourceMappingURL=index.js.map

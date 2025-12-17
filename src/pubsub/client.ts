@@ -1,11 +1,5 @@
 import { Message, PubSub } from '@google-cloud/pubsub';
-import {
-  PubSubTopic,
-  PubSubTrigger,
-  ArenaPubSubTrigger,
-  PubSubMessage,
-  ArenaPubSubMessage,
-} from '.';
+import { PubSubTopic, PubSubTrigger, PubSubMessage } from '.';
 
 class PubSubClient {
   private readonly pubsub: PubSub;
@@ -69,9 +63,7 @@ class PubSubClient {
 
   public async publish<T extends PubSubTopic>(
     topicName: T,
-    ...messages:
-      | PubSubMessage<PubSubTrigger<T>>[]
-      | ArenaPubSubMessage<ArenaPubSubTrigger<T>>[]
+    ...messages: PubSubMessage<PubSubTrigger<T>>[]
   ) {
     const topic = this.pubsub.topic(this._getTopicFromName(topicName));
     return await Promise.all(
@@ -87,11 +79,7 @@ class PubSubClient {
   public async onMessage<T extends PubSubTopic>(
     name: string,
     topicName: T,
-    listener: (
-      trigger:
-        | PubSubMessage<PubSubTrigger<T>>
-        | ArenaPubSubMessage<ArenaPubSubTrigger<T>>,
-    ) => Promise<void>,
+    listener: (trigger: PubSubMessage<PubSubTrigger<T>>) => Promise<void>,
   ) {
     const subscription = await this.subscribe(topicName, name);
     subscription.on('message', async (message: Message) => {

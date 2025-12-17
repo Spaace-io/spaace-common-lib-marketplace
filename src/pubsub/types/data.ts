@@ -1,8 +1,6 @@
 import {
-  Order,
   QuestTrigger,
   SaleEntity,
-  DistributorRewardEntity,
   TransferEntity,
   UserQuestProgress,
   StakingDepositEntity,
@@ -12,9 +10,7 @@ import {
   CollectionEntity,
   ItemEntity,
   ItemMediaEntity,
-  ArenaUser,
-  ArenaQuestTrigger,
-  ArenaTweet,
+  Order,
 } from '../../database';
 import { UserInteraction } from '../../graphql';
 import {
@@ -38,7 +34,7 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
             : T extends QuestTrigger.STAKING_DEPOSIT
               ? StakingDepositEntity
               : T extends QuestTrigger.DISTRIBUTOR_REWARD
-                ? DistributorRewardEntity
+                ? undefined
                 : T extends QuestTrigger.USER_QUEST_PROGRESS
                   ? UserQuestProgress
                   : T extends QuestTrigger.REFERRAL
@@ -70,18 +66,3 @@ export type PubSubData<T extends PubSubTrigger<PubSubTopic>> =
                                         : T extends SearchIndexType.USER
                                           ? User
                                           : never;
-
-export type ArenaPubSubData<T extends ArenaQuestTrigger> =
-  T extends ArenaQuestTrigger.USER
-    ? ArenaUser & { action?: string }
-    : T extends ArenaQuestTrigger.REFERRAL
-      ? ArenaUser
-      : T extends ArenaQuestTrigger.USER_LEVEL_PROGRESS
-        ? ArenaUser
-        : T extends ArenaQuestTrigger.CREW_PROGRESS
-          ? ArenaUser
-          : T extends ArenaQuestTrigger.SOCIAL
-            ? ArenaTweet & { action?: string }
-            : T extends ArenaQuestTrigger.SOCIAL_PRIME
-              ? ArenaTweet
-              : never;

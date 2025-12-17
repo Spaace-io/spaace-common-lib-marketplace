@@ -229,7 +229,7 @@ exports.Order = Order = __decorate([
                 .addSelect('"order"."remainingQuantity"', 'remainingQuantity')
                 .addSelect((query) => query.fromDummy().select(`EXISTS ${query
                 .subQuery()
-                .from(__1.ActiveOrderCachedEntity, 'active')
+                .from(__1.OrderEntity, 'active')
                 .select('1')
                 .addSelect((query) => query
                 .from(__1.OrderItemEntity, 'orders_items')

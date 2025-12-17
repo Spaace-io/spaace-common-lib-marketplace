@@ -1,5 +1,0 @@
-export declare enum DistributorContract {
-    TRADING_REWARDS = "TRADING_REWARDS",
-    REFERRAL_REWARDS = "REFERRAL_REWARDS",
-    LOYALTY_REWARDS = "LOYALTY_REWARDS"
-}
