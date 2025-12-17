@@ -46,7 +46,7 @@ export class SpotlightCampaign extends BaseEntity {
 
   @Field(() => String)
   @Column('text')
-  collectionName!: string;  
+  collectionName!: string;
 
   @Field(() => String)
   @Column('numeric', { precision: 78, unsigned: true })

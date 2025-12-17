@@ -39,4 +39,3 @@ registerEnumType(NansenChestType, {
 registerEnumType(NansenChestStatus, {
   name: 'NansenChestStatus',
 });
-

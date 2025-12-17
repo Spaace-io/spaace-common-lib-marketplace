@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
 import { RedisClientType } from 'redis';
 import { formatEther } from 'ethers/lib/utils';
 
@@ -162,9 +162,9 @@ export class PriceProvider {
       const price = await this.fetchPriceFromCoingecko(pair);
       await this.cachePrice(pair, price);
       return price;
-    } catch (error: any) {
-      const status = error?.response?.status;
-      const body = error?.response?.data;
+    } catch (error) {
+      const status = (error as AxiosError)?.response?.status;
+      const body = (error as AxiosError)?.response?.data;
       console.warn(
         `Coingecko ${pair} failed: status=${status} body=${JSON.stringify(body)}. Trying database...`,
       );
