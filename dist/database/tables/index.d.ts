@@ -100,3 +100,4 @@ export * from './DeviceFingerprint.entity';
 export * from './CollectionMetadataSyncer.entity';
 export * from './Tournaments.entity';
 export * from './SpotlightCampaign.entity';
+export * from './UserDiscordRankSync.entity';

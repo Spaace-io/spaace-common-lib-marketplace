@@ -125,3 +125,5 @@ export * from './CollectionMetadataSyncer.entity';
 // Tournament Schema
 export * from './Tournaments.entity';
 export * from './SpotlightCampaign.entity';
+
+export * from './UserDiscordRankSync.entity';
