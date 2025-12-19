@@ -123,4 +123,5 @@ __exportStar(require("./CollectionMetadataSyncer.entity"), exports);
 // Tournament Schema
 __exportStar(require("./Tournaments.entity"), exports);
 __exportStar(require("./SpotlightCampaign.entity"), exports);
+__exportStar(require("./UserDiscordRankSync.entity"), exports);
 //# sourceMappingURL=index.js.map
