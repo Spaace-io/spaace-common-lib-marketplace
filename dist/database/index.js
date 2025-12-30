@@ -13,7 +13,7 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
-var _a, _b, _c, _d, _e, _f, _g, _h;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Database = void 0;
 require("reflect-metadata");
@@ -27,6 +27,11 @@ const database = process.env.DATABASE_NAME;
 const schema = process.env.DATABASE_SCHEMA;
 const applicationName = process.env.DATABASE_APPLICATION_NAME;
 const ssl = process.env.DATABASE_SSL === 'true';
+// Connection pool configuration
+const poolMax = parseInt((_d = process.env.DATABASE_POOL_MAX) !== null && _d !== void 0 ? _d : '50', 10);
+const poolMin = parseInt((_e = process.env.DATABASE_POOL_MIN) !== null && _e !== void 0 ? _e : '10', 10);
+const connectionTimeoutMillis = parseInt((_f = process.env.DATABASE_CONNECTION_TIMEOUT) !== null && _f !== void 0 ? _f : '30000', 10);
+const idleTimeoutMillis = parseInt((_g = process.env.DATABASE_IDLE_TIMEOUT) !== null && _g !== void 0 ? _g : '30000', 10);
 const options = {
     type: 'postgres',
     host,
@@ -47,12 +52,20 @@ const options = {
     migrations: [__dirname + '/migrations/*-*.{js,ts}'],
     subscribers: [],
     ssl,
+    // PostgreSQL connection pool settings (passed to node-postgres)
+    extra: {
+        max: poolMax, // Maximum pool size
+        min: poolMin, // Minimum pool size
+        connectionTimeoutMillis, // Connection timeout
+        idleTimeoutMillis, // Idle connection timeout
+        allowExitOnIdle: false, // Don't exit when all connections idle
+    },
 };
-const useCluster = (_d = process.env.DATABASE_USER_CLUSTER) !== null && _d !== void 0 ? _d : false;
-const masterHost = (_e = process.env.DATABASE_MASTER_HOST) !== null && _e !== void 0 ? _e : 'localhost';
-const masterPort = parseInt((_f = process.env.DATABASE_MASTER_PORT) !== null && _f !== void 0 ? _f : '5432', 10);
-const replicaHost = (_g = process.env.DATABASE_REPLICA_HOST) !== null && _g !== void 0 ? _g : 'localhost';
-const replicaPort = parseInt((_h = process.env.DATABASE_REPLICA_PORT) !== null && _h !== void 0 ? _h : '5432', 10);
+const useCluster = (_h = process.env.DATABASE_USER_CLUSTER) !== null && _h !== void 0 ? _h : false;
+const masterHost = (_j = process.env.DATABASE_MASTER_HOST) !== null && _j !== void 0 ? _j : 'localhost';
+const masterPort = parseInt((_k = process.env.DATABASE_MASTER_PORT) !== null && _k !== void 0 ? _k : '5432', 10);
+const replicaHost = (_l = process.env.DATABASE_REPLICA_HOST) !== null && _l !== void 0 ? _l : 'localhost';
+const replicaPort = parseInt((_m = process.env.DATABASE_REPLICA_PORT) !== null && _m !== void 0 ? _m : '5432', 10);
 const replicationOptions = {
     type: 'postgres',
     schema,
@@ -88,6 +101,14 @@ const replicationOptions = {
             },
         ],
         defaultMode: 'slave',
+    },
+    // PostgreSQL connection pool settings for replication mode
+    extra: {
+        max: poolMax,
+        min: poolMin,
+        connectionTimeoutMillis,
+        idleTimeoutMillis,
+        allowExitOnIdle: false,
     },
 };
 exports.Database = new typeorm_1.DataSource(useCluster ? replicationOptions : options);

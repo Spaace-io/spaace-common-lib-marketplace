@@ -12,6 +12,18 @@ const schema = process.env.DATABASE_SCHEMA;
 const applicationName = process.env.DATABASE_APPLICATION_NAME;
 const ssl = process.env.DATABASE_SSL === 'true';
 
+// Connection pool configuration
+const poolMax = parseInt(process.env.DATABASE_POOL_MAX ?? '50', 10);
+const poolMin = parseInt(process.env.DATABASE_POOL_MIN ?? '10', 10);
+const connectionTimeoutMillis = parseInt(
+  process.env.DATABASE_CONNECTION_TIMEOUT ?? '30000',
+  10,
+);
+const idleTimeoutMillis = parseInt(
+  process.env.DATABASE_IDLE_TIMEOUT ?? '30000',
+  10,
+);
+
 const options: DataSourceOptions = {
   type: 'postgres',
   host,
@@ -32,6 +44,14 @@ const options: DataSourceOptions = {
   migrations: [__dirname + '/migrations/*-*.{js,ts}'],
   subscribers: [],
   ssl,
+  // PostgreSQL connection pool settings (passed to node-postgres)
+  extra: {
+    max: poolMax, // Maximum pool size
+    min: poolMin, // Minimum pool size
+    connectionTimeoutMillis, // Connection timeout
+    idleTimeoutMillis, // Idle connection timeout
+    allowExitOnIdle: false, // Don't exit when all connections idle
+  },
 };
 
 const useCluster = process.env.DATABASE_USER_CLUSTER ?? false;
@@ -75,6 +95,14 @@ const replicationOptions: PostgresConnectionOptions = {
       },
     ],
     defaultMode: 'slave',
+  },
+  // PostgreSQL connection pool settings for replication mode
+  extra: {
+    max: poolMax,
+    min: poolMin,
+    connectionTimeoutMillis,
+    idleTimeoutMillis,
+    allowExitOnIdle: false,
   },
 };
 export const Database = new DataSource(
