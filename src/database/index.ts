@@ -12,6 +12,18 @@ const schema = process.env.DATABASE_SCHEMA;
 const applicationName = process.env.DATABASE_APPLICATION_NAME;
 const ssl = process.env.DATABASE_SSL === 'true';
 
+// Connection pool configuration
+const poolMax = parseInt(process.env.DATABASE_POOL_MAX ?? '60', 10);
+const poolMin = parseInt(process.env.DATABASE_POOL_MIN ?? '10', 10);
+const connectionTimeoutMillis = parseInt(
+  process.env.DATABASE_CONNECTION_TIMEOUT ?? '30000',
+  10,
+);
+const idleTimeoutMillis = parseInt(
+  process.env.DATABASE_IDLE_TIMEOUT ?? '30000',
+  10,
+);
+
 const options: DataSourceOptions = {
   type: 'postgres',
   host,
@@ -31,6 +43,13 @@ const options: DataSourceOptions = {
   synchronize: false,
   migrations: [__dirname + '/migrations/*-*.{js,ts}'],
   subscribers: [],
+  extra: {
+    max: poolMax,
+    min: poolMin,
+    connectionTimeoutMillis,
+    idleTimeoutMillis,
+    allowExitOnIdle: false,
+  },
   ssl,
 };
 
@@ -53,6 +72,13 @@ const replicationOptions: PostgresConnectionOptions = {
   synchronize: false,
   migrations: [__dirname + '/migrations/*-*.{js,ts}'],
   subscribers: [],
+  extra: {
+    max: poolMax,
+    min: poolMin,
+    connectionTimeoutMillis,
+    idleTimeoutMillis,
+    allowExitOnIdle: false,
+  },
   replication: {
     master: {
       host: masterHost,
