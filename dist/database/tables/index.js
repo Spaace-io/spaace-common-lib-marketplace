@@ -122,6 +122,12 @@ __exportStar(require("./DeviceFingerprint.entity"), exports);
 __exportStar(require("./CollectionMetadataSyncer.entity"), exports);
 // Tournament Schema
 __exportStar(require("./Tournaments.entity"), exports);
+// Spotlight Campaign Schema
+__exportStar(require("./SpotlightCampaignRun.entity"), exports);
+__exportStar(require("./SpotlightCampaign.entity"), exports);
+__exportStar(require("./PartnerChestTier.entity"), exports);
+__exportStar(require("./PartnerChestUserRun.entity"), exports);
+__exportStar(require("./PartnerChestClaim.entity"), exports);
 __exportStar(require("./SpotlightCampaign.entity"), exports);
 __exportStar(require("./UserDiscordRankSync.entity"), exports);
 //# sourceMappingURL=index.js.map

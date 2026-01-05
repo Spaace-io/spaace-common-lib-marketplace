@@ -124,6 +124,13 @@ export * from './CollectionMetadataSyncer.entity';
 
 // Tournament Schema
 export * from './Tournaments.entity';
+
+// Spotlight Campaign Schema
+export * from './SpotlightCampaignRun.entity';
+export * from './SpotlightCampaign.entity';
+export * from './PartnerChestTier.entity';
+export * from './PartnerChestUserRun.entity';
+export * from './PartnerChestClaim.entity';
 export * from './SpotlightCampaign.entity';
 
 export * from './UserDiscordRankSync.entity';
