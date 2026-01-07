@@ -9,44 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SpotlightCampaign = exports.SpotlightHistoryEntry = void 0;
+exports.SpotlightCampaign = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const Quest_entity_1 = require("./Quest.entity");
-let SpotlightHistoryEntry = class SpotlightHistoryEntry {
-};
-exports.SpotlightHistoryEntry = SpotlightHistoryEntry;
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], SpotlightHistoryEntry.prototype, "collectionAddress", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], SpotlightHistoryEntry.prototype, "seasonNumber", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], SpotlightHistoryEntry.prototype, "validFrom", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String),
-    __metadata("design:type", String)
-], SpotlightHistoryEntry.prototype, "validTo", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => Boolean, { nullable: true }),
-    __metadata("design:type", Object)
-], SpotlightHistoryEntry.prototype, "deactivatedManually", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
-    __metadata("design:type", Object)
-], SpotlightHistoryEntry.prototype, "deactivatedAt", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
-    __metadata("design:type", Object)
-], SpotlightHistoryEntry.prototype, "note", void 0);
-exports.SpotlightHistoryEntry = SpotlightHistoryEntry = __decorate([
-    (0, graphql_1.ObjectType)()
-], SpotlightHistoryEntry);
 let SpotlightCampaign = class SpotlightCampaign extends typeorm_1.BaseEntity {
 };
 exports.SpotlightCampaign = SpotlightCampaign;
@@ -99,11 +65,6 @@ __decorate([
     (0, typeorm_1.Column)('boolean', { default: true }),
     __metadata("design:type", Boolean)
 ], SpotlightCampaign.prototype, "active", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [SpotlightHistoryEntry]),
-    (0, typeorm_1.Column)('jsonb', { default: () => "'[]'::jsonb" }),
-    __metadata("design:type", Array)
-], SpotlightCampaign.prototype, "metadata", void 0);
 exports.SpotlightCampaign = SpotlightCampaign = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'spotlight_campaigns' })

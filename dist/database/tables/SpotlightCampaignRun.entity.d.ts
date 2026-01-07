@@ -7,5 +7,6 @@ export declare class SpotlightCampaignRun extends BaseEntity {
     validFrom: Date;
     validTo: Date;
     isCurrent: boolean;
+    multiplier: number;
     createdAt: Date;
 }

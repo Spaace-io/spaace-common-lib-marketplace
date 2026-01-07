@@ -129,5 +129,6 @@ __exportStar(require("./PartnerChestTier.entity"), exports);
 __exportStar(require("./PartnerChestUserRun.entity"), exports);
 __exportStar(require("./PartnerChestClaim.entity"), exports);
 __exportStar(require("./SpotlightCampaign.entity"), exports);
+__exportStar(require("./SpotlightCampaignEvent.entity"), exports);
 __exportStar(require("./UserDiscordRankSync.entity"), exports);
 //# sourceMappingURL=index.js.map

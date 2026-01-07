@@ -47,6 +47,11 @@ __decorate([
     __metadata("design:type", Boolean)
 ], SpotlightCampaignRun.prototype, "isCurrent", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, scale: 2, default: 2.0 }),
+    __metadata("design:type", Number)
+], SpotlightCampaignRun.prototype, "multiplier", void 0);
+__decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)({ type: 'timestamptz', default: () => 'NOW()' }),
     __metadata("design:type", Date)

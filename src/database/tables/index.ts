@@ -132,5 +132,6 @@ export * from './PartnerChestTier.entity';
 export * from './PartnerChestUserRun.entity';
 export * from './PartnerChestClaim.entity';
 export * from './SpotlightCampaign.entity';
+export * from './SpotlightCampaignEvent.entity';
 
 export * from './UserDiscordRankSync.entity';

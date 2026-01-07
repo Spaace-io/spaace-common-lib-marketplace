@@ -36,6 +36,10 @@ export class SpotlightCampaignRun extends BaseEntity {
   @Column('boolean', { default: true })
   isCurrent!: boolean;
 
+  @Field(() => String)
+  @Column('numeric', { precision: 78, scale: 2, default: 2.0 })
+  multiplier!: number;
+
   @Field(() => Date)
   @Column({ type: 'timestamptz', default: () => 'NOW()' })
   createdAt!: Date;

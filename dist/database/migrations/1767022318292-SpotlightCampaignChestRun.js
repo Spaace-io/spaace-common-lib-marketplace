@@ -122,6 +122,11 @@ class SpotlightCampaignChestRun1767022318292 {
       FOREIGN KEY ("userRunId") REFERENCES "partner_chest_user_runs"("id")
       ON DELETE CASCADE
     `);
+            yield queryRunner.query(`
+      CREATE UNIQUE INDEX "uq_spotlight_campaign_runs_one_current_per_campaign"
+      ON "spotlight_campaign_runs" ("campaignId")
+      WHERE "isCurrent" = true
+    `);
         });
     }
     down(queryRunner) {
@@ -134,6 +139,9 @@ class SpotlightCampaignChestRun1767022318292 {
             yield queryRunner.query(`DROP TABLE "partner_chest_user_runs"`);
             yield queryRunner.query(`DROP TABLE "partner_chest_tiers"`);
             yield queryRunner.query(`DROP TABLE "spotlight_campaign_runs"`);
+            yield queryRunner.query(`
+      DROP INDEX IF EXISTS "public"."uq_spotlight_campaign_runs_one_current_per_campaign"
+    `);
         });
     }
 }
