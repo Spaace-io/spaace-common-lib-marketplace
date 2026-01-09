@@ -24,6 +24,14 @@ export class SpotlightCampaignRun extends BaseEntity {
   @JoinColumn({ name: 'campaignId', referencedColumnName: 'id' })
   campaign!: SpotlightCampaign;
 
+  @Field(() => String)
+  @Column('numeric', { precision: 78, unsigned: true })
+  seasonNumber!: string;
+
+  @Field(() => String)
+  @Column('char', { length: 40 })
+  collectionAddress!: string;
+
   @Field(() => Date)
   @Column('timestamp without time zone')
   validFrom!: Date;
