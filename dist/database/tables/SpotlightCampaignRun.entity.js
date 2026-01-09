@@ -32,6 +32,16 @@ __decorate([
     __metadata("design:type", SpotlightCampaign_entity_1.SpotlightCampaign)
 ], SpotlightCampaignRun.prototype, "campaign", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('numeric', { precision: 78, unsigned: true }),
+    __metadata("design:type", String)
+], SpotlightCampaignRun.prototype, "seasonNumber", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)('char', { length: 40 }),
+    __metadata("design:type", String)
+], SpotlightCampaignRun.prototype, "collectionAddress", void 0);
+__decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)('timestamp without time zone'),
     __metadata("design:type", Date)
