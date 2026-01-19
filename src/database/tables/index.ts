@@ -135,3 +135,8 @@ export * from './SpotlightCampaign.entity';
 export * from './SpotlightCampaignEvent.entity';
 
 export * from './UserDiscordRankSync.entity';
+
+// Ambassador Program Schema
+export * from './AmbassadorEpoch.entity';
+export * from './AmbassadorEpochResult.entity';
+export * from './AmbassadorEpochLeaderboard.entity';

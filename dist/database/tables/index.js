@@ -131,4 +131,8 @@ __exportStar(require("./PartnerChestClaim.entity"), exports);
 __exportStar(require("./SpotlightCampaign.entity"), exports);
 __exportStar(require("./SpotlightCampaignEvent.entity"), exports);
 __exportStar(require("./UserDiscordRankSync.entity"), exports);
+// Ambassador Program Schema
+__exportStar(require("./AmbassadorEpoch.entity"), exports);
+__exportStar(require("./AmbassadorEpochResult.entity"), exports);
+__exportStar(require("./AmbassadorEpochLeaderboard.entity"), exports);
 //# sourceMappingURL=index.js.map
