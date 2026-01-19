@@ -107,3 +107,6 @@ export * from './PartnerChestClaim.entity';
 export * from './SpotlightCampaign.entity';
 export * from './SpotlightCampaignEvent.entity';
 export * from './UserDiscordRankSync.entity';
+export * from './AmbassadorEpoch.entity';
+export * from './AmbassadorEpochResult.entity';
+export * from './AmbassadorEpochLeaderboard.entity';
