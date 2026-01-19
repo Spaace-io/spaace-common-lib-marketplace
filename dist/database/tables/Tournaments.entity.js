@@ -9,14 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TournamentParticipant = exports.TournamentResult = exports.TournamentRewardBracket = exports.TournamentsEntity = void 0;
+exports.TournamentParticipant = exports.TournamentResult = exports.TournamentRewardBracket = exports.TournamentsEntity = exports.BonusTierType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_transformer_1 = require("class-transformer");
 const ethers_1 = require("ethers");
 const typeorm_1 = require("typeorm");
 const TournamentStatus_enum_1 = require("../enums/TournamentStatus.enum");
+const TournamentRewardType_enum_1 = require("../enums/TournamentRewardType.enum");
 const UserXpLog_entity_1 = require("./UserXpLog.entity");
 const User_entity_1 = require("./User.entity");
+let BonusTierType = class BonusTierType {
+};
+exports.BonusTierType = BonusTierType;
+__decorate([
+    (0, graphql_1.Field)(() => Number, {
+        description: 'Threshold in USD to unlock this bonus tier',
+    }),
+    __metadata("design:type", Number)
+], BonusTierType.prototype, "thresholdUsd", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Number, {
+        description: 'Bonus multiplier for this tier (e.g., 1.2 = +20%)',
+    }),
+    __metadata("design:type", Number)
+], BonusTierType.prototype, "multiplier", void 0);
+exports.BonusTierType = BonusTierType = __decorate([
+    (0, graphql_1.ObjectType)()
+], BonusTierType);
 let TournamentsEntity = class TournamentsEntity extends typeorm_1.BaseEntity {
 };
 exports.TournamentsEntity = TournamentsEntity;
@@ -59,12 +78,48 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('bigint', {
-        name: 'total_prize_xp',
-        comment: 'Total prize XP (stored as string)',
+        name: 'total_prize_amount',
+        comment: 'Total prize amount (XP or USD depending on reward_type)',
         default: '0',
     }),
     __metadata("design:type", String)
-], TournamentsEntity.prototype, "totalPrizeXp", void 0);
+], TournamentsEntity.prototype, "totalPrizeAmount", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => TournamentRewardType_enum_1.TournamentRewardType),
+    (0, typeorm_1.Column)({
+        type: 'varchar',
+        length: 10,
+        name: 'reward_type',
+        default: TournamentRewardType_enum_1.TournamentRewardType.XP,
+        comment: 'Reward type: XP or USD (Spaace tokens)',
+    }),
+    __metadata("design:type", String)
+], TournamentsEntity.prototype, "rewardType", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('numeric', {
+        precision: 78,
+        name: 'rewarded_participants_volume_wei',
+        nullable: true,
+        comment: 'Cumulative trading volume in Wei of all rewarded participants (used for community bonus calculation)',
+    }),
+    (0, class_transformer_1.Transform)(({ value }) => {
+        return value ? ethers_1.ethers.utils.formatEther(value) : null;
+    }, { toPlainOnly: true }),
+    __metadata("design:type", Object)
+], TournamentsEntity.prototype, "rewardedParticipantsVolumeWei", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [BonusTierType], {
+        description: 'Community bonus tiers configuration: volume thresholds and multipliers',
+    }),
+    (0, typeorm_1.Column)('jsonb', {
+        name: 'bonus_tiers',
+        default: () => "'[]'::jsonb",
+        nullable: false,
+        comment: 'Community bonus tiers config: [{ thresholdUsd: 1000000, multiplier: 1.2 }, { thresholdUsd: 2000000, multiplier: 1.5 }]',
+    }),
+    __metadata("design:type", Array)
+], TournamentsEntity.prototype, "bonusTiers", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp with time zone', name: 'created_at' }),
@@ -121,10 +176,14 @@ __decorate([
     __metadata("design:type", Number)
 ], TournamentRewardBracket.prototype, "placeTo", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)('bigint', { name: 'reward_xp' }),
-    __metadata("design:type", String)
-], TournamentRewardBracket.prototype, "rewardXp", void 0);
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('bigint', {
+        name: 'reward_amount',
+        nullable: true,
+        comment: 'Reward amount (XP or USD depending on tournament reward_type). Can be null for USD tournaments with dynamic distribution',
+    }),
+    __metadata("design:type", Object)
+], TournamentRewardBracket.prototype, "rewardAmount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', {
@@ -198,11 +257,20 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('bigint', {
-        name: 'reward_xp',
-        comment: 'XP reward received (stored as string)',
+        name: 'reward_amount',
+        comment: 'Final reward amount after bonus (XP or USD)',
     }),
     __metadata("design:type", String)
-], TournamentResult.prototype, "rewardXp", void 0);
+], TournamentResult.prototype, "rewardAmount", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)('numeric', {
+        name: 'base_reward_amount',
+        nullable: true,
+        comment: 'Base reward amount before bonus multiplier',
+    }),
+    __metadata("design:type", Object)
+], TournamentResult.prototype, "baseRewardAmount", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, typeorm_1.Column)('numeric', {

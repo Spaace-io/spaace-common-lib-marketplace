@@ -14,8 +14,22 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { TournamentStatus } from '../enums/TournamentStatus.enum';
+import { TournamentRewardType } from '../enums/TournamentRewardType.enum';
 import { UserXpLog } from './UserXpLog.entity';
 import { User } from './User.entity';
+
+@ObjectType()
+export class BonusTierType {
+  @Field(() => Number, {
+    description: 'Threshold in USD to unlock this bonus tier',
+  })
+  thresholdUsd!: number;
+
+  @Field(() => Number, {
+    description: 'Bonus multiplier for this tier (e.g., 1.2 = +20%)',
+  })
+  multiplier!: number;
+}
 
 @ObjectType()
 @Entity({ name: 'tournaments' })
@@ -52,11 +66,50 @@ export class TournamentsEntity extends BaseEntity {
 
   @Field(() => String)
   @Column('bigint', {
-    name: 'total_prize_xp',
-    comment: 'Total prize XP (stored as string)',
+    name: 'total_prize_amount',
+    comment: 'Total prize amount (XP or USD depending on reward_type)',
     default: '0',
   })
-  totalPrizeXp!: string;
+  totalPrizeAmount!: string;
+
+  @Field(() => TournamentRewardType)
+  @Column({
+    type: 'varchar',
+    length: 10,
+    name: 'reward_type',
+    default: TournamentRewardType.XP,
+    comment: 'Reward type: XP or USD (Spaace tokens)',
+  })
+  rewardType!: TournamentRewardType;
+
+  @Field(() => String, { nullable: true })
+  @Column('numeric', {
+    precision: 78,
+    name: 'rewarded_participants_volume_wei',
+    nullable: true,
+    comment:
+      'Cumulative trading volume in Wei of all rewarded participants (used for community bonus calculation)',
+  })
+  @Transform(
+    ({ value }) => {
+      return value ? ethers.utils.formatEther(value) : null;
+    },
+    { toPlainOnly: true },
+  )
+  rewardedParticipantsVolumeWei?: string | null;
+
+  @Field(() => [BonusTierType], {
+    description:
+      'Community bonus tiers configuration: volume thresholds and multipliers',
+  })
+  @Column('jsonb', {
+    name: 'bonus_tiers',
+    default: () => "'[]'::jsonb",
+    nullable: false,
+    comment:
+      'Community bonus tiers config: [{ thresholdUsd: 1000000, multiplier: 1.2 }, { thresholdUsd: 2000000, multiplier: 1.5 }]',
+  })
+  bonusTiers!: BonusTierType[];
 
   @Field(() => Date)
   @CreateDateColumn({ type: 'timestamp with time zone', name: 'created_at' })
@@ -111,9 +164,14 @@ export class TournamentRewardBracket extends BaseEntity {
   @Column('integer', { name: 'place_to' })
   placeTo!: number;
 
-  @Field(() => String)
-  @Column('bigint', { name: 'reward_xp' })
-  rewardXp!: string;
+  @Field(() => String, { nullable: true })
+  @Column('bigint', {
+    name: 'reward_amount',
+    nullable: true,
+    comment:
+      'Reward amount (XP or USD depending on tournament reward_type). Can be null for USD tournaments with dynamic distribution',
+  })
+  rewardAmount?: string | null;
 
   @Field(() => String)
   @Column('numeric', {
@@ -177,10 +235,18 @@ export class TournamentResult extends BaseEntity {
 
   @Field(() => String)
   @Column('bigint', {
-    name: 'reward_xp',
-    comment: 'XP reward received (stored as string)',
+    name: 'reward_amount',
+    comment: 'Final reward amount after bonus (XP or USD)',
   })
-  rewardXp!: string;
+  rewardAmount!: string;
+
+  @Field(() => String, { nullable: true })
+  @Column('numeric', {
+    name: 'base_reward_amount',
+    nullable: true,
+    comment: 'Base reward amount before bonus multiplier',
+  })
+  baseRewardAmount?: string | null;
 
   @Field(() => String)
   @Column('numeric', {

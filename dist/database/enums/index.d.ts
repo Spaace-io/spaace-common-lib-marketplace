@@ -7,4 +7,5 @@ export * from './TweetAction.enum';
 export * from './AccessLevel.enum';
 export * from './Airdrops.enum';
 export * from './TournamentStatus.enum';
+export * from './TournamentRewardType.enum';
 export * from './NansenAirdrop.enum';

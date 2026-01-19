@@ -1,7 +1,12 @@
 import { BaseEntity } from 'typeorm';
 import { TournamentStatus } from '../enums/TournamentStatus.enum';
+import { TournamentRewardType } from '../enums/TournamentRewardType.enum';
 import { UserXpLog } from './UserXpLog.entity';
 import { User } from './User.entity';
+export declare class BonusTierType {
+    thresholdUsd: number;
+    multiplier: number;
+}
 export declare class TournamentsEntity extends BaseEntity {
     id: string;
     name: string;
@@ -9,7 +14,10 @@ export declare class TournamentsEntity extends BaseEntity {
     status: TournamentStatus;
     startAt: Date;
     endAt: Date;
-    totalPrizeXp: string;
+    totalPrizeAmount: string;
+    rewardType: TournamentRewardType;
+    rewardedParticipantsVolumeWei?: string | null;
+    bonusTiers: BonusTierType[];
     createdAt: Date;
     updatedAt: Date;
     rewardBrackets: TournamentRewardBracket[];
@@ -22,7 +30,7 @@ export declare class TournamentRewardBracket extends BaseEntity {
     tournamentId: string;
     placeFrom: number;
     placeTo: number;
-    rewardXp: string;
+    rewardAmount?: string | null;
     score: string;
     createdAt: Date;
     updatedAt: Date;
@@ -35,7 +43,8 @@ export declare class TournamentResult extends BaseEntity {
     address: string;
     user: User;
     finalPlace: number;
-    rewardXp: string;
+    rewardAmount: string;
+    baseRewardAmount?: string | null;
     score: string;
     countPurchases: number;
     createdAt: Date;
