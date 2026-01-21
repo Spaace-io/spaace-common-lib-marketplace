@@ -58,6 +58,10 @@ __decorate([
     (0, typeorm_1.Column)('numeric', { precision: 78, default: '0' }),
     __metadata("design:type", String)
 ], AmbassadorEpochLeaderboard.prototype, "xpSum", void 0);
+__decorate([
+    (0, typeorm_1.Column)('int', { nullable: true }),
+    __metadata("design:type", Object)
+], AmbassadorEpochLeaderboard.prototype, "socialScore", void 0);
 exports.AmbassadorEpochLeaderboard = AmbassadorEpochLeaderboard = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'ambassador_epoch_leaderboard' }),

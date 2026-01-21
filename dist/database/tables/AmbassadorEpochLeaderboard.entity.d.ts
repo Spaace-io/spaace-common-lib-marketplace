@@ -13,4 +13,5 @@ export declare class AmbassadorEpochLeaderboard extends BaseEntity {
     tradingVolume: string;
     referralTradingVolume: string;
     xpSum: string;
+    socialScore: number | null;
 }
