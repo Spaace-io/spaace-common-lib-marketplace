@@ -101,6 +101,7 @@ export class TournamentsEntity extends BaseEntity {
   @Field(() => [BonusTierType], {
     description:
       'Community bonus tiers configuration: volume thresholds and multipliers',
+    nullable: true,
   })
   @Column('jsonb', {
     name: 'bonus_tiers',
@@ -109,7 +110,7 @@ export class TournamentsEntity extends BaseEntity {
     comment:
       'Community bonus tiers config: [{ thresholdUsd: 1000000, multiplier: 1.2 }, { thresholdUsd: 2000000, multiplier: 1.5 }]',
   })
-  bonusTiers!: BonusTierType[];
+  bonusTiers?: BonusTierType[];
 
   @Field(() => Date)
   @CreateDateColumn({ type: 'timestamp with time zone', name: 'created_at' })

@@ -111,6 +111,7 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => [BonusTierType], {
         description: 'Community bonus tiers configuration: volume thresholds and multipliers',
+        nullable: true,
     }),
     (0, typeorm_1.Column)('jsonb', {
         name: 'bonus_tiers',

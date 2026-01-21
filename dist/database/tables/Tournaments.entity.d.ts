@@ -17,7 +17,7 @@ export declare class TournamentsEntity extends BaseEntity {
     totalPrizeAmount: string;
     rewardType: TournamentRewardType;
     rewardedParticipantsVolumeWei?: string | null;
-    bonusTiers: BonusTierType[];
+    bonusTiers?: BonusTierType[];
     createdAt: Date;
     updatedAt: Date;
     rewardBrackets: TournamentRewardBracket[];
