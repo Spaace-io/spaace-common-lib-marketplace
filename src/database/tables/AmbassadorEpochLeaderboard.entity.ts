@@ -50,4 +50,7 @@ export class AmbassadorEpochLeaderboard extends BaseEntity {
 
   @Column('numeric', { precision: 78, default: '0' })
   xpSum!: string;
+
+  @Column('int', { nullable: true })
+  socialScore!: number | null;
 }
