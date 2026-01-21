@@ -4,7 +4,7 @@ import { TournamentRewardType } from '../enums/TournamentRewardType.enum';
 import { UserXpLog } from './UserXpLog.entity';
 import { User } from './User.entity';
 export declare class BonusTierType {
-    thresholdUsd: number;
+    threshold: number;
     multiplier: number;
 }
 export declare class TournamentsEntity extends BaseEntity {

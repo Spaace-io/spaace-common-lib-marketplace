@@ -21,9 +21,9 @@ import { User } from './User.entity';
 @ObjectType()
 export class BonusTierType {
   @Field(() => Number, {
-    description: 'Threshold in USD to unlock this bonus tier',
+    description: 'Threshold in ETH to unlock this bonus tier',
   })
-  thresholdUsd!: number;
+  threshold!: number;
 
   @Field(() => Number, {
     description: 'Bonus multiplier for this tier (e.g., 1.2 = +20%)',

@@ -23,10 +23,10 @@ let BonusTierType = class BonusTierType {
 exports.BonusTierType = BonusTierType;
 __decorate([
     (0, graphql_1.Field)(() => Number, {
-        description: 'Threshold in USD to unlock this bonus tier',
+        description: 'Threshold in ETH to unlock this bonus tier',
     }),
     __metadata("design:type", Number)
-], BonusTierType.prototype, "thresholdUsd", void 0);
+], BonusTierType.prototype, "threshold", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Number, {
         description: 'Bonus multiplier for this tier (e.g., 1.2 = +20%)',
