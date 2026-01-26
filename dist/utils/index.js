@@ -21,5 +21,6 @@ __exportStar(require("./strip0x"), exports);
 __exportStar(require("./formatter"), exports);
 __exportStar(require("./hashes"), exports);
 __exportStar(require("./add0x"), exports);
+__exportStar(require("./insertInBatches"), exports);
 exports.constants = require("./constants");
 //# sourceMappingURL=index.js.map

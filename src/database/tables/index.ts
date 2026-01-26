@@ -140,3 +140,10 @@ export * from './UserDiscordRankSync.entity';
 export * from './AmbassadorEpoch.entity';
 export * from './AmbassadorEpochResult.entity';
 export * from './AmbassadorEpochLeaderboard.entity';
+
+// Badge System
+export * from './Badge.entity';
+export * from './BadgeCondition.entity';
+export * from './UserBadge.entity';
+export * from './UserFeaturedBadge.entity';
+export * from './BadgeUnlockHistory.entity';

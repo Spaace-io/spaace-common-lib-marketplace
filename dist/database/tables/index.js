@@ -135,4 +135,10 @@ __exportStar(require("./UserDiscordRankSync.entity"), exports);
 __exportStar(require("./AmbassadorEpoch.entity"), exports);
 __exportStar(require("./AmbassadorEpochResult.entity"), exports);
 __exportStar(require("./AmbassadorEpochLeaderboard.entity"), exports);
+// Badge System
+__exportStar(require("./Badge.entity"), exports);
+__exportStar(require("./BadgeCondition.entity"), exports);
+__exportStar(require("./UserBadge.entity"), exports);
+__exportStar(require("./UserFeaturedBadge.entity"), exports);
+__exportStar(require("./BadgeUnlockHistory.entity"), exports);
 //# sourceMappingURL=index.js.map
