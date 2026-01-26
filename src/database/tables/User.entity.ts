@@ -194,6 +194,9 @@ export class User extends BaseEntity {
   @Expose()
   referralStatus!: 'pending' | 'active' | null;
 
+  @Column({ type: 'timestamp without time zone', nullable: true })
+  referralActivatedAt!: Date | null;
+
   @Field(() => UserStatus)
   @Index('idx_users_status')
   @Column('enum', {
