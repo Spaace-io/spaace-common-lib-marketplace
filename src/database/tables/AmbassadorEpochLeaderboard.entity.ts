@@ -53,4 +53,7 @@ export class AmbassadorEpochLeaderboard extends BaseEntity {
 
   @Column('int', { nullable: true })
   socialScore!: number | null;
+
+  @Column('int', { default: 0 })
+  newActiveReferralsCount!: number;
 }

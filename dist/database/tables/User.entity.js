@@ -225,6 +225,10 @@ __decorate([
     __metadata("design:type", Object)
 ], User.prototype, "referralStatus", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: 'timestamp without time zone', nullable: true }),
+    __metadata("design:type", Object)
+], User.prototype, "referralActivatedAt", void 0);
+__decorate([
     (0, graphql_1.Field)(() => UserStatus_enum_1.UserStatus),
     (0, typeorm_1.Index)('idx_users_status'),
     (0, typeorm_1.Column)('enum', {

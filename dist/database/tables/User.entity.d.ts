@@ -36,6 +36,7 @@ export declare class User extends BaseEntity {
     discordRefreshToken: string | null;
     isAmbassador: boolean;
     referralStatus: 'pending' | 'active' | null;
+    referralActivatedAt: Date | null;
     status: UserStatus;
     abuseScore: number | null;
     abuseReason: string | null;
