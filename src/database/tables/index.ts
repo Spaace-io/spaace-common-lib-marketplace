@@ -147,3 +147,7 @@ export * from './BadgeCondition.entity';
 export * from './UserBadge.entity';
 export * from './UserFeaturedBadge.entity';
 export * from './BadgeUnlockHistory.entity';
+
+// Season Chapters and User Season Chapter Data
+export * from './SeasonChapter.entity';
+export * from './UserSeasonChapterData.entity';
