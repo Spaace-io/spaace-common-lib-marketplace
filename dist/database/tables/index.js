@@ -141,4 +141,7 @@ __exportStar(require("./BadgeCondition.entity"), exports);
 __exportStar(require("./UserBadge.entity"), exports);
 __exportStar(require("./UserFeaturedBadge.entity"), exports);
 __exportStar(require("./BadgeUnlockHistory.entity"), exports);
+// Season Chapters and User Season Chapter Data
+__exportStar(require("./SeasonChapter.entity"), exports);
+__exportStar(require("./UserSeasonChapterData.entity"), exports);
 //# sourceMappingURL=index.js.map
