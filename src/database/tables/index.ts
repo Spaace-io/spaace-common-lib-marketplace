@@ -133,6 +133,8 @@ export * from './PartnerChestUserRun.entity';
 export * from './PartnerChestClaim.entity';
 export * from './SpotlightCampaign.entity';
 export * from './SpotlightCampaignEvent.entity';
+export * from './SpotlightCampaignRunCollection.entity';
+export * from './SpotlightCollectionBuyQuest.entity';
 
 export * from './UserDiscordRankSync.entity';
 

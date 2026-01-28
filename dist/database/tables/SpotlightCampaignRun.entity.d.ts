@@ -1,5 +1,6 @@
 import { BaseEntity } from 'typeorm';
 import { SpotlightCampaign } from './SpotlightCampaign.entity';
+import { SpotlightCampaignRunCollection } from './SpotlightCampaignRunCollection.entity';
 export declare class SpotlightCampaignRun extends BaseEntity {
     id: string;
     campaignId: string;
@@ -11,4 +12,5 @@ export declare class SpotlightCampaignRun extends BaseEntity {
     isCurrent: boolean;
     multiplier: number;
     createdAt: Date;
+    runCollections: SpotlightCampaignRunCollection[];
 }
