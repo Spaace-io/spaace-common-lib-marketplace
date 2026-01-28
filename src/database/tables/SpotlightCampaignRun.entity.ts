@@ -5,9 +5,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { SpotlightCampaign } from './SpotlightCampaign.entity';
+import { SpotlightCampaignRunCollection } from './SpotlightCampaignRunCollection.entity';
 
 @ObjectType()
 @Entity({ name: 'spotlight_campaign_runs' })
@@ -51,4 +53,7 @@ export class SpotlightCampaignRun extends BaseEntity {
   @Field(() => Date)
   @Column({ type: 'timestamptz', default: () => 'NOW()' })
   createdAt!: Date;
+
+  @OneToMany(() => SpotlightCampaignRunCollection, (rc) => rc.run)
+  runCollections!: SpotlightCampaignRunCollection[];
 }

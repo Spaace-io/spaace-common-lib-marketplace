@@ -13,6 +13,7 @@ exports.SpotlightCampaignRun = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const SpotlightCampaign_entity_1 = require("./SpotlightCampaign.entity");
+const SpotlightCampaignRunCollection_entity_1 = require("./SpotlightCampaignRunCollection.entity");
 let SpotlightCampaignRun = class SpotlightCampaignRun extends typeorm_1.BaseEntity {
 };
 exports.SpotlightCampaignRun = SpotlightCampaignRun;
@@ -66,6 +67,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'timestamptz', default: () => 'NOW()' }),
     __metadata("design:type", Date)
 ], SpotlightCampaignRun.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => SpotlightCampaignRunCollection_entity_1.SpotlightCampaignRunCollection, (rc) => rc.run),
+    __metadata("design:type", Array)
+], SpotlightCampaignRun.prototype, "runCollections", void 0);
 exports.SpotlightCampaignRun = SpotlightCampaignRun = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'spotlight_campaign_runs' })
