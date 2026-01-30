@@ -54,4 +54,12 @@ export class SeasonChapter extends BaseEntity {
   @Field(() => Date)
   @Column('timestamp without time zone', { default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  preserveDiscordFloor!: boolean;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  preserveReferralFloor!: boolean;
 }

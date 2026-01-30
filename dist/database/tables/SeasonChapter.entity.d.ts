@@ -12,4 +12,6 @@ export declare class SeasonChapter extends BaseEntity {
     key: SeasonChapterKey;
     startAt: Date;
     createdAt: Date;
+    preserveDiscordFloor: boolean;
+    preserveReferralFloor: boolean;
 }
