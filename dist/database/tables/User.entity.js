@@ -242,49 +242,49 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(() => Number, { nullable: true }),
     (0, typeorm_1.Column)('integer', { nullable: true }),
-    (0, class_transformer_1.Expose)(),
+    (0, class_transformer_1.Expose)({ groups: ['me'] }),
     __metadata("design:type", Object)
 ], User.prototype, "abuseScore", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('text', { nullable: true }),
-    (0, class_transformer_1.Expose)(),
+    (0, class_transformer_1.Expose)({ groups: ['me'] }),
     __metadata("design:type", Object)
 ], User.prototype, "abuseReason", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Boolean),
     (0, typeorm_1.Column)('boolean', { default: false }),
-    (0, class_transformer_1.Expose)(),
+    (0, class_transformer_1.Expose)({ groups: ['me'] }),
     __metadata("design:type", Boolean)
 ], User.prototype, "checkedAbuseReport", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date),
     (0, typeorm_1.Column)({ type: 'timestamptz', default: () => 'NOW()' }),
-    (0, class_transformer_1.Expose)(),
+    (0, class_transformer_1.Expose)({ groups: ['me'] }),
     __metadata("design:type", Date)
 ], User.prototype, "statusUpdatedAt", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('varchar', { length: 45, nullable: true }),
-    (0, class_transformer_1.Expose)(),
+    (0, class_transformer_1.Expose)({ groups: ['me'] }),
     __metadata("design:type", Object)
 ], User.prototype, "creationIP", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('varchar', { length: 100, nullable: true }),
-    (0, class_transformer_1.Expose)(),
+    (0, class_transformer_1.Expose)({ groups: ['me'] }),
     __metadata("design:type", Object)
 ], User.prototype, "creationFingerprint", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     (0, typeorm_1.Column)('varchar', { length: 45, nullable: true }),
-    (0, class_transformer_1.Expose)(),
+    (0, class_transformer_1.Expose)({ groups: ['me'] }),
     __metadata("design:type", Object)
 ], User.prototype, "lastConnectionIP", void 0);
 __decorate([
     (0, graphql_1.Field)(() => Date, { nullable: true }),
     (0, typeorm_1.Column)({ type: 'timestamptz', nullable: true }),
-    (0, class_transformer_1.Expose)(),
+    (0, class_transformer_1.Expose)({ groups: ['me'] }),
     __metadata("design:type", Object)
 ], User.prototype, "lastConnectionAt", void 0);
 __decorate([
