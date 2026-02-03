@@ -19,6 +19,13 @@ export declare enum AirdropChestsTypeOpenseaChapter1 {
     RARE = "Rare",
     COMMON = "Common"
 }
+export declare enum AirdropChestsTypeChapter2 {
+    QUANTUM = "Quantum",
+    MYTHIC = "Mythic",
+    LEGENDARY = "Legendary",
+    EPIC = "Epic",
+    RARE = "Rare"
+}
 export declare enum AirdropTiersName {
     TIER_1 = "TIER_1",
     TIER_2 = "TIER_2",
@@ -75,6 +82,31 @@ export declare enum AirdropTiersNameOpenseaChapter1 {
     TIER_14 = "TIER_14",
     TIER_15 = "TIER_15"
 }
+export declare enum AirdropTiersNameChapter2 {
+    D2 = "D2",
+    D3 = "D3",
+    D4 = "D4",
+    D5 = "D5",
+    P1 = "P1",
+    P2 = "P2",
+    P3 = "P3",
+    P4 = "P4",
+    P5 = "P5",
+    G1 = "G1",
+    G2 = "G2",
+    G3 = "G3",
+    G4 = "G4",
+    G5 = "G5",
+    S1 = "S1",
+    S2 = "S2",
+    S3 = "S3",
+    S4 = "S4",
+    S5 = "S5",
+    B1 = "B1",
+    B2 = "B2",
+    B3 = "B3",
+    B4 = "B4"
+}
 export declare enum AirdropUsersChestsStatus {
     LOCKED = "LOCKED",
     UNLOCKED = "UNLOCKED",
@@ -86,6 +118,10 @@ export declare enum AirdropUsersChestsStatusChapter1 {
 }
 export declare enum AirdropUsersChestsStatusOpenseaChapter1 {
     LOCKED = "LOCKED",
+    UNLOCKED = "UNLOCKED",
+    CLAIMABLE = "CLAIMABLE"
+}
+export declare enum AirdropUsersChestsStatusChapter2 {
     UNLOCKED = "UNLOCKED",
     CLAIMABLE = "CLAIMABLE"
 }

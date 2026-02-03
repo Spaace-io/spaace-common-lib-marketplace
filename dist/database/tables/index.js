@@ -103,6 +103,12 @@ __exportStar(require("./AirdropTierChapter1.entity"), exports);
 __exportStar(require("./AirdropTierDeliveryRuleChapter1.entity"), exports);
 __exportStar(require("./AirdropUserChapter1.entity"), exports);
 __exportStar(require("./AirdropUserChestChapter1.entity"), exports);
+// Airdrop Chapter 2 Schema
+__exportStar(require("./AirdropChestChapter2.entity"), exports);
+__exportStar(require("./AirdropTierChapter2.entity"), exports);
+__exportStar(require("./AirdropTierDeliveryRuleChapter2.entity"), exports);
+__exportStar(require("./AirdropUserChapter2.entity"), exports);
+__exportStar(require("./AirdropUserChestChapter2.entity"), exports);
 // Airdrop Opensea Chapter 1 Schema
 __exportStar(require("./AirdropChestOpenseaChapter1.entity"), exports);
 __exportStar(require("./AirdropTierOpenseaChapter1.entity"), exports);

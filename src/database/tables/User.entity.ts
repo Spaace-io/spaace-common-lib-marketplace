@@ -164,6 +164,11 @@ export class User extends BaseEntity {
   @Field(() => Boolean)
   @Column('boolean', { default: false })
   @Expose({ groups: ['me'] })
+  checkedAirdropChapter2!: boolean;
+
+  @Field(() => Boolean)
+  @Column('boolean', { default: false })
+  @Expose({ groups: ['me'] })
   checkedAirdropOpenseaChapter1!: boolean;
 
   @Field(() => String, { nullable: true })
