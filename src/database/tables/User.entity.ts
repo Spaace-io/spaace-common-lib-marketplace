@@ -209,7 +209,7 @@ export class User extends BaseEntity {
     enumName: 'users_status_enum',
     default: UserStatus.ACTIVE,
   })
-  @Expose({ groups: ['me'] })
+  @Expose()
   status!: UserStatus;
 
   @Field(() => Number, { nullable: true })

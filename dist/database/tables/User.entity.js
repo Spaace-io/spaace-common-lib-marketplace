@@ -242,7 +242,7 @@ __decorate([
         enumName: 'users_status_enum',
         default: UserStatus_enum_1.UserStatus.ACTIVE,
     }),
-    (0, class_transformer_1.Expose)({ groups: ['me'] }),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], User.prototype, "status", void 0);
 __decorate([
