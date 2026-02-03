@@ -209,48 +209,48 @@ export class User extends BaseEntity {
     enumName: 'users_status_enum',
     default: UserStatus.ACTIVE,
   })
-  @Expose()
+  @Expose({ groups: ['me'] })
   status!: UserStatus;
 
   @Field(() => Number, { nullable: true })
   @Column('integer', { nullable: true })
-  @Expose()
+  @Expose({ groups: ['me'] })
   abuseScore!: number | null;
 
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
-  @Expose()
+  @Expose({ groups: ['me'] })
   abuseReason!: string | null;
 
   @Field(() => Boolean)
   @Column('boolean', { default: false })
-  @Expose()
+  @Expose({ groups: ['me'] })
   checkedAbuseReport!: boolean;
 
   @Field(() => Date)
   @Column({ type: 'timestamptz', default: () => 'NOW()' })
-  @Expose()
+  @Expose({ groups: ['me'] })
   statusUpdatedAt!: Date;
 
   // Anti-bot detection fields
   @Field(() => String, { nullable: true })
   @Column('varchar', { length: 45, nullable: true })
-  @Expose()
+  @Expose({ groups: ['me'] })
   creationIP!: string | null;
 
   @Field(() => String, { nullable: true })
   @Column('varchar', { length: 100, nullable: true })
-  @Expose()
+  @Expose({ groups: ['me'] })
   creationFingerprint!: string | null;
 
   @Field(() => String, { nullable: true })
   @Column('varchar', { length: 45, nullable: true })
-  @Expose()
+  @Expose({ groups: ['me'] })
   lastConnectionIP!: string | null;
 
   @Field(() => Date, { nullable: true })
   @Column({ type: 'timestamptz', nullable: true })
-  @Expose()
+  @Expose({ groups: ['me'] })
   lastConnectionAt!: Date | null;
 
   @Field(() => [TournamentResult])
