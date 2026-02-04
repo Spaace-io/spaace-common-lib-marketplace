@@ -1,0 +1,53 @@
+name: Deploy to STAGE
+
+on:
+  push:
+    tags:
+      - 'v*-rc.*'  # Triggers on tags like v0.0.8-rc.1
+
+jobs:
+  deploy-stage:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Run migrations on STAGE database
+        env:
+          DATABASE_HOST: ${{ secrets.STAGE_DATABASE_HOST }}
+          DATABASE_PORT: ${{ secrets.STAGE_DATABASE_PORT }}
+          DATABASE_USERNAME: ${{ secrets.STAGE_DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.STAGE_DATABASE_PASSWORD }}
+          DATABASE_NAME: ${{ secrets.STAGE_DATABASE_NAME }}
+          DATABASE_SCHEMA: ${{ secrets.STAGE_DATABASE_SCHEMA }}
+          DATABASE_APPLICATION_NAME: 'spaace-common-lib-migrations'
+          DATABASE_SSL: ${{ secrets.STAGE_DATABASE_SSL }}
+        run: npm run migrate
+
+      - name: Publish to GitHub Packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm publish --tag rc
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Send notification
+        run: |
+          echo "✅ STAGE deployment complete!"
+          echo "Version: ${{ steps.get_version.outputs.VERSION }}"
+          echo "Tag: ${{ github.ref_name }}"
