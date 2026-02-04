@@ -189,6 +189,12 @@ __decorate([
     (0, typeorm_1.Column)('boolean', { default: false }),
     (0, class_transformer_1.Expose)({ groups: ['me'] }),
     __metadata("design:type", Boolean)
+], User.prototype, "checkedAirdropChapter2", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.Column)('boolean', { default: false }),
+    (0, class_transformer_1.Expose)({ groups: ['me'] }),
+    __metadata("design:type", Boolean)
 ], User.prototype, "checkedAirdropOpenseaChapter1", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),

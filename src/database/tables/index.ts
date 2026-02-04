@@ -100,6 +100,13 @@ export * from './AirdropTierDeliveryRuleChapter1.entity';
 export * from './AirdropUserChapter1.entity';
 export * from './AirdropUserChestChapter1.entity';
 
+// Airdrop Chapter 2 Schema
+export * from './AirdropChestChapter2.entity';
+export * from './AirdropTierChapter2.entity';
+export * from './AirdropTierDeliveryRuleChapter2.entity';
+export * from './AirdropUserChapter2.entity';
+export * from './AirdropUserChestChapter2.entity';
+
 // Airdrop Opensea Chapter 1 Schema
 export * from './AirdropChestOpenseaChapter1.entity';
 export * from './AirdropTierOpenseaChapter1.entity';

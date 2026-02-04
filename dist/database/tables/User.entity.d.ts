@@ -29,6 +29,7 @@ export declare class User extends BaseEntity {
     sharedReferralImage: string | null;
     checkedAirdropChapter0: boolean;
     checkedAirdropChapter1: boolean;
+    checkedAirdropChapter2: boolean;
     checkedAirdropOpenseaChapter1: boolean;
     discordId: string | null;
     discordUsername: string | null;
