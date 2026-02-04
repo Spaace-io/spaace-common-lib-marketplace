@@ -80,6 +80,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'timestamp without time zone', default: () => 'NOW()' }),
     __metadata("design:type", Date)
 ], AmbassadorEpoch.prototype, "updatedAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)('int', { default: 7 }),
+    __metadata("design:type", Number)
+], AmbassadorEpoch.prototype, "newUsersLookbackDays", void 0);
 exports.AmbassadorEpoch = AmbassadorEpoch = __decorate([
     (0, graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)({ name: 'ambassador_epochs' }),
