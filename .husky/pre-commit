@@ -1,8 +1,12 @@
 # Reset the dist folder as we're going to rebuild it
-git restore --staged --worktree ./dist/
+git restore --staged --worktree ./dist/ 2>/dev/null || true
 
-# Stash unstaged changes
-git stash push --keep-index --include-untracked
+# Stash unstaged changes (only if there are any)
+STASH_NEEDED=0
+if ! git diff-files --quiet; then
+    git stash push --keep-index --include-untracked -m "pre-commit-stash"
+    STASH_NEEDED=1
+fi
 
 # Run lint and build on staged changes
 npm run lint -- --max-warnings=0
@@ -17,8 +21,10 @@ fi
 
 git add .
 
-# Restore unstaged changes
-git stash pop -q
+# Restore unstaged changes (only if we stashed)
+if [ $STASH_NEEDED -eq 1 ]; then
+    git stash pop -q
+fi
 
 # Exit with the lint/build status
 if [ $LINT_EXIT_CODE -ne 0 ]; then
