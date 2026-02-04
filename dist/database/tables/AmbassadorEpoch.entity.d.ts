@@ -17,4 +17,5 @@ export declare class AmbassadorEpoch extends BaseEntity {
     finalizedAt: Date | null;
     createdAt: Date;
     updatedAt: Date;
+    newUsersLookbackDays: number;
 }

@@ -66,4 +66,7 @@ export class AmbassadorEpoch extends BaseEntity {
   @Field(() => Date)
   @Column({ type: 'timestamp without time zone', default: () => 'NOW()' })
   updatedAt!: Date;
+
+  @Column('int', { default: 7 })
+  newUsersLookbackDays!: number;
 }

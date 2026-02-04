@@ -56,4 +56,7 @@ export class AmbassadorEpochLeaderboard extends BaseEntity {
 
   @Column('int', { default: 0 })
   newActiveReferralsCount!: number;
+
+  @Column('numeric', { precision: 78, default: '0' })
+  newUsersReferralTradingVolume!: string;
 }
