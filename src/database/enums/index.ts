@@ -10,3 +10,5 @@ export * from './TournamentStatus.enum';
 export * from './TournamentRewardType.enum';
 export * from './NansenAirdrop.enum';
 export * from './Badge.enum';
+export * from './RankChestState.enum';
+export * from './RankChestXpOutcome.enum';

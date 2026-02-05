@@ -152,4 +152,6 @@ __exportStar(require("./BadgeUnlockHistory.entity"), exports);
 // Season Chapters and User Season Chapter Data
 __exportStar(require("./SeasonChapter.entity"), exports);
 __exportStar(require("./UserSeasonChapterData.entity"), exports);
+__exportStar(require("./RankChest.entity"), exports);
+__exportStar(require("./RankChestReward.entity"), exports);
 //# sourceMappingURL=index.js.map
