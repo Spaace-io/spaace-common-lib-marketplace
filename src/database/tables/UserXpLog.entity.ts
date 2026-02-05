@@ -19,6 +19,7 @@ export enum UserXpLogSource {
   REFERRAL = 'REFERRAL',
   ADMIN = 'ADMIN',
   TOURNAMENT = 'TOURNAMENT',
+  RANK_CHEST = 'RANK_CHEST',
 }
 
 registerEnumType(UserXpLogSource, {
@@ -78,7 +79,7 @@ export class UserXpLog extends BaseEntity {
   @Column('enum', { enum: UserXpLogSource, enumName: 'user_xp_log_source' })
   @IsEnum(UserXpLogSource, {
     message:
-      'source must be one of the following: QUEST, REFERRAL, ADMIN, TOURNAMENT',
+      'source must be one of the following: QUEST, REFERRAL, ADMIN, TOURNAMENT, RANK_CHEST',
   })
   source!: UserXpLogSource;
 
