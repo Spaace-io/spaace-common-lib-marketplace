@@ -3,7 +3,8 @@ export declare enum UserXpLogSource {
     QUEST = "QUEST",
     REFERRAL = "REFERRAL",
     ADMIN = "ADMIN",
-    TOURNAMENT = "TOURNAMENT"
+    TOURNAMENT = "TOURNAMENT",
+    RANK_CHEST = "RANK_CHEST"
 }
 export declare class UserXpLogMetadata {
     key: string;

@@ -22,6 +22,7 @@ var UserXpLogSource;
     UserXpLogSource["REFERRAL"] = "REFERRAL";
     UserXpLogSource["ADMIN"] = "ADMIN";
     UserXpLogSource["TOURNAMENT"] = "TOURNAMENT";
+    UserXpLogSource["RANK_CHEST"] = "RANK_CHEST";
 })(UserXpLogSource || (exports.UserXpLogSource = UserXpLogSource = {}));
 (0, graphql_1.registerEnumType)(UserXpLogSource, {
     name: 'UserXpLogSource',
@@ -89,7 +90,7 @@ __decorate([
     (0, graphql_1.Field)(() => UserXpLogSource),
     (0, typeorm_1.Column)('enum', { enum: UserXpLogSource, enumName: 'user_xp_log_source' }),
     (0, class_validator_1.IsEnum)(UserXpLogSource, {
-        message: 'source must be one of the following: QUEST, REFERRAL, ADMIN, TOURNAMENT',
+        message: 'source must be one of the following: QUEST, REFERRAL, ADMIN, TOURNAMENT, RANK_CHEST',
     }),
     __metadata("design:type", String)
 ], UserXpLog.prototype, "source", void 0);

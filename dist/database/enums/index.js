@@ -26,4 +26,6 @@ __exportStar(require("./TournamentStatus.enum"), exports);
 __exportStar(require("./TournamentRewardType.enum"), exports);
 __exportStar(require("./NansenAirdrop.enum"), exports);
 __exportStar(require("./Badge.enum"), exports);
+__exportStar(require("./RankChestState.enum"), exports);
+__exportStar(require("./RankChestXpOutcome.enum"), exports);
 //# sourceMappingURL=index.js.map

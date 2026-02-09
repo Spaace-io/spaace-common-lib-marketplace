@@ -160,3 +160,6 @@ export * from './BadgeUnlockHistory.entity';
 // Season Chapters and User Season Chapter Data
 export * from './SeasonChapter.entity';
 export * from './UserSeasonChapterData.entity';
+
+export * from './RankChest.entity';
+export * from './RankChestReward.entity';

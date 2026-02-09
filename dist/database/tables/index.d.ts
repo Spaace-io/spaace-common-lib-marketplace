@@ -124,3 +124,5 @@ export * from './UserFeaturedBadge.entity';
 export * from './BadgeUnlockHistory.entity';
 export * from './SeasonChapter.entity';
 export * from './UserSeasonChapterData.entity';
+export * from './RankChest.entity';
+export * from './RankChestReward.entity';
