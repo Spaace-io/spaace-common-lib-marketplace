@@ -132,11 +132,11 @@ export class User extends BaseEntity {
   twitterId!: string | null;
 
   @HideField()
-  @Column('text', { nullable: true })
+  @Column('text', { nullable: true, select: false })
   twitterSecretToken!: string | null;
 
   @HideField()
-  @Column('text', { nullable: true })
+  @Column('text', { nullable: true, select: false })
   twitterAccessToken!: string | null;
 
   @Field(() => String, { nullable: true })
@@ -180,11 +180,11 @@ export class User extends BaseEntity {
   discordUsername!: string | null;
 
   @HideField()
-  @Column('text', { nullable: true })
+  @Column('text', { nullable: true, select: false })
   discordAccessToken!: string | null;
 
   @HideField()
-  @Column('text', { nullable: true })
+  @Column('text', { nullable: true, select: false })
   discordRefreshToken!: string | null;
 
   @Field(() => Boolean)

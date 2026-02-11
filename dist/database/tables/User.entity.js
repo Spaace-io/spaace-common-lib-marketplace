@@ -150,12 +150,12 @@ __decorate([
 ], User.prototype, "twitterId", void 0);
 __decorate([
     (0, graphql_1.HideField)(),
-    (0, typeorm_1.Column)('text', { nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true, select: false }),
     __metadata("design:type", Object)
 ], User.prototype, "twitterSecretToken", void 0);
 __decorate([
     (0, graphql_1.HideField)(),
-    (0, typeorm_1.Column)('text', { nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true, select: false }),
     __metadata("design:type", Object)
 ], User.prototype, "twitterAccessToken", void 0);
 __decorate([
@@ -208,12 +208,12 @@ __decorate([
 ], User.prototype, "discordUsername", void 0);
 __decorate([
     (0, graphql_1.HideField)(),
-    (0, typeorm_1.Column)('text', { nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true, select: false }),
     __metadata("design:type", Object)
 ], User.prototype, "discordAccessToken", void 0);
 __decorate([
     (0, graphql_1.HideField)(),
-    (0, typeorm_1.Column)('text', { nullable: true }),
+    (0, typeorm_1.Column)('text', { nullable: true, select: false }),
     __metadata("design:type", Object)
 ], User.prototype, "discordRefreshToken", void 0);
 __decorate([
