@@ -126,3 +126,5 @@ export * from './SeasonChapter.entity';
 export * from './UserSeasonChapterData.entity';
 export * from './RankChest.entity';
 export * from './RankChestReward.entity';
+export * from './QuestAuditEvent.entity';
+export * from './QuestAuditEvaluations.entity';
