@@ -154,4 +154,7 @@ __exportStar(require("./SeasonChapter.entity"), exports);
 __exportStar(require("./UserSeasonChapterData.entity"), exports);
 __exportStar(require("./RankChest.entity"), exports);
 __exportStar(require("./RankChestReward.entity"), exports);
+// Quest Audit Schema
+__exportStar(require("./QuestAuditEvent.entity"), exports);
+__exportStar(require("./QuestAuditEvaluations.entity"), exports);
 //# sourceMappingURL=index.js.map

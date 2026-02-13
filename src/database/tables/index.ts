@@ -163,3 +163,7 @@ export * from './UserSeasonChapterData.entity';
 
 export * from './RankChest.entity';
 export * from './RankChestReward.entity';
+
+// Quest Audit Schema
+export * from './QuestAuditEvent.entity';
+export * from './QuestAuditEvaluations.entity';
