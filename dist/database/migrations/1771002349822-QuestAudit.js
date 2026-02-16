@@ -180,6 +180,10 @@ class QuestAudit1771002349822 {
       CREATE INDEX IF NOT EXISTS "ix_qav_status_created_id"
       ON "quest_audit_evaluations" ("status","createdAt","id");
     `);
+            yield queryRunner.query(`
+      CREATE UNIQUE INDEX IF NOT EXISTS "ux_qav_event_quest"
+      ON "quest_audit_evaluations" ("eventId","questId");
+    `);
         });
     }
     down(queryRunner) {
