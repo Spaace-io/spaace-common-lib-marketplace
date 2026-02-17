@@ -27,14 +27,14 @@ jobs:
 
       - name: Run migrations on STAGE database
         env:
-          DATABASE_HOST: ${{ secrets.STAGE_DATABASE_HOST }}
-          DATABASE_PORT: ${{ secrets.STAGE_DATABASE_PORT }}
-          DATABASE_USERNAME: ${{ secrets.STAGE_DATABASE_USERNAME }}
+          DATABASE_HOST: ${{ vars.STAGE_DATABASE_HOST }}
+          DATABASE_PORT: ${{ vars.STAGE_DATABASE_PORT }}
+          DATABASE_USERNAME: ${{ vars.STAGE_DATABASE_USERNAME }}
           DATABASE_PASSWORD: ${{ secrets.STAGE_DATABASE_PASSWORD }}
-          DATABASE_NAME: ${{ secrets.STAGE_DATABASE_NAME }}
-          DATABASE_SCHEMA: ${{ secrets.STAGE_DATABASE_SCHEMA }}
+          DATABASE_NAME: ${{ vars.STAGE_DATABASE_NAME }}
+          DATABASE_SCHEMA: ${{ vars.STAGE_DATABASE_SCHEMA }}
           DATABASE_APPLICATION_NAME: 'spaace-common-lib-migrations'
-          DATABASE_SSL: ${{ secrets.STAGE_DATABASE_SSL }}
+          DATABASE_SSL: ${{ vars.STAGE_DATABASE_SSL }}
         run: npm run migrate
 
       - name: Publish to GitHub Packages
