@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, HideField, ObjectType } from '@nestjs/graphql';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { ethers } from 'ethers';
 import {
@@ -131,14 +131,12 @@ export class User extends BaseEntity {
   @Expose({ groups: ['me'] })
   twitterId!: string | null;
 
-  @Field(() => String, { nullable: true })
-  @Column('text', { nullable: true })
-  @Expose({ groups: ['me'] })
+  @HideField()
+  @Column('text', { nullable: true, select: false })
   twitterSecretToken!: string | null;
 
-  @Field(() => String, { nullable: true })
-  @Column('text', { nullable: true })
-  @Expose({ groups: ['me'] })
+  @HideField()
+  @Column('text', { nullable: true, select: false })
   twitterAccessToken!: string | null;
 
   @Field(() => String, { nullable: true })
@@ -181,12 +179,12 @@ export class User extends BaseEntity {
   @Expose({ groups: ['me'] })
   discordUsername!: string | null;
 
-  @Column('text', { nullable: true })
-  @Expose({ groups: ['me'] })
+  @HideField()
+  @Column('text', { nullable: true, select: false })
   discordAccessToken!: string | null;
 
-  @Column('text', { nullable: true })
-  @Expose({ groups: ['me'] })
+  @HideField()
+  @Column('text', { nullable: true, select: false })
   discordRefreshToken!: string | null;
 
   @Field(() => Boolean)
@@ -212,19 +210,16 @@ export class User extends BaseEntity {
   @Expose()
   status!: UserStatus;
 
-  @Field(() => Number, { nullable: true })
+  @HideField()
   @Column('integer', { nullable: true })
-  @Expose({ groups: ['me'] })
   abuseScore!: number | null;
 
-  @Field(() => String, { nullable: true })
+  @HideField()
   @Column('text', { nullable: true })
-  @Expose({ groups: ['me'] })
   abuseReason!: string | null;
 
-  @Field(() => Boolean)
+  @HideField()
   @Column('boolean', { default: false })
-  @Expose({ groups: ['me'] })
   checkedAbuseReport!: boolean;
 
   @Field(() => Date)
@@ -233,19 +228,16 @@ export class User extends BaseEntity {
   statusUpdatedAt!: Date;
 
   // Anti-bot detection fields
-  @Field(() => String, { nullable: true })
+  @HideField()
   @Column('varchar', { length: 45, nullable: true })
-  @Expose({ groups: ['me'] })
   creationIP!: string | null;
 
-  @Field(() => String, { nullable: true })
+  @HideField()
   @Column('varchar', { length: 100, nullable: true })
-  @Expose({ groups: ['me'] })
   creationFingerprint!: string | null;
 
-  @Field(() => String, { nullable: true })
+  @HideField()
   @Column('varchar', { length: 45, nullable: true })
-  @Expose({ groups: ['me'] })
   lastConnectionIP!: string | null;
 
   @Field(() => Date, { nullable: true })
