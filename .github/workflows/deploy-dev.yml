@@ -27,14 +27,14 @@ jobs:
 
       - name: Run migrations on DEV database
         env:
-          DATABASE_HOST: ${{ secrets.DEV_DATABASE_HOST }}
-          DATABASE_PORT: ${{ secrets.DEV_DATABASE_PORT }}
-          DATABASE_USERNAME: ${{ secrets.DEV_DATABASE_USERNAME }}
+          DATABASE_HOST: ${{ vars.DEV_DATABASE_HOST }}
+          DATABASE_PORT: ${{ vars.DEV_DATABASE_PORT }}
+          DATABASE_USERNAME: ${{ vars.DEV_DATABASE_USERNAME }}
           DATABASE_PASSWORD: ${{ secrets.DEV_DATABASE_PASSWORD }}
-          DATABASE_NAME: ${{ secrets.DEV_DATABASE_NAME }}
-          DATABASE_SCHEMA: ${{ secrets.DEV_DATABASE_SCHEMA }}
+          DATABASE_NAME: ${{ vars.DEV_DATABASE_NAME }}
+          DATABASE_SCHEMA: ${{ vars.DEV_DATABASE_SCHEMA }}
           DATABASE_APPLICATION_NAME: 'spaace-common-lib-migrations'
-          DATABASE_SSL: ${{ secrets.DEV_DATABASE_SSL }}
+          DATABASE_SSL: ${{ vars.DEV_DATABASE_SSL }}
         run: npm run migrate
 
       - name: Publish to GitHub Packages
